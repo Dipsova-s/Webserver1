@@ -172,33 +172,57 @@
   background-image: url("../../images/icons/icon_execute_dashboard.svg");
   background-size: 23px 23px; }
 
+.actionDropdownItem.executeDashboard:not(.disabled):hover:before {
+  background-image: url("../../images/icons/icon_execute_dashboard_hover.svg"); }
+
 .actionDropdownItem.massChange:before {
   background-image: url("../../images/icons/icon_mass_change.svg");
   background-size: 20px 20px; }
+
+.actionDropdownItem.massChange:not(.disabled):hover:before {
+  background-image: url("../../images/icons/icon_mass_change_hover.svg"); }
 
 .actionDropdownItem.delete:before {
   background-image: url("../../images/icons/icon_delete.svg");
   background-size: 18px 18px; }
 
+.actionDropdownItem.delete:not(.disabled):hover:before {
+  background-image: url("../../images/icons/icon_delete_hover.svg"); }
+
 .actionDropdownItem.selectAll:before {
   background-image: url("../../images/icons/icon_select_all.svg");
   background-size: 36px 36px; }
+
+.actionDropdownItem.selectAll:not(.disabled):hover:before {
+  background-image: url("../../images/icons/icon_select_all_hover.svg"); }
 
 .actionDropdownItem.deSelect:before {
   background-image: url("../../images/icons/icon_clear_all.svg");
   background-size: 20px 20px; }
 
+.actionDropdownItem.deSelect:not(.disabled):hover:before {
+  background-image: url("../../images/icons/icon_clear_all_hover.svg"); }
+
 .actionDropdownItem.copyAngle:before {
   background-image: url("../../images/icons/icon_copy_angle.svg");
   background-size: 21px 21px; }
+
+.actionDropdownItem.copyAngle:not(.disabled):hover:before {
+  background-image: url("../../images/icons/icon_copy_angle_hover.svg"); }
 
 .actionDropdownItem.download:before {
   background-image: url("../../images/icons/icon_download_angle.svg");
   background-size: 20px 20px; }
 
+.actionDropdownItem.download:not(.disabled):hover:before {
+  background-image: url("../../images/icons/icon_download_angle_hover.svg"); }
+
 .actionDropdownItem.upload:before {
   background-image: url("../../images/icons/icon_upload_angle.svg");
   background-size: 20px 20px; }
+
+.actionDropdownItem.upload:not(.disabled):hover:before {
+  background-image: url("../../images/icons/icon_upload_angle_hover.svg"); }
 
 .popupActionSearch span {
   padding-left: 31px; }

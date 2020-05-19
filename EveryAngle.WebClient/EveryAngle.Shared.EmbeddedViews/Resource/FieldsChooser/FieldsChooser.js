@@ -1887,7 +1887,7 @@ function FieldsChooserModel() {
             }
 
             // update position flag
-            if (!jQuery.isEmptyObject(e.sender.wrapper.offset())) {
+            if (e.sender.wrapper.is(':visible')) {
                 self.LayoutSettings.position = { top: e.sender.wrapper.offset().top, left: e.sender.wrapper.offset().left };
             }
 

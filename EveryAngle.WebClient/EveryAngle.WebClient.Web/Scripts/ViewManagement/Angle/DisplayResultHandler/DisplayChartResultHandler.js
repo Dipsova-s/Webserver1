@@ -13,8 +13,8 @@ function DisplayChartResultHandler(displayHandler) {
         var data = self.GetTypeDataSource();
         var valueTemplate = [
             '<div class="chart-type-wrapper">',
-                '<div class="chart-icon #= Type #" data-role="tooltip" data-tooltip-position="right">#: Hint #</div>',
-                '<div class="chart-name">#= Name #</div>',
+                '<div class="chart-icon #= Type #"></div>',
+                '<div class="chart-name" data-role="tooltip" data-showwhenneed="true" data-tooltip-position="top">#= Hint #</div>',
             '</div>'
         ].join('');
         var itemTemplate = [
@@ -39,6 +39,8 @@ function DisplayChartResultHandler(displayHandler) {
         });
         self.UpdateTypeDropdownValue(dropdown, false);
         dropdown.enable(self.DisplayHandler.QueryDefinitionHandler.CanChangeAggregationOptions());
+        dropdown.wrapper.addClass('ignore');
+        dropdown.popup.element.find('[role="listbox"]').addClass('ignore');
     };
     self.TypeDropdownOpen = function (e) {
         e.sender.popup.element.addClass('chart-type-dropdown');

@@ -201,7 +201,7 @@
 
     jQuery.extend(win.WC.HtmlHelper, { Tooltip: wcTooltip });
     win.WC.HtmlHelper.Tooltip.Create('global', '[data-role="tooltip"]');
-    win.WC.HtmlHelper.Tooltip.Create('kendo.dropdown', '.k-widget.k-dropdown .k-input', true);
-    win.WC.HtmlHelper.Tooltip.Create('kendo.dropdownlist', '[role="listbox"] .k-item', true);
+    win.WC.HtmlHelper.Tooltip.Create('kendo.dropdown', '.k-widget.k-dropdown:not(.ignore) .k-input', true);
+    win.WC.HtmlHelper.Tooltip.Create('kendo.dropdownlist', '[role="listbox"]:not(.ignore) .k-item', true);
 
 })(window);

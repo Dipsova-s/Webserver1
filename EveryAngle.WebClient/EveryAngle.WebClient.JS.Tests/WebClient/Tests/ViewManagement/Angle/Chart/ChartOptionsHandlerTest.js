@@ -219,7 +219,6 @@ describe("ChartOptionsHandler", function () {
             
             spyOn(popup, 'Show');
             spyOn(chartOptionsHandler, 'GetPopupOptions');
-            spyOn($, 'clickOutside');
         });
         afterEach(function () {
             element.remove();
@@ -231,7 +230,6 @@ describe("ChartOptionsHandler", function () {
 
             // assert
             expect(popup.Show).toHaveBeenCalled();
-            expect($.clickOutside).toHaveBeenCalled();
         });
         it('should not show popup', function () {
             // prepare
@@ -240,50 +238,6 @@ describe("ChartOptionsHandler", function () {
 
             // assert
             expect(popup.Show).not.toHaveBeenCalled();
-            expect($.clickOutside).not.toHaveBeenCalled();
-        });
-    });
-
-    describe(".CheckClickOutside", function () {
-        var element;
-        beforeEach(function () {
-            element = $('<div id="PopupAggregationOptions"/>');
-            element.appendTo('body');
-            
-            spyOn(chartOptionsHandler, 'ClosePopup');
-        });
-        afterEach(function () {
-            element.remove();
-        });
-        it('should close popup', function () {
-            // prepare
-            var e = { target: $() };
-            element.show();
-            spyOn($.fn, 'closest').and.returnValue($());
-            chartOptionsHandler.CheckClickOutside(e);
-
-            // assert
-            expect(chartOptionsHandler.ClosePopup).toHaveBeenCalled();
-        });
-        it('should not close popup (popup is hidden)', function () {
-            // prepare
-            var e = { target: $() };
-            element.hide();
-            spyOn($.fn, 'closest').and.returnValue($());
-            chartOptionsHandler.CheckClickOutside(e);
-
-            // assert
-            expect(chartOptionsHandler.ClosePopup).not.toHaveBeenCalled();
-        });
-        it('should not close popup (has closest element)', function () {
-            // prepare
-            var e = { target: $() };
-            element.show();
-            spyOn($.fn, 'closest').and.returnValue($('<div/>'));
-            chartOptionsHandler.CheckClickOutside(e);
-
-            // assert
-            expect(chartOptionsHandler.ClosePopup).not.toHaveBeenCalled();
         });
     });
 

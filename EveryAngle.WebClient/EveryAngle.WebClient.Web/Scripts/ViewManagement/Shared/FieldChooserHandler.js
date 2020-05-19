@@ -97,7 +97,8 @@ function FieldsChooserHandler() {
         };
 
         // initialize popup
-        fieldsChooserModel.DisplayFieldChooserPopup(popupSettings);
+        var win = fieldsChooserModel.DisplayFieldChooserPopup(popupSettings);
+        jQuery('.k-overlay').off('click').on('click', jQuery.proxy(win.close, win));
     };
     self.InitializePopupSettingsByName = function (popupName, popupSettings, handler) {
         // other settings

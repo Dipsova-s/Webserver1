@@ -52,16 +52,22 @@ describe("DisplayChartResultHandler", function () {
         it("should create dropdown", function () {
             // prepare
             var dropdown = {
-                enable: $.noop
+                enable: $.noop,
+                wrapper: $(),
+                popup: {
+                    element: $()
+                }
             };
             spyOn(WC.HtmlHelper, 'DropdownList').and.returnValue(dropdown);
             spyOn(dropdown, 'enable');
+            spyOn($.fn, 'addClass');
             spyOn(displayChartResultHandler, 'UpdateTypeDropdownValue');
             displayChartResultHandler.CreateTypeDropdown();
 
             // assert
             expect(WC.HtmlHelper.DropdownList).toHaveBeenCalled();
             expect(dropdown.enable).toHaveBeenCalled();
+            expect($.fn.addClass).toHaveBeenCalledWith('ignore');
             expect(displayChartResultHandler.UpdateTypeDropdownValue).toHaveBeenCalled();
         });
     });

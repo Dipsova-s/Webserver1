@@ -46,6 +46,7 @@
     handler.ShowPublishSettingsCallback = function (e) {
         var self = this;
 
+        jQuery('.k-overlay').off('click');
         self.ReloadPublishingSettingsData(false);
         WC.HtmlHelper.ApplyKnockout(self, e.sender.element);
         e.sender.element.busyIndicator(true);

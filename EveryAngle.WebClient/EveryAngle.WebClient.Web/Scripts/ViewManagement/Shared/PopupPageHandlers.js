@@ -79,6 +79,7 @@ function Popup() {
             }
 
             self.SetButtons(e.sender, e.sender.options.buttons);
+            jQuery('.k-overlay').off('click').on('click', jQuery.proxy(e.sender.close, e.sender));
 
             if (typeof options.open === 'function')
                 options.open(e);
@@ -438,28 +439,31 @@ function Popup() {
         return win;
     };
     self.Confirm = function (message, ok, cancel, options) {
+        var isOk = false;
         var settings = jQuery.extend({
             icon: 'confirm',
             buttons: [
                 {
                     text: Captions.Button_Cancel,
-                    click: function (e) {
-                        if (typeof cancel === 'function')
-                            cancel.call(this);
-                        e.kendoWindow.close();
-                    },
+                    click: 'close',
                     position: 'right'
                 },
                 {
                     text: Localization.Ok,
                     isPrimary: true,
                     click: function (e) {
-                        if (typeof ok === 'function') ok.call(this);
+                        isOk = true;
+                        if (typeof ok === 'function')
+                            ok.call();
                         e.kendoWindow.close();
                     },
                     position: 'right'
                 }
-            ]
+            ],
+            close: function () {
+                if (!isOk && typeof cancel === 'function')
+                    cancel.call();
+            }
         }, options);
 
         var win = self.Alert(Localization.Confirm_Title, message, settings);

@@ -404,14 +404,6 @@ function ChartOptionsHandler(displayHandler) {
 
         var options = self.GetPopupOptions();
         popup.Show(options);
-        jQuery.clickOutside('.aggregation-options-popup', self.CheckClickOutside);
-    };
-    self.CheckClickOutside = function (e) {
-        var excepts = '.section-aggregation .action-options, .aggregation-options-popup, .aggregation-option-dropdown';
-        if (jQuery('#PopupAggregationOptions').is(':visible')
-            && !jQuery(e.target).closest(excepts).length) {
-            self.ClosePopup();
-        }
     };
     self.ClosePopup = function () {
         popup.Close('#PopupAggregationOptions');

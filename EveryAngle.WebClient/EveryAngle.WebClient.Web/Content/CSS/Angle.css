@@ -119,41 +119,75 @@
     background-size: 16px 16px; }
   #ActionSelect .actionDropdownItem.save:before {
     background-image: url("../../images/angle/actiondropdownlist/save.svg"); }
+  #ActionSelect .actionDropdownItem.save:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/save_hover.svg"); }
   #ActionSelect .actionDropdownItem.saveAs:before {
     background-image: url("../../images/angle/actiondropdownlist/saveas.svg"); }
+  #ActionSelect .actionDropdownItem.saveAs:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/saveas_hover.svg"); }
   #ActionSelect .actionDropdownItem.copydisplay:before {
     background-image: url("../../images/angle/actiondropdownlist/copydisplay.svg"); }
+  #ActionSelect .actionDropdownItem.copydisplay:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/copydisplay_hover.svg"); }
   #ActionSelect .actionDropdownItem.pastedisplay:before {
     background-image: url("../../images/angle/actiondropdownlist/pastedisplay.svg"); }
+  #ActionSelect .actionDropdownItem.pastedisplay:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/pastedisplay_hover.svg"); }
   #ActionSelect .actionDropdownItem.editDisplay:before {
     background-image: url("../../images/angle/actiondropdownlist/editdisplay.svg"); }
+  #ActionSelect .actionDropdownItem.editDisplay:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/editdisplay_hover.svg"); }
   #ActionSelect .actionDropdownItem.newDisplay:before {
     background-image: url("../../images/angle/actiondropdownlist/createdisplay.svg"); }
+  #ActionSelect .actionDropdownItem.newDisplay:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/createdisplay_hover.svg"); }
   #ActionSelect .actionDropdownItem.createList:before {
     background-image: url("../../images/icons/icon_list_addnew.svg"); }
+  #ActionSelect .actionDropdownItem.createList:not(.disabled):hover:before {
+    background-image: url("../../images/icons/icon_list_addnew_hover.svg"); }
   #ActionSelect .actionDropdownItem.createChart:before {
     background-image: url("../../images/icons/icon_chart_addnew.svg"); }
+  #ActionSelect .actionDropdownItem.createChart:not(.disabled):hover:before {
+    background-image: url("../../images/icons/icon_chart_addnew_hover.svg"); }
   #ActionSelect .actionDropdownItem.createPivot:before {
     background-image: url("../../images/icons/icon_pivot_addnew.svg"); }
+  #ActionSelect .actionDropdownItem.createPivot:not(.disabled):hover:before {
+    background-image: url("../../images/icons/icon_pivot_addnew_hover.svg"); }
   #ActionSelect .actionDropdownItem.exportToExcel:before {
     background-image: url("../../images/angle/actiondropdownlist/exporttoexcel.svg"); }
+  #ActionSelect .actionDropdownItem.exportToExcel:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/exporttoexcel_hover.svg"); }
   #ActionSelect .actionDropdownItem.exportToCSV:before {
     background-image: url("../../images/angle/actiondropdownlist/exporttocsv.svg"); }
+  #ActionSelect .actionDropdownItem.exportToCSV:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/exporttocsv_hover.svg"); }
   #ActionSelect .actionDropdownItem.addToDashboard:before {
     background-image: url("../../images/angle/actiondropdownlist/addtodashboard.svg"); }
+  #ActionSelect .actionDropdownItem.addToDashboard:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/addtodashboard_hover.svg"); }
   #ActionSelect .actionDropdownItem.addFollowup:before {
     background-image: url("../../images/icons/icon_followup_addnew.svg"); }
+  #ActionSelect .actionDropdownItem.addFollowup:not(.disabled):hover:before {
+    background-image: url("../../images/icons/icon_followup_addnew_hover.svg"); }
   #ActionSelect .actionDropdownItem.scheduleAngle:before {
     background-image: url("../../images/icons/icon_schedule.svg"); }
+  #ActionSelect .actionDropdownItem.scheduleAngle:not(.disabled):hover:before {
+    background-image: url("../../images/icons/icon_schedule_hover.svg"); }
   #ActionSelect .actionDropdownItem.find:before {
     background-image: url("../../images/angle/actiondropdownlist/find.svg"); }
+  #ActionSelect .actionDropdownItem.find:not(.disabled):hover:before {
+    background-image: url("../../images/angle/actiondropdownlist/find_hover.svg"); }
   #ActionSelect .actionDropdownItem.exitEditMode:before {
     background-image: url("../../images/icons/icon_execute.svg"); }
+  #ActionSelect .actionDropdownItem.exitEditMode:not(.disabled):hover:before {
+    background-image: url("../../images/icons/icon_execute_hover.svg"); }
   #ActionSelect .actionDropdownItem.download {
     margin-left: 10px; }
     #ActionSelect .actionDropdownItem.download:before {
       background-image: url("../../images/icons/icon_download_angle.svg");
       background-size: 20px 20px; }
+    #ActionSelect .actionDropdownItem.download:not(.disabled):hover:before {
+      background-image: url("../../images/icons/icon_download_angle_hover.svg"); }
     #ActionSelect .actionDropdownItem.download:after {
       content: '';
       position: absolute;
