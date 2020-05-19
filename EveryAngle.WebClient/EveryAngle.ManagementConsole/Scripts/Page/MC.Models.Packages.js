@@ -9,7 +9,8 @@
 
         self.PACKAGE_STATUS = {
             ACTIVATING: 'Activating',
-            DEACTIVATING: 'Deactivating'
+            DEACTIVATING: 'Deactivating',
+            ACTIVATIONFAILED: 'ActivationFailed'
         };
 
         self.Initial = function (data) {
@@ -195,7 +196,7 @@
             return status === self.PACKAGE_STATUS.DEACTIVATING;
         };
         self.CanDeactivatePackage = function (data) {
-            return data.active && data.active_version === data.Version;
+            return data.active && data.active_version === data.Version || data.status === self.PACKAGE_STATUS.ACTIVATIONFAILED;
         };
         self.CanUpdatePackage = function (data) {
             return !data.active && data.active_version !== null && data.active_version !== data.Version;

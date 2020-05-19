@@ -68,6 +68,21 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.ReContentsList.GetType(), typeof(string));
         }
 
+        [TestCase]
+        public void PackageViewModel_TestStatus_TEST()
+        {
+            //arrange
+            PackageViewModel viewModel = new PackageViewModel
+            {
+                status = "ActivationFailed",
+            };
+
+            //assert type
+            Assert.AreEqual(viewModel.status.GetType(), typeof(string));
+            Assert.AreEqual(viewModel.StatusName.GetType(), typeof(string));
+            Assert.AreEqual("Activation failed", viewModel.StatusName);
+        }
+
         [TestCase("ManagementConsole", "", false)]
         [TestCase("WebClient", "2018.1", false)]
         [TestCase("ManagementConsole", "2018.1", true)]

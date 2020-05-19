@@ -1,4 +1,5 @@
 using EveryAngle.Core.ViewModels.Users;
+using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
 using Newtonsoft.Json;
 using System;
@@ -23,7 +24,7 @@ namespace EveryAngle.Core.ViewModels.EAPackage
             _exportPackageSource = source;
             _exportPackageSourceVersion = version;
         }
-        
+
         [JsonProperty(PropertyName = "active")]
         public bool active { get; set; }
 
@@ -141,6 +142,14 @@ namespace EveryAngle.Core.ViewModels.EAPackage
                     return string.Join(", ", Contents);
                 }
                 return string.Empty;
+            }
+        }
+
+        public string StatusName
+        {
+            get
+            {
+                return status  == "ActivationFailed" ? Resource.ActivationFailed : status;
             }
         }
 

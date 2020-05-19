@@ -329,6 +329,13 @@ describe("MC.Models.Packages.js", function () {
                 active_version: 1,
                 Version: 0,
                 expected: false
+            },
+            {
+                active: true,
+                active_version: 1,
+                Version: 0,
+                expected: true,
+                status: 'ActivationFailed'
             }
         ];
 
@@ -340,7 +347,8 @@ describe("MC.Models.Packages.js", function () {
                 var data = {
                     active: test.active,
                     active_version: test.active_version,
-                    Version: test.Version
+                    Version: test.Version,
+                    status: test.status
                 };
                 var result = MC.Models.Packages.CanDeactivatePackage(data);
 

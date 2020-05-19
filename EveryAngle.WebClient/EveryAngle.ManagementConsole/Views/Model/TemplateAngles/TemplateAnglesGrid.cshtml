@@ -82,9 +82,9 @@
             .Title(Resource.Deactivated)
             .Sortable(false);
 
-        columns.Bound(model => model.status)
+        columns.Bound(model => model.StatusName)
             .Title(Resource.Status)
-            .Width(70)
+            .Width(105)
             .Sortable(true);
 
         columns.Bound("Uri").ClientTemplate(gridButton)

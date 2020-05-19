@@ -6317,4 +6317,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Confirm_DownloadItem" xml:space="preserve">
     <value>You have unsaved changes, which will not be included in the download.&lt;br/&gt;Do you want to continue?</value>
   </data>
+  <data name="ActivationFailed" xml:space="preserve">
+    <value>Activation failed</value>
+  </data>
 </root>

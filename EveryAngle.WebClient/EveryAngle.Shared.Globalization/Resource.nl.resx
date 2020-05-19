@@ -3886,4 +3886,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Confirm_DownloadItem" xml:space="preserve">
     <value>U hebt niet opgeslagen wijzigingen die niet zullen worden meegenomen in de download.&lt;br/&gt;Wilt u doorgaan?</value>
   </data>
+  <data name="ActivationFailed" xml:space="preserve">
+    <value>Activation failed</value>
+  </data>
 </root>
