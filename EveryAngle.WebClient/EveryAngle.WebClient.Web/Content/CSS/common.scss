@@ -681,6 +681,11 @@ img {
             background-image: url('../../images/icons/icon_help.svg');
         }
 
+        &.btnSupport:before {
+            background-image: url('../../Images/icons/icon_support.svg');
+            background-size: 26px 27px;
+        }
+
         &.btnAbout span {
             line-height: 31px;
         }

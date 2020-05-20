@@ -145,7 +145,7 @@
     <value>Het verzoek kan niet worden verwerkt door een conflict in het verzoek.</value>
   </data>
   <data name="Generic_Error_Message" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens het verwerken van uw verzoek. Neem alstublieft contact op met uw &lt;a class="mailto" href="mailto:servicedesk@everyangle.com" target="_top"&gt;systeembeheerder&lt;/a&gt;.</value>
+    <value>Er is een fout opgetreden tijdens het verwerken van uw verzoek. Neem alstublieft contact op met uw &lt;a class="mailto" href="https://magnitude.com/online-support/" target="_top"&gt;systeembeheerder&lt;/a&gt;.</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDescription" xml:space="preserve">
     <value>Angle-omschrijving</value>

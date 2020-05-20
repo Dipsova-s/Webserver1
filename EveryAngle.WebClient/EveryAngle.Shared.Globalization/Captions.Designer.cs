@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Captions {
@@ -322,7 +322,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while processing your request. Please contact your system &lt;a class=&quot;mailto&quot; href=&quot;mailto:servicedesk@everyangle.com&quot; target=&quot;_top&quot;&gt;administrator&lt;/a&gt;..
+        ///   Looks up a localized string similar to An error occurred while processing your request. Please contact your system &lt;a class=&quot;mailto&quot; href=&quot;https://magnitude.com/online-support/&quot; target=&quot;_top&quot;&gt;administrator&lt;/a&gt;..
         /// </summary>
         public static string Generic_Error_Message {
             get {

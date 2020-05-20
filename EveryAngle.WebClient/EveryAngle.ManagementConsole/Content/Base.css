@@ -5060,6 +5060,11 @@ a.mailto {
     background-image: url(../../images/icons/icon_help.svg);
 }
 
+.popupHelpMenu a.btnSupport {
+    background-image: url(../../images/icons/icon_support.svg);
+    background-size: 26px 27px;
+    background-position:8px;
+}
 
 .popupHelpMenu a span {
     padding-left: 0;

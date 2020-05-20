@@ -64,6 +64,7 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/TS_Sessions.
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Packages/TS_Packages.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Communications.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelsLanguages.robot
+Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_Help.robot
 
 *** Variables ***
 ${URL_WC}    http://${URL}/${Branch}

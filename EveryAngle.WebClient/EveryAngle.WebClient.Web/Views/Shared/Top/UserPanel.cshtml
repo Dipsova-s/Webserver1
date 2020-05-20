@@ -60,10 +60,12 @@
             @{
                 string webLanguage = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
                 string helpUri = string.Format("~/data/help/{0}/index-{0}.html", webLanguage);
+                string supportUri = "https://magnitude.com/online-support/";
             }
             <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span data-bind="text: Localization.Helppage"></span></a>
             <a class="actionDropdownItem btnModelParameters" onclick="helpPopupPageHandler.ShowModelParameterPopup()"><span data-bind="text: Localization.ModelParameters"></span></a>
             <a class="actionDropdownItem btnAbout" onclick="aboutSystemHandler.ShowAboutSystemPopup()"><span data-bind="html: Localization.AboutEveryAngle"></span></a>
+            <a class="actionDropdownItem btnSupport" target="_blank" href="@Url.Content(supportUri)"><span data-bind="text: Localization.Support"></span></a>
         </div>
     </div>
 

@@ -4,6 +4,7 @@
     EveryAngle.Core.ViewModels.Users.UserViewModel user = SessionHelper.Initialize().CurrentUser;
     string defaultLanguage = "en";
     string helpUri = "~/Data/Help/" + defaultLanguage + "/index.htm";
+    string supportUri = "https://magnitude.com/online-support/";
     var FileVersion = AssemblyInfoHelper.GetFileVersion();
 
     if (user != null)
@@ -60,6 +61,9 @@
                 <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span>@EveryAngle.Shared.Globalization.Resource.Helppage</span></a>
                 <a id="btnAbout" data-role="mcPopup" onclick="MC.util.showPopupAbout('@Url.Action("AboutInformation", "Home")');" data-title="@Resource.AboutEveryAngle" data-target="#popupAbout" data-scrollable="false" data-resizable="false" data-width="561" data-height="272" class="actionDropdownItem btnAbout">
                     <span>@Html.Raw(Resource.AboutEveryAngle)</span>
+                </a>
+                <a class="actionDropdownItem btnSupport" target="_blank" href="@Url.Content(supportUri)">
+                    <span>@Html.Raw(Resource.Support)</span>
                 </a>
                 <div class="popup global" id="popupAbout"></div>
             </div>

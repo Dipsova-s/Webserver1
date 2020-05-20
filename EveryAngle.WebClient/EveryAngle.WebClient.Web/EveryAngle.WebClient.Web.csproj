@@ -809,6 +809,7 @@
     <Content Include="Images\Icons\icon_gear.svg" />
     <Content Include="Images\Icons\icon_help.svg" />
     <Content Include="Images\Icons\icon_info.svg" />
+	<Content Include="Images\Icons\icon_support.svg" />
     <Content Include="Images\Icons\icon_item_dashboard.svg" />
     <Content Include="Images\Icons\icon_list_addnew_hover.svg" />
     <Content Include="Images\Icons\icon_list_addnew.svg" />

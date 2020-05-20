@@ -1477,6 +1477,9 @@ textarea.input-light {
       background-image: url("../../images/icons/icon_gear.svg"); }
     .popupHelpMenu .actionDropdownItem.btnHelp:before {
       background-image: url("../../images/icons/icon_help.svg"); }
+    .popupHelpMenu .actionDropdownItem.btnSupport:before {
+      background-image: url("../../Images/icons/icon_support.svg");
+      background-size: 26px 27px; }
     .popupHelpMenu .actionDropdownItem.btnAbout span {
       line-height: 31px; }
     .popupHelpMenu .actionDropdownItem span {

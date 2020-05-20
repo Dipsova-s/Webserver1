@@ -300,6 +300,7 @@
     <Content Include="Images\Icons\icon_error.svg" />
     <Content Include="Images\Icons\icon_gear.svg" />
     <Content Include="Images\Icons\icon_help.svg" />
+	<Content Include="Images\Icons\icon_support.svg" />
     <Content Include="Images\Icons\icon_list.png" />
     <Content Include="Images\Icons\icon_logout.svg" />
     <Content Include="Images\Icons\icon_logs.png" />

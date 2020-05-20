@@ -403,3 +403,24 @@ Custom click element
     [Arguments]    ${Locator}
     Wait Until Page Contains Element  ${Locator}
     click element   ${Locator}
+
+Get Pseudo Element CSS Attribute Value
+    [Arguments]    ${locator}    ${pseudo_element}    ${attribute}
+    # Get element using Xpath in JavaScript.
+    # Note there are other options like getElementById/Class/Tag
+    ${element}=    Set Variable    document.evaluate("${locator}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+    # Get css attribute value using getComputedStyle()
+    ${attribute_value}=    Execute Javascript    return window.getComputedStyle(${element},${pseudo_element}).getPropertyValue('${attribute}');
+    Log   ${attribute_value}
+    [Return]    ${attribute_value}
+
+
+Get Pseudo Element CSS Attribute Value without passing psuedo
+    [Arguments]    ${locator}        ${attribute}
+    # Get element using Xpath in JavaScript.
+    # Note there are other options like getElementById/Class/Tag
+    ${element}=    Set Variable    document.evaluate("${locator}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+    # Get css attribute value using getComputedStyle()
+    ${attribute_value}=    Execute Javascript    return window.getComputedStyle(${element}).getPropertyValue('${attribute}');
+    Log   ${attribute_value}
+    [Return]    ${attribute_value}

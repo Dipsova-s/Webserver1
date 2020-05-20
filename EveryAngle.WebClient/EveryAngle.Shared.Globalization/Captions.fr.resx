@@ -145,7 +145,7 @@
     <value>La requête n'a pas pu être traitée à cause d'un conflit dans la requête.</value>
   </data>
   <data name="Generic_Error_Message" xml:space="preserve">
-    <value>Une erreur s'est produite au cours du traitement de la requête. Veuillez contacter votre &lt;a class="mailto" href="mailto:servicedesk@everyangle.com" target="_top"&gt;administrateur&lt;/a&gt; système.</value>
+    <value>Une erreur s'est produite au cours du traitement de la requête. Veuillez contacter votre &lt;a class="mailto" href="https://magnitude.com/online-support/" target="_top"&gt;administrateur&lt;/a&gt; système.</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDescription" xml:space="preserve">
     <value>Description de l'Angle</value>
