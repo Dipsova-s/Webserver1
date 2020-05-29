@@ -1,0 +1,283 @@
+{
+    "header": {
+        "total": 1
+    },
+    "angles": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "[ROBOT] Angle For Dashboard Execution Parameters"
+                }
+            ],
+            "multi_lang_description": [],
+            "id": "ROBOT_ANGLE_Dashboard_ExecutionParameters",
+            "uri": "/models/1/angles/196",
+            "model": "/models/1",
+            "is_validated": false,
+            "is_parameterized": false,
+            "is_published": false,
+            "is_template": false,
+            "user_specific": {
+                "execute_on_login": false,
+                "is_starred": false,
+                "private_note": "",
+                "private_tags": [],
+                "times_executed": 54
+            },
+            "created": {
+                "user": "/users/1",
+                "datetime": 1590543091,
+                "full_name": "EAAdmin"
+            },
+            "has_warnings": false,
+            "state": "/models/1/angles/196/state",
+            "authorizations": {
+                "update": true,
+                "delete": true,
+                "publish": true,
+                "unpublish": false,
+                "validate": false,
+                "unvalidate": false,
+                "mark_template": true,
+                "unmark_template": false,
+                "create_private_display": true,
+                "create_public_display": false
+            },
+            "is_deleted": false,
+            "displays": "/models/1/angles/196/displays",
+            "allow_followups": true,
+            "allow_more_details": true,
+            "assigned_labels": [
+                "S2D"
+            ],
+            "labels": "/models/1/angles/196/labels",
+            "business_processes": "/models/1/angles/196/business_processes",
+            "grouping_labels": "/models/1/angles/196/grouping_labels",
+            "angle_default_display": "/models/1/angles/196/displays/976",
+            "privilege_labels": "/models/1/angles/196/privilege_labels",
+            "query_definition": [
+                {
+                    "base_classes": [
+                        "DeliveryNoteLine"
+                    ],
+                    "queryblock_type": "base_classes"
+                }
+            ],
+            "display_definitions": [
+                {
+                    "multi_lang_name": [
+                        {
+                            "lang": "en",
+                            "text": "list"
+                        }
+                    ],
+                    "multi_lang_description": [],
+                    "fields": [
+                        {
+                            "multi_lang_alias": [],
+                            "field": "ID",
+                            "field_details": "{\"width\":120}",
+                            "valid": true
+                        },
+                        {
+                            "multi_lang_alias": [],
+                            "field": "ObjectType",
+                            "field_details": "{\"width\":120}",
+                            "valid": true
+                        }
+                    ],
+                    "query_blocks": [
+                        {
+                            "query_steps": [
+                                {
+                                    "step_type": "filter",
+                                    "field": "ID",
+                                    "operator": "starts_with",
+                                    "arguments": [
+                                        {
+                                            "argument_type": "value",
+                                            "value": "80003"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "queryblock_type": "query_steps"
+                        }
+                    ],
+                    "state": "/models/1/angles/196/displays/976/state",
+                    "uri": "/models/1/angles/196/displays/976",
+                    "changed": {
+                        "user": "/users/1",
+                        "datetime": 1590543191,
+                        "full_name": "EAAdmin"
+                    },
+                    "display_details": "{}",
+                    "user_specific": {
+                        "is_user_default": false,
+                        "execute_on_login": false
+                    },
+                    "is_public": false,
+                    "contained_aggregation_steps": false,
+                    "used_in_task": false,
+                    "display_type": "list",
+                    "is_angle_default": true,
+                    "id": "ded755fc0b68730659ece590542723186",
+                    "angle_id": "196"
+                },
+                {
+                    "multi_lang_name": [
+                        {
+                            "lang": "en",
+                            "text": "chart"
+                        }
+                    ],
+                    "multi_lang_description": [],
+                    "fields": [
+                        {
+                            "multi_lang_alias": [],
+                            "field": "individual_Plant",
+                            "field_details": "{\"pivot_area\":\"row\",\"format\":\"ln\"}",
+                            "valid": true
+                        },
+                        {
+                            "multi_lang_alias": [],
+                            "field": "count",
+                            "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}",
+                            "valid": true
+                        }
+                    ],
+                    "query_blocks": [
+                        {
+                            "query_steps": [
+                                {
+                                    "followup": "Plant",
+                                    "step_type": "followup"
+                                },
+                                {
+                                    "aggregation_fields": [
+                                        {
+                                            "field": "count",
+                                            "operator": "count"
+                                        }
+                                    ],
+                                    "grouping_fields": [
+                                        {
+                                            "field": "individual_Plant",
+                                            "operator": "individual",
+                                            "source_field": "Plant",
+                                            "tech_info": "T001W-WERKS"
+                                        }
+                                    ],
+                                    "step_type": "aggregation"
+                                }
+                            ],
+                            "queryblock_type": "query_steps"
+                        }
+                    ],
+                    "state": "/models/1/angles/196/displays/977/state",
+                    "uri": "/models/1/angles/196/displays/977",
+                    "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
+                    "user_specific": {
+                        "is_user_default": false,
+                        "execute_on_login": false
+                    },
+                    "is_public": false,
+                    "contained_aggregation_steps": true,
+                    "used_in_task": false,
+                    "display_type": "chart",
+                    "is_angle_default": false,
+                    "id": "df11056c80efafd9baa83590543130925",
+                    "angle_id": "196"
+                },
+                {
+                    "multi_lang_name": [
+                        {
+                            "lang": "en",
+                            "text": "pivot"
+                        }
+                    ],
+                    "multi_lang_description": [],
+                    "fields": [
+                        {
+                            "multi_lang_alias": [],
+                            "field": "individual_MATKL",
+                            "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"asc\",\"format\":\"shnln\"}",
+                            "valid": true
+                        },
+                        {
+                            "multi_lang_alias": [],
+                            "field": "count",
+                            "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}",
+                            "valid": true
+                        }
+                    ],
+                    "query_blocks": [
+                        {
+                            "query_steps": [
+                                {
+                                    "followup": "Material",
+                                    "step_type": "followup"
+                                },
+                                {
+                                    "step_type": "filter",
+                                    "tech_info": "MARA-MATKL",
+                                    "field": "MATKL",
+                                    "operator": "starts_with",
+                                    "arguments": [
+                                        {
+                                            "argument_type": "value",
+                                            "value": "00"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "aggregation_fields": [
+                                        {
+                                            "field": "count",
+                                            "operator": "count"
+                                        }
+                                    ],
+                                    "grouping_fields": [
+                                        {
+                                            "field": "individual_MATKL",
+                                            "operator": "individual",
+                                            "source_field": "MATKL",
+                                            "tech_info": "MARA-MATKL"
+                                        }
+                                    ],
+                                    "step_type": "aggregation"
+                                }
+                            ],
+                            "queryblock_type": "query_steps"
+                        }
+                    ],
+                    "state": "/models/1/angles/196/displays/978/state",
+                    "uri": "/models/1/angles/196/displays/978",
+                    "display_details": "{\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"+////wAAAAAAAAAA+////wAAAAAAAAAA\\\"}\",\"columns\":{\"header\":[176.19140625],\"data\":[79.447265625]}}",
+                    "user_specific": {
+                        "is_user_default": false,
+                        "execute_on_login": false
+                    },
+                    "is_public": false,
+                    "contained_aggregation_steps": true,
+                    "used_in_task": false,
+                    "display_type": "pivot",
+                    "is_angle_default": false,
+                    "id": "d79becbee09d3f6d158aa590543220977",
+                    "angle_id": "196"
+                }
+            ],
+            "changed": {
+                "user": "/users/1",
+                "datetime": 1590543091,
+                "full_name": "EAAdmin"
+            },
+            "executed": {
+                "user": "/users/1",
+                "datetime": 1590544388,
+                "full_name": "EAAdmin"
+            }
+        }
+    ]
+}

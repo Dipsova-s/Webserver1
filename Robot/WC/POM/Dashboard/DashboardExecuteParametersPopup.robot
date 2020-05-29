@@ -34,10 +34,6 @@ Click Submit Dashboard Execution Parameters
     Click Element    ${btnSubmitExecuteParameters}
     Wait Dashboard Document Loaded
 
-Click Submit Adhoc Dashboard Execution Parameters
-    Click Submit Dashboard Execution Parameters
-    Wait Dashboard Document Loaded
-
 Expand Dashboard Parameters First Filter Panel
     Expand Filter Panel    0
 

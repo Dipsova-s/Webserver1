@@ -312,24 +312,9 @@ describe("DashboardExecutionHandler", function () {
     });
     describe(".Redirect", function () {
         beforeEach(function () {
-            spyOn(progressbarModel, 'EndProgressBar');
-            spyOn(handler, 'ShowExecutionParameterPopup');
             spyOn(progressbarModel, 'SetProgressBarText');
             spyOn(WC.Utility, 'GetDashboardPageUri');
             spyOn(WC.Utility, 'RedirectUrl');
-        });
-        it("should show execution parameters popup", function () {
-            // prepare
-            spyOn(dashboardModel, 'GetDashboardExecutionParameters').and.returnValue({
-                query_steps: [{}]
-            });
-            handler.Redirect({});
-
-            // assert
-            expect(progressbarModel.EndProgressBar).toHaveBeenCalled();
-            expect(handler.ShowExecutionParameterPopup).toHaveBeenCalled();
-            expect(progressbarModel.SetProgressBarText).not.toHaveBeenCalled();
-            expect(WC.Utility.RedirectUrl).not.toHaveBeenCalled();
         });
         it("should redirect to Dashboard page", function () {
             // prepare
@@ -339,8 +324,6 @@ describe("DashboardExecutionHandler", function () {
             handler.Redirect({});
 
             // assert
-            expect(progressbarModel.EndProgressBar).not.toHaveBeenCalled();
-            expect(handler.ShowExecutionParameterPopup).not.toHaveBeenCalled();
             expect(progressbarModel.SetProgressBarText).toHaveBeenCalled();
             expect(WC.Utility.RedirectUrl).toHaveBeenCalled();
         });

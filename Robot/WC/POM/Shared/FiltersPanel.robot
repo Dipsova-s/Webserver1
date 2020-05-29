@@ -124,7 +124,7 @@ Input Selected Value Date Picker
 
 Remove And Add Filter Angle Type Date
     [Arguments]  ${index}    ${expect}
-    Click Remove All Selected Value Date Picker    ${index}
+    Click Remove All Selected Values    ${index}
     Input Selected Value Date Picker    ${index}    ${expect}
     Click Add Selected Value Date Picker    ${index}
 
@@ -136,7 +136,7 @@ Input First Input Time Picker
     [Arguments]   ${index}    ${expect}
     Input kendo Time Picker    ${txtFirstInputTimePicker}${index}    ${expect}
 
-Click Remove All Selected Value Date Picker
+Click Remove All Selected Values
     [Arguments]    ${index}
     Click Element    ${divFilterPanel}[data-index=${index}] ${btnRemoveAllSelectedValue}
     Sleep    ${TIMEOUT_DROPDOWN}

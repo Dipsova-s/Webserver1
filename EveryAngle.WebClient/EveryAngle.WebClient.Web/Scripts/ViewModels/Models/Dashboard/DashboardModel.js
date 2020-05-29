@@ -8,7 +8,6 @@ function DashboardViewModel(model) {
     self.Name = 'dashboard';
     self.Data = ko.observable(null);
     self.Angles = [];
-    self.ExecuteParameters = null;
     // property that use for keep angle/display
     self.KeyName = 'uri';
     self.BusinessProcessNameSeparator = ', ';
@@ -874,36 +873,20 @@ function DashboardViewModel(model) {
         delete data.state;
         delete data.has_warnings;
         delete data.angles;
-
-        if (!IsNullOrEmpty(data.widget_definitions)) {
-            jQuery.each(data.widget_definitions, function (index, widget) {
-                delete widget.uri;
-            });
-        }
+        jQuery.each(WC.Utility.ToArray(data.widget_definitions), function (index, widget) {
+            delete widget.uri;
+        });
     };
 
-    self.GetAngleExecutionParameters = function (angle, display, checkArguments) {
+    self.GetAngleExecutionParameters = function (angle, display) {
         var dashboardAngleInfo = {};
         dashboardAngleInfo.angle = ko.toJS(angle);
         dashboardAngleInfo.display = ko.toJS(display);
         dashboardAngleInfo.query_steps = [];
 
-        // prevent duplicating field
-        var executionFields = {};
-
-        // check usable execute parameter
-        var isValidExecutionParameter = function (queryStep) {
-            var isExecutionParameter = queryStep.step_type === enumHandlers.FILTERTYPE.FILTER && queryStep.is_execution_parameter;
-            var isValidArguments = WC.WidgetFilterHelper.IsValidArguments(queryStep.arguments) || checkArguments === false;
-
-            return !executionFields[queryStep.field] && isExecutionParameter && isValidArguments;
-        };
-
         // set query step
         var setExecutionParameter = function (queryStep, isAngle) {
-            if (isValidExecutionParameter(queryStep)) {
-                executionFields[queryStep.field] = true;
-
+            if (queryStep.is_execution_parameter) {
                 queryStep.is_angle = isAngle;
                 dashboardAngleInfo.query_steps.push(queryStep);
             }
@@ -928,53 +911,47 @@ function DashboardViewModel(model) {
     };
 
     self.GetAngleExecutionParametersInfo = function (angle, display) {
-        var executionParametersInfo = {};
-        var setExecutionParametersInfo = function (queryStep) {
-            var executionStep = self.ExecuteParameters.findObject('field', queryStep.field);
-            if (executionStep) {
-                executionStep.is_execution_parameter = true;
-                executionStep.execution_parameter_id = queryStep.execution_parameter_id;
-
-                if (queryStep.is_angle)
-                    executionParametersInfo.angleQuery.execution_parameters.push(executionStep);
-                else
-                    executionParametersInfo.displayQuery.execution_parameters.push(executionStep);
-            }
+        var executionParametersInfo = {
+            angleQuery: { execution_parameters: [] },
+            displayQuery: { execution_parameters: [] }
         };
-        if (self.ExecuteParameters) {
-            var executionParameters = self.GetAngleExecutionParameters(angle, display, true);
-            executionParametersInfo.angleQuery = { execution_parameters: [] };
-            executionParametersInfo.displayQuery = { execution_parameters: [] };
-            jQuery.each(executionParameters.query_steps, function (index, queryStep) {
-                setExecutionParametersInfo(queryStep);
-            });
-            if (!executionParametersInfo.angleQuery.execution_parameters.length)
-                executionParametersInfo.angleQuery = null;
-            if (!executionParametersInfo.displayQuery.execution_parameters.length)
-                executionParametersInfo.displayQuery = null;
-            if (!executionParametersInfo.angleQuery && !executionParametersInfo.displayQuery)
-                executionParametersInfo = {};
-        }
+        var executionParameters = self.GetAngleExecutionParameters(angle, display);
+        jQuery.each(executionParameters.query_steps, function (index, queryStep) {
+            if (queryStep.is_angle)
+                executionParametersInfo.angleQuery.execution_parameters.push(queryStep);
+            else
+                executionParametersInfo.displayQuery.execution_parameters.push(queryStep);
+        });
+        if (!executionParametersInfo.angleQuery.execution_parameters.length)
+            executionParametersInfo.angleQuery = null;
+        if (!executionParametersInfo.displayQuery.execution_parameters.length)
+            executionParametersInfo.displayQuery = null;
+        if (!executionParametersInfo.angleQuery && !executionParametersInfo.displayQuery)
+            executionParametersInfo = {};
         return executionParametersInfo;
     };
 
     self.GetDashboardExecutionParameters = function () {
-        if (self.Data().widget_definitions.length) {
-            var layout = self.Data().layout;
-            var firstWidgetId = layout && layout.widgets && layout.widgets.length ? layout.widgets[0] : self.Data().widget_definitions[0].id;
-            var widget = self.GetWidgetById(firstWidgetId);
-            if (!widget)
-                widget = self.Data().widget_definitions[0];
-
-            return self.GetAngleExecutionParameters(widget.GetAngle(), widget.GetDisplay(), true);
-        }
-        else {
-            return {
-                angle: null,
-                display: null,
-                query_steps: []
-            };
-        }
+        var filters = ko.toJS(self.Data().filters.findObjects('is_execution_parameter', true));
+        return {
+            angle: {
+                model: self.Data().model,
+                is_parameterized: false,
+                query_definition: [{
+                    queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES,
+                    base_classes: []
+                }]
+            },
+            display: {
+                name: self.Data().name(),
+                is_parameterized: true,
+                query_blocks: [{
+                    queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+                    query_steps: filters
+                }]
+            },
+            query_steps: filters
+        };
     };
 
     /*

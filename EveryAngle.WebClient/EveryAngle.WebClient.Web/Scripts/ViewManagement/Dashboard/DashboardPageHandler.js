@@ -14,7 +14,6 @@ function DashboardPageHandler() {
     self.IsRefreshModelCurrentInfo = false;
     self.CheckModelCurrentInfo = null;
     self.ModelCurrentInfo = {};
-    self.IsCheckExecuteParameters = false;
     self.DashboardModel = new DashboardViewModel({});
     self.HandlerState = new DashboardStateHandler();
     self.HandlerSidePanel = new DashboardSidePanelHandler();
@@ -290,7 +289,6 @@ function DashboardPageHandler() {
     };
     self.UpdateModel = function (data, forced) {
         self.DashboardModel.Angles = ko.toJS(dashboardModel.Angles);
-        self.DashboardModel.ExecuteParameters = ko.toJS(dashboardModel.ExecuteParameters);
         if (!self.DashboardModel.HasData() || forced) {
             self.DashboardModel.SetData(data);
         }
@@ -409,6 +407,7 @@ function DashboardPageHandler() {
             .then(function () {
                 // update data
                 self.UpdateModel(dashboardModel.GetData(), false);
+                self.InitialQueryDefinition(self.TransformFiltersData(self.DashboardModel.Data().filters));
 
                 WC.HtmlHelper.SetPageTitle(dashboardModel.Data().name() || 'Dashboard');
 
@@ -417,13 +416,15 @@ function DashboardPageHandler() {
 
                 // set ask@execution
                 var parameterized = jQuery.localStorage(enumHandlers.DASHBOARDPARAMETER.ASK_EXECUTION);
-                if (parameterized && !self.IsCheckExecuteParameters) {
+                if (parameterized && !self.QueryDefinitionHandler.IsExecutedParameters) {
 
                     // and then remove it
                     jQuery.localStorage.removeItem(enumHandlers.DASHBOARDPARAMETER.ASK_EXECUTION);
 
                     // set parameteried from local storage
-                    dashboardModel.ExecuteParameters = parameterized;
+                    self.QueryDefinitionHandler.SetExecutedParameters(parameterized);
+                    self.QueryDefinitionHandler.IsExecutedParameters = true;
+                    self.SetDashboardFilters();
 
                     // do execute again
                     self.ExecuteDashboard();
@@ -432,14 +433,14 @@ function DashboardPageHandler() {
                 }
 
                 var executionInfo = dashboardModel.GetDashboardExecutionParameters();
-                var isShowExecutionParametersPopup = !isEditMode && !dashboardModel.ExecuteParameters && executionInfo.query_steps.length;
+                var isShowExecutionParametersPopup = !isEditMode && !self.QueryDefinitionHandler.IsExecutedParameters && executionInfo.query_steps.length;
 
                 if (isNew) {
                     window.location.replace(WC.Utility.GetDashboardPageUri(dashboardUri));
                     return jQuery.when(false);
                 }
                 else if (isShowExecutionParametersPopup) {
-                    self.ShowDashboardExecutionParameterPopup(dashboardModel.Data(), executionInfo);
+                    self.ShowDashboardExecutionParameterPopup(executionInfo);
                     return jQuery.when(false);
                 }
                 else if (self.IsRefreshModelCurrentInfo) {
@@ -519,7 +520,6 @@ function DashboardPageHandler() {
             })
             .always(function (canRender) {
                 if (canRender !== false) {
-                    self.IsCheckExecuteParameters = true;
                     self.EnableDashboardPage(true);
                     self.Render(isRetry);
                 }
@@ -664,7 +664,7 @@ function DashboardPageHandler() {
     self.ExecuteWidget = function (widget) {
         var widgetElement = self.GetWidgetElement(widget.id);
         widgetElement.removeData('Model');
-        var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, self.DashboardModel, dashboardModel.ExecuteParameters);
+        var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, self.DashboardModel);
         widgetElement.data('ResultModel', model);
         model.Execute();
     };
@@ -1876,7 +1876,7 @@ function DashboardPageHandler() {
         self.QueryDefinitionHandler.BlockUI = true;
         self.QueryDefinitionHandler.GetSourceData = self.GetQueryDefinitionSourceData;
         self.QueryDefinitionHandler.FilterFor = WC.WidgetFilterHelper.FILTERFOR.DASHBOARD;
-        self.QueryDefinitionHandler.AllowExecutionParameter(false);
+        self.QueryDefinitionHandler.Texts().AskForExecutionParamter = Localization.AskForValueWhenTheDashboardOpens;
         self.QueryDefinitionHandler.Save = jQuery.proxy(self.SaveQueryDefinition, self);
         self.QueryDefinitionHandler.Execute = jQuery.proxy(self.ExecuteQueryDefinition, self);
         self.QueryDefinitionHandler.SetData(definition, _self.queryDefinitionProperty, dashboardModel.Data().model);
@@ -1948,24 +1948,7 @@ function DashboardPageHandler() {
             return modelFieldsHandler.LoadFieldsMetadata(modelFieldModel.fields);
         });
     };
-    self.ShowDashboardExecutionParameterPopup = function (dashboard, executionsInfo) {
-        // custom angle & display in executionsInfo
-
-        // remove angle query step block
-        executionsInfo.angle.is_parameterized = false;
-        executionsInfo.angle.query_definition = [{
-            queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES,
-            base_classes: []
-        }];
-
-        // set new display query_blocks
-        executionsInfo.display.name = dashboard.name;
-        executionsInfo.display.is_parameterized = true;
-        executionsInfo.display.query_blocks = [{
-            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-            query_steps: executionsInfo.query_steps
-        }];
-
+    self.ShowDashboardExecutionParameterPopup = function (executionsInfo) {
         var executionParameter = new ExecutionParameterHandler(executionsInfo.angle, executionsInfo.display);
         executionParameter.ShowPopupAfterCallback = function (e) {
             e.sender.element.find('.section-display .row-title .form-col-header').text(Localization.DashboardName);
@@ -1974,11 +1957,8 @@ function DashboardPageHandler() {
 
         // override method
         executionParameter.SubmitExecutionParameters = function (option) {
-
             // M4-33874 keep parameterized to local storage (bug fixed in IE an Edge)
             jQuery.localStorage(enumHandlers.DASHBOARDPARAMETER.ASK_EXECUTION, option.displayQuery.execution_parameters);
-
-            self.IsCheckExecuteParameters = false;
 
             // do execute again
             self.ExecuteDashboard();

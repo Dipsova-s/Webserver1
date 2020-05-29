@@ -7,8 +7,9 @@ ${filterDisplayName}            .item-header.displayNameContainer .textEllipsis
 ${btnIncreaseValue}             .filter-editor-arguments .icon-caret-right
 ${btnIncreaseNumberValue}       .filter-editor-arguments .icon-caret-up
 ${textInputValue}               .input-argument-typing
-${rdoEditFilterBooleanYes}      .input-argument-boolean-value .input-argument-value.input-argument-true 
-${txtDateInPut}                 .input-argument-value.k-input 
+${btnRemoveAllSelectedValue}    .action-clear
+${rdoEditFilterBooleanYes}      .input-argument-boolean-value .input-argument-value.input-argument-true
+${txtDateInPut}                 .input-argument-value.k-input
 ${ddDateDropDownList}           .k-dropdown.input-argument-type
 ${dropdownOperator}            .k-dropdown.query-operator
 
@@ -46,6 +47,18 @@ Set Editor Context: Display Tab
 Set Editor Context: Dashboard Tab
     Set Test Variable  ${EditorDefinitionindex}    0
     Set Editor Context  jquery=#TabContentDashboard
+
+Set Editor Context: Angle Execution Parameters Popup
+    Set Test Variable  ${EditorDefinitionindex}    0
+    Set Editor Context  jquery=#PopupExecutionParameter
+
+Set Editor Context: Display Execution Parameters Popup
+    Set Test Variable  ${EditorDefinitionindex}    1
+    Set Editor Context  jquery=#PopupExecutionParameter
+
+Set Editor Context: Dashboard Execution Parameters Popup
+    Set Test Variable  ${EditorDefinitionindex}    1
+    Set Editor Context  jquery=#PopupExecutionParameter
 
 Query Operator Should Be
     [Arguments]     ${expectedValue}
@@ -112,6 +125,9 @@ Input Text Filter Value
     Input Text    ${EditorContext} ${EditorIndex} ${textInputValue}    ${editValue}
     Press Keys    ${EditorContext} ${EditorIndex} ${textInputValue}    RETURN
 
+Clear All List Filters
+    Click Element    ${EditorContext} ${EditorIndex} ${btnRemoveAllSelectedValue}
+
 Input Date Filter Value
     [Arguments]     ${editValue}
     Input Text    ${EditorContext} ${EditorIndex} ${txtDateInPut}    ${editValue}
@@ -157,8 +173,11 @@ Click Apply Filter Button
     Wait Until Element Is Visible    ${EditorContext} ${btnApplyFilter} 
     Click Element    ${EditorContext} ${btnApplyFilter}    
 
+Check Filter Asterisk Should Be Available
+    Page Should Contain Element    ${EditorContext} .sign-adhoc
+
 Check Filter Asterisk Should Not Be Available
-    Page Should Not Contain Element    ${EditorContext} .icon-adhoc   
+    Page Should Not Contain Element    ${EditorContext} .sign-adhoc
 
 Check Undo Filter Should Not Be Available
     Page Should Not Contain Element    ${EditorContext} ${btnUndo}  

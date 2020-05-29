@@ -134,28 +134,15 @@ function DashboardWidgetViewModel(model) {
             definitions = [],
             queryStep = { queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS, query_steps: [] },
             angle = self.GetAngle(),
-            baseClasses = jQuery.grep(angle.query_definition, function (definition) { return definition.queryblock_type === enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES; }),
-            angleQuerySteps = jQuery.grep(angle.query_definition, function (definition) { return definition.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS; }),
-            displayQuerySteps = jQuery.grep(display.query_blocks, function (queryBlock) { return queryBlock.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS; });
+            baseClasses = angle.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES),
+            angleQuerySteps = angle.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS),
+            displayQuerySteps = display.query_blocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
 
-        definitions.push(baseClasses[0]);
-        queryStep.query_steps = queryStep.query_steps.concat(angleQuerySteps.length ? angleQuerySteps[0].query_steps : [], displayQuerySteps.length ? displayQuerySteps[0].query_steps : []);
+        definitions.push(baseClasses);
+        queryStep.query_steps = queryStep.query_steps.concat(angleQuerySteps ? angleQuerySteps.query_steps : [], displayQuerySteps ? displayQuerySteps.query_steps : []);
         definitions.push(queryStep);
 
         return definitions;
-    };
-
-    self.GetQueryDefinitionsWithNewFilters = function (filters) {
-        // get initial blocks
-        var queryDefinitions = ko.toJS(self.GetQueryDefinitions());
-
-        // get querystep block combined with dashboard filters
-        var newQueryStepBlock = self.GetBlockQueryStepsWithNewFilters(filters);
-
-        // replace with updated block
-        queryDefinitions[1] = newQueryStepBlock;
-
-        return queryDefinitions;
     };
 
     // GetDefaultWidgetName: get default widget name
@@ -170,15 +157,11 @@ function DashboardWidgetViewModel(model) {
         return self.name() || self.GetDefaultWidgetName();
     };
 
-    // GetQuerySteps: get all query steps from widget display if not found then return null
-    self.GetBlockQuerySteps = function () {
-        var widgetQueryBlock = self.GetQueryDefinitions();
-        var widgetQuerySteps = widgetQueryBlock.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-        return widgetQuerySteps;
-    };
-    self.GetBlockQueryStepsWithNewFilters = function (filters) {
-        var querySteps = ko.toJS(self.GetBlockQuerySteps());
-        if (!querySteps) {
+    self.GetBlockQuerySteps = function (filters) {
+        var display = self.GetDisplay();
+        var queryBlock = ko.toJS(display.query_blocks[0]);
+
+        if (!queryBlock) {
             // if no filter then return a new block
             return {
                 queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
@@ -187,48 +170,33 @@ function DashboardWidgetViewModel(model) {
         }
 
         // combined filters
-        jQuery.merge(querySteps.query_steps, filters);
+        jQuery.merge(queryBlock.query_steps, filters);
+
+        // sorting step
+        var sortingStep = queryBlock.query_steps.findObject('step_type', enumHandlers.FILTERTYPE.SORTING);
+        if (sortingStep) {
+            queryBlock.query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.SORTING);
+            queryBlock.query_steps.push(sortingStep);
+        }
 
         // aggregation step always put at the last order
-        var aggregationStep = self.GetAggregationQueryStep();
+        var aggregationStep = queryBlock.query_steps.findObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
         if (aggregationStep) {
-            querySteps.query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
-            querySteps.query_steps.push(aggregationStep);
+            queryBlock.query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
+            queryBlock.query_steps.push(aggregationStep);
         }
-        return querySteps;
+
+        return queryBlock;
     };
 
-    // GetAggregationQuerySteps: get aggregation query step from current widget display if not found then return null
-    self.GetAggregationQueryStep = function () {
-        var aggregationQueryStep = null;
-        var widgetQuerySteps = self.GetBlockQuerySteps();
-        if (widgetQuerySteps) {
-            aggregationQueryStep = widgetQuerySteps.query_steps.findObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
-        }
-        return aggregationQueryStep;
-    };
-
-    self.SetExtendedFilters = function (validatedFilters) {
+    self.SetExtendedFilters = function (filters) {
         _self.ExtendedFilters = [];
         if (!self.CanExtendFilter())
             return;
 
-        // get number of filters
-        var rawBlockQuerySteps = self.GetBlockQuerySteps();
-        var rawFilterCount = 0;
-        if (rawBlockQuerySteps) {
-            rawFilterCount = rawBlockQuerySteps.query_steps.length;
-
-            // aggregation step will move to the last
-            if (self.GetAggregationQueryStep())
-                rawFilterCount--;
-        }
-
-        for (var index = rawFilterCount; index < validatedFilters.length; index++) {
-            var queryStep = validatedFilters[index];
-            if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER && queryStep.valid !== false)
-                _self.ExtendedFilters.push(queryStep);
-        }
+        _self.ExtendedFilters = jQuery.grep(filters, function (queryStep) {
+            return queryStep.step_type === enumHandlers.FILTERTYPE.FILTER && queryStep.valid !== false;
+        });
     };
 
     self.GetExtendedFilters = function () {

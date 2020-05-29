@@ -1,4 +1,4 @@
-function DashboardResultViewModel(elementId, model, dashboardViewModel, executeParameters) {
+function DashboardResultViewModel(elementId, model, dashboardViewModel) {
     "use strict";
 
     var self = this;
@@ -13,7 +13,6 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
     self.AngleModel = new AngleInfoViewModel(self.Angle);
     self.DisplayModel = new DisplayModel(self.Display);
     self.DashboardModel = dashboardViewModel;
-    self.ExecuteParameters = WC.Utility.ToArray(executeParameters);
     //EOF: View model properties
 
     self.Execute = function () {
@@ -39,36 +38,30 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
     };
     self.CreatePostData = function () {
         var postData = { query_definition: [] };
-        var executeParameters = self.GetPostExecuteParameters(self.ExecuteParameters, self.Angle.query_definition, self.Display.query_blocks);
-        var validDashboardFilters = self.WidgetModel.GetExtendedFilters();
-        var dashboardQueryBlock = {
-            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-            query_steps: validDashboardFilters
-        };
+        var executeParameters = self.DashboardModel.GetAngleExecutionParametersInfo(self.Angle, self.Display);
+        var filters = self.WidgetModel.GetExtendedFilters();
 
+        // angle block
         postData.query_definition.push({
             queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_ANGLE,
             base_angle: self.WidgetModel.angle
         });
-        if (executeParameters.angle.length)
-            postData.query_definition[0].execution_parameters = executeParameters.angle;
+        jQuery.extend(postData.query_definition[0], executeParameters.angleQuery);
 
-        // [DANGER AREA]: pivot or chart widget will got the error when try to include base display with dashboard query steps
-        if (validDashboardFilters.length && self.Display.contained_aggregation_steps) {
-            var newBlockQuerySteps = self.WidgetModel.GetBlockQueryStepsWithNewFilters(validDashboardFilters);
-            dashboardQueryBlock.query_steps = newBlockQuerySteps.query_steps;
-        }
-        else {
+        // display block
+        if (!filters.length) {
+            // no extend filter
             postData.query_definition.push({
                 queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY,
                 base_display: self.WidgetModel.display
             });
-            if (executeParameters.display.length)
-                postData.query_definition[1].execution_parameters = executeParameters.display;
+            jQuery.extend(postData.query_definition[1], executeParameters.displayQuery);
         }
-
-        if (validDashboardFilters.length)
-            postData.query_definition.push(dashboardQueryBlock);
+        else {
+            // with extend filters
+            var newBlockQuerySteps = self.WidgetModel.GetBlockQuerySteps(filters);
+            postData.query_definition.push(newBlockQuerySteps);
+        }
 
         if (!self.DashboardModel.IsTemporaryDashboard())
             postData.dashboard = self.DashboardModel.Data().uri;
@@ -116,44 +109,27 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
     };
     self.CreatePostIntegrityData = function () {
         // get querystep block combined with dashboard filters
+        var baseClassesBlock = self.Angle.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
         var dashboardFilters = self.DashboardModel.GetDashboardFilters();
-        var queryDefinition = self.WidgetModel.GetQueryDefinitionsWithNewFilters(dashboardFilters);
+        var querySteps = [];
+        var angleQueryStepsBlock = self.Angle.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
+        if (angleQueryStepsBlock)
+            jQuery.merge(querySteps, angleQueryStepsBlock.query_steps.findObjects('step_type', enumHandlers.FILTERTYPE.FOLLOWUP));
+        var displayQueryStepsBlock = self.Display.query_blocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
+        if (displayQueryStepsBlock)
+            jQuery.merge(querySteps, displayQueryStepsBlock.query_steps.findObjects('step_type', enumHandlers.FILTERTYPE.FOLLOWUP));
+        jQuery.merge(querySteps, dashboardFilters);
+        var queryStepsBlock = {
+            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+            query_steps: querySteps
+        };
 
         return {
-            query_definition: queryDefinition
+            query_definition: [
+                baseClassesBlock,
+                queryStepsBlock
+            ]
         };
-    };
-    self.GetPostExecuteParameters = function (executeParameters, angleQueryBlocks, displayQueryBlocks) {
-        var data = {
-            angle: [],
-            display: []
-        };
-
-        if (executeParameters.length) {
-            var getQuerySteps = function (queryBlocks) {
-                var stepQueryBlock = queryBlocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-                return stepQueryBlock ? stepQueryBlock.query_steps : [];
-            };
-            var setExecutableQuery = function (source, querySteps, query) {
-                var executableQuerys = querySteps.findObjects('is_execution_parameter', true);
-                var executableQuery = executableQuerys.findObject('field', query.field);
-                if (executableQuery && executableQuery.is_execution_parameter) {
-                    executableQuery.operator = query.operator;
-                    executableQuery.arguments = query.arguments;
-                    source.push(executableQuery);
-                }
-            };
-
-            var angleSteps = getQuerySteps(angleQueryBlocks);
-            var displaySteps = getQuerySteps(displayQueryBlocks);
-
-            jQuery.each(executeParameters, function (index, query) {
-                setExecutableQuery(data.angle, angleSteps, query);
-                setExecutableQuery(data.display, displaySteps, query);
-            });
-        }
-
-        return data;
     };
     self.PostExecutionSteps = function (querySteps) {
         var query = {

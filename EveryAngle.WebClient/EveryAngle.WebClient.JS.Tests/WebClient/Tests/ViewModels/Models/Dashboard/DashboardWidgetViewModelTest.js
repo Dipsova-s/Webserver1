@@ -89,116 +89,75 @@ describe("DashboardWidgetViewModel", function () {
 
     describe(".GetBlockQuerySteps", function () {
 
-        it("should get query steps if it exists", function () {
-            spyOn(dashboardWidgetViewModel, 'GetQueryDefinitions').and.returnValue([
-                { queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS, query_steps: [] },
-                { queryblock_type: 'test', query_steps: [] }
-            ]);
-            var querySteps = dashboardWidgetViewModel.GetBlockQuerySteps();
-            expect(querySteps).not.toBeNull();
-        });
-
-        it("should not get query steps if it not exists", function () {
-            spyOn(dashboardWidgetViewModel, 'GetQueryDefinitions').and.returnValue([
-                { queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES, query_steps: [] },
-                { queryblock_type: 'test', query_steps: [] }
-            ]);
-            var querySteps = dashboardWidgetViewModel.GetBlockQuerySteps();
-            expect(querySteps).toBeNull();
-        });
-
-    });
-
-    describe(".GetAggregationQueryStep", function () {
-
-        it("should get aggregation query step if it exists", function () {
-            spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue({
-                query_steps: [
-                    { step_type: enumHandlers.FILTERTYPE.AGGREGATION },
-                    { step_type: 'test' }
-                ]
-            });
-            var aggregationQueryStep = dashboardWidgetViewModel.GetAggregationQueryStep();
-            expect(aggregationQueryStep).not.toBeNull();
-        });
-
-        it("should not get aggregation query step if it not exists", function () {
-            spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue({
-                query_steps: [
-                    { step_type: enumHandlers.FILTERTYPE.FILTER },
-                    { step_type: 'test' }
-                ]
-            });
-            var aggregationQueryStep = dashboardWidgetViewModel.GetAggregationQueryStep();
-            expect(aggregationQueryStep).toBeNull();
-        });
-
-    });
-
-    describe(".GetQueryDefinitionsWithNewFilters", function () {
-
-        it("should get an update query definition at index 1", function () {
-            spyOn(dashboardWidgetViewModel, 'GetQueryDefinitions').and.returnValue(['definition1', 'definition2']);
-            spyOn(dashboardWidgetViewModel, 'GetBlockQueryStepsWithNewFilters').and.returnValue('definition2_updated');
-
-            // act
-            var results = dashboardWidgetViewModel.GetQueryDefinitionsWithNewFilters();
-
-            // assert
-            expect('definition1').toEqual(results[0]);
-            expect('definition2_updated').toEqual(results[1]);
-        });
-
-    });
-
-    describe(".GetBlockQueryStepsWithNewFilters", function () {
-
         it("should append new filter if no filter", function () {
-            spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue(null);
+            var blockQuerySteps = [];
+            var dashboardFilters = [
+                { step_type: 'filter' }
+            ];
+            spyOn(dashboardWidgetViewModel, 'GetDisplay').and.returnValue({ query_blocks: blockQuerySteps });
 
             // act
-            var result = dashboardWidgetViewModel.GetBlockQueryStepsWithNewFilters(['new_filter']);
+            var result = dashboardWidgetViewModel.GetBlockQuerySteps(dashboardFilters);
 
             // assert
             expect(1).toEqual(result.query_steps.length);
-            expect('new_filter').toEqual(result.query_steps[0]);
+            expect({ step_type: 'filter' }).toEqual(result.query_steps[0]);
         });
 
         it("should append new filter if has filter but no aggregation", function () {
-            spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue({
-                query_steps: ['filter1', 'filter2']
-            });
+            var blockQuerySteps = {
+                query_steps: [
+                    { step_type: 'filter' },
+                    { step_type: 'filter' }
+                ]
+            };
+            var dashboardFilters = [
+                { step_type: 'filter' },
+                { step_type: 'filter' }
+            ];
+            spyOn(dashboardWidgetViewModel, 'GetDisplay').and.returnValue({ query_blocks: blockQuerySteps });
+            spyOn(dashboardWidgetViewModel, 'GetSortingQueryStep').and.returnValue(null);
             spyOn(dashboardWidgetViewModel, 'GetAggregationQueryStep').and.returnValue(null);
 
             // act
-            var result = dashboardWidgetViewModel.GetBlockQueryStepsWithNewFilters(['new_filter3', 'new_filter4']);
+            var result = dashboardWidgetViewModel.GetBlockQuerySteps(dashboardFilters);
 
             // assert
             expect(4).toEqual(result.query_steps.length);
-            expect('filter1').toEqual(result.query_steps[0]);
-            expect('filter2').toEqual(result.query_steps[1]);
-            expect('new_filter3').toEqual(result.query_steps[2]);
-            expect('new_filter4').toEqual(result.query_steps[3]);
+            expect({ step_type: 'filter' }).toEqual(result.query_steps[0]);
+            expect({ step_type: 'filter' }).toEqual(result.query_steps[1]);
+            expect({ step_type: 'filter' }).toEqual(result.query_steps[2]);
+            expect({ step_type: 'filter' }).toEqual(result.query_steps[3]);
         });
 
-        it("should append new filter if has filter and aggregation", function () {
+        it("should append new filter if has filter with sorting & aggregation", function () {
             var blockQuerySteps = {
-                query_steps: ['filter1', 'filter2']
+                query_steps: [
+                    { step_type: 'filter' },
+                    { step_type: 'filter' },
+                    { step_type: 'sorting' },
+                    { step_type: 'aggregation' }
+                ]
             };
-            blockQuerySteps.query_steps.removeObject = $.noop;
-            spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue(blockQuerySteps);
+            var dashboardFilters = [
+                { step_type: 'filter' },
+                { step_type: 'filter' }
+            ];
+            spyOn(dashboardWidgetViewModel, 'GetDisplay').and.returnValue({ query_blocks: blockQuerySteps });
+            spyOn(dashboardWidgetViewModel, 'GetSortingQueryStep').and.returnValue('sorting');
             spyOn(dashboardWidgetViewModel, 'GetAggregationQueryStep').and.returnValue('aggregation');
 
             // act
-            var result = dashboardWidgetViewModel.GetBlockQueryStepsWithNewFilters(['new_filter3', 'new_filter4']);
+            var result = dashboardWidgetViewModel.GetBlockQuerySteps(dashboardFilters);
 
             // assert
-            expect(5).toEqual(result.query_steps.length);
-            expect('filter1').toEqual(result.query_steps[0]);
-            expect('filter2').toEqual(result.query_steps[1]);
-            expect('new_filter3').toEqual(result.query_steps[2]);
-            expect('new_filter4').toEqual(result.query_steps[3]);
-            expect('aggregation').toEqual(result.query_steps[4]);
+            expect(6).toEqual(result.query_steps.length);
+            expect({ step_type: 'filter' }).toEqual(result.query_steps[0]);
+            expect({ step_type: 'filter' }).toEqual(result.query_steps[1]);
+            expect({ step_type: 'filter' }).toEqual(result.query_steps[2]);
+            expect({ step_type: 'filter' }).toEqual(result.query_steps[3]);
+            expect({ step_type: 'sorting' }).toEqual(result.query_steps[4]);
+            expect({ step_type: 'aggregation' }).toEqual(result.query_steps[5
         });
 
     });
@@ -212,7 +171,6 @@ describe("DashboardWidgetViewModel", function () {
                 { field: 'any', step_type: 'any' }
             ];
             spyOn(dashboardWidgetViewModel, 'CanExtendFilter').and.returnValue(false);
-            spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue(null);
 
             // act
             dashboardWidgetViewModel.SetExtendedFilters(validatedFilters);
@@ -230,7 +188,6 @@ describe("DashboardWidgetViewModel", function () {
                 { field: 'any', step_type: 'any' }
             ];
             spyOn(dashboardWidgetViewModel, 'CanExtendFilter').and.returnValue(true);
-            spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue(null);
 
             // act
             dashboardWidgetViewModel.SetExtendedFilters(validatedFilters);
@@ -273,9 +230,6 @@ describe("DashboardWidgetViewModel", function () {
                 { field: 'aggregation1', step_type: enumHandlers.FILTERTYPE.AGGREGATION, valid: false }
             ];
             spyOn(dashboardWidgetViewModel, 'CanExtendFilter').and.returnValue(true);
-            spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue({
-                query_steps: ['followup1', 'filter1', 'aggregation1']
-            });
             spyOn(dashboardWidgetViewModel, 'GetAggregationQueryStep').and.returnValue({});
 
             // act

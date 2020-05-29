@@ -17,68 +17,32 @@ Create New Dashboard
     Create Adhoc Dashboard  ${searchText}  ${dashboardName}
     Click Dashboard Save All
 
-Dashboard Execution Parameters
-    Filter Angle With Execution Parameters For Dashboard
-    Execute Dashboard From Angle With Execution Parameters
-    Check Dashboard Execution Parameters Are Presented
-    Change Dashboard Execution Parameters Then Execute
-    Click Submit Adhoc Dashboard Execution Parameters
-    Open Angle In Dashboard Widget    0
-    Check First Angle Should Apply Dashboard Execution Parameters
-    Open Angle In Dashboard Widget    1
-    Check Second Angle Should Apply Dashboard Execution Parameters
+################################################################################
 
-Execute Dashboard With Execution Parameters In Edit Mode
-    [Arguments]   ${dashboardName}
-    Filter Angle With Execution Parameters For Dashboard
-    Execute Dashboard From Angle With Execution Parameters
-    Check Dashboard Execution Parameters Are Presented
-    Change Dashboard Execution Parameters Then Execute
-    Click Submit Adhoc Dashboard Execution Parameters
-    Edit Dashboard Description    en    ${dashboardName}    ${dashboardName}
-    Click Dashboard Save All
-    Back To Search
+Search And Execute Dashboard With Execution Parameters
+    [Arguments]    ${dashboardName}  ${keyword}
+    Search By Text And Expect In Search Result  ${dashboardName}
+    Click Link Item From Search Result Not Execute Popup  ${dashboardName}
+    Wait Until Dashboard Execute Parameters Popup Loaded
+    Run Keyword  ${keyword}
+    Click Submit Dashboard Execution Parameters
+
+Re-execute Dashboard In Edit Mode With Execution Parameters
+    [Arguments]   ${dashboardName}  ${keyword}
+    Go to Search Page
     Search By Text And Expect In Search Result    ${dashboardName}
-    Sleep    2s    Wait SOLR
     Click First Item Info Button
     Click Dashboard Edit Mode Button Via Item Info Popup
     Click Execute Dashboard Action
-    Click Submit Dashboard Execution Parameters
-    Wait Progress Bar Closed
-
-################################################################################
-
-Filter Angle With Execution Parameters For Dashboard
-    Search By Text And Expect In Search Result    Angle for Dashboard Test
-    Click Sort By Name Ascending In Search Page
-
-Execute Dashboard From Angle With Execution Parameters
-    Click Select All Items from Search Result
-    Click Search Action Execute As Dashboard With Execution Parameters
-
-Check Dashboard Execution Parameters Are Presented
     Wait Until Dashboard Execute Parameters Popup Loaded
+    Run Keyword  ${keyword}
+    Click Submit Dashboard Execution Parameters
 
-Change Dashboard Execution Parameters Then Execute
-    Change Dashboard First Filter Operator To Is Not Empty
-    Change Dashboard Second Filter Equal To Partially open
-    Input Filter Value For Is In List For Third Dashboard Filter    3745
-    Input Filter Value For Is In List For Third Dashboard Filter    5550
-
-Change Dashboard First Filter Operator To Is Not Empty
-    Expand Dashboard Parameters First Filter Panel
-    Choose First Dropdown Filter Operator Dashboard Parameters    is not empty
-    sleep    2s
-
-Change Dashboard Second Filter Equal To Partially open
-    Expand Dashboard Parameters Second Filter Panel
-    Choose Second Dropdown Filter Operator Dashboard Parameters    is equal to
-    Input Second Filter Set Select Value Dashboard Parameters    Partially open
-
-Input Filter Value For Is In List For Third Dashboard Filter
-    [Arguments]   ${value}
-    Expand Dashboard Parameters Third Filter Panel
-    Input Filter Input Text In List    2    ${value}
+Change Dashboard Execution Parameters Value
+    Set Editor Context: Dashboard Execution Parameters Popup
+    Set Editor Index    0
+    Clear All List Filters
+    Input Text Filter Value  1
 
 Open Angle In Dashboard Widget
     [Arguments]    ${index}
@@ -88,15 +52,32 @@ Open Angle In Dashboard Widget
     Check If Angle Or Display Has A Warning Then Close The Popup
 
 Check First Angle Should Apply Dashboard Execution Parameters
-    Page Should Contain    (Self) - Purchasing Document Category is not empty
-    Page Should Contain    (Self) - Execution status is equal to Partially open
-    Page Should Contain    Vendor - Vendor is in list (3745, 5550)
+    Open Angle In Dashboard Widget    0
+    Set Editor Context: Display Tab
+    Set Editor Index  1
+    Filter Display Name Should Contains  (Self) - ID ends on substring(s) (1)
+    Check Filter Asterisk Should Be Available
+    Display Should Mark As UnSaved  chart
     Close Window
     Switch Window   MAIN
 
 Check Second Angle Should Apply Dashboard Execution Parameters
-    Page Should Contain    (Self) - Purchasing Document Category is not empty
-    Page Should Contain    (Self) - Execution status is equal to Partially open
+    Open Angle In Dashboard Widget    1
+    Set Editor Context: Display Tab
+    Set Editor Index  2
+    Filter Display Name Should Contains  (Self) - ID ends on substring(s) (1)
+    Check Filter Asterisk Should Be Available
+    Display Should Mark As UnSaved  pivot
+    Close Window
+    Switch Window   MAIN
+
+Check Third Angle Should Apply Dashboard Execution Parameters
+    Open Angle In Dashboard Widget    2
+    Set Editor Context: Display Tab
+    Set Editor Index  1
+    Filter Display Name Should Contains  (Self) - ID ends on substring(s) (1)
+    Check Filter Asterisk Should Be Available
+    Display Should Mark As UnSaved  list
     Close Window
     Switch Window   MAIN
 

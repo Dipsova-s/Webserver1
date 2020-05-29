@@ -603,6 +603,9 @@
   <data name="AskForValueWhenTheAngleOpens" xml:space="preserve">
     <value>Vraag naar waarde wanneer de Angle opent</value>
   </data>
+  <data name="AskForValueWhenTheDashboardOpens" xml:space="preserve">
+    <value>Vraag naar waarde wanneer de Dashboard opent</value>
+  </data>
   <data name="Before" xml:space="preserve">
     <value>Voor</value>
   </data>

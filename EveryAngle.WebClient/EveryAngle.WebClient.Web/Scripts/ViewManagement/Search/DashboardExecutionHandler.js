@@ -165,19 +165,11 @@ function DashboardExecutionHandler() {
             || chartDisplays[0];
     };
     self.Redirect = function (data) {
-        var executionInfo = dashboardModel.GetDashboardExecutionParameters();
-        if (executionInfo.query_steps.length) {
-            progressbarModel.EndProgressBar();
-            self.ShowExecutionParameterPopup(dashboardModel.Data(), executionInfo);
-        }
-        else {
-            progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
-            var params = {};
-            params[enumHandlers.DASHBOARDPARAMETER.NEW] = true;
-            WC.Utility.RedirectUrl(WC.Utility.GetDashboardPageUri(data.uri, params));
-        }
+        progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
+        var params = {};
+        params[enumHandlers.DASHBOARDPARAMETER.NEW] = true;
+        WC.Utility.RedirectUrl(WC.Utility.GetDashboardPageUri(data.uri, params));
     };
-    self.ShowExecutionParameterPopup = jQuery.noop;
 
     // model selection
     self.Models = [];

@@ -132,111 +132,59 @@ describe("DashboardResultViewModel", function () {
     });
 
     describe(".CreatePostIntegrityData", function () {
-
-
         it("should get data from query_definition property", function () {
+            dashboardResultViewModel.Angle = {
+                query_definition: [
+                    { queryblock_type: 'base_classes', base_classes: [] },
+                    { queryblock_type: 'query_steps', query_steps: [] }
+                ]
+            };
+            dashboardResultViewModel.Display = {
+                query_blocks: [
+                    { queryblock_type: 'query_steps', query_steps: [] }
+                ]
+            };
             spyOn(dashboardResultViewModel.DashboardModel, 'GetDashboardFilters').and.returnValue([]);
-            spyOn(dashboardResultViewModel.WidgetModel, 'GetQueryDefinitionsWithNewFilters').and.returnValue('test');
 
             // act
             var result = dashboardResultViewModel.CreatePostIntegrityData();
 
             // assert
-            expect('test').toEqual(result.query_definition);
+            expect(result.query_definition.length).toEqual(2);
         });
-
-    });
-
-    describe(".GetPostExecuteParameters", function () {
-
-        it("should get empty execution parameters if no execution parameters in dashboard", function () {
-            var executeParameters = [];
-            var angleQueryBlocks = [
-                { queryblock_type: 'query_steps', query_steps: [{ field: 'A', operator: 'equal_to', arguments: [], is_execution_parameter: true }] }
-            ];
-            var displayQueryBlocks = [];
-            var result = dashboardResultViewModel.GetPostExecuteParameters(executeParameters, angleQueryBlocks, displayQueryBlocks);
-            expect(result.angle).toEqual([]);
-            expect(result.display).toEqual([]);
-        });
-
-        it("should get empty execution parameters if no execution parameters in Angle or Display", function () {
-            var executeParameters = [
-                { field: 'A', operator: 'equal_to', arguments: [], is_execution_parameter: true }
-            ];
-            var angleQueryBlocks = [];
-            var displayQueryBlocks = [];
-            var result = dashboardResultViewModel.GetPostExecuteParameters(executeParameters, angleQueryBlocks, displayQueryBlocks);
-            expect(result.angle).toEqual([]);
-            expect(result.display).toEqual([]);
-        });
-
-        it("should get execution parameters in Angle and Display", function () {
-            var executeParameters = [
-                { field: 'A', operator: 'equal_to', arguments: [], is_execution_parameter: true },
-                { field: 'B', operator: 'equal_to', arguments: [], is_execution_parameter: true }
-            ];
-            var angleQueryBlocks = [
-                {
-                    queryblock_type: 'query_steps',
-                    query_steps: [
-                        { field: 'A', operator: 'not_equal_to', arguments: [], is_execution_parameter: false },
-                        { field: 'A', operator: 'not_equal_to', arguments: [], is_execution_parameter: true }
-                    ]
-                }
-            ];
-            var displayQueryBlocks = [
-                {
-                    queryblock_type: 'query_steps',
-                    query_steps: [{ field: 'B', operator: 'not_equal_to', arguments: [], is_execution_parameter: true }]
-                }
-            ];
-
-            var result = dashboardResultViewModel.GetPostExecuteParameters(executeParameters, angleQueryBlocks, displayQueryBlocks);
-            expect(result.angle).toEqual([{ field: 'A', operator: 'equal_to', arguments: [], is_execution_parameter: true }]);
-            expect(result.display).toEqual([{ field: 'B', operator: 'equal_to', arguments: [], is_execution_parameter: true }]);
-        });
-
     });
 
     describe(".CreatePostData", function () {
 
         beforeEach(function () {
-            dashboardResultViewModel.Angle = { query_definition: [] };
-            dashboardResultViewModel.Display = { query_definition: [] };
-
-            dashboardResultViewModel.WidgetModel.angle = 'angle';
-            dashboardResultViewModel.WidgetModel.display = 'display';
-
-            spyOn(dashboardResultViewModel, 'GetPostExecuteParameters').and.returnValue({ angle: [], display: [] });
+            dashboardResultViewModel.WidgetModel.angle = '/angles/1';
+            dashboardResultViewModel.WidgetModel.display = '/displays/1';
+            spyOn(dashboardResultViewModel.DashboardModel, 'GetAngleExecutionParametersInfo').and.returnValue({
+                angleQuery: { execution_parameters: 'my-angle-parameters' },
+                displayQuery: { execution_parameters: 'my-display-parameters' }
+            });
             spyOn(dashboardResultViewModel.DashboardModel, 'IsTemporaryDashboard').and.returnValue(true);
-
-            spyOn(dashboardResultViewModel.WidgetModel, 'GetBlockQuerySteps').and.returnValue({ query_steps: [] });
-            spyOn(dashboardResultViewModel.WidgetModel, 'GetAggregationQueryStep').and.returnValue({});
+            spyOn(dashboardResultViewModel.WidgetModel, 'GetBlockQuerySteps').and.returnValue({ queryblock_type: 'query_steps' });
         });
 
-        it("should included base display if no aggregation step", function () {
+        it("should use base display if no filter", function () {
             spyOn(dashboardResultViewModel.WidgetModel, 'GetExtendedFilters').and.returnValue([]);
-            dashboardResultViewModel.Display.contained_aggregation_steps = false;
-            var postData = dashboardResultViewModel.CreatePostData();
-            var baseDisplay = postData.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY);
-            expect(baseDisplay).not.toBeNull();
+            var result = dashboardResultViewModel.CreatePostData();
+            expect(result.query_definition.length).toEqual(2);
+            expect(result.query_definition[0].queryblock_type).toEqual('base_angle');
+            expect(result.query_definition[0].execution_parameters).toEqual('my-angle-parameters');
+            expect(result.query_definition[1].queryblock_type).toEqual('base_display');
+            expect(result.query_definition[1].execution_parameters).toEqual('my-display-parameters');
         });
 
-        it("should included base display if no filter", function () {
-            spyOn(dashboardResultViewModel.WidgetModel, 'GetExtendedFilters').and.returnValue([]);
-            dashboardResultViewModel.Display.contained_aggregation_steps = true;
-            var postData = dashboardResultViewModel.CreatePostData();
-            var baseDisplay = postData.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY);
-            expect(baseDisplay).not.toBeNull();
-        });
-
-        it("should excluded base display if have filters and contain aggregation step", function () {
+        it("should use query steps if have filters", function () {
             spyOn(dashboardResultViewModel.WidgetModel, 'GetExtendedFilters').and.returnValue([{}]);
-            dashboardResultViewModel.Display.contained_aggregation_steps = true;
-            var postData = dashboardResultViewModel.CreatePostData();
-            var baseDisplay = postData.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY);
-            expect(baseDisplay).toBeNull();
+            var result = dashboardResultViewModel.CreatePostData();
+            expect(result.query_definition.length).toEqual(2);
+            expect(result.query_definition[0].queryblock_type).toEqual('base_angle');
+            expect(result.query_definition[0].execution_parameters).toEqual('my-angle-parameters');
+            expect(result.query_definition[1].queryblock_type).toEqual('query_steps');
+            expect(result.query_definition[1].execution_parameters).not.toBeDefined();
         });
 
     });

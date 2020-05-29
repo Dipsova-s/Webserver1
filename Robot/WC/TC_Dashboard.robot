@@ -28,14 +28,24 @@ Verify Dashboard Statistics
 
     [Teardown]  Back To Search And Delete Dashboard Are Created    ${dashboardName}
 
-Verify Dashboard Execution Parameters
-    Dashboard Execution Parameters
+Verify Execute Dashboard With Execution Parameters
+    [Documentation]  Execute dashboard with execution parameters and check on each widgets.
+    ...              Risk/coverage area: Dashboard execution parameters.
+    [Tags]  TC_C229292  acc_wc_aci
+    [Setup]  Import Dashboard By API  /models/1  DASHBOARD_ExecutionParameters.json  DASHBOARD_ExecutionParameters.angles.json  user=${Username}
+    ${dashboardName}  Set variable  [ROBOT] Dashboard Execution Parameters
+    Search And Execute Dashboard With Execution Parameters  ${dashboardName}  Change Dashboard Execution Parameters Value
+    Check First Angle Should Apply Dashboard Execution Parameters
+    Check Second Angle Should Apply Dashboard Execution Parameters
+    Check Third Angle Should Apply Dashboard Execution Parameters
 
-Verify Execute Dashboard With Execution Parameters In Edit Mode
-    [Tags]  acc_wc_aci
-    ${dashboardName}  Set variable  Dashboard with execute parameters in edit mode
-    Execute Dashboard With Execution Parameters In Edit Mode    ${dashboardName}
-    [Teardown]  Back To Search And Delete Dashboard Are Created    ${dashboardName}
+    # edit mode
+    Re-execute Dashboard In Edit Mode With Execution Parameters  ${dashboardName}  Change Dashboard Execution Parameters Value
+    Check First Angle Should Apply Dashboard Execution Parameters
+    Check Second Angle Should Apply Dashboard Execution Parameters
+    Check Third Angle Should Apply Dashboard Execution Parameters
+
+    [Teardown]  Clean Up Items And Go To Search Page
 
 Verify Dashboard Drilldown
     [Documentation]  Check drilldown 2 widgets in Dashboard.

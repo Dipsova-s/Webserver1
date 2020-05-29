@@ -1226,7 +1226,6 @@ window.SearchPageHandler = function () {
     self.ExecuteDashboard = function () {
         var handler = new DashboardExecutionHandler();
         handler.Models = self.GetAllModels();
-        handler.ShowExecutionParameterPopup = self.ShowDashboardExecutionParameterPopup;
         handler.Execute(ko.toJS(searchModel.SelectedItems()));
     };
     self.GetAllModels = function () {
@@ -1241,23 +1240,6 @@ window.SearchPageHandler = function () {
         helpTextHandler.ShowHelpTextPopup(element.data('id'), helpTextHandler.HELPTYPE.CLASS, modelUri);
     };
     self.ShowDashboardExecutionParameterPopup = function (dashboard, executionsInfo) {
-        // custom angle & display in executionsInfo
-
-        // remove angle query step block
-        executionsInfo.angle.is_parameterized = false;
-        executionsInfo.angle.query_definition = [{
-            queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES,
-            base_classes: []
-        }];
-
-        // set new display query_blocks
-        executionsInfo.display.name = dashboard.name;
-        executionsInfo.display.is_parameterized = true;
-        executionsInfo.display.query_blocks = [WC.ModelHelper.ExtendQueryBlock({
-            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-            query_steps: executionsInfo.query_steps
-        })];
-
         var executionParameter = new ExecutionParameterHandler(executionsInfo.angle, executionsInfo.display);
         executionParameter.ShowPopupAfterCallback = function (e) {
             e.sender.element.find('.section-display .row-title .form-col-header').text(Localization.DashboardName);

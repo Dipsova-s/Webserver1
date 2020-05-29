@@ -273,6 +273,109 @@ describe("DashboardModel", function () {
         });
     });
 
+    describe(".GetAngleExecutionParameters", function () {
+        it("should get Angle execution parameters", function () {
+            // prepare
+            var angle = {
+                is_parameterized: true,
+                query_definition: [
+                    { queryblock_type: 'other' },
+                    {
+                        queryblock_type: 'query_steps',
+                        query_steps: [
+                            { is_execution_parameter: false },
+                            { is_execution_parameter: true }
+                        ]
+                    }
+                ]
+            };
+            var display = {
+                is_parameterized: true,
+                query_blocks: [
+                    {
+                        queryblock_type: 'query_steps',
+                        query_steps: [
+                            { is_execution_parameter: true },
+                            { is_execution_parameter: false },
+                            { is_execution_parameter: true }
+                        ]
+                    }
+                ]
+            };
+            var result = dashboardModel.GetAngleExecutionParameters(angle, display);
+
+            // assert
+            expect(result.angle).not.toBeNull();
+            expect(result.display).not.toBeNull();
+            expect(result.query_steps.length).toEqual(3);
+        });
+    });
+
+    describe(".GetAngleExecutionParametersInfo", function () {
+        it("should get Angle execution parameters info", function () {
+            // prepare
+            spyOn(dashboardModel, 'GetAngleExecutionParameters').and.returnValue({
+                query_steps: [
+                    { is_angle: true },
+                    { is_angle: false },
+                    { is_angle: false }
+                ]
+            });
+            var result = dashboardModel.GetAngleExecutionParametersInfo({}, {});
+
+            // assert
+            expect(result.angleQuery.execution_parameters.length).toEqual(1);
+            expect(result.displayQuery.execution_parameters.length).toEqual(2);
+        });
+        it("should not get Angle execution parameters info", function () {
+            // prepare
+            spyOn(dashboardModel, 'GetAngleExecutionParameters').and.returnValue({
+                query_steps: []
+            });
+            var result = dashboardModel.GetAngleExecutionParametersInfo({}, {});
+
+            // assert
+            expect(result).toEqual({});
+        });
+    });
+
+    describe(".GetDashboardExecutionParameters", function () {
+        it("should Dashboard execution parameters", function () {
+            // prepare
+            dashboardModel.Data({
+                model: '/models/1',
+                filters: [
+                    { is_execution_parameter: true },                    
+                    { is_execution_parameter: false },                    
+                    { is_execution_parameter: true }
+                ],
+                name: ko.observable('my-name')
+            });
+            var result = dashboardModel.GetDashboardExecutionParameters();
+
+            // assert
+            expect(result.angle.model).toEqual('/models/1');
+            expect(result.angle.is_parameterized).toEqual(false);
+            expect(result.angle.query_definition).toEqual([{
+                queryblock_type: 'base_classes',
+                base_classes: []
+            }]);
+            expect(result.display.name).toEqual('my-name');
+            expect(result.display.is_parameterized).toEqual(true);
+            expect(result.display.query_blocks).toEqual([{
+                queryblock_type: 'query_steps',
+                query_steps: [
+                    { is_execution_parameter: true },                  
+                    { is_execution_parameter: true }
+                ]
+            }]);
+            expect(result.query_steps).toEqual([
+                { is_execution_parameter: true },                  
+                { is_execution_parameter: true }
+            ]);
+        });
+    });
+
     describe(".SetBusinessProcesses", function () {
         it("should update locally for adhoc Dashboard", function () {
             // prepare
