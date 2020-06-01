@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/HelpTextHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/HelpTextHandler.js" />
 
 describe("HelpTextHandler", function () {
     var helpTextHandler;

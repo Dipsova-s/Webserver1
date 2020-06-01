@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/page/MC.GlobalSettings.WelcomePage.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.GlobalSettings.WelcomePage.js" />
 
 describe("MC.GlobalSettings.WelcomePage", function () {
 

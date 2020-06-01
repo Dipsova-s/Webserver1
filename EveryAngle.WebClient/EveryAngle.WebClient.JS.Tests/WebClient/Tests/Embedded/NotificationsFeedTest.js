@@ -1,43 +1,22 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <reference path="/Dependencies/ViewManagement/User/UserSettingView.js" />
-/// <reference path="/../SharedDependencies/notificationsfeed.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/NotificationsFeedHandler.js" />
-
-var notificationsFeed;
+﻿/// <reference path="/../../Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <reference path="/../../Dependencies/ViewManagement/User/UserSettingView.js" />
+/// <reference path="/../../Dependencies/ViewManagement/Shared/NotificationsFeedHandler.js" />
 
 describe("NotificationsFeed", function () {
-
     var notificationsFeedHandler;
     var notificationsFeedModel;
     var notificationsFeedRepository;
 
-    var mockWellResponse = [
-        {
-            id: 1,
-            title: { rendered: 'hero' },
-            excerpt: { rendered: 'hero hero' },
-            link: 'https://www.manaosoftware.com',
-            date_gmt: '2099-03-05T13:54:12'
-        }
-    ];
-
     beforeEach(function () {
-        var userId = 'localhost\HeroJa';
-        var toggleMenuFunction = function () { };
-
-        NotificationsFeedRepository.UserId = userId;
+        NotificationsFeedRepository.UserId = 'localhost\HeroJa';
         notificationsFeedRepository = new NotificationsFeedRepository();
-
         notificationsFeedModel = new WCNotificationsFeedModel(
             notificationsFeedRepository,
-            toggleMenuFunction
+            $.noop
         );
-
-        spyOn(notificationsFeedModel, 'GetFeedThumbnail').and.callFake(function () {
-            return 'test.jpg';
-        });
+        spyOn(notificationsFeedModel, 'GetFeedThumbnail').and.returnValue('test.jpg');
 
         notificationsFeedHandler = new NotificationsFeedHandler(notificationsFeedModel);
 
@@ -48,10 +27,10 @@ describe("NotificationsFeed", function () {
     describe("NotificationsFeedHandler", function () {
 
         beforeEach(function () {
-            notificationsFeed = {};
-            spyOn(notificationsFeedHandler, 'RequestFeedsHandling').and.callFake(jQuery.noop);
-            spyOn(notificationsFeedHandler, 'ShowTopMenuIcon').and.callFake(jQuery.noop);
-            spyOn(notificationsFeedHandler, 'CleanUpElements').and.callFake(jQuery.noop);
+            window.notificationsFeed = {};
+            spyOn(notificationsFeedHandler, 'RequestFeedsHandling');
+            spyOn(notificationsFeedHandler, 'ShowTopMenuIcon');
+            spyOn(notificationsFeedHandler, 'CleanUpElements');
         });
 
         it(".LoadFeeds (force rendering)", function () {
@@ -78,7 +57,7 @@ describe("NotificationsFeed", function () {
         });
 
         it(".LoadFeeds (to skip when notificationsFeed was undefined)", function () {
-            notificationsFeed = undefined;
+            delete window.notificationsFeed;
             var result = notificationsFeedHandler.LoadFeeds();
             expect(result).toBeFalsy();
         });
@@ -89,6 +68,13 @@ describe("NotificationsFeed", function () {
 
         describe("Online scenario", function () {
             beforeEach(function () {
+                var mockWellResponse = [ {
+                    id: 1,
+                    title: { rendered: 'hero' },
+                    excerpt: { rendered: 'hero hero' },
+                    link: 'https://www.manaosoftware.com',
+                    date_gmt: '2099-03-05T13:54:12'
+                }];
                 notificationsFeedModel.SetDataFeeds(mockWellResponse);
             });
 
@@ -104,7 +90,6 @@ describe("NotificationsFeed", function () {
             it(".ViewModel.Feeds", function () {
                 expect(notificationsFeedModel.ViewModel.Feeds().length).toEqual(1);
             });
-
         });
 
         describe("Offline scenario", function () {
@@ -118,7 +103,6 @@ describe("NotificationsFeed", function () {
                         createDate: 4081720149
                     }
                 ];
-
                 notificationsFeedModel.SetOfflineDataFeeds(feedHistory);
             });
 
@@ -134,6 +118,13 @@ describe("NotificationsFeed", function () {
 
         describe("MarkAsRead scenario", function () {
             beforeEach(function () {
+                var mockWellResponse = [ {
+                    id: 1,
+                    title: { rendered: 'hero' },
+                    excerpt: { rendered: 'hero hero' },
+                    link: 'https://www.manaosoftware.com',
+                    date_gmt: '2099-03-05T13:54:12'
+                }];
                 notificationsFeedModel.SetDataFeeds(mockWellResponse);
             });
 
@@ -177,7 +168,7 @@ describe("NotificationsFeed", function () {
 
         it(".ToggleNotificationsMenu", function () {
             spyOn(notificationsFeedModel, 'MarkAndUpdateAllAsNotified');
-            spyOn(notificationsFeedModel, 'DisplayRadialClickedEffect').and.callFake(jQuery.noop);
+            spyOn(notificationsFeedModel, 'DisplayRadialClickedEffect');
             notificationsFeedModel.ToggleNotificationsMenu();
             expect(notificationsFeedModel.MarkAndUpdateAllAsNotified).toHaveBeenCalled();
         });

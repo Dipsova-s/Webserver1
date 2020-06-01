@@ -1,35 +1,33 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryDefinitionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepFilterHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/dashboardstateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/dashboardstatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardWidgetDefinitionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardWidgetDefinitionView.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardStatisticView.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardStatisticHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelView.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardUserSpecificHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemDownloadHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSaveActionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardBusinessProcessHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardPageHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryDefinitionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepFilterHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/dashboardstateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/dashboardstatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardWidgetDefinitionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardWidgetDefinitionView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardStatisticView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardStatisticHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardSidePanelView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardSidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardUserSpecificHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDownloadHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardSaveActionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardBusinessProcessHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardPageHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 
 describe("DashboardPageHandler", function () {
     var dashboardPageHandler;
@@ -44,9 +42,13 @@ describe("DashboardPageHandler", function () {
 
     describe(".Initial", function () {
         beforeEach(function () {
-            angleInfoModel.Data({ id: 'my-angle-id' });
+            angleInfoModel.Data({
+                id: 'my-angle-id'
+            });
             angleInfoModel.Data.commit();
-            displayModel.Data({ id: 'my-display-id' });
+            displayModel.Data({
+                id: 'my-display-id'
+            });
             displayModel.Data.commit();
             spyOn(searchStorageHandler, 'Initial');
             spyOn(dashboardPageHandler, 'BackToSearch');

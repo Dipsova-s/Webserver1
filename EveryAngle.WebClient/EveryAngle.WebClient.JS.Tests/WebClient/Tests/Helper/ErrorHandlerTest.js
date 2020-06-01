@@ -1,5 +1,4 @@
-﻿var isLoginPage = true;
-/// <reference path="/Dependencies/ErrorHandler/ErrorHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ErrorHandler/ErrorHandler.js" />
 
 describe("ErrorHandlerTest", function () {
 

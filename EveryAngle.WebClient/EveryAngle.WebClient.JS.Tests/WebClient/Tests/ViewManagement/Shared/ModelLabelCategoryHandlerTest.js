@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelLabelCategoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelLabelCategoryHandler.js" />
 
 describe("ModelLabelHandler", function () {
     var modelLabelHandler;

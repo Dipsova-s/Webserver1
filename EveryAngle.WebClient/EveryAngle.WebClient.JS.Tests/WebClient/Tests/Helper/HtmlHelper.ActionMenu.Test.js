@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/Helper/HtmlHelper.ActionMenu.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/Helper/HtmlHelper.ActionMenu.js" />
 
 describe("WC.HtmlHelper.ActionMenu", function () {
 

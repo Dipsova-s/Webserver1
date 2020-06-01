@@ -1,7 +1,7 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleSaveAsHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleSaveAsHandler.js" />
 
 describe("AngleSaveAsHandler", function () {
 

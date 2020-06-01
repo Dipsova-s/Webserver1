@@ -1,5 +1,5 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Search/searchfilterlistviewhandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Search/searchfilterlistviewhandler.js" />
 
 describe('SearchFilterListViewHandler', function () {
 

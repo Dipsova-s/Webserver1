@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+﻿/// <chutzpah_reference path="/../../../Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
 
 describe("ChartHelper", function () {
     describe(".GetType", function () {

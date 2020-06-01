@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
 
 describe("ModelFieldDomainHandler", function () {
     var modelFieldDomainHandler;

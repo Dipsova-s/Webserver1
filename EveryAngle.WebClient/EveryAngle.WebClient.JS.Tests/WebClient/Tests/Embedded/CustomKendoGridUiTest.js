@@ -1,14 +1,15 @@
-﻿/// <reference path="/../SharedDependencies/customkendogridui.js" />
-
-describe("CustomKendoGridUi", function () {
+﻿describe("CustomKendoGridUi", function () {
 
     describe(".SetKendoKineticScrollNeeded", function () {
         beforeEach(function () {
-            window.kendo = {
+            createMockHandler(window, 'kendo', {
                 support: {
                     kineticScrollNeeded: false
                 }
-            };
+            });
+        });
+        afterEach(function () {
+            restoreMockHandlers();
         });
 
         var tests = [

@@ -1,7 +1,6 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/viewmanagement/shared/modelclasseshandler.js" />
-/// <reference path="/Dependencies/viewmanagement/shared/SearchStorageHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/Breadcrumb/BreadcrumbHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/modelclasseshandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/SearchStorageHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/Breadcrumb/BreadcrumbHandler.js" />
 
 
 describe("BreadcrumbHandler", function () {

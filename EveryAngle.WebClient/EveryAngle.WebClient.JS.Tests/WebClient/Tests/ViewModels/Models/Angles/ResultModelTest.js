@@ -1,7 +1,7 @@
-/// <reference path="/Dependencies/ErrorHandler/ErrorHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/shared/DirectoryHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ErrorHandler/ErrorHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/shared/DirectoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
 
 describe("ResultModel", function () {
     var resultModel;

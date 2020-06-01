@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewModels/Models/Exports/ExportModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Exports/ExportModel.js" />
 
 describe("ExportCSVModel", function () {
     var exportModel;

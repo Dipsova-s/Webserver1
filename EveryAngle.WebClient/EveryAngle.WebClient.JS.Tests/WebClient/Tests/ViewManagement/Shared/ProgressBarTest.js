@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/ProgressBar.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ProgressBar.js" />
 
 describe("ProgressBar", function () {
     var progressbarModel;
@@ -49,24 +49,6 @@ describe("ProgressBar", function () {
             });
 
         });
-
-        describe("Verify 'BackToSearch' function", function () {
-
-            beforeEach(function () {
-                progressbarModel.ReferenceUri = 'redirect=/x/1/y/1';
-            });
-
-            it("should call BackToSeach function from AnglePageHandler", function () {
-                progressbarModel.CloseProgressBarPopup();
-                expect(anglePageHandler.BackToSearch).toHaveBeenCalled();
-            });
-            it("should call BackToSeach function from DashboardPageHandler", function () {
-                delete window.anglePageHandler;
-                progressbarModel.CloseProgressBarPopup();
-                expect(dashboardPageHandler.BackToSearch).toHaveBeenCalled();
-            });
-        });
-
     });
 
     describe(".ShowStartProgressBar", function () {

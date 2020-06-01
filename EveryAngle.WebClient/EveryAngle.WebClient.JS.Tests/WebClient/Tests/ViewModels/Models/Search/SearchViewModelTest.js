@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
 
 describe("SearchViewModel", function () {
     var searchViewModel;

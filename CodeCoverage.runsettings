@@ -36,6 +36,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*chutzpah.*</ModulePath>
                 <ModulePath>.*miniprofiler.*</ModulePath>
                 <ModulePath>.*structuremap.*</ModulePath>
+                <ModulePath>.*ninject.*</ModulePath>
               </Exclude>
             </ModulePaths>
 

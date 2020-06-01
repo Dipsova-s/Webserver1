@@ -1,5 +1,5 @@
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/privileges.js" />
 
 describe("PrivilegesViewModel", function () {
     var privilegesViewModel;

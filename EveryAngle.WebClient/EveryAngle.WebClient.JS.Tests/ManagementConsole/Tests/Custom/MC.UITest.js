@@ -1,6 +1,4 @@
-﻿/// <reference path="/Dependencies/custom/MC.ui.js" />
-
-describe("MC.ui.js", function () {
+﻿describe("MC.ui.js", function () {
 
     describe("when create new instance", function () {
 

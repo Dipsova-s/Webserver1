@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/page/MC.Users.User.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.Users.User.js" />
 
 describe("MC.Users.User", function () {
     describe(".AddSelectedUsers", function () {

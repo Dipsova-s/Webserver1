@@ -1,12 +1,9 @@
-﻿/// <reference path="/../SharedDependencies/BusinessProcessesModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelLabelCategoryHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SystemSettingHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itempublishstatehandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelLabelCategoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemSettingHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itempublishstatehandler.js" />
 
 describe("ItemStateHandler", function () {
 

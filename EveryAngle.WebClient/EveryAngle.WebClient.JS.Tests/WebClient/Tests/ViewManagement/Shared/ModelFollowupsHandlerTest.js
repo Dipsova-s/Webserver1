@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />
 
 describe("ModelFollowupsHandler", function () {
     var modelFollowupsHandler;

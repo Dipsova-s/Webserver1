@@ -1,9 +1,9 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayResultHandler/BaseDisplayResultHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/ResultHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayOverviewHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayDrilldownHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayResultHandler/BaseDisplayResultHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ResultHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayOverviewHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayDrilldownHandler.js" />
 
 describe("DisplayDrilldownHandler", function () {
     var handler;
@@ -38,19 +38,22 @@ describe("DisplayDrilldownHandler", function () {
 
     describe(".GetDataSource", function () {
 
-        var displays = [
-            {
-                DisplayTypeClassName: 'none',
-                ExtendDisplayTypeClassName: 'none',
-                FilterClassName: 'none',
-                PublicClassName: 'none',
-                ParameterizedClassName: 'none',
-                ValidClassName: 'none',
-                Name: 'Display_name',
-                Uri: '',
-                Id: '100001'
-            }
-        ];
+        var displays;
+        beforeEach(function () {
+            displays = [
+                {
+                    DisplayTypeClassName: 'none',
+                    ExtendDisplayTypeClassName: 'none',
+                    FilterClassName: 'none',
+                    PublicClassName: 'none',
+                    ParameterizedClassName: 'none',
+                    ValidClassName: 'none',
+                    Name: 'Display_name',
+                    Uri: '',
+                    Id: '100001'
+                }
+            ];
+        });
 
         it("should return only [none] options when there is no non-adhoc display", function () {
 
@@ -102,22 +105,22 @@ describe("DisplayDrilldownHandler", function () {
         });
 
         var chartTypes = [
-            enumHandlers.CHARTTYPE.AREACHART,
-            enumHandlers.CHARTTYPE.BARCHART,
-            enumHandlers.CHARTTYPE.BUBBLECHART,
-            enumHandlers.CHARTTYPE.COLUMNCHART,
-            enumHandlers.CHARTTYPE.DONUTCHART,
-            enumHandlers.CHARTTYPE.LINECHART,
-            enumHandlers.CHARTTYPE.PIECHART,
-            enumHandlers.CHARTTYPE.RADARCHART,
-            enumHandlers.CHARTTYPE.SCATTERCHART
+            'area',
+            'bar',
+            'bubble',
+            'column',
+            'donut',
+            'line',
+            'pie',
+            'radarLine',
+            'scatter'
         ];
 
         $.each(chartTypes, function (index, chartType) {
-            it("should return [none] options with all display that chart_type is '" + chartType.Name + "'", function () {
+            it("should return [none] options with all display that chart_type is '" + chartType + "'", function () {
                 displays[0].IsNewAdhoc = false;
                 var displayObject = { GetDetails: $.noop };
-                spyOn(displayObject, "GetDetails").and.returnValue({ chart_type: chartType.Code });
+                spyOn(displayObject, "GetDetails").and.returnValue({ chart_type: chartType });
                 spyOn(handler.DisplayHandler.AngleHandler, "GetDisplay").and.returnValue(displayObject);
                 displays[0].DisplayType = enumHandlers.DISPLAYTYPE.CHART;
 

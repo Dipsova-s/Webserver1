@@ -1,6 +1,6 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/userfriendlynamehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelClassesHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/userfriendlynamehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelClassesHandler.js" />
 
 describe("ModelClassesHandler", function () {
     var modelClassesHandler;

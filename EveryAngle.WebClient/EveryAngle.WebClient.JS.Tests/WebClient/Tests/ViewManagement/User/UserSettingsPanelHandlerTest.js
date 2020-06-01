@@ -1,32 +1,24 @@
-﻿/// <reference path="/../SharedDependencies/BusinessProcessesModel.js" />
-/// <reference path="/../SharedDependencies/FieldsChooser.js" />
-
-/// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Search/searchquery.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
-
-/// <reference path="/Dependencies/ViewManagement/User/UserSettingView.js" />
-/// <reference path="/Dependencies/ViewManagement/shared/DirectoryHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelLabelCategoryHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SystemCurrencyHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SystemLanguageHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/shared/SystemInformationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/ListDrilldownHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/ListHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/ChartHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/PivotHandler.js" />
-
-/// <reference path="/Dependencies/ViewManagement/User/UserSettingsPanelHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchquery.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/User/UserSettingView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/shared/DirectoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelLabelCategoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemCurrencyHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemLanguageHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/shared/SystemInformationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ListDrilldownHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ListHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ChartHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/PivotHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/User/UserSettingsPanelHandler.js" />
 
 describe("UserSettingsPanelHandler", function () {
     var stateManagerTest;
@@ -44,17 +36,6 @@ describe("UserSettingsPanelHandler", function () {
             stateManagerTest,
             viewManagerTest
         );
-
-        createMockHandler(window, 'searchPageHandler', {});
-        createMockHandler(window, 'anglePageHandler', {
-            ExecuteAngle: $.noop
-        });
-        createMockHandler(window, 'dashboardPageHandler', {
-            ReApplyResult: $.noop
-        });
-    });
-    afterEach(function () {
-        restoreMockHandlers();
     });
 
     describe(".UpdateSampleDateSettings", function () {
@@ -78,9 +59,9 @@ describe("UserSettingsPanelHandler", function () {
     describe(".SetLabel ", function () {
 
         beforeEach(function () {
-            spyOn(directoryHandler, "GetDirectoryUri").and.callFake($.noop);
-            spyOn(modelLabelCategoryHandler, "LoadAllLabelCategories").and.callFake($.noop);
-            spyOn(modelLabelCategoryHandler, "LoadAllLabels").and.callFake($.noop);
+            spyOn(directoryHandler, "GetDirectoryUri");
+            spyOn(modelLabelCategoryHandler, "LoadAllLabelCategories");
+            spyOn(modelLabelCategoryHandler, "LoadAllLabels");
         });
 
         it("when not load all label, retrun load all label", function () {
@@ -117,26 +98,26 @@ describe("UserSettingsPanelHandler", function () {
             spyOn(userSettingModel, "Data").and.callFake(function () {
                 return {};
             });
-            spyOn(userSettingsPanelHandler, "InitialControlUser").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsModel").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsLabelCategories").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsExecuteLastSearch").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsExecuteItem").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "InitialControlUser");
+            spyOn(userSettingsPanelHandler, "InitialControlsModel");
+            spyOn(userSettingsPanelHandler, "InitialControlsLabelCategories");
+            spyOn(userSettingsPanelHandler, "InitialControlsExecuteLastSearch");
+            spyOn(userSettingsPanelHandler, "InitialControlsExecuteItem");
 
-            spyOn(userSettingsPanelHandler, "InitialControlsBusinessProcess").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsLanguage").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsRowExportToExcel").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsFacetWarning").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsFieldChooser").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsTechnicalInfo").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "InitialControlsBusinessProcess");
+            spyOn(userSettingsPanelHandler, "InitialControlsLanguage");
+            spyOn(userSettingsPanelHandler, "InitialControlsRowExportToExcel");
+            spyOn(userSettingsPanelHandler, "InitialControlsFacetWarning");
+            spyOn(userSettingsPanelHandler, "InitialControlsFieldChooser");
+            spyOn(userSettingsPanelHandler, "InitialControlsTechnicalInfo");
 
-            spyOn(userSettingsPanelHandler, "InitialControlsNumberGeneral").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsNumber").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsCurrency").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsPercentages").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsDate").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsTime").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "InitialControlsEnum").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "InitialControlsNumberGeneral");
+            spyOn(userSettingsPanelHandler, "InitialControlsNumber");
+            spyOn(userSettingsPanelHandler, "InitialControlsCurrency");
+            spyOn(userSettingsPanelHandler, "InitialControlsPercentages");
+            spyOn(userSettingsPanelHandler, "InitialControlsDate");
+            spyOn(userSettingsPanelHandler, "InitialControlsTime");
+            spyOn(userSettingsPanelHandler, "InitialControlsEnum");
 
             userSettingsPanelHandler.InitialControls();
         });
@@ -166,8 +147,7 @@ describe("UserSettingsPanelHandler", function () {
                 return dropdownList;
             });
 
-
-            kendo.data = { DataSource: $.noop };
+            spyOn(kendo.data, 'DataSource');
             userSettingsPanelHandler.DataModels = {};
             userSettingsPanelHandler.DataModels.data = [{
                 uri: '/models/1',
@@ -251,7 +231,7 @@ describe("UserSettingsPanelHandler", function () {
             spyOn(systemLanguageHandler, "GetEnableLanguages").and.callFake(function () {
                 return 'en';
             });
-            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist");
         });
 
         it("RenderFormatSettingDropdownlist should be called and set default as 'nl'", function () {
@@ -279,7 +259,7 @@ describe("UserSettingsPanelHandler", function () {
                 ];
                 return rowOptions;
             });
-            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist");
         });
 
         it("RenderFormatSettingDropdownlist should be called", function () {
@@ -369,7 +349,7 @@ describe("UserSettingsPanelHandler", function () {
         beforeEach(function () {
             decimalTemp = enumHandlers.GENERAL_DEFAULT_SEPARATOR.DECIMAL;
             thousanSeparatorTemp = enumHandlers.GENERAL_DEFAULT_SEPARATOR.SEPARATOR;
-            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist");
         });
 
         afterEach(function () {
@@ -397,7 +377,7 @@ describe("UserSettingsPanelHandler", function () {
     describe(".InitialControlsNumber", function () {
 
         beforeEach(function () {
-            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist");
             spyOn(WC.FormatHelper, "GetUserDefaultFormatSettings").and.callFake(function () {
                 return {
                     decimals: '',
@@ -427,7 +407,7 @@ describe("UserSettingsPanelHandler", function () {
     describe(".InitialControlsCurrency", function () {
 
         beforeEach(function () {
-            spyOn(popup, "Alert").and.callFake($.noop);
+            spyOn(popup, "Alert");
 
             spyOn(WC.FormatHelper, "GetUserDefaultFormatSettings").and.callFake(function () {
                 return {
@@ -471,7 +451,7 @@ describe("UserSettingsPanelHandler", function () {
     describe(".InitialControlsPercentages", function () {
 
         beforeEach(function () {
-            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist");
             spyOn(WC.FormatHelper, "GetUserDefaultFormatSettings").and.callFake(function () {
                 return {
                     decimals: '',
@@ -500,7 +480,7 @@ describe("UserSettingsPanelHandler", function () {
 
     describe(".InitialControlsDate", function () {
         beforeEach(function () {
-            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist");
             spyOn(WC.FormatHelper, "GetUserDefaultFormatSettings").and.callFake(function () {
                 return {
                     decimals: '',
@@ -518,7 +498,7 @@ describe("UserSettingsPanelHandler", function () {
 
     describe(".InitialControlsTime", function () {
         beforeEach(function () {
-            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist");
             spyOn(WC.FormatHelper, "GetUserDefaultFormatSettings").and.callFake(function () {
                 return {
                     decimals: '',
@@ -537,7 +517,7 @@ describe("UserSettingsPanelHandler", function () {
 
     describe(".InitialControlsEnum", function () {
         beforeEach(function () {
-            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist");
             spyOn(WC.FormatHelper, "GetUserDefaultFormatSettings").and.callFake(function () {
                 return {
                     format: 'shn'
@@ -643,7 +623,7 @@ describe("UserSettingsPanelHandler", function () {
         });
 
         it("when dropdown change, ChangeDropdownFormat should be called", function () {
-            spyOn(userSettingsPanelHandler, "ChangeDropdownFormat").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "ChangeDropdownFormat");
             var ddl = userSettingsPanelHandler.RenderFormatSettingDropdownlist(elementId, models, userSettingDefault, null, null);
             var e = { sender: { wrapper: { context: {} } } };
             ddl.kendoDropDownOption.change(e);
@@ -705,28 +685,28 @@ describe("UserSettingsPanelHandler", function () {
     describe(".SaveUserSettings", function () {
 
         beforeEach(function () {
-            spyOn(popup, 'Alert').and.callFake($.noop);
+            spyOn(popup, 'Alert');
             spyOn(userSettingModel, 'Data').and.callFake(function () { return {}; });
-            spyOn(userSettingsPanelHandler, 'SetDefaultBusinessProcess').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetLanguage').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetNumberExportExcel').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetTechnicalInfoSapFieldChooser').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetTechnicalInfoSapFieldHeader').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetEnumFormat').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetCurrencyType').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetNumberFormat').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetCurrencyFormat').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetPercentFormat').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetDateFormat').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetTimeFormat').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetAutoExecuteLastSearch').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetAutoExecuteAtLogin').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SetClientSetting').and.callFake($.noop);
-            spyOn(userSettingModel, 'ReloadAfterChanged').and.callFake($.noop);
-            spyOn(window, 'SetLoadingVisibility').and.callFake($.noop);
-            spyOn(userSettingModel, 'PutExecuteAtLogin').and.callFake($.noop);
-            spyOn(userSettingModel, 'Save').and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, 'SaveUserSettingsCallback').and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, 'SetDefaultBusinessProcess');
+            spyOn(userSettingsPanelHandler, 'SetLanguage');
+            spyOn(userSettingsPanelHandler, 'SetNumberExportExcel');
+            spyOn(userSettingsPanelHandler, 'SetTechnicalInfoSapFieldChooser');
+            spyOn(userSettingsPanelHandler, 'SetTechnicalInfoSapFieldHeader');
+            spyOn(userSettingsPanelHandler, 'SetEnumFormat');
+            spyOn(userSettingsPanelHandler, 'SetCurrencyType');
+            spyOn(userSettingsPanelHandler, 'SetNumberFormat');
+            spyOn(userSettingsPanelHandler, 'SetCurrencyFormat');
+            spyOn(userSettingsPanelHandler, 'SetPercentFormat');
+            spyOn(userSettingsPanelHandler, 'SetDateFormat');
+            spyOn(userSettingsPanelHandler, 'SetTimeFormat');
+            spyOn(userSettingsPanelHandler, 'SetAutoExecuteLastSearch');
+            spyOn(userSettingsPanelHandler, 'SetAutoExecuteAtLogin');
+            spyOn(userSettingsPanelHandler, 'SetClientSetting');
+            spyOn(userSettingModel, 'ReloadAfterChanged');
+            spyOn(window, 'SetLoadingVisibility');
+            spyOn(userSettingModel, 'PutExecuteAtLogin');
+            spyOn(userSettingModel, 'Save');
+            spyOn(userSettingsPanelHandler, 'SaveUserSettingsCallback');
         });
 
         it("SaveUserSettingsCallback have been called", function () {
@@ -745,7 +725,7 @@ describe("UserSettingsPanelHandler", function () {
                 };
                 return value;
             });
-            spyOn(userSettingsPanelHandler, 'IsInvalidUserCurrency').and.callFake(function () { return false; });
+            spyOn(userSettingsPanelHandler, 'IsInvalidUserCurrency').and.returnValue(false);
 
             userSettingsPanelHandler.SaveUserSettings();
             expect(userSettingsPanelHandler.SaveUserSettingsCallback).toHaveBeenCalled();
@@ -1316,48 +1296,6 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe(".SaveUserSettingsCallback", function () {
-        var data;
-        beforeEach(function () {
-            spyOn(userSettingsPanelHandler, "ClearLocalStorageAfterChangeUserSetting").and.callFake($.noop);
-            spyOn(searchQueryModel, "Search").and.callFake($.noop);
-            spyOn(searchQueryModel, "SetUIOfAdvanceSearchFromParams");
-            spyOn(window, "ReloadWebPage").and.callFake($.noop);
-            data = { default_language: 'en' };
-        });
-
-        it("reload after change, function ReloadWebPage have been called", function () {
-            spyOn(userSettingModel, "ReloadAfterChanged").and.callFake(function () { return true; });
-            userSettingsPanelHandler.SaveUserSettingsCallback(data);
-            expect(window.ReloadWebPage).toHaveBeenCalled();
-        });
-        it("in angle page, function ExecuteAngle have been called", function () {
-            spyOn(userSettingModel, "ReloadAfterChanged").and.callFake(function () { return false; });
-            spyOn(anglePageHandler, 'ExecuteAngle');
-            delete window.searchPageHandler;
-            userSettingsPanelHandler.SaveUserSettingsCallback(data);
-            expect(anglePageHandler.ExecuteAngle).toHaveBeenCalled();
-        });
-        it("in dashboard page, function ReApplyResult have been called", function () {
-            spyOn(userSettingModel, "ReloadAfterChanged").and.callFake(function () { return false; });
-            delete window.searchPageHandler;
-            delete window.anglePageHandler;
-            spyOn(dashboardPageHandler, "ReApplyResult");
-
-            userSettingsPanelHandler.SaveUserSettingsCallback(data);
-            expect(dashboardPageHandler.ReApplyResult).toHaveBeenCalled();
-        });
-        it("should do nothing if in others page", function () {
-            spyOn(userSettingModel, "ReloadAfterChanged").and.callFake(function () { return false; });
-            delete window.searchPageHandler;
-            delete window.anglePageHandler;
-            delete window.dashboardPageHandler;
-            userSettingsPanelHandler.SaveUserSettingsCallback(data);
-
-            expect(toast.MakeSuccessText).toHaveBeenCalled();
-        });
-    });
-
     describe(".ClearLocalStorageAfterChangeUserSetting", function () {
 
         beforeEach(function () {
@@ -1378,13 +1316,13 @@ describe("UserSettingsPanelHandler", function () {
     describe(".ChangeDropdownFormat", function () {
 
         beforeEach(function () {
-            spyOn(userSettingsPanelHandler, "ChangeGeneralFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeNumberFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeCurerncyFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangePercentagesFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeDateFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeTimeFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeSetFormat").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "ChangeGeneralFormat");
+            spyOn(userSettingsPanelHandler, "ChangeNumberFormat");
+            spyOn(userSettingsPanelHandler, "ChangeCurerncyFormat");
+            spyOn(userSettingsPanelHandler, "ChangePercentagesFormat");
+            spyOn(userSettingsPanelHandler, "ChangeDateFormat");
+            spyOn(userSettingsPanelHandler, "ChangeTimeFormat");
+            spyOn(userSettingsPanelHandler, "ChangeSetFormat");
         });
 
         it("GeneralDecimalSeperatorDropdown should call ChangeGeneralFormat", function () {
@@ -1430,13 +1368,13 @@ describe("UserSettingsPanelHandler", function () {
 
     describe(".InitialExampleFormat", function () {
         beforeEach(function () {
-            spyOn(userSettingsPanelHandler, "ChangeGeneralFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeNumberFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeCurerncyFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangePercentagesFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeDateFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeTimeFormat").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "ChangeSetFormat").and.callFake($.noop);
+            spyOn(userSettingsPanelHandler, "ChangeGeneralFormat");
+            spyOn(userSettingsPanelHandler, "ChangeNumberFormat");
+            spyOn(userSettingsPanelHandler, "ChangeCurerncyFormat");
+            spyOn(userSettingsPanelHandler, "ChangePercentagesFormat");
+            spyOn(userSettingsPanelHandler, "ChangeDateFormat");
+            spyOn(userSettingsPanelHandler, "ChangeTimeFormat");
+            spyOn(userSettingsPanelHandler, "ChangeSetFormat");
         });
 
         it("ChangeSetFormat should be called", function () {
@@ -1889,9 +1827,9 @@ describe("UserSettingsPanelHandler", function () {
 
         beforeEach(function () {
             WC.HtmlHelper.Tab = $.noop;
-            spyOn(userSettingsPanelHandler, 'TogglePanel').and.callFake(jQuery.noop);
-            spyOn(stateManagerTest, 'RestoreSettings').and.callFake(jQuery.noop);
-            spyOn(userSettingsPanelHandler, 'LoadData').and.callFake(jQuery.noop);
+            spyOn(userSettingsPanelHandler, 'TogglePanel');
+            spyOn(stateManagerTest, 'RestoreSettings');
+            spyOn(userSettingsPanelHandler, 'LoadData');
             jQuery('body')
                 .append('<a class="settingsPanelSaveButton"></a>')
                 .append('<div id="SettingsPanel" class="hide"></div>');

@@ -1,11 +1,10 @@
-/// <reference path="/../SharedDependencies/BusinessProcessesModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Search/searchquery.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Search/searchfilterlistviewhandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchquery.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Search/searchfilterlistviewhandler.js" />
 
 describe("FacetFiltersViewModel", function () {
     var facetFiltersViewModel;

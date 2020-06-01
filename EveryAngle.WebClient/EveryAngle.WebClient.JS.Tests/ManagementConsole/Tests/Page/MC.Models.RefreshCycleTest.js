@@ -1,6 +1,4 @@
-﻿/// <reference path="/../SharedDependencies/FieldsChooser.js" />
-/// <reference path="/Dependencies/page/MC.Models.RefreshCycle.js" />
-
+﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.Models.RefreshCycle.js" />
 
 describe("MC.Models.RefreshCycle", function () {
     var refreshCycle;

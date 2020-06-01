@@ -1,5 +1,5 @@
-/// <reference path="/Dependencies/viewmanagement/shared/SystemSettingHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/FieldSettings/fieldsettingsmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/SystemSettingHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/FieldSettings/fieldsettingsmodel.js" />
 
 describe("FieldSettingsModel", function () {
 

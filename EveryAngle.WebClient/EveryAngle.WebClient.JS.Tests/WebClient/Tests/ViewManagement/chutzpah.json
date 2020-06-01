@@ -1,0 +1,15 @@
+﻿{
+    "InheritFromParent": true,
+    "EnableTestFileBatching": true,
+    "References": [
+        { "Path": "/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" },
+        { "Path": "/../../Dependencies/ViewModels/Models/User/usermodel.js" },
+        { "Path": "/../../Dependencies/ViewModels/Models/User/privileges.js" }
+    ],
+    "Tests": [
+        {
+            "Includes": [ "*.js" ],
+            "ExpandReferenceComments": true
+        }
+    ]
+}

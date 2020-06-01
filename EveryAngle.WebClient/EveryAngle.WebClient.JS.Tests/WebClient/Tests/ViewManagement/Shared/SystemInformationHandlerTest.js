@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/SystemInformationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemInformationHandler.js" />
 
 describe("SystemInformationHandler", function () {
     var systemInformationHandler;

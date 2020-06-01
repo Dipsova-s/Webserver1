@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/Helper/HtmlHelper.MenuNavigatable.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/Helper/HtmlHelper.MenuNavigatable.js" />
 
 describe("HtmlHelper.MenuNavigatable test", function () {
 

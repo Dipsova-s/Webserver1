@@ -1,6 +1,4 @@
-﻿/// <reference path="/../SharedDependencies/FieldsChooser.js" />
-
-describe("FieldsChooser", function () {
+﻿describe("FieldsChooser", function () {
 
     var fieldsChooserModel;
 

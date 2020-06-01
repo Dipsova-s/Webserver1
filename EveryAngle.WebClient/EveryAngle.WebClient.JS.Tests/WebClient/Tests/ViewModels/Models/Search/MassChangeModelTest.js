@@ -1,6 +1,6 @@
-/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Search/masschangemodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/masschangemodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 
 describe("MassChangeModel", function () {
     var massChangeModel;

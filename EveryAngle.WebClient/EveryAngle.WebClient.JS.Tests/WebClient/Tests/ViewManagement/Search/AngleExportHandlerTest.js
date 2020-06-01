@@ -1,6 +1,6 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
-/// <reference path="/Dependencies/viewmanagement/shared/itemdownloadhandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Search/AngleExportHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/itemdownloadhandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Search/AngleExportHandler.js" />
 
 describe("AngleExportHandler", function () {
     var angleExportHandler;

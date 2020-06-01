@@ -1,14 +1,13 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <reference path="/Dependencies/ViewModels/Models/FieldSettings/fieldsettingsmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SystemSettingHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/FieldSettings/fieldsettingsmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemSettingHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFieldsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
 
 describe("FieldSettingsHandler", function () {
 

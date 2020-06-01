@@ -1,11 +1,8 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/anglestateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/anglestatehandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestatehandler.js" />
 
 describe("AngleStateHandler", function () {
 

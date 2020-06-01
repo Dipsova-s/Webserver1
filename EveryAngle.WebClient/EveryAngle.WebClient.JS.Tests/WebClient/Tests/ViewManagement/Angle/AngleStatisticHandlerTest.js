@@ -1,7 +1,6 @@
-﻿/// <reference path="/Dependencies/Helper/DateTimeExtension.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleStatisticView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleStatisticHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleStatisticView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleStatisticHandler.js" />
 
 describe("AngleStatisticHandler", function () {
     var handler;

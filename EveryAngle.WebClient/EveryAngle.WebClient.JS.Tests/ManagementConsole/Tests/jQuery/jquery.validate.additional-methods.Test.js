@@ -1,5 +1,5 @@
-﻿/// <reference path="/Dependencies/jquery/jquery.validate.min.js" />
-/// <reference path="/Dependencies/jquery/jquery.validate.additional-methods.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/jquery/jquery.validate.min.js" />
+/// <chutzpah_reference path="/../../Dependencies/jquery/jquery.validate.additional-methods.js" />
 
 describe("$.validator.methods", function () {
     

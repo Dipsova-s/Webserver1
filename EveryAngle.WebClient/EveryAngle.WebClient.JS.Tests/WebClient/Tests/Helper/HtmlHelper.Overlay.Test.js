@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/Helper/HtmlHelper.Overlay.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/Helper/HtmlHelper.Overlay.js" />
 
 describe("HtmlHelper.Overlay", function () {
     describe(".Create", function () {

@@ -1,5 +1,5 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Angle/ResultModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/ListDrilldownHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/ResultModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ListDrilldownHandler.js" />
 
 describe("ListDrilldownHandler", function () {
     var listDrilldownHandler;

@@ -1,6 +1,4 @@
-﻿/// <reference path="/../SharedDependencies/ClassesChooser.js" />
-
-describe("ClassesChooser", function () {
+﻿describe("ClassesChooser", function () {
 
     var settings = {
         createby_object: {

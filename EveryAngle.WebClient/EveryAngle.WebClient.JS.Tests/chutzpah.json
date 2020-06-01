@@ -1,0 +1,36 @@
+﻿{
+    "Framework": "jasmine",
+    //"Server": {
+    //    "Enabled": true
+    //},
+    //"Engine": "Chrome",
+    //"EngineOptions": {
+    //    "ChromeBrowserPath": "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+    //},
+    //"BrowserArguments": {
+    //    "chrome": "--allow-file-access-from-files --allow-file-access"
+    //},
+    "CodeCoverageExecutionMode": "Manual",
+    "CodeCoverageIncludes": [],
+    "CodeCoverageExcludes": [
+        "*\\MockData\\*",
+        "*\\Tests\\*",
+        "*\\Global.js"
+    ],
+    "CodeCoverageIgnores": [],
+    "CodeCoverageTimeout": 600000,
+    "TestFileTimeout": 600000,
+    "RootReferencePathMode": "SettingsFileDirectory",
+    "References": [
+        {
+            "Path": "MockData",
+            "Includes": [ "*.js" ]
+        }
+    ],
+    "Transforms": [
+        {
+            "Name": "jacoco",
+            "Path": "coverage.xml"
+        }
+    ]
+}

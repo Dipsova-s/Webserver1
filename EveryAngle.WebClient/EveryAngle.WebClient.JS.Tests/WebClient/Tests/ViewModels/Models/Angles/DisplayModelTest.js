@@ -1,16 +1,16 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/displaymodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/validationHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displaymodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/validationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 
 describe("DisplayModel", function () {
     var displayModel;
@@ -144,7 +144,7 @@ describe("DisplayModel", function () {
             {
                 arguments: {
                     value: 0,
-                    fieldType: enumHandlers.FIELDTYPE.PERCENTAGE,
+                    fieldType: 'percentage',
                     bucketOperator: 'power10_min2'
                 },
                 expectedResult: {
@@ -155,7 +155,7 @@ describe("DisplayModel", function () {
             {
                 arguments: {
                     value: 10,
-                    fieldType: enumHandlers.FIELDTYPE.PERCENTAGE,
+                    fieldType: 'percentage',
                     bucketOperator: 'power10_3'
                 },
                 expectedResult: {

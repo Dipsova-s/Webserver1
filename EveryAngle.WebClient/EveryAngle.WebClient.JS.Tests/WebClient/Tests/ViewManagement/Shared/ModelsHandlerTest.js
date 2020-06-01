@@ -1,7 +1,7 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/FieldChooserHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelCurrentInstanceHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/FieldChooserHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelCurrentInstanceHandler.js" />
 
 describe("ModelsHandler", function () {
     var modelsHandler;

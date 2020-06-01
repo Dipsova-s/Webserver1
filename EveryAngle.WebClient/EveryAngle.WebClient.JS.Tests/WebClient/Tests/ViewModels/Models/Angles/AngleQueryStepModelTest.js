@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewModels/Models/Angle/anglequerystepmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/anglequerystepmodel.js" />
 
 describe("AngleQueryStepModel", function () {
     var angleQueryStepModel;

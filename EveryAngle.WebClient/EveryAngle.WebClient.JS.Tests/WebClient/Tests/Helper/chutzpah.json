@@ -1,0 +1,10 @@
+﻿{
+    "InheritFromParent": true,
+    "EnableTestFileBatching": true,
+    "Tests": [
+        {
+            "Includes": [ "*.js" ],
+            "ExpandReferenceComments": true
+        }
+    ]
+}

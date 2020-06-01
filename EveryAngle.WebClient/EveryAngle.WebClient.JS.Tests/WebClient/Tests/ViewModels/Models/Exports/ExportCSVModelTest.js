@@ -1,5 +1,5 @@
-/// <reference path="/Dependencies/ViewModels/Models/Exports/ExportModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Exports/ExportCSVModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Exports/ExportModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Exports/ExportCSVModel.js" />
 
 describe("ExportCSVModel", function () {
     var exportCSVModel;

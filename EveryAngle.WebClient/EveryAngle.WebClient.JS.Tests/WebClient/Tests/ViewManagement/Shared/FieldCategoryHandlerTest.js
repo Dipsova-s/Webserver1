@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/FieldCategoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/FieldCategoryHandler.js" />
 
 describe("FieldCategoryHandler", function () {
     var fieldCategoryHandler;

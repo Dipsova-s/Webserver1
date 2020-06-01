@@ -1,48 +1,43 @@
-﻿/// <reference path="/Dependencies/Helper/MeasurePerformance.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/BaseItemHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itempublishstatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/anglestateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/anglestatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/anglepublishstatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleActionMenuHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleSidePanelView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleSidePanelHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/ResultHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayResultHandler/BaseDisplayResultHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayOverviewHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayDrilldownHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayStatisticView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayStatisticHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepViewModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryDefinitionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepFilterHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepJumpHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepSortableHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleBusinessProcessHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleUserSpecificHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleSaveActionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleStatisticView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleStatisticHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AnglePageHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/BaseItemHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itempublishstatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglepublishstatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleActionMenuHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleSidePanelView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleSidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ResultHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayResultHandler/BaseDisplayResultHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayOverviewHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayDrilldownHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayStatisticView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayStatisticHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepViewModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryDefinitionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepFilterHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepJumpHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepSortableHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleBusinessProcessHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleUserSpecificHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleSaveActionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleStatisticView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleStatisticHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AnglePageHandler.js" />
 
 describe("AngleStateHandler", function () {
 
@@ -57,6 +52,10 @@ describe("AngleStateHandler", function () {
             },
             HasAnyChanged: $.noop
         });
+    });
+
+    afterEach(function () {
+        restoreMockHandlers();
     });
 
     describe(".CheckShowingPublishSettingsPopup", function () {

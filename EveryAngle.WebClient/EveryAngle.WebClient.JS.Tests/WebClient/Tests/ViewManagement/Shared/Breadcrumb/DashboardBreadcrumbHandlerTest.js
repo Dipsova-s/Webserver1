@@ -1,7 +1,5 @@
-﻿
-/// <reference path="/Dependencies/ViewManagement/Shared/Breadcrumb/BreadcrumbHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/Breadcrumb/DashboardBreadcrumbHandler.js" />
-
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/Breadcrumb/BreadcrumbHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/Breadcrumb/DashboardBreadcrumbHandler.js" />
 
 describe("DashboardBreadcrumbHandler", function () {
     var handler;

@@ -1,37 +1,34 @@
 ﻿describe('MC.util.modelserverinfo', function () {
 
-    var modelServerInfo = MC.util.modelServerInfo;
-
-    describe('when create new instance', function () {
-        it('should be defined', function () {
-            expect(modelServerInfo).toBeDefined();
-        });
+    var modelServerInfo;
+    beforeEach(function () {
+        modelServerInfo = MC.util.modelServerInfo;
     });
 
     describe('call convertMAFieldTypeToKendoFieldType', function () {
         var testCases = [{
             fieldType: '',
-            expectedResult: modelServerInfo.KENDO_FIELD_TYPES.TEXT
+            expectedResult: 'string'
         },
         {
-            fieldType: modelServerInfo.REPORT_FIELD_TYPES.TEXT,
-            expectedResult: modelServerInfo.KENDO_FIELD_TYPES.TEXT
+            fieldType: 'text',
+            expectedResult: 'string'
         },
         {
-            fieldType: modelServerInfo.REPORT_FIELD_TYPES.INT,
-            expectedResult: modelServerInfo.KENDO_FIELD_TYPES.INT
+            fieldType: 'int',
+            expectedResult: 'number'
         },
         {
-            fieldType: modelServerInfo.REPORT_FIELD_TYPES.FLOAT,
-            expectedResult: modelServerInfo.KENDO_FIELD_TYPES.FLOAT
+            fieldType: 'float',
+            expectedResult: 'number'
         },
         {
-            fieldType: modelServerInfo.REPORT_FIELD_TYPES.BOOL,
-            expectedResult: modelServerInfo.KENDO_FIELD_TYPES.BOOL
+            fieldType: 'bool',
+            expectedResult: 'boolean'
         },
         {
-            fieldType: modelServerInfo.REPORT_FIELD_TYPES.TIME,
-            expectedResult: modelServerInfo.KENDO_FIELD_TYPES.TIME
+            fieldType: 'time',
+            expectedResult: 'date'
         }];
         jQuery.each(testCases, function (index, testCase) {
             it(kendo.format('should convert to kendo field type by data type "{0}" correctlly', testCase.fieldType), function () {
@@ -48,7 +45,7 @@
             expectedResult: 'test'
         },
         {
-            fieldType: modelServerInfo.REPORT_FIELD_TYPES.TIME,
+            fieldType: 'time',
             fieldValue: 1511201059.187,
             expectedResult: kendo.date.today()
         }];
@@ -85,14 +82,14 @@
         },
         {
             fieldData: {
-                type: modelServerInfo.REPORT_FIELD_TYPES.TIME,
+                type: 'time',
                 showmsecs: true
             },
             expectedResult: 'HH:mm:ss.fff'
         },
         {
             fieldData: {
-                type: modelServerInfo.REPORT_FIELD_TYPES.FLOAT,
+                type: 'float',
                 decimals: 5
             },
             expectedResult: 'n5'
@@ -114,14 +111,14 @@
         },
         {
             fieldData: {
-                type: modelServerInfo.REPORT_FIELD_TYPES.TIME,
+                type: 'time',
                 showmsecs: true
             },
             expectedResult: '{0:HH:mm:ss.fff}'
         },
         {
             fieldData: {
-                type: modelServerInfo.REPORT_FIELD_TYPES.FLOAT,
+                type: 'float',
                 decimals: 5
             },
             expectedResult: '{0:n5}'

@@ -1,5 +1,4 @@
-﻿/// <reference path="/Dependencies/custom/MC.ui.js" />
-/// <reference path="/Dependencies/custom/MC.ui.gridsorting.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/custom/MC.ui.gridsorting.js" />
 
 describe("MC.ui.gridsorting.js", function () {
     describe("MC.ui.gridsorting.isGridServerSortingIssue", function () {

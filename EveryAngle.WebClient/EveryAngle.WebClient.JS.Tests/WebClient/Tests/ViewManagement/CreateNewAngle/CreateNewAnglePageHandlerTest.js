@@ -1,6 +1,6 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/CreateNewAngle/createnewanglepagehandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/CreateNewAngle/createnewanglepagehandler.js" />
 
 describe("CreateNewAnglePageHandlerTest", function () {
 

@@ -313,3 +313,4 @@ __pycache__/
 /EveryAngle.WebClient/EveryAngle.WebClient.Web/Content/kendoui/**
 /EveryAngle.WebClient/EveryAngle.WebClient.Web/Scripts/KendoUI/**
 /EveryAngle.WebClient/EveryAngle.WebClient.Web/Admin/UploadedResources
+**/coverage.xml

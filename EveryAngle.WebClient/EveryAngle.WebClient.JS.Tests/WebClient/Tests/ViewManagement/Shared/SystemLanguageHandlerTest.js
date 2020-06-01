@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/SystemLanguageHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemLanguageHandler.js" />
 
 
 describe("SystemLanguageHandler", function () {

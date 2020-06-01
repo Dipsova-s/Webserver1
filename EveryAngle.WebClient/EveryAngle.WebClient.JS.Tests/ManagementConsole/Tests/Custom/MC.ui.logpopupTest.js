@@ -1,5 +1,4 @@
-﻿
-describe("MC.ui.logpopup.js", function () {
+﻿describe("MC.ui.logpopup.js", function () {
 
     describe(".kendoGrid", function () {
 

@@ -1,12 +1,11 @@
-﻿/// <reference path="/../SharedDependencies/FieldsChooser.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
-/// <reference path="/Dependencies/viewmanagement/shared/fieldchooserhandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/fieldchooserhandler.js" />
 
 describe("FieldsChooserHandler", function () {
     var fieldsChooserHandler;

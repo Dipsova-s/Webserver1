@@ -1,16 +1,15 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/ChartHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ChartHandler.js" />
 
 describe("ChartHandler", function () {
 
@@ -693,13 +692,13 @@ describe("ChartHandler", function () {
     describe("call GetPeriodRangeFormatSetting", function () {
         describe("should get expected total number of days", function () {
             this.bucketOperators = [
-                { type: 'day', operator: enumHandlers.FILTERPERIODTYPE.DAY, expectedTotalDays: 1 },
-                { type: 'week', operator: enumHandlers.FILTERPERIODTYPE.WEEK, expectedTotalDays: 7 },
-                { type: 'month', operator: enumHandlers.FILTERPERIODTYPE.MONTH, expectedTotalDays: 30.43685 },
-                { type: 'quarter', operator: enumHandlers.FILTERPERIODTYPE.QUARTER, expectedTotalDays: 91.31055 },
-                { type: 'trimester', operator: enumHandlers.FILTERPERIODTYPE.TRIMESTER, expectedTotalDays: 121.7474 },
-                { type: 'semester', operator: enumHandlers.FILTERPERIODTYPE.SEMESTER, expectedTotalDays: 182.6211 },
-                { type: 'year', operator: enumHandlers.FILTERPERIODTYPE.YEAR, expectedTotalDays: 365.2422 }
+                { type: 'day', operator: 'day', expectedTotalDays: 1 },
+                { type: 'week', operator: 'week', expectedTotalDays: 7 },
+                { type: 'month', operator: 'month', expectedTotalDays: 30.43685 },
+                { type: 'quarter', operator: 'quarter', expectedTotalDays: 91.31055 },
+                { type: 'trimester', operator: 'trimester', expectedTotalDays: 121.7474 },
+                { type: 'semester', operator: 'semester', expectedTotalDays: 182.6211 },
+                { type: 'year', operator: 'year', expectedTotalDays: 365.2422 }
             ];
             this.bucketOperators.forEach(function (bucketOperator) {
                 it("when operator is " + bucketOperator.type, function () {
@@ -710,13 +709,13 @@ describe("ChartHandler", function () {
         });
         describe("should get expected unit text", function () {
             this.bucketOperators = [
-                { type: 'day', operator: enumHandlers.FILTERPERIODTYPE.DAY, expectedUnitText: 'days' },
-                { type: 'week', operator: enumHandlers.FILTERPERIODTYPE.WEEK, expectedUnitText: 'weeks' },
-                { type: 'month', operator: enumHandlers.FILTERPERIODTYPE.MONTH, expectedUnitText: 'months' },
-                { type: 'quarter', operator: enumHandlers.FILTERPERIODTYPE.QUARTER, expectedUnitText: 'quarters' },
-                { type: 'trimester', operator: enumHandlers.FILTERPERIODTYPE.TRIMESTER, expectedUnitText: 'trimesters' },
-                { type: 'semester', operator: enumHandlers.FILTERPERIODTYPE.SEMESTER, expectedUnitText: 'semesters' },
-                { type: 'year', operator: enumHandlers.FILTERPERIODTYPE.YEAR, expectedUnitText: 'years' }
+                { type: 'day', operator: 'day', expectedUnitText: 'days' },
+                { type: 'week', operator: 'week', expectedUnitText: 'weeks' },
+                { type: 'month', operator: 'month', expectedUnitText: 'months' },
+                { type: 'quarter', operator: 'quarter', expectedUnitText: 'quarters' },
+                { type: 'trimester', operator: 'trimester', expectedUnitText: 'trimesters' },
+                { type: 'semester', operator: 'semester', expectedUnitText: 'semesters' },
+                { type: 'year', operator: 'year', expectedUnitText: 'years' }
             ];
             this.bucketOperators.forEach(function (bucketOperator) {
                 it("when operator is " + bucketOperator.type, function () {

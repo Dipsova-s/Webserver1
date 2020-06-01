@@ -1,5 +1,4 @@
-﻿/// <reference path="/../SharedDependencies/FieldsChooser.js" />
-/// <reference path="/Dependencies/page/MC.AutomationTasks.Tasks.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.AutomationTasks.Tasks.js" />
 
 describe("MC.AutomationTasks.Tasks", function () {
 

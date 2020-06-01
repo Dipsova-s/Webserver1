@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/page/MC.Models.Roles.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.Models.Roles.js" />
 
 describe("MC.Models.Roles", function () {
 

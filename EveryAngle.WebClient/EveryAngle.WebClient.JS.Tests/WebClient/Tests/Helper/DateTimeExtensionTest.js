@@ -1,6 +1,6 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <reference path="/Dependencies/Helper/DateTimeExtension.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <chutzpah_reference path="/../../Dependencies/Helper/DateTimeExtension.js" />
 
 describe("DateTimeExtensionTest", function () {
 

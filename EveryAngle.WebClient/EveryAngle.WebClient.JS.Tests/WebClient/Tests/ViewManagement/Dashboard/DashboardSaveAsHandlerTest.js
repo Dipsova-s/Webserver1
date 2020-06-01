@@ -1,11 +1,9 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Dashboard/DashboardModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSaveAsHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/DashboardModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardSaveAsHandler.js" />
 
 describe("DashboardSaveAsHandler", function () {
 

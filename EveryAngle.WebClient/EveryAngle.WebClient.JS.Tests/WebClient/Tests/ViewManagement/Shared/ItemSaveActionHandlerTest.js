@@ -1,5 +1,5 @@
-﻿/// <reference path="/Dependencies/Helper/HtmlHelper.MenuNavigatable.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/Helper/HtmlHelper.MenuNavigatable.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
 
 describe("ItemSaveActionHandler", function () {
     var itemSaveActionHandler;

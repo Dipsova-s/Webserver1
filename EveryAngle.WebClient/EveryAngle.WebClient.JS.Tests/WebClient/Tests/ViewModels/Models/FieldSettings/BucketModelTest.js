@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewModels/Models/FieldSettings/bucketmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/FieldSettings/bucketmodel.js" />
 
 describe("BucketModel", function () {
     var bucketModel;

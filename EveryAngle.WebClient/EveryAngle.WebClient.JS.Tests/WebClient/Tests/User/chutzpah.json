@@ -1,0 +1,9 @@
+﻿{
+    "InheritFromParent": true,
+    "Tests": [
+        {
+            "Includes": [ "*.js" ],
+            "ExpandReferenceComments": true
+        }
+    ]
+}

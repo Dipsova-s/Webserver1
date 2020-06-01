@@ -1,15 +1,13 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/ListHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldsHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ListHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFieldsHandler.js" />
 
 describe("ListHandler", function () {
-
     var listHandler;
-
     beforeEach(function () {
         listHandler = new ListHandler();
     });
@@ -155,26 +153,6 @@ describe("ListHandler", function () {
             expect(RegExp.prototype.test).toHaveBeenCalled();
         });
     });
-    describe(".ClearWindowOrDocumentSelection", function () {
-        beforeEach(function () {
-            $('<div id="SampleText">Sample Text </div>').appendTo('body');
-        });
-        afterEach(function () {
-            $('#SampleText').remove();
-        });
-        it("should clear the selection", function () {
-            var node = document.getElementById("SampleText").firstChild;
-            var range = document.createRange();
-            range.setStart(node, 0);
-            range.setEnd(node, 4);  //Range of selection is "Samp"
-            var selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            listHandler.ClearWindowOrDocumentSelection();
-            selection = window.getSelection();
-            expect(selection + '').toEqual('');
-        });
-    });
     describe(".GetContextMenuOptions", function () {
         it("should return options with event as 'click contextmenu'", function () {
             var contextMenuOptions = listHandler.GetContextMenuOptions();
@@ -185,7 +163,7 @@ describe("ListHandler", function () {
         it("should reset values of LeftClickFirstCell object", function () {
             listHandler.ResetLeftClickFirstCell();
             expect(listHandler.LeftClickFirstCell).toEqual(jasmine.objectContaining({
-                RowId: -1,
+                RowId: -1
             }));
             expect(listHandler.LeftClickElement).toEqual({});
         });

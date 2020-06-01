@@ -1,12 +1,11 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ProgressBar.js" />
-/// <reference path="/Dependencies/viewmanagement/shared/itemdownloadhandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Search/AngleExportHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Search/importAngleHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ErrorHandler/ErrorHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ProgressBar.js" />
+/// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/itemdownloadhandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Search/AngleExportHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Search/importAngleHandler.js" />
 
 describe("ImportAngleHandler", function () {
 
@@ -43,9 +42,9 @@ describe("ImportAngleHandler", function () {
             spyOn(popup, "Show").and.callFake(function () {
                 return { wrapper: $(), center: $.noop };
             });
-            spyOn(popup, "Destroy").and.callFake($.noop);
+            spyOn(popup, "Destroy");
             spyOn(importAngleHandler, "UploadAngleTemplate").and.callFake(function () { return ''; });
-            spyOn(importAngleHandler, "ShowImportAnglePopupCallback").and.callFake($.noop);
+            spyOn(importAngleHandler, "ShowImportAnglePopupCallback");
         });
 
         it("show popup should have been called", function () {
@@ -58,7 +57,7 @@ describe("ImportAngleHandler", function () {
     describe(".ShowImportAnglePopupCallback", function () {
 
         beforeEach(function () {
-            spyOn(importAngleHandler, "SetModelsDropdown").and.callFake($.noop);
+            spyOn(importAngleHandler, "SetModelsDropdown");
             spyOn(WC.HtmlHelper, "GetInternalUri").and.callFake(function () { return ''; });
         });
 
@@ -163,10 +162,10 @@ describe("ImportAngleHandler", function () {
     describe(".ShowCompleteUploadReport", function () {
 
         beforeEach(function () {
-            spyOn(importAngleHandler, "CompleteUploadReportTemplate").and.callFake($.noop);
-            spyOn(popup, "Show").and.callFake($.noop);
-            spyOn(popup, "Close").and.callFake($.noop);
-            spyOn(popup, "Destroy").and.callFake($.noop);
+            spyOn(importAngleHandler, "CompleteUploadReportTemplate");
+            spyOn(popup, "Show");
+            spyOn(popup, "Close");
+            spyOn(popup, "Destroy");
             spyOn(WC.HtmlHelper, "ApplyKnockout").and.callFake(function () {
                 return {
                     get: $.noop
@@ -189,7 +188,7 @@ describe("ImportAngleHandler", function () {
     describe(".SetAngleForUpload", function () {
 
         beforeEach(function () {
-            spyOn(importAngleHandler, "RemoveDenyLabel").and.callFake($.noop);
+            spyOn(importAngleHandler, "RemoveDenyLabel");
         });
 
         var modelUri = '/models/1';
@@ -223,7 +222,7 @@ describe("ImportAngleHandler", function () {
     describe(".SetDashboardForUpload", function () {
 
         beforeEach(function () {
-            spyOn(importAngleHandler, "RemoveDenyLabel").and.callFake($.noop);
+            spyOn(importAngleHandler, "RemoveDenyLabel");
 
             importAngleHandler.Angles = {
                 'angle1': {
@@ -333,9 +332,9 @@ describe("ImportAngleHandler", function () {
             importAngleHandler.UploadCount = 0;
             importAngleHandler.FailItems([]);
             ImportAngleHandler.ResultUploadSuccess = [];
-            spyOn(importAngleHandler, "UploadAngle").and.callFake($.noop);
-            spyOn(importAngleHandler, "UploadDashboard").and.callFake($.noop);
-            spyOn(importAngleHandler, "UpdateProgressBar").and.callFake($.noop);
+            spyOn(importAngleHandler, "UploadAngle");
+            spyOn(importAngleHandler, "UploadDashboard");
+            spyOn(importAngleHandler, "UpdateProgressBar");
             spyOn(WC.HtmlHelper, "DropdownList").and.returnValue({ value: $.noop });
         });
 
@@ -471,11 +470,11 @@ describe("ImportAngleHandler", function () {
         beforeEach(function () {
             file = { Results: [] };
             spyOn(importAngleHandler, 'GetUploadAngleUri').and.returnValue('');
-            spyOn(importAngleHandler, 'SetAngleForUpload').and.callFake($.noop);
+            spyOn(importAngleHandler, 'SetAngleForUpload');
             spyOn(importAngleHandler, 'CreateItem').and.callFake(function () {
                 return $.Deferred().resolve().promise();
             });
-            spyOn(importAngleHandler, 'CreateMappingAngle').and.callFake($.noop);
+            spyOn(importAngleHandler, 'CreateMappingAngle');
         });
 
         it("should call CreateMappingAngle", function () {
@@ -529,9 +528,9 @@ describe("ImportAngleHandler", function () {
             };
             file = { Results: [] };
             spyOn(importAngleHandler, 'GetUploadDashboardUri').and.returnValue('');
-            spyOn(importAngleHandler, 'SetDashboardForUpload').and.callFake($.noop);
+            spyOn(importAngleHandler, 'SetDashboardForUpload');
             spyOn(WC.Utility, 'GetDefaultMultiLangText').and.returnValue('');
-            spyOn(importAngleHandler, 'CreateItem').and.callFake($.noop);
+            spyOn(importAngleHandler, 'CreateItem');
         });
 
         it("should fail if number of widgets > maxNumberOfDashboard", function () {
@@ -616,7 +615,7 @@ describe("ImportAngleHandler", function () {
             importAngleHandler.SuccessItems([]);
             spyOn(importAngleHandler, "GetUploadAngleUri").and.returnValue('/models/1/angles');
             spyOn(importAngleHandler, "GetErrorMessage").and.returnValue('error');
-            spyOn(importAngleHandler, "UpdateProgressBar").and.callFake($.noop);
+            spyOn(importAngleHandler, "UpdateProgressBar");
             spyOn(WC.HtmlHelper, "DropdownList").and.returnValue({
                 value: function () {
                     return '/models/1';
@@ -728,25 +727,26 @@ describe("ImportAngleHandler", function () {
 
     describe(".UploadComplete", function () {
         beforeEach(function () {
-            window.searchPageHandler = window.searchPageHandler || {
+            createMockHandler(window, 'searchPageHandler', {
                 BindSearchResultGrid: $.noop
-            };
-            window.errorHandlerModel = window.errorHandlerModel || {
-                Enable: $.noop
-            };
-            spyOn(progressbarModel, "EndProgressBar").and.callFake($.noop);
+            });
+            spyOn(errorHandlerModel, "Enable");
+            spyOn(progressbarModel, "EndProgressBar");
             spyOn(importAngleHandler, "GetDashboardAndAngleDeferred").and.callFake(function () {
                 return {};
             });
             spyOn(jQuery, 'whenAllSet').and.callFake(function () {
                 return { always: $.noop };
             });
-            spyOn(importAngleHandler, "ShowCompleteUploadReport").and.callFake($.noop);
-            spyOn(importAngleHandler, "CloseUploadPopup").and.callFake($.noop);
-            spyOn(searchModel, "ClearSelectedRow").and.callFake($.noop);
-            spyOn(window.searchPageHandler, "BindSearchResultGrid").and.callFake($.noop);
+            spyOn(importAngleHandler, "ShowCompleteUploadReport");
+            spyOn(importAngleHandler, "CloseUploadPopup");
+            spyOn(searchModel, "ClearSelectedRow");
+            spyOn(searchPageHandler, "BindSearchResultGrid");
             importAngleHandler.UploadCount = 0;
             importAngleHandler.NumberOfUploadedFile = 2;
+        });
+        afterEach(function () {
+            restoreMockHandlers();
         });
 
         it("ShowCompleteUploadReport have been called", function (done) {
@@ -871,13 +871,13 @@ describe("ImportAngleHandler", function () {
             };
             ImportAngleHandler.ResultUploadSuccess = [];
 
-            spyOn(importAngleHandler, "UploadComplete").and.callFake($.noop);
-            spyOn(importAngleHandler, "HideUploadPopup").and.callFake($.noop);
-            spyOn(importAngleHandler, "CloseUploadPopup").and.callFake($.noop);
-            spyOn(progressbarModel, "ShowStartProgressBar").and.callFake($.noop);
-            spyOn(progressbarModel, "SetProgressBarText").and.callFake($.noop);
-            spyOn(progressbarModel, "CancelFunction").and.callFake($.noop);
-            spyOn(WC.Ajax, "AbortAll").and.callFake($.noop);
+            spyOn(importAngleHandler, "UploadComplete");
+            spyOn(importAngleHandler, "HideUploadPopup");
+            spyOn(importAngleHandler, "CloseUploadPopup");
+            spyOn(progressbarModel, "ShowStartProgressBar");
+            spyOn(progressbarModel, "SetProgressBarText");
+            spyOn(progressbarModel, "CancelFunction");
+            spyOn(WC.Ajax, "AbortAll");
         });
 
         it("no valid file, ShowStartProgressBar have not been called", function () {

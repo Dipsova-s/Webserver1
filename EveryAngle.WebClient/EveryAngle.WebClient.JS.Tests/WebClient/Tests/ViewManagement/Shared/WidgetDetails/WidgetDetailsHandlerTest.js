@@ -1,7 +1,7 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/WidgetDetails/WidgetDetailsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/WidgetDetails/WidgetDetailsView.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/WidgetDetails/WidgetDetailsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/WidgetDetails/WidgetDetailsView.js" />
 
 describe("WidgetDetailsHandler", function () {
 

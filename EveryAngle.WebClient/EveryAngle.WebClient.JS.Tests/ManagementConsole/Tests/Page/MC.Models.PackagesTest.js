@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/page/MC.Models.Packages.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.Models.Packages.js" />
 
 describe("MC.Models.Packages.js", function () {
 

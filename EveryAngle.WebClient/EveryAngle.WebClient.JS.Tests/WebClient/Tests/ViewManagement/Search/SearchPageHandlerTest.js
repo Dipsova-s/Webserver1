@@ -1,13 +1,10 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Search/SearchSidePanelHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Search/SearchPageHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Search/SearchSidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Search/SearchPageHandler.js" />
 
 describe('SearchPageHandler', function () {
 

@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 
 describe("displayQueryBlockModel", function () {
     var displayQueryBlockModel;
@@ -18,7 +18,7 @@ describe("displayQueryBlockModel", function () {
     describe(".CollectQueryBlocks", function () {
 
         var source = [{
-            step_type: enumHandlers.FILTERTYPE.FILTER,
+            step_type: 'filter',
             field: 'field',
             operator: null,
             arguments: null,
@@ -30,19 +30,19 @@ describe("displayQueryBlockModel", function () {
             is_execution_parameter: true,
             execution_parameter_id: 'id1'
         }, {
-            step_type: enumHandlers.FILTERTYPE.FOLLOWUP,
+            step_type: 'followup',
             followup: 'followup',
             valid: false,
             validation_details: 'details',
             is_adhoc_filter: false,
             is_adhoc: false
         }, {
-            step_type: enumHandlers.FILTERTYPE.SORTING,
+            step_type: 'sorting',
             sorting_fields: 'sortingfields',
             valid: true,
             validation_details: 'details'
         }, {
-            step_type: enumHandlers.FILTERTYPE.AGGREGATION,
+            step_type: 'aggregation',
             aggregation_fields: 'aggregationfields',
             valid: true,
             validation_details: 'details',

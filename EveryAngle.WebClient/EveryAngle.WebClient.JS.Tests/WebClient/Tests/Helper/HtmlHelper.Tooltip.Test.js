@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/Helper/HtmlHelper.Tooltip.js" />
+/// <chutzpah_reference path="/../../Dependencies/Helper/HtmlHelper.Tooltip.js" />
 
 describe("HtmlHelper.Tooltip test", function () {
 

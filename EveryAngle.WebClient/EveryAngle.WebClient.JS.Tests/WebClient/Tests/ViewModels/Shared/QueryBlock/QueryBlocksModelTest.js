@@ -1,7 +1,7 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/QueryBlock/QueryBlockModel.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/QueryBlock/QueryBlocksModel.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/QueryBlock/QueryBlockModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/QueryBlock/QueryBlocksModel.js" />
 
 describe("QueryBlocksModel", function () {
 

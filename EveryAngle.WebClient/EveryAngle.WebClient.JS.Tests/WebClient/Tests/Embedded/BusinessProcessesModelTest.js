@@ -1,5 +1,4 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
-/// <reference path="/../SharedDependencies/BusinessProcessesModel.js" />
+﻿/// <reference path="/../../Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
 
 describe("BusinessProcessesModel", function () {
 
@@ -8,6 +7,10 @@ describe("BusinessProcessesModel", function () {
     beforeEach(function () {
         jQuery.localStorage('business_processes', [{ id: 'test' }]);
         businessProcessModel = new BusinessProcessesViewModel();
+    });
+
+    afterEach(function () {
+        jQuery.localStorage.removeItem('business_processes');
     });
 
     describe("call InitialData", function () {
@@ -142,10 +145,6 @@ describe("BusinessProcessesModel", function () {
             var result = !!businessProcessModel.HasDataInStorage(businessProcessModel.DirectoryName);
             expect(result).toBe(true);
         });
-
-    });
-
-    describe("call SetData", function () {
 
     });
 
@@ -292,10 +291,6 @@ describe("BusinessProcessesModel", function () {
             expect(businessProcessModel.CurrentActive()["P2P"]).toBe(true);
             expect(businessProcessModel.CurrentActive()["IT"]).toBe(true);
         });
-
-    });
-
-    describe("call CanClickHeader", function () {
 
     });
 
@@ -628,22 +623,6 @@ describe("BusinessProcessesModel", function () {
             expect(container.hasClass('expandable')).toEqual(false);
         });
 
-    });
-
-    describe("call GetMaxContainerSize", function () {
-
-    });
-
-    describe("call GetMaxItemSize", function () {
-
-    });
-
-    describe("call SetItemLineBreak", function () {
-
-    });
-
-    afterEach(function () {
-        jQuery.localStorage.removeItem('business_processes');
     });
 
 });

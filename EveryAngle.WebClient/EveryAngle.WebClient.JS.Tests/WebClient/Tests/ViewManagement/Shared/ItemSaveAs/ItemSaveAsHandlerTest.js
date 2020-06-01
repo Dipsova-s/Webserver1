@@ -1,9 +1,8 @@
-﻿/// <reference path="/Dependencies/Helper/HtmlHelper.MultiSelect.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SystemLanguageHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/Helper/HtmlHelper.MultiSelect.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemLanguageHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
 
 describe("ItemSaveAsHandler", function () {
 

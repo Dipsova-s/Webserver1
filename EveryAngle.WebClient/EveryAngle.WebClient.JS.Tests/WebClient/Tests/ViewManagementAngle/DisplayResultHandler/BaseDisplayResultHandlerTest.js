@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Angle/DisplayResultHandler/BaseDisplayResultHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayResultHandler/BaseDisplayResultHandler.js" />
 
 describe("BaseDisplayResultHandler", function () {
     var baseDisplayResultHandler;

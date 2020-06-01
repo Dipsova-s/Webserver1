@@ -1,13 +1,10 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ProgressBar.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSaveAsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSaveActionHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ProgressBar.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardSaveAsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardSaveActionHandler.js" />
 
 describe("DashboardSaveActionHandler", function () {
     var dashboardSaveActionHandler, handler;
@@ -63,9 +60,9 @@ describe("DashboardSaveActionHandler", function () {
                 expected: true
             },
             {
-                title: 'should be true (isAdhoc=true, anyChanged=false)',
-                isAdhoc: true,
-                anyChanged: false,
+                title: 'should be true (isAdhoc=false, anyChanged=true)',
+                isAdhoc: false,
+                anyChanged: true,
                 expected: true
             },
             {

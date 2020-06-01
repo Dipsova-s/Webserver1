@@ -1,5 +1,5 @@
-﻿/// <reference path="/Dependencies/custom/mc.form.js" />
-/// <reference path="/Dependencies/page/MC.Models.Communications.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/custom/mc.form.js" />
+/// <chutzpah_reference path="/../../Dependencies/page/MC.Models.Communications.js" />
 
 describe("MC.Models.Communications", function () {
     var communications;

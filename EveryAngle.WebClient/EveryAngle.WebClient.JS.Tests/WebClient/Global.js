@@ -1,4 +1,5 @@
 ﻿var webAPIUrl = '';
+var webApiVersion = 'versions/2';
 var rootWebsitePath = '';
 var showAngleAndDisplayID = true;
 var ajaxTimeoutExpirationInSeconds = 1000;

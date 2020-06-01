@@ -1,8 +1,4 @@
-﻿/// <reference path="/../SharedDependencies/notificationsfeed.js" />
-var NotificationsFeedRepository = {};
-NotificationsFeedRepository.StorageKey = NotificationsFeedRepository.StorageKey;
-
-describe("Storage test", function () {
+﻿describe("Storage test", function () {
     var key1 = "test1";
     var key2 = "test2";
     var keys = ['classes', 'fields', 'fields_instance', 'field_sources', 'field_domains', key1, key2];

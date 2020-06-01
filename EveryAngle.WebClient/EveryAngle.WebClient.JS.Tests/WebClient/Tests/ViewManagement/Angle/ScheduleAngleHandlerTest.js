@@ -1,17 +1,17 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/UserModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Session/SessionModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/ScheduleAngleHandler.js" />
-/// <reference path="/Dependencies/User/Authentication.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/UserModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Session/SessionModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ScheduleAngleHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/User/Authentication.js" />
 
 describe("ScheduleAngleHandler", function () {
 
@@ -47,8 +47,8 @@ describe("ScheduleAngleHandler", function () {
                     wrapper: $()
                 }
             };
-
-            displayModel.Data = ko.observable({
+            
+            spyOn(displayModel, 'Data').and.returnValue({
                 used_in_task: true
             });
 
@@ -70,10 +70,9 @@ describe("ScheduleAngleHandler", function () {
 
             var taskUri = 'tasks/1';
 
-            displayModel.Data = ko.protectedObservable({
+            spyOn(displayModel, 'Data').and.returnValue({
                 uri: '/models/1/angles/1/displays/1'
             });
-
             var taskUrl = scheduleAngleHandler.GetTaskUrl(taskUri);
             var taskUrlFormat = "{0}admin/home/index#/Automation tasks/Tasks/Edit task/?parameters={\"tasksUri\":\"{1}{2}\",\"angleUri\":\"{3}\"}";
             var expecxtedUrl = kendo.format(taskUrlFormat, rootWebsitePath, webAPIUrl, taskUri, displayModel.Data().uri);
@@ -83,11 +82,10 @@ describe("ScheduleAngleHandler", function () {
 
     describe("when current display already assigned to task(s)", function () {
         it("should show check mark", function () {
-            angleInfoModel.Data = ko.observable({
+            spyOn(angleInfoModel, 'Data').and.returnValue({
                 id: '123'
             });
-
-            displayModel.Data = ko.observable({
+            spyOn(displayModel, 'Data').and.returnValue({
                 id: '123',
                 used_in_task: true
             });
@@ -102,11 +100,10 @@ describe("ScheduleAngleHandler", function () {
 
     describe("when current display NOT assigned to any task(s)", function () {
         it("should pre select 'Select task..'", function () {
-            angleInfoModel.Data = ko.observable({
+            spyOn(angleInfoModel, 'Data').and.returnValue({
                 id: '1234'
             });
-
-            displayModel.Data = ko.observable({
+            spyOn(displayModel, 'Data').and.returnValue({
                 id: '1234',
                 used_in_task: true
             });
@@ -128,8 +125,7 @@ describe("ScheduleAngleHandler", function () {
                     wrapper: $()
                 }
             };
-
-            displayModel.Data = ko.observable({
+            spyOn(displayModel, 'Data').and.returnValue({
                 used_in_task: true
             });
 

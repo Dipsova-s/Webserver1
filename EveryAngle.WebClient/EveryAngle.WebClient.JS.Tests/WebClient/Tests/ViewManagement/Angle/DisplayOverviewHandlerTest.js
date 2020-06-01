@@ -1,19 +1,18 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplayOverviewHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayOverviewHandler.js" />
 
 describe("DisplayOverviewHandler", function () {
 
     var displayOverviewHandler;
     beforeEach(function () {
-        window.DisplayHandler = window.DisplayHandler || function () {
+        createMockHandler(window, 'DisplayHandler', function () {
             this.CreateNew = $.noop;
             this.GetData = $.noop;
-        };
+        });
 
         var angleHandler = {
             Data: ko.observable({
@@ -37,6 +36,10 @@ describe("DisplayOverviewHandler", function () {
         };
 
         displayOverviewHandler = new DisplayOverviewHandler(angleHandler);
+    });
+
+    afterEach(function () {
+        restoreMockHandlers();
     });
 
     describe("constructor", function () {

@@ -1,7 +1,6 @@
-﻿/// <reference path="/Dependencies/Helper/DateTimeExtension.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardStatisticView.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardStatisticHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardStatisticView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardStatisticHandler.js" />
 
 describe("DashboardStatisticHandler", function () {
     var handler;

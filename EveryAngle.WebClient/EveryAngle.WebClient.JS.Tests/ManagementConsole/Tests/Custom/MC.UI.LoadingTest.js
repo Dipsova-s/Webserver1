@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/custom/MC.ui.loading.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/custom/MC.ui.loading.js" />
 
 describe("MC.ui.loading.js", function () {
 

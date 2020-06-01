@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
 
 describe("SearchStorageHandler", function () {
     var searchStorageHandler;

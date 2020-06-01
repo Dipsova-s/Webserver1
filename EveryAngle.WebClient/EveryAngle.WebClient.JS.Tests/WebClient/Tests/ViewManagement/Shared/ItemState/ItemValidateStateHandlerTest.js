@@ -1,6 +1,6 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemvalidatestatehandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemvalidatestatehandler.js" />
 
 describe("ItemStateHandler", function () {
 

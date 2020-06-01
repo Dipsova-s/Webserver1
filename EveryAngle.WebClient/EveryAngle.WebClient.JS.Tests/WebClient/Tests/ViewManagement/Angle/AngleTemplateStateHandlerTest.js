@@ -1,11 +1,11 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemvalidatestatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/anglestateview.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/anglestatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/angletemplatestatehandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemvalidatestatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestateview.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/angletemplatestatehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 
 describe("AngleTemplateStateHandler", function () {
 

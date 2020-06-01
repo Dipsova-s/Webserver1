@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/SystemDefaultUserSettingHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemDefaultUserSettingHandler.js" />
 
 describe("SystemDefaultUserSettingHandler", function () {
 

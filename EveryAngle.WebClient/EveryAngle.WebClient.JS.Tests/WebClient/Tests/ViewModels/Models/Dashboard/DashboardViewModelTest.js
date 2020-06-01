@@ -1,9 +1,9 @@
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/QueryBlock/QueryStepModel.js" />
-/// <reference path="/Dependencies/Helper/DefaultValueHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/privileges.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/QueryBlock/QueryStepModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/Helper/DefaultValueHandler.js" />
 
 describe("DashboardModel", function () {
     var dashboardModel;

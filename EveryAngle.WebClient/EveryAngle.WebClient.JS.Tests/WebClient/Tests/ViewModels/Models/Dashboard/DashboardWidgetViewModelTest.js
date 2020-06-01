@@ -1,11 +1,11 @@
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/shared/WidgetFilter/WidgetFilterHelper.js" />
-/// <reference path="/Dependencies/ViewManagement/shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Dashboard/DashboardWidgetModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/privileges.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/shared/WidgetFilter/WidgetFilterHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/DashboardWidgetModel.js" />
 
 describe("DashboardWidgetViewModel", function () {
     var dashboardWidgetViewModel;

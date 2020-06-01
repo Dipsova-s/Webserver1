@@ -1,6 +1,6 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Angle/TargetLineHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/TargetLineHandler.js" />
 
 describe("TargetLineHandler", function () {
     var targetlinehadler;
@@ -19,7 +19,7 @@ describe("TargetLineHandler", function () {
             spyOn(targetlinehadler, 'GetPopupSettings').and.returnValue(null);
         });
         it("should set property targetlinedetails to details", function () {
-            targetlinehadler.Details()
+            targetlinehadler.Details();
             targetlinehadler.ShowPopup();
             expect(targetlinehadler.Details()).toEqual({ targetlinedetails: { fromvalue: null, tovalue: null } });
         });
@@ -29,10 +29,8 @@ describe("TargetLineHandler", function () {
         });
     });
     describe(".ClosePopup", function () {
-
         it("should call close popup", function () {
             // prepare
-
             spyOn(popup, "Close");
             targetlinehadler.ClosePopup();
 
@@ -41,7 +39,6 @@ describe("TargetLineHandler", function () {
         });
     });
     describe(".CheckInputReferenceTo", function () {
-
         it("should disable button", function () {
             var handler1 = {
                 element: {
@@ -111,11 +108,9 @@ describe("TargetLineHandler", function () {
                 targetlinedetails: { fromvalue: 0, tovalue: 0 }
             });
             targetlinehadler.QueryDefinitionHandler = {
-                GetAggregationDataType: function () { return 'int' }
-            }
-            WC.FormatHelper = {
-                GetFormatter: function () { return ''; }
-            }
+                GetAggregationDataType: function () { return 'int'; }
+            };
+            spyOn(WC.FormatHelper, 'GetFormatter').and.returnValue('');
             spyOn(targetlinehadler, 'CreateInput');
 
             spyOn($.fn, 'on').and.returnValue(true);
@@ -130,9 +125,9 @@ describe("TargetLineHandler", function () {
             var expectedValue = {
                 fromvalue: 20,
                 tovalue: 50
-            }
+            };
             targetlinehadler.QueryDefinitionHandler = {
-                GetAggregationDataType: function () { return 'int' }
+                GetAggregationDataType: function () { return 'int'; }
             };
             targetlinehadler.Details({
                 targetlinedetails: { fromvalue: 0, tovalue: 0 }
@@ -204,7 +199,7 @@ describe("TargetLineHandler", function () {
 
             spyOn($.fn, 'data').and.returnValues(handler1, handler2);
             spyOn(targetlinehadler, "HasChanged").and.returnValue(false);
-            spyOn($.fn, 'removeClass')
+            spyOn($.fn, 'removeClass');
             targetlinehadler.ButtonStatus();
             expect($.fn.removeClass).toHaveBeenCalled();
         });
@@ -214,11 +209,11 @@ describe("TargetLineHandler", function () {
             var expectedValue = {
                 fromvalue: 20,
                 tovalue: 50
-            }
+            };
 
             targetlinehadler.QueryDefinitionHandler = {
-                GetAggregationDataType: function () { return 'int' }
-            }
+                GetAggregationDataType: function () { return 'int'; }
+            };
             var handler1 = {
                 element: { val: function () { return 20; } }
             };
@@ -239,7 +234,7 @@ describe("TargetLineHandler", function () {
                 return {
                     fromvalue: 10,
                     tovalue: 20
-                }
+                };
             };
             var result = targetlinehadler.HasChanged();
             expect(result).toEqual(true);
@@ -250,7 +245,7 @@ describe("TargetLineHandler", function () {
                 return {
                     fromvalue: 10,
                     tovalue: 30
-                }
+                };
             };
             var result = targetlinehadler.HasChanged();
             expect(result).toEqual(false);
@@ -259,7 +254,7 @@ describe("TargetLineHandler", function () {
     describe(".ValidateTimepicker", function () {
         it('should return  true', function () {
             targetlinehadler.QueryDefinitionHandler = {
-                GetAggregationDataType: function () { return 'int' }
+                GetAggregationDataType: function () { return 'int'; }
             };
             targetlinehadler.Details({
                 targetlinedetails: { fromvalue: 0, tovalue: 0 }

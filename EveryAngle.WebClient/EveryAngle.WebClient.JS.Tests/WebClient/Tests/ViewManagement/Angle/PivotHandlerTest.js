@@ -1,14 +1,15 @@
-﻿/// <reference path="/Dependencies/ErrorHandler/ErrorHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/PivotHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ErrorHandler/ErrorHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/PivotHandler.js" />
 
 describe("PivotPageHandler", function () {
 
@@ -313,7 +314,7 @@ describe("PivotPageHandler", function () {
         it("should select a correct element", function () {
             spyOn(pivotPageHandler, 'ClosePivotCustomSortPopup').and.callFake($.noop);
             spyOn(fieldSettingsHandler, 'HideFieldOptionsMenu').and.callFake($.noop);
-            window.popup = { Show: $.noop };
+            spyOn(popup, 'Show');
             spyOn($.fn, 'trigger');
             spyOn($.fn, 'closest').and.returnValue($());
             spyOn($.fn, 'offset').and.returnValue({});

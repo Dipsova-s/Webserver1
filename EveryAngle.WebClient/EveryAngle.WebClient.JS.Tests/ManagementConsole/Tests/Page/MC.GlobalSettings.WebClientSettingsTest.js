@@ -1,5 +1,5 @@
-﻿/// <reference path="/Dependencies/custom/mc.form.js" />
-/// <reference path="/Dependencies/page/MC.GlobalSettings.WebClientSettings.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/custom/mc.form.js" />
+/// <chutzpah_reference path="/../../Dependencies/page/MC.GlobalSettings.WebClientSettings.js" />
 
 describe("MC.GlobalSettings.WebClientSettings", function () {
     var webClientSettings;

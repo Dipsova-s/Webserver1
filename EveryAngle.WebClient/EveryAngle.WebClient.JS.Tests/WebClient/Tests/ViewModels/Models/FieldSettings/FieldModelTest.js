@@ -1,4 +1,4 @@
-/// <reference path="/Dependencies/ViewModels/Models/FieldSettings/fieldmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/FieldSettings/fieldmodel.js" />
 
 describe("FieldModel", function () {
     var fieldModel;

@@ -1,4 +1,4 @@
-﻿/// <reference path="/Dependencies/Helper/HtmlHelper.Tab.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/Helper/HtmlHelper.Tab.js" />
 
 describe("HtmlHelper.Tab", function () {
 

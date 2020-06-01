@@ -1,16 +1,16 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/DisplaySaveAsHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveAs/ItemSaveAsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplaySaveAsHandler.js" />
 
 describe("DisplaySaveAsHandler", function () {
 
     var displaySaveAsHandler;
     beforeEach(function () {
-        window.DisplayHandler = window.DisplayHandler || function () {
+        createMockHandler(window, 'DisplayHandler', function () {
             this.CreateNew = $.noop;
             this.GetName = $.noop;
-        };
+        });
         var angleHandler = {
             Data: ko.observable({
                 multi_lang_name: [
@@ -38,6 +38,10 @@ describe("DisplaySaveAsHandler", function () {
             GetName: $.noop
         };
         displaySaveAsHandler = new DisplaySaveAsHandler(angleHandler, displayHandler);
+    });
+
+    afterEach(function () {
+        restoreMockHandlers();
     });
 
     describe(".Initial", function () {

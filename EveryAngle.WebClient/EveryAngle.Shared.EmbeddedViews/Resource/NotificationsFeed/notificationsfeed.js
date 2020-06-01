@@ -143,7 +143,7 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
     };
 
     self.LoadFeeds = function (renderImmediately) {
-        if (typeof notificationsFeed === 'undefined')
+        if (!window.notificationsFeed)
             return false;
 
         isForceRender = renderImmediately;

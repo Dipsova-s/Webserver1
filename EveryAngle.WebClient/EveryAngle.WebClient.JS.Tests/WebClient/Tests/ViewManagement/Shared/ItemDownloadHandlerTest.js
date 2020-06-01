@@ -1,9 +1,8 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SystemSettingHandler.js" />
-/// <reference path="/Dependencies/viewmanagement/shared/itemdownloadhandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemSettingHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ProgressBar.js" />
+/// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/itemdownloadhandler.js" />
 
 describe("ItemDownloadHandler", function () {
 
@@ -99,9 +98,7 @@ describe("ItemDownloadHandler", function () {
 
     describe(".StartExportItems", function () {
         it("should call DownloadItems method", function () {
-            window.progressbarModel = window.progressbarModel || {};
-            window.progressbarModel.ShowStartProgressBar = $.noop;
-            window.progressbarModel.IsCancelPopup = true;
+            progressbarModel.IsCancelPopup = true;
             spyOn(progressbarModel, 'ShowStartProgressBar');
             spyOn(itemDownloadHandler, 'GetDownloadUrls').and.returnValue($.when());
             spyOn(itemDownloadHandler, 'GetSelectData');
@@ -131,8 +128,7 @@ describe("ItemDownloadHandler", function () {
     describe(".DownloadItems", function () {
 
         it("should call DownloadItemDone when finished", function (done) {
-            window.progressbarModel = window.progressbarModel || {};
-            window.progressbarModel.SetProgressBarText = $.noop;
+            spyOn(progressbarModel, 'SetProgressBarText');
             spyOn(WC.Utility, 'DownloadFile');
             spyOn(itemDownloadHandler, 'DownloadItemDone');
 
@@ -148,9 +144,7 @@ describe("ItemDownloadHandler", function () {
     describe(".DownloadItemDone", function () {
 
         it("should call ClearAllSelectedRows when finished", function () {
-            window.progressbarModel = window.progressbarModel || {};
-            window.progressbarModel.IsCancelPopup = true;
-            window.progressbarModel.EndProgressBar = $.noop;
+            progressbarModel.IsCancelPopup = true;
             spyOn(progressbarModel, 'EndProgressBar');
             spyOn(itemDownloadHandler, 'DownloadItemDoneCallback');
             itemDownloadHandler.DownloadItemDone();

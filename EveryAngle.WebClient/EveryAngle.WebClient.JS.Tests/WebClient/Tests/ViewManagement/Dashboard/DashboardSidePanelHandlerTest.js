@@ -1,7 +1,7 @@
-﻿/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelView.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardSidePanelView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardSidePanelHandler.js" />
 
 describe("DashboardSidePanelHandler", function () {
     var dashboardSidePanelHandler;
