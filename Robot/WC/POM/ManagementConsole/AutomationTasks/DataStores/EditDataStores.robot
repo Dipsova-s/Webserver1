@@ -64,8 +64,8 @@ Fill Create New Datastore
     [Arguments]     ${datastoreName}     ${defaultDataStore}
     Input Text  ${txtDatastoreName}    ${datastoreName}
     Run Keyword If    '${defaultDataStore}' == 'check'      Select Checkbox      ${chkboxDefaultDataStore}
-    Run Keyword If    '${defaultDataStore}' == 'uncheck'      Unselect Checkbox      ${chkboxDefaultDataStore}
-
+    Run Keyword If    '${defaultDataStore}' == 'uncheck'     Unselect Checkbox      ${chkboxDefaultDataStore}
+   
 Fill Connection Settings
     [Arguments]     ${outputFolder}
     Input Text  ${txtOutputFolder}      ${outputFolder}
