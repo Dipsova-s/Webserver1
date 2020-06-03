@@ -781,18 +781,18 @@
     <value>Boven/links</value>
   </data>
   <data name="Title_AggregationChart" xml:space="preserve">
-    <value>Grafiek opties</value>
+    <value>Grafiekopties</value>
   </data>
   <data name="Title_AggregationPivot" xml:space="preserve">
-    <value>Draaitabel opties</value>
+    <value>Draaitabelopties</value>
   </data>
   <data name="Popup_Angle_Info" xml:space="preserve">
-    <value>Angle Information</value>
+    <value>Angle-informatie</value>
   </data>
   <data name="Popup_Dashboard_Info" xml:space="preserve">
-    <value>Dashboard Information</value>
+    <value>Dashboardinformatie</value>
   </data>
   <data name="Popup_Display_Info" xml:space="preserve">
-    <value>Display Information</value>
+    <value>Display-informatie</value>
   </data>
 </root>

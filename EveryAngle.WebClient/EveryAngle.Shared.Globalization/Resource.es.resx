@@ -549,6 +549,9 @@
   <data name="AdvanceFilterUsageValidationChangeBy" xml:space="preserve">
     <value>Cambio de validación por</value>
   </data>
+  <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
+    <value>posiciones en</value>
+  </data>
   <data name="AngleDefinitionAreaSec" xml:space="preserve">
     <value>seg</value>
   </data>
@@ -586,7 +589,7 @@
     <value>Ver información acerca de campo</value>
   </data>
   <data name="SelectAPropertyToApplyAsFilter" xml:space="preserve">
-    <value>Choose field</value>
+    <value>Elegir campo</value>
   </data>
   <data name="Sort" xml:space="preserve">
     <value>Clasificar</value>
@@ -943,7 +946,7 @@
     <value>Mantener Filtros de Display activos</value>
   </data>
   <data name="DisplayDrilldownDefault" xml:space="preserve">
-    <value>Default drilldown</value>
+    <value>Muestra de detalles predeterminada</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>[None]</value>
@@ -1540,7 +1543,7 @@
     <value>¿Está seguro de que sea borrar {0}?</value>
   </data>
   <data name="Confirm_CreateNewFollowUp" xml:space="preserve">
-    <value>Se creará una nueva Display con los campos sugeridos. &lt;br/&gt;¿Está seguro de que desea continuar?</value>
+    <value>La Display actual cambiará a una nueva Display con los campos sugeridos. &lt;br/&gt;¿Está seguro de que desea continuar?</value>
   </data>
   <data name="Confirm_DeleteAngle" xml:space="preserve">
     <value>¿Borrar Angle:&lt;br/&gt; {0}?</value>
@@ -3429,6 +3432,9 @@
   <data name="BaseClassName" xml:space="preserve">
     <value>Objeto de inicio</value>
   </data>
+  <data name="DisplayTotalRow" xml:space="preserve">
+    <value>Número de posiciones</value>
+  </data>
   <data name="ExecutionTime" xml:space="preserve">
     <value>Servidor del Modelo en tiempo de ejecución</value>
   </data>
@@ -3883,7 +3889,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Si desea conocer la información más reciente sobre el producto,&lt;br/&gt; visítenos en &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
-    <value>Cliente:</value>
+    <value>Mandante:</value>
   </data>
   <data name="AboutModelInfo" xml:space="preserve">
     <value>Información de Modelo</value>
@@ -4870,7 +4876,7 @@ Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
     <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
-The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
+The option to download the required Go to SAP Launcher will then become available in the Settings menu of the Web Client.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
@@ -5217,15 +5223,13 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>La Template “{0}” no se puede ejecutar porque no tiene Displays válidas</value>
   </data>
   <data name="Info_DropFilterToAngleDefinition" xml:space="preserve">
-    <value>Drop here to move filter to Angle.</value>
+    <value>Colóquelo aquí para mover el filtro al Angle.</value>
   </data>
   <data name="MC_ADFSRequires" xml:space="preserve">
     <value>ADFS requires the automatic creation of users</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
-    <value>Move filter to Angle?&lt;br/&gt;
-This will Save all changes to the Angle immediately.&lt;br/&gt;
-Do you want to continue?</value>
+    <value>¿Mover el filtro al Angle?&lt;br/&gt; Esta acción guardará todos los cambios en el Angle inmediatamente.&lt;br/&gt; ¿Desea continuar?</value>
   </data>
   <data name="CellPopupSubMenuIsNotBetween" xml:space="preserve">
     <value>No está entre {0} y {1} </value>
@@ -6161,23 +6165,10 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Copyright © {0}</value>
   </data>
   <data name="LicenseCopyrightHeader" xml:space="preserve">
-    <value>Avisos de copyright</value>
+    <value>Licencia y copyright</value>
   </data>
   <data name="LicenseCopyrightDescription" xml:space="preserve">
-    <value>
-      Copyright © 1997–2020 Magnitude Software, Inc. Todos los derechos reservados.&lt;br/&gt;
-      No está permitida la reproducción, ni su almacenamiento en sistemas de recuperación, ni su transmisión, de ningún modo y por ningún medio, ya sea electrónico o mecánico, fotocopias, grabaciones o cualquier otro, de esta publicación sin el consentimiento previo y por escrito de Magnitude.&lt;br/&gt;
-      La información contenida en el presente documento está sujeta a cambios sin previos aviso. Magnitude se esfuerza por mantener esta información de forma precisa, pero no garantiza que el documento esté libre de errores.&lt;br/&gt;
-      Todos los productos de Magnitude descritos en el presente documento cuentan con una licencia sujeta exclusivamente a las condiciones establecidas en el acuerdo de licencia de Magnitude.&lt;br/&gt;
-      Magnitude Software y Every Angle son marcas comerciales de Magnitude Software, Inc. Los logotipos de Magnitude y de Every Angle, así como otras marcas de "Every Angle" son marcas comerciales de Magnitude Software, Inc.&lt;br/&gt;
-      Todos los demás nombres de empresas y productos aquí mencionados se utilizan solo con fines de identificación y pueden ser marcas comerciales o marcas comerciales registradas de sus respectivos propietarios.
-    </value>
-  </data>
-  <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
-    <value>items in</value>
-  </data>
-  <data name="DisplayTotalRow" xml:space="preserve">
-    <value>Number of items</value>
+    <value> Copyright © 1997 - 2020 Magnitude Software, Inc. Todos los derechos reservados.&lt;br/&gt; No está permitida la reproducción, ni su almacenamiento en sistemas de recuperación, ni su transmisión, de ningún modo y por ningún medio, ya sea electrónico o mecánico, de fotocopia, grabación o cualquier otro, de esta publicación sin el consentimiento previo y por escrito de Magnitude.&lt;br/&gt; La información contenida en el presente documento está sujeta a cambios sin previos aviso. Magnitude se esfuerza por mantener esta información de forma precisa, pero no garantiza que el documento esté libre de errores.&lt;br/&gt; Todos los productos de Magnitude descritos en el presente documento cuentan con una licencia sujeta exclusivamente a las condiciones establecidas en el acuerdo de licencia de Magnitude.&lt;br/&gt; Magnitude Software y Every Angle son marcas comerciales de Magnitude Software, Inc. Los logotipos de Magnitude y Every Angle, así como otras marcas de «Every Angle», son marcas comerciales de Magnitude Software, Inc.&lt;br/&gt; Todos los demás nombres de empresas y productos aquí mencionados se utilizan solo con fines de identificación y pueden ser marcas comerciales o marcas comerciales registradas de sus respectivos propietarios. </value>
   </data>
   <data name="MC_SystemLog_Repository" xml:space="preserve">
     <value>Repository</value>
@@ -6189,22 +6180,22 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Select this option to delay the model server stop until the data extraction is finished to minimize down time. Please note that this option will consume extra system resources during the refresh, as the model server will keep running during the extraction.</value>
   </data>
   <data name="ModelDefinitionVersion" xml:space="preserve">
-    <value>Model definition version</value>
+    <value>Versión de la definición del modelo</value>
   </data>
   <data name="AddLanguage" xml:space="preserve">
-    <value>Add language</value>
+    <value>Agregar idioma</value>
   </data>
   <data name="Tooltip_ApplyAndSaveAngle" xml:space="preserve">
-    <value>Apply and save Angle</value>
+    <value>Aplicar y guardar Angle</value>
   </data>
   <data name="Tooltip_ApplyAndSaveDisplay" xml:space="preserve">
-    <value>Apply and save Display</value>
+    <value>Aplicar y guardar Display</value>
   </data>
   <data name="Tooltip_UndoAllChanges" xml:space="preserve">
-    <value>Undo all changes</value>
+    <value>Deshacer todos los cambios</value>
   </data>
   <data name="OpenEnumeratedPopup" xml:space="preserve">
-    <value>Open in a new window</value>
+    <value>Abrir en una nueva ventana</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
@@ -6213,68 +6204,66 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Displays</value>
   </data>
   <data name="Info_ActionNotAllowedDescription" xml:space="preserve">
-    <value>This action is not allowed.</value>
+    <value>Esta acción no está permitida.</value>
   </data>
   <data name="DashboardDescription" xml:space="preserve">
     <value>Descripción de Dashboard</value>
   </data>
   <data name="ChartGaugeSetting" xml:space="preserve">
-    <value>Ranges and colors</value>
+    <value>Rangos y colores</value>
   </data>
   <data name="Toast_SetAngleToTemplate" xml:space="preserve">
-    <value>'{0}' has been set to Template</value>
+    <value>'{0}' se ha definido como Template</value>
   </data>
   <data name="Toast_SetTemplateToAngle" xml:space="preserve">
-    <value>'{0}' has been set to Angle</value>
+    <value>'{0}' se ha definido como Angle</value>
   </data>
   <data name="NewDisplayType_chart" xml:space="preserve">
-    <value>De gráfico</value>
+    <value>Gráfico</value>
   </data>
   <data name="NewDisplayType_list" xml:space="preserve">
-    <value>De lista</value>
+    <value>Lista</value>
   </data>
   <data name="NewDisplayType_pivot" xml:space="preserve">
-    <value>De tabla dinámica</value>
+    <value>Tabla dinámica</value>
   </data>
   <data name="NoDisplayFiltersActive" xml:space="preserve">
-    <value>No Display Filters active</value>
+    <value>No hay filtros de Display activos</value>
   </data>
   <data name="MoreActions" xml:space="preserve">
-    <value>More actions</value>
+    <value>Más acciones</value>
   </data>
   <data name="ChartReferenceFieldName" xml:space="preserve">
-    <value>Reference Line</value>
+    <value>Línea de referencia</value>
   </data>
   <data name="GoToSapNotAvailable" xml:space="preserve">
-    <value>No transactions available</value>
+    <value>No hay transacciones disponibles</value>
   </data>
   <data name="DisplayOverview" xml:space="preserve">
-    <value>Display overview</value>
+    <value>Resumen de Display</value>
   </data>
   <data name="ScrollLeft" xml:space="preserve">
-    <value>Scroll left</value>
+    <value>Desplazarse a la izquierda</value>
   </data>
   <data name="ScrollRight" xml:space="preserve">
-    <value>Scroll right</value>
+    <value>Desplazarse a la derecha</value>
   </data>
   <data name="Toast_CopyDisplay" xml:space="preserve">
-    <value>'{0}' has been copied!</value>
+    <value>'{0}' se ha copiado.</value>
   </data>
   <data name="Toast_PasteDisplay" xml:space="preserve">
-    <value>'{0}' has been pasted!</value>
+    <value>'{0}' se ha pegado.</value>
   </data>
   <data name="ReferencePopupWarning" xml:space="preserve">
-    <value>Please enter a value in a valid format</value>
+    <value>Introduzca un valor en un formato válido</value>
   </data>
   <data name="ValidationForBusinessProcess" xml:space="preserve">
-    <value>You must add at least one Business Process to save the Angle</value>
+    <value>Debe agregar al menos un Proceso de negocios para guardar el Angle</value>
   </data>
   <data name="CannotSaveAngle_Title" xml:space="preserve">
-    <value>Cannot save</value>
+    <value>No se puede guardar</value>
   </data>
   <data name="MessageSaveQuestionAngleUsedInTask" xml:space="preserve">
-    <value>You made changes to an Angle that is used in Automation tasks. This might cause failures.
-&lt;br&gt;&lt;br&gt;
-Do you want to continue saving your changes?</value>
+    <value>Ha realizado cambios en un Angle que se utiliza en las tareas de Automatización (IT MC Automation tasks). Esta acción podría provocar errores. &lt;br/&gt;&lt;br/&gt; ¿Desea continuar guardando los cambios?</value>
   </data>
 </root>

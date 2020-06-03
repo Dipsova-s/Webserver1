@@ -325,7 +325,7 @@
     <value>Etiquetas de privilegio</value>
   </data>
   <data name="MassChange_ReportHeader_Failed" xml:space="preserve">
-    <value>Error</value>
+    <value>Fallada</value>
   </data>
   <data name="MassChange_ReportHeader_Successful" xml:space="preserve">
     <value>Correcto</value>
@@ -631,13 +631,13 @@
     <value>ID de paquete</value>
   </data>
   <data name="Popup_ModelParameters_Title" xml:space="preserve">
-    <value>Parámetros de Modelo</value>
+    <value>Parámetros de modelo</value>
   </data>
   <data name="MC_GlobalSetting_SystemLog_Title" xml:space="preserve">
     <value>System log</value>
   </data>
   <data name="Drop_Here_To_Remove_This_Column" xml:space="preserve">
-    <value>Colóquelo aquí para eliminar este columna</value>
+    <value>Colocar aquí para quitar esta columna</value>
   </data>
   <data name="Label_ChartOptions_AxisScale_Automatic" xml:space="preserve">
     <value>Automático</value>
@@ -802,7 +802,7 @@
     <value>Program/script</value>
   </data>
   <data name="MC_Label_ScriptParameters" xml:space="preserve">
-    <value>Add arguments&lt;br /&gt;(optional)</value>
+    <value>Add arguments&lt;br/&gt;(optional)</value>
   </data>
   <data name="Pivot_Option_TotalsLocation_Far" xml:space="preserve">
     <value>Inf./derecha</value>
@@ -811,18 +811,18 @@
     <value>Sup./izquierda</value>
   </data>
   <data name="Title_AggregationChart" xml:space="preserve">
-    <value>Chart options</value>
+    <value>Opciones de gráfico</value>
   </data>
   <data name="Title_AggregationPivot" xml:space="preserve">
-    <value>Pivot options</value>
+    <value>Opciones de tabla dinámica</value>
   </data>
   <data name="Popup_Angle_Info" xml:space="preserve">
-    <value>Angle Information</value>
+    <value>Información de Angle</value>
   </data>
   <data name="Popup_Dashboard_Info" xml:space="preserve">
-    <value>Dashboard Information</value>
+    <value>Información de Dashboard</value>
   </data>
   <data name="Popup_Display_Info" xml:space="preserve">
-    <value>Display Information</value>
+    <value>Información de Display</value>
   </data>
 </root>

@@ -325,7 +325,7 @@
     <value>Étiquettes de privilège</value>
   </data>
   <data name="MassChange_ReportHeader_Failed" xml:space="preserve">
-    <value>Échec</value>
+    <value>Échoué</value>
   </data>
   <data name="MassChange_ReportHeader_Successful" xml:space="preserve">
     <value>Réussite</value>
@@ -631,13 +631,13 @@
     <value>ID de lot</value>
   </data>
   <data name="Popup_ModelParameters_Title" xml:space="preserve">
-    <value>Paramètres de l'Instance</value>
+    <value>Paramètres de l'instance</value>
   </data>
   <data name="MC_GlobalSetting_SystemLog_Title" xml:space="preserve">
-    <value>System log</value>
+    <value>Journal système</value>
   </data>
   <data name="Drop_Here_To_Remove_This_Column" xml:space="preserve">
-    <value>Déposez ici pour supprimer cette colonne</value>
+    <value>Déposer ici pour supprimer cette colonne</value>
   </data>
   <data name="Label_ChartOptions_AxisScale_Automatic" xml:space="preserve">
     <value>Automatique</value>
@@ -811,18 +811,18 @@
     <value>Haut/gauche</value>
   </data>
   <data name="Title_AggregationChart" xml:space="preserve">
-    <value>Chart options</value>
+    <value>Options de Diagramme</value>
   </data>
   <data name="Title_AggregationPivot" xml:space="preserve">
-    <value>Pivot options</value>
+    <value>Options de Tableau croisé dynamique</value>
   </data>
   <data name="Popup_Angle_Info" xml:space="preserve">
-    <value>Angle Information</value>
+    <value>Informations sur l'Angle</value>
   </data>
   <data name="Popup_Dashboard_Info" xml:space="preserve">
-    <value>Dashboard Information</value>
+    <value>Informations sur le Dashboard</value>
   </data>
   <data name="Popup_Display_Info" xml:space="preserve">
-    <value>Display Information</value>
+    <value>Informations sur le Display</value>
   </data>
 </root>

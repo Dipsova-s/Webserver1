@@ -601,7 +601,7 @@
     <value>en</value>
   </data>
   <data name="AskForValueWhenTheAngleOpens" xml:space="preserve">
-    <value>Vraag naar waarde wanneer de Angle opent</value>
+    <value>Vraag naar waarde wanneer de Angle wordt uitgevoerd</value>
   </data>
   <data name="Before" xml:space="preserve">
     <value>Voor</value>
@@ -823,7 +823,7 @@
     <value>Systeeminstellingen</value>
   </data>
   <data name="UserSettingLabelAuthorisation" xml:space="preserve">
-    <value>Authorisatie</value>
+    <value>Autorisatie</value>
   </data>
   <data name="UserSettingLabelRoles" xml:space="preserve">
     <value>Rollen:</value>
@@ -1324,7 +1324,7 @@
     <value>Procesmatig</value>
   </data>
   <data name="FollowupsButtonSubmit" xml:space="preserve">
-    <value>Voer geselecteerd Jump uit</value>
+    <value>Voer geselecteerde Jump uit</value>
   </data>
   <data name="FollowupsWarningAngle" xml:space="preserve">
     <value>Alle Displays worden verwijderd</value>
@@ -1369,7 +1369,7 @@
     <value>Weet u zeker dat u de publicatie van dit Dashboard wilt opheffen?&lt;br&gt;U bent niet de maker van deze Dashboard, dus als u de publicatie opheft, heeft u niet langer toegang tot dit Dashboard.</value>
   </data>
   <data name="DonotHaveWCAndMCAuthrozation" xml:space="preserve">
-    <value>U heeft geen toestemming om de Web Client en Beheerconsole te gebruiken</value>
+    <value>U heeft geen toestemming om de Web Client en de IT Management Console te gebruiken</value>
   </data>
   <data name="EditDashboard" xml:space="preserve">
     <value>Dashboard bewerken</value>
@@ -1588,7 +1588,7 @@
     <value>Er is meer dan één Template teruggegeven</value>
   </data>
   <data name="Info_NoActiveClassForModel" xml:space="preserve">
-    <value>Geen actieve objectn voor model-ID: {0}</value>
+    <value>Geen actieve objecten voor model-ID: {0}</value>
   </data>
   <data name="Info_NoActiveModelInstance" xml:space="preserve">
     <value>Geen actieve modelserver voor model: {0}</value>
@@ -1795,7 +1795,7 @@
     <value>De volledige naam van de exportmap overschrijdt de Excel limiet (218 karakters)</value>
   </data>
   <data name="HTTP_408_Timeout" xml:space="preserve">
-    <value>Request timed out</value>
+    <value>Time-out voor verzoek</value>
   </data>
   <data name="Info_WarningCannotAddMoreDashboard" xml:space="preserve">
     <value>Kan Angle niet aan huidig Dashboard toevoegen. Het maximum aantal Angles is bereikt.</value>
@@ -1933,7 +1933,7 @@
     <value>Weigeren</value>
   </data>
   <data name="Configure" xml:space="preserve">
-    <value>Configure</value>
+    <value>Configureren</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>details</value>
@@ -2470,7 +2470,7 @@
     <value>Huidig: packagebestand ophalen uit Applicatieserver</value>
   </data>
   <data name="ProgressBar_CurrentRows" xml:space="preserve">
-    <value>rows</value>
+    <value>rijen</value>
   </data>
   <data name="ProgressBar_DeletingItems" xml:space="preserve">
     <value>Items verwijderen</value>
@@ -2573,7 +2573,7 @@
     <value>Grafiekdisplay</value>
   </data>
   <data name="DisplayType_list" xml:space="preserve">
-    <value>Lijst Display</value>
+    <value>Lijstdisplay</value>
   </data>
   <data name="DisplayType_pivot" xml:space="preserve">
     <value>Draaitabeldisplay</value>
@@ -2773,7 +2773,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Waarde {0}:</value>
   </data>
   <data name="ChartGaugeLabel" xml:space="preserve">
-    <value>Gauge</value>
+    <value>Metergrafiek</value>
   </data>
   <data name="ChartLineLabel" xml:space="preserve">
     <value>Lijn</value>
@@ -2791,7 +2791,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Soort grafiek:</value>
   </data>
   <data name="Chart_gauge1" xml:space="preserve">
-    <value>Gauge</value>
+    <value>Metergrafiek</value>
   </data>
   <data name="DateOrderTemplateDay" xml:space="preserve">
     <value>Dag</value>
@@ -3559,43 +3559,43 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Download type</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Private" xml:space="preserve">
-    <value>Download is not available, because the selection contains private dashboard(s).</value>
+    <value>Downloaden niet beschikbaar omdat de selectie privé Dashboard(s) bevat.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Cannot_Individually" xml:space="preserve">
-    <value>Dashboards cannot be downloaded individually.</value>
+    <value>Dashboards kunnen niet individueel worden gedownload.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_ManageRequired" xml:space="preserve">
-    <value>Download is not available, because user is not allowed to manage this model.</value>
+    <value>Downloaden niet beschikbaar omdat de gebruiker niet is geautoriseerd om dit model te beheren.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_MultipleModel" xml:space="preserve">
-    <value>Download is not available, because the selection contains dashboards from multiple models.</value>
+    <value>Downloaden niet beschikbaar omdat de selectie Dashboards uit meerdere modellen bevat.</value>
   </data>
   <data name="AngleExport_TypePackage_Download_Angle_Individually" xml:space="preserve">
-    <value>Click OK to download the selected Angles/Templates individually.</value>
+    <value>Klik op OK om de geselecteerde Angles/Templates individueel te downloaden.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_WarningTitle" xml:space="preserve">
-    <value>Package download is not available, because the selection contains private item(s).</value>
+    <value>Package download is niet beschikbaar omdat de selectie privé item(s) bevat.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_ManageRequired" xml:space="preserve">
-    <value>Package download is not available, because the user is not allowed to manage this model.</value>
+    <value>Package download is niet beschikbaar omdat de gebruiker niet is geautoriseerd om dit model te beheren.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_MultipleModel" xml:space="preserve">
-    <value>Package download is not available, because the selection contains Angle/Templates from multiple models.</value>
+    <value>Package download is niet beschikbaar omdat de selectie Angles/Templates uit meerdere modellen bevat.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_Private" xml:space="preserve">
-    <value>Package download is not available, because the selection contains private Angles/Templates.</value>
+    <value>Package download is niet beschikbaar omdat de selectie privé Angles/Templates bevat.</value>
   </data>
   <data name="AngleExport_TypePackage_Both_Private" xml:space="preserve">
-    <value>Package download is not available, because the selection contains private items.</value>
+    <value>Package download is niet beschikbaar omdat de selectie privé items bevat.</value>
   </data>
   <data name="UploadAngles_ItemPackageReportTitle" xml:space="preserve">
     <value>{0} (Angles: {1}/{2}, Dashboards: {3}/{4})</value>
   </data>
   <data name="UploadAngles_ItemPackageDashboardsExceedMaximum" xml:space="preserve">
-    <value>Dashboards exceed maximum number of Angles on Dashboard</value>
+    <value>Aantal Angles in Dashboards overschrijdt maximum.</value>
   </data>
   <data name="UploadAngles_ItemPackageSourceInvalid" xml:space="preserve">
-    <value>Invalid package source, only Webclient packages can be uploaded</value>
+    <value>Ongeldige package-bron. Alleen Webclient-packages kunnen worden geüpload.</value>
   </data>
   <data name="MC_DelayModelserverStop" xml:space="preserve">
     <value>Delay model server stop</value>
@@ -3727,7 +3727,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>is relatief tussen</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
+    <value>Een bekend probleem veroorzaakt wellicht onjuist scrollen met iOS 13. Neem contact op met Every Angle Support voor meer informatie.</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
@@ -3775,10 +3775,10 @@ The minimum is 1.</value>
     <value>Toepassen en Display opslaan</value>
   </data>
   <data name="Tooltip_UndoAllChanges" xml:space="preserve">
-    <value>Alle wijzigingen ongedaan maken</value>
+    <value>Maak alle wijzigingen ongedaan</value>
   </data>
   <data name="OpenEnumeratedPopup" xml:space="preserve">
-    <value>Open in a new window</value>
+    <value>Open in een nieuw venster</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
@@ -3787,13 +3787,13 @@ The minimum is 1.</value>
     <value>Displays</value>
   </data>
   <data name="Info_ActionNotAllowedDescription" xml:space="preserve">
-    <value>This action is not allowed.</value>
+    <value>Deze actie is niet toegestaan.</value>
   </data>
   <data name="DashboardDescription" xml:space="preserve">
     <value>Dashboard-omschrijving</value>
   </data>
   <data name="ChartGaugeSetting" xml:space="preserve">
-    <value>Ranges and colors</value>
+    <value>Bereiken en kleuren</value>
   </data>
   <data name="Toast_SetAngleToTemplate" xml:space="preserve">
     <value>'{0}' is ingesteld als Template</value>
@@ -3820,10 +3820,10 @@ The minimum is 1.</value>
     <value>Meer acties</value>
   </data>
   <data name="GoToSapNotAvailable" xml:space="preserve">
-    <value>No transactions available</value>
+    <value>Geen transacties beschikbaar</value>
   </data>
   <data name="DisplayOverview" xml:space="preserve">
-    <value>Display overzicht</value>
+    <value>Displayoverzicht</value>
   </data>
   <data name="ScrollLeft" xml:space="preserve">
     <value>Scroll links</value>
@@ -3838,13 +3838,13 @@ The minimum is 1.</value>
     <value>'{0}' is geplakt!</value>
   </data>
   <data name="ReferencePopupWarning" xml:space="preserve">
-    <value>Please enter a value in a valid format</value>
+    <value>Voer een waarde in met een geldig formaat</value>
   </data>
   <data name="ValidationForBusinessProcess" xml:space="preserve">
-    <value>Minstens één Business Process moet worden toegevoegd om de Angle op te kunnen slaan</value>
+    <value>Minstens één bedrijfsproces moet worden toegevoegd om de Angle te kunnen opslaan</value>
   </data>
   <data name="CannotSaveAngle_Title" xml:space="preserve">
-    <value>Cannot save</value>
+    <value>Kan niet opslaan</value>
   </data>
   <data name="MessageSaveQuestionAngleUsedInTask" xml:space="preserve">
     <value>U heeft wijzigingen aangebracht in een Angle die wordt gebruikt in een Automation task. Dit kan storingen veroorzaken.

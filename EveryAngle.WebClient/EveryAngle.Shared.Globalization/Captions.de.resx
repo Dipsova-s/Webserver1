@@ -802,7 +802,7 @@
     <value>Program/script</value>
   </data>
   <data name="MC_Label_ScriptParameters" xml:space="preserve">
-    <value>Add arguments&lt;br /&gt;(optional)</value>
+    <value>Add arguments&lt;br/&gt;(optional)</value>
   </data>
   <data name="Pivot_Option_TotalsLocation_Far" xml:space="preserve">
     <value>Unten/rechts</value>
@@ -811,18 +811,18 @@
     <value>Oben/links</value>
   </data>
   <data name="Title_AggregationChart" xml:space="preserve">
-    <value>Chart options</value>
+    <value>Diagrammoptionen</value>
   </data>
   <data name="Title_AggregationPivot" xml:space="preserve">
-    <value>Pivot options</value>
+    <value>Pivot-Optionen</value>
   </data>
   <data name="Popup_Angle_Info" xml:space="preserve">
-    <value>Angle Information</value>
+    <value>Angle-Informationen</value>
   </data>
   <data name="Popup_Dashboard_Info" xml:space="preserve">
-    <value>Dashboard Information</value>
+    <value>Dashboard-Informationen</value>
   </data>
   <data name="Popup_Display_Info" xml:space="preserve">
-    <value>Display Information</value>
+    <value>Display-Informationen</value>
   </data>
 </root>
