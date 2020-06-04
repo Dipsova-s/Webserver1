@@ -2,20 +2,20 @@
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570522082
+        "datetime": 1591088360
     },
-    "labels": "/dashboards/566/labels",
+    "labels": "/dashboards/738/labels",
     "assigned_labels": [
         "S2D",
         "F2R"
     ],
     "multi_lang_name": [
         {
-            "lang": "nl",
+            "lang": "en",
             "text": "Dashboard 2"
         },
         {
-            "lang": "en",
+            "lang": "nl",
             "text": "Dashboard 2"
         },
         {
@@ -31,25 +31,19 @@
             "text": "Dashboard 2"
         }
     ],
-    "filters": [
-        {
-            "operator": "has_no_value",
-            "field": "DedicatedPurchaseDocumentItem__NumberOfABConfirmations",
-            "step_type": "filter"
-        }
-    ],
-    "grouping_labels": "/dashboards/566/grouping_labels",
+    "filters": [],
+    "grouping_labels": "/dashboards/738/grouping_labels",
     "id": "WEBHELP_WC_Dashboard__details",
-    "layout": "{\"structure\":[{\"items\":[\"43.95%\",\"56.04%\"],\"height\":\"100%\"}],\"widgets\":[\"wa2b6ecd8d90b36ac848c556608943417\",\"w5b9a755f5703be68909a556608943417\"]}",
+    "layout": "{\"structure\":[{\"items\":[\"50%\",\"50%\"],\"height\":\"100%\"}],\"widgets\":[\"w3cae518d01ca7fa2fb2c591087077528\",\"w8d66777ee62b77b8587a591087077527\"]}",
     "user_specific": {
         "is_starred": false,
         "private_note": "WEBHELP_WC_Dashboard__details",
         "execute_on_login": false
     },
-    "state": "/dashboards/566/state",
-    "widgets": "/dashboards/566/widgets",
+    "state": "/dashboards/738/state",
+    "widgets": "/dashboards/738/widgets",
     "is_validated": false,
-    "angles": "/dashboards/566/angles",
+    "angles": "/dashboards/738/angles",
     "authorizations": {
         "unvalidate": false,
         "update": true,
@@ -58,19 +52,19 @@
         "validate": false,
         "delete": true
     },
-    "business_processes": "/dashboards/566/business_processes",
-    "privilege_labels": "/dashboards/566/privilege_labels",
+    "business_processes": "/dashboards/738/business_processes",
+    "privilege_labels": "/dashboards/738/privilege_labels",
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1556608943
+        "datetime": 1591087265
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1556608996
+        "datetime": 1591088382
     },
-    "uri": "/dashboards/566",
+    "uri": "/dashboards/738",
     "has_warnings": false,
     "model": "/models/1",
     "multi_lang_description": [],
@@ -82,12 +76,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/561",
-            "uri": "/dashboards/566/widgets/8",
-            "id": "wa2b6ecd8d90b36ac848c556608943417",
+            "angle": "/models/1/angles/726",
+            "uri": "/dashboards/738/widgets/7",
+            "id": "w8d66777ee62b77b8587a591087077527",
             "widget_type": "angle_display",
-            "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/561/displays/2838",
+            "widget_details": "{}",
+            "display": "/models/1/angles/726/displays/3288",
             "multi_lang_description": []
         },
         {
@@ -97,12 +91,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/562",
-            "uri": "/dashboards/566/widgets/9",
-            "id": "w5b9a755f5703be68909a556608943417",
+            "angle": "/models/1/angles/725",
+            "uri": "/dashboards/738/widgets/8",
+            "id": "w3cae518d01ca7fa2fb2c591087077528",
             "widget_type": "angle_display",
-            "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/562/displays/2842",
+            "widget_details": "{}",
+            "display": "/models/1/angles/725/displays/3286",
             "multi_lang_description": []
         }
     ],

@@ -21,22 +21,17 @@
             "text": "Activawaarde"
         }
     ],
-    "labels": "/models/1/angles/1502/labels",
+    "labels": "/models/1/angles/733/labels",
     "assigned_labels": [
         "PM"
     ],
-    "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1585752298
-    },
-    "displays": "/models/1/angles/1502/displays",
-    "grouping_labels": "/models/1/angles/1502/grouping_labels",
+    "displays": "/models/1/angles/733/displays",
+    "grouping_labels": "/models/1/angles/733/grouping_labels",
     "id": "WEBHELP_WC_AngleWarning5",
     "authorizations": {
         "unvalidate": false,
-        "mark_template": false,
-        "unmark_template": true,
+        "mark_template": true,
+        "unmark_template": false,
         "update": true,
         "publish": true,
         "unpublish": false,
@@ -46,39 +41,46 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 14,
+        "times_executed": 0,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_AngleWarning5",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/1502/state",
+    "state": "/models/1/angles/733/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1502/business_processes",
+    "business_processes": "/models/1/angles/733/business_processes",
     "query_definition": [
         {
+            "valid": false,
+            "validation_details": {
+                "classes": [
+                    "AssetCalculatedValue"
+                ],
+                "warning_type": "unsupported_start_object"
+            },
             "queryblock_type": "base_classes",
             "base_classes": [
                 "AssetCalculatedValue"
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/1502/displays/7714",
-    "privilege_labels": "/models/1/angles/1502/privilege_labels",
+    "angle_default_display": "/models/1/angles/733/displays/3314",
+    "privilege_labels": "/models/1/angles/733/privilege_labels",
     "is_deleted": false,
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570522302
+        "datetime": 1591085261
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570522558
+        "datetime": 1591085295
     },
-    "uri": "/models/1/angles/1502",
+    "uri": "/models/1/angles/733",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -113,7 +115,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522302
+                "datetime": 1591085261
             },
             "fields": [
                 {
@@ -141,16 +143,11 @@
                     "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1571327715
-            },
-            "uri": "/models/1/angles/1502/displays/7713",
-            "is_public": false,
             "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/733/displays/3313",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1502/displays/7713/state",
+            "state": "/models/1/angles/733/displays/3313/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -193,7 +190,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1502",
+            "angle_id": "733",
             "id": "d458c584a0d6eb14c458ad0b9787c452e",
             "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":true,\"layout\":null,\"drilldown_display\":\"dae23c11d678ab722eec0e9cf4300a431\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
             "multi_lang_description": [
@@ -252,7 +249,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522302
+                "datetime": 1591085261
             },
             "fields": [
                 {
@@ -347,16 +344,11 @@
                     "field_details": "{\"width\":120}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1578908575
-            },
-            "uri": "/models/1/angles/1502/displays/7714",
-            "is_public": false,
             "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/733/displays/3314",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1502/displays/7714/state",
+            "state": "/models/1/angles/733/displays/3314/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -364,7 +356,7 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "1502",
+            "angle_id": "733",
             "id": "dae23c11d678ab722eec0e9cf4300a431",
             "display_details": "{}",
             "multi_lang_description": [
@@ -423,7 +415,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522302
+                "datetime": 1591085261
             },
             "fields": [
                 {
@@ -446,10 +438,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1502/displays/7715",
+            "uri": "/models/1/angles/733/displays/3315",
             "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1502/displays/7715/state",
+            "state": "/models/1/angles/733/displays/3315/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -486,7 +478,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1502",
+            "angle_id": "733",
             "id": "de03f9ea6656c8e28116f8bb2514e9781",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"dae23c11d678ab722eec0e9cf4300a431\"}",
             "multi_lang_description": [
@@ -513,11 +505,9 @@
             ]
         }
     ],
-    "has_warnings": false,
-    "is_template": true,
+    "has_warnings": true,
+    "is_template": false,
     "model": "/models/1",
-    "is_published": false,
-    "allow_more_details": true,
     "multi_lang_description": [
         {
             "lang": "de",
@@ -539,5 +529,7 @@
             "lang": "nl",
             "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1457019228232824\"><h2 class=\" topictitle2\" id=\"Hidelem4x11362\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x11366\">In het object Activawaarde worden de totalen weergegeven van de geplande en geboekte waarden van een activum in een specifiek afschrijvingsgebied en fiscaal jaar. Hier worden allerlei eigenschappen weergegeven die zijn gerelateerd aan de aankoop, afschrijving en buitengebruikstellingen van een activum.</p><h2 class=\" topictitle2\" id=\"Hidelem4x11368\">Uitleg</h2><p class=\"\" id=\"Pidelem4x11372\">Gedurende de levenscyclus van een activum worden transacties geboekt naar de financiële boekhouding. Het activum staat voor een bepaalde waarde, die in overeenstemming moet zijn met de afschrijvingsleeftijd.</p><p class=\"\" id=\"Pidelem4x11374\">In de boekhoudmodule voor activa van SAP worden veel waarden berekend en opgeslagen in de gestructureerde tabel ANLCV. In Every Angle hebben we de belangrijkste berekende velden geïntegreerd, in overeenstemming met de berekende velden in SAP.</p><h2 class=\" topictitle2\" id=\"Hidelem4x11377\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x11380\">Op basis van de SAP-tabel ANLC wordt een object aangemaakt met referenties naar Activa, Afschrijvingsgebied van activa, Kostenplaats en meer. De SAP-tabel ANLCV is hier ook bij betrokken.</p><p class=\"\" id=\"Pidelem4x11383\">Activaboekhouding omvat vijf gerelateerde objecten: Activa, Activa op afschrijvingsniveau, Activaboeking, Activawaarde en Activawijziging.</p></div>"
         }
-    ]
+    ],
+    "allow_more_details": true,
+    "is_published": false
 }

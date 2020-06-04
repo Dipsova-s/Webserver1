@@ -18,6 +18,9 @@ Crop Panes Homepage
     Capture page screenshot  video2.png
     Go to Search Page
 
+    # check existing videos
+    Page Should Contain Element  css=#WelcomePlayer > *  Please upload movies from "<robot>/webhelp_items/movies" to "<website>/resources/movies"
+
     # top message
     Execute JavaScript
     ...   var text = '<p style="font-size:35px;margin:0 0 40px 0;"><strong>Do more</strong> than just report on your business</p>';
@@ -47,6 +50,7 @@ Crop Panes Homepage
     ${video2}  Image To Base64  ${OUTPUT_DIR}${/}video2.png
     ${video3}  Image To Base64  ${OUTPUT_DIR}${/}video3.png
     Execute JavaScript
+    ...  $('#WelcomePlayer .vjs-error-display').addClass('vjs-hidden');
     ...  $('#WelcomePlayer .vjs-poster').removeClass('vjs-hidden').css('background-image', 'url("${video1}")');
     ...  $('#WelcomePlayer img:eq(0)').attr('src', "${video1}");
     ...  $('#WelcomePlayer img:eq(1)').attr('src', "${video2}");

@@ -21,7 +21,7 @@
             "text": "Conditietabel"
         }
     ],
-    "labels": "/models/1/angles/1503/labels",
+    "labels": "/models/1/angles/734/labels",
     "assigned_labels": [
         "P2P",
         "O2C",
@@ -29,13 +29,8 @@
         "PM",
         "Risk"
     ],
-    "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1571329989
-    },
-    "displays": "/models/1/angles/1503/displays",
-    "grouping_labels": "/models/1/angles/1503/grouping_labels",
+    "displays": "/models/1/angles/734/displays",
+    "grouping_labels": "/models/1/angles/734/grouping_labels",
     "id": "WEBHELP_WC_AngleWarning4",
     "authorizations": {
         "unvalidate": false,
@@ -50,17 +45,17 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 2,
+        "times_executed": 0,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_AngleWarning4",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/1503/state",
+    "state": "/models/1/angles/734/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1503/business_processes",
+    "business_processes": "/models/1/angles/734/business_processes",
     "query_definition": [
         {
             "valid": false,
@@ -76,20 +71,20 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/1503/displays/7718",
-    "privilege_labels": "/models/1/angles/1503/privilege_labels",
+    "angle_default_display": "/models/1/angles/734/displays/3318",
+    "privilege_labels": "/models/1/angles/734/privilege_labels",
     "is_deleted": false,
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570522302
+        "datetime": 1591085342
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570522525
+        "datetime": 1591085376
     },
-    "uri": "/models/1/angles/1503",
+    "uri": "/models/1/angles/734",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -124,7 +119,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522302
+                "datetime": 1591085342
             },
             "fields": [
                 {
@@ -147,10 +142,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1503/displays/7716",
+            "uri": "/models/1/angles/734/displays/3316",
             "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1503/displays/7716/state",
+            "state": "/models/1/angles/734/displays/3316/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -187,7 +182,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1503",
+            "angle_id": "734",
             "id": "d4fbf69ccc088c9075255fd425af6f7d3",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"drilldown_display\":\"dd7b5042c04d1cb5b4bd23145e3496b65\",\"count_index\":0}",
             "multi_lang_description": [
@@ -246,7 +241,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522302
+                "datetime": 1591085342
             },
             "fields": [
                 {
@@ -263,10 +258,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1503/displays/7717",
+            "uri": "/models/1/angles/734/displays/3317",
             "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1503/displays/7717/state",
+            "state": "/models/1/angles/734/displays/3317/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -297,7 +292,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1503",
+            "angle_id": "734",
             "id": "dd75b77c71cc141e223057c4693b65e64",
             "display_details": "{\"chart_type\":\"bar\",\"stack\":true,\"multi_axis\":false,\"count_index\":0,\"drilldown_display\":\"dd7b5042c04d1cb5b4bd23145e3496b65\"}",
             "multi_lang_description": [
@@ -356,7 +351,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522302
+                "datetime": 1591085342
             },
             "fields": [
                 {
@@ -412,7 +407,7 @@
                     "tech_info": "A004-MATNR",
                     "field": "MATNR",
                     "multi_lang_alias": [],
-                    "valid": false,
+                    "valid": true,
                     "field_details": "{\"width\":120}"
                 },
                 {
@@ -431,10 +426,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1503/displays/7718",
+            "uri": "/models/1/angles/734/displays/3318",
             "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1503/displays/7718/state",
+            "state": "/models/1/angles/734/displays/3318/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -442,7 +437,7 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "1503",
+            "angle_id": "734",
             "id": "dd7b5042c04d1cb5b4bd23145e3496b65",
             "display_details": "{}",
             "multi_lang_description": [
@@ -472,8 +467,6 @@
     "has_warnings": true,
     "is_template": false,
     "model": "/models/1",
-    "is_published": false,
-    "allow_more_details": true,
     "multi_lang_description": [
         {
             "lang": "de",
@@ -495,5 +488,7 @@
             "lang": "nl",
             "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436278262794724\"><h2 class=\" topictitle2\" id=\"Hidelem4x14474\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x14476\">In de Conditietabel wordt de relatie tussen een conditierecord (prijs, kortingspercentage, belasting, enzovoort) en het betrokken object (Artikel, Klant of Leverancier) weergegeven.</p><h2 class=\" topictitle2\" id=\"Hidelem4x14479\">Uitleg</h2><p class=\"\" id=\"Pidelem4x14481\">In een SAP-systeem kunnen vele verschillende condities worden beheerd, zoals prijscondities, EDI-condities, materiaalvervangingscondities, vermeldingscondities, kortingscondities, enzovoort. Elk van deze condities worden beheerd in verschillende conditietabellen, zoals A004, A005, B006, C008, KOTD011, KOTE003, enzovoort.</p><p class=\"\" id=\"Pidelem4x14483\">In een standaardsituatie downloadt Every Angle niet al deze tabellen, omdat niet alle condities door een bedrijf worden gebruikt. Een Every Angle-beheerder kan opgeven welke condities worden gedownload en welke condities zichtbaar zijn in Every Angle, op basis van de condities die relevant zijn voor het bedrijf. In dit object kunt u alle ingeschakelde conditietabellen bekijken en wat hun relatie met andere objecten is. Prijscondities zijn speciale typen condities. Als u Angles wilt maken voor prijscondities, moet u beginnen bij het object Conditierecord. Dit object bevat waarden, hoeveelheden, percentages, schalen, aanvullingen op condities en meer. Dit zijn de belangrijkste velden van Conditietabel: </p><ul id=\"U1436279793443760\" class=\"\"><li><p class=\"\" id=\"P1436279793443161\">Conditiesoort</p></li><li><p class=\"\" id=\"P1436279793443872\">Rekenregel</p></li><li><p class=\"\" id=\"P143627979345803\">Geldigheidsstatus</p></li><li><p class=\"\" id=\"P1436279793458134\">Prijseenheid</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x14492\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x14494\">Het object Prijsconditie bevat meerdere hoofdtabellen, die uw systeembeheerder voor u heeft geselecteerd. De meeste van deze tabellen hebben de indeling Axxx (A004, A005, A018, enz) of Bxxx.</p><p class=\"\" id=\"Pidelem4x14496\">Het object kan referenties naar veel verschillende objecten bevatten, zoals Artikel (op klant-, vestigings- en magazijnniveau), Leverancier, Klant, Inkooporganisatie en Verkooporganisatie.</p><p class=\"\" id=\"Pidelem4x14498\">Aan het object is een lijst met Conditierecords toegevoegd (als prijscondities zijn ingeschakeld).</p></div>"
         }
-    ]
+    ],
+    "allow_more_details": true,
+    "is_published": false
 }

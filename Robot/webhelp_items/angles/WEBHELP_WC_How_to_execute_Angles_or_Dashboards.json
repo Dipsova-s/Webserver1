@@ -1,37 +1,37 @@
 {
     "multi_lang_name": [
         {
+            "lang": "de",
+            "text": "Einkaufsbeleg (EB) Kopf"
+        },
+        {
             "lang": "en",
             "text": "Purchase Document (PD) Header"
         },
         {
-            "lang": "nl",
-            "text": "Inkoopdocument (InkD) Kop"
+            "lang": "es",
+            "text": "Documento Compras (DC) Cabecera"
         },
         {
             "lang": "fr",
             "text": "Document D’achat En-tête"
         },
         {
-            "lang": "de",
-            "text": "Einkaufsbeleg (EB) Kopf"
-        },
-        {
-            "lang": "es",
-            "text": "Documento Compras (DC) Cabecera"
+            "lang": "nl",
+            "text": "Inkoopdocument (InkD) Kop"
         }
     ],
-    "labels": "/models/1/angles/1480/labels",
+    "labels": "/models/1/angles/721/labels",
     "assigned_labels": [
         "S2D"
     ],
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1584353118
+        "datetime": 1591084578
     },
-    "displays": "/models/1/angles/1480/displays",
-    "grouping_labels": "/models/1/angles/1480/grouping_labels",
+    "displays": "/models/1/angles/721/displays",
+    "grouping_labels": "/models/1/angles/721/grouping_labels",
     "id": "WEBHELP_WC_How_to_execute_Angles_or_Dashboards",
     "authorizations": {
         "unvalidate": false,
@@ -46,35 +46,30 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 9,
+        "times_executed": 3,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_How_to_execute_Angles_or_Dashboards",
         "execute_on_login": false
     },
-    "created": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1569854339
-    },
-    "state": "/models/1/angles/1480/state",
+    "state": "/models/1/angles/721/state",
     "allow_followups": true,
     "is_parameterized": true,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1480/business_processes",
+    "business_processes": "/models/1/angles/721/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
             "base_classes": [
-                "PurchaseOrderScheduleLine",
-                "PurchaseOrder"
+                "PurchaseOrder",
+                "PurchaseOrderScheduleLine"
             ]
         },
         {
             "query_steps": [
                 {
                     "tech_info": "T001-BUKRS",
-                    "execution_parameter_id": "ea38f80403128c4bdfb4cf0aab7ae029a6",
+                    "execution_parameter_id": "eaf35345bd31af4f87932f8e8b1ee5d295",
                     "step_type": "filter",
                     "field": "CompanyCode__CompanyCode",
                     "is_execution_parameter": true,
@@ -84,22 +79,42 @@
             "queryblock_type": "query_steps"
         }
     ],
-    "angle_default_display": "/models/1/angles/1480/displays/7622",
-    "privilege_labels": "/models/1/angles/1480/privilege_labels",
+    "angle_default_display": "/models/1/angles/721/displays/3276",
+    "privilege_labels": "/models/1/angles/721/privilege_labels",
     "is_deleted": false,
-    "package": "/packages/11",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1590416765
+    },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854339
+        "datetime": 1590989391
     },
-    "uri": "/models/1/angles/1480",
+    "uri": "/models/1/angles/721",
     "display_definitions": [
         {
             "multi_lang_name": [
                 {
+                    "lang": "de",
+                    "text": "Kategorisierung"
+                },
+                {
                     "lang": "en",
                     "text": "Categorization"
+                },
+                {
+                    "lang": "es",
+                    "text": "Clasificación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Catégorisation"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Categoriseren"
                 }
             ],
             "authorizations": {
@@ -112,7 +127,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854339
+                "datetime": 1590416765
             },
             "fields": [
                 {
@@ -128,16 +143,11 @@
                     "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1584352135
-            },
-            "uri": "/models/1/angles/1480/displays/7622",
-            "is_public": true,
             "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/721/displays/3276",
+            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1480/displays/7622/state",
+            "state": "/models/1/angles/721/displays/3276/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -167,9 +177,9 @@
                 }
             ],
             "is_angle_default": true,
-            "angle_id": "1480",
+            "angle_id": "721",
             "id": "d08199226fa4f37b9a7b6467966061736",
-            "display_details": "{\"columns\":{\"header\":[91],\"data\":[81]},\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
+            "display_details": "{\"columns\":{\"header\":[91],\"data\":[81]},\"layout\":\"{\\\"collapse\\\":\\\"+////wAAAAAAAAAA+////wAAAAAAAAAA\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
             "multi_lang_description": []
         }
     ],
@@ -178,7 +188,7 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854339
+        "datetime": 1590989391
     },
     "model": "/models/1",
     "is_published": true,

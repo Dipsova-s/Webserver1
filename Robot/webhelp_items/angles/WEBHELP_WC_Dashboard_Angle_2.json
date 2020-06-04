@@ -1,67 +1,62 @@
 {
     "multi_lang_name": [
         {
-            "lang": "nl",
-            "text": "Boekhouddocument Kop"
+            "lang": "de",
+            "text": "Buchhaltungsbeleg (BB) Kopf"
         },
         {
             "lang": "en",
             "text": "Accounting Document (AD) Header"
         },
         {
+            "lang": "es",
+            "text": "Documento Contable Cabecera"
+        },
+        {
             "lang": "fr",
             "text": "Pièce Comptable En-tête"
         },
         {
-            "lang": "de",
-            "text": "Buchhaltungsbeleg (BB) Kopf"
-        },
-        {
-            "lang": "es",
-            "text": "Documento Contable Cabecera"
+            "lang": "nl",
+            "text": "Boekhouddocument Kop"
         }
     ],
-    "labels": "/models/1/angles/562/labels",
+    "labels": "/models/1/angles/726/labels",
     "assigned_labels": [
         "F2R"
     ],
     "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1585830445
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591153188
     },
-    "displays": "/models/1/angles/562/displays",
-    "grouping_labels": "/models/1/angles/562/grouping_labels",
-    "validated": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1557127369
-    },
+    "displays": "/models/1/angles/726/displays",
+    "grouping_labels": "/models/1/angles/726/grouping_labels",
     "id": "WEBHELP_WC_Dashboard_Angle_2",
     "authorizations": {
-        "unvalidate": true,
-        "mark_template": false,
+        "unvalidate": false,
+        "mark_template": true,
         "unmark_template": false,
         "update": true,
         "publish": false,
-        "unpublish": false,
+        "unpublish": true,
         "create_private_display": true,
-        "validate": false,
+        "validate": true,
         "create_public_display": true,
         "delete": true
     },
     "user_specific": {
-        "times_executed": 839,
+        "times_executed": 59,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_Dashboard_Angle_2",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/562/state",
+    "state": "/models/1/angles/726/state",
     "allow_followups": true,
     "is_parameterized": false,
-    "is_validated": true,
-    "business_processes": "/models/1/angles/562/business_processes",
+    "is_validated": false,
+    "business_processes": "/models/1/angles/726/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -70,172 +65,42 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/562/displays/2844",
-    "privilege_labels": "/models/1/angles/562/privilege_labels",
+    "angle_default_display": "/models/1/angles/726/displays/3293",
+    "privilege_labels": "/models/1/angles/726/privilege_labels",
     "is_deleted": false,
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1556521964
+        "datetime": 1590417064
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1580122752
+        "datetime": 1591084994
     },
-    "uri": "/models/1/angles/562",
+    "uri": "/models/1/angles/726",
     "display_definitions": [
         {
             "multi_lang_name": [
                 {
                     "lang": "de",
-                    "text": "Buchungen pro Buchungskreis und Periode"
+                    "text": "Anzahl nach Erstellungsdatum"
                 },
-                {
-                    "lang": "en",
-                    "text": "Postings per Company Code per Period"
-                },
-                {
-                    "lang": "es",
-                    "text": "Contabilizaciones por Sociedad y Período"
-                },
-                {
-                    "lang": "fr",
-                    "text": "Écritures par Société et par Période"
-                },
-                {
-                    "lang": "nl",
-                    "text": "Boekingen per Bedrijfsnummer per Periode"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
-                "delete": true
-            },
-            "created": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1556521964
-            },
-            "fields": [
-                {
-                    "field": "individual_CompanyCode__CompanyCode",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
-                },
-                {
-                    "field": "individual_AccountingDocumentYear",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"column\",\"prefix\":null,\"decimals\":0,\"sorting\":\"asc\"}"
-                },
-                {
-                    "field": "individual_MONAT",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"column\",\"prefix\":null,\"decimals\":0,\"sorting\":\"asc\"}"
-                },
-                {
-                    "field": "count",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
-                }
-            ],
-            "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/562/displays/2841",
-            "is_public": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/562/displays/2841/state",
-            "display_type": "pivot",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "operator": "equal_to",
-                            "field": "GJAHR",
-                            "step_type": "filter",
-                            "arguments": [
-                                {
-                                    "field": "CompanyCode__ActualFiscalYear",
-                                    "argument_type": "field"
-                                }
-                            ],
-                            "tech_info": "BKPF-GJAHR"
-                        },
-                        {
-                            "aggregation_fields": [
-                                {
-                                    "operator": "count",
-                                    "field": "count"
-                                }
-                            ],
-                            "step_type": "aggregation",
-                            "grouping_fields": [
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_CompanyCode__CompanyCode",
-                                    "source_field": "CompanyCode__CompanyCode",
-                                    "tech_info": "T001-BUKRS"
-                                },
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_AccountingDocumentYear",
-                                    "source_field": "GJAHR",
-                                    "tech_info": "BKPF-GJAHR"
-                                },
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_MONAT",
-                                    "source_field": "MONAT",
-                                    "tech_info": "BKPF-MONAT"
-                                }
-                            ]
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "is_angle_default": false,
-            "angle_id": "562",
-            "id": "d817b8e8fdbfe24c61c82556521945831",
-            "display_details": "{\"columns\":{\"header\":[195],\"data\":[45,45,45,45,45,45,30,76,45,45,45,45,45,45,45,45,45,45,45,45,30,76,45,45,45,45,45,45,45,30,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,30,76,30,30,30,30,30,30,34,30,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,30,76,30,30,30,30,34,34,34,34,34,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,34,76,30,30,30,30,30,30,30,30,30,34,45,30,76,34,30,30,30,30,30,34,34,34,34,34,30,76,30,34,30,30,30,30,30,30,30,30,30,30,76,76]},\"drilldown_display\":\"dcedde0f45e71d404d343556521945831\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"/v///wEAAAAhaW5kaXZpZHVhbF9hY2NvdW50aW5nZG9jdW1lbnR5ZWFyWVN5c3RlbS5JbnQ2NCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQEAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\"}",
-            "multi_lang_description": [
-                {
-                    "lang": "de",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
-                },
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
-                },
-                {
-                    "lang": "es",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
-                },
-                {
-                    "lang": "fr",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
-                },
-                {
-                    "lang": "nl",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
-                }
-            ]
-        },
-        {
-            "multi_lang_name": [
                 {
                     "lang": "en",
                     "text": "No. per Creation Date"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Fecha de Creación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Date de Création"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Aanmaakdatum"
                 }
             ],
             "authorizations": {
@@ -248,7 +113,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1556521964
+                "datetime": 1590417064
             },
             "fields": [
                 {
@@ -270,16 +135,11 @@
                     "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1580112032
-            },
-            "uri": "/models/1/angles/562/displays/2842",
-            "is_public": true,
             "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/726/displays/3288",
+            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/562/displays/2842/state",
+            "state": "/models/1/angles/726/displays/3288/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -316,313 +176,29 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "562",
+            "angle_id": "726",
             "id": "d5a29523c14e52f824a98556521945831",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"dcedde0f45e71d404d343556521945831\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
             "multi_lang_description": [
                 {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Anzahl pro Erstellungsdatum in Quartalen pro Belegart.</p></div>"
+                },
+                {
                     "lang": "en",
                     "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Number per creation date in quarters per document type.</p></div>"
-                }
-            ]
-        },
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "de",
-                    "text": "Kategorisierung"
-                },
-                {
-                    "lang": "en",
-                    "text": "Categorization"
                 },
                 {
                     "lang": "es",
-                    "text": "Clasificación"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Número por fecha de creación en trimestres y clase de documento.</p></div>"
                 },
                 {
                     "lang": "fr",
-                    "text": "Catégorisation"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Nombre par date de création en trimestres et par type de document.</p></div>"
                 },
                 {
                     "lang": "nl",
-                    "text": "Categoriseren"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
-                "delete": true
-            },
-            "is_parameterized": true,
-            "created": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1556521964
-            },
-            "fields": [
-                {
-                    "field": "individual_BKPF_BLART",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
-                },
-                {
-                    "field": "individual_CompanyCode__CompanyCode",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
-                },
-                {
-                    "field": "individual_AccountingDocumentYear",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"column\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"asc\"}"
-                },
-                {
-                    "field": "count",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
-                }
-            ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1580122752
-            },
-            "uri": "/models/1/angles/562/displays/2843",
-            "is_public": true,
-            "contained_aggregation_steps": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/562/displays/2843/state",
-            "display_type": "pivot",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "tech_info": "BKPF-GJAHR",
-                            "execution_parameter_id": "ea223aab6e3b87412bb17018f33cb29911",
-                            "step_type": "filter",
-                            "field": "GJAHR",
-                            "arguments": [
-                                {
-                                    "field": "CompanyCode__ActualFiscalYear",
-                                    "argument_type": "field"
-                                }
-                            ],
-                            "operator": "equal_to",
-                            "is_execution_parameter": true
-                        },
-                        {
-                            "aggregation_fields": [
-                                {
-                                    "operator": "count",
-                                    "field": "count"
-                                }
-                            ],
-                            "step_type": "aggregation",
-                            "grouping_fields": [
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_BKPF_BLART",
-                                    "source_field": "BLART",
-                                    "tech_info": "BKPF-BLART"
-                                },
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_CompanyCode__CompanyCode",
-                                    "source_field": "CompanyCode__CompanyCode",
-                                    "tech_info": "T001-BUKRS"
-                                },
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_AccountingDocumentYear",
-                                    "source_field": "GJAHR",
-                                    "tech_info": "BKPF-GJAHR"
-                                }
-                            ]
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "is_angle_default": false,
-            "angle_id": "562",
-            "id": "dc117570d44c8c4623437556521945831",
-            "display_details": "{\"columns\":{\"header\":[214,187],\"data\":[50,77.291015625]},\"drilldown_display\":\"dcedde0f45e71d404d343556521945831\",\"layout\":\"{\\\"collapse\\\":\\\"+////wAAAAAAAAAA+////wAAAAABAAAAAAAAABVpbmRpdmlkdWFsX2JrcGZfYmxhcnRaU3lzdGVtLk9iamVjdCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5WlN5c3RlbS5PYmplY3QsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQE=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
-            "multi_lang_description": [
-                {
-                    "lang": "de",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
-                },
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
-                },
-                {
-                    "lang": "es",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
-                },
-                {
-                    "lang": "fr",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
-                },
-                {
-                    "lang": "nl",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
-                }
-            ]
-        },
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "en",
-                    "text": "Basic List"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": false,
-                "unpublish": false,
-                "update": true,
-                "publish": false,
-                "delete": false
-            },
-            "created": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1556521964
-            },
-            "fields": [
-                {
-                    "tech_info": "",
-                    "field": "ObjectType",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":84,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "T001-BUKRS",
-                    "field": "CompanyCode__CompanyCode",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":126,\"format\":\"shnln\"}"
-                },
-                {
-                    "tech_info": "BKPF-BELNR",
-                    "field": "BELNR",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "BKPF-BLART",
-                    "field": "BLART",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":194}"
-                },
-                {
-                    "tech_info": "BKPF-GJAHR",
-                    "field": "GJAHR",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":79}"
-                },
-                {
-                    "tech_info": "BKPF-MONAT",
-                    "field": "MONAT",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":75}"
-                },
-                {
-                    "tech_info": "BKPF-BUDAT",
-                    "field": "PostingDate",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "BKPF-BLDAT",
-                    "field": "DocumentDate",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "BKPF-CPUDT",
-                    "field": "BKPF_CPUDT",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "BKPF-USNAM",
-                    "field": "BKPF_USNAM",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "BKPF-TCODE",
-                    "field": "TCODE",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":106}"
-                },
-                {
-                    "tech_info": "BKPF-XBLNR",
-                    "field": "XBLNR1",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":182}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "Customer__NameAndDescription",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "Vendor__NameAndDescription",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                }
-            ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1580122148
-            },
-            "uri": "/models/1/angles/562/displays/2844",
-            "is_public": true,
-            "contained_aggregation_steps": false,
-            "used_in_task": true,
-            "state": "/models/1/angles/562/displays/2844/state",
-            "display_type": "list",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [],
-            "is_angle_default": true,
-            "angle_id": "562",
-            "id": "dcedde0f45e71d404d343556521945831",
-            "display_details": "{}",
-            "multi_lang_description": [
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Aantal per aanmaakdatum in kwartalen per documentsoort.</p></div>"
                 }
             ]
         },
@@ -660,7 +236,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1556521964
+                "datetime": 1590417064
             },
             "fields": [
                 {
@@ -780,10 +356,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/562/displays/2845",
+            "uri": "/models/1/angles/726/displays/3289",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/562/displays/2845/state",
+            "state": "/models/1/angles/726/displays/3289/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -794,7 +370,7 @@
                     "query_steps": [
                         {
                             "tech_info": "BKPF-BLART",
-                            "execution_parameter_id": "ea5d2fee685d9c4df7946ad7fe515d79f0",
+                            "execution_parameter_id": "ea4a8cc5871fc247ce942a9ad37f2d1ac5",
                             "step_type": "filter",
                             "field": "BLART",
                             "is_execution_parameter": true,
@@ -802,7 +378,7 @@
                         },
                         {
                             "tech_info": "T001-BUKRS",
-                            "execution_parameter_id": "ea47b245a8791247f0ba1baef88f207629",
+                            "execution_parameter_id": "ea37cc81dcf2034cb2a6e617750de68978",
                             "step_type": "filter",
                             "field": "CompanyCode__CompanyCode",
                             "is_execution_parameter": true,
@@ -810,7 +386,7 @@
                         },
                         {
                             "tech_info": "BKPF-GJAHR",
-                            "execution_parameter_id": "eacec61b85d3d24d1ebffc85a71e8c9593",
+                            "execution_parameter_id": "ea282fc2ceb9c34a64b2c4a3f3857c0a7b",
                             "step_type": "filter",
                             "field": "GJAHR",
                             "arguments": [
@@ -831,7 +407,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "562",
+            "angle_id": "726",
             "id": "d7dfb41290cf318bcecec556521945831",
             "display_details": "{}",
             "multi_lang_description": [
@@ -854,6 +430,152 @@
                 {
                     "lang": "nl",
                     "text": "<div id=\"summary\" />"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Buchungen pro Buchungskreis und Periode"
+                },
+                {
+                    "lang": "en",
+                    "text": "Postings per Company Code per Period"
+                },
+                {
+                    "lang": "es",
+                    "text": "Contabilizaciones por Sociedad y Período"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Écritures par Société et par Période"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Boekingen per Bedrijfsnummer per Periode"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1590417064
+            },
+            "fields": [
+                {
+                    "field": "individual_CompanyCode__CompanyCode",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "individual_AccountingDocumentYear",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"prefix\":null,\"decimals\":0,\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "individual_MONAT",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"prefix\":null,\"decimals\":0,\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/726/displays/3290",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/726/displays/3290/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "equal_to",
+                            "field": "GJAHR",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "field": "CompanyCode__ActualFiscalYear",
+                                    "argument_type": "field"
+                                }
+                            ],
+                            "tech_info": "BKPF-GJAHR"
+                        },
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_CompanyCode__CompanyCode",
+                                    "source_field": "CompanyCode__CompanyCode",
+                                    "tech_info": "T001-BUKRS"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_AccountingDocumentYear",
+                                    "source_field": "GJAHR",
+                                    "tech_info": "BKPF-GJAHR"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_MONAT",
+                                    "source_field": "MONAT",
+                                    "tech_info": "BKPF-MONAT"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "726",
+            "id": "d817b8e8fdbfe24c61c82556521945831",
+            "display_details": "{\"columns\":{\"header\":[195],\"data\":[45,45,45,45,45,45,30,76,45,45,45,45,45,45,45,45,45,45,45,45,30,76,45,45,45,45,45,45,45,30,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,30,76,30,30,30,30,30,30,34,30,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,30,76,30,30,30,30,34,34,34,34,34,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,34,76,30,30,30,30,30,30,30,30,30,34,45,30,76,34,30,30,30,30,30,34,34,34,34,34,30,76,30,34,30,30,30,30,30,30,30,30,30,30,76,76]},\"drilldown_display\":\"dcedde0f45e71d404d343556521945831\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"/v///wEAAAAhaW5kaXZpZHVhbF9hY2NvdW50aW5nZG9jdW1lbnR5ZWFyWVN5c3RlbS5JbnQ2NCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQEAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"
                 }
             ]
         },
@@ -891,7 +613,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1556521964
+                "datetime": 1590417064
             },
             "fields": [
                 {
@@ -994,10 +716,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/562/displays/2846",
+            "uri": "/models/1/angles/726/displays/3291",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/562/displays/2846/state",
+            "state": "/models/1/angles/726/displays/3291/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -1008,7 +730,7 @@
                     "query_steps": [
                         {
                             "tech_info": "BKPF-BLART",
-                            "execution_parameter_id": "eaa621bebb3dd343fc8761dc3d523e2cce",
+                            "execution_parameter_id": "eaa63f4262834a4d798c2cf20f50401eab",
                             "step_type": "filter",
                             "field": "BLART",
                             "is_execution_parameter": true,
@@ -1016,7 +738,7 @@
                         },
                         {
                             "tech_info": "T001-BUKRS",
-                            "execution_parameter_id": "eac36c2cb149264fec9622984a60f5867b",
+                            "execution_parameter_id": "ea0cb461c1b0054f40b9fad5d0b28e9be1",
                             "step_type": "filter",
                             "field": "CompanyCode__CompanyCode",
                             "is_execution_parameter": true,
@@ -1039,7 +761,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "562",
+            "angle_id": "726",
             "id": "dacffc5d7d23e15f8b405556521945831",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1064,6 +786,328 @@
                     "text": "<div id=\"summary\" />"
                 }
             ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Kategorisierung"
+                },
+                {
+                    "lang": "en",
+                    "text": "Categorization"
+                },
+                {
+                    "lang": "es",
+                    "text": "Clasificación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Catégorisation"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Categoriseren"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "is_parameterized": true,
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1590417064
+            },
+            "fields": [
+                {
+                    "field": "individual_BKPF_BLART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "individual_CompanyCode__CompanyCode",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "individual_AccountingDocumentYear",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/726/displays/3292",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/726/displays/3292/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "tech_info": "BKPF-GJAHR",
+                            "execution_parameter_id": "ea36cda0d1dc1b42e5ae87c02872911880",
+                            "step_type": "filter",
+                            "field": "GJAHR",
+                            "arguments": [
+                                {
+                                    "field": "CompanyCode__ActualFiscalYear",
+                                    "argument_type": "field"
+                                }
+                            ],
+                            "operator": "equal_to",
+                            "is_execution_parameter": true
+                        },
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_BKPF_BLART",
+                                    "source_field": "BLART",
+                                    "tech_info": "BKPF-BLART"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_CompanyCode__CompanyCode",
+                                    "source_field": "CompanyCode__CompanyCode",
+                                    "tech_info": "T001-BUKRS"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_AccountingDocumentYear",
+                                    "source_field": "GJAHR",
+                                    "tech_info": "BKPF-GJAHR"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "726",
+            "id": "dc117570d44c8c4623437556521945831",
+            "display_details": "{\"columns\":{\"header\":[214,187],\"data\":[45,45,52,45,52,52,52,52,52,52,52,52,45,45,45,45,45,45,45,45,45,76]},\"drilldown_display\":\"dcedde0f45e71d404d343556521945831\",\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAFWluZGl2aWR1YWxfYmtwZl9ibGFydFpTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkBAQAAAAAAAAAAAAAA\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Basisliste"
+                },
+                {
+                    "lang": "en",
+                    "text": "Basic List"
+                },
+                {
+                    "lang": "es",
+                    "text": "Lista Básica"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Liste De Base"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Basislijst"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": false,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1590417064
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":84,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "T001-BUKRS",
+                    "field": "CompanyCode__CompanyCode",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":126,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "BKPF-BELNR",
+                    "field": "BELNR",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "BKPF-BLART",
+                    "field": "BLART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":194}"
+                },
+                {
+                    "tech_info": "BKPF-GJAHR",
+                    "field": "GJAHR",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":79}"
+                },
+                {
+                    "tech_info": "BKPF-MONAT",
+                    "field": "MONAT",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":75}"
+                },
+                {
+                    "tech_info": "BKPF-BUDAT",
+                    "field": "PostingDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "BKPF-BLDAT",
+                    "field": "DocumentDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "BKPF-CPUDT",
+                    "field": "BKPF_CPUDT",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "BKPF-USNAM",
+                    "field": "BKPF_USNAM",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "BKPF-TCODE",
+                    "field": "TCODE",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":106}"
+                },
+                {
+                    "tech_info": "BKPF-XBLNR",
+                    "field": "XBLNR1",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":182}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Customer__NameAndDescription",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Vendor__NameAndDescription",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/726/displays/3293",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/726/displays/3293/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": true,
+            "angle_id": "726",
+            "id": "dcedde0f45e71d404d343556521945831",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"
+                }
+            ]
         }
     ],
     "has_warnings": false,
@@ -1071,31 +1115,31 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1557127356
+        "datetime": 1590989384
     },
     "model": "/models/1",
     "is_published": true,
     "allow_more_details": true,
     "multi_lang_description": [
         {
-            "lang": "nl",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x2806\">Een boekhouddocument (AD) is een voorbeeld in het SAP-systeem van het document dat een financiële boeking heeft geactiveerd (een factuur of een verplaatsing van goederen). Wanneer u een boekhouddocument boekt, werkt het SAP-systeem de transactiebedragen en het documenttype bij in de grootboekrekeningen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Uitleg</h2><p class=\"\" id=\"Pidelem4x2810\">Wanneer u een boekhouddocument boekt, werkt het SAP-systeem de transactiebedragen en het documenttype bij in de grootboekrekeningen. Een boekhouddocument bevat de kopgegevens van een journaalpost. De regelposities worden in verschillende (financiële) objecten in Every Angle opgeslagen. Daarom kunt u in het boekhouddocumentkopobject belangrijke informatie vinden, zoals het type document, het type valuta, de aanmaakdatum, enzovoort, die u aan uw Angle kunt toevoegen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x2818\">Op basis van de SAP-tabel BKPF wordt een object aangemaakt met referenties naar Factuurdocumentkop, Kop van factuurontvangst en meer, alsmede een sublijst van Boekhouddocumentposities.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Verwante onderwerpen</h2><p class=\"\" id=\"Pidelem4x2824\">Elke boeking bestaat uit minstens twee boekingsregelposities. Deze regelposities worden opgeslagen in verschillende objecten, zoals Algemeen boekhouddocument, Boekhouddocument leverancier en Boekhouddocument klant. Deze objecten zijn allemaal gerelateerd aan het object Boekhouddocumentkop.</p></div>"
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x2806\">Ein Buchhaltungsbeleg ist im SAP-System eine Repräsentation des Belegs, der eine finanzielle Buchung ausgelöst hat (etwa eine Rechnung oder eine Warenbewegung). Wenn Sie eine Buchung zu einem Buchhaltungsbeleg vornehmen, aktualisiert das SAP-System die Transaktionszahlen und die Belegart in den Sachkonten.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x2810\">Wenn Sie einen Buchhaltungsbeleg buchen, aktualisiert das SAP-System die Transaktionszahlen und den Belegtyp in den Sachkonten. Ein Buchhaltungsbeleg enthält die Kopfdaten eines Journaleintrags. Die Positionen werden in anderen (finanziellen) Objekten in Every Angle gespeichert. Daher finden Sie im Objekt Buchhaltungsbelegkopf wichtige Informationen wie den Belegtyp, den Währungstyp, das Erstellungsdatum usw., die Sie Ihrem Angle hinzufügen können.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x2818\">Ein Objekt wird auf der Grundlage der SAP-Tabelle BKPF mit Referenzen zu Fakturabelegkopf, Rechnungseingangskopf usw. sowie einer Unterliste von Buchhaltungsbelegpositionen erstellt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Verwandte Themen</h2><p class=\"\" id=\"Pidelem4x2824\">Jede Buchung besteht aus mindestens zwei Buchungspositionen. Diese Positionen werden in verschiedenen Objekten gespeichert, wie etwa Buchhaltungsbeleg Allgemein, Buchhaltungsbeleg Lieferant und Buchhaltungsbeleg Kunde. Diese Objekte beziehen sich alle auf das Objekt Buchhaltungsbelegkopf.</p></div>"
         },
         {
             "lang": "en",
             "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Summary</h2><p class=\"\" id=\"Pidelem4x2806\">An accounting document (AD) is a representation within the SAP system of the document that triggered a financial posting (for example an invoice or a goods movement).When you post an accounting document, the SAP system updates the transaction figures and the document type in the general ledger accounts.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Explanation</h2><p class=\"\" id=\"Pidelem4x2810\">When you post an accounting document, the SAP system updates the transaction figures and the document type in the general ledger accounts. An accounting document contains the header data of a journal entry. The line items are stored indifferent (financial) objects within Every Angle. In the accounting document header object you will therefore find important information like document type, currency type, creation date etc. which you can add to your Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Technical background</h2><p class=\"\" id=\"Pidelem4x2818\">Based on SAP table BKPF an object\r\nis created with references to Billing Document Header, Invoice Receipt Header and more as well as a sublist of Accounting Document Items.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Related topics</h2><p class=\"\" id=\"Pidelem4x2824\">Every posting consist of at least two posting line items. These line items are stored in several objects, like Accounting Document General, Accounting Document Vendor and Accounting Document Customer. These objects are all related to the Accounting Document Header object.</p></div>"
         },
         {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Resumen</h2><p class=\"\" id=\"Pidelem4x2806\">Un documento contable (DC) es una representación dentro del sistema SAP del documento que ha iniciado una contabilización fiscal (por ejemplo, una factura o traslado de material). Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacción y el tipo de documento en la Cuenta de Mayor.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Explicación</h2><p class=\"\" id=\"Pidelem4x2810\">Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacción y el tipo de documento en la Cuenta de Mayor. Un documento contable contiene los datos de cabecera de una entrada diaria. Las posiciones de línea se almacenan en objetos (financieros) diferentes en Every Angle. Por lo tanto, en el objeto de la cabecera del documento contable encontrará información importante como el tipo de documento, el tipo de moneda, la fecha de creación, etc., que podrá agregar a su Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x2818\">Según la tabla SAP BKPF, un objeto se crea con referencias a Documento de Facturación Cabecera, Recepción de Factura Cabecera y más, así como con una sublista de Documento Contable Posiciones.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Temas relacionados</h2><p class=\"\" id=\"Pidelem4x2824\">Cada contabilización consiste en, al menos, dos apuntes contables. Dichos apuntes se almacenan en varios objetos, como Documento Contable General, Documento Contable Acreedor y Documento Contable Cliente. Todos estos objetos se relacionan con el objeto Documento Contable Cabecera.</p></div>"
+        },
+        {
             "lang": "fr",
             "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x2806\">Une pièce comptable est une représentation dans le système SAP du document qui a déclenché une écriture financière (par exemple une facture ou un mouvement de marchandises).</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Explication</h2><p class=\"\" id=\"Pidelem4x2810\">Lorsque vous comptabilisez une pièce comptable, le système SAP met à jour les soldes mensuels et le type de document dans les comptes généraux. Une pièce comptable contient les données d'en-tête d'une entrée de journal. Les postes sont stockés dans différents objets (financiers) d'Every Angle. Dans l'objet d'en-tête de pièce comptable, vous trouvez, par conséquent, des informations importantes telles que le type de document, le type de devise, la date de création, etc., que vous pouvez ajouter à votre Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x2818\">D'après la table BKPF dans SAP, un objet est créé avec des références à l'en-tête Facture, Entrée de facture et autre, ainsi qu'à une liste auxiliaire de postes de pièces comptables.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Sujets associés</h2><p class=\"\" id=\"Pidelem4x2824\">Chaque écriture comprend au moins deux postes d'écriture. Ces postes sont mémorisés dans plusieurs objets, tels que Pièce comptable postes général, Pièce comptable poste fournisseur et Pièce comptable postes client. Ces objets sont tous rattachés à l'objet Pièce comptable en-tête.</p></div>"
         },
         {
-            "lang": "de",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x2806\">Ein Buchhaltungsbeleg ist im SAP-System eine Repräsentation des Belegs, der eine finanzielle Buchung ausgelöst hat (etwa eine Rechnung oder eine Warenbewegung). Wenn Sie eine Buchung zu einem Buchhaltungsbeleg vornehmen, aktualisiert das SAP-System die Transaktionszahlen und die Belegart in den Sachkonten.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x2810\">Wenn Sie einen Buchhaltungsbeleg buchen, aktualisiert das SAP-System die Transaktionszahlen und den Belegtyp in den Sachkonten. Ein Buchhaltungsbeleg enthält die Kopfdaten eines Journaleintrags. Die Positionen werden in anderen (finanziellen) Objekten in Every Angle gespeichert. Daher finden Sie im Objekt Buchhaltungsbelegkopf wichtige Informationen wie den Belegtyp, den Währungstyp, das Erstellungsdatum usw., die Sie Ihrem Angle hinzufügen können.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x2818\">Ein Objekt wird auf der Grundlage der SAP-Tabelle BKPF mit Referenzen zu Fakturabelegkopf, Rechnungseingangskopf usw. sowie einer Unterliste von Buchhaltungsbelegpositionen erstellt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Verwandte Themen</h2><p class=\"\" id=\"Pidelem4x2824\">Jede Buchung besteht aus mindestens zwei Buchungspositionen. Diese Positionen werden in verschiedenen Objekten gespeichert, wie etwa Buchhaltungsbeleg Allgemein, Buchhaltungsbeleg Lieferant und Buchhaltungsbeleg Kunde. Diese Objekte beziehen sich alle auf das Objekt Buchhaltungsbelegkopf.</p></div>"
-        },
-        {
-            "lang": "es",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Resumen</h2><p class=\"\" id=\"Pidelem4x2806\">Un documento contable (DC) es una representación dentro del sistema SAP del documento que ha iniciado una contabilización fiscal (por ejemplo, una factura o traslado de material). Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacción y el tipo de documento en la Cuenta de Mayor.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Explicación</h2><p class=\"\" id=\"Pidelem4x2810\">Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacción y el tipo de documento en la Cuenta de Mayor. Un documento contable contiene los datos de cabecera de una entrada diaria. Las posiciones de línea se almacenan en objetos (financieros) diferentes en Every Angle. Por lo tanto, en el objeto de la cabecera del documento contable encontrará información importante como el tipo de documento, el tipo de moneda, la fecha de creación, etc., que podrá agregar a su Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x2818\">Según la tabla SAP BKPF, un objeto se crea con referencias a Documento de Facturación Cabecera, Recepción de Factura Cabecera y más, así como con una sublista de Documento Contable Posiciones.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Temas relacionados</h2><p class=\"\" id=\"Pidelem4x2824\">Cada contabilización consiste en, al menos, dos apuntes contables. Dichos apuntes se almacenan en varios objetos, como Documento Contable General, Documento Contable Acreedor y Documento Contable Cliente. Todos estos objetos se relacionan con el objeto Documento Contable Cabecera.</p></div>"
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x2806\">Een boekhouddocument (AD) is een voorbeeld in het SAP-systeem van het document dat een financiële boeking heeft geactiveerd (een factuur of een verplaatsing van goederen). Wanneer u een boekhouddocument boekt, werkt het SAP-systeem de transactiebedragen en het documenttype bij in de grootboekrekeningen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Uitleg</h2><p class=\"\" id=\"Pidelem4x2810\">Wanneer u een boekhouddocument boekt, werkt het SAP-systeem de transactiebedragen en het documenttype bij in de grootboekrekeningen. Een boekhouddocument bevat de kopgegevens van een journaalpost. De regelposities worden in verschillende (financiële) objecten in Every Angle opgeslagen. Daarom kunt u in het boekhouddocumentkopobject belangrijke informatie vinden, zoals het type document, het type valuta, de aanmaakdatum, enzovoort, die u aan uw Angle kunt toevoegen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x2818\">Op basis van de SAP-tabel BKPF wordt een object aangemaakt met referenties naar Factuurdocumentkop, Kop van factuurontvangst en meer, alsmede een sublijst van Boekhouddocumentposities.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Verwante onderwerpen</h2><p class=\"\" id=\"Pidelem4x2824\">Elke boeking bestaat uit minstens twee boekingsregelposities. Deze regelposities worden opgeslagen in verschillende objecten, zoals Algemeen boekhouddocument, Boekhouddocument leverancier en Boekhouddocument klant. Deze objecten zijn allemaal gerelateerd aan het object Boekhouddocumentkop.</p></div>"
         }
     ]
 }

@@ -1,21 +1,21 @@
 {
     "executed": {
-        "user": "/users/7",
-        "full_name": "Emma de Jong",
-        "datetime": 1578916621
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591153188
     },
-    "labels": "/dashboards/564/labels",
+    "labels": "/dashboards/739/labels",
     "assigned_labels": [
         "S2D",
         "F2R"
     ],
     "multi_lang_name": [
         {
-            "lang": "nl",
+            "lang": "en",
             "text": "Dashboard 1"
         },
         {
-            "lang": "en",
+            "lang": "nl",
             "text": "Dashboard 1"
         },
         {
@@ -31,25 +31,19 @@
             "text": "Dashboard 1"
         }
     ],
-    "filters": [
-        {
-            "operator": "has_no_value",
-            "field": "DedicatedPurchaseDocumentItem__NumberOfABConfirmations",
-            "step_type": "filter"
-        }
-    ],
-    "grouping_labels": "/dashboards/564/grouping_labels",
+    "filters": [],
+    "grouping_labels": "/dashboards/739/grouping_labels",
     "id": "WEBHELP_WC_Dashboard__results_page",
-    "layout": "{\"structure\":[{\"items\":[\"44.95%\",\"55.04%\"],\"height\":\"100%\"}],\"widgets\":[\"wa2830adf3167ba7a05b4556522894917\",\"wbd871bdbf69e86ff073b556522894917\"]}",
+    "layout": "{\"structure\":[{\"items\":[\"50%\",\"50%\"],\"height\":\"100%\"}],\"widgets\":[\"w598dd0acb122387be7ed591088607082\",\"w8157d20af31752acb075591088607083\"]}",
     "user_specific": {
         "is_starred": false,
         "private_note": "WEBHELP_WC_Dashboard__results_page",
         "execute_on_login": false
     },
-    "state": "/dashboards/564/state",
-    "widgets": "/dashboards/564/widgets",
+    "state": "/dashboards/739/state",
+    "widgets": "/dashboards/739/widgets",
     "is_validated": false,
-    "angles": "/dashboards/564/angles",
+    "angles": "/dashboards/739/angles",
     "authorizations": {
         "unvalidate": false,
         "update": true,
@@ -58,19 +52,14 @@
         "validate": false,
         "delete": true
     },
-    "business_processes": "/dashboards/564/business_processes",
-    "privilege_labels": "/dashboards/564/privilege_labels",
+    "business_processes": "/dashboards/739/business_processes",
+    "privilege_labels": "/dashboards/739/privilege_labels",
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1556522894
+        "datetime": 1591088655
     },
-    "changed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1556610055
-    },
-    "uri": "/dashboards/564",
+    "uri": "/dashboards/739",
     "has_warnings": false,
     "model": "/models/1",
     "multi_lang_description": [],
@@ -82,12 +71,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/561",
-            "uri": "/dashboards/564/widgets/6",
-            "id": "wa2830adf3167ba7a05b4556522894917",
+            "angle": "/models/1/angles/725",
+            "uri": "/dashboards/739/widgets/9",
+            "id": "w598dd0acb122387be7ed591088607082",
             "widget_type": "angle_display",
-            "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/561/displays/2838",
+            "widget_details": "{}",
+            "display": "/models/1/angles/725/displays/3286",
             "multi_lang_description": []
         },
         {
@@ -97,12 +86,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/562",
-            "uri": "/dashboards/564/widgets/7",
-            "id": "wbd871bdbf69e86ff073b556522894917",
+            "angle": "/models/1/angles/726",
+            "uri": "/dashboards/739/widgets/10",
+            "id": "w8157d20af31752acb075591088607083",
             "widget_type": "angle_display",
-            "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/562/displays/2842",
+            "widget_details": "{}",
+            "display": "/models/1/angles/726/displays/3288",
             "multi_lang_description": []
         }
     ],

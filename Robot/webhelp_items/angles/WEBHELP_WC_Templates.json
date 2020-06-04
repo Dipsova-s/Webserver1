@@ -21,7 +21,7 @@
             "text": "F2R18 Niet-geboekte Financiële Documenten - GRC Volledige Set"
         }
     ],
-    "labels": "/models/1/angles/1497/labels",
+    "labels": "/models/1/angles/728/labels",
     "assigned_labels": [
         "S2D",
         "GRC"
@@ -29,35 +29,35 @@
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1579778261
+        "datetime": 1591084496
     },
-    "displays": "/models/1/angles/1497/displays",
-    "grouping_labels": "/models/1/angles/1497/grouping_labels",
+    "displays": "/models/1/angles/728/displays",
+    "grouping_labels": "/models/1/angles/728/grouping_labels",
     "id": "WEBHELP_WC_Templates",
     "authorizations": {
         "unvalidate": false,
         "mark_template": true,
         "unmark_template": false,
         "update": true,
-        "publish": true,
-        "unpublish": false,
+        "publish": false,
+        "unpublish": true,
         "create_private_display": true,
-        "validate": false,
-        "create_public_display": false,
+        "validate": true,
+        "create_public_display": true,
         "delete": true
     },
     "user_specific": {
-        "times_executed": 77,
+        "times_executed": 2,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_Templates",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/1497/state",
+    "state": "/models/1/angles/728/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1497/business_processes",
+    "business_processes": "/models/1/angles/728/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -73,7 +73,6 @@
                     "step_type": "filter",
                     "arguments": [
                         {
-                            "valid": true,
                             "argument_type": "value",
                             "value": "V"
                         },
@@ -88,20 +87,20 @@
             "queryblock_type": "query_steps"
         }
     ],
-    "angle_default_display": "/models/1/angles/1497/displays/7694",
-    "privilege_labels": "/models/1/angles/1497/privilege_labels",
+    "angle_default_display": "/models/1/angles/728/displays/3295",
+    "privilege_labels": "/models/1/angles/728/privilege_labels",
     "is_deleted": false,
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570009423
+        "datetime": 1590652118
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570009485
+        "datetime": 1590989392
     },
-    "uri": "/models/1/angles/1497",
+    "uri": "/models/1/angles/728",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -128,15 +127,15 @@
             ],
             "authorizations": {
                 "make_angle_default": true,
-                "unpublish": false,
+                "unpublish": true,
                 "update": true,
-                "publish": true,
+                "publish": false,
                 "delete": true
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570009423
+                "datetime": 1590652118
             },
             "fields": [
                 {
@@ -165,10 +164,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1497/displays/7693",
+            "uri": "/models/1/angles/728/displays/3294",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1497/displays/7693/state",
+            "state": "/models/1/angles/728/displays/3294/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -211,7 +210,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1497",
+            "angle_id": "728",
             "id": "d04b754d607dad71b4868557135892003",
             "display_details": "{\"count_index\":0,\"columns\":{\"header\":[142,187],\"data\":[149,139,111,127,142,167,76]},\"drilldown_display\":\"d16b5016bddd58c0895a8557135892002\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false}",
             "multi_lang_description": [
@@ -264,13 +263,13 @@
                 "make_angle_default": false,
                 "unpublish": false,
                 "update": true,
-                "publish": true,
+                "publish": false,
                 "delete": false
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570009423
+                "datetime": 1590652118
             },
             "fields": [
                 {
@@ -350,21 +349,11 @@
                     "field_details": "{\"width\":120}"
                 },
                 {
-                    "field_details": "{\"width\":120}",
                     "tech_info": "BKPF-BKTXT",
-                    "multi_lang_alias": [],
                     "field": "AccountingDocumentHeader__BKTXT",
-                    "valid": false,
-                    "validation_details": {
-                        "source_field": "BKTXT",
-                        "source_class": "AccountingDocumentHeader",
-                        "source": "AccountingDocumentHeader",
-                        "warning_type": "unsupported_display_field",
-                        "field": "AccountingDocumentHeader__BKTXT",
-                        "classes": [
-                            "_pub_AccDocItemGeneral"
-                        ]
-                    }
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
                 },
                 {
                     "tech_info": "BKPF-XBLNR",
@@ -375,10 +364,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1497/displays/7694",
+            "uri": "/models/1/angles/728/displays/3295",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1497/displays/7694/state",
+            "state": "/models/1/angles/728/displays/3295/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -386,7 +375,7 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "1497",
+            "angle_id": "728",
             "id": "d16b5016bddd58c0895a8557135892002",
             "display_details": "{}",
             "multi_lang_description": [
@@ -415,21 +404,37 @@
         {
             "multi_lang_name": [
                 {
+                    "lang": "de",
+                    "text": "Unbebuchte FI-Belege – pro Quartal"
+                },
+                {
                     "lang": "en",
                     "text": "Unposted FI Documents - per Quarter"
+                },
+                {
+                    "lang": "es",
+                    "text": "Documentos FI No Contabilizados - por Trimestre"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Documents FI Non Imputés - par Trimestre"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Niet-geboekte Financiële Documenten - per Kwartaal"
                 }
             ],
             "authorizations": {
                 "make_angle_default": true,
-                "unpublish": false,
+                "unpublish": true,
                 "update": true,
-                "publish": true,
+                "publish": false,
                 "delete": true
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570009423
+                "datetime": 1590652118
             },
             "fields": [
                 {
@@ -451,16 +456,11 @@
                     "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"\"}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1579778263
-            },
-            "uri": "/models/1/angles/1497/displays/7695",
-            "is_public": true,
             "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/728/displays/3296",
+            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1497/displays/7695/state",
+            "state": "/models/1/angles/728/displays/3296/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -497,12 +497,28 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1497",
+            "angle_id": "728",
             "id": "d1be838a07b9c6a443f04557135892003",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d3ffc455d001188f8cb87557135892003\",\"count_index\":0,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
             "multi_lang_description": [
                 {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
                     "lang": "en",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "nl",
                     "text": "<div id=\"summary\" />"
                 }
             ]
@@ -532,28 +548,28 @@
             ],
             "authorizations": {
                 "make_angle_default": true,
-                "unpublish": false,
+                "unpublish": true,
                 "update": true,
-                "publish": true,
+                "publish": false,
                 "delete": true
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570009423
+                "datetime": 1590652118
             },
             "fields": [
                 {
                     "field": "individual_CompanyCode__CompanyCode",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
                 },
                 {
                     "field": "individual_AccountingDocumentHeader__BLART",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"asc\"}"
+                    "field_details": "{\"pivot_area\":\"row\"}"
                 },
                 {
                     "field": "individual_AccountingDocumentHeader__GJAHR",
@@ -564,7 +580,7 @@
                         }
                     ],
                     "valid": true,
-                    "field_details": "{\"pivot_area\":\"column\",\"sorting\":\"asc\"}"
+                    "field_details": "{\"pivot_area\":\"column\"}"
                 },
                 {
                     "field": "individual_AccountingDocumentHeader__MONAT",
@@ -575,7 +591,7 @@
                         }
                     ],
                     "valid": true,
-                    "field_details": "{\"pivot_area\":\"column\",\"sorting\":\"asc\"}"
+                    "field_details": "{\"pivot_area\":\"column\"}"
                 },
                 {
                     "field": "count",
@@ -584,16 +600,11 @@
                     "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1570089297
-            },
-            "uri": "/models/1/angles/1497/displays/7696",
-            "is_public": true,
             "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/728/displays/3297",
+            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1497/displays/7696/state",
+            "state": "/models/1/angles/728/displays/3297/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -642,9 +653,9 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1497",
+            "angle_id": "728",
             "id": "d3ffc455d001188f8cb87557135892003",
-            "display_details": "{\"columns\":{\"header\":[175,176],\"data\":[66,66,66,66,66,66,66,66,66,66,66,76]},\"count_index\":0,\"drilldown_display\":\"d16b5016bddd58c0895a8557135892002\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"layout\":\"{\\\"collapse\\\":\\\"/v///wEAAAAqaW5kaXZpZHVhbF9hY2NvdW50aW5nZG9jdW1lbnRoZWFkZXJfX2dqYWhyWVN5c3RlbS5JbnQ2NCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQEAAAAAAAAAAAAAAP7///8BAAAAI2luZGl2aWR1YWxfY29tcGFueWNvZGVfX2NvbXBhbnljb2RlWlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQEBAAAAAAAAAAAAAAA=\\\"}\"}",
+            "display_details": "{\"columns\":{\"header\":[175,176],\"data\":[66,66,66,66,66,66,66,66,66,66,66,76]},\"count_index\":0,\"drilldown_display\":\"d16b5016bddd58c0895a8557135892002\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false}",
             "multi_lang_description": [
                 {
                     "lang": "de",
@@ -669,8 +680,13 @@
             ]
         }
     ],
-    "has_warnings": true,
-    "is_template": true,
+    "has_warnings": false,
+    "is_template": false,
+    "published": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1590989392
+    },
     "model": "/models/1",
     "is_published": true,
     "allow_more_details": true,

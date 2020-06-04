@@ -21,7 +21,7 @@
             "text": "Verkoopdocument (VDoc) Kop"
         }
     ],
-    "labels": "/models/1/angles/1505/labels",
+    "labels": "/models/1/angles/736/labels",
     "assigned_labels": [
         "S2D",
         "O2C"
@@ -29,10 +29,10 @@
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1578908780
+        "datetime": 1591085638
     },
-    "displays": "/models/1/angles/1505/displays",
-    "grouping_labels": "/models/1/angles/1505/grouping_labels",
+    "displays": "/models/1/angles/736/displays",
+    "grouping_labels": "/models/1/angles/736/grouping_labels",
     "id": "WEBHELP_WC_AngleWarning3",
     "authorizations": {
         "unvalidate": false,
@@ -47,17 +47,17 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 6,
+        "times_executed": 1,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_AngleWarning3",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/1505/state",
+    "state": "/models/1/angles/736/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1505/business_processes",
+    "business_processes": "/models/1/angles/736/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -66,20 +66,20 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/1505/displays/7724",
-    "privilege_labels": "/models/1/angles/1505/privilege_labels",
+    "angle_default_display": "/models/1/angles/736/displays/3325",
+    "privilege_labels": "/models/1/angles/736/privilege_labels",
     "is_deleted": false,
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570522303
+        "datetime": 1591085599
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570522466
+        "datetime": 1591085648
     },
-    "uri": "/models/1/angles/1505",
+    "uri": "/models/1/angles/736",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -114,7 +114,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522303
+                "datetime": 1591085599
             },
             "fields": [
                 {
@@ -126,7 +126,14 @@
                 {
                     "field": "IDInvalid",
                     "multi_lang_alias": [],
-                    "valid": true,
+                    "validation_details": {
+                        "field": "IDInvalid",
+                        "classes": [
+                            "SalesOrder"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    },
+                    "valid": false,
                     "field_details": "{\"width\":70}"
                 },
                 {
@@ -257,16 +264,11 @@
                     "field_details": "{\"width\":82}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1578908658
-            },
-            "uri": "/models/1/angles/1505/displays/7724",
-            "is_public": false,
             "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/736/displays/3325",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1505/displays/7724/state",
+            "state": "/models/1/angles/736/displays/3325/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -274,7 +276,7 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "1505",
+            "angle_id": "736",
             "id": "d1daeb64f0535deea5e1df224d5e1b4c4",
             "display_details": "{}",
             "multi_lang_description": [
@@ -333,7 +335,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522303
+                "datetime": 1591085599
             },
             "fields": [
                 {
@@ -356,10 +358,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1505/displays/7725",
+            "uri": "/models/1/angles/736/displays/3326",
             "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1505/displays/7725/state",
+            "state": "/models/1/angles/736/displays/3326/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -396,7 +398,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1505",
+            "angle_id": "736",
             "id": "d44e1901b2a6f053df2f22d2730840a9b",
             "display_details": "{\"columns\":{\"header\":[259],\"data\":[63,159]},\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\"}",
             "multi_lang_description": [
@@ -455,7 +457,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522303
+                "datetime": 1591085599
             },
             "fields": [
                 {
@@ -549,16 +551,11 @@
                     "field_details": "{\"width\":138,\"format\":\"shn\"}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1578908684
-            },
-            "uri": "/models/1/angles/1505/displays/7726",
-            "is_public": false,
             "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/736/displays/3327",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1505/displays/7726/state",
+            "state": "/models/1/angles/736/displays/3327/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -566,7 +563,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1505",
+            "angle_id": "736",
             "id": "d4e07b1191f3a1c5b0430ee18e0428964",
             "display_details": "{}",
             "multi_lang_description": [
@@ -625,7 +622,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522303
+                "datetime": 1591085599
             },
             "fields": [
                 {
@@ -654,10 +651,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1505/displays/7727",
+            "uri": "/models/1/angles/736/displays/3328",
             "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1505/displays/7727/state",
+            "state": "/models/1/angles/736/displays/3328/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -700,7 +697,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1505",
+            "angle_id": "736",
             "id": "d5909766786daaf9d3b16ae4d76a62f7f",
             "display_details": "{\"columns\":{\"header\":[189,196],\"data\":[63,105,63,109,63,120]},\"layout\":\"{\\\"layout\\\":\\\"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Q0FBQUFCQUFBQUFRQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFZRUFBQUFBM0p2ZHdrRkFBQUFDQWdDQUFBQURBWUFBQUJOVTNsemRHVnRMbGRsWWl3Z1ZtVnljMmx2YmowMExqQXVNQzR3TENCRGRXeDBkWEpsUFc1bGRYUnlZV3dzSUZCMVlteHBZMHRsZVZSdmEyVnVQV0l3TTJZMVpqZG1NVEZrTlRCaE0yRUZBd0FBQUJ0VGVYTjBaVzB1VjJWaUxsVkpMa2x1WkdWNFpXUlRkSEpwYm1jQkFBQUFCbDkyWVd4MVpRRUdBQUFBQmdjQUFBQUlRM056UTJ4aGMzTUJCUUFBQUFNQUFBQUdDQUFBQUFSZklWTkNDdz09LCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCAHT3B0aW9ucxJBbGxvd1NvcnRCeVN1bW1hcnkEVHJ1ZQlDZWxsU3R5bGUETmFtZQhTb3J0TW9kZQZDdXN0b20JRmllbGROYW1lIGluZGl2aWR1YWxfU2FsZXNEb2N1bWVudENhdGVnb3J5ClZhbHVlU3R5bGXMBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQWdBQUFBSUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBZ0JBQTBDREFRQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFRUFBQUFCZ1VBQUFBVFZHOXdRV3hwWjI1bFpGSnZkMVpoYkhWbGN3cz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBNUb3BBbGlnbmVkUm93VmFsdWVzD1ZhbHVlVG90YWxTdHlsZQtWYWx1ZUZvcm1hdAxGb3JtYXRTdHJpbmcFc2hubG4KRm9ybWF0VHlwZQ1TdW1tYXJ5RmlsdGVyClN0YXJ0VmFsdWUIRW5kVmFsdWUETW9kZQlMYXN0TGV2ZWwVUm93RmllbGRDb21wb25lbnROYW1lGENvbHVtbkZpZWxkQ29tcG9uZW50TmFtZQxGaWx0ZXJWYWx1ZXMGVmFsdWVzDn5YdHJhI0FycmF5MCwgClZhbHVlc0NvcmURRGVmZXJGaWx0ZXJTdHJpbmcKU2hvd0JsYW5rcwpGaWx0ZXJUeXBlCEV4Y2x1ZGVkDEN1c3RvbVRvdGFscwpDZWxsRm9ybWF0DENhbGN1bGF0aW9ucwlBcmVhSW5kZXgOQWN0dWFsU29ydE1vZGUFSXRlbTIcKFNlbGYpIC0gU2FsZXMgRG9jdW1lbnQgVHlwZRBpbmRpdmlkdWFsX0FVQVJUBUl0ZW0zGShTZWxmKSAtIEV4ZWN1dGlvbiBTdGF0dXMKQ29sdW1uQXJlYfAEflh0cmEjQXJyYXkxMiwgT2JqZWN0LCwgU3lzdGVtLkNvbGxlY3Rpb25zLkFycmF5TGlzdCwsLCwgbXNjb3JsaWIsLCwsIFZlcnNpb249NC4wLjAuMCwsLCwgQ3VsdHVyZT1uZXV0cmFsLCwsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5LCwgflh0cmEjQmFzZTY0QUFFQUFBRC8vLy8vQVFBQUFBQUFBQUFFQVFBQUFCeFRlWE4wWlcwdVEyOXNiR1ZqZEdsdmJuTXVRWEp5WVhsTWFYTjBBd0FBQUFaZmFYUmxiWE1GWDNOcGVtVUlYM1psY25OcGIyNEZBQUFJQ0FrQ0FBQUFCQUFBQUFRQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFZRUFBQUFCbU52YkhWdGJna0ZBQUFBQ0FnQ0FBQUFEQVlBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVHQUFBQUJnY0FBQUFJUTNOelEyeGhjM01CQlFBQUFBTUFBQUFHQ0FBQUFBUmZJVk5DQ3c9PSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgGmluZGl2aWR1YWxfRXhlY3V0aW9uU3RhdHVzA3NobgVJdGVtNAVDb3VudAhEYXRhQXJlYfAEflh0cmEjQXJyYXkxMiwgT2JqZWN0LCwgU3lzdGVtLkNvbGxlY3Rpb25zLkFycmF5TGlzdCwsLCwgbXNjb3JsaWIsLCwsIFZlcnNpb249NC4wLjAuMCwsLCwgQ3VsdHVyZT1uZXV0cmFsLCwsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5LCwgflh0cmEjQmFzZTY0QUFFQUFBRC8vLy8vQVFBQUFBQUFBQUFFQVFBQUFCeFRlWE4wWlcwdVEyOXNiR1ZqZEdsdmJuTXVRWEp5WVhsTWFYTjBBd0FBQUFaZmFYUmxiWE1GWDNOcGVtVUlYM1psY25OcGIyNEZBQUFJQ0FrQ0FBQUFCQUFBQUFRQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFZRUFBQUFCbTV2UkhKaFp3a0ZBQUFBQ0FnQ0FBQUFEQVlBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVHQUFBQUJnY0FBQUFJUTNOelEyeGhjM01CQlFBQUFBTUFBQUFHQ0FBQUFBUmZJVk5DQ3c9PSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgBWNvdW50CkYwLGNvdW50LE4HRGVmYXVsdBRPcHRpb25zQ3VzdG9taXphdGlvbg5BbGxvd1ByZWZpbHRlchxBbGxvd0RyYWdJbkN1c3RvbWl6YXRpb25Gb3JtCUFsbG93RHJhZw9EZWZlcnJlZFVwZGF0ZXMMT3B0aW9uc1BhZ2VyC1Jvd3NQZXJQYWdlDkNvbHVtbnNQZXJQYWdlBkdyb3Vwcw==\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAIGluZGl2aWR1YWxfU2FsZXNEb2N1bWVudENhdGVnb3J5WlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQABAAAAAAAAAAAAAAA=\\\"}\",\"collapse\":\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAIGluZGl2aWR1YWxfU2FsZXNEb2N1bWVudENhdGVnb3J5WlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false}",
             "multi_lang_description": [
@@ -759,7 +756,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522303
+                "datetime": 1591085599
             },
             "fields": [
                 {
@@ -776,10 +773,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1505/displays/7728",
+            "uri": "/models/1/angles/736/displays/3329",
             "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1505/displays/7728/state",
+            "state": "/models/1/angles/736/displays/3329/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -810,7 +807,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1505",
+            "angle_id": "736",
             "id": "d847ccc792dc9512c027013123880edd1",
             "display_details": "{\"chart_type\":\"bar\",\"stack\":true,\"multi_axis\":false,\"columns\":{\"header\":[],\"data\":[]},\"layout\":null,\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
             "multi_lang_description": [
@@ -869,7 +866,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522303
+                "datetime": 1591085599
             },
             "fields": [
                 {
@@ -892,10 +889,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1505/displays/7729",
+            "uri": "/models/1/angles/736/displays/3330",
             "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1505/displays/7729/state",
+            "state": "/models/1/angles/736/displays/3330/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -932,7 +929,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1505",
+            "angle_id": "736",
             "id": "da5b4c1601393659e585398c874681e01",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\"}",
             "multi_lang_description": [
@@ -991,7 +988,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522303
+                "datetime": 1591085599
             },
             "fields": [
                 {
@@ -1066,29 +1063,24 @@
                 },
                 {
                     "tech_info": "KNA1-LOEVM",
-                    "field": "ShipToParty__LOEVM",
+                    "field": "ShipToParty__LOEVM_X",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":120}"
                 },
                 {
                     "tech_info": "KNA1-SPERR",
-                    "field": "ShipToParty__SPERR",
+                    "field": "ShipToParty__SPERB_X",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":120}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1578908695
-            },
-            "uri": "/models/1/angles/1505/displays/7730",
-            "is_public": false,
             "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/736/displays/3331",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1505/displays/7730/state",
+            "state": "/models/1/angles/736/displays/3331/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -1096,7 +1088,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1505",
+            "angle_id": "736",
             "id": "db67f5f974c19df208057002dafd6fa22",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1155,7 +1147,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522303
+                "datetime": 1591085599
             },
             "fields": [
                 {
@@ -1172,10 +1164,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1505/displays/7731",
+            "uri": "/models/1/angles/736/displays/3332",
             "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1505/displays/7731/state",
+            "state": "/models/1/angles/736/displays/3332/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -1190,7 +1182,6 @@
                             "step_type": "filter",
                             "arguments": [
                                 {
-                                    "valid": true,
                                     "argument_type": "value",
                                     "value": -365
                                 }
@@ -1219,7 +1210,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1505",
+            "angle_id": "736",
             "id": "dd9e1351a919af0283fc0aab63abc94d5",
             "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
             "multi_lang_description": [
@@ -1278,7 +1269,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570522303
+                "datetime": 1591085599
             },
             "fields": [
                 {
@@ -1312,16 +1303,11 @@
                     "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1578908786
-            },
-            "uri": "/models/1/angles/1505/displays/7732",
-            "is_public": false,
             "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/736/displays/3333",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1505/displays/7732/state",
+            "state": "/models/1/angles/736/displays/3333/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -1336,7 +1322,6 @@
                             "step_type": "filter",
                             "arguments": [
                                 {
-                                    "valid": true,
                                     "argument_type": "value",
                                     "value": -365
                                 }
@@ -1400,7 +1385,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1505",
+            "angle_id": "736",
             "id": "de1857202ffa3318ce15373438036ae99",
             "display_details": "{\"columns\":{\"header\":[189,168,243.5],\"data\":[63,63]},\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\",\"layout\":\"{\\\"layout\\\":\\\"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YXB0aW9uDENvbXBhbnkgQ29kZQRBcmVhB1Jvd0FyZWELSGVhZGVyU3R5bGUJVmlld1N0YXRl7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUEzSnZkd2tGQUFBQUNBZ0NBQUFBREFZQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFR0FBQUFCZ2NBQUFBSVEzTnpRMnhoYzNNQkJRQUFBQU1BQUFBR0NBQUFBQVJmSVZOQ0N3PT0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIAdPcHRpb25zEkFsbG93U29ydEJ5U3VtbWFyeQRUcnVlCUFsbG93RHJhZwVGYWxzZQlDZWxsU3R5bGUETmFtZQhTb3J0TW9kZQZDdXN0b20JRmllbGROYW1lI2luZGl2aWR1YWxfQ29tcGFueUNvZGVfX0NvbXBhbnlDb2RlClZhbHVlU3R5bGXMBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQWdBQUFBSUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBZ0JBQTBDREFRQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFRUFBQUFCZ1VBQUFBVFZHOXdRV3hwWjI1bFpGSnZkMVpoYkhWbGN3cz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBNUb3BBbGlnbmVkUm93VmFsdWVzD1ZhbHVlVG90YWxTdHlsZQtWYWx1ZUZvcm1hdAxGb3JtYXRTdHJpbmcFc2hubG4KRm9ybWF0VHlwZQ1TdW1tYXJ5RmlsdGVyClN0YXJ0VmFsdWUIRW5kVmFsdWUETW9kZQlMYXN0TGV2ZWwVUm93RmllbGRDb21wb25lbnROYW1lGENvbHVtbkZpZWxkQ29tcG9uZW50TmFtZQxGaWx0ZXJWYWx1ZXMGVmFsdWVzDn5YdHJhI0FycmF5MCwgClZhbHVlc0NvcmURRGVmZXJGaWx0ZXJTdHJpbmcKU2hvd0JsYW5rcwpGaWx0ZXJUeXBlCEV4Y2x1ZGVkDEN1c3RvbVRvdGFscwpDZWxsRm9ybWF0DENhbGN1bGF0aW9ucwlBcmVhSW5kZXgOQWN0dWFsU29ydE1vZGUFSXRlbTIKU2FsZXMgT3JnLi9pbmRpdmlkdWFsX1NhbGVzT3JnYW5pemF0aW9uX19TYWxlc09yZ2FuaXphdGlvbgVJdGVtMxooU2VsZikgLSBEb2N1bWVudCBjdXJyZW5jeRtpbmRpdmlkdWFsX1NhbGVzRG9jQ3VycmVuY3kFSXRlbTQFQ291bnQIRGF0YUFyZWHsBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQkFBQUFBUUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBWUVBQUFBQkdSaGRHRUpCUUFBQUFnSUFnQUFBQXdHQUFBQVRWTjVjM1JsYlM1WFpXSXNJRlpsY25OcGIyNDlOQzR3TGpBdU1Dd2dRM1ZzZEhWeVpUMXVaWFYwY21Gc0xDQlFkV0pzYVdOTFpYbFViMnRsYmoxaU1ETm1OV1kzWmpFeFpEVXdZVE5oQlFNQUFBQWJVM2x6ZEdWdExsZGxZaTVWU1M1SmJtUmxlR1ZrVTNSeWFXNW5BUUFBQUFaZmRtRnNkV1VCQmdBQUFBWUhBQUFBQ0VOemMwTnNZWE56QVFVQUFBQURBQUFBQmdnQUFBQUVYeUZUUWdzPSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgBWNvdW50CkYwLGNvdW50LE4HRGVmYXVsdAVJdGVtNRkoU2VsZikgLSBOZXQgdmFsdWUgIFtTdW1dDnN1bV9WQkFLX05FVFdSCEYwLHN1bSxOFE9wdGlvbnNDdXN0b21pemF0aW9uDkFsbG93UHJlZmlsdGVyHEFsbG93RHJhZ0luQ3VzdG9taXphdGlvbkZvcm0PRGVmZXJyZWRVcGRhdGVzDE9wdGlvbnNQYWdlcgtSb3dzUGVyUGFnZQ5Db2x1bW5zUGVyUGFnZQZHcm91cHM=\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8CAAAAI2luZGl2aWR1YWxfQ29tcGFueUNvZGVfX0NvbXBhbnlDb2RlWlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQEvaW5kaXZpZHVhbF9TYWxlc09yZ2FuaXphdGlvbl9fU2FsZXNPcmdhbml6YXRpb25aU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQIAAAAAAAAAAAAAAAAAAAA=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
             "multi_lang_description": [

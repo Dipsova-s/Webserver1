@@ -21,18 +21,18 @@
             "text": "Scheduling Agreements"
         }
     ],
-    "labels": "/models/1/angles/1484/labels",
+    "labels": "/models/1/angles/717/labels",
     "assigned_labels": [
         "S2D",
         "O2C"
     ],
     "executed": {
-        "user": "/users/7",
-        "full_name": "Emma de Jong",
-        "datetime": 1578916360
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591152940
     },
-    "displays": "/models/1/angles/1484/displays",
-    "grouping_labels": "/models/1/angles/1484/grouping_labels",
+    "displays": "/models/1/angles/717/displays",
+    "grouping_labels": "/models/1/angles/717/grouping_labels",
     "id": "WEBHELP_WC_Basic_list_options",
     "authorizations": {
         "unvalidate": false,
@@ -47,22 +47,17 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 46,
+        "times_executed": 12,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_Basic_list_options",
         "execute_on_login": false
     },
-    "created": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1569854340
-    },
-    "state": "/models/1/angles/1484/state",
+    "state": "/models/1/angles/717/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1484/business_processes",
+    "business_processes": "/models/1/angles/717/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -71,16 +66,20 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/1484/displays/7631",
-    "privilege_labels": "/models/1/angles/1484/privilege_labels",
+    "angle_default_display": "/models/1/angles/717/displays/3270",
+    "privilege_labels": "/models/1/angles/717/privilege_labels",
     "is_deleted": false,
-    "package": "/packages/11",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1590416612
+    },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854340
+        "datetime": 1590989396
     },
-    "uri": "/models/1/angles/1484",
+    "uri": "/models/1/angles/717",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -115,7 +114,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854340
+                "datetime": 1590416612
             },
             "fields": [
                 {
@@ -253,10 +252,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1484/displays/7631",
+            "uri": "/models/1/angles/717/displays/3270",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1484/displays/7631/state",
+            "state": "/models/1/angles/717/displays/3270/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -264,7 +263,7 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "1484",
+            "angle_id": "717",
             "id": "d5092bbc74e46610763fc553060978412",
             "display_details": "{\"layout\":null}",
             "multi_lang_description": [
@@ -296,7 +295,7 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854340
+        "datetime": 1590989396
     },
     "model": "/models/1",
     "is_published": true,

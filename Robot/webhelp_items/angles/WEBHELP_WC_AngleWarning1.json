@@ -21,7 +21,7 @@
             "text": "Levering Kop"
         }
     ],
-    "labels": "/models/1/angles/1488/labels",
+    "labels": "/models/1/angles/712/labels",
     "assigned_labels": [
         "P2P",
         "S2D",
@@ -30,10 +30,10 @@
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1584001356
+        "datetime": 1591084424
     },
-    "displays": "/models/1/angles/1488/displays",
-    "grouping_labels": "/models/1/angles/1488/grouping_labels",
+    "displays": "/models/1/angles/712/displays",
+    "grouping_labels": "/models/1/angles/712/grouping_labels",
     "id": "WEBHELP_WC_AngleWarning1",
     "authorizations": {
         "unvalidate": false,
@@ -48,22 +48,17 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 14,
+        "times_executed": 2,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_AngleWarning1",
         "execute_on_login": false
     },
-    "created": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1569854341
-    },
-    "state": "/models/1/angles/1488/state",
+    "state": "/models/1/angles/712/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1488/business_processes",
+    "business_processes": "/models/1/angles/712/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -72,16 +67,20 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/1488/displays/7654",
-    "privilege_labels": "/models/1/angles/1488/privilege_labels",
+    "angle_default_display": "/models/1/angles/712/displays/3244",
+    "privilege_labels": "/models/1/angles/712/privilege_labels",
     "is_deleted": false,
-    "package": "/packages/11",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1590416446
+    },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854341
+        "datetime": 1590989390
     },
-    "uri": "/models/1/angles/1488",
+    "uri": "/models/1/angles/712",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -116,7 +115,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416446
             },
             "fields": [
                 {
@@ -126,7 +125,7 @@
                     "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\"}"
                 },
                 {
-                    "field": "year_OrderDueDateInvalid",
+                    "field": "year_OrderDueDate",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"pivot_area\":\"column\"}"
@@ -139,10 +138,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1488/displays/7653",
+            "uri": "/models/1/angles/712/displays/3243",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1488/displays/7653/state",
+            "state": "/models/1/angles/712/displays/3243/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -168,8 +167,8 @@
                                 },
                                 {
                                     "operator": "year",
-                                    "field": "year_OrderDueDateInvalid",
-                                    "source_field": "OrderDueDateInvalid",
+                                    "field": "year_OrderDueDate",
+                                    "source_field": "OrderDueDate",
                                     "tech_info": "LIKP-WADAT;LIKP-LFDAT"
                                 }
                             ]
@@ -179,7 +178,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1488",
+            "angle_id": "712",
             "id": "d33a2969845fdd9da151d47bb10be1dfe",
             "display_details": "{\"columns\":{\"header\":[189],\"data\":[63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63]},\"drilldown_display\":\"d7a899eee5c5891a8e26782a3f3e3826f\"}",
             "multi_lang_description": [
@@ -208,8 +207,24 @@
         {
             "multi_lang_name": [
                 {
+                    "lang": "de",
+                    "text": "Anzahl nach Erstellungsdatum"
+                },
+                {
                     "lang": "en",
                     "text": "No. per Creation Date"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Fecha de Creación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Date de Création"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Aanmaakdatum"
                 }
             ],
             "authorizations": {
@@ -222,7 +237,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416447
             },
             "fields": [
                 {
@@ -244,16 +259,11 @@
                     "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1579778261
-            },
-            "uri": "/models/1/angles/1488/displays/7654",
-            "is_public": true,
             "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/712/displays/3244",
+            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1488/displays/7654/state",
+            "state": "/models/1/angles/712/displays/3244/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -290,12 +300,28 @@
                 }
             ],
             "is_angle_default": true,
-            "angle_id": "1488",
+            "angle_id": "712",
             "id": "d51e608e369d94cb3d256a1f8619db4a6",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d7a899eee5c5891a8e26782a3f3e3826f\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
             "multi_lang_description": [
                 {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114251638823\"><p class=\"\" id=\"P1441114251638584\" /></div>"
+                },
+                {
                     "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114251638823\"><p class=\"\" id=\"P1441114251638584\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114251638823\"><p class=\"\" id=\"P1441114251638584\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114251638823\"><p class=\"\" id=\"P1441114251638584\" /></div>"
+                },
+                {
+                    "lang": "nl",
                     "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114251638823\"><p class=\"\" id=\"P1441114251638584\" /></div>"
                 }
             ]
@@ -333,7 +359,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416447
             },
             "fields": [
                 {
@@ -356,10 +382,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1488/displays/7655",
+            "uri": "/models/1/angles/712/displays/3245",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1488/displays/7655/state",
+            "state": "/models/1/angles/712/displays/3245/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -374,7 +400,6 @@
                             "step_type": "filter",
                             "arguments": [
                                 {
-                                    "valid": true,
                                     "argument_type": "value",
                                     "value": -365
                                 }
@@ -409,7 +434,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1488",
+            "angle_id": "712",
             "id": "d6102693de629b1e0c60c9024d0dc4f8c",
             "display_details": "{\"columns\":{\"header\":[189],\"data\":[84,95,82,83]},\"layout\":\"{\\\"layout\\\":\\\"ywMAAPIHoHfyAHfyAaF38gIA8gGgd/IDd/IEoXfyBQDyAaB38gahoXfyB/ID8gOhd/IIAPIToHfyCXfyCqF38gsA8gKgd/IMd/INoHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38g2gd/IOd/IPoHfyI/IAoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/IqoXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/IyoXfyM/IA8gChd/I0APIBoHfyJXfyNaB38jbyAKB38jd38jihd/I5APIUoHfyCXfyOqF38gsA8gKgd/IMd/I7oHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38jugd/IOd/IPoHfyI/IBoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/I8oXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/I9oXfyM/IA8gChd/I0APIBoHfyJXfyPqB38jbyAKB38jd38jigd/I/d/IEoXfyQADyE6B38gl38kGhd/ILAPICoHfyDHfyQqB38g538g+hd/IQAPICoXfyEfIA8gCgd/ISd/IBoXfyEwDyBaB38hR38hWhd/IW8gDyAKB38hd38gGgd/IYoaB38hl38hqhd/IbAPIFoHfyHACgd/IdAKB38h538h+gd/Igd/IBoHfyIXfyAaF38iIA8gKgd/IMd/JCoHfyDnfyD6B38iPyAqF38iQA8gKgd/Ild/ImoHfyJ6Cgd/Iod/IBoHfyKXfyQ6F38isA8gKgd/Ild/ImoHfyJ6Chd/IsAPIBoHfyLXfyLqF38i/yAPIAoXfyMADyAaB38iUAoHfyMXfyRKF38jPyAPIAoXfyNADyAaB38iV38kWgd/I28gCgd/I3d/I4oXfyRgDyBKB38kegoHfySKCgd/JJoKB38kqhoXfySwDyAaB38kzyHqF38k3yAPIA8k4OI0xheW91dFZlcnNpb24AD09wdGlvbnNCZWhhdmlvchlTb3J0QnlTdW1tYXJ5RGVmYXVsdE9yZGVyCkRlc2NlbmRpbmcLT3B0aW9uc1ZpZXcXU2hvd0hvcml6b250YWxTY3JvbGxCYXIGRmllbGRzBUl0ZW0xB0NhcHRpb24bU2hpcC10byBBZGRyLiAtIENvdW50cnkgS2V5C1ZhbHVlRm9ybWF0DEZvcm1hdFN0cmluZwVzaG5sbgpGb3JtYXRUeXBlBkN1c3RvbRFTb3J0QnlTdW1tYXJ5SW5mbwpDb25kaXRpb25zEkZpZWxkQ29tcG9uZW50TmFtZQxGaWx0ZXJWYWx1ZXMGVmFsdWVzDn5YdHJhI0FycmF5MCwgClZhbHVlc0NvcmURRGVmZXJGaWx0ZXJTdHJpbmcKU2hvd0JsYW5rcwpGaWx0ZXJUeXBlCEV4Y2x1ZGVkDVN1bW1hcnlGaWx0ZXIKU3RhcnRWYWx1ZQhFbmRWYWx1ZQRNb2RlCUxhc3RMZXZlbBVSb3dGaWVsZENvbXBvbmVudE5hbWUYQ29sdW1uRmllbGRDb21wb25lbnROYW1lCkNlbGxGb3JtYXQFSW5kZXgKVmFsdWVTdHlsZQlWaWV3U3RhdGXMBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQWdBQUFBSUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBZ0JBQTBDREFRQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFRUFBQUFCZ1VBQUFBVFZHOXdRV3hwWjI1bFpGSnZkMVpoYkhWbGN3cz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBNUb3BBbGlnbmVkUm93VmFsdWVzBE5hbWUJRmllbGROYW1lH2luZGl2aWR1YWxfU2hpcFRvQWRkcmVzc19fTEFORDEPVmFsdWVUb3RhbFN0eWxlB09wdGlvbnMSQWxsb3dTb3J0QnlTdW1tYXJ5BFRydWUMQ3VzdG9tVG90YWxzCUNlbGxTdHlsZQRBcmVhB1Jvd0FyZWEMQ2FsY3VsYXRpb25zC0hlYWRlclN0eWxl7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUEzSnZkd2tGQUFBQUNBZ0NBQUFBREFZQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFR0FBQUFCZ2NBQUFBSVEzTnpRMnhoYzNNQkJRQUFBQU1BQUFBR0NBQUFBQVJmSVZOQ0N3PT0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIAlBcmVhSW5kZXgOQWN0dWFsU29ydE1vZGUHRGVmYXVsdAVJdGVtMhkoU2VsZikgLSBFeGVjdXRpb24gc3RhdHVzA3NobhppbmRpdmlkdWFsX0V4ZWN1dGlvblN0YXR1cwpDb2x1bW5BcmVh8AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUJtTnZiSFZ0YmdrRkFBQUFDQWdDQUFBQURBWUFBQUJOVTNsemRHVnRMbGRsWWl3Z1ZtVnljMmx2YmowMExqQXVNQzR3TENCRGRXeDBkWEpsUFc1bGRYUnlZV3dzSUZCMVlteHBZMHRsZVZSdmEyVnVQV0l3TTJZMVpqZG1NVEZrTlRCaE0yRUZBd0FBQUJ0VGVYTjBaVzB1VjJWaUxsVkpMa2x1WkdWNFpXUlRkSEpwYm1jQkFBQUFCbDkyWVd4MVpRRUdBQUFBQmdjQUFBQUlRM056UTJ4aGMzTUJCUUFBQUFNQUFBQUdDQUFBQUFSZklWTkNDdz09LCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCAJU29ydE9yZGVyBUl0ZW0zBUNvdW50CG4wLGNvdW50BWNvdW50CERhdGFBcmVh8AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUJtNXZSSEpoWndrRkFBQUFDQWdDQUFBQURBWUFBQUJOVTNsemRHVnRMbGRsWWl3Z1ZtVnljMmx2YmowMExqQXVNQzR3TENCRGRXeDBkWEpsUFc1bGRYUnlZV3dzSUZCMVlteHBZMHRsZVZSdmEyVnVQV0l3TTJZMVpqZG1NVEZrTlRCaE0yRUZBd0FBQUJ0VGVYTjBaVzB1VjJWaUxsVkpMa2x1WkdWNFpXUlRkSEpwYm1jQkFBQUFCbDkyWVd4MVpRRUdBQUFBQmdjQUFBQUlRM056UTJ4aGMzTUJCUUFBQUFNQUFBQUdDQUFBQUFSZklWTkNDdz09LCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCAUT3B0aW9uc0N1c3RvbWl6YXRpb24OQWxsb3dQcmVmaWx0ZXIcQWxsb3dEcmFnSW5DdXN0b21pemF0aW9uRm9ybQlBbGxvd0RyYWcPRGVmZXJyZWRVcGRhdGVzDE9wdGlvbnNQYWdlcgtSb3dzUGVyUGFnZQZHcm91cHM=\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\\\"}\",\"drilldown_display\":\"d7a899eee5c5891a8e26782a3f3e3826f\"}",
             "multi_lang_description": [
@@ -468,7 +493,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416447
             },
             "fields": [
                 {
@@ -605,11 +630,18 @@
                     "field_details": "{\"width\":110}"
                 },
                 {
+                    "field_details": "{\"width\":126}",
                     "tech_info": "",
-                    "field": "NumberOfShipmentItems",
                     "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":126}"
+                    "field": "NumberOfShipmentItems",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "NumberOfShipmentItems",
+                        "classes": [
+                            "DeliveryNoteHeader"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
                 },
                 {
                     "tech_info": "LIKP-TRATY",
@@ -626,11 +658,19 @@
                     "field_details": "{\"width\":100}"
                 },
                 {
+                    "field_details": "{\"width\":90}",
                     "tech_info": "VBUK-ABSTK",
-                    "field": "ABSTK",
                     "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":90}"
+                    "field": "ABSTK",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ABSTK",
+                        "classes": [
+                            "DeliveryNoteHeader"
+                        ],
+                        "source": "self",
+                        "warning_type": "unsupported_display_field"
+                    }
                 },
                 {
                     "tech_info": "LIKP-VKORG",
@@ -648,10 +688,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1488/displays/7656",
+            "uri": "/models/1/angles/712/displays/3246",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1488/displays/7656/state",
+            "state": "/models/1/angles/712/displays/3246/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -659,7 +699,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1488",
+            "angle_id": "712",
             "id": "d7a899eee5c5891a8e26782a3f3e3826f",
             "display_details": "{}",
             "multi_lang_description": [
@@ -718,7 +758,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416447
             },
             "fields": [
                 {
@@ -741,10 +781,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1488/displays/7657",
+            "uri": "/models/1/angles/712/displays/3247",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1488/displays/7657/state",
+            "state": "/models/1/angles/712/displays/3247/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -781,7 +821,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1488",
+            "angle_id": "712",
             "id": "d8ca25e82047813d2c1d16cb728615211",
             "display_details": "{\"columns\":{\"header\":[189],\"data\":[63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63,63]},\"drilldown_display\":\"d7a899eee5c5891a8e26782a3f3e3826f\"}",
             "multi_lang_description": [
@@ -840,7 +880,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416447
             },
             "fields": [
                 {
@@ -901,10 +941,24 @@
                 },
                 {
                     "tech_info": "KNA1-SPERR",
-                    "field": "Customer__SPERR",
+                    "field": "Customer__SPERB_X",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":117}"
+                },
+                {
+                    "field_details": "{\"width\":133}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "Customer__RevenuePastYearClosed_fTC",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "Customer__RevenuePastYearClosed_fTC",
+                        "classes": [
+                            "DeliveryNoteHeader"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
                 },
                 {
                     "tech_info": "",
@@ -921,6 +975,34 @@
                     "field_details": "{\"width\":95}"
                 },
                 {
+                    "field_details": "{\"width\":127}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "Customer__TotalAmountReceivable_fTC",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "Customer__TotalAmountReceivable_fTC",
+                        "classes": [
+                            "DeliveryNoteHeader"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "field_details": "{\"width\":175}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "Customer__TotalAmountReceivablePastDue_fTC",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "Customer__TotalAmountReceivablePastDue_fTC",
+                        "classes": [
+                            "DeliveryNoteHeader"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
                     "tech_info": "",
                     "field": "Customer__DSO",
                     "multi_lang_alias": [],
@@ -928,16 +1010,11 @@
                     "field_details": "{\"width\":147}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1578908623
-            },
-            "uri": "/models/1/angles/1488/displays/7658",
-            "is_public": true,
             "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/712/displays/3248",
+            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1488/displays/7658/state",
+            "state": "/models/1/angles/712/displays/3248/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -945,7 +1022,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1488",
+            "angle_id": "712",
             "id": "dab6d45de3aea4c252d72eb6d7bf8029c",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1004,7 +1081,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416447
             },
             "fields": [
                 {
@@ -1122,10 +1199,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1488/displays/7659",
+            "uri": "/models/1/angles/712/displays/3249",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1488/displays/7659/state",
+            "state": "/models/1/angles/712/displays/3249/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -1133,7 +1210,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1488",
+            "angle_id": "712",
             "id": "dfe7bcc6474d866d52a4961557fff53c2",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1160,12 +1237,12 @@
             ]
         }
     ],
-    "has_warnings": false,
+    "has_warnings": true,
     "is_template": false,
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854341
+        "datetime": 1590989390
     },
     "model": "/models/1",
     "is_published": true,

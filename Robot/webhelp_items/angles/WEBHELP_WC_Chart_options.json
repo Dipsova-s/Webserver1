@@ -21,18 +21,18 @@
             "text": "Based on Template \"Verkoopdocument (VDoc) Indeling\" #2"
         }
     ],
-    "labels": "/models/1/angles/1478/labels",
+    "labels": "/models/1/angles/718/labels",
     "assigned_labels": [
         "S2D",
         "O2C"
     ],
     "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1580127331
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591152978
     },
-    "displays": "/models/1/angles/1478/displays",
-    "grouping_labels": "/models/1/angles/1478/grouping_labels",
+    "displays": "/models/1/angles/718/displays",
+    "grouping_labels": "/models/1/angles/718/grouping_labels",
     "id": "WEBHELP_WC_Chart_options",
     "authorizations": {
         "unvalidate": false,
@@ -47,22 +47,17 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 46,
+        "times_executed": 12,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_Chart_options",
         "execute_on_login": false
     },
-    "created": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1569854339
-    },
-    "state": "/models/1/angles/1478/state",
+    "state": "/models/1/angles/718/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1478/business_processes",
+    "business_processes": "/models/1/angles/718/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -71,16 +66,20 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/1478/displays/7620",
-    "privilege_labels": "/models/1/angles/1478/privilege_labels",
+    "angle_default_display": "/models/1/angles/718/displays/3271",
+    "privilege_labels": "/models/1/angles/718/privilege_labels",
     "is_deleted": false,
-    "package": "/packages/11",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1590416653
+    },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854339
+        "datetime": 1590989395
     },
-    "uri": "/models/1/angles/1478",
+    "uri": "/models/1/angles/718",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -99,7 +98,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854339
+                "datetime": 1590416653
             },
             "fields": [
                 {
@@ -122,10 +121,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1478/displays/7620",
+            "uri": "/models/1/angles/718/displays/3271",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1478/displays/7620/state",
+            "state": "/models/1/angles/718/displays/3271/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -140,7 +139,6 @@
                             "step_type": "filter",
                             "arguments": [
                                 {
-                                    "valid": true,
                                     "argument_type": "value",
                                     "value": "ds4DeliveredOnTime"
                                 },
@@ -198,7 +196,7 @@
                 }
             ],
             "is_angle_default": true,
-            "angle_id": "1478",
+            "angle_id": "718",
             "id": "eab8e5dba5d4d8434781dd5654b9a57cf1",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":12,\"size\":10},\"count_index\":0,\"axisscale\":\"automatic\"}",
             "multi_lang_description": []
@@ -209,7 +207,7 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854339
+        "datetime": 1590989395
     },
     "model": "/models/1",
     "is_published": true,

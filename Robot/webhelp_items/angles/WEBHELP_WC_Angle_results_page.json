@@ -21,49 +21,44 @@
             "text": "On Time in Full (OTIF)"
         }
     ],
-    "labels": "/models/1/angles/1495/labels",
+    "labels": "/models/1/angles/735/labels",
     "assigned_labels": [
         "S2D",
         "Service",
         "Measure"
     ],
     "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1585830486
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591152904
     },
-    "displays": "/models/1/angles/1495/displays",
-    "grouping_labels": "/models/1/angles/1495/grouping_labels",
-    "validated": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1570521830
-    },
+    "displays": "/models/1/angles/735/displays",
+    "grouping_labels": "/models/1/angles/735/grouping_labels",
     "id": "WEBHELP_WC_Angle_results_page",
     "authorizations": {
-        "unvalidate": true,
-        "mark_template": false,
+        "unvalidate": false,
+        "mark_template": true,
         "unmark_template": false,
         "update": true,
-        "publish": false,
+        "publish": true,
         "unpublish": false,
         "create_private_display": true,
         "validate": false,
-        "create_public_display": true,
+        "create_public_display": false,
         "delete": true
     },
     "user_specific": {
-        "times_executed": 56,
+        "times_executed": 11,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_Angle_results_page",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/1495/state",
+    "state": "/models/1/angles/735/state",
     "allow_followups": true,
     "is_parameterized": false,
-    "is_validated": true,
-    "business_processes": "/models/1/angles/1495/business_processes",
+    "is_validated": false,
+    "business_processes": "/models/1/angles/735/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -88,20 +83,20 @@
             "queryblock_type": "query_steps"
         }
     ],
-    "angle_default_display": "/models/1/angles/1495/displays/7683",
-    "privilege_labels": "/models/1/angles/1495/privilege_labels",
+    "angle_default_display": "/models/1/angles/735/displays/3320",
+    "privilege_labels": "/models/1/angles/735/privilege_labels",
     "is_deleted": false,
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570006920
+        "datetime": 1591085485
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1579004139
+        "datetime": 1591085524
     },
-    "uri": "/models/1/angles/1495",
+    "uri": "/models/1/angles/735",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -112,15 +107,15 @@
             ],
             "authorizations": {
                 "make_angle_default": true,
-                "unpublish": true,
+                "unpublish": false,
                 "update": true,
-                "publish": false,
+                "publish": true,
                 "delete": true
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570006920
+                "datetime": 1591085485
             },
             "fields": [
                 {
@@ -136,16 +131,11 @@
                     "field_details": "{\"pivot_area\":\"data\"}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1584352131
-            },
-            "uri": "/models/1/angles/1495/displays/7682",
-            "is_public": true,
             "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/735/displays/3319",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1495/displays/7682/state",
+            "state": "/models/1/angles/735/displays/3319/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -176,7 +166,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1495",
+            "angle_id": "735",
             "id": "d1d240040ddb4acb7ed19557135990153",
             "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
             "multi_lang_description": [
@@ -213,13 +203,13 @@
                 "make_angle_default": false,
                 "unpublish": false,
                 "update": true,
-                "publish": false,
+                "publish": true,
                 "delete": false
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570006920
+                "datetime": 1591085485
             },
             "fields": [
                 {
@@ -336,10 +326,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1495/displays/7683",
-            "is_public": true,
+            "uri": "/models/1/angles/735/displays/3320",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1495/displays/7683/state",
+            "state": "/models/1/angles/735/displays/3320/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -347,7 +337,7 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "1495",
+            "angle_id": "735",
             "id": "d3a6e84f99a88f282168f557135990153",
             "display_details": "{}",
             "multi_lang_description": [
@@ -398,15 +388,15 @@
             ],
             "authorizations": {
                 "make_angle_default": true,
-                "unpublish": true,
+                "unpublish": false,
                 "update": true,
-                "publish": false,
+                "publish": true,
                 "delete": true
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570006920
+                "datetime": 1591085485
             },
             "fields": [
                 {
@@ -416,16 +406,11 @@
                     "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1570517567
-            },
-            "uri": "/models/1/angles/1495/displays/7684",
-            "is_public": true,
             "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/735/displays/3321",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1495/displays/7684/state",
+            "state": "/models/1/angles/735/displays/3321/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -466,7 +451,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1495",
+            "angle_id": "735",
             "id": "d480e66e98edd5863a39b557135990153",
             "display_details": "{\"chart_type\":\"gauge\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\",\"count_index\":0,\"GaugeValues\":[0,0.8,0.9,1,1,1],\"GaugeColours\":[\"#ed0000\",\"#eda100\",\"#4dc632\",\"#eda100\",\"#ed0000\"],\"axistitlegauge\":\"show\",\"datalabelgauge\":\"show\",\"rangesgauge\":\"show\"}",
             "multi_lang_description": [
@@ -517,15 +502,15 @@
             ],
             "authorizations": {
                 "make_angle_default": true,
-                "unpublish": true,
+                "unpublish": false,
                 "update": true,
-                "publish": false,
+                "publish": true,
                 "delete": true
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570006920
+                "datetime": 1591085485
             },
             "fields": [
                 {
@@ -548,10 +533,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1495/displays/7685",
-            "is_public": true,
+            "uri": "/models/1/angles/735/displays/3322",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1495/displays/7685/state",
+            "state": "/models/1/angles/735/displays/3322/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -590,7 +575,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1495",
+            "angle_id": "735",
             "id": "d6ac9c870c4382354546a557135990153",
             "display_details": "{\"chart_type\":\"line\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\"}",
             "multi_lang_description": [
@@ -641,15 +626,15 @@
             ],
             "authorizations": {
                 "make_angle_default": true,
-                "unpublish": true,
+                "unpublish": false,
                 "update": true,
-                "publish": false,
+                "publish": true,
                 "delete": true
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570006920
+                "datetime": 1591085485
             },
             "fields": [
                 {
@@ -672,10 +657,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1495/displays/7686",
-            "is_public": true,
+            "uri": "/models/1/angles/735/displays/3323",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1495/displays/7686/state",
+            "state": "/models/1/angles/735/displays/3323/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -714,7 +699,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1495",
+            "angle_id": "735",
             "id": "d92ccaa420ca095ce47fc557135990153",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
             "multi_lang_description": [
@@ -765,15 +750,15 @@
             ],
             "authorizations": {
                 "make_angle_default": true,
-                "unpublish": true,
+                "unpublish": false,
                 "update": true,
-                "publish": false,
+                "publish": true,
                 "delete": true
             },
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570006920
+                "datetime": 1591085485
             },
             "fields": [
                 {
@@ -796,10 +781,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1495/displays/7687",
-            "is_public": true,
+            "uri": "/models/1/angles/735/displays/3324",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/1495/displays/7687/state",
+            "state": "/models/1/angles/735/displays/3324/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -836,7 +821,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1495",
+            "angle_id": "735",
             "id": "dda06bf7772591267b410557135990153",
             "display_details": "{\"count_index\":0,\"columns\":{\"header\":[181],\"data\":[90,90,90,76]},\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\"}",
             "multi_lang_description": [
@@ -865,13 +850,8 @@
     ],
     "has_warnings": false,
     "is_template": false,
-    "published": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1570521807
-    },
     "model": "/models/1",
-    "is_published": true,
+    "is_published": false,
     "allow_more_details": true,
     "multi_lang_description": [
         {

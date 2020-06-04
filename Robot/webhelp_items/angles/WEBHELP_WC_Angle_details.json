@@ -21,7 +21,7 @@
             "text": "Artikel op Vestigingsniveau"
         }
     ],
-    "labels": "/models/1/angles/1485/labels",
+    "labels": "/models/1/angles/709/labels",
     "assigned_labels": [
         "P2P",
         "S2D",
@@ -29,12 +29,12 @@
         "PM"
     ],
     "executed": {
-        "user": "/users/7",
-        "full_name": "Emma de Jong",
-        "datetime": 1578916308
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591152889
     },
-    "displays": "/models/1/angles/1485/displays",
-    "grouping_labels": "/models/1/angles/1485/grouping_labels",
+    "displays": "/models/1/angles/709/displays",
+    "grouping_labels": "/models/1/angles/709/grouping_labels",
     "id": "WEBHELP_WC_Angle_details",
     "authorizations": {
         "unvalidate": false,
@@ -49,22 +49,17 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 99,
+        "times_executed": 65,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_Angle_details",
         "execute_on_login": false
     },
-    "created": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1569854341
-    },
-    "state": "/models/1/angles/1485/state",
+    "state": "/models/1/angles/709/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1485/business_processes",
+    "business_processes": "/models/1/angles/709/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -73,16 +68,20 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/1485/displays/7635",
-    "privilege_labels": "/models/1/angles/1485/privilege_labels",
+    "angle_default_display": "/models/1/angles/709/displays/3230",
+    "privilege_labels": "/models/1/angles/709/privilege_labels",
     "is_deleted": false,
-    "package": "/packages/11",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1590416332
+    },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854341
+        "datetime": 1590989392
     },
-    "uri": "/models/1/angles/1485",
+    "uri": "/models/1/angles/709",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -117,7 +116,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854340
+                "datetime": 1590416332
             },
             "fields": [
                 {
@@ -219,18 +218,25 @@
                     "field_details": "{\"width\":105}"
                 },
                 {
+                    "field_details": "{\"width\":128}",
                     "tech_info": "",
-                    "field": "MinimumStockLevel12months",
                     "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":128}"
+                    "field": "MinimumStockLevel12months",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "MinimumStockLevel12months",
+                        "classes": [
+                            "MaterialOnPlantLevel"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1485/displays/7632",
+            "uri": "/models/1/angles/709/displays/3227",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1485/displays/7632/state",
+            "state": "/models/1/angles/709/displays/3227/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -238,7 +244,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1485",
+            "angle_id": "709",
             "id": "c3f60697fe324421a6ab19a2f1ce6bea",
             "display_details": "{}",
             "multi_lang_description": [
@@ -297,7 +303,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854340
+                "datetime": 1590416332
             },
             "fields": [
                 {
@@ -414,10 +420,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1485/displays/7633",
+            "uri": "/models/1/angles/709/displays/3228",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1485/displays/7633/state",
+            "state": "/models/1/angles/709/displays/3228/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -425,7 +431,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1485",
+            "angle_id": "709",
             "id": "d69edfbe1f4c9c56383c338ec2a296868",
             "display_details": "{}",
             "multi_lang_description": [
@@ -484,7 +490,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416332
             },
             "fields": [
                 {
@@ -594,10 +600,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1485/displays/7634",
+            "uri": "/models/1/angles/709/displays/3229",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1485/displays/7634/state",
+            "state": "/models/1/angles/709/displays/3229/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -605,7 +611,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1485",
+            "angle_id": "709",
             "id": "d9f513b12a9c40d9819dd9d3eff566eb",
             "display_details": "{}",
             "multi_lang_description": [
@@ -664,7 +670,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416332
             },
             "fields": [
                 {
@@ -687,10 +693,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1485/displays/7635",
+            "uri": "/models/1/angles/709/displays/3230",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1485/displays/7635/state",
+            "state": "/models/1/angles/709/displays/3230/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -727,7 +733,7 @@
                 }
             ],
             "is_angle_default": true,
-            "angle_id": "1485",
+            "angle_id": "709",
             "id": "da4c3a4a135f175380142e8b1426ad10b",
             "display_details": "{\"chart_type\":\"bar\",\"stack\":true,\"multi_axis\":false,\"drilldown_display\":\"d69edfbe1f4c9c56383c338ec2a296868\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
             "multi_lang_description": [
@@ -786,7 +792,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416332
             },
             "fields": [
                 {
@@ -803,10 +809,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1485/displays/7636",
+            "uri": "/models/1/angles/709/displays/3231",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1485/displays/7636/state",
+            "state": "/models/1/angles/709/displays/3231/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -839,7 +845,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1485",
+            "angle_id": "709",
             "id": "dd76357ed47db0f7f2c28d77a878995fd",
             "display_details": "{\"chart_type\":\"bar\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"c3f60697fe324421a6ab19a2f1ce6bea\"}",
             "multi_lang_description": [
@@ -898,7 +904,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416332
             },
             "fields": [
                 {
@@ -921,10 +927,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/1485/displays/7637",
+            "uri": "/models/1/angles/709/displays/3232",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1485/displays/7637/state",
+            "state": "/models/1/angles/709/displays/3232/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -961,7 +967,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1485",
+            "angle_id": "709",
             "id": "df0d017f3bb387ee5cbf83459bd980d30",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d69edfbe1f4c9c56383c338ec2a296868\"}",
             "multi_lang_description": [
@@ -1020,7 +1026,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416332
             },
             "fields": [
                 {
@@ -1137,10 +1143,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1485/displays/7638",
+            "uri": "/models/1/angles/709/displays/3233",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1485/displays/7638/state",
+            "state": "/models/1/angles/709/displays/3233/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -1148,7 +1154,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1485",
+            "angle_id": "709",
             "id": "z6c9969c49b5b42aca0de3e5ef5d9c520",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1207,7 +1213,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416332
             },
             "fields": [
                 {
@@ -1268,10 +1274,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1485/displays/7639",
+            "uri": "/models/1/angles/709/displays/3234",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1485/displays/7639/state",
+            "state": "/models/1/angles/709/displays/3234/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -1279,7 +1285,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1485",
+            "angle_id": "709",
             "id": "z6d91f5d4a565468da997670cfa2ad580",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1338,7 +1344,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854341
+                "datetime": 1590416332
             },
             "fields": [
                 {
@@ -1455,10 +1461,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1485/displays/7640",
+            "uri": "/models/1/angles/709/displays/3235",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1485/displays/7640/state",
+            "state": "/models/1/angles/709/displays/3235/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -1466,7 +1472,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "1485",
+            "angle_id": "709",
             "id": "z9d5bd10eee404f13857bc349b7b1b7fb",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1493,12 +1499,12 @@
             ]
         }
     ],
-    "has_warnings": false,
+    "has_warnings": true,
     "is_template": false,
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854341
+        "datetime": 1590989392
     },
     "model": "/models/1",
     "is_published": true,

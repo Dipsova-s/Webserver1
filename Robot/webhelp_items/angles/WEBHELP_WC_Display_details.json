@@ -21,18 +21,18 @@
             "text": "Klant"
         }
     ],
-    "labels": "/models/1/angles/1479/labels",
+    "labels": "/models/1/angles/720/labels",
     "assigned_labels": [
         "S2D",
         "O2C"
     ],
     "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1580721990
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591153101
     },
-    "displays": "/models/1/angles/1479/displays",
-    "grouping_labels": "/models/1/angles/1479/grouping_labels",
+    "displays": "/models/1/angles/720/displays",
+    "grouping_labels": "/models/1/angles/720/grouping_labels",
     "id": "WEBHELP_WC_Display_details",
     "authorizations": {
         "unvalidate": false,
@@ -47,22 +47,17 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 65,
+        "times_executed": 10,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_Display_details",
         "execute_on_login": false
     },
-    "created": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1569854339
-    },
-    "state": "/models/1/angles/1479/state",
+    "state": "/models/1/angles/720/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1479/business_processes",
+    "business_processes": "/models/1/angles/720/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -71,22 +66,42 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/1479/displays/7621",
-    "privilege_labels": "/models/1/angles/1479/privilege_labels",
+    "angle_default_display": "/models/1/angles/720/displays/3275",
+    "privilege_labels": "/models/1/angles/720/privilege_labels",
     "is_deleted": false,
-    "package": "/packages/11",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1590416729
+    },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854339
+        "datetime": 1590989387
     },
-    "uri": "/models/1/angles/1479",
+    "uri": "/models/1/angles/720",
     "display_definitions": [
         {
             "multi_lang_name": [
                 {
+                    "lang": "de",
+                    "text": "Basisliste"
+                },
+                {
                     "lang": "en",
                     "text": "Basic List"
+                },
+                {
+                    "lang": "es",
+                    "text": "Lista Básica"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Liste De Base"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Basislijst"
                 }
             ],
             "authorizations": {
@@ -99,7 +114,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1569854339
+                "datetime": 1590416729
             },
             "fields": [
                 {
@@ -125,7 +140,7 @@
                 },
                 {
                     "tech_info": "KNA1-LOEVM",
-                    "field": "LOEVM",
+                    "field": "LOEVM_X",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":110}"
@@ -187,16 +202,11 @@
                     "field_details": "{\"width\":104}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1579778262
-            },
-            "uri": "/models/1/angles/1479/displays/7621",
-            "is_public": true,
             "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/720/displays/3275",
+            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1479/displays/7621/state",
+            "state": "/models/1/angles/720/displays/3275/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -211,7 +221,6 @@
                             "step_type": "filter",
                             "arguments": [
                                 {
-                                    "valid": true,
                                     "argument_type": "value",
                                     "value": 1276214400
                                 }
@@ -223,12 +232,28 @@
                 }
             ],
             "is_angle_default": true,
-            "angle_id": "1479",
+            "angle_id": "720",
             "id": "d37174088bb8bba01d57d553045639178",
             "display_details": "{\"layout\":null}",
             "multi_lang_description": [
                 {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
+                },
+                {
                     "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
+                },
+                {
+                    "lang": "nl",
                     "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
                 }
             ]
@@ -239,7 +264,7 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1569854339
+        "datetime": 1590989387
     },
     "model": "/models/1",
     "is_published": true,

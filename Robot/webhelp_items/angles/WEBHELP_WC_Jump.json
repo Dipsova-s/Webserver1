@@ -1,12 +1,12 @@
 {
     "multi_lang_name": [
         {
-            "lang": "nl",
-            "text": "Boekhouddocument Kop Crediteur"
-        },
-        {
             "lang": "en",
             "text": "Accounting Document Header Vendor"
+        },
+        {
+            "lang": "nl",
+            "text": "Boekhouddocument Kop Crediteur"
         },
         {
             "lang": "fr",
@@ -21,18 +21,17 @@
             "text": "Documento Contable Cabecera Acreedor"
         }
     ],
-    "labels": "/models/1/angles/1500/labels",
+    "labels": "/models/1/angles/722/labels",
     "assigned_labels": [
-        "S2D",
-        "F2R"
+        "S2D"
     ],
     "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1583917984
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591153242
     },
-    "displays": "/models/1/angles/1500/displays",
-    "grouping_labels": "/models/1/angles/1500/grouping_labels",
+    "displays": "/models/1/angles/722/displays",
+    "grouping_labels": "/models/1/angles/722/grouping_labels",
     "id": "WEBHELP_WC_Jump",
     "authorizations": {
         "unvalidate": false,
@@ -47,72 +46,46 @@
         "delete": true
     },
     "user_specific": {
-        "times_executed": 45,
+        "times_executed": 20,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_Jump",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/1500/state",
+    "state": "/models/1/angles/722/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/1500/business_processes",
+    "business_processes": "/models/1/angles/722/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
             "base_classes": [
-                "AccountingDocumentHeader"
+                "PurchaseOrder",
+                "PurchaseOrderScheduleLine"
             ]
-        },
-        {
-            "query_steps": [
-                {
-                    "operator": "has_value",
-                    "field": "Vendor__Vendor",
-                    "step_type": "filter",
-                    "tech_info": "LFA1-LIFNR"
-                }
-            ],
-            "queryblock_type": "query_steps"
         }
     ],
-    "angle_default_display": "/models/1/angles/1500/displays/7706",
-    "privilege_labels": "/models/1/angles/1500/privilege_labels",
+    "angle_default_display": "/models/1/angles/722/displays/3277",
+    "privilege_labels": "/models/1/angles/722/privilege_labels",
     "is_deleted": false,
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570520012
+        "datetime": 1590416800
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570521392
+        "datetime": 1590989386
     },
-    "uri": "/models/1/angles/1500",
+    "uri": "/models/1/angles/722",
     "display_definitions": [
         {
             "multi_lang_name": [
                 {
-                    "lang": "de",
-                    "text": "Basisliste"
-                },
-                {
                     "lang": "en",
                     "text": "Basic List"
-                },
-                {
-                    "lang": "es",
-                    "text": "Lista Básica"
-                },
-                {
-                    "lang": "fr",
-                    "text": "Liste De Base"
-                },
-                {
-                    "lang": "nl",
-                    "text": "Basislijst"
                 }
             ],
             "authorizations": {
@@ -125,113 +98,106 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570520013
+                "datetime": 1590416800
             },
             "fields": [
                 {
-                    "tech_info": "",
                     "field": "ObjectType",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":84,\"format\":\"shn\"}"
+                    "field_details": "{\"width\":81,\"format\":\"shn\"}"
+                },
+                {
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "LFA1-LIFNR",
+                    "field": "Vendor__Vendor",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":80}"
+                },
+                {
+                    "tech_info": "LFA1-NAME1",
+                    "field": "Vendor__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":168}"
+                },
+                {
+                    "tech_info": "EKKO-BSTYP",
+                    "field": "PurchasingDocumentCategory",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":105,\"format\":\"shnln\"}"
                 },
                 {
                     "tech_info": "T001-BUKRS",
                     "field": "CompanyCode__CompanyCode",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":126,\"format\":\"shnln\"}"
+                    "field_details": "{\"width\":92,\"format\":\"shn\"}"
                 },
                 {
-                    "tech_info": "BKPF-BELNR",
-                    "field": "BELNR",
+                    "tech_info": "T024E-EKORG",
+                    "field": "PurchaseOrganization__PurchaseOrganization",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":93}"
+                },
+                {
+                    "field": "ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "EKET-BEDAT/EKKO-BEDAT/EKKO-AEDAT",
+                    "field": "CreationDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":84}"
+                },
+                {
+                    "field": "DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":89,\"format\":\"shn\"}"
+                },
+                {
+                    "field": "OrderedValue",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":97}"
                 },
                 {
-                    "tech_info": "BKPF-BLART",
-                    "field": "BLART",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":194}"
-                },
-                {
-                    "tech_info": "BKPF-GJAHR",
-                    "field": "GJAHR",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":79}"
-                },
-                {
-                    "tech_info": "BKPF-MONAT",
-                    "field": "MONAT",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":75}"
-                },
-                {
-                    "tech_info": "BKPF-BUDAT",
-                    "field": "PostingDate",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "BKPF-BLDAT",
-                    "field": "DocumentDate",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "BKPF-CPUDT",
-                    "field": "BKPF_CPUDT",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "BKPF-USNAM",
-                    "field": "BKPF_USNAM",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "BKPF-TCODE",
-                    "field": "TCODE",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":106}"
-                },
-                {
-                    "tech_info": "BKPF-XBLNR",
-                    "field": "XBLNR1",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":182}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "Customer__NameAndDescription",
+                    "tech_info": "EKKO-EKGRP",
+                    "field": "BKGRP",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":120}"
                 },
                 {
-                    "tech_info": "",
-                    "field": "Vendor__NameAndDescription",
+                    "field": "CompanyCode__TheLeadTime",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "field": "CompanyCode__TheLeadTime2",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":120}"
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/1500/displays/7706",
+            "uri": "/models/1/angles/722/displays/3277",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1500/displays/7706/state",
+            "state": "/models/1/angles/722/displays/3277/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -239,53 +205,16 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "1500",
-            "id": "d708179ed04016dfc0aa1570008866097",
+            "angle_id": "722",
+            "id": "d41568a3eae78e96bf8ed553574715066",
             "display_details": "{}",
-            "multi_lang_description": [
-                {
-                    "lang": "de",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                },
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                },
-                {
-                    "lang": "es",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                },
-                {
-                    "lang": "fr",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                },
-                {
-                    "lang": "nl",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                }
-            ]
+            "multi_lang_description": []
         },
         {
             "multi_lang_name": [
                 {
-                    "lang": "nl",
-                    "text": "Basislijst"
-                },
-                {
                     "lang": "en",
-                    "text": "Basic List"
-                },
-                {
-                    "lang": "fr",
-                    "text": "Liste De Base"
-                },
-                {
-                    "lang": "de",
-                    "text": "Basisliste"
-                },
-                {
-                    "lang": "es",
-                    "text": "Lista Básica"
+                    "text": "New Display"
                 }
             ],
             "authorizations": {
@@ -298,7 +227,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1570520182
+                "datetime": 1590416800
             },
             "fields": [
                 {
@@ -306,75 +235,56 @@
                     "field": "ObjectType",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":123,\"format\":\"shn\"}"
+                    "field_details": "{\"width\":119,\"format\":\"shn\"}"
                 },
                 {
                     "tech_info": "",
                     "field": "ID",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":75}"
+                    "field_details": "{\"width\":70}"
                 },
                 {
-                    "tech_info": "TKA01-BEZEI",
-                    "field": "BEZEI",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":168}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "NumberOfCompanyCodes",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":138}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "ChartOfAccounts__ChartOfAccountsID",
+                    "tech_info": "T001-BUTXT",
+                    "field": "BUTXT",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":145}"
                 },
                 {
-                    "tech_info": "TKA01-WAERS",
+                    "tech_info": "T001-LAND1",
+                    "field": "LAND1",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":109,\"format\":\"ln\"}"
+                },
+                {
+                    "tech_info": "T001-WAERS",
                     "field": "Currency",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":90,\"format\":\"shn\"}"
+                    "field_details": "{\"width\":91,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "T001-KTOPL",
+                    "field": "T001_KTOPL",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":92,\"format\":\"shn\"}"
                 },
                 {
                     "tech_info": "T001-PERIV",
                     "field": "FiscalYearVariant",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":197}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "NumberOfCostCenters",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "NumberOfProfitCenters",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":144}"
+                    "field_details": "{\"width\":107,\"format\":\"shn\"}"
                 }
             ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1570520579
-            },
-            "uri": "/models/1/angles/1500/displays/7712",
-            "is_public": true,
             "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/722/displays/3278",
+            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/1500/displays/7712/state",
+            "state": "/models/1/angles/722/displays/3278/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -384,7 +294,7 @@
                 {
                     "query_steps": [
                         {
-                            "followup": "ControllingArea",
+                            "followup": "CompanyCode",
                             "step_type": "followup"
                         }
                     ],
@@ -392,31 +302,10 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "1500",
-            "id": "eac27210888c9a4223894b89eb8c1b82d7",
+            "angle_id": "722",
+            "id": "ea0d4afa12a7434bc28812301f1151fd7b",
             "display_details": "{}",
-            "multi_lang_description": [
-                {
-                    "lang": "nl",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                },
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                },
-                {
-                    "lang": "fr",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                },
-                {
-                    "lang": "de",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                },
-                {
-                    "lang": "es",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244214626803\"><p class=\"\" id=\"P1438244214642334\" /></div>"
-                }
-            ]
+            "multi_lang_description": []
         }
     ],
     "has_warnings": false,
@@ -424,31 +313,31 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1570521392
+        "datetime": 1590989386
     },
     "model": "/models/1",
     "is_published": true,
     "allow_more_details": true,
     "multi_lang_description": [
         {
-            "lang": "nl",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652491502524\"><h2 class=\" topictitle2\" id=\"Hidelem4x4635\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x4637\">Een boekhouddocument is in het SAP-systeem een document dat een financiële boeking activeerd (bijvoorbeeld een factuur of een goederenbeweging). Wanneer u een boekhouddocument invoert, werkt het SAP-systeem de transactiecijfers en het document-type bij  in de grootboekrekeningen. Met dit object kunt u de metadata (documentkop) zien, voor alle crediteuren boekhouddocumenten.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Uitleg</h2><p class=\"\" id=\"Pidelem4x4641\">Wanneer u een boekhouddocument invoert, werkt het SAP-systeem de transactiecijfers en het document-type bij  in de grootboekrekeningen. Een boekhouddocument bevat alleen de documentkop van boekingen voor crediteuren.  De indelingen zijn willekeurige  (financiële) objecten opgeslagen in Every Angle. In het boekhouddocument kop object staat alleen belangrijke informatie die u kunt toevoegen aan uw Angle, zoals het documenttype , het type munt, aanmaakdatum etc.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Technische Achtergrond</h2><p class=\"\" id=\"Pidelem4x4649\"> \r\n\r\nGebaseerd op de SAP tabel BKPF wordt een object\r\n gemaakt met verwijzingen naar de Crediteur,  Factuurontvangst Kop, evenals een sublijst met Boekhouddocument Posities.\r\n\r\n</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Gerelateerde Onderwerpen</h2><p class=\"\" id=\"Pidelem4x4653\">Within financial accounting a journal entry is stored in the header, the general ledger and several subledgers (payables, receivables and assets).These are different (financial) objects within Every Angle. </p><p class=\"\" id=\"Pidelem4x4653\">Binnen de financiële boekhouding wordt een boeking opgeslagen in de kop, het grootboek en diverse subadministraties (schulden, vorderingen en activa). Dit zijn verschillende (financiële) objecten binnen Every Angle.</p></div>"
+            "lang": "en",
+            "text": "<h2 class=\" topictitle2\" id=\"Hidelem4x4635\">Summary</h2><p id=\"Pidelem4x4637\">An accounting document (AD) is a representation within the SAP system of the document that triggered a financial posting (for example an invoice or a goods movement).When you post an accounting document, the SAP system updates the transaction figures and the document type in the general ledger accounts. This object you will see the header data, for all vendor accounting documents.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Explanation</h2><p id=\"Pidelem4x4641\">When you post an accounting document, the SAP system updates the transaction figures and the document type in the general ledger accounts. An accounting document contains the header data of a journal entry only for the vendor ledger. The line items are stored indifferent (financial) objects within Every Angle. In the accounting document header object you will therefore find important information like document type, currency type, creation date etc. which you can add to your Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Technical background</h2><p id=\"Pidelem4x4649\">Based on SAP table BKPF an object is created with references to the Vendor, Invoice Receipt Header and more as well as a sublist of Accounting Document Items.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Related topics</h2><p id=\"Pidelem4x4653\">Within financial accounting a journal entry is stored in the header, the general ledger and several subledgers (payables, receivables and assets).These are different (financial) objects within Every Angle.</p>"
         },
         {
-            "lang": "en",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652491502524\"><h2 class=\" topictitle2\" id=\"Hidelem4x4635\">Summary</h2><p class=\"\" id=\"Pidelem4x4637\">An accounting document (AD) is a representation within the SAP system of the document that triggered a financial posting (for example an invoice or a goods movement).When you post an accounting document, the SAP system updates the transaction figures and the document type in the general ledger accounts. This object you will see the header data, for all vendor accounting documents.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Explanation</h2><p class=\"\" id=\"Pidelem4x4641\">When you post an accounting document, the SAP system updates the transaction figures and the document type in the general ledger accounts. An accounting document contains the header data of a journal entry only for the vendor ledger. The line items are stored indifferent (financial) objects within Every Angle. In the accounting document header object you will therefore find important information like document type, currency type, creation date etc. which you can add to your Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Technical background</h2><p class=\"\" id=\"Pidelem4x4649\">Based on SAP table BKPF an object\r\nis created with references to the Vendor, Invoice Receipt Header and more as well as a sublist of Accounting Document Items.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Related topics</h2><p class=\"\" id=\"Pidelem4x4653\">Within financial accounting a journal entry is stored in the header, the general ledger and several subledgers (payables, receivables and assets).These are different (financial) objects within Every Angle.</p></div>"
+            "lang": "nl",
+            "text": "<h2 class=\" topictitle2\" id=\"Hidelem4x4635\">Samenvatting</h2><p id=\"Pidelem4x4637\">Een boekhouddocument is in het SAP-systeem een document dat een financi&euml;le boeking activeerd (bijvoorbeeld een factuur of een goederenbeweging). Wanneer u een boekhouddocument invoert, werkt het SAP-systeem de transactiecijfers en het document-type bij in de grootboekrekeningen. Met dit object kunt u de metadata (documentkop) zien, voor alle crediteuren boekhouddocumenten.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Uitleg</h2><p id=\"Pidelem4x4641\">Wanneer u een boekhouddocument invoert, werkt het SAP-systeem de transactiecijfers en het document-type bij in de grootboekrekeningen. Een boekhouddocument bevat alleen de documentkop van boekingen voor crediteuren. De indelingen zijn willekeurige (financi&euml;le) objecten opgeslagen in Every Angle. In het boekhouddocument kop object staat alleen belangrijke informatie die u kunt toevoegen aan uw Angle, zoals het documenttype , het type munt, aanmaakdatum etc.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Technische Achtergrond</h2><p id=\"Pidelem4x4649\">Gebaseerd op de SAP tabel BKPF wordt een object gemaakt met verwijzingen naar de Crediteur, Factuurontvangst Kop, evenals een sublijst met Boekhouddocument Posities.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Gerelateerde Onderwerpen</h2><p id=\"Pidelem4x4653\">Within financial accounting a journal entry is stored in the header, the general ledger and several subledgers (payables, receivables and assets).These are different (financial) objects within Every Angle.</p><p id=\"Pidelem4x4653\">Binnen de financi&euml;le boekhouding wordt een boeking opgeslagen in de kop, het grootboek en diverse subadministraties (schulden, vorderingen en activa). Dit zijn verschillende (financi&euml;le) objecten binnen Every Angle.</p>"
         },
         {
             "lang": "fr",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652491502524\"><h2 class=\" topictitle2\" id=\"Hidelem4x4635\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x4637\">Une pièce comptable est une représentation dans le système SAP du document qui a déclenché une écriture financière (par exemple une facture ou un mouvement de marchandises). Cet objet vous permet de consulter les données d'en-tête pour toutes les pièces comptables fournisseur.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Explication</h2><p class=\"\" id=\"Pidelem4x4641\">Lorsque vous comptabilisez une pièce comptable, le système SAP met à jour les soldes mensuels et le type de document dans les comptes généraux. Une pièce comptable contient les données d'en-tête d'une entrée de journal uniquement pour le compte fournisseur. Les postes sont stockés dans différents objets (financiers) d'Every Angle. Dans l'objet d'en-tête de pièce comptable, vous trouvez, par conséquent, des informations importantes telles que le type de document, le type de devise, la date de création, etc., que vous pouvez ajouter à votre Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x4649\">D'après la table BKPF dans SAP, un objet est créé avec des références au fournisseur, à l'en-tête d'entrée de facture et autres, ainsi qu'à une liste auxiliaire de postes de pièces comptables.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Sujets associés</h2><p class=\"\" id=\"Pidelem4x4653\">Dans la Comptabilité financière, une entrée de journal est enregistrée dans l'en-tête, le Grand livre et dans plusieurs comptes auxiliaires (comptes fournisseurs, comptes clients et actifs). Ces éléments constituent différents objets (financiers) dans Every Angle.</p></div>"
+            "text": "<h2 class=\" topictitle2\" id=\"Hidelem4x4635\">R&eacute;capitulatif</h2><p id=\"Pidelem4x4637\">Une pi&egrave;ce comptable est une repr&eacute;sentation dans le syst&egrave;me SAP du document qui a d&eacute;clench&eacute; une &eacute;criture financi&egrave;re (par exemple une facture ou un mouvement de marchandises). Cet objet vous permet de consulter les donn&eacute;es d'en-t&ecirc;te pour toutes les pi&egrave;ces comptables fournisseur.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Explication</h2><p id=\"Pidelem4x4641\">Lorsque vous comptabilisez une pi&egrave;ce comptable, le syst&egrave;me SAP met &agrave; jour les soldes mensuels et le type de document dans les comptes g&eacute;n&eacute;raux. Une pi&egrave;ce comptable contient les donn&eacute;es d'en-t&ecirc;te d'une entr&eacute;e de journal uniquement pour le compte fournisseur. Les postes sont stock&eacute;s dans diff&eacute;rents objets (financiers) d'Every Angle. Dans l'objet d'en-t&ecirc;te de pi&egrave;ce comptable, vous trouvez, par cons&eacute;quent, des informations importantes telles que le type de document, le type de devise, la date de cr&eacute;ation, etc., que vous pouvez ajouter &agrave; votre Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Ant&eacute;c&eacute;dents techniques.</h2><p id=\"Pidelem4x4649\">D'apr&egrave;s la table BKPF dans SAP, un objet est cr&eacute;&eacute; avec des r&eacute;f&eacute;rences au fournisseur, &agrave; l'en-t&ecirc;te d'entr&eacute;e de facture et autres, ainsi qu'&agrave; une liste auxiliaire de postes de pi&egrave;ces comptables.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Sujets associ&eacute;s</h2><p id=\"Pidelem4x4653\">Dans la Comptabilit&eacute; financi&egrave;re, une entr&eacute;e de journal est enregistr&eacute;e dans l'en-t&ecirc;te, le Grand livre et dans plusieurs comptes auxiliaires (comptes fournisseurs, comptes clients et actifs). Ces &eacute;l&eacute;ments constituent diff&eacute;rents objets (financiers) dans Every Angle.</p>"
         },
         {
             "lang": "de",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652491502524\"><h2 class=\" topictitle2\" id=\"Hidelem4x4635\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x4637\">Ein Buchhaltungsbeleg ist im SAP-System eine Repräsentation des Belegs, der eine finanzielle Buchung ausgelöst hat (etwa eine Rechnung oder eine Warenbewegung). Wenn Sie eine Buchung zu einem Buchhaltungsbeleg vornehmen, aktualisiert das SAP-System die Transaktionszahlen und die Belegart in den Sachkonten. In diesem Objekt sehen Sie die Kopfdaten für alle Lieferantenbuchhaltungsbelege.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x4641\">Wenn Sie einen Buchhaltungsbeleg buchen, aktualisiert das SAP-System die Transaktionszahlen und den Belegtyp in den Sachkonten. Ein Buchhaltungsbeleg enthält nur die Kopfdaten eines Journaleintrags für das Lieferantenbuch. Die Positionen werden in anderen (finanziellen) Objekten in Every Angle gespeichert. Daher finden Sie im Objekt Buchhaltungsbelegkopf wichtige Informationen wie den Belegtyp, den Währungstyp, das Erstellungsdatum usw., die Sie Ihrem Angle hinzufügen können.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x4649\">Ein Objekt wird auf der Grundlage der SAP-Tabelle BKPF mit Referenzen zu Lieferant, Rechnungseingangskopf usw. sowie einer Unterliste von Buchhaltungsbelegpositionen erstellt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Verwandte Themen</h2><p class=\"\" id=\"Pidelem4x4653\">In der Finanzbuchhaltung wird ein Journaleintrag im Kopf, dem Sachkonto und verschiedenen Unterkonten (Kreditoren, Debitoren und Anlagen) gespeichert. Dabei handelt es sich um verschiedene (finanzielle) Objekte in Every Angle.</p></div>"
+            "text": "<h2 class=\" topictitle2\" id=\"Hidelem4x4635\">Zusammenfassung</h2><p id=\"Pidelem4x4637\">Ein Buchhaltungsbeleg ist im SAP-System eine Repr&auml;sentation des Belegs, der eine finanzielle Buchung ausgel&ouml;st hat (etwa eine Rechnung oder eine Warenbewegung). Wenn Sie eine Buchung zu einem Buchhaltungsbeleg vornehmen, aktualisiert das SAP-System die Transaktionszahlen und die Belegart in den Sachkonten. In diesem Objekt sehen Sie die Kopfdaten f&uuml;r alle Lieferantenbuchhaltungsbelege.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Erl&auml;uterung</h2><p id=\"Pidelem4x4641\">Wenn Sie einen Buchhaltungsbeleg buchen, aktualisiert das SAP-System die Transaktionszahlen und den Belegtyp in den Sachkonten. Ein Buchhaltungsbeleg enth&auml;lt nur die Kopfdaten eines Journaleintrags f&uuml;r das Lieferantenbuch. Die Positionen werden in anderen (finanziellen) Objekten in Every Angle gespeichert. Daher finden Sie im Objekt Buchhaltungsbelegkopf wichtige Informationen wie den Belegtyp, den W&auml;hrungstyp, das Erstellungsdatum usw., die Sie Ihrem Angle hinzuf&uuml;gen k&ouml;nnen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Technischer Hintergrund</h2><p id=\"Pidelem4x4649\">Ein Objekt wird auf der Grundlage der SAP-Tabelle BKPF mit Referenzen zu Lieferant, Rechnungseingangskopf usw. sowie einer Unterliste von Buchhaltungsbelegpositionen erstellt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Verwandte Themen</h2><p id=\"Pidelem4x4653\">In der Finanzbuchhaltung wird ein Journaleintrag im Kopf, dem Sachkonto und verschiedenen Unterkonten (Kreditoren, Debitoren und Anlagen) gespeichert. Dabei handelt es sich um verschiedene (finanzielle) Objekte in Every Angle.</p>"
         },
         {
             "lang": "es",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652491502524\"><h2 class=\" topictitle2\" id=\"Hidelem4x4635\">Resumen</h2><p class=\"\" id=\"Pidelem4x4637\">Un documento contable (DC) es una representación dentro del sistema SAP del documento que ha iniciado una contabilización fiscal (por ejemplo, una factura o traslado de material). Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacción y el tipo de documento en la Cuenta de Mayor. Este objeto le permite ver los datos de cabecera de todos los documentos contables de acreedor.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Explicación</h2><p class=\"\" id=\"Pidelem4x4641\">Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacción y el tipo de documento en la Cuenta de Mayor. Un documento contable contiene los datos de cabecera de una entrada diaria solo de las cuentas de mayor del acreedor. Las posiciones de línea se almacenan en objetos (financieros) diferentes en Every Angle. Por lo tanto, en el objeto de la cabecera del documento contable encontrará información importante como el tipo de documento, el tipo de moneda, la fecha de creación, etc., que podrá agregar a su Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x4649\">Según la tabla SAP BKPF, un objeto se crea con referencias al Acreedor, Cabecera de Recepción de Factura y más, así como con una sublista de Documento Contable Posiciones.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Temas relacionados</h2><p class=\"\" id=\"Pidelem4x4653\">Dentro de la contabilidad financiera, se almacena una entrada diaria en la cabecera, las cuentas de mayor y varias subposiciones (pagos a deudores, pagos de acreedores y activos fijos). Estos son objetos (financieros) diferentes dentro de Every Angle.</p></div>"
+            "text": "<h2 class=\" topictitle2\" id=\"Hidelem4x4635\">Resumen</h2><p id=\"Pidelem4x4637\">Un documento contable (DC) es una representaci&oacute;n dentro del sistema SAP del documento que ha iniciado una contabilizaci&oacute;n fiscal (por ejemplo, una factura o traslado de material). Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacci&oacute;n y el tipo de documento en la Cuenta de Mayor. Este objeto le permite ver los datos de cabecera de todos los documentos contables de acreedor.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4639\">Explicaci&oacute;n</h2><p id=\"Pidelem4x4641\">Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacci&oacute;n y el tipo de documento en la Cuenta de Mayor. Un documento contable contiene los datos de cabecera de una entrada diaria solo de las cuentas de mayor del acreedor. Las posiciones de l&iacute;nea se almacenan en objetos (financieros) diferentes en Every Angle. Por lo tanto, en el objeto de la cabecera del documento contable encontrar&aacute; informaci&oacute;n importante como el tipo de documento, el tipo de moneda, la fecha de creaci&oacute;n, etc., que podr&aacute; agregar a su Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4647\">Contexto t&eacute;cnico</h2><p id=\"Pidelem4x4649\">Seg&uacute;n la tabla SAP BKPF, un objeto se crea con referencias al Acreedor, Cabecera de Recepci&oacute;n de Factura y m&aacute;s, as&iacute; como con una sublista de Documento Contable Posiciones.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4651\">Temas relacionados</h2><p id=\"Pidelem4x4653\">Dentro de la contabilidad financiera, se almacena una entrada diaria en la cabecera, las cuentas de mayor y varias subposiciones (pagos a deudores, pagos de acreedores y activos fijos). Estos son objetos (financieros) diferentes dentro de Every Angle.</p>"
         }
     ]
 }

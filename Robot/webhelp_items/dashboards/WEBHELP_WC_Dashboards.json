@@ -1,10 +1,10 @@
 {
     "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1585821204
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591153061
     },
-    "labels": "/dashboards/563/labels",
+    "labels": "/dashboards/727/labels",
     "assigned_labels": [
         "S2D",
         "F2R"
@@ -38,7 +38,7 @@
             "step_type": "filter"
         }
     ],
-    "grouping_labels": "/dashboards/563/grouping_labels",
+    "grouping_labels": "/dashboards/727/grouping_labels",
     "id": "WEBHELP_WC_Dashboards",
     "layout": "{\"structure\":[{\"items\":[\"47.98%\",\"52.01%\"],\"height\":\"100%\"}],\"widgets\":[\"w3475cdf22a8034ae8c30556522059440\",\"waf6b1f8390d266ddb371556522059440\"]}",
     "user_specific": {
@@ -46,10 +46,10 @@
         "private_note": "WEBHELP_WC_Dashboards",
         "execute_on_login": false
     },
-    "state": "/dashboards/563/state",
-    "widgets": "/dashboards/563/widgets",
+    "state": "/dashboards/727/state",
+    "widgets": "/dashboards/727/widgets",
     "is_validated": false,
-    "angles": "/dashboards/563/angles",
+    "angles": "/dashboards/727/angles",
     "authorizations": {
         "unvalidate": false,
         "update": true,
@@ -58,19 +58,19 @@
         "validate": false,
         "delete": true
     },
-    "business_processes": "/dashboards/563/business_processes",
-    "privilege_labels": "/dashboards/563/privilege_labels",
+    "business_processes": "/dashboards/727/business_processes",
+    "privilege_labels": "/dashboards/727/privilege_labels",
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1556522110
+        "datetime": 1590417064
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1556535645
+        "datetime": 1591086928
     },
-    "uri": "/dashboards/563",
+    "uri": "/dashboards/727",
     "has_warnings": false,
     "model": "/models/1",
     "multi_lang_description": [],
@@ -82,12 +82,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/561",
-            "uri": "/dashboards/563/widgets/4",
+            "angle": "/models/1/angles/725",
+            "uri": "/dashboards/727/widgets/5",
             "id": "w3475cdf22a8034ae8c30556522059440",
             "widget_type": "angle_display",
             "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/561/displays/2838",
+            "display": "/models/1/angles/725/displays/3286",
             "multi_lang_description": []
         },
         {
@@ -97,12 +97,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/562",
-            "uri": "/dashboards/563/widgets/5",
+            "angle": "/models/1/angles/726",
+            "uri": "/dashboards/727/widgets/6",
             "id": "waf6b1f8390d266ddb371556522059440",
             "widget_type": "angle_display",
             "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/562/displays/2842",
+            "display": "/models/1/angles/726/displays/3288",
             "multi_lang_description": []
         }
     ],

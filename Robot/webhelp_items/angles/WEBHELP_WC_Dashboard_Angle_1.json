@@ -1,67 +1,62 @@
 {
     "multi_lang_name": [
         {
-            "lang": "nl",
-            "text": "Boekhouddocument (BD) Positie Artikel"
+            "lang": "de",
+            "text": "Buchhaltungsbeleg (BB) Position Material"
         },
         {
             "lang": "en",
             "text": "Accounting Document (AD) Item Material"
         },
         {
+            "lang": "es",
+            "text": "Documento Contable de Posición Material"
+        },
+        {
             "lang": "fr",
             "text": "Pièce Comptable Poste Article"
         },
         {
-            "lang": "de",
-            "text": "Buchhaltungsbeleg (BB) Position Material"
-        },
-        {
-            "lang": "es",
-            "text": "Documento Contable de Posición Material"
+            "lang": "nl",
+            "text": "Boekhouddocument (BD) Positie Artikel"
         }
     ],
-    "labels": "/models/1/angles/561/labels",
+    "labels": "/models/1/angles/725/labels",
     "assigned_labels": [
         "F2R"
     ],
     "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1585821203
+        "user": "/users/15",
+        "full_name": "Mary Smith",
+        "datetime": 1591153188
     },
-    "displays": "/models/1/angles/561/displays",
-    "grouping_labels": "/models/1/angles/561/grouping_labels",
-    "validated": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1557127947
-    },
+    "displays": "/models/1/angles/725/displays",
+    "grouping_labels": "/models/1/angles/725/grouping_labels",
     "id": "WEBHELP_WC_Dashboard_Angle_1",
     "authorizations": {
-        "unvalidate": true,
-        "mark_template": false,
+        "unvalidate": false,
+        "mark_template": true,
         "unmark_template": false,
         "update": true,
         "publish": false,
-        "unpublish": false,
+        "unpublish": true,
         "create_private_display": true,
-        "validate": false,
+        "validate": true,
         "create_public_display": true,
         "delete": true
     },
     "user_specific": {
-        "times_executed": 679,
+        "times_executed": 56,
         "is_starred": false,
         "private_tags": [],
         "private_note": "WEBHELP_WC_Dashboard_Angle_1",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/561/state",
+    "state": "/models/1/angles/725/state",
     "allow_followups": true,
     "is_parameterized": false,
-    "is_validated": true,
-    "business_processes": "/models/1/angles/561/business_processes",
+    "is_validated": false,
+    "business_processes": "/models/1/angles/725/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -70,116 +65,21 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/561/displays/2840",
-    "privilege_labels": "/models/1/angles/561/privilege_labels",
+    "angle_default_display": "/models/1/angles/725/displays/3287",
+    "privilege_labels": "/models/1/angles/725/privilege_labels",
     "is_deleted": false,
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1556521918
+        "datetime": 1590417063
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1557127944
+        "datetime": 1591084878
     },
-    "uri": "/models/1/angles/561",
+    "uri": "/models/1/angles/725",
     "display_definitions": [
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "en",
-                    "text": "No. per Creation Date"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
-                "delete": true
-            },
-            "created": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1556521918
-            },
-            "fields": [
-                {
-                    "field": "quarter_AccountingDocumentHeader__CPUDT",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"\"}"
-                },
-                {
-                    "field": "individual_CompanyCode__CompanyCode",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"column\",\"sorting\":\"\"}"
-                },
-                {
-                    "field": "count",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
-                }
-            ],
-            "changed": {
-                "user": "/users/1",
-                "full_name": "EAAdmin",
-                "datetime": 1580112031
-            },
-            "uri": "/models/1/angles/561/displays/2838",
-            "is_public": true,
-            "contained_aggregation_steps": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/561/displays/2838/state",
-            "display_type": "chart",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "aggregation_fields": [
-                                {
-                                    "operator": "count",
-                                    "field": "count"
-                                }
-                            ],
-                            "step_type": "aggregation",
-                            "grouping_fields": [
-                                {
-                                    "operator": "quarter",
-                                    "field": "quarter_AccountingDocumentHeader__CPUDT",
-                                    "source_field": "AccountingDocumentHeader__BKPF_CPUDT",
-                                    "tech_info": "BKPF-CPUDT"
-                                },
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_CompanyCode__CompanyCode",
-                                    "source_field": "CompanyCode__CompanyCode",
-                                    "tech_info": "T001-BUKRS"
-                                }
-                            ]
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "is_angle_default": false,
-            "angle_id": "561",
-            "id": "d5366bdd6f1ae4b0f18f9556521899128",
-            "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0,\"axisscale\":\"automatic\"}",
-            "multi_lang_description": [
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144111318122623\"><p class=\"\" id=\"P1441113181226864\" /></div>"
-                }
-            ]
-        },
         {
             "multi_lang_name": [
                 {
@@ -214,7 +114,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1556521918
+                "datetime": 1590417063
             },
             "fields": [
                 {
@@ -237,10 +137,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/561/displays/2839",
+            "uri": "/models/1/angles/725/displays/3285",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/561/displays/2839/state",
+            "state": "/models/1/angles/725/displays/3285/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -251,7 +151,7 @@
                     "query_steps": [
                         {
                             "tech_info": "T001-BUKRS",
-                            "execution_parameter_id": "ea2665d2d553d64f388712c4e2e52a7ab7",
+                            "execution_parameter_id": "ea979b5c4fc0a84e3d885ee54bbd6542a2",
                             "step_type": "filter",
                             "field": "CompanyCode__CompanyCode",
                             "is_execution_parameter": true,
@@ -259,7 +159,7 @@
                         },
                         {
                             "tech_info": "BKPF-GJAHR",
-                            "execution_parameter_id": "ea977e1e8079f84a1c838213b43dd5e9a1",
+                            "execution_parameter_id": "eaae9f31b48fa74d4e86106ac1d2d88aa1",
                             "step_type": "filter",
                             "field": "AccountingDocumentHeader__GJAHR",
                             "arguments": [
@@ -300,7 +200,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "561",
+            "angle_id": "725",
             "id": "d02c02c310944c14faf73556521899128",
             "display_details": "{\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAGmluZGl2aWR1YWxfbWF0ZXJpYWxfX21hdGtsWlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQEBAAAAAAAAAAAAAAA=\\\"}\",\"columns\":{\"header\":[191.802734375,248.648],\"data\":[100]}}",
             "multi_lang_description": [
@@ -323,6 +223,128 @@
                 {
                     "lang": "nl",
                     "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440504464333253\"><p class=\"\" id=\"P144050446433344\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Anzahl nach Erstellungsdatum"
+                },
+                {
+                    "lang": "en",
+                    "text": "No. per Creation Date"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Fecha de Creación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Date de Création"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Aanmaakdatum"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1590417063
+            },
+            "fields": [
+                {
+                    "field": "quarter_AccountingDocumentHeader__CPUDT",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "individual_CompanyCode__CompanyCode",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/725/displays/3286",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/725/displays/3286/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "quarter",
+                                    "field": "quarter_AccountingDocumentHeader__CPUDT",
+                                    "source_field": "AccountingDocumentHeader__BKPF_CPUDT",
+                                    "tech_info": "BKPF-CPUDT"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_CompanyCode__CompanyCode",
+                                    "source_field": "CompanyCode__CompanyCode",
+                                    "tech_info": "T001-BUKRS"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "725",
+            "id": "d5366bdd6f1ae4b0f18f9556521899128",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0,\"axisscale\":\"automatic\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144111318122623\"><p class=\"\" id=\"P1441113181226864\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144111318122623\"><p class=\"\" id=\"P1441113181226864\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144111318122623\"><p class=\"\" id=\"P1441113181226864\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144111318122623\"><p class=\"\" id=\"P1441113181226864\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S144111318122623\"><p class=\"\" id=\"P1441113181226864\" /></div>"
                 }
             ]
         },
@@ -359,7 +381,7 @@
             "created": {
                 "user": "/users/1",
                 "full_name": "EAAdmin",
-                "datetime": 1556521918
+                "datetime": 1590417063
             },
             "fields": [
                 {
@@ -445,10 +467,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/561/displays/2840",
+            "uri": "/models/1/angles/725/displays/3287",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/561/displays/2840/state",
+            "state": "/models/1/angles/725/displays/3287/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -456,7 +478,7 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "561",
+            "angle_id": "725",
             "id": "dcb9e42c2187d698a56d4556521899128",
             "display_details": "{}",
             "multi_lang_description": [
@@ -488,31 +510,31 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1557127944
+        "datetime": 1590989387
     },
     "model": "/models/1",
     "is_published": true,
     "allow_more_details": true,
     "multi_lang_description": [
         {
-            "lang": "nl",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652492066324\"><h2 class=\" topictitle2\" id=\"Hidelem4x6858\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x6862\">De artikelgegevens worden met een financieel document in deze secundaire tabel opgeslagen als afzonderlijke regelpositie.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6864\">Uitleg</h2><p class=\"\" id=\"Pidelem4x6866\">Wanneer u een journaalpost in financiën plaatst, worden sommige aan artikelen gerelateerde gegevens opgeslagen in de hoofdtabel (BSEG), maar ook afzonderlijk in de artikelen in de indextabel.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6868\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x6870\">Op basis van de SAP-tabel BSIM wordt er een object aangemaakt met referenties naar Artikel op vestigingsniveau, Boekhouddocumentkop en meer.</p></div>"
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652492066324\"><h2 class=\" topictitle2\" id=\"Hidelem4x6858\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x6862\">Die Materialdaten zu einem Finanzbeleg werden in dieser sekundären Tabelle als separate Position gespeichert.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6864\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x6866\">Wenn Sie in der Finanzbuchhaltung einen Journaleintrag buchen, werden einige materialbezogene Daten in der Haupttabelle (BSEG), aber auch separat in der Indextabelle Material gespeichert.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6868\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x6870\">Ein Objekt wird auf der Grundlage der SAP-Tabelle BSIM mit Referenzen zu Material auf Werksebene, Buchhaltungsbeleg Kopf usw. erstellt.</p></div>"
         },
         {
             "lang": "en",
             "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652492066324\"><h2 class=\" topictitle2\" id=\"Hidelem4x6858\">Summary</h2><p class=\"\" id=\"Pidelem4x6862\">The material data with a financial document is stored in this secondary table as a separate line item.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6864\">Explanation</h2><p class=\"\" id=\"Pidelem4x6866\">When you post a journal entry in finance, some material related data will be stored in the main table (BSEG), but also separately in the indextable material.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6868\">Technical background</h2><p class=\"\" id=\"Pidelem4x6870\">Based on SAP table BSIM an object is\r\ncreated with references to Material on Plant Level, Accounting Document Header and more.</p></div>"
         },
         {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652492066324\"><h2 class=\" topictitle2\" id=\"Hidelem4x6858\">Resumen</h2><p class=\"\" id=\"Pidelem4x6862\">Los datos materiales en un documento financiero se almacenan en la tabla secundaria como una posición de documento aparte.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6864\">Explicación</h2><p class=\"\" id=\"Pidelem4x6866\">Al contabilizar una entrada diaria en finanzas, algunos datos relacionados con materiales se almacenan en la tabla principal (BSEG), pero también en la tabla de índices material.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6868\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x6870\">Según la tabla SAP BSIM, un objeto se crea con referencias a Material a Nivel de Centro, Documento Contable Cabecera y más.</p></div>"
+        },
+        {
             "lang": "fr",
             "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652492066324\"><h2 class=\" topictitle2\" id=\"Hidelem4x6858\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x6862\">Les données matérielles avec pièce financière sont mémorisées dans cette table auxiliaire en tant que poste individuel.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6864\">Explication</h2><p class=\"\" id=\"Pidelem4x6866\">Lorsque vous publiez une entrée de journal dans les données financières, certaines données matérielles rattachées sont mémorisées dans la table principale (BSEG), mais aussi séparément dans la table d'indexation des articles.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6868\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x6870\">D'après la table BSIM dans SAP, un objet est créé avec des références à l'en-tête Article au niveau division, Pièce comptable et autre.</p></div>"
         },
         {
-            "lang": "de",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652492066324\"><h2 class=\" topictitle2\" id=\"Hidelem4x6858\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x6862\">Die Materialdaten zu einem Finanzbeleg werden in dieser sekundären Tabelle als separate Position gespeichert.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6864\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x6866\">Wenn Sie in der Finanzbuchhaltung einen Journaleintrag buchen, werden einige materialbezogene Daten in der Haupttabelle (BSEG), aber auch separat in der Indextabelle Material gespeichert.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6868\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x6870\">Ein Objekt wird auf der Grundlage der SAP-Tabelle BSIM mit Referenzen zu Material auf Werksebene, Buchhaltungsbeleg Kopf usw. erstellt.</p></div>"
-        },
-        {
-            "lang": "es",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652492066324\"><h2 class=\" topictitle2\" id=\"Hidelem4x6858\">Resumen</h2><p class=\"\" id=\"Pidelem4x6862\">Los datos materiales en un documento financiero se almacenan en la tabla secundaria como una posición de documento aparte.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6864\">Explicación</h2><p class=\"\" id=\"Pidelem4x6866\">Al contabilizar una entrada diaria en finanzas, algunos datos relacionados con materiales se almacenan en la tabla principal (BSEG), pero también en la tabla de índices material.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6868\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x6870\">Según la tabla SAP BSIM, un objeto se crea con referencias a Material a Nivel de Centro, Documento Contable Cabecera y más.</p></div>"
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143652492066324\"><h2 class=\" topictitle2\" id=\"Hidelem4x6858\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x6862\">De artikelgegevens worden met een financieel document in deze secundaire tabel opgeslagen als afzonderlijke regelpositie.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6864\">Uitleg</h2><p class=\"\" id=\"Pidelem4x6866\">Wanneer u een journaalpost in financiën plaatst, worden sommige aan artikelen gerelateerde gegevens opgeslagen in de hoofdtabel (BSEG), maar ook afzonderlijk in de artikelen in de indextabel.</p><h2 class=\" topictitle2\" id=\"Hidelem4x6868\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x6870\">Op basis van de SAP-tabel BSIM wordt er een object aangemaakt met referenties naar Artikel op vestigingsniveau, Boekhouddocumentkop en meer.</p></div>"
         }
     ]
 }
