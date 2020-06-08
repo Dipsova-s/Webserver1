@@ -287,9 +287,7 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 /EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/ManagementConsole/Dependencies
-!/EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/ManagementConsole/Dependencies/Global.js
 /EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/WebClient/Dependencies
-!/EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/WebClient/Dependencies/Global.js
 /EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/SharedDependencies
 **/Content/ExternalResource
 /EveryAngle.WebClient/EveryAngle.WebClient.Web/Resources

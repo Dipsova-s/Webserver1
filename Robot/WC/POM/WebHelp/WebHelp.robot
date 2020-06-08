@@ -62,7 +62,7 @@ Copy Image To Webhelp Folder
 
 Get WebHelp Image Name
     [Arguments]    ${filename}    ${languageDependent}=${True}
-    ${imageName}  Run Keyword If  ${languageDependent}==${True} and '${WEB_HELP_LANGUAGE_CODE}'!='en'  Replace String  ${filename}  .png  _${WEB_HELP_LANGUAGE_CODE}.png
+    ${imageName}  Run Keyword If  ${languageDependent}==${True} and '${WEB_HELP_LANGUAGE_CODE}'!='en'  Replace String  ${filename}  .png  -${WEB_HELP_LANGUAGE_CODE}.png
     ...             ELSE  Set variable  ${filename}
     [Return]  ${imageName}
 
