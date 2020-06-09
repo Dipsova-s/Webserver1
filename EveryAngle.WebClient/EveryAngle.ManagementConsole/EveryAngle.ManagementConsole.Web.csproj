@@ -195,6 +195,7 @@
     <Compile Include="Controllers\DownloadTableController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\ActionFilters\IsUserLogedInAction.cs" />
+    <Compile Include="Filters\ActionFilters\ValidationRequestAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -300,7 +301,7 @@
     <Content Include="Images\Icons\icon_error.svg" />
     <Content Include="Images\Icons\icon_gear.svg" />
     <Content Include="Images\Icons\icon_help.svg" />
-	<Content Include="Images\Icons\icon_support.svg" />
+    <Content Include="Images\Icons\icon_support.svg" />
     <Content Include="Images\Icons\icon_list.png" />
     <Content Include="Images\Icons\icon_logout.svg" />
     <Content Include="Images\Icons\icon_logs.png" />
@@ -782,6 +783,9 @@
     <Content Include="Views\Shared\PageToolbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Views\Top\ValidationRequestHeader.cshtml">
+      <Link>Views\Shared\Top\ValidationRequestHeader.cshtml</Link>
+    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

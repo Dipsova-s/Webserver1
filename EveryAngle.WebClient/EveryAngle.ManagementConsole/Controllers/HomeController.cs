@@ -5,9 +5,11 @@ using EveryAngle.ManagementConsole.Models;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.ManagementConsole.Helpers;
 using System.Collections.Generic;
+using EveryAngle.WebClient.Web.Filters.ActionFilters;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
+    [ValidationRequest(true)]
     public class HomeController : BaseController
     {
         private readonly IDirectoryService _directoryService;

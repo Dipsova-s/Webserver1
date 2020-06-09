@@ -56,8 +56,10 @@
                 MC.ui.loading.show();
             })
             .ajaxSend(function (e, xhr) {
-                if (xhr && xhr.setRequestHeader)
+                if (xhr && xhr.setRequestHeader) {
                     xhr.setRequestHeader('Accept-Language', '');
+                    ValidationRequestService.setSecurityHeader(xhr);
+                }
             })
             .ajaxError(self.onAjaxError)
             .ajaxSuccess(function () {

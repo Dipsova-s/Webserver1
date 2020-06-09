@@ -235,7 +235,7 @@
                 // Encode the String
                 fullPath = jQuery.base64.encode(fullPath);
 
-                var url = kendo.format('{0}?fullPath={1}&target={2}', webGlobalSettingsDownloadUrl, fullPath, self.Target);
+                var url = kendo.format('{0}?fullPath={1}&target={2}&{3}', webGlobalSettingsDownloadUrl, fullPath, self.Target, ValidationRequestService.getVerificationTokenAsQueryString());
                 $(location).attr('href', url);
             }
         };

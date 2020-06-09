@@ -2,6 +2,7 @@ using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service.ErrorHandlers;
 using EveryAngle.WebClient.Service.LogHandlers;
 using EveryAngle.WebClient.Service.Security;
+using EveryAngle.WebClient.Web.Filters.ActionFilters;
 using System;
 using System.Configuration;
 using System.Globalization;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 namespace EveryAngle.ManagementConsole.Controllers
 {
     [ValidateInput(false)]
+    [ValidationRequest]
     [LogExceptionHandler(Order = 2)]
     [CustomHandleError(Order = 1)]
     public class BaseController : Controller

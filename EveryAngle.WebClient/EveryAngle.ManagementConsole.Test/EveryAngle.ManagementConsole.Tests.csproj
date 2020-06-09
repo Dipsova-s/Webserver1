@@ -132,6 +132,7 @@
     <Compile Include="Controllers\SharedComponentControllerTest.cs" />
     <Compile Include="Controllers\UserControllerTests.cs" />
     <Compile Include="Controllers\AngleWarningsControllerTests.cs" />
+    <Compile Include="Filters\ValidationRequestAttributeTests.cs" />
     <Compile Include="Helpers\AssemblyInfoHelperTests.cs" />
     <Compile Include="Helpers\ConsolidateRoleHelperTests.cs" />
     <Compile Include="Helpers\EventLogHelperTests.cs" />

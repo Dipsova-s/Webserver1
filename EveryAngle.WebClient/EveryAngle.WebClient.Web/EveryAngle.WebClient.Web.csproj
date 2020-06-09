@@ -32,7 +32,8 @@
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -640,6 +641,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Admin\MC.txt" />
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Views\Top\ValidationRequestHeader.cshtml">
+      <Link>Views\Shared\Top\ValidationRequestHeader.cshtml</Link>
+    </Content>
     <None Include="Content\CSS\angle.scss" />
     <None Include="Content\CSS\common.scss" />
     <None Include="Content\CSS\components\_query-aggregation-format.scss" />
@@ -809,7 +813,7 @@
     <Content Include="Images\Icons\icon_gear.svg" />
     <Content Include="Images\Icons\icon_help.svg" />
     <Content Include="Images\Icons\icon_info.svg" />
-	<Content Include="Images\Icons\icon_support.svg" />
+    <Content Include="Images\Icons\icon_support.svg" />
     <Content Include="Images\Icons\icon_item_dashboard.svg" />
     <Content Include="Images\Icons\icon_list_addnew_hover.svg" />
     <Content Include="Images\Icons\icon_list_addnew.svg" />
@@ -1316,7 +1320,6 @@
     <Content Include="Views\Shared\EditorTemplates\EnumTemplate.cshtml" />
     <Content Include="Views\Angle\PartialViews\Pivot\PivotGridScript.cshtml" />
     <Content Include="Views\Shared\Top\BusinessProcessBadge.cshtml" />
-    <Content Include="Views\Shared\Top\ValidationRequestHeader.cshtml" />
     <Content Include="Views\Shared\Top\Breadcrumb.cshtml" />
     <Content Include="Views\Shared\GUI.cshtml" />
     <Content Include="Views\Shared\Top\SettingsPanel.cshtml" />

@@ -142,7 +142,7 @@
 
         self.DownloadPackage = function (e, obj) {
             if (!$(obj).hasClass('disabled')) {
-                location.href = obj.href;
+                location.href = obj.href + "&" + ValidationRequestService.getVerificationTokenAsQueryString();
             }
             MC.util.preventDefault(e);
         };
@@ -570,7 +570,7 @@
 
         // get export package file
         self.DownloadExportPackage = function (fileUri) {
-            var url = kendo.format('{0}?packageFileUri={1}', self.DownloadPackageUri, fileUri);
+            var url = kendo.format('{0}?packageFileUri={1}&{2}', self.DownloadPackageUri, fileUri, ValidationRequestService.getVerificationTokenAsQueryString());
             window.location = url;
         };
 

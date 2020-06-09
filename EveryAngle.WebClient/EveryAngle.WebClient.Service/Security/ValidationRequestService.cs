@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EveryAngle.WebClient.Service.Security.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,32 +10,38 @@ using System.Web.Mvc;
 
 namespace EveryAngle.WebClient.Service.Security
 {
-    public class ValidationRequestService
+    public class ValidationRequestService : IValidationRequestService
     {
         public const string TokenHeaderId = "Request-Verification-Token";
         public const string TokenQueryStringId = "request_verification_token";
-        public static Func<IValidationRequestContext> ValidatorFunction { get; set; }
+        public Func<IValidationRequestContext> ValidatorFunction { get; set; }
 
-        static ValidationRequestService()
+        private ValidationRequestService()
         {
             ValidatorFunction = () => new ValidationRequestContext();
         }
 
-        public static string GetToken()
+        private static IValidationRequestService _instance;
+        public static IValidationRequestService Instance()
+        {
+            return _instance ?? (_instance = new ValidationRequestService());
+        }
+
+        public string GetToken()
         {
             string cookieToken = string.Empty, formToken = string.Empty;
             ValidatorFunction().GetTokens(null, out cookieToken, out formToken);
             return $"{cookieToken}:{formToken}";
         }
 
-        public static void ValidateToken(HttpRequestMessage request)
+        public void ValidateToken(HttpRequestMessage request)
         {
-            if(request.Headers.TryGetValues(TokenHeaderId, out IEnumerable<string> requestToken))
+            if (request.Headers.TryGetValues(TokenHeaderId, out IEnumerable<string> requestToken))
             {
                 ValidateToken(requestToken.FirstOrDefault());
             }
-            
-            else if(TryGetTokenFromQueryString(request, out string token))
+
+            else if (TryGetTokenFromQueryString(request, out string token))
             {
                 ValidateToken(token);
             }
@@ -44,10 +51,30 @@ namespace EveryAngle.WebClient.Service.Security
                 throw new HttpException((int)HttpStatusCode.Forbidden,
                     "Missing CSRF token");
             }
-            
+
         }
 
-        public static void ValidateToken(string requestToken)
+        public void ValidateToken(HttpRequestBase request)
+        {
+            var requestToken = request.Headers.GetValues(TokenHeaderId);
+
+            if (requestToken != null)
+            {
+                ValidateToken(requestToken.FirstOrDefault());
+            }
+            else if (TryGetTokenFromQueryString(request, out string token))
+            {
+                ValidateToken(token);
+            }
+            else
+            {
+                throw new HttpException((int)HttpStatusCode.Forbidden,
+                    "Missing CSRF token");
+            }
+
+        }
+
+        private void ValidateToken(string requestToken)
         {
             try
             {
@@ -74,13 +101,19 @@ namespace EveryAngle.WebClient.Service.Security
             }
         }
 
-        private static bool TryGetTokenFromQueryString(HttpRequestMessage request, out string token)
+        private bool TryGetTokenFromQueryString(HttpRequestMessage request, out string token)
         {
             var result = request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(TokenQueryStringId));
             token = result.Value;
             return result.Value != null;
         }
 
+        private bool TryGetTokenFromQueryString(HttpRequestBase request, out string token)
+        {
+            var result = request.QueryString?.GetValues(TokenQueryStringId);
+            token = result != null ? result[0] : null;
+            return token != null;
+        }
     }
 
     public class ValidationRequestContext : IValidationRequestContext

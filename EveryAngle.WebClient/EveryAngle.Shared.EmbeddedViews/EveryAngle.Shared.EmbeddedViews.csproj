@@ -123,6 +123,7 @@
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.eot" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.ttf" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.woff" />
+    <Content Include="Views\Top\ValidationRequestHeader.cshtml" />
     <None Include="Views\User\PartialViews\UserLoginBodyPage.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>UserLoginBodyPage.generated.cs</LastGenOutput>
