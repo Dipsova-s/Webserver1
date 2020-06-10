@@ -41,6 +41,7 @@ Fill In Search Field Chooser
 
 Choose Field Chooser From Search Result
     [Arguments]   ${fieldId}
+    Wait Until Element Is Visible   jquery=#DisplayPropertiesGrid [id="${fieldId}"] td:eq(2)
     Click Element    jquery=#DisplayPropertiesGrid [id="${fieldId}"] td:eq(2)
 
 Click Set Field Chooser View To Full Mode

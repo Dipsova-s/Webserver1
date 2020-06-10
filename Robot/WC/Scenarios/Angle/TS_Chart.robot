@@ -45,6 +45,14 @@ Chart Options Data Labels Functionality
 
 Drilldown Chart Display
     Go To Chart Test Display
+    
+    Click Display Tab
+    Set Editor Context: Display Tab
+    Add Filter On Display    Ordered Value    OrderedValue    ${TRUE}
+    Set Editor Index    0  
+    Choose Dropdown Filter Operator Via Edit Filter    is greater than
+    Click Apply Filter On Display
+    
     Setup Field Settings For Chart Drilldown
     ${beforeDrilldownCount}    Get Total Of First Bar In Column Chart
     Click First Bar In Column Chart

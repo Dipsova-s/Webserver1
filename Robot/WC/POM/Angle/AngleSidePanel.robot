@@ -216,6 +216,12 @@ Add Filter On Angle
     Click Element   ${divTabContentAngle} ${btnAddFilter}
     Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}  ${isSelfSource}
 
+Add Filter On Display
+    [Arguments]   ${fieldKeyword}    ${fieldId}    ${isSelfSource}
+    Wait Until Element Is Visible       ${divTabContentDisplay} ${btnAddFilter}
+    Click Element   ${divTabContentDisplay} ${btnAddFilter}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}  ${isSelfSource}
+
 Add Filter Before Jump On Angle
     [Arguments]    ${index}    ${fieldKeyword}    ${fieldId}    ${isSelfSource}
     Mouse Over   ${liAngleJump}[data-index=${index}]
