@@ -87,6 +87,7 @@ function ExportCSVModel(option) {
     /* M4-13475: Created property to kept time stamp colum index in export csv model */
     self.AddModelDateAtColumn = self.DefaultAddModelDateAtColumn;
 
+    self.MaxRowsToExport = ko.observable(-1);
     //EOF: Properties
 
     return self;

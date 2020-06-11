@@ -5,16 +5,16 @@ function ExportExcelHandler() {
 
     var self = this;
     var fnCheckExportProgress;
-
+    self.CurrentExportModel = {};
     //BOF: Properties
     self.AngleName = ko.observable();
     self.Description = ko.observable();
-    self.TotalRow = ko.observable();
     self.ExportRow = 0;
     self.IsCancelExporting = false;
     self.GenerateExcelUri = '';
     self.GenerateExceljsonData = {};
     self.SupportExcelExportAsChart = ['area', 'area_stack', 'bar', 'bar_stack', 'column', 'column_stack', 'line', 'line_stack', 'radarLine', 'radarLine_stack', 'donut', 'pie', 'bubble', 'scatter'];
+    self.DefaultSetting = {};
     //EOF: Properties
 
     //BOF: Methods
@@ -172,7 +172,8 @@ function ExportExcelHandler() {
         return jQuery('.k-chart-item').length > 0;
     };
 
-    self.ShowExportExcelPopupCallback = function (displayType) {
+    self.ShowExportExcelPopupCallback = function (displayType) {     
+        self.SetDefaultExcelSettings();
         var rowCount = resultModel.Data().row_count;
         var exportRow = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES);
         if (!exportRow) {
@@ -194,23 +195,22 @@ function ExportExcelHandler() {
                     var maxExportRow = angleModels.length === 0 ? null : angleModels[0].privileges.max_export_rows || 0;
                     // Check if max export row is null use all total row but if not use max row
                     if (!maxExportRow) {
-                        exportExcelHandler.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, rowCount) + ')');
+                        self.CurrentExportModel.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, rowCount) + ')');
                         self.ExportRow = rowCount;
                     }
                     else {
-                        exportExcelHandler.TotalRow(Localization.Max + ' (' + maxExportRow + ')');
+                        self.CurrentExportModel.TotalRow(Localization.Max + ' (' + maxExportRow + ')');
                         self.ExportRow = maxExportRow;
                     }
                 }
                 else {
-                    exportExcelHandler.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, rowCount) + ')');
+                    self.CurrentExportModel.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, rowCount) + ')');
                     self.ExportRow = rowCount;
                 }
             }
         }
 
         // Binding knockout
-        WC.HtmlHelper.ApplyKnockout(exportExcelHandler, jQuery('[id="ExportOptionArea"]:visible'));
         /* EOF: M4-11556: Implement max export rows */
 
         /*
@@ -233,18 +233,8 @@ function ExportExcelHandler() {
         workbookName = CleanExcelFileName(workbookName, 'ExportAngle');
         sheetName = CleanSheetName(sheetName, 'Sheet1', 31);
 
-        jQuery('#HeaderFormatEnum').kendoDropDownList({
-            dataTextField: "TEXT",
-            dataValueField: "VALUE",
-            dataSource: [
-                { VALUE: 'id', TEXT: Localization.ExportCSVEnumFormatId },
-                { VALUE: 'display', TEXT: Localization.ListFormatEnumShortName },
-                { VALUE: 'longname', TEXT: Localization.ListFormatEnumLongName }
-            ],
-            value: 'display'
-        });
+        
         self.SetVisibleHeaderFormat(displayType);
-
         jQuery('[id="SaveFileName"]:visible').val(workbookName);
         jQuery('[id="SaveSheetName"]:visible').val(sheetName);
         jQuery('[id="SaveFileName"]:visible, [id="SaveSheetName"]:visible').removeClass('k-invalid');
@@ -254,6 +244,92 @@ function ExportExcelHandler() {
         * 3.Removed class executing from ok button
         */
         jQuery('a[id*=btn-popupExportDrilldownExcel]:visible').removeClass('executing');
+    };
+    self.SetDefaultExcelSettings = function () {
+        var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
+        var filename = CleanExcelFileName(angleInfoModel.Name() + ' - ' + displayModel.Name(), 'ExportAngle');
+    
+        if (typeof ko.dataFor(jQuery('#ExportOptionArea').get(0)) === 'undefined') {
+            self.CurrentExportModel = new ExportExcelModel({
+                FileName: filename,
+                DatarowUri: resultModel.Data().data_rows,
+                MaxPageSize: systemSettingHandler.GetMaxPageSize(),
+                DisplayUri: displayModel.Data().uri,
+                FieldMetaDataUri: !model ? '' : model.fields,
+                UserSettingUri: userModel.Data().user_settings,
+                ModelDataTimeStamp: modelCurrentInstanceHandler.GetCurrentModelInstance(angleInfoModel.Data().model).modeldata_timestamp,
+                DataFieldUri: resultModel.Data().data_fields,
+                CurrentFields: self.GetCurrentDisplayField(displayModel.Data().display_type),
+                DisplayType: displayModel.Data().display_type
+            });
+            WC.HtmlHelper.ApplyKnockout(self.CurrentExportModel, jQuery('#ExportOptionArea'));
+        }
+        else {
+            self.CurrentExportModel.FileName(filename);
+            self.CurrentExportModel.DatarowUri = resultModel.Data().data_rows;
+            self.CurrentExportModel.MaxPageSize = systemSettingHandler.GetMaxPageSize();
+            self.CurrentExportModel.DisplayUri = displayModel.Data().uri;
+            self.CurrentExportModel.FieldMetaDataUri = !model ? '' : model.fields;
+            self.CurrentExportModel.UserSettingUri = userModel.Data().user_settings;
+            self.CurrentExportModel.ModelDataTimeStamp = modelCurrentInstanceHandler.GetCurrentModelInstance(angleInfoModel.Data().model).modeldata_timestamp;
+            self.CurrentExportModel.DataFieldUri = resultModel.Data().data_fields;
+            self.CurrentExportModel.CurrentFields = self.GetCurrentDisplayField(displayModel.Data().display_type);
+            self.CurrentExportModel.DisplayType = displayModel.Data().display_type;
+        }
+
+        self.GetDefaultExcelDatastore();
+    };
+    self.GetDefaultExcelDatastore = function () {
+        var request = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.SYSTEMDATASTORES);
+        var query = {};
+        query["default_datastore"] = true;
+
+        jQuery('#popupExportExcel').busyIndicator(true);
+        return GetDataFromWebService(request, query)
+            .then(function (data) {
+                if (data && data.datastores && data.datastores.findObject('datastore_plugin', 'msexcel')) {
+                    var defaultExcelDatastoreUri = data.datastores.findObject('datastore_plugin', 'msexcel').uri;
+                    return GetDataFromWebService(defaultExcelDatastoreUri, query);
+                }
+                return jQuery.when(null);
+            })
+            .done(function (data) {
+                if (data)
+                    self.SetExportModel(data);
+            })
+            .always(function () {
+                self.SetExportModelUI();
+                jQuery('#popupExportExcel').busyIndicator(false);
+            });
+    };
+    self.SetExportModel = function (datastore) {
+        self.CurrentExportModel.HeaderFormat(self.GetDatastoreDataSetting(datastore, 'header_format'));
+        self.CurrentExportModel.AddAngleDefinition(self.GetDatastoreDataSetting(datastore, 'add_angle_definition'));
+        self.CurrentExportModel.AddAngleSummary(self.GetDatastoreDataSetting(datastore, 'add_angle_summary'));
+        self.CurrentExportModel.TemplateFile(self.GetDatastoreDataSetting(datastore, 'template_file'));
+        self.CurrentExportModel.MaxRowsToExport(self.GetDatastoreDataSetting(datastore, 'max_rows_to_export'));
+        self.CurrentExportModel.ModelTimestampIndex(self.GetDatastoreDataSetting(datastore, 'model_timestamp_index'));
+        self.CurrentExportModel.TechnicalInfo(self.GetDatastoreDataSetting(datastore, 'include_techinfo'));
+        self.CurrentExportModel.SheetName(self.GetDatastoreDataSetting(datastore, 'sheet_name'));
+        var fileNameSetting = self.GetDatastoreDataSetting(datastore, 'file_name');
+        if (fileNameSetting)
+            self.CurrentExportModel.FileName(fileNameSetting);
+        return self.CurrentExportModel;
+    };
+    self.GetDatastoreDataSetting = function (datastore, id) {
+        if (datastore && datastore.data_settings && datastore.data_settings.setting_list && datastore.data_settings.setting_list.findObject('id', id))
+            return datastore.data_settings.setting_list.findObject('id', id).value;
+        else
+            return '';
+    };
+    self.SetExportModelUI = function () {
+        jQuery('#HeaderFormatEnum').kendoDropDownList({
+            dataTextField: "TEXT",
+            dataValueField: "VALUE",
+            dataSource: self.CurrentExportModel.HeaderFormats,
+            value: self.CurrentExportModel.HeaderFormat()
+        });
+
     };
     self.CloseExportExcelPopup = function (e) {
         e.kendoWindow.element.closest('.popupExportExcel').removeClass('alwaysHide');
@@ -333,21 +409,26 @@ function ExportExcelHandler() {
         var exportOptions = {};
         exportOptions.FileName = jQuery.trim(jQuery('[id="SaveFileName"]:visible').val());
         exportOptions.SheetName = jQuery.trim(jQuery('[id="SaveSheetName"]:visible').val());
-
-        // validate file name
-        if (exportOptions.FileName && !IsValidFileAndSheetName(exportOptions.FileName)) {
-            popup.Alert(Localization.Warning_Title, kendo.format(Localization.ValidateExportExcel_SpecialCharacter, exportOptions.FileName, Captions.Label_Angle_Export_FileName, "msexcel"));
+        self.DefaultSetting = [
+        {
+            "id": "template_file",
+            "value": self.CurrentExportModel.TemplateFile()
+        },
+        {
+            "id": "model_timestamp_index",
+            "value": self.CurrentExportModel.ModelTimestampIndex()
+        },
+        {
+            "id": "include_techinfo",
+            "value": Boolean(self.CurrentExportModel.TechnicalInfo())
+        }];
+        // validate file name and sheet name
+        if (!self.ValidateExportExcel(exportOptions.FileName)) {
             return false;
         }
-
-        if (exportOptions.SheetName && !IsValidFileAndSheetName(exportOptions.SheetName)) {
-            popup.Alert(Localization.Warning_Title, kendo.format(Localization.ValidateExportExcel_SpecialCharacter, exportOptions.SheetName, Captions.Label_Angle_Export_SheetName, "msexcel"));
+        if (!self.ValidateExportExcel(exportOptions.SheetName)) {
             return false;
         }
-
-        // clean file name
-        exportOptions.FileName = CleanExcelFileName(exportOptions.FileName, angleInfoModel.Name());
-        exportOptions.SheetName = CleanSheetName(exportOptions.SheetName, displayModel.Name(), 31);
 
         if (displayType === enumHandlers.DISPLAYTYPE.PIVOT) {
             self.ExportPivotDisplay(e, exportOptions);
@@ -364,7 +445,21 @@ function ExportExcelHandler() {
 
         progressbarModel.CancelForceStop = true;
     };
+    self.ValidateExportExcel = function (FileName) {
+        // check if file name contains macros
+        var angleNormalizedMacro = '{anglename:normalized}';
+        var displayNormalizedMacro = '{displayname:normalized}';
+        var fileName = FileName;
+        fileName = fileName.replace(angleNormalizedMacro, '');
+        fileName = fileName.replace(displayNormalizedMacro, '');
 
+        // validate filename
+        if (fileName && !IsValidFileAndSheetName(fileName)) {
+            popup.Alert(Localization.Warning_Title, kendo.format(Localization.ValidateExportExcel_SpecialCharacter, FileName, Captions.Label_Angle_Export_FileName, "csv"));
+            return false;
+        }
+        return true;
+    };
     self.ExportPivotDisplay = function (e, options) {       
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
@@ -415,6 +510,7 @@ function ExportExcelHandler() {
                 "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
             }
         ];
+        exportOptions.data_settings.setting_list = exportOptions.data_settings.setting_list.concat(self.DefaultSetting);
         e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         clearTimeout(fnCheckExportProgress);
         var request = resultModel.Data().uri + '/exports/?redirect=no';
@@ -472,6 +568,14 @@ function ExportExcelHandler() {
             {
                 "id": "add_angle_definition",
                 "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
+            },
+            {
+                "id": "template_file",
+                "value": self.CurrentExportModel.TemplateFile()
+            },
+            {
+                "id": "include_techinfo",
+                "value": Boolean(self.CurrentExportModel.TechnicalInfo())
             }
         ];
         e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
@@ -486,7 +590,7 @@ function ExportExcelHandler() {
             });
     };
 
-    self.ExportListDisplay = function (e, options) {
+    self.ExportListDisplay = function (e, options) {        
         //get number of export's rows
         var numberOfItem;
         if (jQuery('[id="NumberOfRowsCustom"]:visible').is(':checked')) {
@@ -537,11 +641,7 @@ function ExportExcelHandler() {
     };
     self.ExecuteExportListDisplay = function (e, limitRows, fileName, sheetName) {
 
-        var unixTimeStamp = WC.DateHelper.GetCurrentUnixTime();
         limitRows = limitRows === 0 ? userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES) : limitRows;
-
-        var originalFileName = fileName;
-        fileName = fileName + '-' + unixTimeStamp.toString();
 
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
@@ -551,7 +651,7 @@ function ExportExcelHandler() {
         };
 
         var exportOptions = self.GetDisplayExcelDefaultSettings();
-        exportOptions.file_name = originalFileName;
+        exportOptions.file_name = fileName;
         exportOptions.limit = limitRows;
         exportOptions.data_settings.setting_list = [
             {
@@ -575,7 +675,7 @@ function ExportExcelHandler() {
                 "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
             }
         ];
-
+        exportOptions.data_settings.setting_list = exportOptions.data_settings.setting_list.concat(self.DefaultSetting);
         self.GenerateExceljsonData = exportOptions;
 
         e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');

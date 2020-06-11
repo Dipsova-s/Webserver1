@@ -8,6 +8,7 @@ ${txtSheetName}                     css=#SaveSheetName
 ${btnCancelExportToExcel}           btn-popupExportExcel0
 ${btnOKExportToExcel}               btn-popupExportExcel1
 ${btnOKExportDrilldownToExcel}      btn-popupExportDrilldownExcel1
+${pgbExportToExcel}                 css=#popupExportToExcel .k-loading-mask
 
 *** Keywords ***
 Input Excel File Name
@@ -18,7 +19,7 @@ Get Excel File Name
     ${fileName}    Get Value    ${txtFileName}
     [Return]  ${fileName}
 
-Input Excel File Name Should Be
+Input Excel File Name Placeholder Should Be
     [Arguments]    ${name}
     ${fileName}  Get Excel File Name
     Should Be Equal    ${fileName}    ${name}
@@ -60,9 +61,12 @@ Click Export Drilldown To Excel Button
 Click Cancel Excel Button
     Click Element    ${btnCancelExportToExcel}
 
-Wait Until Export To Excel Popup Loaded
+Wait Until Export To Excel Popup Loaded    
     Wait Until Page Contains Element    ${btnOKExportToExcel}
     Wait Until Element Is Visible    ${btnOKExportToExcel}
+    Sleep  ${TIMEOUT_GENERAL}
+    Wait Until Page Does Not Contain Element    ${pgbExportToExcel}
+    Sleep  ${TIMEOUT_GENERAL}
 
 Wait Until Export Drilldown To Excel Popup Loaded
     Wait Until Page Contains Element    ${btnOKExportDrilldownToExcel}

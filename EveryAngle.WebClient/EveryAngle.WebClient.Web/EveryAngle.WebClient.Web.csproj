@@ -1155,6 +1155,7 @@
     <Content Include="Scripts\ViewManagement\User\UserPasswordHandler.js" />
     <Content Include="Scripts\ViewManagement\User\UserSettingsPanelHandler.js" />
     <Content Include="Scripts\ViewManagement\User\UserSettingView.js" />
+    <Content Include="Scripts\ViewModels\Models\Exports\ExportExcelModel.js" />
     <Content Include="Scripts\vsdoc.loc.xml" />
     <Content Include="Override.config" />
     <Content Include="Images\Angle\btn_ToggleDown.png" />

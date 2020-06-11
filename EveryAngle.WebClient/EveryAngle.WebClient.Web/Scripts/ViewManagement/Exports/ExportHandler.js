@@ -142,6 +142,7 @@ function ExportHandler() {
         self.CurrentExportModel.Decimal = self.GetDatastoreDataSetting(datastore, 'number_of_decimals');
         self.CurrentExportModel.EnumFormat = self.GetDatastoreDataSetting(datastore, 'enum_format');
         self.CurrentExportModel.AddModelDateAtColumn = self.GetDatastoreDataSetting(datastore, 'model_timestamp_index');
+        self.CurrentExportModel.MaxRowsToExport(self.GetDatastoreDataSetting(datastore, 'max_rows_to_export'));
 
         var fileNameSetting = self.GetDatastoreDataSetting(datastore, 'file_name');
         if (fileNameSetting)
@@ -482,7 +483,11 @@ function ExportHandler() {
                      {
                          "id": "model_timestamp_index",
                          "value": isNaN(exportSettings.AddModelDateAtColumn) ? exportSettings.DefaultAddModelDateAtColumn : parseFloat(exportSettings.AddModelDateAtColumn)
-                     }
+                    },
+                    {
+                        "id": "max_rows_to_export",
+                        "value": self.CurrentExportModel.MaxRowsToExport()
+                    }
                 ]
             }
         };

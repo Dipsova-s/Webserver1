@@ -448,6 +448,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/htmltemplate/export/exportexcelhtmltemplate.js",
                     "~/scripts/viewmodels/models/exports/exportmodel.js",
                     "~/scripts/viewmodels/models/exports/exportcsvmodel.js",
+                    "~/scripts/viewmodels/models/exports/exportexcelmodel.js",
                     "~/scripts/viewmanagement/exports/exporthandler.js",
                     "~/scripts/viewmanagement/exports/exportexcelhandler.js",
 
