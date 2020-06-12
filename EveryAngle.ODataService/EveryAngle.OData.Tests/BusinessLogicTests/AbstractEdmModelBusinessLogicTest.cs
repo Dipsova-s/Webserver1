@@ -14,6 +14,7 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 
 namespace EveryAngle.OData.Tests.BusinessLogicTests
@@ -25,6 +26,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
         private readonly Mock<IContext> _context = new Mock<IContext>();
         private readonly Mock<IAppServerProxy> _appServerProxy = new Mock<IAppServerProxy>();
+        private readonly Mock<IAngleDataCollector> _mockAngleDataCollector = new Mock<IAngleDataCollector>();
 
         private Angle _testingAngle = new Angle();
         private AngleCompositeKey _testingCompositeKey;
@@ -42,9 +44,10 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
             string mockInstance = "/models/9999/instances/8888";
             _appServerProxy.Setup(x => x.TryGetCurrentInstance(It.IsAny<User>(), out mockInstance)).Returns(true);
 
+            _mockAngleDataCollector.Setup(o => o.Collect(It.IsAny<ModelType>())).Returns(Task.FromResult(true));
+
             _testingBusinessLogic = new MasterEdmModelBusinessLogic(
-                _appServerProxy.Object,
-                new Mock<IAngleDataCollector>().Object);
+                _appServerProxy.Object, _mockAngleDataCollector.Object);
 
             _testingAngle = new Angle();
             _testingAngle.name = "validation_me";
@@ -84,7 +87,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
             _testingBusinessLogic = new MasterEdmModelBusinessLogic(
                 _appServerProxy.Object,
-                new Mock<IAngleDataCollector>().Object);
+                _mockAngleDataCollector.Object);
 
             Assert.IsTrue(_testingBusinessLogic.SyncModelMetadata());
             Assert.AreEqual(EdmModelStatus.Up, EdmModelContainer.Status,

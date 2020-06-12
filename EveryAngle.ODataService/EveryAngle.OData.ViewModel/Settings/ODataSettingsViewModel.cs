@@ -9,7 +9,7 @@ namespace EveryAngle.OData.ViewModel.Settings
         public string password { get; set; } = string.Empty;
         public string model_id { get; set; } = "EA2_800";
         public string angles_query { get; set; } = string.Empty;
-        public int? timeout { get; set; } = 30000;
+        public int? timeout { get; set; } = 300000; // M4-79662 - increased default timeout
         public int? page_size { get; set; } = 500;
         public int? max_angles { get; set; } = 500;
         public int? metadata_resync_minutes { get; set; } = 10;

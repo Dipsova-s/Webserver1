@@ -5,6 +5,6 @@ namespace EveryAngle.OData.Collector.Interfaces
 {
     public interface IBaseDataCollector
     {
-        Task Collect(ModelType syncTo);
+        Task<bool> Collect(ModelType syncTo);
     }
 }

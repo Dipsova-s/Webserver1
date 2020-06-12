@@ -41,7 +41,7 @@ namespace EveryAngle.OData.Tests.Settings
             Assert.AreEqual(string.Empty, ODataSettings.ViewModel.password);
             Assert.AreEqual("EA2_800", ODataSettings.ViewModel.model_id);
             Assert.AreEqual(string.Empty, ODataSettings.ViewModel.angles_query);
-            Assert.AreEqual(30000, ODataSettings.ViewModel.timeout);
+            Assert.AreEqual(300000, ODataSettings.ViewModel.timeout);
             Assert.AreEqual(500, ODataSettings.ViewModel.page_size);
             Assert.AreEqual(500, ODataSettings.ViewModel.max_angles);
             Assert.AreEqual(10, ODataSettings.ViewModel.metadata_resync_minutes);

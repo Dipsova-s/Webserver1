@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 
 namespace EveryAngle.OData.BusinessLogic.Abstracts
@@ -246,25 +247,26 @@ namespace EveryAngle.OData.BusinessLogic.Abstracts
 
                 // try reaching the Application server(and set a current instance), if it's unreachable throw out and log as an error.
                 if (!IsAppServerAvailable(retryChecking: true))
-                    throw new WebException(string.Format("Instance of a model '{0}' is not established.", _appServerProxy.Model), WebExceptionStatus.ConnectFailure);
+                    throw new WebException($"Instance of a model '{_appServerProxy.Model}' is not established.", WebExceptionStatus.ConnectFailure);
 
                 // start collect an angle metadata by our collector
-                _angleCollector.Collect(syncTo).Wait();
+               Task<bool> collectAnglesTask = _angleCollector.Collect(syncTo);
+               collectAnglesTask.Wait();
 
-                // then update metadata container's last sync and assign status 'UP'
+               // then update metadata container's last sync and assign status 'UP'
                 UpdateLastSyncMetadataTimestamp();
                 EdmModelContainer.Status = EdmModelStatus.Up;
 
                 stopwatch.Stop();
-                LogService.Info(string.Format("SyncModelMetadata: collecting metadata is finished, [time: {0}]", stopwatch.Elapsed.ToString()));
+                LogService.Info($"SyncModelMetadata: collecting metadata {(collectAnglesTask.Result ? "is finished" : "failed")}, [time: {stopwatch.Elapsed}]");
 
-                return true;
+                return collectAnglesTask.Result;
             }
             catch (Exception ex)
             {
                 stopwatch.Stop();
                 EdmModelContainer.Status = EdmModelStatus.Down;
-                LogService.Error(string.Format("SyncModelMetadata: failed sync metadata, [time: {0}]", stopwatch.Elapsed.ToString()), ex);
+                LogService.Error($"SyncModelMetadata: failed sync metadata, [time: {stopwatch.Elapsed}]", ex);
 
                 return false;
             }
