@@ -108,7 +108,7 @@
             });
             delete compare.execution_parameter_id;
             delete source.execution_parameter_id;
-            return !jQuery.deepCompare(source, compare, true, true);
+            return !jQuery.deepCompare(source, compare, true, false);
         };
     }
 
@@ -321,8 +321,8 @@
         };
         self.is_changed = function (data) {
             var compareData = ko.toJS(data || _self);
-            return !jQuery.deepCompare(self.data(), getData(compareData), false)
-                || !jQuery.deepCompare(self.data_field(), getDataField(compareData), false)
+            return !jQuery.deepCompare(self.data(), getData(compareData), false, false)
+                || !jQuery.deepCompare(self.data_field(), getDataField(compareData), false, false)
                 || self.is_selected() !== compareData.is_selected;
         };
         self.is_count_field = function () {
