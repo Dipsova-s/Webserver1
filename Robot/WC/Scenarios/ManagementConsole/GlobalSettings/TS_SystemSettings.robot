@@ -114,8 +114,8 @@ Get the System Settings page field values
     ${value}   Get Program/scripts folder field value
     Set Test Variable   ${txtProgramScriptsFolderValue}     ${value}
 
-    ${value}   Get Max event log stored records field value
-    Set Test Variable   ${txtMaxEventLogStoredRecordsValue}     ${value}
+    ${value}   Get Max retention time log tables [months] field value
+    Set Test Variable   ${txtMaxGeneralHistoryValue}     ${value}
     ${value}   Get Max audit log history [months] field value
     Set Test Variable   ${txtMaxAuditLogHistoryValue}     ${value}
 
@@ -157,7 +157,7 @@ Set the System settings page field values
 
     Input Program/scripts folder field  ${txtProgramScriptsFolderValue}
 
-    Input Max event log stored records field    ${txtMaxEventLogStoredRecordsValue}
+    Input Max retention time log tables [months] field    ${txtMaxGeneralHistoryValue}
     Input Max audit log history [months] field      ${txtMaxAuditLogHistoryValue}
 
     Input Email Settings Email Server   ${txtEmailSettingsEmailServerValue}
@@ -192,7 +192,7 @@ Fill the System settings page field values
 
     Input Program/scripts folder field  program
 
-    Input Max event log stored records field    10001
+    Input Max retention time log tables [months] field    28
     Input Max audit log history [months] field      28
 
     Input Email Settings Email Server   smtp1.everyangle.org
@@ -255,8 +255,8 @@ Verify the System Settings page field values
     ${expectedText}     Convert to string    program
     Should be equal     ${returnText}   ${expectedText}
 
-    ${returnText}   Get Max event log stored records field value
-    ${expectedText}     Convert to Integer    10001
+    ${returnText}   Get Max retention time log tables [months] field value
+    ${expectedText}     Convert to Integer    28
     Should be equal     ${returnText}   ${returnText}
     ${returnText}   Get Max audit log history [months] field value
     ${expectedText}     Convert to Integer    28

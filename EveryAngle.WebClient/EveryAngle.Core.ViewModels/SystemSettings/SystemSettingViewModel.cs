@@ -78,9 +78,9 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("MC_AssignTrustedWebservers")]
         public List<string> trusted_webservers { get; set; }
 
-        [JsonProperty(PropertyName = "max_event_log_stored_records")]
-        [LocalizedDisplayName("MC_MaxEventLogStoredRecords")]
-        public int max_event_log_stored_records { get; set; }
+        [JsonProperty(PropertyName = "max_general_history")]
+        [LocalizedDisplayName("MC_MaxGeneralHistory")]
+        public int max_general_history { get; set; }
 
         [JsonProperty(PropertyName = "max_audit_log_history")]
         [LocalizedDisplayName("MC_MaxAuditLogHistory")]

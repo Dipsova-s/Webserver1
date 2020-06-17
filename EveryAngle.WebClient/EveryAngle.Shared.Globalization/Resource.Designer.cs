@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -10672,15 +10672,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max event log stored records.
-        /// </summary>
-        public static string MC_MaxEventLogStoredRecords {
-            get {
-                return ResourceManager.GetString("MC_MaxEventLogStoredRecords", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Max Export Rows.
         /// </summary>
         public static string MC_MaxExportRows {
@@ -10695,6 +10686,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_MaxExportRowsUnlimited {
             get {
                 return ResourceManager.GetString("MC_MaxExportRowsUnlimited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max retention time log tables [months].
+        /// </summary>
+        public static string MC_MaxGeneralHistory {
+            get {
+                return ResourceManager.GetString("MC_MaxGeneralHistory", resourceCulture);
             }
         }
         
@@ -12732,13 +12732,13 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The maximum number of stored records in the Event log, which are saved in the database. Use this setting to clean up old log records automatically after every refresh cycle. 
+        ///   Looks up a localized string similar to The maximum retention time in months for system log records, which are saved in the database. Use this setting to clean up old system logs automatically. 
         ///&lt;br&gt;
-        ///The value 0 means the setting is off, so the log file will not be cleaned up. The recommended setting is 10000..
+        ///The value 0 means the setting is off, so the logs will not be cleaned up. The maximum value is 120 months..
         /// </summary>
-        public static string MC_SystemSettingsHelpMaxEventLogStoredRecords {
+        public static string MC_SystemSettingsHelpMaxGeneralHistory {
             get {
-                return ResourceManager.GetString("MC_SystemSettingsHelpMaxEventLogStoredRecords", resourceCulture);
+                return ResourceManager.GetString("MC_SystemSettingsHelpMaxGeneralHistory", resourceCulture);
             }
         }
         
@@ -12821,7 +12821,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The maximum number of months during which the history of Audit Log records is saved after the refresh cycle has completed. Use this setting to clean up old Audit Log records.
+        ///   Looks up a localized string similar to The maximum number of months during which the history of Audit Log records is saved. Use this setting to clean up old Audit Log records.
         ///&lt;br&gt;
         ///The value 0 means the setting is off, so the Audit Log will not be cleaned up. The maximum value is 120 months..
         /// </summary>

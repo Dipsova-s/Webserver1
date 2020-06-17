@@ -27,7 +27,7 @@ ${txtforinfo}                           //div[@id='popupDescriptionTemplate']/di
 ${ExpectedTextValue}                    The location of the folder for program/script files for use in Automation Tasks. Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script.
 ${ClosePopup}                           //a[@class='btn btnPrimary btnClose']
 
-${txtMaxEventLogStoredRecords}          max_event_log_stored_records
+${txtMaxGeneralHistory}                 max_general_history
 ${txtMaxAuditLogHistory}                max_audit_log_history
 
 ${txtEmailSettingsEmailServer}          EmailSettings_smtp_server
@@ -153,9 +153,9 @@ Verify Program/Script folder path
     Run Keyword If    '${FolderActualValue}'=='${Program/ScriptFolderPath}'
     ...    Log    Saved successfully
 
-Input Max event log stored records field
-    [Arguments]     ${maxEventLogStoredRecords}
-    Input kendo Numeric TextBox    ${txtMaxEventLogStoredRecords}    ${maxEventLogStoredRecords}
+Input Max retention time log tables [months] field
+    [Arguments]     ${maxGeneralHistory}
+    Input kendo Numeric TextBox    ${txtMaxGeneralHistory}    ${maxGeneralHistory}
 
 Input Max audit log history [months] field
     [Arguments]     ${maxAuditLogHistory}
@@ -291,8 +291,8 @@ Get Program/scripts folder field value
     ${value}    Get Value    ${txtProgramScriptsFolder}
     [Return]    ${value}
 
-Get Max event log stored records field value
-    ${value}    Get Kendo Value  ${txtMaxEventLogStoredRecords}
+Get Max retention time log tables [months] field value
+    ${value}    Get Kendo Value  ${txtMaxGeneralHistory}
     [Return]    ${value}
 
 Get Max audit log history [months] field value

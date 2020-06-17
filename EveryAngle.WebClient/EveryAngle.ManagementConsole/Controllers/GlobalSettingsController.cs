@@ -218,7 +218,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             updatedSystemSettings.max_domainelements_for_search = systemSettings.max_domainelements_for_search;
             updatedSystemSettings.active_directory_size_limit = systemSettings.active_directory_size_limit;
             updatedSystemSettings.default_max_export_page_size = systemSettings.default_max_export_page_size;
-            updatedSystemSettings.max_event_log_stored_records = systemSettings.max_event_log_stored_records;
+            updatedSystemSettings.max_general_history = systemSettings.max_general_history;
             updatedSystemSettings.max_audit_log_history = systemSettings.max_audit_log_history;
             updatedSystemSettings.allow_grouping_in_pivot_excel_export = systemSettings.allow_grouping_in_pivot_excel_export;
             updatedSystemSettings.include_self_in_export_headers = systemSettings.include_self_in_export_headers;

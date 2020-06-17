@@ -3458,7 +3458,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Max audit log history [months]</value>
   </data>
   <data name="MC_SystemSettingsHelpTextMaxAuditLogHistory" xml:space="preserve">
-    <value>The maximum number of months during which the history of Audit Log records is saved after the refresh cycle has completed. Use this setting to clean up old Audit Log records.
+    <value>The maximum number of months during which the history of Audit Log records is saved. Use this setting to clean up old Audit Log records.
 &lt;br&gt;
 The value 0 means the setting is off, so the Audit Log will not be cleaned up. The maximum value is 120 months.</value>
   </data>
@@ -3894,5 +3894,13 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="Support" xml:space="preserve">
     <value>Support</value>
+  </data>
+  <data name="MC_MaxGeneralHistory" xml:space="preserve">
+    <value>Max retention time log tables [months]</value>
+  </data>
+  <data name="MC_SystemSettingsHelpMaxGeneralHistory" xml:space="preserve">
+    <value>The maximum retention time in months for system log records, which are saved in the database. Use this setting to clean up old system logs automatically. 
+&lt;br&gt;
+The value 0 means the setting is off, so the logs will not be cleaned up. The maximum value is 120 months.</value>
   </data>
 </root>

@@ -132,7 +132,7 @@
             var ssl = $('#smtp_use_ssl').is(':checked');
             var username = $('#EmailSettings_username').val();
             var password = $('#EmailSettings_password').val();
-            var maxEventlogStoredRecords = $('#max_event_log_stored_records').val();
+            var maxGeneralHistory = $('#max_general_history').val();
             var maxAuditLogHistory = $('#max_audit_log_history').val();
             var allowGroupingInPivotExcelExport = $('#allow_grouping_in_pivot_excel_export').is(':checked');
             var includeSelfInExportHeaders = $('#include_self_in_export_headers').is(':checked');
@@ -164,7 +164,7 @@
                 'max_domainelements_for_search': maxDomainelementsForSearch,
                 'email_settings': emailSettings,
                 'active_directory_size_limit': directorySizeLimit,
-                'max_event_log_stored_records': maxEventlogStoredRecords,
+                'max_general_history': maxGeneralHistory,
                 'max_audit_log_history': maxAuditLogHistory,
                 'allow_grouping_in_pivot_excel_export': allowGroupingInPivotExcelExport,
                 'include_self_in_export_headers': includeSelfInExportHeaders,
