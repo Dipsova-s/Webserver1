@@ -22,12 +22,11 @@
         // set value to ui
         var argument = self.Data.arguments()[0];
         if (self.IsArgumentTypeValue(argument)) {
-            input.data(enumHandlers.KENDOUITYPE.PERCENTAGETEXT).value(argument.value);
+            inputUI.value(argument.value);
         }
 
         // event
-        var inputTyping = container.find('.input-argument-value[data-role="percentagetextbox"]');
-        inputTyping.off('keyup').on('keyup', jQuery.proxy(self.OnInputTextChange, self, inputUI, input));
+        input.off('input.editor').on('input.editor', jQuery.proxy(self.OnInputTextChange, self, inputUI));
     };
     self.InitialDoubleArgumentUI = function (container) {
         // call base
@@ -41,16 +40,13 @@
         // set value to ui
         var args = self.Data.arguments();
         if (args[0])
-            inputFrom.data(enumHandlers.KENDOUITYPE.PERCENTAGETEXT).value(args[0].value);
+            inputFromUI.value(args[0].value);
         if (args[1])
-            inputTo.data(enumHandlers.KENDOUITYPE.PERCENTAGETEXT).value(args[1].value);
+            inputToUI.value(args[1].value);
 
         // events
-        var inputTypingFrom = container.find('.input-argument-from[data-role="percentagetextbox"]');
-        inputTypingFrom.off('keyup').on('keyup', jQuery.proxy(self.OnInputTextChange, self, inputFromUI, inputFrom));
-
-        var inputTypingTo = container.find('.input-argument-to[data-role="percentagetextbox"]');
-        inputTypingTo.off('keyup').on('keyup', jQuery.proxy(self.OnInputTextChange, self, inputToUI, inputTo));
+        inputFrom.off('input.editor').on('input.editor', jQuery.proxy(self.OnInputTextChange, self, inputFromUI));
+        inputTo.off('input.editor').on('input.editor', jQuery.proxy(self.OnInputTextChange, self, inputToUI));
     };
     self.InitialMultipleArgumentUI = function (container) {
         // call base
@@ -60,7 +56,15 @@
         self.BindingNumericTextbox(input, jQuery.noop);
     };
     self.GetInputArgumentValue = function (input) {
-        return input.data(enumHandlers.KENDOUITYPE.PERCENTAGETEXT).value();
+        return input.data('handler').value();
+    };
+    self.OnInputTextChange = function (inputUI) {
+        var value = inputUI.element.val();
+        if (!value || /\d$/.test(value)) {
+            value = WC.FormatHelper.PercentagesToNumber(value);
+            inputUI.value(value);
+            inputUI.trigger('change');
+        }
     };
     self.IsValidArgumentValue = function (value) {
         return jQuery.isNumeric(value);
@@ -96,9 +100,6 @@
         var decimals = 20;
         var formatter = new Formatter({ decimals: decimals, thousandseparator: true }, enumHandlers.FIELDTYPE.PERCENTAGE);
         return WC.FormatHelper.GetFormatter(formatter);
-    };
-    self.GetInputValueOnTextChanged = function (inputValue) {
-        return WC.FormatHelper.PercentagesToNumber(inputValue.val());
     };
 
     // constructor

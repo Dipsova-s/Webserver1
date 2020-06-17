@@ -23,11 +23,11 @@
         // set value to ui
         var argument = self.Data.arguments()[0];
         if (self.IsArgumentTypeValue(argument)) {
-            input.data(enumHandlers.KENDOUITYPE.PERIODPICKER).value(argument.value);
+            inputUI.value(argument.value);
         }
 
         // event 
-        inputUI.numericTextbox.element.off('keyup').on('keyup', jQuery.proxy(self.OnInputTextChange, self, inputUI, null));
+        inputUI.numericTextbox.element.off('input.editor').on('input.editor', jQuery.proxy(self.OnInputTextChange, self, inputUI));
     };
     self.InitialDoubleArgumentUI = function (container) {
         // call base
@@ -42,13 +42,13 @@
         // set value to ui
         var args = self.Data.arguments();
         if (args[0])
-            inputFrom.data(enumHandlers.KENDOUITYPE.PERIODPICKER).value(args[0].value);
+            inputFromUI.value(args[0].value);
         if (args[1])
-            inputTo.data(enumHandlers.KENDOUITYPE.PERIODPICKER).value(args[1].value);
+            inputToUI.value(args[1].value);
 
         // events
-        inputFromUI.numericTextbox.element.off('keyup').on('keyup', jQuery.proxy(self.OnInputTextChange, self, inputFromUI, null));
-        inputToUI.numericTextbox.element.off('keyup').on('keyup', jQuery.proxy(self.OnInputTextChange, self, inputToUI, null));
+        inputFromUI.numericTextbox.element.off('input.editor').on('input.editor', jQuery.proxy(self.OnInputTextChange, self, inputFromUI));
+        inputToUI.numericTextbox.element.off('input.editor').on('input.editor', jQuery.proxy(self.OnInputTextChange, self, inputToUI));
     };
     self.InitialMultipleArgumentUI = function (container) {
         // call base
@@ -62,7 +62,13 @@
         inputTyping.off('paste').on('paste', jQuery.proxy(self.PasteListText, self));
     };
     self.GetInputArgumentValue = function (input) {
-        return input.data(enumHandlers.KENDOUITYPE.PERIODPICKER).value();
+        return input.data('handler').value();
+    };
+    self.OnInputTextChange = function (inputUI) {
+        var value = inputUI.numericTextbox.element.val();
+        value = value.replace(/\D$/, '');
+        inputUI.numericTextbox.value(value);
+        inputUI.numericTextbox.trigger('change');
     };
     self.IsValidArgumentValue = function (value) {
         return jQuery.isNumeric(value);

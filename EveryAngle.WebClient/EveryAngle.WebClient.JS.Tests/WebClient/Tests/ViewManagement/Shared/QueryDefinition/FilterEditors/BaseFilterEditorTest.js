@@ -740,39 +740,6 @@ describe("BaseFilterEditor", function () {
         });
     });
 
-    describe(".OnInputTextChange", function () {
-        it("should get value from inputValue element when inputValue is not null", function () {
-            var inputUI = {
-                value: $.noop,
-                trigger: $.noop 
-            };
-
-            var inputValue = {
-                val: $.noop 
-            };
-
-            var e = {};
-
-            spyOn(baseFilterEditor, 'GetInputValueOnTextChanged');
-            baseFilterEditor.OnInputTextChange(inputUI, inputValue, e);
-            expect(baseFilterEditor.GetInputValueOnTextChanged).toHaveBeenCalled();
-
-        });
-        it("should get value from the element when inputValue is null", function () {
-            var inputUI = {
-                value: $.noop,
-                trigger: $.noop
-            };
-
-            var inputValue = null;
-
-            var e = {};
-            spyOn(baseFilterEditor, 'GetInputValueOnTextChanged');
-            baseFilterEditor.OnInputTextChange(inputUI, inputValue, e);
-            expect(baseFilterEditor.GetInputValueOnTextChanged).not.toHaveBeenCalled();
-        });
-    });
-
     describe(".RemoveMultipleArgumentValues", function () {
         beforeEach(function () {
             baseFilterEditor.Data = new QueryStepViewModel({
