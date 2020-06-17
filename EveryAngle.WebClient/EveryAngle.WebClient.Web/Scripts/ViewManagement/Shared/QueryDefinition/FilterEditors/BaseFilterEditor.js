@@ -136,15 +136,6 @@ BaseFilterEditor.prototype.IsValidArgumentValue = function (value) {
 BaseFilterEditor.prototype.IsArgumentTypeValue = function (argument) {
     return argument && argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.VALUE;
 };
-BaseFilterEditor.prototype.OnInputTextChange = function (inputUI, inputValue, e) {
-    var self = this;
-    var newValue = inputValue ? self.GetInputValueOnTextChanged(inputValue) : $(e.currentTarget).val();
-    inputUI.value(newValue);
-    inputUI.trigger('change');
-};
-BaseFilterEditor.prototype.GetInputValueOnTextChanged = function (inputValue) {
-    return inputValue.val();
-};
 
 // no argument
 BaseFilterEditor.prototype.GetNoArgumentTemplate = function () {

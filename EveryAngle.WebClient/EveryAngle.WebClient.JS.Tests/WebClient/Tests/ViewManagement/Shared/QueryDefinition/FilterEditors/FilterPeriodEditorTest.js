@@ -51,54 +51,84 @@ describe("FilterPeriodEditor", function () {
 
     describe(".InitialSingleArgumentUI", function () {
         it('should set event on keyup', function () {
-            spyOn(jQuery.fn, 'on');
-            spyOn(jQuery.fn, 'off').and.returnValue($());
-
-            var container = {
-                find: $.noop
-            };
-
-            var inputUI = {
-                numericTextbox: {
-                    element: $()
-                }
-            };
-
-            spyOn(editor, 'BindingPeriodPicker').and.returnValue(inputUI);
+            editor.Data.arguments([{}]);
+            spyOn($.fn, 'on').and.returnValue($());
+            spyOn($.fn, 'off').and.returnValue($());
+            spyOn($.fn, 'find').and.returnValue($());
+            spyOn(editor, 'IsArgumentTypeValue').and.returnValue(true);
+            spyOn(editor, 'BindingPeriodPicker').and.returnValue({
+                value: $.noop,
+                numericTextbox: { element: $() }
+            });
             spyOn(editor.parent.prototype, 'InitialSingleArgumentUI');
-
-            editor.InitialSingleArgumentUI(container);
+            editor.InitialSingleArgumentUI($());
 
             expect(editor.BindingPeriodPicker).toHaveBeenCalledTimes(1);
-            expect(jQuery.fn.off).toHaveBeenCalledTimes(1);
-            expect(jQuery.fn.on).toHaveBeenCalledTimes(1);
+            expect($.fn.off).toHaveBeenCalledTimes(1);
+            expect($.fn.on).toHaveBeenCalledTimes(1);
         });
     });
 
     describe(".InitialDoubleArgumentUI", function () {
         it('should set event on keyup', function () {
-            spyOn(jQuery.fn, 'on');
-            spyOn(jQuery.fn, 'off').and.returnValue($());
-
-            var container = {
-                find: $.noop
-            }; 
-            spyOn(container, 'find').and.returnValue($());
-
-            var inputUI = {
-                numericTextbox: {
-                    element: $()
-                }
-            };
-
-            spyOn(editor, 'BindingPeriodPicker').and.returnValue(inputUI);
-            spyOn(editor.parent.prototype, 'InitialSingleArgumentUI');
-
-            editor.InitialDoubleArgumentUI(container);
+            editor.Data.arguments([{}, {}]);
+            spyOn($.fn, 'on').and.returnValue($());
+            spyOn($.fn, 'off').and.returnValue($());
+            spyOn($.fn, 'find').and.returnValue($());
+            spyOn(editor, 'IsArgumentTypeValue').and.returnValue(true);
+            spyOn(editor, 'BindingPeriodPicker').and.returnValue({
+                value: $.noop,
+                numericTextbox: { element: $() }
+            });
+            spyOn(editor.parent.prototype, 'InitialDoubleArgumentUI');
+            editor.InitialDoubleArgumentUI($());
 
             expect(editor.BindingPeriodPicker).toHaveBeenCalledTimes(2);
             expect(jQuery.fn.off).toHaveBeenCalledTimes(2);
             expect(jQuery.fn.on).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe(".OnInputTextChange", function () {
+        var tests = [
+            {
+                value: '',
+                expected: 1
+            },
+            {
+                value: '0.4',
+                expected: 1
+            },
+            {
+                value: '5',
+                expected: 1
+            },
+            {
+                value: '.',
+                expected: 1
+            },
+            {
+                value: '5.',
+                expected: 1
+            }
+        ];
+        tests.forEach(function (test) {
+            it('should ' + (test.expected ? '' : 'not') + ' set value (value="' + test.value + '")', function () {
+                var inputUI = {
+                    numericTextbox: {
+                        element: $('<input/>'),
+                        value: $.noop,
+                        trigger: $.noop
+                    }
+                };
+                inputUI.numericTextbox.element.val(test.value);
+                spyOn(inputUI.numericTextbox, 'value');
+                spyOn(inputUI.numericTextbox, 'trigger');
+                editor.OnInputTextChange(inputUI);
+
+                expect(inputUI.numericTextbox.value).toHaveBeenCalledTimes(test.expected);
+                expect(inputUI.numericTextbox.trigger).toHaveBeenCalledTimes(test.expected);
+            });
         });
     });
 });
