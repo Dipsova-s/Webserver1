@@ -11,11 +11,11 @@
     var Widget = ui.NumericTextBox;
 
     var getWrapper = function (element) {
-        return jQuery(element).wrap('<div class="k-timespanpicker" />').parent();
+        return $(element).wrap('<div class="k-timespanpicker" />').parent();
     };
 
     var createPicker = function (name, that, wrapper, options) {
-        var element = jQuery('<input />');
+        var element = $('<input />');
         wrapper.append(element);
         return element[name](options).data(name);
     };
@@ -28,10 +28,15 @@
         };
         that.dayPicker.element.on('keypress', function (e) {
             var character = String.fromCharCode(e.which).toLowerCase();
-            if (character === '-')
-                that._setNegative(true);
-            else if (character === '+')
-                that._setNegative(false);
+            if ($.inArray(character, ['-', '+', '.']) !== -1) {
+                if (character === '-') {
+                    that._setNegative(true);
+                }
+                else if (character === '+') {
+                    that._setNegative(false);
+                }
+                e.preventDefault();
+            }
         });
         that.dayPicker.owner = that;
         that.dayPicker.bind('spin', that._uiChange);

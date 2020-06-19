@@ -61,10 +61,9 @@
     };
     self.OnInputTextChange = function (inputUI) {
         var value = inputUI.element.val();
-        if (!value || /\d$/.test(value)) {
-            inputUI.value(value);
-            inputUI.trigger('change');
-        }
+        inputUI.value(value);
+        inputUI.trigger('change');
+        inputUI.element.val(value);
     };
     self.IsValidArgumentValue = function (value) {
         return jQuery.isNumeric(value);

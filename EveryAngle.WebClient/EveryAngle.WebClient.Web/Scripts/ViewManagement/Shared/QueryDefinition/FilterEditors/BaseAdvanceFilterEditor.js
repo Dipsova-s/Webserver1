@@ -292,7 +292,7 @@ BaseAdvanceFilterEditor.prototype.CreateInputFunctionValue = function (container
     var self = this;
     var formatter = new Formatter({ decimals: 0, thousandseparator: true }, enumHandlers.FIELDTYPE.INTEGER);
     var format = WC.FormatHelper.GetFormatter(formatter);
-    container.find('.input-argument-period-value').kendoPeriodPicker({
+    var inputUI = container.find('.input-argument-period-value').kendoPeriodPicker({
         change: jQuery.proxy(handler, self, container, argumentIndex),
         numericTextboxOptions: {
             canEmpty: false,
@@ -312,7 +312,17 @@ BaseAdvanceFilterEditor.prototype.CreateInputFunctionValue = function (container
             dataSource: ko.toJS(enumHandlers.FILTERPERIODTYPES),
             defaultValue: enumHandlers.FILTERPERIODTYPES[0].Value
         }
-    });
+    }).data('handler');
+
+    // event
+    inputUI.numericTextbox.element.off('input.editor').on('input.editor', jQuery.proxy(self.InputFunctionValueChange, self, inputUI));
+};
+BaseAdvanceFilterEditor.prototype.InputFunctionValueChange = function (inputUI) {
+    var value = inputUI.numericTextbox.element.val();
+    value = value.replace(/[^-\d]/, '');
+    inputUI.numericTextbox.value(value);
+    inputUI.numericTextbox.trigger('change');
+    inputUI.numericTextbox.element.val(value);
 };
 BaseAdvanceFilterEditor.prototype.GetInputFunctionValueDataSource = function (format) {
     var i, data = [];

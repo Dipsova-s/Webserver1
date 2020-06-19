@@ -190,43 +190,20 @@ describe("FilterPercentageEditor", function () {
     });
 
     describe(".OnInputTextChange", function () {
-        var tests = [
-            {
-                value: '',
-                expected: 1
-            },
-            {
-                value: '0.4',
-                expected: 1
-            },
-            {
-                value: '5',
-                expected: 1
-            },
-            {
-                value: '.',
-                expected: 0
-            },
-            {
-                value: '5.',
-                expected: 0
-            }
-        ];
-        tests.forEach(function (test) {
-            it('should ' + (test.expected ? '' : 'not') + ' set value (value="' + test.value + '")', function () {
-                var inputUI = {
-                    element: $('<input/>'),
-                    value: $.noop,
-                    trigger: $.noop
-                };
-                inputUI.element.val(test.value);
-                spyOn(inputUI, 'value');
-                spyOn(inputUI, 'trigger');
-                editor.OnInputTextChange(inputUI);
+        it('should set value', function () {
+            var inputUI = {
+                element: $('<input/>'),
+                value: $.noop,
+                trigger: $.noop
+            };
+            inputUI.element.val('-0.01');
+            spyOn(inputUI, 'value');
+            spyOn(inputUI, 'trigger');
+            editor.OnInputTextChange(inputUI);
 
-                expect(inputUI.value).toHaveBeenCalledTimes(test.expected);
-                expect(inputUI.trigger).toHaveBeenCalledTimes(test.expected);
-            });
+            expect(inputUI.value).toHaveBeenCalled();
+            expect(inputUI.trigger).toHaveBeenCalled();
+            expect(inputUI.element.val()).toEqual('-0.01');
         });
     });
 });

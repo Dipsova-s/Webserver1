@@ -60,11 +60,10 @@
     };
     self.OnInputTextChange = function (inputUI) {
         var value = inputUI.element.val();
-        if (!value || /\d$/.test(value)) {
-            value = WC.FormatHelper.PercentagesToNumber(value);
-            inputUI.value(value);
-            inputUI.trigger('change');
-        }
+        var adjustedValue = WC.FormatHelper.PercentagesToNumber(value);
+        inputUI.value(adjustedValue);
+        inputUI.trigger('change');
+        inputUI.element.val(value);
     };
     self.IsValidArgumentValue = function (value) {
         return jQuery.isNumeric(value);
