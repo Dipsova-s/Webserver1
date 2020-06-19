@@ -92,45 +92,22 @@ describe("FilterPeriodEditor", function () {
     });
 
     describe(".OnInputTextChange", function () {
-        var tests = [
-            {
-                value: '',
-                expected: 1
-            },
-            {
-                value: '0.4',
-                expected: 1
-            },
-            {
-                value: '5',
-                expected: 1
-            },
-            {
-                value: '.',
-                expected: 1
-            },
-            {
-                value: '5.',
-                expected: 1
-            }
-        ];
-        tests.forEach(function (test) {
-            it('should ' + (test.expected ? '' : 'not') + ' set value (value="' + test.value + '")', function () {
-                var inputUI = {
-                    numericTextbox: {
-                        element: $('<input/>'),
-                        value: $.noop,
-                        trigger: $.noop
-                    }
-                };
-                inputUI.numericTextbox.element.val(test.value);
-                spyOn(inputUI.numericTextbox, 'value');
-                spyOn(inputUI.numericTextbox, 'trigger');
-                editor.OnInputTextChange(inputUI);
+        it('should set value', function () {
+            var inputUI = {
+                numericTextbox: {
+                    element: $('<input/>'),
+                    value: $.noop,
+                    trigger: $.noop
+                }
+            };
+            inputUI.numericTextbox.element.val('-0.01');
+            spyOn(inputUI.numericTextbox, 'value');
+            spyOn(inputUI.numericTextbox, 'trigger');
+            editor.OnInputTextChange(inputUI);
 
-                expect(inputUI.numericTextbox.value).toHaveBeenCalledTimes(test.expected);
-                expect(inputUI.numericTextbox.trigger).toHaveBeenCalledTimes(test.expected);
-            });
+            expect(inputUI.numericTextbox.value).toHaveBeenCalled();
+            expect(inputUI.numericTextbox.trigger).toHaveBeenCalled();
+            expect(inputUI.numericTextbox.element.val()).toEqual('-001');
         });
     });
 });

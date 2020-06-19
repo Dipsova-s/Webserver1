@@ -26,7 +26,7 @@
             inputUI.value(argument.value);
         }
 
-        // event 
+        // event
         inputUI.numericTextbox.element.off('input.editor').on('input.editor', jQuery.proxy(self.OnInputTextChange, self, inputUI));
     };
     self.InitialDoubleArgumentUI = function (container) {
@@ -66,9 +66,10 @@
     };
     self.OnInputTextChange = function (inputUI) {
         var value = inputUI.numericTextbox.element.val();
-        value = value.replace(/\D$/, '');
+        value = value.replace(/[^-\d]/, '');
         inputUI.numericTextbox.value(value);
         inputUI.numericTextbox.trigger('change');
+        inputUI.numericTextbox.element.val(value);
     };
     self.IsValidArgumentValue = function (value) {
         return jQuery.isNumeric(value);

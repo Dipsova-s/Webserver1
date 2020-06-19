@@ -845,13 +845,51 @@ describe("BaseAdvanceFilterEditor", function () {
     describe(".CreateInputFunctionValue", function () {
         beforeEach(function () {
             $.fn.kendoPeriodPicker = $.fn.kendoPeriodPicker || $.noop;
-            spyOn($.fn, 'kendoPeriodPicker');
+            spyOn($.fn, 'kendoPeriodPicker').and.returnValue($());
+            spyOn($.fn, 'data').and.returnValue({
+                numericTextbox: {
+                    element: $()
+                }
+            });
+            spyOn($.fn, 'on').and.returnValue($());
+            spyOn($.fn, 'off').and.returnValue($());
         });
         it("should create UI", function () {
             editor.CreateInputFunctionValue($(), 0, $.noop);
 
             // assert
             expect($.fn.kendoPeriodPicker).toHaveBeenCalled();
+            expect($.fn.on).toHaveBeenCalled();
+            expect($.fn.off).toHaveBeenCalled();
+        });
+    });
+
+    describe(".InputFunctionValueChange", function () {
+        var tests = [
+            { value: '0.', expected: '0' },
+            { value: '1.0', expected: '10' },
+            { value: '-0.', expected: '-0' },
+            { value: '-1.0', expected: '-10' }
+        ];
+        tests.forEach(function (test) {
+            it("should update (" + test.value + " -> " + test.expected + ")", function () {
+                var ui = {
+                    numericTextbox: {
+                        element: $('<input/>'),
+                        value: $.noop,
+                        trigger: $.noop
+                    }
+                };
+                ui.numericTextbox.element.val(test.value);
+                spyOn(ui.numericTextbox, 'value');
+                spyOn(ui.numericTextbox, 'trigger');
+                editor.InputFunctionValueChange(ui);
+
+                // assert
+                expect(ui.numericTextbox.value).toHaveBeenCalled();
+                expect(ui.numericTextbox.trigger).toHaveBeenCalled();
+                expect(ui.numericTextbox.element.val()).toEqual(test.expected);
+            });
         });
     });
 

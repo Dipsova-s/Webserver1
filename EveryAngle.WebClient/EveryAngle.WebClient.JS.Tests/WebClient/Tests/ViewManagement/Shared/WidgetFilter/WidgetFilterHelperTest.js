@@ -647,6 +647,60 @@ describe("WidgetFilterHelper", function () {
 
             expect(widgetFilterHelper.GetFilterText(data, modelUri)).toBe(data.followup);
         });
+
+        it("should return empty when there is no uri and the filtertype is 'FILTER'", function () {
+            var data = {
+                step_type: enumHandlers.FILTERTYPE.FILTER,
+                operator: enumHandlers.OPERATOR.BETWEEN.Value,
+                field: 'fake_id_field'
+            };
+            var modelUri = '/models/0';
+            expect(widgetFilterHelper.GetFilterText(data, modelUri)).toBe('fake_id_field is between');
+        });
+
+        it("should show correct text when the field is loaded and the filtertype is 'FILTER'", function () {
+            var modelUri = '/models/0';
+         
+            spyOn(modelFieldsHandler, 'GetFieldById').and.returnValue(
+                {
+                    fieldtype: 'date',
+                    short_name: 'short',
+                    uri: modelUri
+                });
+
+            spyOn(WC.DateHelper, 'GetFirstDayOfWeek').and.returnValue(1);
+            spyOn(WC.WidgetFilterHelper, 'GetDefaultModelDataDate').and.callFake(function () {
+                return new Date(2017, 1, 1);
+            }); 
+
+            var data = {
+                step_type: enumHandlers.FILTERTYPE.FILTER,
+                operator: enumHandlers.OPERATOR.BETWEEN.Value,
+                arguments: [{
+                    argument_type: 'function',
+                    name: 'offset_date',
+                    parameters: [{
+                        name: 'period_type',
+                        value: 'day'
+                    }, {
+                        name: 'periods_to_add',
+                        value: 0
+                    }]
+                }, {
+                    argument_type: 'function',
+                    name: 'offset_date',
+                    parameters: [{
+                        name: 'period_type',
+                        value: 'week'
+                    }, {
+                        name: 'periods_to_add',
+                        value: 10
+                    }]
+                }]
+            };
+            
+            expect(widgetFilterHelper.GetFilterText(data, modelUri)).toBe('short is between this day(s) and next 10 week(s)');
+        });
     });
 
     //ConvertFieldType
