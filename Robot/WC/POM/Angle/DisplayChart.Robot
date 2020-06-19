@@ -16,7 +16,11 @@ ${UnitSelectorTO}               xpath=//div[text()='To']/..//span[@class='k-widg
 ${UnitSelectorValueOfTO}        xpath=//div[text()='To']/..//span[@class='k-input']
 ${UnitSelectorValueOfFROM}      xpath=//div[text()='From']/..//span[@class='k-input']
 
-
+${ColorLocator}                 xpath=//div[text()='Color']/../../..//div[@id='ReferenceLabel']
+${OpacityLocator}               xpath=//div[text()='Opacity']/../../..//div[@id='ReferenceLabel']
+${Colordropdown}                xpath=//div[text()='Color']/..//span[@class='k-icon k-i-arrow-60-down icon icon-caret-down']
+${LocatorColorInColorSelector}  xpath=//span[@class='k-selected-color']
+${InputFieldOpacity}            xpath=//div[text()='Opacity']/..//input[@class='k-formatted-value eaText k-input']
 *** Keywords ***
 Wait Until Chart Display Loaded
     Wait Until Page Contains Element    ${divChartWrapper}
@@ -104,4 +108,47 @@ Validate Clear All button is disabled
     ${classValue}=  Get element Attribute   ${btnClearAllRefLine}  class
     Should Contain  ${classValue}  disabled
     
+Validate Color selector and Opacity input field is enabled
+    Wait Until Ajax Complete
+    # check Color selector is enabled
+    ${Enabled or not}=  Get Element Attribute  ${ColorLocator}  class
+    Run keyword if   '${Enabled or not}'==''  log  Color selector is enabled
+    ...   ELSE   Fail    Color selector is NOT enabled
+    # check Opacity input field is enabled
+    ${Enabled or not}=  Get Element Attribute  ${OpacityLocator}  class
+    Run keyword if   '${Enabled or not}'==''  log  Opacity input field is enabled
+    ...   ELSE   Fail    Opacity input field is NOT enabled
 
+Validate Color selector and Opacity input field is disabled 
+    Wait Until Ajax Complete
+    # check Color selector is disabled
+    ${Enabled or not}=  Get Element Attribute  ${ColorLocator}  class
+    Should Contain   ${Enabled or not}   disabled   msg=Color selector is NOT disabled
+    
+    # check Opacity input field is disabled
+    ${Enabled or not}=  Get Element Attribute  ${OpacityLocator}  class
+    Should Contain   ${Enabled or not}   disabled   msg=Opacity input field is NOT disabled
+
+Select Color in Color selector  
+    [Arguments]   ${Colorcode}
+    # ${Colorcode} should be in format ex:  rgb(63, 72, 204)
+    Custom click element   ${Colordropdown}
+    sleep  1s   
+    Set Global Variable  ${Colorcode}  ${Colorcode}   
+    # select  color
+    Custom click element  xpath=//td[contains(@style,'${Colorcode}')]
+       
+Validate selected color appears in Color selector
+    sleep  1s
+    ${ColorInColorSelector}=  Get Element Attribute  ${LocatorColorInColorSelector}  style
+    Should Contain   ${ColorInColorSelector}   ${Colorcode}  msg=Selected color ${Colorcode} did NOT appear in Color selector
+    
+Validate default color should be black
+    ${dColorInColorSelector}=  Get Element Attribute  ${LocatorColorInColorSelector}  style
+    Should Contain   ${dColorInColorSelector}   rgb(0, 0, 0)  msg=Default color is NOT black
+
+
+Validate default Opacity should be 75%
+    ${ValueInOpacity}=  Get value  ${InputFieldOpacity}
+    Run keyword if  '${ValueInOpacity}'=='75 %'  Log   Default Opacity is 75%
+    ...  ELSE  Fail  Default Opacity is shown as ${ValueInOpacity}

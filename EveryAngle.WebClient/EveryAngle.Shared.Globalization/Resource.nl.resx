@@ -2739,6 +2739,12 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   <data name="AdvanceFilterUsageTextTo" xml:space="preserve">
     <value>Tot</value>
   </data>
+  <data name="Color" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Dekking</value>
+  </data>
   <data name="CompanyLogo" xml:space="preserve">
     <value>Bedrijfslogo</value>
   </data>

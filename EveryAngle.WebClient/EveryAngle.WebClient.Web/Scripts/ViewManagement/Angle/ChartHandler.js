@@ -4402,16 +4402,16 @@ function ChartHandler(elementId, container) {
                 target[row].plotBands = [{
                     from: fieldDetails.targetlinedetails.fromvalue,
                     to: tovalue,
-                    color: "#666666",
-                    opacity: 1
+                    color: fieldDetails.targetlinedetails.color,
+                    opacity: fieldDetails.targetlinedetails.opacity
                 }];
             }
             else {
                 target.plotBands = [{
                     from: fieldDetails.targetlinedetails.fromvalue,
                     to: tovalue,
-                    color: "#666666",
-                    opacity: 1
+                    color: fieldDetails.targetlinedetails.color,
+                    opacity: fieldDetails.targetlinedetails.opacity
                 }];
             }
     };
@@ -4420,8 +4420,8 @@ function ChartHandler(elementId, container) {
             target[row].plotBands = [{
                 from: fieldDetails.targetlinedetails.fromvalue,
                 to: fieldDetails.targetlinedetails.tovalue,
-                color: "#c2c2c2",
-                opacity: 0.75
+                color: fieldDetails.targetlinedetails.color,
+                opacity: fieldDetails.targetlinedetails.opacity
 
             }];
         }
@@ -4429,8 +4429,8 @@ function ChartHandler(elementId, container) {
             target.plotBands = [{
                 from: fieldDetails.targetlinedetails.fromvalue,
                 to: fieldDetails.targetlinedetails.tovalue,
-                color: "#c2c2c2",
-                opacity: 0.75
+                color: fieldDetails.targetlinedetails.color,
+                opacity: fieldDetails.targetlinedetails.opacity
 
             }];
         }

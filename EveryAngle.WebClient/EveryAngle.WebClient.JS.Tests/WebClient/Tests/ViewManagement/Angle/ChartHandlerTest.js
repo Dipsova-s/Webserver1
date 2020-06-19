@@ -934,7 +934,7 @@ describe("ChartHandler", function () {
                 multi_axis: true
             };
             fieldDetails = {
-                targetlinedetails: { fromvalue: 12 }
+                targetlinedetails: { fromvalue: 12, color: "#666666", opacity: 1 }
             };
         });
         describe("set target value for scatter or bubble chart", function () {
@@ -978,7 +978,9 @@ describe("ChartHandler", function () {
             fieldDetails = {
                 targetlinedetails: {
                     fromvalue: 0,
-                    tovalue: 500
+                    tovalue: 500,
+                    color: '#c2c2c2',
+                    opacity: 0.75
                 }
             }
         });

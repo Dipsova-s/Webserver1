@@ -21,7 +21,7 @@ describe("TargetLineHandler", function () {
         it("should set property targetlinedetails to details", function () {
             targetlinehadler.Details();
             targetlinehadler.ShowPopup();
-            expect(targetlinehadler.Details()).toEqual({ targetlinedetails: { fromvalue: null, tovalue: null } });
+            expect(targetlinehadler.Details()).toEqual({ targetlinedetails: { fromvalue: null, tovalue: null, color: null, opacity: null } });
         });
         it("should call show popup", function () {
             targetlinehadler.ShowPopup();
@@ -38,6 +38,50 @@ describe("TargetLineHandler", function () {
             expect(popup.Close).toHaveBeenCalled();
         });
     });
+    describe(".RemoveTooltip", function () {
+
+        it("should remove tooltip", function () {
+            //create elements
+            $('<span>', { id: 'prevElement', title: '100' }).appendTo(document.body);
+            $('<span>', { id: 'ReferenceFromValue' }).appendTo(document.body);
+            var event = {
+                sender: {
+                    element: { context: { id: "ReferenceFromValue" } }
+                }
+            };
+            targetlinehadler.RemoveTooltip(event);
+            expect($('#ReferenceFromValue').prev().attr('title')).not.toBeDefined();
+
+            //remove elements
+            $('#prevElement').remove();
+            $('#ReferenceFromValue').remove();
+        });
+    });
+    describe(".ValidatePercentage", function () {
+
+        var event = {
+            target: { id: 'ID' }
+        };
+        var testCases = [
+            { input: -10, expected: 0 },
+            { input: 110, expected: 1 },
+            { input: 75, expected: 0.75 }
+        ];
+        $.each(testCases, function (index, test) {
+            it("should keep percentage" + test.input + " between 0 and 100 ", function () {
+
+                var handler = {
+                    element: {
+                        val: function () { return test.input; }
+                    },
+                    value: function () { return; }
+                }
+                spyOn($.fn, 'data').and.returnValue(handler);
+                var result = targetlinehadler.ValidatePercentage(event);
+                expect(result).toBe(test.expected);
+            });
+        });
+    });
     describe(".CheckInputReferenceTo", function () {
         it("should disable button", function () {
             var handler1 = {
@@ -51,8 +95,20 @@ describe("TargetLineHandler", function () {
                     return '';
                 }
             };
+            var handler3 = {
+                value: function () { return "#000000"; },
+                enable: function () {
+                    return '';
+                }
+            };
+            var handler4 = {
+                value: function () { return 0.75; },
+                enable: function () {
+                    return '';
+                }
+            };
 
-            spyOn($.fn, 'data').and.returnValues(handler1, handler2);
+            spyOn($.fn, 'data').and.returnValues(handler1, handler2, handler3, handler4);
            // spyOn(to, 'enable');
             spyOn($.fn, 'addClass');
             spyOn($.fn, 'removeClass');
@@ -78,7 +134,20 @@ describe("TargetLineHandler", function () {
                     return '';
                 }
             };
-            spyOn($.fn, 'data').and.returnValues(handler1, handler2);
+            var handler3 = {
+                value: function () { return "#000000"; },
+                enable: function () {
+                    return '';
+                }
+            };
+            var handler4 = {
+                value: function () { return 0.75; },
+                enable: function () {
+                    return '';
+                }
+            };
+
+            spyOn($.fn, 'data').and.returnValues(handler1, handler2, handler3, handler4);
             spyOn(targetlinehadler, "HasChanged").and.returnValue(false);
             spyOn($.fn, 'addClass');
             spyOn($.fn, 'removeClass');
@@ -100,6 +169,8 @@ describe("TargetLineHandler", function () {
             expect(result.className).toEqual('popupReferenceLine');
             expect(result.html).toContain('ReferenceFromValue');
             expect(result.html).toContain('ReferenceToValue');
+            expect(result.html).toContain('ReferenceColor');
+            expect(result.html).toContain('ReferenceOpacity');
         });
     });
     describe(".SetInputStatus", function () {
@@ -120,28 +191,60 @@ describe("TargetLineHandler", function () {
             expect($.fn.on).toHaveBeenCalled();
         });
     });
+    describe(".SetColorPicker", function () {
+
+        it("should initialize color picker", function () {
+            targetlinehadler.Details({
+                targetlinedetails: { color: null }
+            });
+            $.fn.kendoCustomColorPicker = $.noop;
+            spyOn($.fn, 'kendoCustomColorPicker');
+
+            targetlinehadler.SetColorPicker();
+
+            expect($.fn.kendoCustomColorPicker).toHaveBeenCalled();
+        });
+    });
+    describe(".SetOpacityStatus", function () {
+
+        it("should call removeAttr and keyup event", function () {
+            targetlinehadler.Details({
+                targetlinedetails: { opacity: null }
+            });
+            spyOn(WC.FormatHelper, 'GetFormatter').and.returnValue('');
+            spyOn(targetlinehadler, 'CreateInput');
+            spyOn($.fn, 'on').and.returnValue(true);
+            spyOn($.fn, 'removeAttr').and.returnValue(true);
+
+            targetlinehadler.SetOpacityStatus();
+
+            expect($.fn.on).toHaveBeenCalled();
+            expect($.fn.removeAttr).toHaveBeenCalled();
+        });
+    });
     describe(".SetData", function () {
         it('should set data to targetlinedetails', function () {
             var expectedValue = {
                 fromvalue: 20,
-                tovalue: 50
+                tovalue: 50,
+                color: "#c2c2c2",
+                opacity: 0.75
             };
             targetlinehadler.QueryDefinitionHandler = {
                 GetAggregationDataType: function () { return 'int'; }
             };
             targetlinehadler.Details({
-                targetlinedetails: { fromvalue: 0, tovalue: 0 }
+                targetlinedetails: { fromvalue: 0, tovalue: 0, color: null, opacity: null }
             });
             targetlinehadler.Aggregation.details({
-                targetlinedetails: { fromvalue: 0, tovalue: 0 }
+                targetlinedetails: { fromvalue: 0, tovalue: 0, color: null, opacity: null }
             });
             var handler1 = { value: function () { return 20; } };
+            var handler2 = { value: function () { return 50; } };
+            var handler3 = { value: function () { return "#c2c2c2"; } };
+            var handler4 = { value: function () { return 0.75; } };
 
-            var handler2 = {
-                value: function () { return 50; }
-            };
-
-            spyOn($.fn, 'data').and.returnValues(handler1, handler2);
+            spyOn($.fn, 'data').and.returnValues(handler1, handler2, handler3, handler4);
             targetlinehadler.SetData();
             expect(targetlinehadler.Aggregation.details().targetlinedetails).toEqual(expectedValue);
         });
@@ -208,21 +311,20 @@ describe("TargetLineHandler", function () {
         it('should check value haschanged', function () {
             var expectedValue = {
                 fromvalue: 20,
-                tovalue: 50
+                tovalue: 50,
+                color: "#c2c2c2",
+                opacity: 0.75
             };
 
             targetlinehadler.QueryDefinitionHandler = {
                 GetAggregationDataType: function () { return 'int'; }
             };
-            var handler1 = {
-                element: { val: function () { return 20; } }
-            };
+            var handler1 = { element: { val: function () { return 20; } } };
+            var handler2 = { element: { val: function () { return 50; } } };
+            var handler3 = { value: function () { return "#c2c2c2"; } };
+            var handler4 = { value: function () { return 0.75; } };
 
-            var handler2 = {
-                element:{ val: function () { return 50; } }
-            };
-
-            spyOn($.fn, 'data').and.returnValues(handler1, handler2);
+            spyOn($.fn, 'data').and.returnValues(handler1, handler2, handler3, handler4);
             var result = targetlinehadler.GetUIData();
             expect(result).toEqual(expectedValue);
         });
@@ -278,12 +380,11 @@ describe("TargetLineHandler", function () {
     describe(".UpdateLayout", function () {
         it('should CheckInputReferenceTo function called', function () {
             var handler1 = { value: function () { return 20; } };
+            var handler2 = { value: function () { return 50; } };
+            var handler3 = { value: function () { return "#c2c2c2"; } };
+            var handler4 = { value: function () { return 0.75; } };
 
-            var handler2 = {
-                value: function () { return 50; }
-            };
-
-            spyOn($.fn, 'data').and.returnValues(handler1, handler2);
+            spyOn($.fn, 'data').and.returnValues(handler1, handler2, handler3, handler4);
             spyOn(targetlinehadler, 'CheckInputReferenceTo');
             targetlinehadler.UpdateLayout();
             expect(targetlinehadler.CheckInputReferenceTo).toHaveBeenCalled();
