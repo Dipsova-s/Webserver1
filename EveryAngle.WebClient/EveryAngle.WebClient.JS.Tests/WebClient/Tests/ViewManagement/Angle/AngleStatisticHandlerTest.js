@@ -1,8 +1,4 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleStatisticView.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleStatisticHandler.js" />
-
-describe("AngleStatisticHandler", function () {
+﻿describe("AngleStatisticHandler", function () {
     var handler;
     beforeEach(function () {
         var angleHandler = {

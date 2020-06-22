@@ -64,6 +64,8 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/kendouicustom/kendo.colorpicker.custom.js",
                 "~/scripts/kendoui/kendo.combobox.min.js",
                 "~/scripts/kendouicustom/kendo.combobox.style.js",
+                "~/scripts/kendoui/kendo.multiselect.min.js",
+                "~/scripts/kendouicustom/kendo.tagtextbox.js",
                 "~/scripts/kendoui/kendo.datepicker.min.js",
                 "~/scripts/kendoui/kendo.timepicker.min.js",
                 "~/scripts/kendoui/kendo.datetimepicker.min.js",
@@ -145,6 +147,7 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmanagement/shared/systeminformationhandler.js",
                 "~/scripts/viewmanagement/shared/systemcurrencyhandler.js",
                 "~/scripts/viewmanagement/shared/systemdefaultusersettinghandler.js",
+                "~/scripts/viewmanagement/shared/systemtaghandler.js",
                 "~/scripts/viewmanagement/shared/aboutsystemhandler.js",
                 "~/scripts/viewmanagement/shared/userfriendlynamehandler.js",
                 "~/scripts/viewmanagement/shared/businessprocesshandler.js",
@@ -532,12 +535,17 @@ namespace EveryAngle.WebClient.Web
                     // download
                     "~/scripts/viewmanagement/shared/itemdownloadhandler.js",
 
+                    // business processes
+                    "~/scripts/viewmanagement/angle/anglebusinessprocesshandler.js",
+
+                    // tags
+                    "~/scripts/viewmanagement/angle/angletaghandler.js",
+
                     "~/scripts/viewmanagement/angle/anglepageretainsurl.js",
                     "~/scripts/viewmanagement/angle/fieldsettingshandler.js",
                     "~/scripts/viewmanagement/angle/targetLineHandler.js",
                     "~/scripts/viewmanagement/angle/quickfilterhandler.js",
                     "~/scripts/viewmanagement/angle/angleactionmenuhandler.js",
-                    "~/scripts/viewmanagement/angle/AngleBusinessProcessHandler.js",
                     "~/scripts/viewmanagement/angle/anglepagehandler.js"
                     ));
 
@@ -597,6 +605,9 @@ namespace EveryAngle.WebClient.Web
 
                     // business process
                     "~/scripts/viewmanagement/dashboard/dashboardbusinessprocesshandler.js",
+
+                    // tags
+                    "~/scripts/viewmanagement/dashboard/dashboardtaghandler.js",
 
                     // save dashboard as
                     "~/scripts/viewmanagement/dashboard/dashboardsaveashandler.js",

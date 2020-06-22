@@ -1,8 +1,4 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepViewModel.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
-
-describe("QueryStepViewModel", function () {
+﻿describe("QueryStepViewModel", function () {
     describe("FitlerQueryStepViewModel", function () {
         describe("constructor", function () {
             it("should create instance", function () {

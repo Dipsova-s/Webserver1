@@ -36,6 +36,7 @@
             .append(self.View.GetSectionFiltersAndJumpsTemplate())
             .append(self.View.GetSectionDescriptionTemplate())
             .append(self.View.GetSectionBusinessProcessTemplate())
+            .append(self.View.GetSectionTagsTemplate())
             .append(self.View.GetSectionPersonalNoteTemplate());
 
         // angle accordions

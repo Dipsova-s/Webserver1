@@ -1,6 +1,4 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/TargetLineHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/TargetLineHandler.js" />
 
 describe("TargetLineHandler", function () {
     var targetlinehadler;

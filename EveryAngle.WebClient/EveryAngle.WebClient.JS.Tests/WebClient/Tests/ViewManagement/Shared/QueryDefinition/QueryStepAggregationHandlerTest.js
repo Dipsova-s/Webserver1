@@ -1,19 +1,11 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/followupPageHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayAggregationFormatHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/userfriendlynamehandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/userfriendlynamehandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFieldsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFieldSourceHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/FieldChooserHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/HelpTextHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepView.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepViewModel.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryDefinitionHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepFilterHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepAggregationSortableHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepAggregationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/followupPageHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayAggregationFormatHandler.js" />
 
 describe("QueryStepAggregationHandler", function () {
     var handler;

@@ -727,28 +727,4 @@
     }
 }
 
-/*business process multi select style */
-.business-processes-wrapper {
-    .business-process-multi-select {
-        color: #fff;
-
-        .btn-remove {
-            color: #fff;
-        }
-    }
-
-    .multiple-select-button {
-        top: 1px;
-        color: #34495e;
-    }
-}
-
-ul {
-    &.business-processes {
-        max-height: none;
-    }
-}
-/*business process multi select style */
-
-
 @import 'pages/angle-page';

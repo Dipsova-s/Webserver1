@@ -26,5 +26,9 @@
   {
     "outputFile": "Content/CSS/Angle.css",
     "inputFile": "Content/CSS/Angle.scss"
+  },
+  {
+    "outputFile": "Content/CSS/KendoExtension.css",
+    "inputFile": "Content/CSS/KendoExtension.scss"
   }
 ]

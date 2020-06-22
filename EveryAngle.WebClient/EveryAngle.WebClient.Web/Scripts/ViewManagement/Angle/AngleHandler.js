@@ -11,6 +11,7 @@ function AngleHandler(model) {
     self.QueryDefinitionHandler = new QueryDefinitionHandler();
     self.AngleUserSpecificHandler = new AngleUserSpecificHandler(self);
     self.AngleBusinessProcessHandler = new AngleBusinessProcessHandler(self);
+    self.AngleTagHandler = new AngleTagHandler(self);
     self.AngleStatisticHandler = new AngleStatisticHandler(self);
     self.Initial = function (model, updateRaw) {
         if (updateRaw)
@@ -34,6 +35,7 @@ function AngleHandler(model) {
         data.allow_followups = ko.observable(data.allow_followups);
         data.allow_more_details = ko.observable(data.allow_more_details);
         data.assigned_labels = ko.observableArray(data.assigned_labels);
+        data.assigned_tags = ko.observableArray(data.assigned_tags);
         self.Data(data);
     };
     self.GetData = function () {
@@ -139,6 +141,11 @@ function AngleHandler(model) {
     // business processes
     self.InitialBusinessProcess = function (target) {
         self.AngleBusinessProcessHandler.Initial(target);
+    };
+
+    // tags
+    self.InitialTag = function (target) {
+        self.AngleTagHandler.Initial(target);
     };
     
     // personal things

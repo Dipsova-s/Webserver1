@@ -35,6 +35,7 @@
             .append(self.View.GetSectionDescriptionTemplate())
             .append(self.View.GetSectionExecuteAtLogonTemplate())
             .append(self.View.GetSectionBusinessProcessTemplate())
+            .append(self.View.GetSectionTagsTemplate())
             .append(self.View.GetSectionPersonalNoteTemplate());
 
         // widgets tab

@@ -3,5 +3,5 @@
     font-style: normal;
     font-weight: normal;
     font-display: block;
-    src: url("webclientico.eot") format("eot"), url("webclientico.woff") format("woff"), url("webclientico.ttf") format("truetype"), url("webclientico.svg#WebClientIco") format("svg");
+    src: url("webclientico.woff") format("woff"), url("webclientico.ttf") format("truetype"), url("webclientico.svg#WebClientIco") format("svg");
 }

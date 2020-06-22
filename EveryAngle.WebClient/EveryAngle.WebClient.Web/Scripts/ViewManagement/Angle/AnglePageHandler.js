@@ -447,6 +447,9 @@ function AnglePageHandler() {
         // business processes
         self.HandlerAngle.InitialBusinessProcess(jQuery('.section-business-processes'));
 
+        // tags
+        self.HandlerAngle.InitialTag(jQuery('.section-tags'));
+
         // Default Drilldown
         if (self.HandlerDisplay.Data().display_type !== enumHandlers.DISPLAYTYPE.LIST)
             self.HandlerDisplay.InitialDefaultDrilldown('.section-default-drilldown');

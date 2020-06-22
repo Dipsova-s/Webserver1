@@ -1,6 +1,5 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ErrorHandler/ErrorHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ProgressBar.js" />
 /// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/itemdownloadhandler.js" />

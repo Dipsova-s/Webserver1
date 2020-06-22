@@ -1,7 +1,6 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/DashboardModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/DashboardWidgetModel.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ProgressBar.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Search/DashboardExecutionHandler.js" />

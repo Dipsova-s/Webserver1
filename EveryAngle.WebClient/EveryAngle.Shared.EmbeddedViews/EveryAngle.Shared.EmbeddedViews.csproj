@@ -120,7 +120,6 @@
     <None Include="Resource\Shared\components\_progressbar.scss" />
     <None Include="Resource\Shared\shared.scss" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClient.json" />
-    <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.eot" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.ttf" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.woff" />
     <Content Include="Views\Top\ValidationRequestHeader.cshtml" />

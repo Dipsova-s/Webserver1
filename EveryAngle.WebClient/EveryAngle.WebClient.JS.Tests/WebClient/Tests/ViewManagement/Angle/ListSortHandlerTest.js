@@ -1,5 +1,4 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ListSortHandler.js" />
 
 describe("ListSortHandler", function () {

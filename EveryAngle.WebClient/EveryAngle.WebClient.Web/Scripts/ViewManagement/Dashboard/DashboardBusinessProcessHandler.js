@@ -2,7 +2,8 @@
     "use strict";
 
     var _self = {};
-    _self.fnSave = null;
+    _self.fnSaveTimeout = null;
+    _self.saveTimeout = null;
 
     var self = this;
     self.$Container = jQuery();
@@ -11,7 +12,7 @@
     self.DashboardModel = dashboardModel;
 
     self.CanUpdate = function () {
-        return self.DashboardModel.Data() && self.DashboardModel.Data().authorizations.update;
+        return self.DashboardModel.Data().authorizations.update;
     };
     self.Initial = function (container) {
         self.$Container = container;
@@ -107,8 +108,8 @@
             return;
         }
 
-        clearTimeout(_self.fnSave);
-        _self.fnSave = setTimeout(jQuery.proxy(self.Save, self, labels), 1000);
+        clearTimeout(_self.fnSaveTimeout);
+        _self.fnSaveTimeout = setTimeout(jQuery.proxy(self.Save, self, labels), _self.saveTimeout);
     };
     self.Save = function (labels) {
         self.$Container.busyIndicator(true);

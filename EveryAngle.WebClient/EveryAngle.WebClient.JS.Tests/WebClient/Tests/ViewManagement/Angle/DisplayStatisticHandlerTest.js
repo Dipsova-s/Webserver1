@@ -1,8 +1,4 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayStatisticView.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayStatisticHandler.js" />
-
-describe("DisplayStatisticHandler", function () {
+﻿describe("DisplayStatisticHandler", function () {
     var handler;
     beforeEach(function () {
         var displayHandler = {

@@ -251,9 +251,15 @@
 .icon-sort-asc:before {
     content: "\e925";
 }
+
 .icon-reference:before {
     content: "\e926";
 }
+
+.icon-find:before {
+    content: "\e927";
+}
+
 .icon.new {
     width: 25px;
     background: transparent url(../../images/angle/actiondropdownlist/pastedisplay.svg) center no-repeat;

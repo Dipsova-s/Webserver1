@@ -3909,4 +3909,19 @@ Note: Invalid Angles are not included in the package. If the results in the pack
 &lt;br&gt;
 The value 0 means the setting is off, so the logs will not be cleaned up. The maximum value is 120 months.</value>
   </data>
+  <data name="TagSuggestionHeader" xml:space="preserve">
+    <value>Suggesties</value>
+  </data>
+  <data name="TagNoSuggestion" xml:space="preserve">
+    <value>Geen suggesties</value>
+  </data>
+  <data name="TagNew" xml:space="preserve">
+    <value>{0} (Nieuwe Tag)</value>
+  </data>
+  <data name="TagLabel" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TagInputPlaceholder" xml:space="preserve">
+    <value>Tag maken of vinden</value>
+  </data>
 </root>

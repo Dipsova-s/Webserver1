@@ -981,6 +981,7 @@ function CreateNewAngleViewManagementModel() {
 
         var jsonObjects = {
             assigned_labels: [],
+            assigned_tags: [],
             name: newAngleName,
             model: modelUri,
             display_definitions: [],

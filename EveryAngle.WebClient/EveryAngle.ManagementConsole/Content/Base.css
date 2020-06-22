@@ -2,7 +2,7 @@
     font-family: "WebClientIco";
     font-style: normal;
     font-weight: normal;
-    src: url("./ExternalResource/WebClientIco.eot") format("eot"), url("./ExternalResource/WebClientIco.woff") format("woff"), url("./ExternalResource/WebClientIco.ttf") format("truetype"), url("./ExternalResource/WebClientIco.svg#WebClientIco") format("svg");
+    src: url("./ExternalResource/WebClientIco.woff") format("woff"), url("./ExternalResource/WebClientIco.ttf") format("truetype"), url("./ExternalResource/WebClientIco.svg#WebClientIco") format("svg");
 }
 
 

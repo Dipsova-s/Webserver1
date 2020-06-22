@@ -64,1035 +64,1077 @@
     </div>
 }
 
-    <div id="MainContent" class="Wrapper">
-        <h3>Icons</h3>
-        <div id="IconDemo">
-            <div class="form-row"></div>
-            <script>
-                $(function () {
-                    checkReady(function () { return window.$; }, function () {
-                        var icons = [
-                            'icon-caret-down', 'icon-caret-up', 'icon-caret-left', 'icon-caret-right',
-                            'icon-chevron-down', 'icon-chevron-up', 'icon-chevron-left', 'icon-chevron-right',
-                            'icon-download', 'icon-close', 'icon-link', 'icon-maximize', 'icon-minimize',
-                            'icon-info', 'icon-angle', 'icon-bin', 'icon-parameterized', 'icon-filter', 'icon-followup',
-                            'icon-list', 'icon-chart', 'icon-pivot', 'icon-private', 'icon-public', 'icon-validated',
-                            'icon-plus', 'icon-star-active', 'icon-star-inactive', 'icon-meatballs', 'icon-meatballs-vertical',
-                            'icon-pencil', 'icon-hamburger', 'icon-gear', 'icon-setting', 'icon-setting-horizontal', 'icon-undo',
-                            'icon-add-filter', 'icon-bin-empty', 'icon-select-invert', 'icon-select-all', 'icon-select-none',
-                            'icon-displays', 'icon-format', 'icon-reference'
-                        ];
-                        var container = $('#IconDemo .form-row');
-                        $.each(icons, function (index, icon) {
-                            container.append('<div class="form-col"><i class="icon ' + icon + '"></i><br>.' + icon + '</div>');
-                        });
-                    });
-                });
-            </script>
-        </div>
-        <hr />
-        <h3>Button</h3>
-        <div class="btn-wrapper">
-            <a class="btn btn-small"><span>Default (.btn-small)</span></a>
-            <a class="btn"><span>Default</span></a>
-            <a class="btn"><span>Default</span><i class="icon validWarning"></i></a>
-            <a class="btn float-right"><i class="icon validWarning"></i><span>Default</span></a>
-            <a class="btn disabled float-right"><span>Default (.disabled)</span></a>
-            <a class="btn btn-busy float-right" data-busy="Loading..."><span>Default</span></a>
-
-            <a class="btn btn-split"><span>Default (.btn-split)</span></a>
-            <a class="btn"><i class="icon icon-chevron-down"></i></a>
-            <a class="btn btn-split disabled"><span>Default (.btn-split.disabled)</span></a>
-            <a class="btn"><i class="icon icon-chevron-down"></i></a>
-        </div>
-        <div class="btn-wrapper">
-            <a class="btn btn-primary btn-small"><span>Primary (.btn-small)</span></a>
-            <a class="btn btn-primary"><span>Primary</span></a>
-            <a class="btn btn-primary"><span>Primary</span><i class="icon validWarning"></i></a>
-            <a class="btn btn-primary"><i class="icon validWarning"></i><span>Primary</span></a>
-            <a class="btn btn-primary disabled"><span>Primary (.disabled)</span></a>
-            <a class="btn btn-primary btn-busy" data-busy="Loading..."><span>Primary</span></a>
-
-            <a class="btn btn-primary btn-split"><span>Primary (.btn-split)</span></a>
-            <a class="btn btn-primary"><i class="icon icon-chevron-down"></i></a>
-            <a class="btn btn-primary btn-split disabled"><span>Primary (.btn-split.disabled)</span></a>
-            <a class="btn btn-primary"><i class="icon icon-chevron-down"></i></a>
-        </div>
-        <div class="btn-wrapper">
-            <a class="btn btn-secondary btn-small"><span>Secondary (.btn-small)</span></a>
-            <a class="btn btn-secondary"><span>Secondary</span></a>
-            <a class="btn btn-secondary"><span>Secondary</span><i class="icon validWarning"></i></a>
-            <a class="btn btn-secondary disabled"><span>Secondary (.disabled)</span></a>
-            <a class="btn btn-secondary btn-busy" data-busy="Loading..."><span>Secondary</span></a>
-
-            <a class="btn btn-secondary btn-split"><span>Secondary (.btn-split)</span></a>
-            <a class="btn btn-secondary"><i class="icon icon-chevron-down"></i></a>
-            <a class="btn btn-secondary btn-split disabled"><span>Secondary (.btn-split.disabled)</span></a>
-            <a class="btn btn-secondary"><i class="icon icon-chevron-down"></i></a>
-        </div>
-        <div class="btn-wrapper">
-            <a class="btn btn-ghost btn-small"><span>Ghost (.btn-small)</span></a>
-            <a class="btn btn-ghost"><span>Ghost</span></a>
-            <a class="btn btn-ghost"><span>Ghost</span><i class="icon validWarning"></i></a>
-            <a class="btn btn-ghost disabled"><span>Ghost (.disabled)</span></a>
-            <a class="btn btn-ghost btn-busy" data-busy="Loading..."><span>Ghost</span></a>
-
-            <a class="btn btn-ghost btn-split"><span>Ghost (.btn-split)</span></a>
-            <a class="btn btn-ghost"><i class="icon icon-chevron-down"></i></a>
-            <a class="btn btn-ghost btn-split disabled"><span>Ghost (.btn-split.disabled)</span></a>
-            <a class="btn btn-ghost"><i class="icon icon-chevron-down"></i></a>
-        </div>
-        <div class="btn-wrapper">
-            <a class="btn btn-success btn-small"><span>Success (.btn-small)</span></a>
-            <a class="btn btn-success"><span>Success</span></a>
-            <a class="btn btn-success"><span>Success</span><i class="icon validWarning"></i></a>
-            <a class="btn btn-success disabled"><span>Success (.disabled)</span></a>
-            <a class="btn btn-success btn-busy" data-busy="Loading..."><span>Success</span></a>
-
-            <a class="btn btn-success btn-split"><span>Success (.btn-split)</span></a>
-            <a class="btn btn-success"><i class="icon icon-chevron-down"></i></a>
-            <a class="btn btn-success btn-split disabled"><span>Success (.btn-split.disabled)</span></a>
-            <a class="btn btn-success"><i class="icon icon-chevron-down"></i></a>
-        </div>
-        <div class="btn-wrapper">
-            <a class="btn btn-light btn-small"><span>Light (.btn-small)</span></a>
-            <a class="btn btn-light"><span>Light</span></a>
-            <a class="btn btn-light"><span>Light</span><i class="icon validWarning"></i></a>
-            <a class="btn btn-light disabled"><span>Light (.disabled)</span></a>
-            <a class="btn btn-light btn-busy" data-busy="Loading..."><span>Light</span></a>
-
-            <a class="btn btn-light btn-split"><span>Light (.btn-split)</span></a>
-            <a class="btn btn-light"><i class="icon icon-chevron-down"></i></a>
-            <a class="btn btn-light btn-split disabled"><span>Light (.btn-split.disabled)</span></a>
-            <a class="btn btn-light"><i class="icon icon-chevron-down"></i></a>
-        </div>
-        <hr />
-
-        <h3>Kendo's button</h3>
-        <div class="k-buttons">
-            <a class="k-button">Button</a>
-            <a class="k-button k-primary">Button (.k-primary)</a>
-        </div>
-        <hr />
-
-        <h3>Kendo's editor</h3>
-        <textarea id="Editor"></textarea>
+<div id="MainContent" class="Wrapper">
+    <h3>Icons</h3>
+    <div id="IconDemo">
+        <div class="form-row"></div>
         <script>
             $(function () {
-                checkReady(function () { return window.WC.HtmlHelper; }, function () {
-                    WC.HtmlHelper.Editor('#Editor');
+                checkReady(function () { return window.$; }, function () {
+                    var icons = [
+                        'icon-caret-down', 'icon-caret-up', 'icon-caret-left', 'icon-caret-right',
+                        'icon-chevron-down', 'icon-chevron-up', 'icon-chevron-left', 'icon-chevron-right',
+                        'icon-download', 'icon-close', 'icon-link', 'icon-maximize', 'icon-minimize',
+                        'icon-info', 'icon-angle', 'icon-bin', 'icon-parameterized', 'icon-filter', 'icon-followup',
+                        'icon-list', 'icon-chart', 'icon-pivot', 'icon-private', 'icon-public', 'icon-validated',
+                        'icon-plus', 'icon-star-active', 'icon-star-inactive', 'icon-meatballs', 'icon-meatballs-vertical',
+                        'icon-pencil', 'icon-hamburger', 'icon-gear', 'icon-setting', 'icon-setting-horizontal', 'icon-undo',
+                        'icon-add-filter', 'icon-bin-empty', 'icon-select-invert', 'icon-select-all', 'icon-select-none',
+                        'icon-displays', 'icon-format', 'icon-reference'
+                    ];
+                    var container = $('#IconDemo .form-row');
+                    $.each(icons, function (index, icon) {
+                        container.append('<div class="form-col"><i class="icon ' + icon + '"></i><br>.' + icon + '</div>');
+                    });
                 });
             });
         </script>
-        <hr />
+    </div>
+    <hr />
+    <h3>Button</h3>
+    <div class="btn-wrapper">
+        <a class="btn btn-small"><span>Default (.btn-small)</span></a>
+        <a class="btn"><span>Default</span></a>
+        <a class="btn"><span>Default</span><i class="icon validWarning"></i></a>
+        <a class="btn float-right"><i class="icon validWarning"></i><span>Default</span></a>
+        <a class="btn disabled float-right"><span>Default (.disabled)</span></a>
+        <a class="btn btn-busy float-right" data-busy="Loading..."><span>Default</span></a>
 
-        <h3>Tooltip</h3>
-        <div id="Tooltip" style="position: relative;">
-            <a class="btn button0">Free</a>
-            <a class="btn button1">Bottom</a>
-            <a class="btn button2">Top</a>
-            <a class="btn button3">Left</a>
-            <a class="btn button4">Right</a>
-            <br><br><br>
-            <div class="k-grid-tooltip" style="position: relative; display: inline-block;">Free position...</div><br><br>
-            <div class="k-grid-tooltip k-window-arrow-n" style="position: relative; display: inline-block;">Bottom position...</div><br><br>
-            <div class="k-grid-tooltip k-window-arrow-s" style="position: relative; display: inline-block;">Top position...</div><br><br>
-            <div class="k-grid-tooltip k-window-arrow-e" style="position: relative; display: inline-block;">Left position...</div><br><br>
-            <div class="k-grid-tooltip k-window-arrow-w" style="position: relative; display: inline-block;">Right position...</div>
-        </div>
+        <a class="btn btn-split"><span>Default (.btn-split)</span></a>
+        <a class="btn"><i class="icon icon-chevron-down"></i></a>
+        <a class="btn btn-split disabled"><span>Default (.btn-split.disabled)</span></a>
+        <a class="btn"><i class="icon icon-chevron-down"></i></a>
+    </div>
+    <div class="btn-wrapper">
+        <a class="btn btn-primary btn-small"><span>Primary (.btn-small)</span></a>
+        <a class="btn btn-primary"><span>Primary</span></a>
+        <a class="btn btn-primary"><span>Primary</span><i class="icon validWarning"></i></a>
+        <a class="btn btn-primary"><i class="icon validWarning"></i><span>Primary</span></a>
+        <a class="btn btn-primary disabled"><span>Primary (.disabled)</span></a>
+        <a class="btn btn-primary btn-busy" data-busy="Loading..."><span>Primary</span></a>
+
+        <a class="btn btn-primary btn-split"><span>Primary (.btn-split)</span></a>
+        <a class="btn btn-primary"><i class="icon icon-chevron-down"></i></a>
+        <a class="btn btn-primary btn-split disabled"><span>Primary (.btn-split.disabled)</span></a>
+        <a class="btn btn-primary"><i class="icon icon-chevron-down"></i></a>
+    </div>
+    <div class="btn-wrapper">
+        <a class="btn btn-secondary btn-small"><span>Secondary (.btn-small)</span></a>
+        <a class="btn btn-secondary"><span>Secondary</span></a>
+        <a class="btn btn-secondary"><span>Secondary</span><i class="icon validWarning"></i></a>
+        <a class="btn btn-secondary disabled"><span>Secondary (.disabled)</span></a>
+        <a class="btn btn-secondary btn-busy" data-busy="Loading..."><span>Secondary</span></a>
+
+        <a class="btn btn-secondary btn-split"><span>Secondary (.btn-split)</span></a>
+        <a class="btn btn-secondary"><i class="icon icon-chevron-down"></i></a>
+        <a class="btn btn-secondary btn-split disabled"><span>Secondary (.btn-split.disabled)</span></a>
+        <a class="btn btn-secondary"><i class="icon icon-chevron-down"></i></a>
+    </div>
+    <div class="btn-wrapper">
+        <a class="btn btn-ghost btn-small"><span>Ghost (.btn-small)</span></a>
+        <a class="btn btn-ghost"><span>Ghost</span></a>
+        <a class="btn btn-ghost"><span>Ghost</span><i class="icon validWarning"></i></a>
+        <a class="btn btn-ghost disabled"><span>Ghost (.disabled)</span></a>
+        <a class="btn btn-ghost btn-busy" data-busy="Loading..."><span>Ghost</span></a>
+
+        <a class="btn btn-ghost btn-split"><span>Ghost (.btn-split)</span></a>
+        <a class="btn btn-ghost"><i class="icon icon-chevron-down"></i></a>
+        <a class="btn btn-ghost btn-split disabled"><span>Ghost (.btn-split.disabled)</span></a>
+        <a class="btn btn-ghost"><i class="icon icon-chevron-down"></i></a>
+    </div>
+    <div class="btn-wrapper">
+        <a class="btn btn-success btn-small"><span>Success (.btn-small)</span></a>
+        <a class="btn btn-success"><span>Success</span></a>
+        <a class="btn btn-success"><span>Success</span><i class="icon validWarning"></i></a>
+        <a class="btn btn-success disabled"><span>Success (.disabled)</span></a>
+        <a class="btn btn-success btn-busy" data-busy="Loading..."><span>Success</span></a>
+
+        <a class="btn btn-success btn-split"><span>Success (.btn-split)</span></a>
+        <a class="btn btn-success"><i class="icon icon-chevron-down"></i></a>
+        <a class="btn btn-success btn-split disabled"><span>Success (.btn-split.disabled)</span></a>
+        <a class="btn btn-success"><i class="icon icon-chevron-down"></i></a>
+    </div>
+    <div class="btn-wrapper">
+        <a class="btn btn-light btn-small"><span>Light (.btn-small)</span></a>
+        <a class="btn btn-light"><span>Light</span></a>
+        <a class="btn btn-light"><span>Light</span><i class="icon validWarning"></i></a>
+        <a class="btn btn-light disabled"><span>Light (.disabled)</span></a>
+        <a class="btn btn-light btn-busy" data-busy="Loading..."><span>Light</span></a>
+
+        <a class="btn btn-light btn-split"><span>Light (.btn-split)</span></a>
+        <a class="btn btn-light"><i class="icon icon-chevron-down"></i></a>
+        <a class="btn btn-light btn-split disabled"><span>Light (.btn-split.disabled)</span></a>
+        <a class="btn btn-light"><i class="icon icon-chevron-down"></i></a>
+    </div>
+    <hr />
+
+    <h3>Kendo's button</h3>
+    <div class="k-buttons">
+        <a class="k-button">Button</a>
+        <a class="k-button k-primary">Button (.k-primary)</a>
+    </div>
+    <hr />
+
+    <h3>Kendo's editor</h3>
+    <textarea id="Editor"></textarea>
+    <script>
+        $(function () {
+            checkReady(function () { return window.WC.HtmlHelper; }, function () {
+                WC.HtmlHelper.Editor('#Editor');
+            });
+        });
+    </script>
+    <hr />
+
+    <h3>Tooltip</h3>
+    <div id="Tooltip" style="position: relative;">
+        <a class="btn button0">Free</a>
+        <a class="btn button1">Bottom</a>
+        <a class="btn button2">Top</a>
+        <a class="btn button3">Left</a>
+        <a class="btn button4">Right</a>
+        <br><br><br>
+        <div class="k-grid-tooltip" style="position: relative; display: inline-block;">Free position...</div><br><br>
+        <div class="k-grid-tooltip k-window-arrow-n" style="position: relative; display: inline-block;">Bottom position...</div><br><br>
+        <div class="k-grid-tooltip k-window-arrow-s" style="position: relative; display: inline-block;">Top position...</div><br><br>
+        <div class="k-grid-tooltip k-window-arrow-e" style="position: relative; display: inline-block;">Left position...</div><br><br>
+        <div class="k-grid-tooltip k-window-arrow-w" style="position: relative; display: inline-block;">Right position...</div>
+    </div>
+    <script>
+        $(function () {
+            checkReady(function () { return window.WC.HtmlHelper; }, function () {
+                WC.HtmlHelper.Tooltip.Create('button0', '#Tooltip .button0');
+                WC.HtmlHelper.Tooltip.Create('button1', '#Tooltip .button1', false, TOOLTIP_POSITION.BOTTOM);
+                WC.HtmlHelper.Tooltip.Create('button2', '#Tooltip .button2', false, TOOLTIP_POSITION.TOP);
+                WC.HtmlHelper.Tooltip.Create('button3', '#Tooltip .button3', false, TOOLTIP_POSITION.LEFT);
+                WC.HtmlHelper.Tooltip.Create('button4', '#Tooltip .button4', false, TOOLTIP_POSITION.RIGHT);
+            });
+        });
+    </script>
+    <hr />
+
+    <h3>Checkbox / Radio</h3>
+    <p>
+        <label>
+            <input type="checkbox" name="AskValue-1" checked />
+            <span class="label inline">Label 1</span>
+        </label>
+        <label>
+            <input type="checkbox" name="AskValue-1" />
+            <span class="label inline">Label 2</span>
+        </label>
+        <label>
+            <input type="checkbox" name="AskValue-1" disabled />
+            <span class="label inline">Label 3</span>
+        </label>
+        <label>
+            <input type="checkbox" name="AskValue-1" checked disabled />
+            <span class="label">Label 3</span>
+        </label>
+    </p>
+    <p>
+        <label>
+            <input type="radio" name="AskValue-2" checked />
+            <span class="label inline">Label 1</span>
+        </label>
+        <label>
+            <input type="radio" name="AskValue-2" />
+            <span class="label inline">Label 2</span>
+        </label>
+        <label>
+            <input type="radio" name="AskValue-3" disabled />
+            <span class="label inline">Label 3</span>
+        </label>
+        <label>
+            <input type="radio" name="AskValue-3" checked disabled />
+            <span class="label">Label 4</span>
+        </label>
+    </p>
+    <p>
+        <label>
+            <input type="checkbox" name="AskValue-4" checked />
+            <span class="label">Label 1</span>
+        </label><br>
+        <label>
+            <input type="checkbox" name="AskValue-4" />
+            <span class="label">Label 2</span>
+        </label><br>
+        <label>
+            <input type="radio" name="AskValue-5" checked />
+            <span class="label">Label 3</span>
+        </label><br>
+        <label>
+            <input type="radio" name="AskValue-5" />
+            <span class="label">Label 4</span>
+        </label>
+    </p>
+    <p id="CheckboxIndeterminate">
+        <span style="display: block; position: relative;">
+            <input id="IsStarred1" type="checkbox" class="chk" value="IsStarred1" data-label="My label" data-bind="checked: IsStarred1, IndeterminatableChange: IsStarred1">
+            Indeterminate checkbox (<span class="state"></span>)
+        </span>
+        <span style="display: block; position: relative;">
+            <input id="IsStarred2" type="checkbox" disabled class="chk" value="IsStarred2" data-label="My label" data-bind="checked: IsStarred2, IndeterminatableChange: IsStarred2">
+            Indeterminate checkbox (<span class="state"></span>)
+        </span>
+        <span style="display: block; position: relative;">
+            <input id="IsStarred3" type="checkbox" class="chk" value="IsStarred3" data-label="My label" data-bind="checked: IsStarred3, IndeterminatableChange: IsStarred3">
+            Indeterminate checkbox (<span class="state"></span>)
+        </span>
+        <span style="display: block; position: relative;">
+            <input id="IsStarred4" type="checkbox" disabled class="chk" value="IsStarred4" data-label="My label" data-bind="checked: IsStarred4, IndeterminatableChange: IsStarred4">
+            Indeterminate checkbox (<span class="state"></span>)
+        </span>
+        <span style="display: block; position: relative;">
+            <input id="IsStarred5" type="checkbox" class="chk" value="IsStarred5" data-label="My label" data-bind="checked: IsStarred5, IndeterminatableChange: IsStarred5">
+            Indeterminate checkbox (<span class="state"></span>)
+        </span>
+        <span style="display: block; position: relative;">
+            <input id="IsStarred6" type="checkbox" disabled class="chk" value="IsStarred6" data-label="My label" data-bind="checked: IsStarred6, IndeterminatableChange: IsStarred6">
+            Indeterminate checkbox (<span class="state"></span>)
+        </span>
         <script>
             $(function () {
                 checkReady(function () { return window.WC.HtmlHelper; }, function () {
-                    WC.HtmlHelper.Tooltip.Create('button0', '#Tooltip .button0');
-                    WC.HtmlHelper.Tooltip.Create('button1', '#Tooltip .button1', false, TOOLTIP_POSITION.BOTTOM);
-                    WC.HtmlHelper.Tooltip.Create('button2', '#Tooltip .button2', false, TOOLTIP_POSITION.TOP);
-                    WC.HtmlHelper.Tooltip.Create('button3', '#Tooltip .button3', false, TOOLTIP_POSITION.LEFT);
-                    WC.HtmlHelper.Tooltip.Create('button4', '#Tooltip .button4', false, TOOLTIP_POSITION.RIGHT);
+                    WC.HtmlHelper.ApplyKnockout({
+                        IsStarred1: ko.observable(false),
+                        IsStarred2: ko.observable(false),
+                        IsStarred3: ko.observable(true),
+                        IsStarred4: ko.observable(true),
+                        IsStarred5: ko.observable(null),
+                        IsStarred6: ko.observable(null),
+                        IndeterminatableCallback: function (element, value) {
+                            $(element).closest('span').find('.state').text('' + value);
+                        }
+                    }, $('#CheckboxIndeterminate'));
                 });
             });
         </script>
-        <hr />
+    </p>
+    <hr />
 
-        <h3>Checkbox / Radio</h3>
-        <p>
-            <label>
-                <input type="checkbox" name="AskValue-1" checked />
-                <span class="label inline">Label 1</span>
-            </label>
-            <label>
-                <input type="checkbox" name="AskValue-1" />
-                <span class="label inline">Label 2</span>
-            </label>
-            <label>
-                <input type="checkbox" name="AskValue-1" disabled />
-                <span class="label inline">Label 3</span>
-            </label>
-            <label>
-                <input type="checkbox" name="AskValue-1" checked disabled />
-                <span class="label">Label 3</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="radio" name="AskValue-2" checked />
-                <span class="label inline">Label 1</span>
-            </label>
-            <label>
-                <input type="radio" name="AskValue-2" />
-                <span class="label inline">Label 2</span>
-            </label>
-            <label>
-                <input type="radio" name="AskValue-3" disabled />
-                <span class="label inline">Label 3</span>
-            </label>
-            <label>
-                <input type="radio" name="AskValue-3" checked disabled />
-                <span class="label">Label 4</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" name="AskValue-4" checked />
-                <span class="label">Label 1</span>
-            </label><br>
-            <label>
-                <input type="checkbox" name="AskValue-4" />
-                <span class="label">Label 2</span>
-            </label><br>
-            <label>
-                <input type="radio" name="AskValue-5" checked />
-                <span class="label">Label 3</span>
-            </label><br>
-            <label>
-                <input type="radio" name="AskValue-5" />
-                <span class="label">Label 4</span>
-            </label>
-        </p>
-        <p id="CheckboxIndeterminate">
-            <span style="display: block; position: relative;">
-                <input id="IsStarred1" type="checkbox" class="chk" value="IsStarred1" data-bind="checked: IsStarred1, IndeterminatableChange: IsStarred1">
-                Indeterminate checkbox (<span class="state"></span>)
-            </span>
-            <span style="display: block; position: relative;">
-                <input id="IsStarred2" type="checkbox" disabled class="chk" value="IsStarred2" data-bind="checked: IsStarred2, IndeterminatableChange: IsStarred2">
-                Indeterminate checkbox (<span class="state"></span>)
-            </span>
-            <span style="display: block; position: relative;">
-                <input id="IsStarred3" type="checkbox" class="chk" value="IsStarred3" data-bind="checked: IsStarred3, IndeterminatableChange: IsStarred3">
-                Indeterminate checkbox (<span class="state"></span>)
-            </span>
-            <span style="display: block; position: relative;">
-                <input id="IsStarred4" type="checkbox" disabled class="chk" value="IsStarred4" data-bind="checked: IsStarred4, IndeterminatableChange: IsStarred4">
-                Indeterminate checkbox (<span class="state"></span>)
-            </span>
-            <span style="display: block; position: relative;">
-                <input id="IsStarred5" type="checkbox" class="chk" value="IsStarred5" data-bind="checked: IsStarred5, IndeterminatableChange: IsStarred5">
-                Indeterminate checkbox (<span class="state"></span>)
-            </span>
-            <span style="display: block; position: relative;">
-                <input id="IsStarred6" type="checkbox" disabled class="chk" value="IsStarred6" data-bind="checked: IsStarred6, IndeterminatableChange: IsStarred6">
-                Indeterminate checkbox (<span class="state"></span>)
-            </span>
-            <script>
-                $(function () {
-                    checkReady(function () { return window.WC.HtmlHelper; }, function () {
-                        WC.HtmlHelper.ApplyKnockout({
-                            IsStarred1: ko.observable(false),
-                            IsStarred2: ko.observable(false),
-                            IsStarred3: ko.observable(true),
-                            IsStarred4: ko.observable(true),
-                            IsStarred5: ko.observable(null),
-                            IsStarred6: ko.observable(null),
-                            IndeterminatableCallback: function (element, value) {
-                                $(element).closest('span').find('.state').text('' + value);
-                            }
-                        }, $('#CheckboxIndeterminate'));
-                    });
-                });
-            </script>
-        </p>
-        <hr />
+    <h3>Switch</h3>
+    <div class="switch">
+        Checked
+        <label>
+            <input type="checkbox" checked />
+            <span class="lever"></span>
+        </label>
+    </div>
+    <br><br>
+    <div class="switch">
+        Unchecked
+        <label>
+            <input type="checkbox" />
+            <span class="lever"></span>
+        </label>
+    </div>
+    <br><br>
+    <div class="switch">
+        Checked (disabled)
+        <label>
+            <input type="checkbox" disabled checked />
+            <span class="lever"></span>
+        </label>
+    </div>
+    <br><br>
+    <div class="switch">
+        Unchecked (disabled)
+        <label>
+            <input disabled type="checkbox" />
+            <span class="lever"></span>
+        </label>
+    </div>
+    <hr />
 
-        <h3>Switch</h3>
-        <div class="switch">
-            Checked
-            <label>
-                <input type="checkbox" checked />
-                <span class="lever"></span>
-            </label>
-        </div>
-        <br><br>
-        <div class="switch">
-            Unchecked
-            <label>
-                <input type="checkbox" />
-                <span class="lever"></span>
-            </label>
-        </div>
-        <br><br>
-        <div class="switch">
-            Checked (disabled)
-            <label>
-                <input type="checkbox" disabled checked />
-                <span class="lever"></span>
-            </label>
-        </div>
-        <br><br>
-        <div class="switch">
-            Unchecked (disabled)
-            <label>
-                <input disabled type="checkbox" />
-                <span class="lever"></span>
-            </label>
-        </div>
-        <hr />
-
-        <h3>Inputs</h3>
-        <p>
-            Textbox
+    <h3>Inputs</h3>
+    <p>
+        Textbox
+        <input type="text" />
+        <input type="text" placeholder="disabled" disabled />
+        <input type="text" class="input-light" />
+        <input type="text" class="input-light" placeholder="disabled" disabled />
+    </p>
+    <p>
+        Textbox + Legend
+    </p>
+        <div class="input-fieldset">
             <input type="text" />
-            <input type="text" placeholder="disabled" disabled />
-            <input type="text" class="input-light" />
-            <input type="text" class="input-light" placeholder="disabled" disabled />
-        </p>
-        <p>
-            NumericTextBox
-            <input id="NumericTextBox1" />
-            <input id="NumericTextBox11" placeholder="disabled" disabled />
-            <input id="NumericTextBox2" class="k-numerictextbox-light" />
-            <input id="NumericTextBox22" placeholder="disabled" class="k-numerictextbox-light" disabled />
-        </p>
-        <p>
-            DatePicker
-            <input id="DatePicker1" />
-            <input id="DatePicker11" placeholder="disabled" disabled />
-            <input id="DatePicker2" class="k-datepicker-light" />
-            <input id="DatePicker22" placeholder="disabled" class="k-datepicker-light" disabled />
-        </p>
-        <p>
-            TimePicker
-            <input id="TimePicker1" />
-            <input id="TimePicker11" placeholder="disabled" disabled />
-            <input id="TimePicker2" class="k-datepicker-light" />
-            <input id="TimePicker22" placeholder="disabled" class="k-datepicker-light" disabled />
-        </p>
-        <p>
-            DateTimePicker
-            <input id="DateTimePicker1" />
-            <input id="DateTimePicker11" placeholder="disabled" disabled />
-        </p>
-        <p>
-            TimeSpanPicker
-            <input id="TimeSpanPicker1" />
-            <input id="TimeSpanPicker11" placeholder="disabled" disabled />
-        </p>
-        <p>
-            AutoComplete
-            <input id="AutoComplete1" class="k-autocomplete" />
-            <input id="AutoComplete11" class="k-autocomplete" disabled />
-            <input id="AutoComplete2" class="k-autocomplete-light" />
-            <input id="AutoComplete22" class="k-autocomplete-light" disabled />
-        </p>
-        <p>
-            Dropdown
-            <input id="Dropdown1" class="k-dropdown" />
-            <input id="Dropdown11" class="k-dropdown" disabled />
-            <input id="Dropdown2" class="k-dropdown-light" />
-            <input id="Dropdown22" class="k-dropdown-light" disabled />
-            <input id="Dropdown3" class="k-dropdown-large" />
-            <input id="Dropdown33" class="k-dropdown-large" disabled />
-        </p>
-        <p>
-            ColorPicker
-            <input id="ColorPicker1" />
-            <input id="ColorPicker11" placeholder="disabled" disabled />
-            <input id="ColorPicker2" />
-            <input id="ColorPicker22" placeholder="disabled" disabled />
-        </p>
-        <script>
-            $(function () {
-                checkReady(function () { return window.WC.HtmlHelper && window.kendo; }, function () {
-                    var data = [
-                        { id: 1, name: 'Label 1' },
-                        { id: 2, name: 'Label 2' },
-                        { id: 3, name: 'Label 3' },
-                        { id: 4, name: 'Label 4' },
-                        { id: 5, name: 'Label 5' },
-                        { id: 6, name: 'Label 6' },
-                        { id: 7, name: 'Label 7' },
-                        { id: 8, name: 'Label 8' }
-                    ];
-                    var data2 = [
-                        { id: 1, name: 'Label 1 (disabled)' }
-                    ];
-                    WC.HtmlHelper.DropdownList($('#Dropdown1'), data);
-                    WC.HtmlHelper.DropdownList($('#Dropdown11'), data2);
-                    WC.HtmlHelper.DropdownList($('#Dropdown2'), data, {
-                        open: function (e) {
-                            e.sender.list.addClass('k-list-container-light');
-                        }
-                    });
-                    WC.HtmlHelper.DropdownList($('#Dropdown22'), data2, {
-                        open: function (e) {
-                            e.sender.list.addClass('k-list-container-light');
-                        }
-                    });
-                    WC.HtmlHelper.DropdownList($('#Dropdown3'), data);
-                    WC.HtmlHelper.DropdownList($('#Dropdown33'), data2);
-
-                    $('#AutoComplete1').kendoAutoComplete({
-                        dataValueField: 'id',
-                        dataTextField: 'name',
-                        dataSource: { data: data }
-                    });
-                    $('#AutoComplete11').kendoAutoComplete({
-                        dataValueField: 'id',
-                        dataTextField: 'name',
-                        dataSource: { data: data2 }
-                    });
-                    $('#AutoComplete2').kendoAutoComplete({
-                        dataValueField: 'id',
-                        dataTextField: 'name',
-                        dataSource: { data: data },
-                        open: function (e) {
-                            e.sender.list.addClass('k-list-container-light');
-                        }
-                    });
-                    $('#AutoComplete22').kendoAutoComplete({
-                        dataValueField: 'id',
-                        dataTextField: 'name',
-                        dataSource: { data: data2 },
-                        open: function (e) {
-                            e.sender.list.addClass('k-list-container-light');
-                        }
-                    });
-
-                    $('#NumericTextBox1').kendoNumericTextBox();
-                    $('#NumericTextBox11').kendoNumericTextBox();
-                    $('#NumericTextBox2').kendoNumericTextBox();
-                    $('#NumericTextBox22').kendoNumericTextBox();
-
-                    $('#DateTimePicker1').kendoCustomDateTimePicker();
-                    $('#DateTimePicker11').kendoCustomDateTimePicker();
-
-                    var dataDays = [];
-                    for (var i = 0; i <= 5; i++) {
-                        dataDays.push({ value: i, text: i + ' days' });
+            <label class="legend">My label</label>
+        </div><br>
+        <div class="input-fieldset">
+            <input type="text" value="disabled" disabled />
+            <label class="legend">My label</label>
+        </div><br>
+        <div class="input-fieldset">
+            <input type="text" class="invalid" value="invalid" />
+            <label class="legend">My label</label>
+        </div><br>
+    <p>
+        NumericTextBox
+        <input id="NumericTextBox1" />
+        <input id="NumericTextBox11" placeholder="disabled" disabled />
+        <input id="NumericTextBox2" class="k-numerictextbox-light" />
+        <input id="NumericTextBox22" placeholder="disabled" class="k-numerictextbox-light" disabled />
+    </p>
+    <p>
+        DatePicker
+        <input id="DatePicker1" />
+        <input id="DatePicker11" placeholder="disabled" disabled />
+        <input id="DatePicker2" class="k-datepicker-light" />
+        <input id="DatePicker22" placeholder="disabled" class="k-datepicker-light" disabled />
+    </p>
+    <p>
+        TimePicker
+        <input id="TimePicker1" />
+        <input id="TimePicker11" placeholder="disabled" disabled />
+        <input id="TimePicker2" class="k-datepicker-light" />
+        <input id="TimePicker22" placeholder="disabled" class="k-datepicker-light" disabled />
+    </p>
+    <p>
+        DateTimePicker
+        <input id="DateTimePicker1" />
+        <input id="DateTimePicker11" placeholder="disabled" disabled />
+    </p>
+    <p>
+        TimeSpanPicker
+        <input id="TimeSpanPicker1" />
+        <input id="TimeSpanPicker11" placeholder="disabled" disabled />
+    </p>
+    <p>
+        AutoComplete
+        <input id="AutoComplete1" class="k-autocomplete" />
+        <input id="AutoComplete11" class="k-autocomplete" disabled />
+        <input id="AutoComplete2" class="k-autocomplete-light" />
+        <input id="AutoComplete22" class="k-autocomplete-light" disabled />
+    </p>
+    <p>
+        Dropdown
+        <input id="Dropdown1" class="k-dropdown" />
+        <input id="Dropdown11" class="k-dropdown" disabled />
+        <input id="Dropdown2" class="k-dropdown-light" />
+        <input id="Dropdown22" class="k-dropdown-light" disabled />
+        <input id="Dropdown3" class="k-dropdown-large" />
+        <input id="Dropdown33" class="k-dropdown-large" disabled />
+    </p>
+    <p>
+        ColorPicker
+        <input id="ColorPicker1" />
+        <input id="ColorPicker11" placeholder="disabled" disabled />
+        <input id="ColorPicker2" />
+        <input id="ColorPicker22" placeholder="disabled" disabled />
+    </p>
+    <script>
+        $(function () {
+            checkReady(function () { return window.WC.HtmlHelper && window.kendo; }, function () {
+                var data = [
+                    { id: 1, name: 'Label 1' },
+                    { id: 2, name: 'Label 2' },
+                    { id: 3, name: 'Label 3' },
+                    { id: 4, name: 'Label 4' },
+                    { id: 5, name: 'Label 5' },
+                    { id: 6, name: 'Label 6' },
+                    { id: 7, name: 'Label 7' },
+                    { id: 8, name: 'Label 8' }
+                ];
+                var data2 = [
+                    { id: 1, name: 'Label 1 (disabled)' }
+                ];
+                WC.HtmlHelper.DropdownList($('#Dropdown1'), data);
+                WC.HtmlHelper.DropdownList($('#Dropdown11'), data2);
+                WC.HtmlHelper.DropdownList($('#Dropdown2'), data, {
+                    open: function (e) {
+                        e.sender.list.addClass('k-list-container-light');
                     }
-                    for (var i = 10; i <= 50; i += 5) {
-                        dataDays.push({ value: i, text: i + ' days' });
-                    }
-                    for (var i = 60; i <= 100; i += 10) {
-                        dataDays.push({ value: i, text: i + ' days' });
-                    }
-                    data.sortObject('value', enumHandlers.SORTDIRECTION.DESC);
-                    $('#TimeSpanPicker1').kendoTimeSpanPicker({
-                        dayPickerOptions: {
-                            comboBoxOptions: {
-                                dataTextField: 'text',
-                                dataValueField: 'value',
-                                dataSource: dataDays
-                            }
-                        }
-                    });
-                    $('#TimeSpanPicker11').kendoTimeSpanPicker();
-
-                    $('#DatePicker1').kendoDatePicker();
-                    $('#DatePicker11').kendoDatePicker();
-                    $('#DatePicker2').kendoDatePicker({
-                        open: function (e) {
-                            e.sender.dateView.div.addClass('k-calendar-container-light');
-                        }
-                    });
-                    $('#DatePicker22').kendoDatePicker({
-                        open: function (e) {
-                            e.sender.dateView.div.addClass('k-calendar-container-light');
-                        }
-                    });
-
-                    $('#TimePicker1').kendoTimePicker();
-                    $('#TimePicker11').kendoTimePicker();
-                    $('#TimePicker2').kendoTimePicker();
-                    $('#TimePicker22').kendoTimePicker();
-
-                    $('#ColorPicker1').kendoColorPicker({ value: '#ff0000' });
-                    $('#ColorPicker11').kendoColorPicker({ value: '#0000ff' });
-                    $('#ColorPicker2').kendoCustomColorPicker({ value: '#ff0000' });
-                    $('#ColorPicker22').kendoCustomColorPicker({ value: '#0000ff' });
                 });
-            });
-        </script>
-        <hr />
-
-        <h3>Display</h3>
-        <div class="displayNameContainer small">
-            <div class="front">
-                <i class="icon icon-star-active"></i>
-                <i class="icon icon-star-inactive"></i>
-                <i class="icon icon-private"></i>
-                <i class="icon icon-public"></i>
-                <i class="icon icon-list"></i>
-                <i class="icon icon-chart schedule"></i>
-                <i class="icon icon-pivot"></i>
-                <i class="icon icon-dashboard"></i>
-                <i class="icon icon-angle"></i>
-                <i class="icon icon-template"></i>
-                <i class="icon icon-filter"></i>
-                <i class="icon icon-no-filter"></i>
-                <i class="icon icon-followup"></i>
-            </div>
-            <span class="name">Display 1 (.small)</span>
-            <div class="rear">
-                <i class="icon icon-info"></i>
-                <i class="icon icon-validated"></i>
-                <i class="icon icon-parameterized"></i>
-                <i class="icon validWarning"></i>
-                <i class="icon validError"></i>
-                <i class="icon icon-link"></i>
-            </div>
-        </div>
-        <div class="displayNameContainer small">
-            <div class="front">
-                <i class="icon icon-star-active"></i>
-                <i class="icon icon-star-inactive"></i>
-                <i class="icon icon-private"></i>
-                <i class="icon icon-public"></i>
-                <i class="icon icon-list default"></i>
-                <i class="icon icon-chart default schedule"></i>
-                <i class="icon icon-pivot default"></i>
-                <i class="icon icon-dashboard"></i>
-                <i class="icon icon-angle"></i>
-                <i class="icon icon-template"></i>
-                <i class="icon icon-filter"></i>
-                <i class="icon icon-no-filter"></i>
-                <i class="icon icon-followup"></i>
-            </div>
-            <span class="name">Display 2 (.small)</span>
-            <div class="rear">
-                <i class="icon icon-info"></i>
-                <i class="icon icon-validated"></i>
-                <i class="icon icon-parameterized"></i>
-                <i class="icon validWarning"></i>
-                <i class="icon validError"></i>
-                <i class="icon icon-link"></i>
-            </div>
-        </div>
-        <br /><br />
-        <div class="displayNameContainer">
-            <div class="front">
-                <i class="icon icon-star-active"></i>
-                <i class="icon icon-star-inactive"></i>
-                <i class="icon icon-private"></i>
-                <i class="icon icon-public"></i>
-                <i class="icon icon-list"></i>
-                <i class="icon icon-chart schedule"></i>
-                <i class="icon icon-pivot"></i>
-                <i class="icon icon-dashboard"></i>
-                <i class="icon icon-angle"></i>
-                <i class="icon icon-template"></i>
-                <i class="icon icon-filter"></i>
-                <i class="icon icon-no-filter"></i>
-                <i class="icon icon-followup"></i>
-            </div>
-            <span class="name">Display 1</span>
-            <div class="rear">
-                <i class="icon icon-info"></i>
-                <i class="icon icon-validated"></i>
-                <i class="icon icon-parameterized"></i>
-                <i class="icon validWarning"></i>
-                <i class="icon validError"></i>
-                <i class="icon icon-link"></i>
-            </div>
-        </div>
-        <div class="displayNameContainer">
-            <div class="front">
-                <i class="icon icon-star-active"></i>
-                <i class="icon icon-star-inactive"></i>
-                <i class="icon icon-private"></i>
-                <i class="icon icon-public"></i>
-                <i class="icon icon-list default"></i>
-                <i class="icon icon-chart default schedule"></i>
-                <i class="icon icon-pivot default"></i>
-                <i class="icon icon-dashboard"></i>
-                <i class="icon icon-angle"></i>
-                <i class="icon icon-template"></i>
-                <i class="icon icon-filter"></i>
-                <i class="icon icon-no-filter"></i>
-                <i class="icon icon-followup"></i>
-            </div>
-            <span class="name">Display 2</span>
-            <div class="rear">
-                <i class="icon icon-info"></i>
-                <i class="icon icon-validated"></i>
-                <i class="icon icon-parameterized"></i>
-                <i class="icon validWarning"></i>
-                <i class="icon validError"></i>
-                <i class="icon icon-link"></i>
-            </div>
-        </div>
-        <br /><br />
-        <div class="displayNameContainer large">
-            <div class="front">
-                <i class="icon icon-star-active"></i>
-                <i class="icon icon-star-inactive"></i>
-                <i class="icon icon-private"></i>
-                <i class="icon icon-public"></i>
-                <i class="icon icon-list"></i>
-                <i class="icon icon-chart schedule"></i>
-                <i class="icon icon-pivot"></i>
-                <i class="icon icon-dashboard"></i>
-                <i class="icon icon-angle"></i>
-                <i class="icon icon-template"></i>
-                <i class="icon icon-filter"></i>
-                <i class="icon icon-no-filter"></i>
-                <i class="icon icon-followup"></i>
-            </div>
-            <span class="name">Display 1 (.large)</span>
-            <div class="rear">
-                <i class="icon icon-info"></i>
-                <i class="icon icon-validated"></i>
-                <i class="icon icon-parameterized"></i>
-                <i class="icon validWarning"></i>
-                <i class="icon validError"></i>
-                <i class="icon icon-link"></i>
-            </div>
-        </div>
-        <div class="displayNameContainer large">
-            <div class="front">
-                <i class="icon icon-star-active"></i>
-                <i class="icon icon-star-inactive"></i>
-                <i class="icon icon-private"></i>
-                <i class="icon icon-public"></i>
-                <i class="icon icon-list default"></i>
-                <i class="icon icon-chart default schedule"></i>
-                <i class="icon icon-pivot default"></i>
-                <i class="icon icon-filter"></i>
-                <i class="icon icon-no-filter"></i>
-                <i class="icon icon-followup"></i>
-            </div>
-            <span class="name">Display 2 (.large)</span>
-            <div class="rear">
-                <i class="icon icon-info"></i>
-                <i class="icon icon-validated"></i>
-                <i class="icon icon-parameterized"></i>
-                <i class="icon validWarning"></i>
-                <i class="icon validError"></i>
-                <i class="icon icon-link"></i>
-            </div>
-        </div>
-        <hr />
-
-        <h3>ListView</h3>
-
-        <p>
-            <ul class="listview listview-popup">
-                <li class="listview-item">Label 1</li>
-                <li class="listview-item">Label 2</li>
-                <li class="listview-item">Label 3</li>
-                <li class="listview-item">Label 4</li>
-                <li class="listview-item">Label 5</li>
-                <li class="listview-item">Label 6</li>
-                <li class="listview-item">Label 7</li>
-                <li class="listview-item">Label 8</li>
-                <li class="listview-item">Label 9</li>
-                <li class="listview-item">Label 10</li>
-            </ul>
-        </p>
-        <p>
-            <ul class="listview">
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" checked />
-                        <span class="label">Label 1</span>
-                    </label>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label">Label 2</span>
-                    </label>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label">Label 3</span>
-                    </label>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label">Label 4</span>
-                    </label>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label">Label 5</span>
-                    </label>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label">Label 6</span>
-                    </label>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label">Label 7</span>
-                    </label>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="AskValue-1" />
-                        <span class="label">Label 8</span>
-                    </label>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label">Label 9</span>
-                    </label>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label">Label 10</span>
-                    </label>
-                </li>
-            </ul>
-        </p>
-        <p>
-            <ul class="listview display-listview">
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" checked />
-                        <span class="label"></span>
-                    </label>
-                    <div class="displayNameContainer">
-                        <div class="front">
-                            <i class="icon icon-list"></i>
-                        </div>
-                        <span class="name">Label 1</span>
-                    </div>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label"></span>
-                    </label>
-                    <div class="displayNameContainer">
-                        <div class="front">
-                            <i class="icon icon-list default"></i>
-                        </div>
-                        <span class="name">Label 2</span>
-                    </div>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label"></span>
-                    </label>
-                    <div class="displayNameContainer">
-                        <div class="front">
-                            <i class="icon icon-chart"></i>
-                        </div>
-                        <span class="name">Label 3</span>
-                    </div>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label"></span>
-                    </label>
-                    <div class="displayNameContainer">
-                        <div class="front">
-                            <i class="icon icon-pivot"></i>
-                        </div>
-                        <span class="name">Label 4</span>
-                    </div>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label"></span>
-                    </label>
-                    <div class="displayNameContainer">
-                        <div class="front">
-                            <i class="icon icon-pivot"></i>
-                        </div>
-                        <span class="name">Label 5</span>
-                    </div>
-                </li>
-                <li class="listview-item">
-                    <label>
-                        <input type="checkbox" name="listview-1" />
-                        <span class="label"></span>
-                    </label>
-                    <div class="displayNameContainer">
-                        <div class="front">
-                            <i class="icon icon-pivot"></i>
-                        </div>
-                        <span class="name">Label 6</span>
-                    </div>
-                </li>
-            </ul>
-        </p>
-        <hr />
-
-        <h3>Item label</h3>
-        <div>
-            <div class="item-label-wrapper">
-                <div class="item-label">
-                    <span>Label 1</span>
-                    <a class="btn-remove"><i class="icon icon-close"></i></a>
-                </div>
-                <div class="item-label">
-                    <span>Label 2</span>
-                    <a class="btn-remove"><i class="icon icon-close"></i></a>
-                </div>
-                <div class="item-label">
-                    <span>Label 3</span>
-                    <a class="btn-remove"><i class="icon icon-close"></i></a>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="item-label-wrapper">
-                <div class="item-label item-label-light">
-                    <span>Label 1 (.item-label-light)</span>
-                    <a class="btn-remove"><i class="icon icon-close"></i></a>
-                </div>
-                <div class="item-label item-label-light">
-                    <span>Label 2 (.item-label-light)</span>
-                    <a class="btn-remove"><i class="icon icon-close"></i></a>
-                </div>
-                <div class="item-label item-label-light">
-                    <span class="strike-through">Label 3 (.item-label-light)</span>
-                    <a class="btn-remove"><i class="icon icon-close"></i></a>
-                </div>
-            </div>
-        </div>
-        <hr />
-
-        <h3>Multiple selection</h3>
-        <div id="MultiSelect1" style="width: 200px;"></div>
-        <script>
-            $(function () {
-                checkReady(function () { return window.WC.HtmlHelper; }, function () {
-                    WC.HtmlHelper.MultiSelect('#MultiSelect1', {
-                        header: 'My label',
-                        data: [
-                            { id: 'id1', name: 'Label 1' },
-                            { id: 'id2', name: 'Label 2' },
-                            { id: 'id3', name: 'Label 3' },
-                            { id: 'id4', name: 'Label 4' },
-                            { id: 'id5', name: 'Label 5' },
-                            { id: 'id6', name: 'Label 6' },
-                            { id: 'id7', name: 'Label 7' },
-                            { id: 'id8', name: 'Label Label Label Label 8' }
-                        ],
-                        value: ['id2', 'id4', 'id8']
-                    });
+                WC.HtmlHelper.DropdownList($('#Dropdown22'), data2, {
+                    open: function (e) {
+                        e.sender.list.addClass('k-list-container-light');
+                    }
                 });
+                WC.HtmlHelper.DropdownList($('#Dropdown3'), data);
+                WC.HtmlHelper.DropdownList($('#Dropdown33'), data2);
+
+                $('#AutoComplete1').kendoAutoComplete({
+                    dataValueField: 'id',
+                    dataTextField: 'name',
+                    dataSource: { data: data }
+                });
+                $('#AutoComplete11').kendoAutoComplete({
+                    dataValueField: 'id',
+                    dataTextField: 'name',
+                    dataSource: { data: data2 }
+                });
+                $('#AutoComplete2').kendoAutoComplete({
+                    dataValueField: 'id',
+                    dataTextField: 'name',
+                    dataSource: { data: data },
+                    open: function (e) {
+                        e.sender.list.addClass('k-list-container-light');
+                    }
+                });
+                $('#AutoComplete22').kendoAutoComplete({
+                    dataValueField: 'id',
+                    dataTextField: 'name',
+                    dataSource: { data: data2 },
+                    open: function (e) {
+                        e.sender.list.addClass('k-list-container-light');
+                    }
+                });
+
+                $('#NumericTextBox1').kendoNumericTextBox();
+                $('#NumericTextBox11').kendoNumericTextBox();
+                $('#NumericTextBox2').kendoNumericTextBox();
+                $('#NumericTextBox22').kendoNumericTextBox();
+
+                $('#DateTimePicker1').kendoCustomDateTimePicker();
+                $('#DateTimePicker11').kendoCustomDateTimePicker();
+
+                var dataDays = [];
+                for (var i = 0; i <= 5; i++) {
+                    dataDays.push({ value: i, text: i + ' days' });
+                }
+                for (var i = 10; i <= 50; i += 5) {
+                    dataDays.push({ value: i, text: i + ' days' });
+                }
+                for (var i = 60; i <= 100; i += 10) {
+                    dataDays.push({ value: i, text: i + ' days' });
+                }
+                data.sortObject('value', enumHandlers.SORTDIRECTION.DESC);
+                $('#TimeSpanPicker1').kendoTimeSpanPicker({
+                    dayPickerOptions: {
+                        comboBoxOptions: {
+                            dataTextField: 'text',
+                            dataValueField: 'value',
+                            dataSource: dataDays
+                        }
+                    }
+                });
+                $('#TimeSpanPicker11').kendoTimeSpanPicker();
+
+                $('#DatePicker1').kendoDatePicker();
+                $('#DatePicker11').kendoDatePicker();
+                $('#DatePicker2').kendoDatePicker({
+                    open: function (e) {
+                        e.sender.dateView.div.addClass('k-calendar-container-light');
+                    }
+                });
+                $('#DatePicker22').kendoDatePicker({
+                    open: function (e) {
+                        e.sender.dateView.div.addClass('k-calendar-container-light');
+                    }
+                });
+
+                $('#TimePicker1').kendoTimePicker();
+                $('#TimePicker11').kendoTimePicker();
+                $('#TimePicker2').kendoTimePicker();
+                $('#TimePicker22').kendoTimePicker();
+
+                $('#ColorPicker1').kendoColorPicker({ value: '#ff0000' });
+                $('#ColorPicker11').kendoColorPicker({ value: '#0000ff' });
+                $('#ColorPicker2').kendoCustomColorPicker({ value: '#ff0000' });
+                $('#ColorPicker22').kendoCustomColorPicker({ value: '#0000ff' });
             });
-        </script>
-        <hr />
+        });
+    </script>
+    <hr />
 
-        <h3>Accordion</h3>
-        <ul class="accordion">
-            <li class="accordion-item">
-                <div class="accordion-header close">
-                    <i class="open-indicator icon icon-caret-down"></i>
-                    <i class="close-indicator icon icon-caret-right"></i>
-                    Accordion 1
-                    <div class="accordion-toolbar">
-                        <a class="action">
-                            <i class="icon icon-followup"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="accordion-body">Blah blah...</div>
-            </li>
-            <li class="accordion-item">
-                <div class="accordion-header open">
-                    <i class="open-indicator icon icon-caret-down"></i>
-                    <i class="close-indicator icon icon-caret-right"></i>
-                    Accordion 2
-                </div>
-                <div class="accordion-body">Blah2 blah2...</div>
-            </li>
+    <h3>Display</h3>
+    <div class="displayNameContainer small">
+        <div class="front">
+            <i class="icon icon-star-active"></i>
+            <i class="icon icon-star-inactive"></i>
+            <i class="icon icon-private"></i>
+            <i class="icon icon-public"></i>
+            <i class="icon icon-list"></i>
+            <i class="icon icon-chart schedule"></i>
+            <i class="icon icon-pivot"></i>
+            <i class="icon icon-dashboard"></i>
+            <i class="icon icon-angle"></i>
+            <i class="icon icon-template"></i>
+            <i class="icon icon-filter"></i>
+            <i class="icon icon-no-filter"></i>
+            <i class="icon icon-followup"></i>
+        </div>
+        <span class="name">Display 1 (.small)</span>
+        <div class="rear">
+            <i class="icon icon-info"></i>
+            <i class="icon icon-validated"></i>
+            <i class="icon icon-parameterized"></i>
+            <i class="icon validWarning"></i>
+            <i class="icon validError"></i>
+            <i class="icon icon-link"></i>
+        </div>
+    </div>
+    <div class="displayNameContainer small">
+        <div class="front">
+            <i class="icon icon-star-active"></i>
+            <i class="icon icon-star-inactive"></i>
+            <i class="icon icon-private"></i>
+            <i class="icon icon-public"></i>
+            <i class="icon icon-list default"></i>
+            <i class="icon icon-chart default schedule"></i>
+            <i class="icon icon-pivot default"></i>
+            <i class="icon icon-dashboard"></i>
+            <i class="icon icon-angle"></i>
+            <i class="icon icon-template"></i>
+            <i class="icon icon-filter"></i>
+            <i class="icon icon-no-filter"></i>
+            <i class="icon icon-followup"></i>
+        </div>
+        <span class="name">Display 2 (.small)</span>
+        <div class="rear">
+            <i class="icon icon-info"></i>
+            <i class="icon icon-validated"></i>
+            <i class="icon icon-parameterized"></i>
+            <i class="icon validWarning"></i>
+            <i class="icon validError"></i>
+            <i class="icon icon-link"></i>
+        </div>
+    </div>
+    <br /><br />
+    <div class="displayNameContainer">
+        <div class="front">
+            <i class="icon icon-star-active"></i>
+            <i class="icon icon-star-inactive"></i>
+            <i class="icon icon-private"></i>
+            <i class="icon icon-public"></i>
+            <i class="icon icon-list"></i>
+            <i class="icon icon-chart schedule"></i>
+            <i class="icon icon-pivot"></i>
+            <i class="icon icon-dashboard"></i>
+            <i class="icon icon-angle"></i>
+            <i class="icon icon-template"></i>
+            <i class="icon icon-filter"></i>
+            <i class="icon icon-no-filter"></i>
+            <i class="icon icon-followup"></i>
+        </div>
+        <span class="name">Display 1</span>
+        <div class="rear">
+            <i class="icon icon-info"></i>
+            <i class="icon icon-validated"></i>
+            <i class="icon icon-parameterized"></i>
+            <i class="icon validWarning"></i>
+            <i class="icon validError"></i>
+            <i class="icon icon-link"></i>
+        </div>
+    </div>
+    <div class="displayNameContainer">
+        <div class="front">
+            <i class="icon icon-star-active"></i>
+            <i class="icon icon-star-inactive"></i>
+            <i class="icon icon-private"></i>
+            <i class="icon icon-public"></i>
+            <i class="icon icon-list default"></i>
+            <i class="icon icon-chart default schedule"></i>
+            <i class="icon icon-pivot default"></i>
+            <i class="icon icon-dashboard"></i>
+            <i class="icon icon-angle"></i>
+            <i class="icon icon-template"></i>
+            <i class="icon icon-filter"></i>
+            <i class="icon icon-no-filter"></i>
+            <i class="icon icon-followup"></i>
+        </div>
+        <span class="name">Display 2</span>
+        <div class="rear">
+            <i class="icon icon-info"></i>
+            <i class="icon icon-validated"></i>
+            <i class="icon icon-parameterized"></i>
+            <i class="icon validWarning"></i>
+            <i class="icon validError"></i>
+            <i class="icon icon-link"></i>
+        </div>
+    </div>
+    <br /><br />
+    <div class="displayNameContainer large">
+        <div class="front">
+            <i class="icon icon-star-active"></i>
+            <i class="icon icon-star-inactive"></i>
+            <i class="icon icon-private"></i>
+            <i class="icon icon-public"></i>
+            <i class="icon icon-list"></i>
+            <i class="icon icon-chart schedule"></i>
+            <i class="icon icon-pivot"></i>
+            <i class="icon icon-dashboard"></i>
+            <i class="icon icon-angle"></i>
+            <i class="icon icon-template"></i>
+            <i class="icon icon-filter"></i>
+            <i class="icon icon-no-filter"></i>
+            <i class="icon icon-followup"></i>
+        </div>
+        <span class="name">Display 1 (.large)</span>
+        <div class="rear">
+            <i class="icon icon-info"></i>
+            <i class="icon icon-validated"></i>
+            <i class="icon icon-parameterized"></i>
+            <i class="icon validWarning"></i>
+            <i class="icon validError"></i>
+            <i class="icon icon-link"></i>
+        </div>
+    </div>
+    <div class="displayNameContainer large">
+        <div class="front">
+            <i class="icon icon-star-active"></i>
+            <i class="icon icon-star-inactive"></i>
+            <i class="icon icon-private"></i>
+            <i class="icon icon-public"></i>
+            <i class="icon icon-list default"></i>
+            <i class="icon icon-chart default schedule"></i>
+            <i class="icon icon-pivot default"></i>
+            <i class="icon icon-filter"></i>
+            <i class="icon icon-no-filter"></i>
+            <i class="icon icon-followup"></i>
+        </div>
+        <span class="name">Display 2 (.large)</span>
+        <div class="rear">
+            <i class="icon icon-info"></i>
+            <i class="icon icon-validated"></i>
+            <i class="icon icon-parameterized"></i>
+            <i class="icon validWarning"></i>
+            <i class="icon validError"></i>
+            <i class="icon icon-link"></i>
+        </div>
+    </div>
+    <hr />
+
+    <h3>ListView</h3>
+
+    <p>
+        <ul class="listview listview-popup">
+            <li class="listview-item">Label 1</li>
+            <li class="listview-item">Label 2</li>
+            <li class="listview-item">Label 3</li>
+            <li class="listview-item">Label 4</li>
+            <li class="listview-item">Label 5</li>
+            <li class="listview-item">Label 6</li>
+            <li class="listview-item">Label 7</li>
+            <li class="listview-item">Label 8</li>
+            <li class="listview-item">Label 9</li>
+            <li class="listview-item">Label 10</li>
         </ul>
-        <br><br>
-        <ul class="accordion toggleable">
-            <li class="accordion-item">
-                <div class="accordion-header close">
-                    <i class="open-indicator icon icon-caret-down"></i>
-                    <i class="close-indicator icon icon-caret-right"></i>
-                    Accordion 1 (toggleable)
-                </div>
-                <div class="accordion-body">Blah blah...</div>
-            </li>
-            <li class="accordion-item">
-                <div class="accordion-header close">
-                    <i class="open-indicator icon icon-caret-down"></i>
-                    <i class="close-indicator icon icon-caret-right"></i>
-                    Accordion 2 (toggleable)
-                </div>
-                <div class="accordion-body">Blah2 blah2...</div>
-            </li>
-            <li class="accordion-item">
-                <div class="accordion-header close">
-                    <i class="open-indicator icon icon-caret-down"></i>
-                    <i class="close-indicator icon icon-caret-right"></i>
-                    Accordion 3 (toggleable)
-                </div>
-                <div class="accordion-body">Blah3 blah3...</div>
-            </li>
-        </ul>
-        <hr />
-
-        <h3>Card</h3>
-        <div class="card">
-            <div class="card-header">
-                Header
-                <div class="card-toolbar">
-                    <a class="action"><i class="icon icon-followup"></i></a>
-                    <a class="action"><i class="icon icon-info"></i></a>
-                </div>
-            </div>
-            <div class="card-body">Content... (default)</div>
-        </div>
-
-        <div class="card card-dark">
-            <div class="card-header">
-                Header
-                <div class="card-toolbar">
-                    <a class="action"><i class="icon icon-followup"></i></a>
-                    <a class="action"><i class="icon icon-info"></i></a>
-                </div>
-            </div>
-            <div class="card-body">Content... (.card-dark)</div>
-        </div>
-        <hr />
-
-        <h3>Form grid</h3>
-        <div class="form-row">
-            <div class="form-col form-col-header">Header</div>
-            <div class="form-col form-col-body"><input type="text" /></div>
-        </div>
-        <div class="form-row">
-            <div class="form-col form-col-header">Header<br>2nd row</div>
-            <div class="form-col form-col-body">
+    </p>
+    <p>
+        <ul class="listview">
+            <li class="listview-item">
                 <label>
-                    <input type="checkbox" name="Form-1" checked />
-                    <span class="label inline">Label 1</span>
+                    <input type="checkbox" name="listview-1" checked />
+                    <span class="label">Label 1</span>
                 </label>
+            </li>
+            <li class="listview-item">
                 <label>
-                    <input type="checkbox" name="Form-1" />
+                    <input type="checkbox" name="listview-1" />
                     <span class="label">Label 2</span>
                 </label>
-            </div>
-        </div>
-        <hr />
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label">Label 3</span>
+                </label>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label">Label 4</span>
+                </label>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label">Label 5</span>
+                </label>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label">Label 6</span>
+                </label>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label">Label 7</span>
+                </label>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="AskValue-1" />
+                    <span class="label">Label 8</span>
+                </label>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label">Label 9</span>
+                </label>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label">Label 10</span>
+                </label>
+            </li>
+        </ul>
+    </p>
+    <p>
+        <ul class="listview display-listview">
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" checked />
+                    <span class="label"></span>
+                </label>
+                <div class="displayNameContainer">
+                    <div class="front">
+                        <i class="icon icon-list"></i>
+                    </div>
+                    <span class="name">Label 1</span>
+                </div>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label"></span>
+                </label>
+                <div class="displayNameContainer">
+                    <div class="front">
+                        <i class="icon icon-list default"></i>
+                    </div>
+                    <span class="name">Label 2</span>
+                </div>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label"></span>
+                </label>
+                <div class="displayNameContainer">
+                    <div class="front">
+                        <i class="icon icon-chart"></i>
+                    </div>
+                    <span class="name">Label 3</span>
+                </div>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label"></span>
+                </label>
+                <div class="displayNameContainer">
+                    <div class="front">
+                        <i class="icon icon-pivot"></i>
+                    </div>
+                    <span class="name">Label 4</span>
+                </div>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label"></span>
+                </label>
+                <div class="displayNameContainer">
+                    <div class="front">
+                        <i class="icon icon-pivot"></i>
+                    </div>
+                    <span class="name">Label 5</span>
+                </div>
+            </li>
+            <li class="listview-item">
+                <label>
+                    <input type="checkbox" name="listview-1" />
+                    <span class="label"></span>
+                </label>
+                <div class="displayNameContainer">
+                    <div class="front">
+                        <i class="icon icon-pivot"></i>
+                    </div>
+                    <span class="name">Label 6</span>
+                </div>
+            </li>
+        </ul>
+    </p>
+    <hr />
 
-        <h3>Tab</h3>
-        <div class="tab" id="Tab1">
-            <div class="tab-menu-wrapper">
-                <div class="tab-menu">Tab 1</div>
-                <div class="tab-menu">Tab 2</div>
-                <div class="tab-menu">Tab 3</div>
+    <h3>Item label</h3>
+    <div>
+        <div class="item-label-wrapper">
+            <div class="item-label">
+                <span>Label 1</span>
+                <a class="btn-remove"><i class="icon icon-close"></i></a>
             </div>
-            <div class="tab-content-wrapper box-scrollable">
-                <div class="box-scrollable-content">
-                    <div class="tab-content">
-                        Tab 1
-                    </div>
-                    <div class="tab-content">
-                        Tab 2
-                    </div>
-                    <div class="tab-content">
-                        Tab 3
-                    </div>
-                </div>
+            <div class="item-label">
+                <span>Label 2</span>
+                <a class="btn-remove"><i class="icon icon-close"></i></a>
+            </div>
+            <div class="item-label">
+                <span>Label 3</span>
+                <a class="btn-remove"><i class="icon icon-close"></i></a>
             </div>
         </div>
-        <br>
-        <div class="tab tab-details" id="Tab2">
-            <div class="tab-menu-wrapper">
-                <div class="tab-menu">Tab 1</div>
-                <div class="tab-menu">Tab 2</div>
-                <div class="tab-menu">Tab 3</div>
+    </div>
+    <div>
+        <div class="item-label-wrapper">
+            <div class="item-label item-label-light">
+                <span>Label 1 (.item-label-light)</span>
+                <a class="btn-remove"><i class="icon icon-close"></i></a>
             </div>
-            <div class="tab-content-wrapper box-scrollable">
-                <div class="box-scrollable-content">
-                    <div class="tab-content">
-                        Tab 1
-                    </div>
-                    <div class="tab-content">
-                        Tab 2
-                    </div>
-                    <div class="tab-content">
-                        Tab 3
-                    </div>
-                </div>
+            <div class="item-label item-label-light">
+                <span>Label 2 (.item-label-light)</span>
+                <a class="btn-remove"><i class="icon icon-close"></i></a>
+            </div>
+            <div class="item-label item-label-light">
+                <span class="strike-through">Label 3 (.item-label-light)</span>
+                <a class="btn-remove"><i class="icon icon-close"></i></a>
             </div>
         </div>
-        <br>
-        <div class="tab tab-settings" id="Tab3">
-            <div class="tab-menu-wrapper">
-                <div class="tab-menu">Tab 1</div>
-                <div class="tab-menu">Tab 2</div>
-                <div class="tab-menu">Tab 3</div>
-            </div>
-            <div class="tab-content-wrapper box-scrollable">
-                <div class="box-scrollable-content">
-                    <div class="tab-content">
-                        Tab 1
-                    </div>
-                    <div class="tab-content">
-                        Tab 2
-                    </div>
-                    <div class="tab-content">
-                        Tab 3
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="tab tab-full" id="Tab4">
-            <div class="tab-menu-wrapper">
-                <div class="tab-menu">Tab 1</div>
-                <div class="tab-menu">Tab 2</div>
-                <div class="tab-menu">Tab 3</div>
-            </div>
-            <div class="tab-content-wrapper box-scrollable">
-                <div class="box-scrollable-content">
-                    <div class="tab-content">
-                        Tab 1
-                    </div>
-                    <div class="tab-content">
-                        Tab 2
-                    </div>
-                    <div class="tab-content">
-                        Tab 3
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            $(function () {
-                checkReady(function () { return window.WC.HtmlHelper; }, function () {
-                    WC.HtmlHelper.Tab('#Tab1', {
-                        change: function (index, element) {
-                            // callback
-                        }
-                    });
-                    WC.HtmlHelper.Tab('#Tab2');
-                    WC.HtmlHelper.Tab('#Tab3');
-                    WC.HtmlHelper.Tab('#Tab4');
+    </div>
+    <hr />
+
+    <h3>Multiple selection</h3>
+    <div id="MultiSelect1" style="width: 200px;"></div>
+    <script>
+        $(function () {
+            checkReady(function () { return window.WC.HtmlHelper; }, function () {
+                WC.HtmlHelper.MultiSelect('#MultiSelect1', {
+                    header: 'My label',
+                    data: [
+                        { id: 'id1', name: 'Label 1' },
+                        { id: 'id2', name: 'Label 2' },
+                        { id: 'id3', name: 'Label 3' },
+                        { id: 'id4', name: 'Label 4' },
+                        { id: 'id5', name: 'Label 5' },
+                        { id: 'id6', name: 'Label 6' },
+                        { id: 'id7', name: 'Label 7' },
+                        { id: 'id8', name: 'Label Label Label Label 8' }
+                    ],
+                    value: ['id2', 'id4', 'id8']
                 });
             });
-        </script>
-        <hr />
+        });
+    </script>
+    <hr />
+
+    <h3>Input tags</h3>
+    <input id="Tag1" class="my-tag"/>
+    <script>
+        $(function () {
+            checkReady(function () { return window.kendo; }, function () {
+                var data = [
+                    { id: '1', name: 'test' },
+                    { id: '2', name: 'test2' },
+                    { id: '3', name: 'hello' },
+                    { id: '4', name: 'yes' },
+                    { id: '5', name: 'no' },
+                    { id: '6', name: 'ok' },
+                    { id: '7', name: 'Bad' },
+                    { id: '8', name: 'National' },
+                    { id: '9', name: 'release' },
+                    { id: '10', name: '2020sp1' },
+                    { id: '11', name: 'error' }
+                ];
+                $('#Tag1').kendoTagTextBox({
+                    dataSource: {
+                        data: data
+                    }
+                });
+            });
+        });
+    </script>
+
+    <h3>Accordion</h3>
+    <ul class="accordion">
+        <li class="accordion-item">
+            <div class="accordion-header close">
+                <i class="open-indicator icon icon-caret-down"></i>
+                <i class="close-indicator icon icon-caret-right"></i>
+                Accordion 1
+                <div class="accordion-toolbar">
+                    <a class="action">
+                        <i class="icon icon-followup"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="accordion-body">Blah blah...</div>
+        </li>
+        <li class="accordion-item">
+            <div class="accordion-header open">
+                <i class="open-indicator icon icon-caret-down"></i>
+                <i class="close-indicator icon icon-caret-right"></i>
+                Accordion 2
+            </div>
+            <div class="accordion-body">Blah2 blah2...</div>
+        </li>
+    </ul>
+    <br><br>
+    <ul class="accordion toggleable">
+        <li class="accordion-item">
+            <div class="accordion-header close">
+                <i class="open-indicator icon icon-caret-down"></i>
+                <i class="close-indicator icon icon-caret-right"></i>
+                Accordion 1 (toggleable)
+            </div>
+            <div class="accordion-body">Blah blah...</div>
+        </li>
+        <li class="accordion-item">
+            <div class="accordion-header close">
+                <i class="open-indicator icon icon-caret-down"></i>
+                <i class="close-indicator icon icon-caret-right"></i>
+                Accordion 2 (toggleable)
+            </div>
+            <div class="accordion-body">Blah2 blah2...</div>
+        </li>
+        <li class="accordion-item">
+            <div class="accordion-header close">
+                <i class="open-indicator icon icon-caret-down"></i>
+                <i class="close-indicator icon icon-caret-right"></i>
+                Accordion 3 (toggleable)
+            </div>
+            <div class="accordion-body">Blah3 blah3...</div>
+        </li>
+    </ul>
+    <hr />
+
+    <h3>Card</h3>
+    <div class="card">
+        <div class="card-header">
+            Header
+            <div class="card-toolbar">
+                <a class="action"><i class="icon icon-followup"></i></a>
+                <a class="action"><i class="icon icon-info"></i></a>
+            </div>
+        </div>
+        <div class="card-body">Content... (default)</div>
     </div>
+
+    <div class="card card-dark">
+        <div class="card-header">
+            Header
+            <div class="card-toolbar">
+                <a class="action"><i class="icon icon-followup"></i></a>
+                <a class="action"><i class="icon icon-info"></i></a>
+            </div>
+        </div>
+        <div class="card-body">Content... (.card-dark)</div>
+    </div>
+    <hr />
+
+    <h3>Form grid</h3>
+    <div class="form-row">
+        <div class="form-col form-col-header">Header</div>
+        <div class="form-col form-col-body"><input type="text" /></div>
+    </div>
+    <div class="form-row">
+        <div class="form-col form-col-header">Header<br>2nd row</div>
+        <div class="form-col form-col-body">
+            <label>
+                <input type="checkbox" name="Form-1" checked />
+                <span class="label inline">Label 1</span>
+            </label>
+            <label>
+                <input type="checkbox" name="Form-1" />
+                <span class="label">Label 2</span>
+            </label>
+        </div>
+    </div>
+    <hr />
+
+    <h3>Tab</h3>
+    <div class="tab" id="Tab1">
+        <div class="tab-menu-wrapper">
+            <div class="tab-menu">Tab 1</div>
+            <div class="tab-menu">Tab 2</div>
+            <div class="tab-menu">Tab 3</div>
+        </div>
+        <div class="tab-content-wrapper box-scrollable">
+            <div class="box-scrollable-content">
+                <div class="tab-content">
+                    Tab 1
+                </div>
+                <div class="tab-content">
+                    Tab 2
+                </div>
+                <div class="tab-content">
+                    Tab 3
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="tab tab-details" id="Tab2">
+        <div class="tab-menu-wrapper">
+            <div class="tab-menu">Tab 1</div>
+            <div class="tab-menu">Tab 2</div>
+            <div class="tab-menu">Tab 3</div>
+        </div>
+        <div class="tab-content-wrapper box-scrollable">
+            <div class="box-scrollable-content">
+                <div class="tab-content">
+                    Tab 1
+                </div>
+                <div class="tab-content">
+                    Tab 2
+                </div>
+                <div class="tab-content">
+                    Tab 3
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="tab tab-settings" id="Tab3">
+        <div class="tab-menu-wrapper">
+            <div class="tab-menu">Tab 1</div>
+            <div class="tab-menu">Tab 2</div>
+            <div class="tab-menu">Tab 3</div>
+        </div>
+        <div class="tab-content-wrapper box-scrollable">
+            <div class="box-scrollable-content">
+                <div class="tab-content">
+                    Tab 1
+                </div>
+                <div class="tab-content">
+                    Tab 2
+                </div>
+                <div class="tab-content">
+                    Tab 3
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="tab tab-full" id="Tab4">
+        <div class="tab-menu-wrapper">
+            <div class="tab-menu">Tab 1</div>
+            <div class="tab-menu">Tab 2</div>
+            <div class="tab-menu">Tab 3</div>
+        </div>
+        <div class="tab-content-wrapper box-scrollable">
+            <div class="box-scrollable-content">
+                <div class="tab-content">
+                    Tab 1
+                </div>
+                <div class="tab-content">
+                    Tab 2
+                </div>
+                <div class="tab-content">
+                    Tab 3
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            checkReady(function () { return window.WC.HtmlHelper; }, function () {
+                WC.HtmlHelper.Tab('#Tab1', {
+                    change: function (index, element) {
+                        // callback
+                    }
+                });
+                WC.HtmlHelper.Tab('#Tab2');
+                WC.HtmlHelper.Tab('#Tab3');
+                WC.HtmlHelper.Tab('#Tab4');
+            });
+        });
+    </script>
+    <hr />
+</div>

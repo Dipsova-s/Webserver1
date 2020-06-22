@@ -534,20 +534,6 @@
   .context-menu-submenu > .context-menu.empty {
     top: 0; }
 
-/*business process multi select style */
-.business-processes-wrapper .business-process-multi-select {
-  color: #fff; }
-  .business-processes-wrapper .business-process-multi-select .btn-remove {
-    color: #fff; }
-
-.business-processes-wrapper .multiple-select-button {
-  top: 1px;
-  color: #34495e; }
-
-ul.business-processes {
-  max-height: none; }
-
-/*business process multi select style */
 #ResultContainerWrapper {
   z-index: 0;
   background: #fafafa; }

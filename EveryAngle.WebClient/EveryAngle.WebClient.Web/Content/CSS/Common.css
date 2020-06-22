@@ -1045,6 +1045,9 @@ textarea.input-light {
 .icon-reference:before {
   content: "\e926"; }
 
+.icon-find:before {
+  content: "\e927"; }
+
 .icon.new {
   width: 25px;
   background: transparent url(../../images/angle/actiondropdownlist/pastedisplay.svg) center no-repeat;
@@ -3659,6 +3662,17 @@ a.breadcrumbLink:hover {
     flex-basis: 0; }
     .side-content .section-default-drilldown .form-col-body > span {
       flex-grow: 1; }
+  .side-content .section-business-processes .business-process-multi-select {
+    color: #fff; }
+    .side-content .section-business-processes .business-process-multi-select .btn-remove {
+      color: #fff; }
+  .side-content .section-business-processes .multiple-select-button {
+    top: 1px;
+    color: #34495e; }
+  .side-content ul.business-processes {
+    max-height: none; }
+  .side-content .section-tags .form-col-header {
+    font-size: 11px; }
 
 .toggle-sidebar {
   position: absolute;

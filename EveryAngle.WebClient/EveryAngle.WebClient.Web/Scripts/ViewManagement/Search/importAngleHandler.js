@@ -149,6 +149,7 @@ function ImportAngleHandler() {
         // angle
         var validAngleProperties = [
             'assigned_labels',
+            'assigned_tags',
             'multi_lang_name',
             'multi_lang_description',
             'query_definition',
@@ -193,6 +194,7 @@ function ImportAngleHandler() {
         // dashboard
         var validDashboardProperties = [
             'assigned_labels',
+            'assigned_tags',
             'filters',
             'layout',
             'multi_lang_name',

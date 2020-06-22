@@ -1,6 +1,4 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.DateTranslator.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.DateTranslator.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/UserFriendlyNameHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />

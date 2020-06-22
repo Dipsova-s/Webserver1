@@ -171,4 +171,31 @@ $side-content-color: #fcfcfc;
             }
         }
     }
+
+    .section-business-processes {
+        .business-process-multi-select {
+            color: #fff;
+
+            .btn-remove {
+                color: #fff;
+            }
+        }
+
+        .multiple-select-button {
+            top: 1px;
+            color: #34495e;
+        }
+    }
+
+    ul {
+        &.business-processes {
+            max-height: none;
+        }
+    }
+
+    .section-tags {
+        .form-col-header {
+            font-size: 11px;
+        }
+    }
 }

@@ -1,6 +1,10 @@
 ﻿function AngleBusinessProcessHandler(angleHandler) {
     "use strict";
 
+    var _self = {};
+    _self.fnSaveTimeout = null;
+    _self.saveTimeout = 1000;
+
     var self = this;
     self.$Container = jQuery();
     self.MultiSelect;
@@ -50,12 +54,12 @@
                 if (type === 'add') {
                     if (self.AngleHandler.Data().assigned_labels().indexOf(item.id) === -1) {
                         self.AngleHandler.Data().assigned_labels().push(item.id);
-                        self.OnChanged(self.AngleHandler.Data().assigned_labels());
+                        self.OnChange(self.AngleHandler.Data().assigned_labels());
                     }
                 }
                 else {
                     self.AngleHandler.Data().assigned_labels().splice(self.AngleHandler.Data().assigned_labels().indexOf(item.id), 1);
-                    self.OnChanged(self.AngleHandler.Data().assigned_labels());
+                    self.OnChange(self.AngleHandler.Data().assigned_labels());
                 }
             }
         });
@@ -93,10 +97,9 @@
         });
         return activeBusinessProcesses;
     };
-    var saveLabels;
-    self.OnChanged = function (labels) {
-        clearTimeout(saveLabels);
-        saveLabels = setTimeout(jQuery.proxy(self.Save, self, labels), 1000);
+    self.OnChange = function (labels) {
+        clearTimeout(_self.fnSaveTimeout);
+        _self.fnSaveTimeout = setTimeout(jQuery.proxy(self.Save, self, labels), _self.saveTimeout);
     };
     self.Save = function (labels) {
         self.$Container.busyIndicator(true);

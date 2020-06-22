@@ -17210,6 +17210,51 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create or find Tag.
+        /// </summary>
+        public static string TagInputPlaceholder {
+            get {
+                return ResourceManager.GetString("TagInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        public static string TagLabel {
+            get {
+                return ResourceManager.GetString("TagLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (New Tag).
+        /// </summary>
+        public static string TagNew {
+            get {
+                return ResourceManager.GetString("TagNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No suggestions.
+        /// </summary>
+        public static string TagNoSuggestion {
+            get {
+                return ResourceManager.GetString("TagNoSuggestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suggestions.
+        /// </summary>
+        public static string TagSuggestionHeader {
+            get {
+                return ResourceManager.GetString("TagSuggestionHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Techn. name.
         /// </summary>
         public static string Techn {

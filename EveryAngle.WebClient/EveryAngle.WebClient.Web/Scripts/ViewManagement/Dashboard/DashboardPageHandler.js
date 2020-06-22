@@ -20,6 +20,7 @@ function DashboardPageHandler() {
     self.DashboardStatisticHandler = new DashboardStatisticHandler();
     self.DashboardUserSpecificHandler = new DashboardUserSpecificHandler(dashboardModel, self.DashboardModel);
     self.DashboardBusinessProcessHandler = new DashboardBusinessProcessHandler(dashboardModel, self.DashboardModel);
+    self.DashboardTagHandler = new DashboardTagHandler(dashboardModel, self.DashboardModel);
     self.QueryDefinitionHandler = new QueryDefinitionHandler();
     self.ItemDescriptionHandler = new ItemDescriptionHandler();
     self.DashboardWidgetDefinitionHandler = new DashboardWidgetDefinitionHandler(self.DashboardModel);
@@ -332,6 +333,11 @@ function DashboardPageHandler() {
     // business process
     self.InitialBusinessProcess = function () {
         self.DashboardBusinessProcessHandler.Initial(jQuery('#TabContentDashboard .section-business-processes'));
+    };
+
+    // tags
+    self.InitialTag = function () {
+        self.DashboardTagHandler.Initial(jQuery('#TabContentDashboard .section-tags'));
     };
 
     self.ExecuteDashboard = function (isRetry, forceReload) {
@@ -703,6 +709,7 @@ function DashboardPageHandler() {
         self.QueryDefinitionHandler.ApplyHandler(jQuery('#TabContentDashboard .section-definition'), '.definition-body-inner');
         self.InitialUserSpecific();
         self.InitialBusinessProcess();
+        self.InitialTag();
         WC.HtmlHelper.ApplyKnockout(self, jQuery('#TabContentDashboard .section-personal-note'));
         WC.HtmlHelper.ApplyKnockout(self, jQuery('#TabContentDashboard .section-description'));
         WC.HtmlHelper.ApplyKnockout(self, jQuery('#TabDetails .tab-menu-dashboard .action'), true);

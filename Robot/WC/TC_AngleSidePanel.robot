@@ -151,38 +151,33 @@ Verify Apply Filter & Jump On Display
 Verify Angle Sidebar Business Process
 	[Documentation]     EAPower can assign/remove Business Process items from the angle and login as EAViewer to see does he/she have the right to modify it or not
     [Tags]      TC_C228745
-    #prepare stuff
+    # prepare stuff
 	${angleName}   Set Variable   [ROBOT] Angle sidebar
     [Setup]  Import Angle By API  /models/1  ANGLE_SideBar.json  user=${Username}
 	Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_SIDEBAR
-    
-	#Arrange
 	Publish Angle
 	Open Side Panel
     Click Angle Tab
-    ${bps}=    Create List    IT  GRC
+    
+	# add & delete
+    ${bps}    Create List    IT  GRC
 	Add Business Processes   ${bps}
-    ${bps}=    Create List    GRC
+    ${bps}    Create List    GRC
 	Delete Business Processes    ${bps}
 	
-	#Back to search and verify
-	Back To Search
-	Search Angle From Search Page And Execute Angle    ${angleName}
-    Click Angle Tab
+	# reload and check
+    Reload Angle Page
 	Item Business Process Should Be Selected    IT
 	Item Business Process Should Not Be Selected    GRC
 	
-	#Login as viewer and verify the change
+	# login as viewer and check
 	Go to WC Then Login With EAViewer User
 	Search Angle From Search Page And Execute Angle    ${angleName}
     Open Side Panel
     Click Angle Tab
 	Item Business Processes Should Be Read-only
-    
-    #restore back
     Logout WC Then Close Browser
     Switch Browser  1
-
     	
     [Teardown]  Clean Up Items And Go To Search Page
 
@@ -201,4 +196,38 @@ Verify Update Angle/Display ID
     Edit Display Id  ${displayid}
     Assert Display ID   ${displayid}
 
-    [Teardown]  Clean Up Items And Go To Search Page        
+    [Teardown]  Clean Up Items And Go To Search Page
+
+Verify Angle Tags
+    [Documentation]     EAPower can add/edit tags
+    [Tags]      TC_C229575  TC_C229364
+    [Setup]  Run Keywords  Import Angle By API  /models/1  ANGLE_Tag1.json  user=${Username}
+    ...         AND        Import Angle By API  /models/1  ANGLE_Tag2.json  user=${Username}
+
+    Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_TAG1
+    Open Side Panel
+    Click Angle Tab
+
+    # filter & assign tags
+    Filter Item Tag  robot
+    Tag Should Not Be Available  MY_ROBOT
+    Tag Should Be Available  Robot1
+    Tag Should Be Available  Robot2
+    Select Tag  Robot2
+    Select New Tag
+
+    # check
+    Reload Angle Page
+    Tag Should Be Selected  Robot2
+    Tag Should Be Selected  robot
+
+    # remove tags
+    ${tags}    Create List    robot
+    Remove Tags  ${tags}
+
+    # check
+    Reload Angle Page
+    Tag Should Be Selected  Robot2
+    Tag Should Not Be Selected  robot
+
+    [Teardown]  Clean Up Items And Go To Search Page

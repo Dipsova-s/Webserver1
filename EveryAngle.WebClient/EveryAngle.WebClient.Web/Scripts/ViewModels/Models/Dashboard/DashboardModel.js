@@ -29,6 +29,7 @@ function DashboardViewModel(model) {
 
         return {
             assigned_labels: [],
+            assigned_tags: [],
             is_published: false,
             is_validated: false,
             user_specific: {
@@ -160,6 +161,7 @@ function DashboardViewModel(model) {
         data.angles = data.angles || data.uri + '/angles';
         data.id = ko.observable(data.id);
         data.assigned_labels = WC.Utility.ToArray(data.assigned_labels);
+        data.assigned_tags = WC.Utility.ToArray(data.assigned_tags);
 
         data.multi_lang_name = WC.Utility.ToArray(data.multi_lang_name);
         data.multi_lang_description = WC.Utility.ToArray(data.multi_lang_description);
@@ -506,6 +508,19 @@ function DashboardViewModel(model) {
         }
         else {
             return self.SaveDashboard({ assigned_labels: labels });
+        }
+    };
+
+    // SetTags: set tags
+    // @param
+    // - tags: Array
+    self.SetTags = function (tags) {
+        if (self.IsTemporaryDashboard()) {
+            self.Data().assigned_tags = tags;
+            return jQuery.when(self.GetData());
+        }
+        else {
+            return self.SaveDashboard({ assigned_tags: tags });
         }
     };
 

@@ -298,6 +298,7 @@
             data.uri = WC.Utility.ToString(data.uri);
             data.model = WC.Utility.ToString(data.model);
             data.assigned_labels = WC.Utility.ToArray(data.assigned_labels);
+            data.assigned_tags = WC.Utility.ToArray(data.assigned_tags);
             data.allow_more_details = WC.Utility.ToBoolean(data.allow_more_details);
             data.allow_followups = WC.Utility.ToBoolean(data.allow_followups && data.allow_more_details);
             data.has_warnings = WC.Utility.ToBoolean(data.has_warnings);

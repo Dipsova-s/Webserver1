@@ -1,6 +1,4 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayResultHandler/BaseDisplayResultHandler.js" />
-
-describe("BaseDisplayResultHandler", function () {
+﻿describe("BaseDisplayResultHandler", function () {
     var baseDisplayResultHandler;
     beforeEach(function () {
         baseDisplayResultHandler = new BaseDisplayResultHandler();

@@ -8,7 +8,6 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Exports/ExportModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Exports/ExportCSVModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />

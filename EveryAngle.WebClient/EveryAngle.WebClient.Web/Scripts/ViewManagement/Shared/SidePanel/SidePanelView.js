@@ -68,3 +68,17 @@ SidePanelView.prototype.GetSectionBusinessProcessTemplate = function () {
         '</div>'
     ].join('');
 };
+SidePanelView.prototype.GetSectionTagsTemplate = function () {
+    return [
+        '<div class="card section-tags">',
+            '<div class="card-body">',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-header">' + Localization.TagLabel + '</div>',
+                '</div>',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-body"><input class="tags-input"/></div>',
+                '</div>',
+            '</div>',
+        '</div>'
+    ].join('');
+};

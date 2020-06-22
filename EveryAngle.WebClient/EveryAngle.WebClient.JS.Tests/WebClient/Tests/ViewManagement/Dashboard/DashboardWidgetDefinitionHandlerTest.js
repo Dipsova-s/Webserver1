@@ -1,6 +1,4 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/dashboardwidgetmodel.js" />

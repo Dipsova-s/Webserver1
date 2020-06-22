@@ -1,6 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/WC/POM/Shared/SidePanel.robot
 Resource            ${EXECDIR}/WC/POM/Shared/ItemBusinessProcess.robot
+Resource            ${EXECDIR}/WC/POM/Shared/ItemTag.robot
 
 *** Variables ***
 ${tabAngle}                             jquery=#TabDetails .tab-menu-angle

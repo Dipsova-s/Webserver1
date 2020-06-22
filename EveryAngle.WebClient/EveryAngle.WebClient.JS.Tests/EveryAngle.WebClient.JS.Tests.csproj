@@ -95,6 +95,7 @@
   <ItemGroup>
     <Content Include="WebClient\Global.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.Overlay.Test.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angle\AngleTagHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleBusinessProcessHandlerTest.js" />
     <Content Include="WebClient\Tests\AjaxHTTPHandler\AjaxRequestHandlerTest.js" />
     <Content Include="WebClient\Tests\Embedded\BusinessProcessesModelTest.js" />
@@ -131,6 +132,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayOverviewHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayStatisticHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\TargetLineHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardTagHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardSaveActionHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardStatisticHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleSidePanelHandlerTest.js" />

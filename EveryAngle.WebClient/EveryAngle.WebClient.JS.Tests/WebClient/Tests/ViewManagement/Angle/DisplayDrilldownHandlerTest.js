@@ -1,11 +1,4 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayResultHandler/BaseDisplayResultHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ResultHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayOverviewHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayDrilldownHandler.js" />
-
-describe("DisplayDrilldownHandler", function () {
+﻿describe("DisplayDrilldownHandler", function () {
     var handler;
     beforeEach(function () {
         handler = new DisplayDrilldownHandler({

@@ -6332,4 +6332,19 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Support" xml:space="preserve">
     <value>Support</value>
   </data>
+  <data name="TagSuggestionHeader" xml:space="preserve">
+    <value>Suggestions</value>
+  </data>
+  <data name="TagNoSuggestion" xml:space="preserve">
+    <value>No suggestions</value>
+  </data>
+  <data name="TagNew" xml:space="preserve">
+    <value>{0} (New Tag)</value>
+  </data>
+  <data name="TagLabel" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TagInputPlaceholder" xml:space="preserve">
+    <value>Create or find Tag</value>
+  </data>
 </root>

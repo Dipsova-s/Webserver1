@@ -492,6 +492,10 @@
       <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.multiselect.min.*">
+      <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.editor.min.*">
       <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -668,6 +672,10 @@
       <DependentUpon>common.scss</DependentUpon>
     </Content>
     <None Include="Content\CSS\components\_description-editor.scss" />
+    <Content Include="Content\CSS\KendoExtension.css">
+      <DependentUpon>KendoExtension.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\CSS\KendoExtension.scss" />
     <None Include="Content\CSS\layout\_side-content.scss" />
     <None Include="Content\CSS\layout\_form-row.scss" />
     <None Include="Content\CSS\components\_item-label.scss" />
@@ -696,7 +704,6 @@
     <Content Include="Content\CSS\ExportCsv.css" />
     <Content Include="Content\CSS\ExportExcel.css" />
     <Content Include="Content\CSS\JumpChooser.css" />
-    <Content Include="Content\CSS\KendoExtension.css" />
     <None Include="Content\CSS\pivot.scss" />
     <Content Include="Content\CSS\pivot.css">
       <DependentUpon>pivot.scss</DependentUpon>
@@ -959,6 +966,7 @@
     <None Include="Scripts\kendo.all.min.intellisense.js" />
     <Content Include="Scripts\KendoUICustom\kendo.colorpicker.style.js" />
     <Content Include="Scripts\KendoUICustom\kendo.combobox.style.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.tagtextbox.js" />
     <Content Include="Scripts\KendoUICustom\kendo.periodpicker.js" />
     <Content Include="Scripts\KendoUICustom\kendo.window.style.js" />
     <Content Include="Scripts\KendoUICustom\kendo.numerictextbox.style.js" />
@@ -1033,6 +1041,7 @@
     <Content Include="Scripts\VideoPlayer\Plugins\videojs-playlist.js" />
     <Content Include="Scripts\VideoPlayer\video.js" />
     <Content Include="Scripts\VideoPlayer\video.min.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AngleTagHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleBusinessProcessHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleStatisticHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleStatisticView.js" />
@@ -1059,6 +1068,7 @@
     <Content Include="Scripts\ViewManagement\Angle\DisplayHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleSidePanelView.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleSidePanelHandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardTagHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardSaveActionHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardWidgetDefinitionView.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardWidgetDefinitionHandler.js" />
@@ -1143,6 +1153,7 @@
     <Content Include="Scripts\ViewManagement\Shared\SystemInformationHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\FieldCategoryHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\InternalResourceHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\SystemTagHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SystemLanguageHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SystemSettingHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ToastNotificationHandler.js" />

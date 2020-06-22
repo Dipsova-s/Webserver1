@@ -1,0 +1,55 @@
+{
+  "id": "ROBOT_ANGLE_TAG2",
+  "assigned_labels": [
+    "S2D"
+  ],
+  "assigned_tags": [
+    "MY_ROBOT",
+    "Robot1",
+    "Robot2"
+  ],
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "[ROBOT] Angle Tag 2"
+    }
+  ],
+  "multi_lang_description": [],
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+        "base_classes": [
+            "PurchaseOrder",
+            "PurchaseOrderScheduleLine"
+        ]
+    }
+  ],
+  "angle_default_display": "d2e5f22e86b2916927768521099261961",
+  "display_definitions": [
+    {
+      "id": "d2e5f22e86b2916927768521099261961",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "display"
+        }
+      ],
+      "multi_lang_description": [],
+      "display_details": "{}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ID",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "ObjectType",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        }
+      ]
+    }
+  ]
+}

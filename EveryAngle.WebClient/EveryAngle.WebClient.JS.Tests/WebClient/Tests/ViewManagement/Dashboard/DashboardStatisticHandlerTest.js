@@ -1,5 +1,4 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardStatisticView.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardStatisticView.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardStatisticHandler.js" />
 
 describe("DashboardStatisticHandler", function () {
