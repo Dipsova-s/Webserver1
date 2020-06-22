@@ -9,9 +9,9 @@
         url: '@Scripts.Url("~/bundles/automationtasks/datastores")',
         callback: function () {
             MC.AutomationTasks.DataStores.InitialDataStores({
-                AllDataStoreUri: '@SiteMapHelper.ActionHash("AutomationTasks/DataStores")',
+                AllDataStoreUri: '@SiteMapHelper.ActionHash("AngleExports/DataStores")',
                 SaveUri: '@Url.Action("SaveDatastore", "AutomationTasks")',
-                EditDatastoreUri: '@SiteMapHelper.ActionHash("AutomationTasks/DataStores/EditDatastores")',
+                EditDatastoreUri: '@SiteMapHelper.ActionHash("AngleExports/DataStores/EditDatastores")',
                 DatastoreUri: '@ViewBag.DatastoreUri',
                 SettingDatastoreUri: '@ViewBag.SettingDatastoreUri',
                 TestConnectionUri: '@Url.Action("TestDataStoreConnection", "AutomationTasks")',
@@ -26,7 +26,7 @@
     @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
     {
         new PageToolbarButtonModel { Privilege=PrivilegeType.System, Type = PageToolbarButtonType.Save, OnClick = "MC.AutomationTasks.DataStores.SaveDatastore()" },
-        new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("AutomationTasks/DataStores") }
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("AngleExports/DataStores") }
     })
 }
 

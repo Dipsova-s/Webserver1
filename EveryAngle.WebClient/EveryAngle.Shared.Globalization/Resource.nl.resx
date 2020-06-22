@@ -3909,6 +3909,36 @@ Note: Invalid Angles are not included in the package. If the results in the pack
 &lt;br&gt;
 The value 0 means the setting is off, so the logs will not be cleaned up. The maximum value is 120 months.</value>
   </data>
+  <data name="MC_AngleExports" xml:space="preserve">
+    <value>Angle exports</value>
+  </data>
+  <data name="MC_ExcelDefaults" xml:space="preserve">
+    <value>Excel defaults</value>
+  </data>
+  <data name="MC_ExcelTemplates" xml:space="preserve">
+    <value>Excel templates</value>
+  </data>
+  <data name="MC_UploadTemplate" xml:space="preserve">
+    <value>Upload template</value>
+  </data>
+  <data name="MC_DeleteExcelConfirm" xml:space="preserve">
+    <value>Delete Excel: {reference}?</value>
+  </data>
+  <data name="MC_ReplaceDuplicateExcelFile" xml:space="preserve">
+    <value>There is already a template with the same name. Do you want to replace this one?</value>
+  </data>
+  <data name="MC_ReplaceNotAllowedForStandardExcel" xml:space="preserve">
+    <value>Changing the Every Angle Standard template is not allowed</value>
+  </data>
+  <data name="MC_ExcelFilenameCannotBeNull" xml:space="preserve">
+    <value>Excel filename cannot be null.</value>
+  </data>
+  <data name="MC_InvalidExcelFile" xml:space="preserve">
+    <value>Invalid file format. Please select a valid Excel file</value>
+  </data>
+  <data name="MC_InvalidExcelFileName" xml:space="preserve">
+    <value>Invalid file name. Please make sure the file name doesn't contain white spaces</value>
+  </data>
   <data name="TagSuggestionHeader" xml:space="preserve">
     <value>Suggesties</value>
   </data>

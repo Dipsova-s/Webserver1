@@ -72,7 +72,7 @@ describe("ScheduleAngleHandler", function () {
                 uri: '/models/1/angles/1/displays/1'
             });
             var taskUrl = scheduleAngleHandler.GetTaskUrl(taskUri);
-            var taskUrlFormat = "{0}admin/home/index#/Automation tasks/Tasks/Edit task/?parameters={\"tasksUri\":\"{1}{2}\",\"angleUri\":\"{3}\"}";
+            var taskUrlFormat = "{0}admin/home/index#/Angle Exports/Automation tasks/Edit task/?parameters={\"tasksUri\":\"{1}{2}\",\"angleUri\":\"{3}\"}";
             var expecxtedUrl = kendo.format(taskUrlFormat, rootWebsitePath, webAPIUrl, taskUri, displayModel.Data().uri);
             expect(taskUrl).toEqual(expecxtedUrl);
         });

@@ -1,0 +1,63 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.Shared.Globalization
+
+@{
+    int gridPageSize = (int)ViewData["DefaultPageSize"];
+    int gridHeight = Math.Min(gridPageSize, 10) * 37;
+
+    List<PageToolbarButtonModel> actionButtons = new List<PageToolbarButtonModel>();
+    actionButtons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.System,
+        DisableTemplate = "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+                        + "<a class=\"btn btnDownload disabled\">" + Resource.Download + "</a>",
+        EnableTemplate = "# if (data.Is_default_file) { #"
+                        + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+                        + "# } else { #"
+                        + "<a href=\"" + Url.Content("~/AngleExports/DeleteExcelTemplate") + "\" onclick=\"MC.AngleExports.ExcelTemplates.DeleteExcelTemplate(event, this)\" class=\"btn btnDelete\" data-parameters='{\"excelTemplateUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteExcelConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
+                        + "# } #"
+                        + "# if(Modernizr.touch && !!$.browser.safari) {#"
+                        + "<a class=\"btn btnDownload disabled\">" + Resource.Download + "</a>"
+                        + "#} else {#"
+                        + "<a href=\"" + Url.Content("~/AngleExports/DownloadFile") + "?fileUri=#= data.Uri #\" class=\"btn btnDownload\" onclick=\"MC.AngleExports.ExcelTemplates.DownloadExcelTemplate(event, this)\">" + Resource.Download + "</a>"
+                        + " # } #"
+    });
+    string gridActionButtons = HttpUtility.HtmlDecode(Html.GetGridToolbar(actionButtons));
+}
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Model.FileTemplatesViewModel>()
+    .Name("ExcelTemplatesGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.File)
+            .ClientTemplate("<span data-tooltip-title=\"#= File #\" data-type=\"html\">#= File #</span>")
+            .Title(Resource.Name)
+            .Sortable(true);
+
+        columns.Bound(model => model.Modified)
+            .Title(Resource.Uploaded).HtmlAttributes(new { @class = "columnDate" })
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .ClientTemplate(
+                "# if (data.Modified) { #" +
+                "<span data-role=\"localize\">#= data.Modified #</span>" +
+                "# } #"
+            ).Sortable(true);
+
+        columns.Bound("Is_default_file")
+            .ClientTemplate(gridActionButtons)
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Width(75)
+            .Title(Resource.MC_Action)
+            .Sortable(false);
+    })
+    .EnableCustomBinding(true)
+    .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable => sortable.AllowUnsort(false))
+    .AutoBind(false)
+    .DataSource(dataSource => dataSource
+        .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read.Action("ReadExcelTemplates", "AngleExports"))
+        .PageSize(gridPageSize)
+    ))

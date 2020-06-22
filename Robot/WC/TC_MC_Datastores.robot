@@ -27,7 +27,7 @@ Create a New CSV DataStores and Verify the Datastore created successfully with t
      Select Datastore Plugins option in popup    ${pluginCSV}
      ${randomString}     Generate Random String   8    [LETTERS]
      ${pluginCSVName}   catenate  ${randomString}     ${pluginCSVName}
-     Create a New CSV DataStores        ${pluginCSV}   ${pluginCSVName}      uncheck
+     Create a New CSV DataStores        ${pluginCSV}   ${pluginCSVName}     Uncheck
      Verify the Datastore is deleted successfully      ${pluginCSV}   ${pluginCSVName}
 
 Create a New Excel DataStores and Verify the Datastore created successfully with the given values
@@ -57,7 +57,7 @@ Verify the Datastores grid is filtered correctly
      Select Datastore Plugins option in popup    ${pluginCSV}
      ${randomString}     Generate Random String   8    [LETTERS]
      ${pluginFilter}   catenate  ${randomString}     ${pluginFilter}
-     Create a New CSV DataStores        ${pluginCSV}   ${pluginFilter}     uncheck
+     Create a New CSV DataStores        ${pluginCSV}    ${pluginFilter}       Uncheck
      Verify the Datastore Filtered with Text  ${pluginFilter}
      Verify the Datastore is deleted successfully      ${pluginCSV}   ${pluginFilter}
 
@@ -66,10 +66,10 @@ Verify the edited CSV Datastores updated successfully with the given values
      [Tags]    TC_C39019  acc_mc_aci
      Click Add Data Stores
      Select Datastore Plugins option in popup    ${pluginCSV}
-     Create a New CSV DataStores        ${pluginCSV}   ${pluginCSVName}    uncheck
+     Create a New CSV DataStores        ${pluginCSV}   ${pluginCSVName}      Uncheck
      ${randomString}     Generate Random String   8    [LETTERS]
      ${pluginCSVEditedName}   catenate  ${randomString}     ${pluginCSVEditedName}
-     Edit the Existing CSV Datastore by name     ${pluginCSVName}      ${pluginCSVEditedName}     ${pluginCSV}     uncheck
+     Edit the Existing CSV Datastore by name     ${pluginCSVName}      ${pluginCSVEditedName}     ${pluginCSV}     Uncheck
      Verify the edited value is displayed in CSV Datastore       ${pluginCSVEditedName}
      Click on Save button in DataStore   ${pluginCSV}      ${pluginCSVEditedName}
      Verify the Datastore is deleted successfully      ${pluginCSV}   ${pluginCSVEditedName}

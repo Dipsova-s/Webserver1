@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Web.Optimization;
 
 namespace EveryAngle.ManagementConsole
@@ -5,6 +6,7 @@ namespace EveryAngle.ManagementConsole
     public static class BundleConfig
     {
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
+        [ExcludeFromCodeCoverage]
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -211,6 +213,10 @@ namespace EveryAngle.ManagementConsole
 
             bundles.Add(new CustomScriptBundle("~/bundles/users/userdefaultsettings")
                 .Include("~/scripts/page/mc.users.userdefaultsettings.js"));
+
+            bundles.Add(new CustomScriptBundle("~/bundles/angleexports/exceltemplates")
+                .Include("~/scripts/page/mc.angleexports.exceltemplates.js"));
+
         }
     }
 

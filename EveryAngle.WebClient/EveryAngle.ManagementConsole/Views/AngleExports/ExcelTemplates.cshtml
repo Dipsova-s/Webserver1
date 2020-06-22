@@ -1,0 +1,47 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.AngleExports && MC.AngleExports.ExcelTemplates,
+        url: '@Scripts.Url("~/bundles/angleexports/exceltemplates")',
+        callback: function () {
+            MC.AngleExports.ExcelTemplates.Initial({
+                GetAllExcelTemplateUri: '@Url.Action("ReadExcelTemplates", "AngleExports")'
+            });
+        }
+    });
+</script>
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        EnableTemplate = "<div class=\"field fieldFile\"><input type=\"file\" name=\"file\" id=\"file\" size=\"60\" onchange=\"MC.AngleExports.ExcelTemplates.SaveExcelTemplates(event)\" data-role=\"uploader\" data-rule-extension=\"xls|xlsx\"  data-msg-extension=\""+ Resource.MC_InvalidExcelFile + "\" data-rule-excel_no_whitespace=\"true\" data-text-browse=\"" + Resource.MC_UploadTemplate + "\" /></div>",
+        DisableTemplate = "<div class=\"field fieldFile\"><input type=\"file\" name=\"file\" id=\"file\" size=\"60\" data-rule-extension=\"xls|xlsx\"  data-msg-extension=\"" + Resource.MC_InvalidExcelFile + "\" data-rule-excel_no_whitespace=\"true\" data-text-browse=\"" + Resource.MC_UploadTemplate + "\" disabled=\"disabled\"/></div>",
+        Type = PageToolbarButtonType.Custom,
+        Privilege = PrivilegeType.System
+    });
+
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pagePackages">
+    <div class="contentSection contentSectionGrid">
+        <div class="gridContainer" id="EASetsGridContainer">
+            @{Html.RenderAction("GetExcelTemplateGrid", "AngleExports");}
+        </div>
+        <div class="gridToolbar gridToolbarBottom">
+            <form action="@Url.Action("UploadExcelTemplates", "AngleExports")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
+                @{
+                    @Html.RenderPageToolbarBottom(buttons)
+                }
+            </form>
+        </div>
+
+    </div>
+</div>

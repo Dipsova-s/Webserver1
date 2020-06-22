@@ -414,3 +414,9 @@ jQuery.validator.addMethod("package_version", function (value, element) {
 
     return this.optional(element) || isValidVersion;
 }, Localization.Info_InvalidPackageVersion);
+
+jQuery.validator.addMethod("excel_no_whitespace", function (value, element) {
+    var filename = value.replace(/\\/g, '/');
+    filename = filename.substr(filename.lastIndexOf('/') + 1);
+    return this.optional(element) || !(/\s/g.test(filename));
+}, Localization.MC_InvalidExcelFileName);

@@ -16,7 +16,7 @@ Go To Datastores Page With Admin User
     Go To Datastores Page
 
 Go To Datastores Page
-    Go To MC Page    /Automation%20tasks/Datastores/
+    Go To MC Page    /Angle%20exports/Datastores/
     Wait Datastores Page Ready
 
 Create a New Excel DataStores

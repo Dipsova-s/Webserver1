@@ -8,9 +8,9 @@
     {
         Type = PageToolbarButtonType.GridEditDelete,
         Privilege = PrivilegeType.System,
-        EnableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("AutomationTasks/DataStores/EditDatastores") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"datastoreUri\":\"#= data.Uri #\", \"pluginUri\":\"\", \"plugin\":\"#= data.datastore_plugin #\"}'>" + Resource.Edit + "</a>"
+        EnableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("AngleExports/DataStores/EditDatastores") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"datastoreUri\":\"#= data.Uri #\", \"pluginUri\":\"\", \"plugin\":\"#= data.datastore_plugin #\"}'>" + Resource.Edit + "</a>"
                         + "<a href=\"" + Url.Content("~/AutomationTasks/DeleteDataStore") + "\" onclick=\"MC.AutomationTasks.DataStores.DeleteDataStore(event, this)\" class=\"btn btnDelete\" data-parameters='{\"datastoreUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteDataStoreConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>",
-        DisableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("AutomationTasks/DataStores/EditDatastores") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"datastoreUri\":\"#= data.Uri #\", \"pluginUri\":\"\", \"plugin\":\"#= data.datastore_plugin #\"}'>" + Resource.View + "</a>"
+        DisableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("AngleExports/DataStores/EditDatastores") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"datastoreUri\":\"#= data.Uri #\", \"pluginUri\":\"\", \"plugin\":\"#= data.datastore_plugin #\"}'>" + Resource.View + "</a>"
                         + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
     });
     string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));

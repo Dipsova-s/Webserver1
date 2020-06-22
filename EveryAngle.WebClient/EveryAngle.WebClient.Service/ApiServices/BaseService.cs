@@ -309,6 +309,20 @@ namespace EveryAngle.WebClient.Service.ApiServices
         }
         #endregion
 
+        #region Upload
+        /// <summary>
+        /// Upload
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="file"></param>
+        /// <param name="fileName"></param>
+        /// 
+        public virtual void Upload(string uri, byte[] file, string fileName )
+        {
+            RequestManager.Initialize(uri).PostBinary(file, fileName);
+        }
+        #endregion
+
         #endregion
 
         #region Private method

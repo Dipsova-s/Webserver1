@@ -86,3 +86,4 @@
 /// <reference path="page/mc.users.sessions.js" />
 /// <reference path="page/mc.users.user.js" />
 /// <reference path="page/mc.users.userdefaultsettings.js" />
+/// <reference path="page/mc.angleexports.exceltemplates.js" />

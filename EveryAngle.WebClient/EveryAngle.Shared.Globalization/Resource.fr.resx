@@ -6302,6 +6302,18 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_Validation_ExportPackageUrl" xml:space="preserve">
     <value>Invalid URL: selections from multiple models and Advanced filters are not allowed.</value>
   </data>
+  <data name="MC_AngleExports" xml:space="preserve">
+    <value>Angle exports</value>
+  </data>
+  <data name="MC_ExcelDefaults" xml:space="preserve">
+    <value>Excel defaults</value>
+  </data>
+  <data name="MC_ExcelTemplates" xml:space="preserve">
+    <value>Excel templates</value>
+  </data>
+  <data name="MC_UploadTemplate" xml:space="preserve">
+    <value>Upload template</value>
+  </data>
   <data name="DownloadAngle" xml:space="preserve">
     <value>Download Angle</value>
   </data>
@@ -6316,6 +6328,24 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="Support" xml:space="preserve">
     <value>Support</value>
+  </data>
+  <data name="MC_DeleteExcelConfirm" xml:space="preserve">
+    <value>Delete Excel: {reference}?</value>
+  </data>
+  <data name="MC_ReplaceDuplicateExcelFile" xml:space="preserve">
+    <value>There is already a template with the same name. Do you want to replace this one?</value>
+  </data>
+  <data name="MC_ReplaceNotAllowedForStandardExcel" xml:space="preserve">
+    <value>Changing the Every Angle Standard template is not allowed</value>
+  </data>
+  <data name="MC_ExcelFilenameCannotBeNull" xml:space="preserve">
+    <value>Excel filename cannot be null.</value>
+  </data>
+  <data name="MC_InvalidExcelFile" xml:space="preserve">
+    <value>Invalid file format. Please select a valid Excel file</value>
+  </data>
+  <data name="MC_InvalidExcelFileName" xml:space="preserve">
+    <value>Invalid file name. Please make sure the file name doesn't contain white spaces</value>
   </data>
   <data name="TagSuggestionHeader" xml:space="preserve">
     <value>Suggestions</value>

@@ -91,10 +91,10 @@ namespace EveryAngle.ManagementConsole.Models
                 _siteMaps.Add(GetUserMenu());
             }
 
-            // AutomatedTasks
-            if (isSupportAutomateTask)
+            //AngleExport
+            if(!canUseOnlyAutomationTask || isSupportAutomateTask)
             {
-                _siteMaps.Add(GetAutomationTaskMenu(canAccessSystem, canUseOnlyAutomationTask));
+                _siteMaps.Add(GetAngleExportsMenu(canAccessSystem, canUseOnlyAutomationTask, isSupportAutomateTask));
             }
 
             // set into session
@@ -295,46 +295,81 @@ namespace EveryAngle.ManagementConsole.Models
             };
         }
 
-        private SiteMap GetAutomationTaskMenu(bool canAccessSystem, bool canUseOnlyAutomationTask)
+        private SiteMap GetAutomationTaskMenu()
         {
-            bool canSeeAutomationTask = canAccessSystem || canUseOnlyAutomationTask;
+            // AutomatedTasks
+            return new SiteMap
+            {
+                Id = "AutomationTasks",
+                Name = Resource.MC_AutomationTasks,
+                Uri = "~/AutomationTasks/GetAllTasks",
+                HashPath = "AngleExports/AutomationTasks",
+                ChildsVisible = false,
+                Childs = new List<SiteMap>
+                {
+                    new SiteMap { Id = "CreateNewTask", Name = Resource.MC_CreateTask, Uri = "~/AutomationTasks/EditTask", HashPath = "AngleExports/AutomationTasks/CreateNewTask" },
+                    new SiteMap { Id = "EditTask", Name = Resource.MC_EditTask, Uri = "~/AutomationTasks/EditTask", HashPath = "AngleExports/AutomationTasks/EditTask" }
+                }
+            };
+        }
 
-            SiteMap siteMap = new SiteMap { Id = "AutomationTasks", Name = Resource.MC_AutomationTasks, HashPath = "AutomationTasks", Visible = true, Childs = new List<SiteMap>() };
+        private SiteMap GetDataStoresMenu()
+        {
+            return new SiteMap
+            {
+                Id = "DataStores",
+                Name = Resource.DataStores,
+                Uri = "~/AutomationTasks/RenderDataStoresPage",
+                HashPath = "AngleExports/DataStores",
+                ChildsVisible = false,
+                Childs = new List<SiteMap>
+                    {
+                        new SiteMap { Id = "CreateNewDatastores", Name = Resource.MC_CreateDatastore, Uri = "~/AutomationTasks/EditDatastore", HashPath = "AngleExports/DataStores/CreateNewDatastores" },
+                        new SiteMap { Id = "EditDatastores", Name = Resource.MC_EditDatastore, Uri = "~/AutomationTasks/EditDatastore", HashPath = "AngleExports/DataStores/EditDatastores" }
+                    }
+            };
+        }
 
-            // DataStores
+        private SiteMap GetExcelTemplatesMenu()
+        {
+            return new SiteMap { Id = "ExcelTemplates", Name = Resource.MC_ExcelTemplates,Uri = "~/AngleExports/RenderExcelTemplates", HashPath = "AngleExports/ExcelTemplates" };
+        }
+
+        private SiteMap GetExcelDefaultsMenu()
+        {
+            return new SiteMap {
+                Id = "ExcelDefaults",
+                Name = Resource.MC_ExcelDefaults,
+                HashPath = "AngleExports/ExcelDefaults",
+                ChildsVisible = false,
+                Childs = new List<SiteMap>()
+            };
+        }
+
+        private SiteMap GetAngleExportsMenu(bool canAccessSystem, bool canUseOnlyAutomationTask, bool isSupportAutomateTask)
+        {
+            SiteMap siteMap = new SiteMap { Id = "AngleExports", Name = Resource.MC_AngleExports, HashPath = "AngleExports", Visible = true, Childs = new List<SiteMap>() };
+
+            if (isSupportAutomateTask)
+            {
+                //Datasource
+                if (!canUseOnlyAutomationTask)
+                {
+                    siteMap.Childs.Add(GetDataStoresMenu());
+                }
+                //AutomationTasks
+                if (canAccessSystem || canUseOnlyAutomationTask)
+                {
+                    siteMap.Childs.Add(GetAutomationTaskMenu());
+                }
+            }
             if (!canUseOnlyAutomationTask)
             {
-                siteMap.Childs.Add(new SiteMap
-                {
-                    Id = "DataStores",
-                    Name = Resource.DataStores,
-                    Uri = "~/AutomationTasks/RenderDataStoresPage",
-                    HashPath = "AutomationTasks/DataStores",
-                    ChildsVisible = false,
-                    Childs = new List<SiteMap>
-                    {
-                        new SiteMap { Id = "CreateNewDatastores", Name = Resource.MC_CreateDatastore, Uri = "~/AutomationTasks/EditDatastore", HashPath = "AutomationTasks/DataStores/CreateNewDatastores" },
-                        new SiteMap { Id = "EditDatastores", Name = Resource.MC_EditDatastore, Uri = "~/AutomationTasks/EditDatastore", HashPath = "AutomationTasks/DataStores/EditDatastores" }
-                    }
-                });
-            }
-
-            // Tasks
-            if (canSeeAutomationTask)
-            {
-                siteMap.Childs.Add(new SiteMap
-                {
-                    Id = "Tasks",
-                    Name = Resource.MC_Tasks,
-                    Uri = "~/AutomationTasks/GetAllTasks",
-                    HashPath = "AutomationTasks/Tasks",
-                    ChildsVisible = false,
-                    Childs = new List<SiteMap>
-                    {
-                        new SiteMap { Id = "CreateNewTask", Name = Resource.MC_CreateTask, Uri = "~/AutomationTasks/EditTask", HashPath = "AutomationTasks/Tasks/CreateNewTask" },
-                        new SiteMap { Id = "EditTask", Name = Resource.MC_EditTask, Uri = "~/AutomationTasks/EditTask", HashPath = "AutomationTasks/Tasks/EditTask" }
-                    }
-                });
+                //ExcelTemplates
+                siteMap.Childs.Insert(0, GetExcelTemplatesMenu());
+                //ExportDefaults
+                int lastIndexofList = siteMap.Childs.Count;
+                siteMap.Childs.Insert(lastIndexofList, GetExcelDefaultsMenu());
             }
 
             return siteMap;

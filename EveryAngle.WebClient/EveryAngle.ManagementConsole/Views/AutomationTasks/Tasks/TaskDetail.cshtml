@@ -34,12 +34,12 @@
                 FindAngleUri : '@Url.Action("FindAngle", "AutomationTasks")',
                 TaskUri: '@ViewBag.TasksUri',
                 AngleUri: @Html.Raw(Json.Encode(ViewData["AngleUri"])),
-                EditTaskPage: '@SiteMapHelper.ActionHash("AutomationTasks/Tasks/EditTask")',
+                EditTaskPage: '@SiteMapHelper.ActionHash("AngleExports/AutomationTasks/EditTask")',
                 GetDataStoreTemplateUri: '@Url.Action("GetDatastore", "AutomationTasks")',
                 ActionButtonTemplate : '@Html.Raw(actionButtonTemplate)',
                 ModelPrivileges :  '@Html.Raw(Json.Encode(ViewData["ModelPrivileges"]))',
                 TasksActionsUri : '@ViewBag.TasksActionsUri',
-                AllTaskPageUri: '@SiteMapHelper.ActionHash("AutomationTasks/Tasks")',
+                AllTaskPageUri: '@SiteMapHelper.ActionHash("AngleExports/AutomationTasks")',
                 CheckTaskActionUri : '@Url.Action("CheckTaskAction", "AutomationTasks")',
                 GetFieldsUri : '@Url.Action("GetModelField", "Role")',
                 GetFieldSourceUri: '@Url.Action("GetFieldSource", "Role")',
@@ -66,7 +66,7 @@
         new PageToolbarButtonModel
         {
             Type = PageToolbarButtonType.Cancel,
-            Link = SiteMapHelper.ActionHash("AutomationTasks/Tasks")
+            Link = SiteMapHelper.ActionHash("AngleExports/AutomationTasks")
         }
     })
 }
