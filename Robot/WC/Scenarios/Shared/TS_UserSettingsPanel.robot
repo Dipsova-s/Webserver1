@@ -220,3 +220,55 @@ Reset UserSettings Language
     Create Context: Web
     ${path}    Execute JavaScript    return userModel.Data().user_settings;
     Update UserSettings Language    ${path}     USER_SETTINGS.json
+
+Read All Business Process Checkbox Values
+    ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #P2P
+    Set Test Variable   ${BpP2P}   ${value}
+
+    ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #S2D
+    Set Test Variable   ${BpS2D}   ${value}
+
+    ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #O2C
+    Set Test Variable   ${BpO2C}   ${value}
+
+    ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #F2R
+    Set Test Variable   ${BpF2R}   ${value}
+
+    ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #PM
+    Set Test Variable   ${BpPM}   ${value}
+
+    ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #QM
+    Set Test Variable   ${BpQM}   ${value}
+
+    ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #HCM
+    Set Test Variable   ${BpHCM}   ${value}
+
+    ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #GRC
+    Set Test Variable   ${BpGRC}   ${value}
+
+    ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #IT
+    Set Test Variable   ${BpIT}   ${value}
+
+
+Deselect All Business Process
+    ${BPs}=  Create List  P2P  S2D  O2C  F2R   PM  QM  HCM  GRC  IT
+    [Arguments]  @{BPs}
+    :FOR  ${BP}  IN  @{BPs}
+    \  Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #${BP}      False
+
+Verify If All Business Process Checkbox Are Deselected
+    ${BPs}=  Create List  P2P  S2D  O2C  F2R   PM  QM  HCM  GRC  IT
+    [Arguments]  @{BPs}
+    :FOR  ${BP}  IN  @{BPs}
+    \  Verify Business Processs Checkbox Value  ${BP}
+
+Restore The Old BP Values
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #P2P      ${BpP2P}
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #S2D      ${BpS2D}
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #O2C      ${BpO2C}
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #F2R      ${BpF2R}
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #PM       ${BpPM}
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #QM       ${BpQM}
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #HCM      ${BpHCM}
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #GRC      ${BpGRC}
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #IT       ${BpIT}

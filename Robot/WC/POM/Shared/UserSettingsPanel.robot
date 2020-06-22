@@ -307,3 +307,19 @@ Set Decimal Places
     Run Keyword If    ${isAccordionShow}    Click Element    ${acdNumberHeader}
     Select Dropdown By Text    ${ddlNumbersDecimals}    ${option}
     Click Save User Settings
+
+#Real all BP checkbox Value
+Get the Business Process Checkbox Value
+    [Arguments]     ${chkBusinessProcess}
+    ${chbox}    Is Element Checked  ${chkBusinessProcess}
+    [Return]      ${chbox}
+
+Select the Business Process check box
+    [Arguments]     ${chkBusinessProcess}       ${chbOption}
+    Run Keyword If    ${chbOption} == True     Select Checkbox    ${chkBusinessProcess}
+    Run Keyword If    ${chbOption} == False     Unselect Checkbox    ${chkBusinessProcess}
+
+Verify Business Processs Checkbox Value
+    [Arguments]     ${BusinessProcess}
+    ${returnText}   Get the Business Process Checkbox Value     ${divUserSettingsBusinessProcessItems} #${BusinessProcess}
+    Should Not Be True       ${returnText}

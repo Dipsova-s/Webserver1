@@ -1,6 +1,7 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/CreateNewAngle/createnewanglepagehandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/businessprocesshandler.js" />
 
 describe("CreateNewAnglePageHandlerTest", function () {
 
@@ -76,6 +77,22 @@ describe("CreateNewAnglePageHandlerTest", function () {
                 createNewAngleViewManagementModel.SetCreateAngleByObjectSelectionMode();
                 expect(createNewAngleViewManagementModel.ClassesChooserHandler.MultipleSelection).toEqual(test.expected);
             });
+        });
+    });
+
+    describe(".SelectBusinessProcesses", function () {
+        it("should select the first active and allowed BP", function () {
+            var result = [{ id: 'P2P', enabled: false, is_allowed: false },
+                { id: 'S2D', enabled: true, is_allowed: true },
+                { id: 'IT', enabled: false, is_allowed: false }];
+
+            var handler = { Data: $.noop };
+            spyOn(handler, 'Data').and.returnValue(result);
+            spyOn(window, 'BusinessProcessesViewModel').and.returnValue(handler);
+            spyOn(businessProcessHandler, 'ManageBPAuthorization').and.returnValue();
+
+            var result = createNewAngleViewManagementModel.SelectBusinessProcesses();
+            expect(result).toEqual('S2D');
         });
     });
 });

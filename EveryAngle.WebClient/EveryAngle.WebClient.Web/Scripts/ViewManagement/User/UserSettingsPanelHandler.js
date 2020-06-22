@@ -322,7 +322,7 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
     self.InitialControlsBusinessProcess = function () {
         businessProcessesModel.UserSetting = new BusinessProcessesViewModel();
         businessProcessesModel.UserSetting.MultipleActive(true);
-        businessProcessesModel.UserSetting.CanEmpty(false);
+        businessProcessesModel.UserSetting.CanEmpty(true);
         businessProcessesModel.UserSetting.Mode(businessProcessesModel.UserSetting.MODE.COMPACT);
         businessProcessesModel.UserSetting.SetCheckBoxStyle();
         businessProcessesModel.UserSetting.ApplyHandler('#UserSettingsBusinessProcesses');

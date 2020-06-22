@@ -12,6 +12,7 @@ ${trObjectsDescriptionFromList}                 jquery=#ObjectsGrid .k-grid-cont
 ${lbNumberOfObjectBusinessProcess}              classTotals
 ${divBusinessProcess}                           CreateAngleByObjectBusinessProcess
 ${chkSkipTemplate}                              SkipTemplate
+${btnCloseCreateAnglePopUp}                     //span[@id='popupCreateNewAngleOption_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 
 *** Keywords ***
 Wait Create Angle Popup Option Object List Loaded
@@ -95,4 +96,10 @@ Click Select Or Deselect Business Process In Object List
     Wait Until Ajax Complete
 
 Click Skip Template Checkbox
-    Select Checkbox    ${chkSkipTemplate} 
+    Select Checkbox    ${chkSkipTemplate}
+
+Close Create New Angle Pop Up
+    Click Element      ${btnObjectListBack}
+    Wait Until Page Contains Element      ${btnCloseCreateAnglePopUp}
+    Click Element      ${btnCloseCreateAnglePopUp}
+    Wait Until Page Contains Element      ${btnCreateNewAngle}

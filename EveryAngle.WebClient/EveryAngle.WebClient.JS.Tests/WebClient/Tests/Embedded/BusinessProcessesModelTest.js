@@ -625,4 +625,37 @@ describe("BusinessProcessesModel", function () {
 
     });
 
+    describe("call UpdateCheck", function () {
+        it("should return false", function () {
+            //arrange
+            var data = { id: 'IT', __readonly: true, is_allowed: true };
+
+            //expect
+            expect(businessProcessModel.UpdateCheck(data)).toBe(false);
+        });
+
+        it("should return true", function () {
+            //arrange
+            var data = { id: 'IT', __readonly: false, is_allowed: true };
+            var currentActiveList = {};
+            currentActiveList["IT"] = true;
+            spyOn(businessProcessModel, 'CurrentActive').and.callFake(function () { return currentActiveList; });
+
+            //expect
+            expect(businessProcessModel.UpdateCheck(data)).toBe(true);
+        });
+
+        it("should return true for multiple active true", function () {
+            //arrange
+            var data = { id: 'IT', __readonly: false, is_allowed: true };
+            var currentActiveList = {};
+            currentActiveList["IT"] = true;
+            spyOn(businessProcessModel, 'CurrentActive').and.callFake(function () { return currentActiveList; });
+            spyOn(businessProcessModel, 'MultipleActive').and.callFake(function () { return true; });
+
+            //expect
+            expect(businessProcessModel.UpdateCheck(data)).toBe(true);
+        });
+    });
+
 });

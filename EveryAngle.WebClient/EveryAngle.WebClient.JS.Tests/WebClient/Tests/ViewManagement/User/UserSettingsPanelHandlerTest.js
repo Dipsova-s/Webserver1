@@ -195,10 +195,6 @@ describe("UserSettingsPanelHandler", function () {
                 return '/models/1';
             });
 
-            spyOn(userSettingModel, "GetByName").and.callFake(function () {
-                return ["P2P", "S2D"];
-            });
-
             var busineessProcessData = [{
                 "id": "P2P"
             }, {
@@ -212,14 +208,34 @@ describe("UserSettingsPanelHandler", function () {
             jQuery.localStorage('business_processes', busineessProcessData);
             businessProcessesModel.General.Data(busineessProcessData);
         });
+
         it("P2P Should active", function () {
+            spyOn(userSettingModel, "GetByName").and.callFake(function () {
+                return ["P2P", "S2D"];
+            });
+
             userSettingsPanelHandler.InitialControlsBusinessProcess();
             expect(businessProcessesModel.UserSetting.CurrentActive().P2P).toEqual(true);
         });
 
         it("O2C Should be inactive", function () {
+            spyOn(userSettingModel, "GetByName").and.callFake(function () {
+                return ["P2P", "S2D"];
+            });
+
             userSettingsPanelHandler.InitialControlsBusinessProcess();
             expect(businessProcessesModel.UserSetting.CurrentActive().O2C).toEqual(false);
+        });
+
+        it("All business process should be inactive", function () {
+            spyOn(userSettingModel, "GetByName").and.callFake(function () {
+                return null;
+            });
+            userSettingsPanelHandler.InitialControlsBusinessProcess();
+            expect(businessProcessesModel.UserSetting.CurrentActive().P2P).toEqual(false);
+            expect(businessProcessesModel.UserSetting.CurrentActive().S2D).toEqual(false);
+            expect(businessProcessesModel.UserSetting.CurrentActive().O2C).toEqual(false);
+            expect(businessProcessesModel.UserSetting.CurrentActive().F2R).toEqual(false);
         });
     });
     describe(".InitialControlsLanguage ", function () {

@@ -31,23 +31,40 @@ function CreateNewAngleViewManagementModel() {
 
     /*BOF: Model Methods*/
 
+    self.SelectBusinessProcesses = function () {
+        var selectedBP = null;
+        var businessProcesses = new BusinessProcessesViewModel();
+        var modelPrivileges = privilegesViewModel.GetModelPrivilegesByUri(self.CreateAngleSettings.model);
+        businessProcessHandler.ManageBPAuthorization(businessProcesses, modelPrivileges);
+        var allBP = businessProcesses.Data();
+        for (var bp in allBP) {
+            if (allBP[bp].is_allowed && allBP[bp].enabled) {
+                selectedBP = allBP[bp].id;
+                break;
+            }
+        }
+        return selectedBP;
+    }
+
     // popup options
     self.ShowCreateOption = function () {
         // set default schema bp
-        var defaultBP = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES);
+        var defaultBP = WC.Utility.ToArray(userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES));
+        var selectedBP = self.SelectBusinessProcesses();
+
         if (!self.CreateAngleSettings.createby_schema[self.SCHEMAVIEWTYPE.SIMPLE].bp) {
-            self.CreateAngleSettings.createby_schema[self.SCHEMAVIEWTYPE.SIMPLE].bp = defaultBP[0] || 'O2C';
+            self.CreateAngleSettings.createby_schema[self.SCHEMAVIEWTYPE.SIMPLE].bp = defaultBP[0] || selectedBP;
         }
         if (!self.CreateAngleSettings.createby_schema[self.SCHEMAVIEWTYPE.DETAILED].bp) {
-            self.CreateAngleSettings.createby_schema[self.SCHEMAVIEWTYPE.DETAILED].bp = defaultBP[0] || 'O2C';
+            self.CreateAngleSettings.createby_schema[self.SCHEMAVIEWTYPE.DETAILED].bp = defaultBP[0] || selectedBP;
         }
 
         // set default object bp
         if (!self.CreateAngleSettings.createby_object.bp) {
-            self.CreateAngleSettings.createby_object.bp = defaultBP.length ? defaultBP : ['O2C'];
+            self.CreateAngleSettings.createby_object.bp = defaultBP.length ? defaultBP : [selectedBP];
         }
         if (!self.CreateAngleSettings.createby_object.bp_stack) {
-            self.CreateAngleSettings.createby_object.bp_stack = defaultBP.length ? defaultBP : ['O2C'];
+            self.CreateAngleSettings.createby_object.bp_stack = defaultBP.length ? defaultBP : [selectedBP];
         }
 
         // save settings

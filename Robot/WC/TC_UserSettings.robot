@@ -1,13 +1,13 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
+Test Setup          Open User Settings Panel
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
 Force Tags          smk_wc_s
 
 *** Test Cases ***
 Verify User Settings Details
-    Open User Settings Panel
     Click User Tab
     Verify User Tab
     Click System Tab
@@ -18,7 +18,6 @@ Verify User Settings Details
     Close User Settings Panel
 
 Verify Change User Setings: System Settings Tab
-    Open User Settings Panel
     Click System Tab
 
     # keep current states
@@ -59,3 +58,16 @@ Verify Change User Setings: System Settings Tab
     ...    ELSE    Unselect Checkbox In Column Headers Of Lists
 
     Click Save User Settings
+
+Verify Whether User Can Deselect All Business Process
+    [Documentation]     This test verifies if user can deselect all business process in user settings 
+    ...                 and restores the previous settings.
+    [Tags]      TC_C229561
+    Click System Tab
+    Read All Business Process Checkbox Values
+    Deselect All Business Process
+    Click Save User Settings
+    Open User Settings Panel
+    Click System Tab
+    Verify If All Business Process Checkbox Are Deselected
+    Restore The Old BP Values          

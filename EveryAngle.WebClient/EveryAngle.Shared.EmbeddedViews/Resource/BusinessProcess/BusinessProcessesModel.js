@@ -266,8 +266,8 @@ function BusinessProcessesViewModel(externalData) {
             self.CurrentActive(active);
 
             self.DoCallbackFunction(self.ClickCallback(), [data, event, changed]);
-            return true;
-        }
+                return true;
+            }
         return false;
     };
     self.SetCheckBoxStyle = function () {

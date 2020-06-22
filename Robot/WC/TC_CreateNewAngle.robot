@@ -112,6 +112,14 @@ Verify Click Select Object Row On Create Angle From Object List
 
 Verify Other Tab In Business Process
     [Tags]    acc_wc    acc_wc_aci
+    Open User Settings Panel
+    Click System Tab
+    Read All Business Process Checkbox Values
+    Deselect All Business Process
+    Select the Business Process check box       ${divUserSettingsBusinessProcessItems} #S2D      True
+    Click Save User Settings
+    Logout WC Then Close Browser
+    Go to WC Then Login With EAPower User
     Open Create Angle By Object List Popup
     ${numberOfObjectS2D}    Get Number Of Object In Business Process
     Click Select Or Deselect Business Process In Object List    OTHER
@@ -123,3 +131,8 @@ Verify Other Tab In Business Process
     Click Select Or Deselect Business Process In Object List    S2D
     ${numberOfObjectDeselectS2D}    Get Number Of Object In Business Process
     Should Be True    ${numberOfObjectS2DNoOther}==${numberOfObjectDeselectS2D}
+    Close Create New Angle Pop Up
+    Open User Settings Panel
+    Click System Tab
+    Restore The Old BP Values
+    
