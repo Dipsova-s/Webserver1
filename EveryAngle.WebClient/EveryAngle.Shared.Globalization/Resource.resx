@@ -5754,8 +5754,8 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="MC_Overwrite" xml:space="preserve">
     <value>Overwrite</value>
   </data>
-  <data name="MC_PrivateAnglesAndDisplays" xml:space="preserve">
-    <value>Private Angles/Displays</value>
+  <data name="MC_PrivateItems" xml:space="preserve">
+    <value>Private Items</value>
   </data>
   <data name="MC_Skip" xml:space="preserve">
     <value>Skip</value>
@@ -6346,5 +6346,8 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="TagInputPlaceholder" xml:space="preserve">
     <value>Create or find Tag</value>
+  </data>
+  <data name="MC_Items" xml:space="preserve">
+    <value>Items</value>
   </data>
 </root>
