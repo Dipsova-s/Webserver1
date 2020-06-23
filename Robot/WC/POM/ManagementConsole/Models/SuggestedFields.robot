@@ -39,6 +39,12 @@ ${txtSelectedItem}                       selectedItems
 ${txtTotalItem}                          totalDisplayFieldsDatarow
 ${txtUndefined}                          jquery=.loadingContent li.success:contains("Valueundefined")
 
+${LocatorAllSuggestedBusinessProcess}   xpath=//div[@class='businessProcesses flat businessProcessesCompact flexible']/div[@title]/a
+${LocatorGeneralInformationText}        xpath=//div[@class='contentSection contentSectionDescription']/p
+${btnSelectAllLocator}                  xpath=//a[@class='btn btnLarge btnLeft btnSelectAll']   
+${btnCloseSuggestedReportLocator}       xpath=//div[contains(@class,'typeInfo')]//a
+${btnClearFields}                       xpath=//a[@class='btn clearSuggestedFieldsbtn']
+${btnWindowMaximize}                    xpath=//span[@id='popupSelectedClasses_wnd_title']/..//a[@aria-label='window-Maximize']
 *** Keywords ***
 Wait Until Suggested Fields Page Loaded
     Wait Until Ajax Complete
@@ -152,8 +158,8 @@ Click Set Fields Button For All Template
     Sleep    1s
     Wait Until Ajax Complete
 
-Click Set Fields Button For Clear All Suggestion
-    Click Element    ${btnSuggestedClearAll}
+Click Clear Fields Button For Clear All Suggestion
+    Click Element    ${btnClearFields}
     Sleep    1s
     Wait Until Ajax Complete
 
@@ -176,3 +182,99 @@ Get Amount Of Total Item
 Close Suggested Field Popups
     Execute Javascript    $('#${divFieldChooser}').data('handler').close();
     ...                   $('#${divClassChooser}').data('handler').close();
+
+Select All Business Process On Suggested Popup
+    ${AllSuggestedBusinessProcess}=  Get Webelements   ${LocatorAllSuggestedBusinessProcess}   
+    :For  ${EachBusinessProcess}   IN   @{AllSuggestedBusinessProcess}
+    \    ${Business Process has Other}=  Run keyword and return status  Element Should Contain  ${EachBusinessProcess}  Other
+    \   Run keyword if  ${Business Process has Other}==False  Custom click element    ${EachBusinessProcess} 
+    \   Wait Until Ajax Complete
+    \   Wait Until Page Contains Element     ${gridObjectList}
+
+Click button Select All 
+    Custom click element  ${btnSelectAllLocator}
+    Wait Until Ajax Complete
+    Sleep    ${TIMEOUT_GENERAL}
+
+Click Button Save for clearing Suggestion Field
+    Wait Until Page Contains Element    ${btnConfirmSuggestedField}
+    Click Element    ${btnConfirmSuggestedField}
+    Wait Until Ajax Complete
+    Wait Until Page Contains    Manage suggested fields report
+    Page Should Contain      Task Success.   
+    
+Click Close on Suggested Field Report
+    Get Suggested Report When Failed
+    Click Element    ${btnCloseSuggestedReportLocator}
+    Wait Until Suggested Fields Page Loaded
+
+Validate Total number of suggested fields in the model should be "${number}"
+    Page Should Contain   Total number of suggested fields in the model: ${number}
+
+Validate Number of objects that have suggested fields should be "${number}"
+    Page Should Contain  Number of objects that have suggested fields: ${number}
+
+Validate Number of objects that do not have suggested fields should be greater than zero
+    ${GeneralInformationParagraph}=  Get Text   ${LocatorGeneralInformationText} 
+    ${Pattern}=  set variable  Number of objects that do not have suggested fields:\\s[1-9]\\d*$
+    ${GeneralInformationParagraphLinesCount}=   Get Line Count  ${GeneralInformationParagraph}
+    set global variable   ${flag1}  False
+    :For  ${i}  IN RANGE  0   ${GeneralInformationParagraphLinesCount}
+    \   ${EachLine}=  Get Line  ${GeneralInformationParagraph}   ${i}
+    \   ${Matching}=  Run keyword and return status   Should Match Regexp  ${EachLine}    ${Pattern}
+    \   Run keyword if   ${Matching}==True   Run keywords    set global variable   ${flag1}  True     AND   Exit for loop
+    
+    log   ${flag1}
+    Run keyword if  ${flag1}==True   Log   Number of objects that do not have suggested fields is greater than zero
+    ...  ELSE    Fail   Number of objects that do not have suggested fields is not greater than zero
+
+Validate Suggested fields settings last changed should have username, date and time
+    ${GeneralInformationParagraph}=  Get Text   ${LocatorGeneralInformationText} 
+    ${Pattern}=  set variable  Suggested fields settings last changed:\\s\\w*\\s\\d{1,2}/\\d{1,2}/\\d{4},\\s\\d{1,2}:\\d{1,2}:\\d{1,2}\\s[AP]M$
+    ${GeneralInformationParagraphLinesCount}=   Get Line Count  ${GeneralInformationParagraph}
+    set global variable   ${flag2}  False
+    :For  ${i}  IN RANGE  0   ${GeneralInformationParagraphLinesCount}
+    \   ${EachLine}=  Get Line  ${GeneralInformationParagraph}   ${i}
+    \   ${Matching}=  Run keyword and return status   Should Match Regexp  ${EachLine}    ${Pattern}
+    \   Run keyword if  ${Matching}==True   Run keywords    set global variable   ${flag2}  True     AND   Exit for loop
+
+    log   ${flag2}
+    Run keyword if  ${flag2}==True   Log   Suggested fields settings last changed has username, date and time
+    ...  ELSE    Fail   Suggested fields settings last changed doesnot have username, date and time
+
+Get Total number of suggested fields in the model
+    ${GeneralInformationParagraph}=  Get Text   ${LocatorGeneralInformationText} 
+    ${Pattern}=  set variable  Total number of suggested fields in the model:
+    ${GeneralInformationParagraphLinesCount}=   Get Line Count  ${GeneralInformationParagraph}
+    set global variable   ${NumberOfSuggestedFieldsInTheModel}  null
+    :For  ${i}  IN RANGE  0   ${GeneralInformationParagraphLinesCount}
+    \   ${EachLine}=  Get Line  ${GeneralInformationParagraph}   ${i}
+    \   ${Matching}=  Run keyword and return status   Should Match Regexp  ${EachLine}    ${Pattern}
+    \   Run keyword if   ${Matching}==True    Store SubString Using RegEx and exit for loop    \\d+  ${EachLine}
+    
+    ${NumberOfSuggestedFieldsInTheModel}=   Get From List  ${SubString}  0
+    [Return]   ${NumberOfSuggestedFieldsInTheModel}
+
+Store SubString Using RegEx and exit for loop
+    [Arguments]   ${pattern}   ${string}
+    ${SubString}=  Get Regexp Matches   ${string}  ${pattern}   
+    set global variable   ${SubString}      ${SubString}
+    Exit for loop
+    
+
+Get Number of objects that have suggested fields
+    ${GeneralInformationParagraph}=  Get Text   ${LocatorGeneralInformationText} 
+    ${Pattern}=  set variable  Number of objects that have suggested fields:
+    ${GeneralInformationParagraphLinesCount}=   Get Line Count  ${GeneralInformationParagraph}
+    set global variable   ${NumberOfobjectsHavingSuggestedFields}  null
+    :For  ${i}  IN RANGE  0   ${GeneralInformationParagraphLinesCount}
+    \   ${EachLine}=  Get Line  ${GeneralInformationParagraph}   ${i}
+    \   ${Matching}=  Run keyword and return status   Should Match Regexp  ${EachLine}    ${Pattern}
+    \   ${NumberOfobjectsHavingSuggestedFields}=  Run keyword if   ${Matching}==True   Store SubString Using RegEx and exit for loop    \\d+  ${EachLine}
+    
+     ${NumberOfobjectsHavingSuggestedFields}=   Get From List  ${SubString}  0
+    [Return]   ${NumberOfobjectsHavingSuggestedFields}
+    
+Maximize popup window 
+    Custom click element   ${btnWindowMaximize}
+    wait Until Ajax Complete 

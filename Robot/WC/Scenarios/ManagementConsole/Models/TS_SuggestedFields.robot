@@ -107,7 +107,7 @@ Set Suggested Fields For All Template
 
 Set Suggested Fields For Clear All Suggestion
     [Arguments]    ${ObjectName}    ${BusinessProcess}
-    Click Set Fields Button For Clear All Suggestion
+    Click Clear Fields Button For Clear All Suggestion
     Wait Popup Set Suggested Fields Object Loaded
     Fill In Search Object    ${ObjectName}
     Select Business Process On Suggested Popup    ${BusinessProcess}
@@ -116,3 +116,17 @@ Set Suggested Fields For Clear All Suggestion
     Click Continue
     Click Save Confirm Suggestion Field
     Click Close Suggested Field Report
+   
+Clear all suggested fields for all objects    
+    Click Clear Fields Button For Clear All Suggestion
+    Select All Business Process On Suggested Popup
+    Click button Select All
+    Click Continue
+    Maximize popup window 
+    Click Button Save for clearing Suggestion Field
+    Click Close on Suggested Field Report
+
+Precondition-Clear all suggested fields for all objects
+    ${NumofSuggestedFieldsInTheModel}=  Get Total number of suggested fields in the model
+    ${NumofobjectsHavingSuggestedFields}=  Get Number of objects that have suggested fields
+    Run Keyword if   ${NumofSuggestedFieldsInTheModel}>0 or ${NumofobjectsHavingSuggestedFields}>0    Clear all suggested fields for all objects

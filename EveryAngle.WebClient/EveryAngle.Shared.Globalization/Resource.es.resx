@@ -3635,7 +3635,7 @@ Are you sure you want to delete this model?</value>
     <value>Set all default Template fields to suggested {0}</value>
   </data>
   <data name="MC_SetAllDefaultTemplateFieldsToSuggested_Description" xml:space="preserve">
-    <value>The default Template creates a number of default Displays and Filters when creating a new Angle by selecting an object from the object list. By selecting this option for one or more objects the suggested fields are limited to all fields present in these default Displays and Filters of that object.</value>
+    <value>Templates that are connected to an object in the object list, always have a default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these default Displays and Filters of that Template.</value>
   </data>
   <data name="MC_SetDefaultBasicListFieldsToSuggested" xml:space="preserve">
     <value>Set default Basic List fields to suggested {0}</value>
@@ -3645,6 +3645,9 @@ Are you sure you want to delete this model?</value>
   </data>
   <data name="MC_SetFields" xml:space="preserve">
     <value>Set fields</value>
+  </data>
+  <data name="MC_ClearFields" xml:space="preserve">
+    <value>Clear fields</value>
   </data>
   <data name="MC_SetSuggestedFieldsForSingleObject" xml:space="preserve">
     <value>Set suggested {0} fields for single object</value>

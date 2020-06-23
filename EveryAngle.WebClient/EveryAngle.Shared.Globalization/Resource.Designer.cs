@@ -8130,6 +8130,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear fields.
+        /// </summary>
+        public static string MC_ClearFields {
+            get {
+                return ResourceManager.GetString("MC_ClearFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collapse All.
         /// </summary>
         public static string MC_CollapseAll {
@@ -12099,7 +12108,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The default Template creates a number of default Displays and Filters when creating a new Angle by selecting an object from the object list. By selecting this option for one or more objects the suggested fields are limited to all fields present in these default Displays and Filters of that object..
+        ///   Looks up a localized string similar to Templates that are connected to an object in the object list, always have a default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these default Displays and Filters of that Template..
         /// </summary>
         public static string MC_SetAllDefaultTemplateFieldsToSuggested_Description {
             get {
