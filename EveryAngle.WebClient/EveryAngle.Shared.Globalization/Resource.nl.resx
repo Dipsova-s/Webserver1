@@ -3224,12 +3224,18 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Is voor {0}</value>
   </data>
   <data name="WidgetFilter_Preview_Between" xml:space="preserve">
-    <value>Is tussen {0} en {1}</value>
+    <value>Is op of na {0} en voor {1}</value>
+  </data>
+  <data name="WidgetFilter_Preview_Between_EndDate" xml:space="preserve">
+    <value>Is op of na {0} en op of voor {1}</value>
   </data>
   <data name="WidgetFilter_Preview_Equal" xml:space="preserve">
     <value>Is op {0}</value>
   </data>
   <data name="WidgetFilter_Preview_NotBetween" xml:space="preserve">
+    <value>Is before {0} of na {1}</value>
+  </data>
+  <data name="WidgetFilter_Preview_NotBetween_EndDate" xml:space="preserve">
     <value>Is voor {0} of na of op {1}</value>
   </data>
   <data name="WidgetFilter_Preview_NotEqual" xml:space="preserve">
@@ -3953,5 +3959,8 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   </data>
   <data name="TagInputPlaceholder" xml:space="preserve">
     <value>Tag maken of vinden</value>
+  </data>
+  <data name="IncludeEndDate" xml:space="preserve">
+    <value>Include end date</value>
   </data>
 </root>

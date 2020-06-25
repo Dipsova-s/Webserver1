@@ -25,7 +25,7 @@
             WC.ModelHelper.RemoveReadOnlyQueryStep(data);
             return data;
         };
-        var validation = function (self) {
+        var validation = function () {
             var result = { valid: true };
             if (self.operator() !== enumHandlers.OPERATOR.HASVALUE.Value
                 && self.operator() !== enumHandlers.OPERATOR.HASNOVALUE.Value
@@ -53,6 +53,9 @@
             }
             return result;
         };
+        var includedEndDate = function () {
+            return self.arguments().hasObject('included_end_date', true);
+        };
 
         // implement
         WC.ModelHelper.ExtendValidProperty(self);
@@ -63,7 +66,7 @@
         // extend valid property
         self.valid_field = self.valid;
         if (checkValid === true && self.valid) {
-            var validResult = validation(self);
+            var validResult = validation();
             jQuery.extend(self, validResult);
         }
         self.valid = ko.observable(self.valid);
@@ -83,7 +86,7 @@
             return message + (message && messageArgs ? ', ' : '') + messageArgs;
         };
         self.validate = function () {
-            return validation(self);
+            return validation();
         };
         self.undo = function () {
             self.operator(_self.operator);
@@ -110,6 +113,16 @@
             delete source.execution_parameter_id;
             return !jQuery.deepCompare(source, compare, true, false);
         };
+        self.can_include_end_date = ko.observable(false);
+        self.included_end_date = ko.observable(includedEndDate());
+        self.included_end_date.subscribe(function (value) {
+            self.arguments(jQuery.map(self.arguments(), function (arg, index) {
+                delete arg.included_end_date;
+                if (self.can_include_end_date() && index === 1 && value === true)
+                    arg.included_end_date = value;
+                return arg;
+            }));
+        });
     }
 
     function JumpQueryStepViewModel(queryStep, modelUri) {

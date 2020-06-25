@@ -5492,12 +5492,18 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Est avant le {0}</value>
   </data>
   <data name="WidgetFilter_Preview_Between" xml:space="preserve">
-    <value>Est compris entre {0} et {1}</value>
+    <value>Is on or after {0} and before {1}</value>
+  </data>
+  <data name="WidgetFilter_Preview_Between_EndDate" xml:space="preserve">
+    <value>Is on or after {0} and on or before {1}</value>
   </data>
   <data name="WidgetFilter_Preview_Equal" xml:space="preserve">
     <value>Est le {0}</value>
   </data>
   <data name="WidgetFilter_Preview_NotBetween" xml:space="preserve">
+    <value>Is before {0} or after {1}</value>
+  </data>
+  <data name="WidgetFilter_Preview_NotBetween_EndDate" xml:space="preserve">
     <value>Est soit avant le {0}, soit le {1} ou après</value>
   </data>
   <data name="WidgetFilter_Preview_NotEqual" xml:space="preserve">
@@ -6364,5 +6370,8 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="TagInputPlaceholder" xml:space="preserve">
     <value>Create or find Tag</value>
+  </data>
+  <data name="IncludeEndDate" xml:space="preserve">
+    <value>Include end date</value>
   </data>
 </root>

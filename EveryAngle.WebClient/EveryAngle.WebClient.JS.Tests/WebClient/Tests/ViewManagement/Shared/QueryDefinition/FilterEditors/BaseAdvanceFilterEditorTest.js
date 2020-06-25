@@ -656,6 +656,7 @@ describe("BaseAdvanceFilterEditor", function () {
             spyOn(editor, 'UpdateArgumentFunctionUI');
             spyOn(editor, 'UpdateArgumentFieldUI');
             spyOn(editor, 'UpdateArgumentValueUI');
+            spyOn(editor, 'UpdateArgumentIncludedEndDate');
             spyOn(editor, 'UpdateArgumentPreview');
             spyOn(editor.Handler, 'TriggerUpdateBlockUI');
         });
@@ -667,6 +668,7 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.UpdateArgumentFunctionUI).toHaveBeenCalled();
             expect(editor.UpdateArgumentFieldUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentValueUI).not.toHaveBeenCalled();
+            expect(editor.UpdateArgumentIncludedEndDate).toHaveBeenCalled();
             expect(editor.UpdateArgumentPreview).toHaveBeenCalled();
             expect(editor.Handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
@@ -678,6 +680,7 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.UpdateArgumentFunctionUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentFieldUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentValueUI).not.toHaveBeenCalled();
+            expect(editor.UpdateArgumentIncludedEndDate).toHaveBeenCalled();
             expect(editor.UpdateArgumentPreview).toHaveBeenCalled();
             expect(editor.Handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
@@ -689,6 +692,7 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.UpdateArgumentFunctionUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentFieldUI).toHaveBeenCalled();
             expect(editor.UpdateArgumentValueUI).not.toHaveBeenCalled();
+            expect(editor.UpdateArgumentIncludedEndDate).toHaveBeenCalled();
             expect(editor.UpdateArgumentPreview).toHaveBeenCalled();
             expect(editor.Handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
@@ -700,6 +704,7 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.UpdateArgumentFunctionUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentFieldUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentValueUI).not.toHaveBeenCalled();
+            expect(editor.UpdateArgumentIncludedEndDate).toHaveBeenCalled();
             expect(editor.UpdateArgumentPreview).toHaveBeenCalled();
             expect(editor.Handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
@@ -711,6 +716,7 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.UpdateArgumentFunctionUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentFieldUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentValueUI).toHaveBeenCalled();
+            expect(editor.UpdateArgumentIncludedEndDate).toHaveBeenCalled();
             expect(editor.UpdateArgumentPreview).toHaveBeenCalled();
             expect(editor.Handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
@@ -722,6 +728,7 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.UpdateArgumentFunctionUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentFieldUI).not.toHaveBeenCalled();
             expect(editor.UpdateArgumentValueUI).not.toHaveBeenCalled();
+            expect(editor.UpdateArgumentIncludedEndDate).toHaveBeenCalled();
             expect(editor.UpdateArgumentPreview).toHaveBeenCalled();
             expect(editor.Handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
@@ -819,6 +826,81 @@ describe("BaseAdvanceFilterEditor", function () {
             // assert
             expect(editor.ConvertRelativeToFunctionArgument).toHaveBeenCalledTimes(2);
             expect(WC.WidgetFilterHelper.GetTranslatedSettings).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe(".CanIncludeEndDate", function () {
+        it("cannot include end date by default", function () {
+            var result = editor.CanIncludeEndDate();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+    });
+
+    describe(".EnableIncludeEndDate", function () {
+        it("should not be able to include end date by default", function () {
+            var result = editor.EnableIncludeEndDate();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+    });
+
+    describe(".UpdateArgumentIncludedEndDate", function () {
+        beforeEach(function () {
+            spyOn($.fn, 'removeClass');
+            spyOn($.fn, 'addClass');
+            spyOn($.fn, 'off');
+            spyOn($.fn, 'on');
+            spyOn($.fn, 'prop');
+            editor.Data.included_end_date(true);
+        });
+        it("should show including end date option", function () {
+            spyOn(editor, 'CanIncludeEndDate').and.returnValue(true);
+            spyOn(editor, 'EnableIncludeEndDate').and.returnValue(true);
+            editor.UpdateArgumentIncludedEndDate();
+
+            // assert
+            expect($.fn.removeClass).toHaveBeenCalled();
+            expect($.fn.addClass).not.toHaveBeenCalled();
+            expect(editor.Data.can_include_end_date()).toEqual(true);
+            expect($.fn.off).toHaveBeenCalled();
+            expect($.fn.on).toHaveBeenCalled();
+            expect($.fn.prop).toHaveBeenCalledWith('checked', true);
+            expect($.fn.prop).toHaveBeenCalledWith('disabled', false);
+        });
+        it("should hide including end date option", function () {
+            spyOn(editor, 'CanIncludeEndDate').and.returnValue(false);
+            spyOn(editor, 'EnableIncludeEndDate').and.returnValue(false);
+            editor.UpdateArgumentIncludedEndDate();
+
+            // assert
+            expect($.fn.removeClass).not.toHaveBeenCalled();
+            expect($.fn.addClass).toHaveBeenCalled();
+            expect(editor.Data.can_include_end_date()).toEqual(false);
+            expect($.fn.off).toHaveBeenCalled();
+            expect($.fn.on).toHaveBeenCalled();
+            expect($.fn.prop).toHaveBeenCalledWith('checked', false);
+            expect($.fn.prop).toHaveBeenCalledWith('disabled', true);
+        });
+    });
+
+    describe(".IncludedEndDateChange", function () {
+        it("should set value and update UI", function () {
+            var e = {
+                currentTarget: {
+                    checked: true
+                }
+            };
+            spyOn(editor, 'UpdateArgumentPreview');
+            spyOn(editor.Handler, 'TriggerUpdateBlockUI');
+            editor.IncludedEndDateChange(e);
+
+            // assert
+            expect(editor.Data.included_end_date()).toEqual(true);
+            expect(editor.UpdateArgumentPreview).toHaveBeenCalled();
+            expect(editor.Handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
     });
 
@@ -1091,6 +1173,7 @@ describe("BaseAdvanceFilterEditor", function () {
         beforeEach(function () {
             spyOn($.fn, 'data').and.returnValue({ value: $.noop });
             spyOn(editor, 'UpdateDropdownOperator');
+            spyOn(editor, 'UpdateArgumentIncludedEndDate');
             spyOn(editor, 'UpdateArgumentPreview');
             spyOn(editor.Handler, 'TriggerUpdateBlockUI');
         });
@@ -1099,6 +1182,7 @@ describe("BaseAdvanceFilterEditor", function () {
 
             // assert
             expect(editor.UpdateDropdownOperator).toHaveBeenCalled();
+            expect(editor.UpdateArgumentIncludedEndDate).toHaveBeenCalled();
             expect(editor.UpdateArgumentPreview).toHaveBeenCalled();
             expect(editor.Handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
@@ -1107,6 +1191,7 @@ describe("BaseAdvanceFilterEditor", function () {
 
             // assert
             expect(editor.UpdateDropdownOperator).toHaveBeenCalled();
+            expect(editor.UpdateArgumentIncludedEndDate).toHaveBeenCalled();
             expect(editor.UpdateArgumentPreview).toHaveBeenCalled();
             expect(editor.Handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
@@ -1205,6 +1290,7 @@ describe("BaseAdvanceFilterEditor", function () {
             spyOn(editor, 'GetArgumentDefaultTemplate').and.returnValue('template-default');
             spyOn(editor, 'GetArgumentRelativeTemplate').and.returnValue('template-relative');
             spyOn(editor, 'GetArgumentPreviewTemplate').and.returnValue('template-preview');
+            spyOn(editor, 'GetArgumentIncludeEndDateTemplate').and.returnValue('template-enddate');
         });
         it("should get template for common operator", function () {
             editor.Data.operator('between');
@@ -1213,9 +1299,11 @@ describe("BaseAdvanceFilterEditor", function () {
             // assert
             expect(result).toContain('template-default');
             expect(result).toContain('template-preview');
+            expect(result).toContain('template-enddate');
             expect(editor.GetArgumentDefaultTemplate).toHaveBeenCalledTimes(2);
             expect(editor.GetArgumentRelativeTemplate).toHaveBeenCalledTimes(0);
             expect(editor.GetArgumentPreviewTemplate).toHaveBeenCalledTimes(1);
+            expect(editor.GetArgumentIncludeEndDateTemplate).toHaveBeenCalledTimes(1);
         });
         it("should get template for relative operator", function () {
             editor.Data.operator('relative_between');
@@ -1224,9 +1312,11 @@ describe("BaseAdvanceFilterEditor", function () {
             // assert
             expect(result).toContain('template-relative');
             expect(result).toContain('template-preview');
+            expect(result).not.toContain('template-enddate');
             expect(editor.GetArgumentDefaultTemplate).toHaveBeenCalledTimes(0);
             expect(editor.GetArgumentRelativeTemplate).toHaveBeenCalledTimes(2);
             expect(editor.GetArgumentPreviewTemplate).toHaveBeenCalledTimes(1);
+            expect(editor.GetArgumentIncludeEndDateTemplate).toHaveBeenCalledTimes(0);
         });
     });
 

@@ -4840,6 +4840,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include end date.
+        /// </summary>
+        public static string IncludeEndDate {
+            get {
+                return ResourceManager.GetString("IncludeEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Indexing tables.
         /// </summary>
         public static string IndexingTables {
@@ -18227,11 +18236,20 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is between {0} and {1}.
+        ///   Looks up a localized string similar to Is on or after {0} and before {1}.
         /// </summary>
         public static string WidgetFilter_Preview_Between {
             get {
                 return ResourceManager.GetString("WidgetFilter_Preview_Between", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is on or after {0} and on or before {1}.
+        /// </summary>
+        public static string WidgetFilter_Preview_Between_EndDate {
+            get {
+                return ResourceManager.GetString("WidgetFilter_Preview_Between_EndDate", resourceCulture);
             }
         }
         
@@ -18245,11 +18263,20 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is before {0} or after or on {1}.
+        ///   Looks up a localized string similar to Is before {0} or after {1}.
         /// </summary>
         public static string WidgetFilter_Preview_NotBetween {
             get {
                 return ResourceManager.GetString("WidgetFilter_Preview_NotBetween", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is before {0} or after or on {1}.
+        /// </summary>
+        public static string WidgetFilter_Preview_NotBetween_EndDate {
+            get {
+                return ResourceManager.GetString("WidgetFilter_Preview_NotBetween_EndDate", resourceCulture);
             }
         }
         
