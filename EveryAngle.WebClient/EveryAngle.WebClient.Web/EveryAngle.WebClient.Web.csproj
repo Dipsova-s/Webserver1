@@ -867,6 +867,13 @@
     <Content Include="Images\Domains\PaymentStatus\PaymentStatusParked.png" />
     <Content Include="Images\Domains\PaymentStatus\PaymentStatusPartially.png" />
     <Content Include="Images\Domains\PaymentStatus\PaymentStatusUnknown.png" />
+	<Content Include="Images\Domains\QMResultValuation\QMResultValuationIsAccepted.png" />
+	<Content Include="Images\Domains\QMResultValuation\QMResultValuationIsFailed.png" />
+	<Content Include="Images\Domains\QMResultValuation\QMResultValuationIsRejected.png" />
+	<Content Include="Images\Domains\QualityStatus\QualityStatusqs0None.png" />
+	<Content Include="Images\Domains\QualityStatus\QualityStatusqs1Red.png" />
+	<Content Include="Images\Domains\QualityStatus\QualityStatusqs2Orange.png" />
+	<Content Include="Images\Domains\QualityStatus\QualityStatusqs3Green.png" />
     <Content Include="Images\Domains\UserFlag\UserFlagufLockedDueToIncorrectLogins.png" />
     <Content Include="Images\Domains\UserFlag\UserFlagufLockedDueToIncorrectLoginsAndGloballyByAdmin.png" />
     <Content Include="Images\Domains\UserFlag\UserFlagufLockedDueToIncorrectLoginsAndLocallyByAdmin.png" />
