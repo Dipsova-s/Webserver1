@@ -3741,9 +3741,6 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="OperatorIsRelativeBetween" xml:space="preserve">
     <value>is relatief tussen</value>
   </data>
-  <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Een bekend probleem veroorzaakt wellicht onjuist scrollen met iOS 13. Neem contact op met Every Angle Support voor meer informatie.</value>
-  </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
   </data>

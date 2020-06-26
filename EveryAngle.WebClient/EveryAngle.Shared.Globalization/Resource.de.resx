@@ -6177,9 +6177,6 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="OperatorIsRelativeBetween" xml:space="preserve">
     <value>ist relativ zwischen</value>
   </data>
-  <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Aufgrund eines bekannten Problems funktioniert der Bildlauf möglicherweise nicht korrekt, wenn iOS 13 läuft. Bitte kontaktieren Sie den Support von Every Angle für weitere Informationen.</value>
-  </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
   </data>
