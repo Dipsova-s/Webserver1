@@ -16,18 +16,31 @@
                 SettingDatastoreUri: '@ViewBag.SettingDatastoreUri',
                 TestConnectionUri: '@Url.Action("TestDataStoreConnection", "AutomationTasks")',
                 PluginUri: '@ViewBag.PluginUri',
-                PluginType: '@Model.datastore_plugin'
+                PluginType: '@Model.datastore_plugin',
+                DefaultDatastore:'@Model.is_default',
+                DefaultDatastoreUri: '@Url.Action("EditDefaultDatastoreCallback", "AutomationTasks")',
+                isSupportAutomateTask:'@ViewBag.isSupportAutomateTask'
             });
         }
     });
 </script>
 
 @{
-    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    if (ViewBag.isSupportAutomateTask)
     {
-        new PageToolbarButtonModel { Privilege=PrivilegeType.System, Type = PageToolbarButtonType.Save, OnClick = "MC.AutomationTasks.DataStores.SaveDatastore()" },
-        new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("AngleExports/DataStores") }
-    })
+        @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+        {
+            new PageToolbarButtonModel { Privilege=PrivilegeType.System, Type = PageToolbarButtonType.Save, OnClick = "MC.AutomationTasks.DataStores.SaveDatastore()" },
+            new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("AngleExports/DataStores") }
+        })
+    }
+    else
+    {
+        @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+       {
+           new PageToolbarButtonModel { Privilege=PrivilegeType.System, Type = PageToolbarButtonType.Save, OnClick = "MC.AutomationTasks.DataStores.SaveDatastore()" },
+       })
+    }
 }
 
 <div class="content pageDatastore pageDatastoreEdit">
@@ -47,44 +60,54 @@
                 }
             }
             <div class="contentSectionInfoItem">
-                <label>@Resource.MC_DataStoreName:</label>
-
                 <input type="hidden" name="id" value="@Model.id" />
                 <input type="hidden" name="datastore_plugin" value="@Model.datastore_plugin" />
-                <p>@Html.TextBoxFor(model => model.name, new { @class = "required", @name = "name", maxlength = 25 })</p>
-
-            </div>
-            <div class="contentSectionInfoItem">
-                <label>@Resource.MC_DataStorePlugin:</label>
-                <p>@ViewBag.DatastorePlugin</p>
-            </div>
-            @{
-                if (Model.datastore_plugin.Equals("csv"))
-                {
-                    <div class="contentSectionInfoItem">
-                        <label>@Resource.DefaultDatastore:</label>
+                @{
+                    if (ViewBag.isSupportAutomateTask && Model.is_default && (Model.datastore_plugin.Equals("csv") || Model.datastore_plugin.Equals("msexcel")))
+                    {
+                        <label>@Resource.MC_DefaultDatastoreName:</label>
                         <p>
-                            <label>
-                                <input id="is_default" name="default" type="checkbox" @(isDefault.HasValue && isDefault.Value ? "checked=\"checked\"" : "") />
-                                <span class="label"></span>
-                            </label>
+                            @(Html.Kendo().DropDownListFor(model => model.Uri)
+                                                                                  .DataValueField("Uri")
+                                                                                  .DataTextField("name")
+                                                                                  .BindTo((System.Collections.IEnumerable)ViewData["DatastoreDetails"])
+                                                                                  .Value(Model.Uri.ToString())
+                                                                                  .Events(e => e.Change(@<text>
+                                                                                    function(e) {
+                                                                                    MC.AutomationTasks.DataStores.GetDatastoreSetting(e);
+                                                                                    }
+                                                                                </text>))
+                            )
+
                         </p>
-                    </div>
+                    }
+                    else
+                    {
+                        <label>@Resource.MC_DataStoreName:</label>
+                        <p>@Html.TextBoxFor(model => model.name, new { @class = "required", @name = "name", maxlength = 25 })</p>
+                        if (ViewBag.isSupportAutomateTask)
+                        {
+                            <div class="contentSectionInfoItem">
+                                <label>@Resource.MC_DataStorePlugin:</label>
+                                <p>@ViewBag.DatastorePlugin</p>
+                            </div>
+                        }
+                    }
                 }
-            }
+            </div>
         </div>
         <!--/.contentSectionInfo-->
-        <hr/>
+        <hr />
     </form>
     @{
         if (Model.connection_settings != null)
         {
             <div class="connection_settings" id="CheckOutputFolder">
-                @{Html.RenderPartial("~/Views/Shared/Plugins.cshtml", Model.connection_settings, new ViewDataDictionary { {"page", "DataStore"} } );}
+                @{Html.RenderPartial("~/Views/Shared/Plugins.cshtml", Model.connection_settings, new ViewDataDictionary { { "page", "DataStore" } });}
                 <div class="contentSectionInfoItem" id="row-test-connection">
                     <label>&nbsp;</label>
                     <p>
-                        <a id="btnTestConnection" class="btn" onclick="MC.AutomationTasks.DataStores.TestConnection()">@Resource.MC_TestConnection</a><br/>
+                        <a id="btnTestConnection" class="btn" onclick="MC.AutomationTasks.DataStores.TestConnection()">@Resource.MC_TestConnection</a><br />
                         <span class="statusInfo"></span>
                     </p>
                 </div>
@@ -96,11 +119,11 @@
             <div class="data_settings">
                 @{Html.RenderPartial("~/Views/Shared/Plugins.cshtml", Model.data_settings, new ViewDataDictionary { { "page", "DataStore" } });}
             </div>
-            
+
         }
         if (Model.connection_settings != null || Model.data_settings != null)
         {
-                Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");
+            Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");
         }
     }
 </div>

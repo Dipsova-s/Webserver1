@@ -222,3 +222,4 @@ Click Open Model EA2_800 From Overview Page
     Wait Until Ajax Complete
     Page Should Contain Element    ${btnEA2800InFo}
     Page Should Contain Element    ${btnEA2800XtractorInFo}
+    

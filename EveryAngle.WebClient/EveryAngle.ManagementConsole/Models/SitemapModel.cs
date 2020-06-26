@@ -332,17 +332,20 @@ namespace EveryAngle.ManagementConsole.Models
 
         private SiteMap GetExcelTemplatesMenu()
         {
-            return new SiteMap { Id = "ExcelTemplates", Name = Resource.MC_ExcelTemplates,Uri = "~/AngleExports/RenderExcelTemplates", HashPath = "AngleExports/ExcelTemplates" };
+            return new SiteMap { Id = "ExcelTemplates", Name = Resource.MC_ExcelTemplates, Uri = "~/AngleExports/RenderExcelTemplates", HashPath = "AngleExports/ExcelTemplates" };
         }
 
-        private SiteMap GetExcelDefaultsMenu()
+        private SiteMap GetExcelDefaultsMenu(bool isSupportAutomateTask)
         {
-            return new SiteMap {
-                Id = "ExcelDefaults",
-                Name = Resource.MC_ExcelDefaults,
-                HashPath = "AngleExports/ExcelDefaults",
-                ChildsVisible = false,
-                Childs = new List<SiteMap>()
+            return new SiteMap
+            {
+                Id = "ExportDefault",
+                Name = Resource.MC_ExportDefaults,
+                HashPath = "AngleExports/ExportDefault",
+                Childs = new List<SiteMap> {
+                    new SiteMap { Id = "ExportCsv", Name = Resource.ExportToCSV, Uri = "~/AutomationTasks/EditDefaultDatastore", HashPath = "AngleExports/ExportDefault/ExportCsv", Parameters = new { plugin = "csv",AutomationTask=isSupportAutomateTask } },
+                    new SiteMap { Id = "ExportExcel", Name = Resource.ExportToExcel, Uri = "~/AutomationTasks/EditDefaultDatastore", HashPath = "AngleExports/ExportDefault/ExportExcel", Parameters = new { plugin = "msexcel",AutomationTask=isSupportAutomateTask } }
+                }
             };
         }
 
@@ -369,9 +372,8 @@ namespace EveryAngle.ManagementConsole.Models
                 siteMap.Childs.Insert(0, GetExcelTemplatesMenu());
                 //ExportDefaults
                 int lastIndexofList = siteMap.Childs.Count;
-                siteMap.Childs.Insert(lastIndexofList, GetExcelDefaultsMenu());
+                siteMap.Childs.Insert(lastIndexofList, GetExcelDefaultsMenu(isSupportAutomateTask));
             }
-
             return siteMap;
         }
     }

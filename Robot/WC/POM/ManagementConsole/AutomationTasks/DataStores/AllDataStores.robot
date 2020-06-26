@@ -11,8 +11,19 @@ ${dpdDatastorePlugin}   xpath=//span[@aria-owns='DatastorePluginSelect_listbox']
 #Delete Data Store
 ${btnSaveDeleteDataStore}               css=#popupConfirmation .btnSubmit
 ${btnDatastoreOptionSubmit}             css=.btnSubmit
+${inputCountDatastoreDefaultCheckBox}        //input[@checked='checked']
+${inputDatastoreDefaultCheckBox1}            //td[text()='
+${inputDatastoreDefaultCheckBox2}            ']/following-sibling::td/label/input[@data-default='true']
 
 *** Keywords ***
+Count of Default Datastores
+    ${count}        Get Element Count        ${inputCountDatastoreDefaultCheckBox}
+    Should Be True  ${count} == 2
+
+Default Checkbox For Default Datastores
+    [Arguments]     ${DefaultDatastoreName}
+    Checkbox Should Be Selected     ${inputDatastoreDefaultCheckBox1}${DefaultDatastoreName}${inputDatastoreDefaultCheckBox2}
+
 Click Action On Data Stores By Index
     [Arguments]    ${index}
     Click Show Action Dropdown In Grid By Index    ${index}    ${trRowInAllDataStoresGrid}

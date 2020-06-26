@@ -8760,6 +8760,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default datastore.
+        /// </summary>
+        public static string MC_DefaultDatastoreName {
+            get {
+                return ResourceManager.GetString("MC_DefaultDatastoreName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default label authorization.
         /// </summary>
         public static string MC_DefaultLabelAuthorization {
@@ -9779,6 +9788,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_ExportData {
             get {
                 return ResourceManager.GetString("MC_ExportData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export defaults.
+        /// </summary>
+        public static string MC_ExportDefaults {
+            get {
+                return ResourceManager.GetString("MC_ExportDefaults", resourceCulture);
             }
         }
         

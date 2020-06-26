@@ -3963,4 +3963,13 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="IncludeEndDate" xml:space="preserve">
     <value>Include end date</value>
   </data>
+  <data name="IncludeEndDate" xml:space="preserve">
+    <value>Include end date</value>
+  </data>
+  <data name="MC_DefaultDatastoreName" xml:space="preserve">
+    <value>Default datastore</value>
+  </data>
+  <data name="MC_ExportDefaults" xml:space="preserve">
+    <value>Export defaults</value>
+  </data>
 </root>

@@ -15,14 +15,16 @@ Verify Export To Excel From Action Menu
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
-    Click Angle Dropdown To Export Excel
+    Click Angle Dropdown To Export Excel    
+    Wait Progress Bar Closed
     Click Check Add Definition Sheet
-    Input Excel File Name Placeholder Should Be    ${fileNamePlaceholder}
+    Input Excel File Name Should Be    ${fileNamePlaceholder}
     ${fileNamePlaceholder}     Set Variable   ${angleName}
     Input Excel File Name     ${fileNamePlaceholder}
+    Input Excel File Name Should Be    ${angleName}
     Click Export Excel Button
     ${files}    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
-    Wait Unit Export Excel Popup Close
+    Wait Until Export Excel Popup Close
     Download Should Contain File    ${angleName}.xlsx
     Check The Existence Of Definitions Sheet In Excel File      ${files[0]}
 
@@ -37,7 +39,7 @@ Verify Export Item Drilldown To Excel From Action Menu
     Click Angle Dropdown To Export Drilldown To Excel
     Click Export Drilldown To Excel Button
     Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
-    Wait Unit Export Excel Popup Close
+    Wait Until Export Excel Popup Close
 
 Verify Error Message If A Filename Is Too Long
     ${angleName}  Set Variable  Angle For General Test
@@ -47,25 +49,28 @@ Verify Error Message If A Filename Is Too Long
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Angle Dropdown To Export Excel
-    Input Excel File Name Placeholder Should Be    ${fileNamePlaceholder}
+    Wait Progress Bar Closed
+    Input Excel File Name Should Be    ${fileNamePlaceholder}
     ${filename}   Set Variable  Export angle to excel with such a long filename. A filename of 200 characters should be allowed. Since the windows max path length is 260, this could lead to a path too long exception, when this happens, show the error message to the user.
     Input Excel File Name    ${filename}
     Click Export Excel Button
     Wait Until Page Contains    Full name of the file exceeds Windows limitations (260 characters).
 
 Verify Export Field Names Contain Special Charactor
+    [Documentation]     This Test Verifies Export Field Names Contain Special Charactor
+    ...                 and Default Excel Datastores Values in Export to Excel Pop Up.
     [Tags]  acc_wc_aci
-    ${angleName}  Set Variable  ANGLE_Pivot_fields_contain_special_characters
-    ${fileNamePlaceholder}     Set Variable   {modeltimestamp}{anglename:normalized}
+    ${angleName}  Set Variable  ANGLE_Pivot_fields_contain_special_characters    
     Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
+    ${modelDateTimeStamp}   Get Model Date Time
+    ${formattedmodelDateTimeStamp}     Get Formatted Date Time Stamp   ${modelDateTimeStamp}   %Y%m%d%H%M%S
     Click Angle Dropdown To Export Excel
-    Input Excel File Name Placeholder Should Be    ${fileNamePlaceholder}
-    ${fileNamePlaceholder}     Set Variable   ${angleName}
-    Input Excel File Name     ${fileNamePlaceholder}
+    Wait Progress Bar Closed
+    Check Default Excel Datastore values in Export to Excel
     Click Export Excel Button
     Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
-    Wait Unit Export Excel Popup Close
-    Download Should Contain File   ${angleName}.xlsx
+    Wait Until Export Excel Popup Close
+    Download Should Contain File   ${formattedmodelDateTimeStamp}${angleName}.xlsx

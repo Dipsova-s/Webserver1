@@ -1,4 +1,5 @@
-﻿using EveryAngle.Core.ViewModels.Cycle;
+﻿using EveryAngle.Core.ViewModels;
+using EveryAngle.Core.ViewModels.Cycle;
 using EveryAngle.Core.ViewModels.DataStore;
 using EveryAngle.Core.ViewModels.Item;
 using EveryAngle.Core.ViewModels.Model;
@@ -13,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -56,9 +58,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             });
 
             _testingController = new AutomationTasksController(
-                modelService.Object, 
-                taskService.Object, 
-                automationTaskService.Object, 
+                modelService.Object,
+                taskService.Object,
+                automationTaskService.Object,
                 systemScriptService.Object,
                 itemService.Object,
                 sessionHelper.Object);
@@ -121,7 +123,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 actions = new List<TaskAction>
                 {
-                    new TaskAction { arguments = new List<Core.ViewModels.Cycle.Argument>() } 
+                    new TaskAction { arguments = new List<Core.ViewModels.Cycle.Argument>() }
                 }
             });
             taskService.Setup(x => x.CreateTask(It.IsAny<string>(), It.IsAny<TaskViewModel>()))
@@ -329,6 +331,140 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual("display name", taskActions[0].DisplayName);
         }
 
+        [TestCase("csv", true)]
+        [TestCase("msexcel", true)]
+        public void Can_EditDefaultDatastore(string pluginname, Boolean isdefault)
+        {
+            // setup
+            List<DataStoresViewModel> dataStore = new List<DataStoresViewModel>
+            {
+                new DataStoresViewModel
+                {
+                    datastore_plugin = pluginname,
+                    is_default =isdefault,
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            var datastores = new ListViewModel<DataStoresViewModel>();
+            datastores.Data = dataStore;
+            List<DataStorePluginsViewModel> plugins = new List<DataStorePluginsViewModel>
+            {
+                new DataStorePluginsViewModel
+                {
+                    id=pluginname,
+                    name=pluginname,
+                    supports_append=true,
+                    description=pluginname,
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            DataStoresViewModel data = new DataStoresViewModel
+            {
+                datastore_plugin = pluginname,
+                is_default = isdefault,
+                Uri = new Uri("/system/datastores", UriKind.Relative)
+            };
+            var plugin = new ListViewModel<DataStorePluginsViewModel>();
+            plugin.Data = plugins;
+            automationTaskService.Setup(x => x.GetDatastore(It.IsAny<string>())).Returns(data);
+            automationTaskService.Setup(x => x.GetDatastores(It.IsAny<string>())).Returns(datastores);
+            automationTaskService.Setup(x => x.GetDatastorePlugins(It.IsAny<string>())).Returns(plugin);
+
+            // execute
+            var result = _testingController.EditDefaultDatastore(pluginname,true);
+
+            //Assert
+            Assert.AreEqual(_testingController.ViewBag.DatastorePlugin, pluginname);
+            Assert.AreEqual(_testingController.ViewBag.DatastoreDetails, dataStore);
+        }
+
+        [TestCase("csv", true)]
+        [TestCase("msexcel", true)]
+        public void Can_EditDefaultDatastoreCallback(string pluginname, Boolean isdefault)
+        {
+            //Setup
+            List<DataStorePluginsViewModel> plugins = new List<DataStorePluginsViewModel>
+            {
+                new DataStorePluginsViewModel
+                {
+                    id=pluginname,
+                    name=pluginname,
+                    supports_append=true,
+                    description=pluginname,
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                },
+                new DataStorePluginsViewModel
+                {
+                    id="csv",
+                    name="csv",
+                    supports_append=true,
+                    description=pluginname,
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            DataStoresViewModel data = new DataStoresViewModel
+            {
+                datastore_plugin = pluginname,
+                is_default = isdefault,
+                Uri = new Uri("/system/datastores", UriKind.Relative)
+            };
+            var plugin = new ListViewModel<DataStorePluginsViewModel>();
+            plugin.Data = plugins;
+            automationTaskService.Setup(x => x.GetDatastore(It.IsAny<string>())).Returns(data);
+            automationTaskService.Setup(x => x.GetDatastorePlugins(It.IsAny<string>())).Returns(plugin);
+
+            //Execute
+            JsonResult result = _testingController.EditDefaultDatastoreCallback(data.Uri.ToString(), "", pluginname) as JsonResult;
+
+            //Aseert
+            Assert.AreEqual(result.Data, data);
+        }
+
+        [TestCase("csv", true)]
+        [TestCase("msexcel", true)]
+        public void Can_EditDatastore(string pluginname, Boolean isdefault)
+        {
+            //setup
+            List<DataStoresViewModel> dataStore = new List<DataStoresViewModel>
+            {
+                new DataStoresViewModel
+                {
+                    datastore_plugin = pluginname,
+                    is_default =isdefault,
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            var datastores = new ListViewModel<DataStoresViewModel>();
+            datastores.Data = dataStore;
+            List<DataStorePluginsViewModel> plugins = new List<DataStorePluginsViewModel>
+            {
+                new DataStorePluginsViewModel
+                {
+                    id=pluginname,
+                    name=pluginname,
+                    supports_append=true,
+                    description=pluginname,
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            DataStoresViewModel data = new DataStoresViewModel
+            {
+                datastore_plugin = pluginname,
+                is_default = isdefault,
+                Uri = new Uri("/system/datastores", UriKind.Relative)
+            };
+            var plugin = new ListViewModel<DataStorePluginsViewModel>();
+            plugin.Data = plugins;
+            automationTaskService.Setup(x => x.GetDatastore(It.IsAny<string>())).Returns(data);
+            automationTaskService.Setup(x => x.GetDatastores(It.IsAny<string>())).Returns(datastores);
+            automationTaskService.Setup(x => x.GetDatastorePlugins(It.IsAny<string>())).Returns(plugin);
+
+            //Execute
+            var result = _testingController.EditDatastore(data.Uri.ToString(), "", pluginname);
+
+            //Assert
+            Assert.AreEqual(_testingController.ViewBag.DatastoreDetails, dataStore);
+        }
         #endregion
     }
 
