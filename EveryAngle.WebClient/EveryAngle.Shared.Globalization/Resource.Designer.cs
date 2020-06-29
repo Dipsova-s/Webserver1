@@ -16841,6 +16841,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter Tags.
+        /// </summary>
+        public static string SearchTagInputPlaceholder {
+            get {
+                return ResourceManager.GetString("SearchTagInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No matches.
+        /// </summary>
+        public static string SearchTagNoSuggestion {
+            get {
+                return ResourceManager.GetString("SearchTagNoSuggestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to See info about field.
         /// </summary>
         public static string SeeInfoAboutProperty {

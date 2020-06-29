@@ -92,10 +92,18 @@ $left-menu-background-color: #fcfcfc;
         z-index: 10;
     }
 
+    .k-tagtextbox ul {
+        display: none;
+    }
+
     .facetFilter {
 
         .facetFilterSection .FilterCheckBox {
             padding-bottom: $facet-filter-padding-bottom;
+        }
+
+        .k-tagtextbox {
+            margin-bottom: 10px;
         }
 
         ul {
@@ -117,6 +125,13 @@ $left-menu-background-color: #fcfcfc;
 
             &:hover span {
                 color: #006f9b;
+            }
+
+            &.item-label {
+                font-size: 12px;
+                padding: 0 5px;
+                margin: 0 7px 7px 0;
+                line-height: 20px;
             }
 
             & > label {
@@ -278,7 +293,7 @@ $left-menu-background-color: #fcfcfc;
 .displaysMode {
     .ResultView {
         width: 525px;
-        height: 123px;
+        height: 150px;
         padding-top: 0;
         overflow: hidden;
         border-left: 1px solid $general-border-color;

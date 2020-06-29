@@ -2,12 +2,25 @@
 
 describe("SearchViewModel", function () {
     var searchViewModel;
-
     beforeEach(function () {
         searchViewModel = new SearchViewModel();
     });
 
-    describe(".IsValidClickItemLink(event)", function () {
+    describe(".GetTags", function () {
+        it("should get tags html", function () {
+            var data = {
+                tags: ['Test1', 'release2020sp2', 'Gaj']
+            };
+            var result = searchViewModel.GetTags(data);
+
+            // assert
+            expect(result).toContain('Test1');
+            expect(result).toContain('release2020sp2');
+            expect(result).toContain('Gaj');
+        });
+    });
+
+    describe(".IsValidClickItemLink", function () {
 
         var tests = [
             {
@@ -100,5 +113,4 @@ describe("SearchViewModel", function () {
         });
 
     });
-
 });

@@ -769,7 +769,7 @@
   display: none; }
 
 .displaysMode .SearchResult {
-  height: 142px; }
+  height: 169px; }
 
 .SearchResult .icon-star-active.disabled,
 .SearchResult .icon-star-inactive.disabled {
@@ -806,6 +806,10 @@
     top: -1px; }
   .ResultContent .parameterized {
     top: -2px; }
+  .ResultContent .item-label-wrapper {
+    display: block;
+    margin-top: 2px;
+    min-height: 25px; }
   .ResultContent .Date {
     color: #919699;
     padding-top: 6px;
@@ -867,14 +871,6 @@
 .td-no-top-border {
   border-top-color: transparent !important; }
 
-/* webkit */
-.webkit .ResultView {
-  right: 10px; }
-
-/* edge */
-.webkit.ie .ResultView {
-  right: 7px; }
-
 .ResultView .detailDefinitionList .listview-item {
   cursor: pointer;
   height: 27px;
@@ -910,7 +906,8 @@
   border-radius: 50%;
   padding: 3px; }
 
-.compactMode .ResultContent .ContentDetail {
+.compactMode .ResultContent .ContentDetail,
+.compactMode .ResultContent .item-label-wrapper {
   display: none; }
 
 .compactMode .ResultContent .Date {
@@ -1030,8 +1027,12 @@
     position: relative;
     height: auto;
     z-index: 10; }
+  #LeftMenu .k-tagtextbox ul {
+    display: none; }
   #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox {
     padding-bottom: 9px; }
+  #LeftMenu .facetFilter .k-tagtextbox {
+    margin-bottom: 10px; }
   #LeftMenu .facetFilter ul {
     padding-left: 0;
     margin: 0;
@@ -1048,6 +1049,11 @@
     margin-bottom: 12px; }
     #LeftMenu .facetFilter li:hover span {
       color: #006f9b; }
+    #LeftMenu .facetFilter li.item-label {
+      font-size: 12px;
+      padding: 0 5px;
+      margin: 0 7px 7px 0;
+      line-height: 20px; }
     #LeftMenu .facetFilter li > label {
       display: block; }
     #LeftMenu .facetFilter li .name {
@@ -1152,7 +1158,7 @@
 
 .displaysMode .ResultView {
   width: 525px;
-  height: 123px;
+  height: 150px;
   padding-top: 0;
   overflow: hidden;
   border-left: 1px solid #f3f3f3; }

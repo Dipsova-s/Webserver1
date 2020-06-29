@@ -6374,13 +6374,16 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="IncludeEndDate" xml:space="preserve">
     <value>Include end date</value>
   </data>
-  <data name="IncludeEndDate" xml:space="preserve">
-    <value>Include end date</value>
-  </data>
   <data name="MC_DefaultDatastoreName" xml:space="preserve">
     <value>Default datastore</value>
   </data>
   <data name="MC_ExportDefaults" xml:space="preserve">
     <value>Export defaults</value>
+  </data>
+  <data name="SearchTagInputPlaceholder" xml:space="preserve">
+    <value>Filter Tags</value>
+  </data>
+  <data name="SearchTagNoSuggestion" xml:space="preserve">
+    <value>No matches</value>
   </data>
 </root>

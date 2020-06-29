@@ -17,6 +17,7 @@
             // base call to widget initialization
             var that = this;
             that._$searchIcon = $();
+            that.header = $();
             that._defaultValue = null;
             that._forcedTags = [];
             that._canTriggerChanged = true;
@@ -80,6 +81,9 @@
             maxInputLength: 25,
             visibleLength: 10,
             delay: 500,
+            hasHeader: true,
+            canAddNew: true,
+            itemClassName: '',
             messages: {
                 suggestion: 'Suggestions',
                 noData: 'No suggestion',
@@ -100,6 +104,7 @@
             }
             else {
                 that.list.addClass('k-tagtextbox-list-container');
+                that._toggleNoData(!that._hasData());
                 that._updatePopup();
                 if (!that.options.autoClose)
                     that._canTriggerChanged = false;
@@ -231,12 +236,12 @@
             return tag;
         },
         _headerTemplate: function () {
-            return kendo.format('<div class="k-header"><div class="k-item">{0}</div></div>', this.options.messages.suggestion);
+            return this.options.hasHeader ? kendo.format('<div class="k-header"><div class="k-item">{0}</div></div>', this.options.messages.suggestion) : '';
         },
         _footerTemplate: function () {
             var that = this;
             var tag = that._filterText();
-            return that._isNewTag(tag) ? '<div class="k-item">' + kendo.format(that.options.messages.newTag, tag) + '</div>' : '';
+            return that.options.canAddNew && that._isNewTag(tag) ? '<div class="k-item">' + kendo.format(that.options.messages.newTag, tag) + '</div>' : '';
         },
         _hasSuggestion: function () {
             return this.ul.children(':visible').length;
@@ -251,10 +256,23 @@
                 that.popup.element.show();
                 that.popup.element.closest('.k-animation-container').show();
             }
-            var itemHeight = that.header.outerHeight();
-            var height = itemHeight * Math.min(that.ul.children(':visible').length, that.options.visibleLength);
-            var hasNewTag = that.footer.children('.k-item').length;
-            var popupHeight = Math.max(height, hasNewTag ? 0 : itemHeight) + itemHeight * (hasNewTag ? 2 : 1);
+            var items = that.ul.children(':visible');
+            var heights = [
+                that.options.hasHeader ? that.header.outerHeight() : 0,
+                that.noData.outerHeight(),
+                that.footer.outerHeight(),
+                items.outerHeight()
+            ];
+            var itemHeight = Math.max.apply({}, heights);
+            var listHeight = itemHeight * Math.min(items.length, that.options.visibleLength);
+            var count = 0;
+            if (that.options.hasHeader)
+                count++;
+            if (that.footer.children('.k-item').length)
+                count++;
+            if (!that._hasData())
+                count++;
+            var popupHeight = listHeight + (itemHeight * count);
             if (isVisible) {
                 that.popup.wrapper.css('height', popupHeight);
                 that.popup.element.css('height', popupHeight);
@@ -263,7 +281,7 @@
                 that.options.height = popupHeight;
             }
             that.listView.content.css('max-height', itemHeight * that.options.visibleLength);
-            that.listView.content.css('height', height);
+            that.listView.content.css('height', listHeight);
             if (!isVisible) {
                 that.popup.element.hide();
                 that.popup.element.closest('.k-animation-container').hide();
@@ -301,7 +319,7 @@
         _updateSelectedValueHtml: function () {
             var that = this;
             that.tagList
-                .children('li').removeClass('k-button').addClass('item-label')
+                .children('li').removeClass('k-button').addClass('item-label ' + that.options.itemClassName)
                 .children('.k-select').addClass('btn-remove').removeAttr('title').attr({
                     'data-role': 'tooltip',
                     'data-tooltip-text': that.options.messages.deleteTag

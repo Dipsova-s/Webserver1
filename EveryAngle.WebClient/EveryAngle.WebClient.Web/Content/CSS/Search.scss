@@ -940,7 +940,7 @@
 }
 
 .displaysMode .SearchResult {
-    height: 142px;
+    height: 169px;
 }
 
 .SearchResult .icon-star-active.disabled,
@@ -994,6 +994,12 @@
 
     .parameterized {
         top: -2px;
+    }
+
+    .item-label-wrapper {
+        display: block;
+        margin-top: 2px;
+        min-height: 25px;
     }
 
     .Date {
@@ -1068,16 +1074,6 @@
     border-top-color: transparent !important;
 }
 
-/* webkit */
-.webkit .ResultView {
-    right: 10px;
-}
-
-/* edge */
-.webkit.ie .ResultView {
-    right: 7px;
-}
-
 .ResultView .detailDefinitionList .listview-item {
     cursor: pointer;
     height: 27px;
@@ -1120,7 +1116,8 @@
     padding: 3px;
 }
 
-.compactMode .ResultContent .ContentDetail {
+.compactMode .ResultContent .ContentDetail,
+.compactMode .ResultContent .item-label-wrapper {
     display: none;
 }
 

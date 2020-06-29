@@ -679,7 +679,7 @@ Search Dashboard From Search Page And Open It
     Open Dashboard From First Dashboard in Search Page
 
 Clear All Filters
-    ${present}=  Run Keyword And Return Status    Element Should Be Visible   ${btnClearFilters}
+    ${present}  Run Keyword And Return Status    Element Should Be Visible   ${btnClearFilters}
     Run Keyword If    ${present}    Click Clear Filters
 
 Click Clear Filters
@@ -689,4 +689,8 @@ Click Clear Filters
 
 Delete Angle Via Search Page
    [Arguments]    ${angleName}
-   Delete Item On Search Page    ${angleName}     
+   Delete Item On Search Page    ${angleName}
+
+Check Existing Tag From Search Result
+    [Arguments]    ${tag}
+    Element Should Contain   ${gridSearchResult}    ${tag}

@@ -11,11 +11,14 @@
         </div>
         <!-- /ko -->
         <div class="FilterCheckBox" data-bind="
-             css: $root.GetFacetCheckboxesClassname(facet), 
-             attr: { 'id': facet.id + '_Checkbox' }, 
+             css: $root.GetFacetCheckboxesClassname(facet),
+             attr: { 'id': facet.id + '_Checkbox' },
              visible: facet.panel_opened()">
+            <!-- ko if: $root.GroupTag === facet.type -->
+            <select class="tags-input" id="SearchTag"></select>
+            <!-- /ko -->
             <ul data-bind="foreach: { data: facet.filters(), as: 'filter' }, attr: { 'class': facet.id }">
-                <li data-bind="visible: $root.CheckAngleFacetVisibility(filter.id, filter.count())">
+                <li data-bind="visible: $root.CheckAngleFacetVisibility(filter.id, filter.count()) && $root.GroupTag !== facet.type">
                     <label>
                         <input type="checkbox"
                                data-bind="attr: { 'id': filter.id },

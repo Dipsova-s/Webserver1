@@ -3961,10 +3961,16 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
     <value>Tag maken of vinden</value>
   </data>
   <data name="IncludeEndDate" xml:space="preserve">
-    <value>Include end date</value>
+    <value>Inclusief einddatum</value>
+  </data>
+  <data name="SearchTagInputPlaceholder" xml:space="preserve">
+    <value>Filter Tags</value>
+  </data>
+  <data name="SearchTagNoSuggestion" xml:space="preserve">
+    <value>Geen resultaten</value>
   </data>
   <data name="IncludeEndDate" xml:space="preserve">
-    <value>Include end date</value>
+    <value>Inclusief einddatum</value>
   </data>
   <data name="MC_DefaultDatastoreName" xml:space="preserve">
     <value>Default datastore</value>
