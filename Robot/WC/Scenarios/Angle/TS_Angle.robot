@@ -121,11 +121,6 @@ Create New Chart Display on Angle Page
     Create New Display on Angle Page    chart  ${name}  ${isAdhoc}
     Wait Until Chart Display Loaded
 
-Login And Create Angle By 2 Objects From Object List
-    [Arguments]    ${objectName}    ${angleName}
-    Login To WC By Power User
-    Create Angle From Object List And Save   ${objectName}    ${angleName}
-
 Back To Search And Delete Angle Are Created
     [Arguments]   ${angleName}
     Go to Search Page
