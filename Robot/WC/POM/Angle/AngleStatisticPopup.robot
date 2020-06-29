@@ -8,6 +8,7 @@ ${lbNumberOfObject}              ${divPopupAngleStatistic} .info-displaytotalrow
 ${lbExecutionTime}               ${divPopupAngleStatistic} .info-responsetime
 ${lblLastExecutedDate}           ${divPopupAngleStatistic} .row-last-executed .label-data-date
 ${btnAngleInfo}                  ${tabAngle} .action.btn-info
+${lblDateTime}                   ${divPopupAngleStatistic} .row-system-date .label-data
 
 *** Keywords *** 
 Open Angle Statistic Popup
@@ -60,6 +61,10 @@ Get Last Execute Angle Date
     ${lastExecuteTimeString}    Get Substring    ${lastExecuteText}    18    23
     ${lastExecuteDateTimeString}    Catenate    ${lastExecuteDateString}    ${lastExecuteTimeString}
     [Return]    ${lastExecuteDateTimeString}
+
+Get Model Date
+    ${getModelDateTime}    Get Text    ${lblDateTime}
+    [Return]    ${getModelDateTime}
 
 Get Number Of Object
     Open Angle Statistic Popup

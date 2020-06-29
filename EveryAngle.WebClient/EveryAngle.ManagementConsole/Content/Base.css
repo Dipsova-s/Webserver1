@@ -3965,6 +3965,10 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     top: -3px;
 }
 
+.clearSuggestedFieldsbtn, .clearSuggestedFieldsbtn:hover {
+    padding: 3px 6.8px 5px 6.8px;
+}
+
 /* .pageLabelEdit
 ================================== */
 .pageLabelEdit .contentSectionInfo {

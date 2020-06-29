@@ -94,6 +94,7 @@
     helper.GetTranslatedSettings = function (args, operator, fieldType, modelUri) {
         var self = this;
         var canShowPreviewText = false;
+        var includedEndDate = false;
         var settings = {
             template: '',
             arguments: []
@@ -123,26 +124,29 @@
                     settings.arguments.push(kendo.toString(lowerDate, formatCustom));
 
                 // add a translated upper bound for equal operator
-                if (isDayUpperBound(isEqualOperator, argValueType)) {
-                    var upperEqualDate = self.GetUpperBoundDate(lowerDate, argValueType, 0);
-                    settings.arguments.push(kendo.toString(upperEqualDate, formatCustom));
-                }
-
-                // add a translated upper bound
-                if (index === 1) {
+                // or 2nd argument
+                if (isDayUpperBound(isEqualOperator, argValueType) || index === 1) {
+                    if (operator === enumHandlers.OPERATOR.NOTEQUALTO.Value || operator === enumHandlers.OPERATOR.NOTBETWEEN.Value)
+                        includedEndDate = true;
                     var upperDate = self.GetUpperBoundDate(lowerDate, argValueType, 0);
                     settings.arguments.push(kendo.toString(upperDate, formatCustom));
                 }
             }
             else {
                 // normal argument type, convert to readable date
+                if (index === 1) {
+                    canShowPreviewText = true;
+                    if (arg.included_end_date)
+                        includedEndDate = true;
+                }
+
                 var date = getDateArgumentValue(arg.value);
                 settings.arguments.push(kendo.toString(date, format));
             }
         });
 
         if (canShowPreviewText)
-            settings.template = self.GetTranslatedTemplate(operator, settings.arguments);
+            settings.template = self.GetTranslatedTemplate(operator, settings.arguments, includedEndDate);
 
         return settings;
     };
@@ -153,14 +157,14 @@
     var isPreviewAsNotBetween = function (operator, translatedArgs) {
         return operator === enumHandlers.OPERATOR.NOTBETWEEN.Value || (operator === enumHandlers.OPERATOR.NOTEQUALTO.Value && translatedArgs.length === 2);
     };
-    helper.GetTranslatedTemplate = function (operator, translatedArgs) {
+    helper.GetTranslatedTemplate = function (operator, translatedArgs, includedEndDate) {
         var template = '';
         if (isPreviewAsBetween(operator, translatedArgs))
-            template = Localization.WidgetFilter_Preview_Between;
+            template = includedEndDate ? Localization.WidgetFilter_Preview_Between_EndDate : Localization.WidgetFilter_Preview_Between;
         else if (operator === enumHandlers.OPERATOR.EQUALTO.Value)
             template = Localization.WidgetFilter_Preview_Equal;
         else if (isPreviewAsNotBetween(operator, translatedArgs))
-            template = Localization.WidgetFilter_Preview_NotBetween;
+            template = includedEndDate ? Localization.WidgetFilter_Preview_NotBetween_EndDate : Localization.WidgetFilter_Preview_NotBetween;
         else if (operator === enumHandlers.OPERATOR.NOTEQUALTO.Value)
             template = Localization.WidgetFilter_Preview_NotEqual;
         else if (operator === enumHandlers.OPERATOR.AFTER.Value)

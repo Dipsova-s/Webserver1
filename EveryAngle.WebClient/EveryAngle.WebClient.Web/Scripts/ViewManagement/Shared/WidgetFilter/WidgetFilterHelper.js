@@ -70,7 +70,8 @@ function WidgetFilterHelper() {
         argumentValues = WC.Utility.ToArray(argumentValues);
         return self.IsBetweenGroupOperator(operator)
             && argumentValues.length === 2
-            && !argumentValues.hasObject('argument_type', enumHandlers.FILTERARGUMENTTYPE.FIELD);
+            && !argumentValues.hasObject('argument_type', enumHandlers.FILTERARGUMENTTYPE.FIELD)
+            && argumentValues[0].argument_type === argumentValues[1].argument_type;
     };
 
     self.AdjustFilterArguments = function (operator, argumentValues, modelUri) {
@@ -81,6 +82,12 @@ function WidgetFilterHelper() {
                 var tempValue = argumentValues[0];
                 argumentValues[0] = argumentValues[1];
                 argumentValues[1] = tempValue;
+
+                // transfer included_end_date
+                if (argumentValues[1].argument_type === enumHandlers.FILTERARGUMENTTYPE.VALUE && argumentValues[0].included_end_date) {
+                    argumentValues[1].included_end_date = true;
+                }
+                delete argumentValues[0].included_end_date;
             }
         }
         return argumentValues;

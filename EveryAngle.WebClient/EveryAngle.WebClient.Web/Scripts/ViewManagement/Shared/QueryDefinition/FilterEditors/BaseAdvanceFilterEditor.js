@@ -117,6 +117,19 @@ BaseAdvanceFilterEditor.prototype.GetArgumentPreviewTemplate = function () {
         '</div>'
     ].join('');
 };
+BaseAdvanceFilterEditor.prototype.GetArgumentIncludeEndDateTemplate = function () {
+    return [
+        '<div class="form-row row-included-end-date always-hide">',
+            '<div class="form-col">' + Localization.IncludeEndDate + '</div>',
+            '<div class="form-col switch switch-success">',
+                '<label>',
+                    '<input type="checkbox" class="chk-included-end-date" />',
+                    '<span class="lever"></span>',
+                '</label>',
+            '</div>',
+        '</div>'
+    ].join('');
+};
 BaseAdvanceFilterEditor.prototype.GetDefaultArgument = function (argumentType) {
     var self = this;
     if (argumentType === enumHandlers.FILTERARGUMENTTYPE.FIELD)
@@ -147,7 +160,7 @@ BaseAdvanceFilterEditor.prototype.InitialArgumentUI = function (container, argum
     self.CreateInputValue(container, argumentIndex);
     self.CreateInputField(container, argumentIndex);
     
-    // show/hide ui + set value + preview
+    // show/hide ui + set value + preview + end date
     var hasTypeFunction = self.ContainArgumentFunction(self.Data.arguments());
     self.UpdateArgumentUI(container, argument, true, hasTypeFunction);
 };
@@ -230,6 +243,9 @@ BaseAdvanceFilterEditor.prototype.UpdateArgumentUI = function (container, argume
         container.find('.col-input-period,.col-input-field').addClass('hidden');
     }
 
+    // update included end date
+    self.UpdateArgumentIncludedEndDate();
+
     // update preview text
     self.UpdateArgumentPreview();
 
@@ -275,6 +291,38 @@ BaseAdvanceFilterEditor.prototype.GetArgumentPreview = function (filedType) {
     var previewSettings = WC.WidgetFilterHelper.GetTranslatedSettings(data.arguments, data.operator, filedType, self.Handler.ModelUri);
     previewSettings.arguments.splice(0, 0, previewSettings.template);
     return kendo.format.apply(kendo, previewSettings.arguments);
+};
+BaseAdvanceFilterEditor.prototype.CanIncludeEndDate = function () {
+    return false;
+};
+BaseAdvanceFilterEditor.prototype.EnableIncludeEndDate = function () {
+    return false;
+};
+BaseAdvanceFilterEditor.prototype.UpdateArgumentIncludedEndDate = function () {
+    var self = this;
+
+    // show/hide
+    var wrapper = self.$Element.find('.row-included-end-date');
+    if (self.CanIncludeEndDate())
+        wrapper.removeClass('always-hide');
+    else
+        wrapper.addClass('always-hide');
+
+    // enable/disable
+    var checkbox = self.$Element.find('.chk-included-end-date');
+    self.Data.can_include_end_date(self.EnableIncludeEndDate());
+    var checked = self.Data.can_include_end_date() && self.Data.included_end_date();
+    checkbox.off('change');
+    checkbox.prop('checked', checked);
+    checkbox.prop('disabled', !self.Data.can_include_end_date());
+    checkbox.on('change', jQuery.proxy(self.IncludedEndDateChange, self));
+    self.Data.included_end_date.notifySubscribers(self.Data.included_end_date());
+};
+BaseAdvanceFilterEditor.prototype.IncludedEndDateChange = function (e) {
+    var self = this;
+    self.Data.included_end_date(e.currentTarget.checked);
+    self.UpdateArgumentPreview();
+    self.Handler.TriggerUpdateBlockUI();
 };
 
 // argument type: function
@@ -505,6 +553,9 @@ BaseAdvanceFilterEditor.prototype.UpdateRelativeArgumentUI = function (container
     if (updateInput)
         container.find('.input-argument-period-value[data-role]').data('handler').value(argument.value);
 
+    // update included end date
+    self.UpdateArgumentIncludedEndDate();
+
     // update preview text
     self.UpdateArgumentPreview();
 
@@ -557,7 +608,8 @@ BaseAdvanceFilterEditor.prototype.GetDoubleArgumentTemplate = function () {
         return [
             self.GetArgumentDefaultTemplate('form-row-argument-from'),
             self.GetArgumentDefaultTemplate('form-row-argument-to'),
-            self.GetArgumentPreviewTemplate()
+            self.GetArgumentPreviewTemplate(),
+            self.GetArgumentIncludeEndDateTemplate()
         ].join('');
     }
     else {

@@ -8,7 +8,7 @@ Go To Tasks Page With Admin User
     Go To All Tasks Page
 
 Go To All Tasks Page
-    Go To MC Page    /Automation%20tasks/Tasks/
+    Go To MC Page    /Angle%20exports/Automation%20tasks/
     Wait All Tasks Page Ready
 
 Verify Edit Task Page
@@ -27,7 +27,7 @@ Verify Edit Task Page
     Choose Dropdown List Task Trigger Type    Event
     Element Should Not Be Visible    ${divScheduleSection}
     Element Should Be Visible    ${divEventSection}
-    Choose Dropdown List Task Event Type    When new model available
+    Choose Dropdown List Task Event Type     When new model available
     Page Should Contain    When new model available
 
 Create Task By Copy Action

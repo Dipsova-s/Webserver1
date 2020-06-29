@@ -20,6 +20,7 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
         [TestCase(MessageType.REQUIRE_PACKAGE, "Package file is required")]
         [TestCase(MessageType.JSON_INVALID, "Invalid or malformed JSON")]
         [TestCase(MessageType.COMMENT_LIMIT, "The maximum comments(99) has been reached")]
+        [TestCase(MessageType.REQUIRE_EXCEL, "Invalid file format. Please select a valid Excel file")]
         public void Can_GetEnumMessageType(MessageType messageType, string expectedValue)
         {
             Assert.AreEqual(expectedValue, ManagementConsoleEnumHelper.GetMessage(messageType));
@@ -30,6 +31,7 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
         [TestCase(MessageType.REQUIRE_PACKAGE, "Package file is required")]
         [TestCase(MessageType.JSON_INVALID, "Invalid or malformed JSON")]
         [TestCase(MessageType.COMMENT_LIMIT, "The maximum comments(99) has been reached")]
+        [TestCase(MessageType.REQUIRE_EXCEL, "Invalid file format. Please select a valid Excel file")]
         public void Can_GetEnumDescription(MessageType messageType, string expectedValue)
         {
             Assert.AreEqual(expectedValue, ManagementConsoleEnumHelper.GetEnumDescription(messageType));

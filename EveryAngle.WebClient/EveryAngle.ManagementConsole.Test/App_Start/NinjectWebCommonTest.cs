@@ -41,6 +41,7 @@ namespace EveryAngle.ManagementConsole.Test.App_Start
             AddBind<ILogFileService, LogFileService>(kernel);
             AddBind<ILogFileReaderService, LogFileReaderService>(kernel);
             AddBind<ICopyrightService, CopyrightService>(kernel);
+            AddBind<IFileTemplateService, ExcelTemplatesService>(kernel);
 
             NinjectWebCommon.RegisterServices(kernel.Object);
 

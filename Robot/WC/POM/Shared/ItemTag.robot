@@ -15,10 +15,15 @@ Wait Until Tags Saved
     Run Keyword If  ${isAdhoc} == ${False}      Page Should Contain Toast Success
 
 Filter Item Tag
-    [Arguments]  ${name}
-    Input Text  ${txtFilterTag}  ${name}
+    [Arguments]  ${filter}
+    Input Text  ${txtFilterTag}  ${filter}
     Sleep  ${TIMEOUT_LARGEST}
     Wait Until Element Is Not Visible  ${divTagSpinner}
+
+Submit Selected Tags
+    [Arguments]  ${isAdhoc}=${False}
+    Press Keys  None  ESC
+    Wait Until Tags Saved  ${isAdhoc}
 
 Select Tag
     [Arguments]  ${name}
@@ -28,13 +33,12 @@ Select Tags
     [Arguments]  ${names}   ${isAdhoc}=${False}
     :FOR  ${name}  IN  @{names}
     \  Select Tag  ${name}
-    Press Keys  None  ESC
-    Wait Until Tags Saved  ${isAdhoc}
+    Submit Selected Tags  ${isAdhoc}
 
 Select New Tag
     [Arguments]  ${isAdhoc}=${False}
     Click Element  ${divTagItemNew}
-    Wait Until Tags Saved  ${isAdhoc}
+    Submit Selected Tags  ${isAdhoc}
 
 Remove Tag
     [Arguments]  ${name}
@@ -44,7 +48,7 @@ Remove Tags
     [Arguments]  ${names}   ${isAdhoc}=${False}
     :FOR  ${name}  IN  @{names}
     \  Remove Tag  ${name}
-    Wait Until Tags Saved  ${isAdhoc}
+    Submit Selected Tags  ${isAdhoc}
 
 Tag Should Be Selected
     [Arguments]  ${name}

@@ -139,6 +139,62 @@ describe("FilterDateEditor", function () {
         });
     });
 
+    describe(".CanIncludeEndDate", function () {
+        it("can include end date (operator=between)", function () {
+            editor.Data.operator('between');
+            var result = editor.CanIncludeEndDate();
+
+            // assert
+            expect(result).toEqual(true);
+        });
+        it("can include end date (operator=not_between)", function () {
+            editor.Data.operator('not_between');
+            var result = editor.CanIncludeEndDate();
+
+            // assert
+            expect(result).toEqual(true);
+        });
+        it("cannot include end date (operator=others)", function () {
+            editor.Data.operator('others');
+            var result = editor.CanIncludeEndDate();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+    });
+
+    describe(".EnableIncludeEndDate", function () {
+        it("should be able to include end date", function () {
+            editor.Data.arguments([
+                {},
+                { argument_type: 'value' }
+            ]);
+            var result = editor.EnableIncludeEndDate();
+
+            // assert
+            expect(result).toEqual(true);
+        });
+        it("should not be able to include end date (arguments count <> 2)", function () {
+            editor.Data.arguments([
+                { argument_type: 'value' }
+            ]);
+            var result = editor.EnableIncludeEndDate();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+        it("should not be able to include end date (argument_type <> value)", function () {
+            editor.Data.arguments([
+                {},
+                { argument_type: 'others' }
+            ]);
+            var result = editor.EnableIncludeEndDate();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+    });
+
     describe(".InitialMultipleArgumentUI", function () {
         it("should initial UI", function () {
             $.fn.kendoDatePicker = $.noop;

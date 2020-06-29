@@ -10,6 +10,8 @@
         self.TestConnectionUri = '';
         self.PluginUri = '';
         self.PluginType = '';
+        self.DefaultDatastoreUri = '';
+        self.isSupportAutomateTask = '';
 
         self.InitialAllDataStores = function (data) {
             self.DataStoresUri = '';
@@ -44,7 +46,21 @@
             self.EditDatastoreUri = '';
             self.DatastoreUri = '';
             self.SettingDatastoreUri = '';
+            self.DefaultDatastoreUri = '';
+            self.isSupportAutomateTask = '';
+
             jQuery.extend(self, data || {});
+
+            if (data.DefaultDatastore === "True") {
+                var sidemenu = "#sideMenu-AngleExports-";
+                var plugin = data.PluginType === 'csv' ? 'Csv' : 'Excel';
+                $(sidemenu + "ExportDefault").addClass("active");
+                $(sidemenu + "ExportDefault-Export" + plugin).addClass("active");
+                $(sidemenu + "DataStores").removeClass("active");
+            }
+            if (data.isSupportAutomateTask === "False") {
+                $('#name').attr('readonly', 'true');
+            }
             setTimeout(function () {
                 $('#DatastorePluginSelect').kendoDropDownList();
                 $('#connection_settings').on('submit', function (e) {
@@ -100,13 +116,13 @@
             data.data_settings.setting_list = self.GetSettingsData('.data_settings .contentSectionInfo');
 
             data.datastore = {
-                'name': $('input[name=name]').val(),
+                'name': $('#Uri').val() ? $('#Uri option:selected').text() : $('input[name=name]').val(),
                 'allow_write': true,
                 'datastore_plugin': $('input[name=datastore_plugin]').val()
             };
 
             data.datastore.id = isNew ? 'datastore_' + data.datastore.datastore_plugin + '_' + $.now() : $('input[name=id]').val();
-            data.datastore.is_default = $('#is_default').prop('checked');
+            data.datastore.is_default = $('#Uri').val() || self.isSupportAutomateTask === 'False' ? true : false;
             data.datastore.connection_settings = data.connection_settings;
             data.datastore.data_settings = data.data_settings;
 
@@ -178,7 +194,10 @@
                 type: 'POST'
             })
                 .done(function () {
-                    location.hash = self.AllDataStoreUri;
+                    if (self.isSupportAutomateTask === 'True')
+                        location.hash = self.AllDataStoreUri;
+                    else
+                        MC.ajax.reloadMainContent()
                 });
 
             return false;
@@ -240,6 +259,57 @@
             var data = self.GetSettingsData('.connection_settings .contentSectionInfo');
             return { setting_list: data };
         };
+        self.GetDatastoreSetting = function () {
+            return MC.ajax
+                .request({
+                    url: self.DefaultDatastoreUri,
+                    parameters: {
+                        datastoreUri: $("#Uri").val(),
+                        pluginUri: "",
+                        plugin: self.PluginType
+                    },
+                    type: 'POST'
+                })
+                .done(function (result) {
+                    self.SetData(result);
+                    self.DatastoreUri = result.Uri;
+                });
+        };
+        self.SetData = function (result) {
+            var container = 'connection_settings';
+            self.setInputToUI(container, result[container].SettingList);
+            container = 'data_settings';
+            self.setInputToUI(container, result[container].SettingList);
+        };
+        self.setInputToUI = function (container, result) {
+            jQuery('.' + container + ' .contentSectionInfo').find("input[type!='hidden']").each(function (index, input) {
+                input = jQuery(input);
+                var data = '';
+                if (input.attr('id')) {
+                    $.each(result, function (index, setting) {
+                        if (setting.Id == input.attr('id')) {
+                            data = setting.Value;
+                            return true;
+                        }
+                    });
+                    self.SetSettingInfo(input, data)
+                }
+            });
+        };
+        self.SetSettingInfo = function (input, data) {
+            var setting = { 'type': input.data('setting-type') };
+            var type = ["enum", "currency_symbol", "percentage", "integer"];
+            if ($.inArray(setting.type, type) !== -1) {
+                input.data('handler').value(data);
+            }
+            else if (setting.type === 'boolean') {
+                input.prop("checked", data);
+            }
+            else {
+                input.val(data);
+            }
+        };
+
     };
 
     win.MC.AutomationTasks = automationTasks || {};

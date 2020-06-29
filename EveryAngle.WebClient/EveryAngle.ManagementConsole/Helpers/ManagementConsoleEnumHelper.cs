@@ -14,7 +14,9 @@ namespace EveryAngle.ManagementConsole.Helpers
         [Description("Invalid or malformed JSON")]
         JSON_INVALID = 3,
         [Description("The maximum comments(99) has been reached")]
-        COMMENT_LIMIT = 4
+        COMMENT_LIMIT = 4,
+        [Description("Invalid file format. Please select a valid Excel file")]
+        REQUIRE_EXCEL = 5
     }
 
     public static class ManagementConsoleEnumHelper

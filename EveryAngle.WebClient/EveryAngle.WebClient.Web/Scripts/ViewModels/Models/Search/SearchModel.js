@@ -145,6 +145,13 @@ function SearchViewModel() {
 
         return details.join(' &nbsp; ');
     };
+    self.GetTags = function (data) {
+        var tags = WC.Utility.ToArray(data.tags);
+        var html = jQuery.map(tags, function (tag) {
+            return kendo.format('<div class="item-label">{0}</div>', tag);
+        });
+        return html.join('');
+    };
     self.FilterItems = function (model, event, canNegativeFilter) {
         if (event.ctrlKey && model.checked() && canNegativeFilter) {
             model.negative(true);

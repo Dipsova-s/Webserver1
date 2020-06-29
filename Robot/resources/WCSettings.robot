@@ -1,7 +1,7 @@
 *** Settings ***
 Library             OperatingSystem
 Library             SeleniumLibrary    	timeout=${Timeout}
-Library             HttpLibrary.HTTP
+Library             httprequest.py
 Library             DateTime
 Library             String
 Library             Collections
@@ -65,6 +65,8 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Packages/TS
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Communications.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelsLanguages.robot
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_Help.robot
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AngleExports/TS_ExcelTemplate.robot
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/ExportDefaults/TS_ExportDefaults.robot
 
 *** Variables ***
 ${URL_WC}    http://${URL}/${Branch}

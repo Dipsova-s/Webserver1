@@ -4840,6 +4840,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include end date.
+        /// </summary>
+        public static string IncludeEndDate {
+            get {
+                return ResourceManager.GetString("IncludeEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Indexing tables.
         /// </summary>
         public static string IndexingTables {
@@ -7459,6 +7468,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angle exports.
+        /// </summary>
+        public static string MC_AngleExports {
+            get {
+                return ResourceManager.GetString("MC_AngleExports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angle warnings.
         /// </summary>
         public static string MC_AngleWarnings {
@@ -8121,6 +8139,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear fields.
+        /// </summary>
+        public static string MC_ClearFields {
+            get {
+                return ResourceManager.GetString("MC_ClearFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collapse All.
         /// </summary>
         public static string MC_CollapseAll {
@@ -8733,6 +8760,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default datastore.
+        /// </summary>
+        public static string MC_DefaultDatastoreName {
+            get {
+                return ResourceManager.GetString("MC_DefaultDatastoreName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default label authorization.
         /// </summary>
         public static string MC_DefaultLabelAuthorization {
@@ -8945,6 +8981,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_DeletedTableFieldsTitle {
             get {
                 return ResourceManager.GetString("MC_DeletedTableFieldsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Excel: {reference}?.
+        /// </summary>
+        public static string MC_DeleteExcelConfirm {
+            get {
+                return ResourceManager.GetString("MC_DeleteExcelConfirm", resourceCulture);
             }
         }
         
@@ -9666,6 +9711,33 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Excel defaults.
+        /// </summary>
+        public static string MC_ExcelDefaults {
+            get {
+                return ResourceManager.GetString("MC_ExcelDefaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excel filename cannot be null..
+        /// </summary>
+        public static string MC_ExcelFilenameCannotBeNull {
+            get {
+                return ResourceManager.GetString("MC_ExcelFilenameCannotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excel templates.
+        /// </summary>
+        public static string MC_ExcelTemplates {
+            get {
+                return ResourceManager.GetString("MC_ExcelTemplates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Execute now.
         /// </summary>
         public static string MC_ExecuteNow {
@@ -9716,6 +9788,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_ExportData {
             get {
                 return ResourceManager.GetString("MC_ExportData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export defaults.
+        /// </summary>
+        public static string MC_ExportDefaults {
+            get {
+                return ResourceManager.GetString("MC_ExportDefaults", resourceCulture);
             }
         }
         
@@ -10204,6 +10285,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_InternalError {
             get {
                 return ResourceManager.GetString("MC_InternalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid file format. Please select a valid Excel file.
+        /// </summary>
+        public static string MC_InvalidExcelFile {
+            get {
+                return ResourceManager.GetString("MC_InvalidExcelFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid file name. Please make sure the file name doesn&apos;t contain white spaces.
+        /// </summary>
+        public static string MC_InvalidExcelFileName {
+            get {
+                return ResourceManager.GetString("MC_InvalidExcelFileName", resourceCulture);
             }
         }
         
@@ -11586,6 +11685,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is already a template with the same name. Do you want to replace this one?.
+        /// </summary>
+        public static string MC_ReplaceDuplicateExcelFile {
+            get {
+                return ResourceManager.GetString("MC_ReplaceDuplicateExcelFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing the Every Angle Standard template is not allowed.
+        /// </summary>
+        public static string MC_ReplaceNotAllowedForStandardExcel {
+            get {
+                return ResourceManager.GetString("MC_ReplaceNotAllowedForStandardExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report.
         /// </summary>
         public static string MC_Report {
@@ -12027,7 +12144,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The default Template creates a number of default Displays and Filters when creating a new Angle by selecting an object from the object list. By selecting this option for one or more objects the suggested fields are limited to all fields present in these default Displays and Filters of that object..
+        ///   Looks up a localized string similar to Templates that are connected to an object in the object list, always have a default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these default Displays and Filters of that Template..
         /// </summary>
         public static string MC_SetAllDefaultTemplateFieldsToSuggested_Description {
             get {
@@ -13564,6 +13681,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_UploadSuccessful {
             get {
                 return ResourceManager.GetString("MC_UploadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload template.
+        /// </summary>
+        public static string MC_UploadTemplate {
+            get {
+                return ResourceManager.GetString("MC_UploadTemplate", resourceCulture);
             }
         }
         
@@ -16724,6 +16850,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter Tags.
+        /// </summary>
+        public static string SearchTagInputPlaceholder {
+            get {
+                return ResourceManager.GetString("SearchTagInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No matches.
+        /// </summary>
+        public static string SearchTagNoSuggestion {
+            get {
+                return ResourceManager.GetString("SearchTagNoSuggestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to See info about field.
         /// </summary>
         public static string SeeInfoAboutProperty {
@@ -18137,11 +18281,20 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is between {0} and {1}.
+        ///   Looks up a localized string similar to Is on or after {0} and before {1}.
         /// </summary>
         public static string WidgetFilter_Preview_Between {
             get {
                 return ResourceManager.GetString("WidgetFilter_Preview_Between", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is on or after {0} and on or before {1}.
+        /// </summary>
+        public static string WidgetFilter_Preview_Between_EndDate {
+            get {
+                return ResourceManager.GetString("WidgetFilter_Preview_Between_EndDate", resourceCulture);
             }
         }
         
@@ -18155,11 +18308,20 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is before {0} or after or on {1}.
+        ///   Looks up a localized string similar to Is before {0} or after {1}.
         /// </summary>
         public static string WidgetFilter_Preview_NotBetween {
             get {
                 return ResourceManager.GetString("WidgetFilter_Preview_NotBetween", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is before {0} or after or on {1}.
+        /// </summary>
+        public static string WidgetFilter_Preview_NotBetween_EndDate {
+            get {
+                return ResourceManager.GetString("WidgetFilter_Preview_NotBetween_EndDate", resourceCulture);
             }
         }
         

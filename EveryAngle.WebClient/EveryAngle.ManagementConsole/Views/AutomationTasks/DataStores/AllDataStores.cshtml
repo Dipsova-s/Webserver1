@@ -7,7 +7,7 @@
         url: '@Scripts.Url("~/bundles/automationtasks/datastores")',
         callback: function () {
             MC.AutomationTasks.DataStores.InitialAllDataStores({
-                EditDatastoreUri: '@SiteMapHelper.ActionHash("AutomationTasks/DataStores/EditDatastores")',
+                EditDatastoreUri: '@SiteMapHelper.ActionHash("AngleExports/DataStores/EditDatastores")',
                 DataStoresUri: '@ViewBag.DatastoreUri',
             });
         }
@@ -61,7 +61,7 @@
         </select>
     </div>
     <div class="popupToolbar">
-        <a href="@SiteMapHelper.ActionHash("AutomationTasks/DataStores/CreateNewDatastores")" class="btn btnPrimary btnSubmit" data-role="popup-close" onclick="MC.AutomationTasks.DataStores.CreateNewDatastores(event, this)" >@Resource.Ok</a>
+        <a href="@SiteMapHelper.ActionHash("AngleExports/DataStores/CreateNewDatastores")" class="btn btnPrimary btnSubmit" data-role="popup-close" onclick="MC.AutomationTasks.DataStores.CreateNewDatastores(event, this)" >@Resource.Ok</a>
         <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
     </div>
 </div>

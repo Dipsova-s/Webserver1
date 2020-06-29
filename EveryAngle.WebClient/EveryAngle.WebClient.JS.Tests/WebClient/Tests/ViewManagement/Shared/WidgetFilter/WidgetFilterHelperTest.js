@@ -423,10 +423,10 @@ describe("WidgetFilterHelper", function () {
         });
     });
 
-    describe("call IsBetweenArgumentComparable", function () {
+    describe(".IsBetweenArgumentComparable", function () {
         var testOperators = ["between", "not_between", "relative_between", "not_relative_between"];
         $.each(testOperators, function (indexOperator, operator) {
-            it("should get 'true' if is '" + operator + "' operator and no type field", function () {
+            it("should get 'true' if is '" + operator + "' operator, no type field and both are the same type", function () {
                 var validArguments = [
                     [
                         { argument_type: 'value', value: 1 },
@@ -434,10 +434,6 @@ describe("WidgetFilterHelper", function () {
                     ],
                     [
                         { argument_type: 'function', parameters: [{ name: 'period_type', value: 'day' }, { name: 'periods_to_add', value: 1 }] },
-                        { argument_type: 'function', parameters: [{ name: 'period_type', value: 'day' }, { name: 'periods_to_add', value: 2 }] }
-                    ],
-                    [
-                        { argument_type: 'value', value: 1 },
                         { argument_type: 'function', parameters: [{ name: 'period_type', value: 'day' }, { name: 'periods_to_add', value: 2 }] }
                     ]
                 ];
@@ -450,7 +446,7 @@ describe("WidgetFilterHelper", function () {
         });
 
         $.each(testOperators, function (indexOperator, operator) {
-            it("should get 'false' if is '" + operator + "' operator but has type field", function () {
+            it("should get 'false' if is '" + operator + "' operator, type field or difference type", function () {
                 var invalidArguments = [
                     [
                         { argument_type: 'field', field: 'field1' },
@@ -463,6 +459,10 @@ describe("WidgetFilterHelper", function () {
                     [
                         { argument_type: 'field', value: 'field2' },
                         { argument_type: 'function', parameters: [{ name: 'period_type', value: 'day' }, { name: 'periods_to_add', value: 2 }] }
+                    ],
+                    [
+                        { argument_type: 'value', value: 1 },
+                        { argument_type: 'function', parameters: [{ name: 'period_type', value: 'day' }, { name: 'periods_to_add', value: 2 }] }
                     ]
                 ];
 
@@ -474,7 +474,7 @@ describe("WidgetFilterHelper", function () {
         });
     });
 
-    describe("call CanUseAdvanceArgument", function () {
+    describe(".CanUseAdvanceArgument", function () {
 
         it("should be 'true' when date type and equal_to operator", function () {
             var fieldType = 'date';
@@ -514,7 +514,7 @@ describe("WidgetFilterHelper", function () {
     });
 
     //GetFilterSuffixText
-    describe("call GetFilterSuffixText", function () {
+    describe(".GetFilterSuffixText", function () {
         it("should get empty if no argument", function () {
             var fieldType = '';
             var operator = '';
@@ -881,7 +881,7 @@ describe("WidgetFilterHelper", function () {
         });
     });
 
-    describe("call GetBaseDate", function () {
+    describe(".GetBaseDate", function () {
 
         var tests = [
             { date: new Date(2017, 2, 15, 10, 15, 1, 154), type: 'day', expected: '2017/03/15 00:00:00' },
@@ -958,7 +958,7 @@ describe("WidgetFilterHelper", function () {
 
     });
 
-    describe("call GetAddedDate", function () {
+    describe(".GetAddedDate", function () {
 
         var tests = [
             { date: new Date(2017, 2, 1), type: 'day', added: -1, expected: '2017/02/28 00:00:00' },
@@ -1015,7 +1015,7 @@ describe("WidgetFilterHelper", function () {
 
     });
 
-    describe("call GetLowerBoundDate", function () {
+    describe(".GetLowerBoundDate", function () {
 
         var tests = [
             { date: new Date(2017, 2, 1), type: 'day', operator: 'greater_than', added: -1, expected: '2017/03/01 00:00:00' },
@@ -1080,7 +1080,7 @@ describe("WidgetFilterHelper", function () {
 
     });
 
-    describe("call GetUpperBoundDate", function () {
+    describe(".GetUpperBoundDate", function () {
 
         var tests = [
             { date: new Date(2017, 2, 1), type: 'day', operator: 'equal_to', added: -1, expected: '2017/03/01 00:00:00' },
@@ -1186,9 +1186,9 @@ describe("WidgetFilterHelper", function () {
 
     });
 
-    describe("call GetTranslatedSettings", function () {
+    describe(".GetTranslatedSettings", function () {
 
-        it("should not be translate if contains type field", function () {
+        it("should not be translated if contains type field", function () {
             var args = [{
                 argument_type: 'field',
                 field: 'AAA'
@@ -1201,23 +1201,30 @@ describe("WidgetFilterHelper", function () {
             expect(expected).toEqual(result.template);
         });
 
-        it("should not be translate if contains only values", function () {
-            var args = [{
-                argument_type: 'value',
-                value: 0
-            }, {
-                argument_type: 'value',
-                value: null
-            }];
-            var operator = 'between';
-            var fieldType = 'date';
-
-            var expected = '';
-            var result = widgetFilterHelper.GetTranslatedSettings(args, operator, fieldType, '');
-            expect(expected).toEqual(result.template);
+        var tests1 = [
+            { enddate: false, operator: 'between', expected: Localization.WidgetFilter_Preview_Between },
+            { enddate: true, operator: 'between', expected: Localization.WidgetFilter_Preview_Between_EndDate },
+            { enddate: false, operator: 'not_between', expected: Localization.WidgetFilter_Preview_NotBetween },
+            { enddate: true, operator: 'not_between', expected: Localization.WidgetFilter_Preview_NotBetween_EndDate }
+        ];
+        $.each(tests1, function (index, test) {
+            it("should get a translate settings for '" + "enddate:" + test.enddate + " operator:" + test.operator + "' as '" + test.expected + "'", function () {
+                var args = [
+                    {
+                        argument_type: 'value',
+                        value: 0
+                    }, {
+                        argument_type: 'value',
+                        value: 0,
+                        included_end_date: test.enddate
+                    }
+                ];
+                var result = widgetFilterHelper.GetTranslatedSettings(args, test.operator, 'date', '');
+                expect(test.expected).toEqual(result.template);
+            });
         });
 
-        var tests = [
+        var tests2 = [
             { argsText: '0 day', operator: 'equal_to', fieldType: 'date', expected: Localization.WidgetFilter_Preview_Equal },
             { argsText: '0 day', operator: 'equal_to', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_Equal },
             { argsText: '0 month', operator: 'equal_to', fieldType: 'date', expected: Localization.WidgetFilter_Preview_Between },
@@ -1226,8 +1233,8 @@ describe("WidgetFilterHelper", function () {
             { argsText: '-2 week|3 month', operator: 'between', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_Between },
             { argsText: '0 day', operator: 'not_equal_to', fieldType: 'date', expected: Localization.WidgetFilter_Preview_NotEqual },
             { argsText: '0 day', operator: 'not_equal_to', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_NotEqual },
-            { argsText: '0 month', operator: 'not_equal_to', fieldType: 'date', expected: Localization.WidgetFilter_Preview_NotBetween },
-            { argsText: '0 month', operator: 'not_equal_to', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_NotBetween },
+            { argsText: '0 month', operator: 'not_equal_to', fieldType: 'date', expected: Localization.WidgetFilter_Preview_NotBetween_EndDate },
+            { argsText: '0 month', operator: 'not_equal_to', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_NotBetween_EndDate },
             { argsText: '-2 week|3 month', operator: 'not_between', fieldType: 'date', expected: Localization.WidgetFilter_Preview_NotBetween },
             { argsText: '-2 week|3 month', operator: 'not_between', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_NotBetween },
             { argsText: '0 day', operator: 'greater_than', fieldType: 'date', expected: Localization.WidgetFilter_Preview_After },
@@ -1235,8 +1242,7 @@ describe("WidgetFilterHelper", function () {
             { argsText: '0 day', operator: 'less_than', fieldType: 'date', expected: Localization.WidgetFilter_Preview_Before },
             { argsText: '0 day', operator: 'less_than', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_Before }
         ];
-        $.each(tests, function (index, test) {
-
+        $.each(tests2, function (index, test) {
             it("should get a translate settings for '" + test.fieldType + " " + test.operator + " " + test.argsText + "' as '" + test.expected + "'", function () {
                 spyOn(widgetFilterHelper, 'GetDefaultModelDataDate').and.callFake(function () { return new Date(2017, 1, 1); });
                 var args = [];
@@ -1253,10 +1259,9 @@ describe("WidgetFilterHelper", function () {
                         }]
                     });
                 });
-                var result = widgetFilterHelper.GetTranslatedSettings(args, test.operator, test.fieldType, '', new Date(2017, 1, 1));
+                var result = widgetFilterHelper.GetTranslatedSettings(args, test.operator, test.fieldType, '');
                 expect(test.expected).toEqual(result.template);
             });
-
         });
 
     });

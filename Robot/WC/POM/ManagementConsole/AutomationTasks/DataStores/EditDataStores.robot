@@ -5,7 +5,6 @@ ${btnCancelEditDataStoresGrid}    css=.btnBack
 ${txtDatastoreName}    css=#name
 ${cbSupportsWrite}    supports_write
 ${cbSupportsRead}    supports_read
-${chkboxDefaultDataStore}   is_default
 
 ${txtSQLServerName}    css=#connection_host
 ${txtSQLUsername}    css=#connection_user
@@ -23,6 +22,7 @@ ${txtMaxRowsToExport}    max_rows_to_export
 ${txtTableName}    css=#table_name
 ${ckbAppendResult}    append
 ${txtDatastoreFileName}      css=#file_name
+${txtDefaultDatastoreName}  xpath=//label[text()='Default datastore:']/following::p/descendant::span[@class='k-input']
 ${ddlTemplateFileName}      template_file
 ${txtDatastoreSheetName}     css=#sheet_name
 ${ckbTechInfo}      include_techinfo
@@ -61,10 +61,8 @@ ${sectionFormatSettings}        css=#format_options
 
 *** Keywords ***
 Fill Create New Datastore
-    [Arguments]     ${datastoreName}     ${defaultDataStore}
+    [Arguments]     ${datastoreName}     
     Input Text  ${txtDatastoreName}    ${datastoreName}
-    Run Keyword If    '${defaultDataStore}' == 'check'      Select Checkbox      ${chkboxDefaultDataStore}
-    Run Keyword If    '${defaultDataStore}' == 'uncheck'     Unselect Checkbox      ${chkboxDefaultDataStore}
    
 Fill Connection Settings
     [Arguments]     ${outputFolder}
@@ -175,14 +173,22 @@ Click on Edit in action drop down by Datastore name
     Wait Until Login Page Contains Text     Edit datastore
 
 Verify the field values for Datastore Name
-    [Arguments]     ${datastoreName}     ${defaultDataStore}
+    [Arguments]     ${datastoreName}     
     Textfield value should be  ${txtDatastoreName}    ${datastoreName}
-    Run Keyword If    '${defaultDataStore}' == 'check'     Checkbox should be selected  ${chkboxDefaultDataStore}
-    Run Keyword If    '${defaultDataStore}' == 'uncheck'     Checkbox should not be selected  ${chkboxDefaultDataStore}
+
+Verify the Default value for Default datastores in Edit Datastore
+    [Arguments]     ${expectedDefaultDatastoreName}
+    ${actualDefaultDatastoreName}     Get Text  ${txtDefaultDatastoreName}
+    Should Be Equal As Strings      ${actualDefaultDatastoreName}     ${expectedDefaultDatastoreName}
 
 Verify the field values for CSV and Excel Datastore in Connection Settings
     [Arguments]     ${outputFolder}
     Textfield value should be   ${txtOutputFolder}      ${outputFolder}
+
+Verify the Default value for Default datastores in Connection Settings
+    [Arguments]     ${outputFolder}
+    ${getOutputFolderText}  Get Value    ${txtOutputFolder}
+    Should Contain  ${getOutputFolderText}  ${outputFolder}
 
 Verify the field values for CSV Datastore in Data Settings
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${fileName}     ${appendResult}
@@ -263,3 +269,10 @@ Verify the field values for SQL Datastore in Data Settings
     Textfield value should be     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
     Run Keyword If    '${appendResult}' == 'check'     Checkbox should be selected  ${ckbAppendResult}
     Run Keyword If    '${appendResult}' == 'uncheck'     Checkbox should not be selected  ${ckbAppendResult}
+
+Wait For Export Defaults Page
+    [Arguments]     ${expectedElementName1}  ${expectedElementName2}
+    Wait Until Page Contains    ${expectedElementName1}
+    Wait Until Page Contains    ${expectedElementName2}
+    Wait Until Page Contains Element     ${btnSave}
+    Wait MC Progress Bar Closed

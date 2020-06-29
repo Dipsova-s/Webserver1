@@ -13,6 +13,147 @@ describe("FacetFiltersViewModel", function () {
         facetFiltersViewModel = new FacetFiltersViewModel();
     });
 
+    describe(".InsertMissingFacets", function () {
+        it("should insert facets to the right ordering", function () {
+            var facets = ['others'];
+            var facetGeneral = ['general1-category', undefined, 'general3-category'];
+            var facetTag = 'tag-category';
+            var facetBusinessProcess = 'bp-category';
+            facetFiltersViewModel.InsertMissingFacets(facets, facetGeneral, facetTag, facetBusinessProcess);
+
+            // assert
+            expect(facets).toEqual(['bp-category', 'tag-category', 'general1-category', 'general3-category', 'others']);
+        });
+    });
+
+    describe(".NormalizeFacetFilters", function () {
+        var facet;
+        beforeEach(function () {
+            facet = {
+                type: 'others',
+                filters: [
+                    { name: 'name2' },
+                    { name: 'name1' }
+                ]
+            };
+        });
+        it("should get filters as it (type=item_property)", function () {
+            facet.type = 'item_property';
+            var result = facetFiltersViewModel.NormalizeFacetFilters(facet);
+
+            // assert
+            expect(result).toEqual([
+                { name: 'name2' },
+                { name: 'name1' }
+            ]);
+        });
+        it("should get filters as it (type=business_process)", function () {
+            facet.type = 'business_process';
+            var result = facetFiltersViewModel.NormalizeFacetFilters(facet);
+
+            // assert
+            expect(result).toEqual([
+                { name: 'name2' },
+                { name: 'name1' }
+            ]);
+        });
+        it("should get ordered filters (type=others)", function () {
+            var result = facetFiltersViewModel.NormalizeFacetFilters(facet);
+
+            // assert
+            expect(result).toEqual([
+                { name: 'name1' },
+                { name: 'name2' }
+            ]);
+        });
+    });
+
+    describe(".CreateTagInputUI", function () {
+        it("should create UI", function () {
+            $.fn.kendoTagTextBox = $.noop;
+            spyOn(facetFiltersViewModel, 'GetTagInputElement').and.returnValue($());
+            spyOn(facetFiltersViewModel, 'TagInputData').and.returnValue([]);
+            spyOn($.fn, 'kendoTagTextBox');
+            facetFiltersViewModel.CreateTagInputUI();
+
+            // assert
+            expect($.fn.kendoTagTextBox).toHaveBeenCalled();
+        });
+    });
+
+    describe(".GetTagInputElement", function () {
+        var ui;
+        beforeEach(function () {
+            $.fn.getKendoTagTextBox = $.noop;
+            ui = { destroy: $.noop };
+            spyOn(ui, 'destroy');
+            spyOn($.fn, 'replaceWith');
+            spyOn($.fn, 'remove');
+        });
+        it("should get element and destroy existing UI", function () {
+            spyOn($.fn, 'getKendoTagTextBox').and.returnValue(ui);
+            var result = facetFiltersViewModel.GetTagInputElement();
+
+            // assert
+            expect(result.selector).toEqual('#LeftMenu select.tags-input');
+            expect(ui.destroy).toHaveBeenCalled();
+            expect($.fn.replaceWith).not.toHaveBeenCalled();
+            expect($.fn.remove).not.toHaveBeenCalled();
+        });
+        it("should get element and destroy UI maually", function () {
+            spyOn($.fn, 'getKendoTagTextBox').and.returnValue(null);
+            var result = facetFiltersViewModel.GetTagInputElement();
+
+            // assert
+            expect(result.selector).toEqual('#LeftMenu select.tags-input');
+            expect(ui.destroy).not.toHaveBeenCalled();
+            expect($.fn.replaceWith).toHaveBeenCalled();
+            expect($.fn.remove).toHaveBeenCalled();
+        });
+    });
+
+    describe(".TagInputData", function () {
+        it("should get data", function () {
+            facetFiltersViewModel.Data([
+                { type: 'item_tag', filters: ko.observable([1, 2, 3]) }
+            ]);
+            var result = facetFiltersViewModel.TagInputData();
+
+            // assert
+            expect(result).toEqual([1, 2, 3]);
+        });
+        it("should not get data", function () {
+            facetFiltersViewModel.Data([
+                { type: 'item_another', filters: ko.observable([1, 2, 3]) }
+            ]);
+            var result = facetFiltersViewModel.TagInputData();
+
+            // assert
+            expect(result).toEqual([]);
+        });
+    });
+
+    describe(".TagInputChange", function () {
+        it("should select checkbox state and search", function () {
+            var data = [
+                { name: 'Tag1', id: 'Tag1', checked: ko.observable(false) },
+                { name: 'Tag2', id: 'Tag2', checked: ko.observable(false) }
+            ];
+            var e = {
+                sender: {
+                    value: ko.observableArray(['Tag2'])
+                }
+            };
+            spyOn(searchQueryModel, 'Search');
+            facetFiltersViewModel.TagInputChange(data, e);
+
+            // assert
+            expect(data[0].checked()).toEqual(false);
+            expect(data[1].checked()).toEqual(true);
+            expect(searchQueryModel.Search).toHaveBeenCalled();
+        });
+    });
+
     describe(".GetDuration", function () {
         it("should return 11h 15m when send seconds equal 40500", function () {
             var duration = facetFiltersViewModel.GetDuration(40500);

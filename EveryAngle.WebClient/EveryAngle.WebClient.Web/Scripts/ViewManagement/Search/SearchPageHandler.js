@@ -102,6 +102,7 @@ window.SearchPageHandler = function () {
 
             // facet
             WC.HtmlHelper.ApplyKnockout(facetFiltersViewModel, jQuery('#LeftMenu .facetFilter'));
+            facetFiltersViewModel.CreateTagInputUI();
 
             createNewAngleViewManagementModel.UpdateCreateNewAngleButton();
 
@@ -786,6 +787,7 @@ window.SearchPageHandler = function () {
         });
     };
     self.SearchItemFail = function () {
+        facetFiltersViewModel.CreateTagInputUI();
         searchQueryModel.SetUIControlFromUrl();
     };
     self.SearchItemSuccess = function (data) {
@@ -809,6 +811,7 @@ window.SearchPageHandler = function () {
             jQuery('#SearchFilterView, #SearchSortingView').show();
 
             facetFiltersViewModel.SetFacetAndSort(data);
+            facetFiltersViewModel.CreateTagInputUI();
             self.RenderActionDropdownList();
             self.BindSortingDropdown();
             createNewAngleViewManagementModel.UpdateCreateNewAngleButton();

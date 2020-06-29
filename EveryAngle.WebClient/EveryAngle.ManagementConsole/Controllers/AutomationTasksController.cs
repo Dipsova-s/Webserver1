@@ -343,10 +343,29 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult EditDatastore(string datastoreUri, string pluginUri, string plugin)
         {
             DataStoresViewModel dataStore = GetDataStoreViewModel(datastoreUri, pluginUri, plugin);
-
+            ViewBag.DatastoreDetails = GetAllDatastore(plugin);
+            ViewBag.isSupportAutomateTask = true;
             return PartialView("~/Views/AutomationTasks/DataStores/EditDatastore.cshtml", dataStore);
         }
 
+        public ActionResult EditDefaultDatastore(string plugin,bool AutomationTask)
+        {
+            List<DataStoresViewModel> dataStores = GetAllDatastore(plugin,AutomationTask);
+            ViewBag.DatastoreDetails = dataStores;
+            ViewBag.isSupportAutomateTask = AutomationTask;
+            DataStoresViewModel defaultDataStore = dataStores.FirstOrDefault(x => x.is_default);
+            DataStoresViewModel dataStore = GetDataStoreViewModel(defaultDataStore.Uri.ToString(), "", defaultDataStore.datastore_plugin);
+            return PartialView("~/Views/AutomationTasks/DataStores/EditDatastore.cshtml", dataStore);
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult EditDefaultDatastoreCallback(string datastoreUri, string pluginUri, string plugin)
+        {
+            DataStoresViewModel dataStore = GetDataStoreViewModel(datastoreUri, pluginUri, plugin);
+            return new JsonResult
+            {
+                Data = dataStore
+            };
+        }
         public ActionResult GetDatastore(string datstoreUri)
         {
             var datastore = _automationTaskService.GetDatastore(datstoreUri);
@@ -554,6 +573,13 @@ namespace EveryAngle.ManagementConsole.Controllers
                 name = Resource.PleaseSelect
             });
             return availableDataStores;
+        }
+
+        private List<DataStoresViewModel> GetAllDatastore(string plugin,bool AutomationTask=true)
+        {
+            List<DataStoresViewModel> dataStore = GetAllDataStores();
+            List<DataStoresViewModel> data = AutomationTask ? dataStore.FindAll(x => x.datastore_plugin == plugin) : dataStore.FindAll(x => x.datastore_plugin == plugin && x.is_default);
+            return data;
         }
 
         private List<SystemScriptViewModel> GetScriptsDataSource()

@@ -171,6 +171,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActiveLanguageController.cs" />
+    <Compile Include="Controllers\AngleExportsController.cs" />
     <Compile Include="Controllers\AutomationTasksController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -201,6 +202,7 @@
     </Compile>
     <Compile Include="Helpers\AssemblyInfoHelper.cs" />
     <Compile Include="Helpers\ConsolidateRoleHelper.cs" />
+    <Compile Include="Helpers\ExcelTemplateHelper.cs" />
     <Compile Include="Helpers\ParallelRequestHelper.cs" />
     <Compile Include="Helpers\EventLogHelper.cs" />
     <Compile Include="Helpers\Log4NetStorage.cs" />
@@ -351,6 +353,7 @@
     <Content Include="Scripts\jQuery\jquery.extension.js" />
     <Content Include="Scripts\jstz.min.js" />
     <Content Include="Scripts\KendoUICustom\kendo.custom.js" />
+    <Content Include="Scripts\Page\MC.AngleExports.ExcelTemplates.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.Components.js" />
     <Content Include="Scripts\Page\MC.Models.AngleWarnings.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.EventLog.js" />
@@ -826,6 +829,8 @@
     <Content Include="Views\Component\SystemComponent.cshtml" />
     <Content Include="Views\Component\ComponentGrid.cshtml" />
     <Content Include="Views\Shared\Copyright.cshtml" />
+    <Content Include="Views\AngleExports\ExcelTemplates.cshtml" />
+    <Content Include="Views\AngleExports\ExcelTemplatesGrid.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

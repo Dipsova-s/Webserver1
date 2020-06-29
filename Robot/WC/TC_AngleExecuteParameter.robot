@@ -81,7 +81,7 @@ Verify Execution Parameters With Compare Field Test
     Search By Text And Expect In Search Result    ${angleName}
     Click Link Item From Search Result Not Execute Popup    ${angleName}
     Wait Until Angle Execute Parameters Popup Loaded
-    Add Compare Filter From Angle Execution Parameters Popup    Item     PurchaseOrderLine__ItemValue    ${FALSE}
+    Add Compare Filter From Angle Execution Parameters Popup    Margin     Margin    ${TRUE}
     Click Submit Angle Execution Parameters
     
     [Teardown]   Back To Search And Delete Angle Are Created    ${angleName}

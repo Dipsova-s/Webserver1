@@ -3635,7 +3635,7 @@ Are you sure you want to delete this model?</value>
     <value>Set all default Template fields to suggested {0}</value>
   </data>
   <data name="MC_SetAllDefaultTemplateFieldsToSuggested_Description" xml:space="preserve">
-    <value>The default Template creates a number of default Displays and Filters when creating a new Angle by selecting an object from the object list. By selecting this option for one or more objects the suggested fields are limited to all fields present in these default Displays and Filters of that object.</value>
+    <value>Templates that are connected to an object in the object list, always have a default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these default Displays and Filters of that Template.</value>
   </data>
   <data name="MC_SetDefaultBasicListFieldsToSuggested" xml:space="preserve">
     <value>Set default Basic List fields to suggested {0}</value>
@@ -3645,6 +3645,9 @@ Are you sure you want to delete this model?</value>
   </data>
   <data name="MC_SetFields" xml:space="preserve">
     <value>Set fields</value>
+  </data>
+  <data name="MC_ClearFields" xml:space="preserve">
+    <value>Clear fields</value>
   </data>
   <data name="MC_SetSuggestedFieldsForSingleObject" xml:space="preserve">
     <value>Set suggested {0} fields for single object</value>
@@ -5489,12 +5492,18 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Es antes de {0}</value>
   </data>
   <data name="WidgetFilter_Preview_Between" xml:space="preserve">
-    <value>Está entre {0} y {1}</value>
+    <value>Is on or after {0} and before {1}</value>
+  </data>
+  <data name="WidgetFilter_Preview_Between_EndDate" xml:space="preserve">
+    <value>Is on or after {0} and on or before {1}</value>
   </data>
   <data name="WidgetFilter_Preview_Equal" xml:space="preserve">
     <value>Es el {0}</value>
   </data>
   <data name="WidgetFilter_Preview_NotBetween" xml:space="preserve">
+    <value>Is before {0} or after {1}</value>
+  </data>
+  <data name="WidgetFilter_Preview_NotBetween_EndDate" xml:space="preserve">
     <value>Es antes de {0} o después o el {1}</value>
   </data>
   <data name="WidgetFilter_Preview_NotEqual" xml:space="preserve">
@@ -6317,6 +6326,36 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Support" xml:space="preserve">
     <value>Support</value>
   </data>
+  <data name="MC_AngleExports" xml:space="preserve">
+    <value>Angle exports</value>
+  </data>
+  <data name="MC_ExcelDefaults" xml:space="preserve">
+    <value>Excel defaults</value>
+  </data>
+  <data name="MC_ExcelTemplates" xml:space="preserve">
+    <value>Excel templates</value>
+  </data>
+  <data name="MC_UploadTemplate" xml:space="preserve">
+    <value>Upload template</value>
+  </data>
+  <data name="MC_DeleteExcelConfirm" xml:space="preserve">
+    <value>Delete Excel: {reference}?</value>
+  </data>
+  <data name="MC_ReplaceDuplicateExcelFile" xml:space="preserve">
+    <value>There is already a template with the same name. Do you want to replace this one?</value>
+  </data>
+  <data name="MC_ReplaceNotAllowedForStandardExcel" xml:space="preserve">
+    <value>Changing the Every Angle Standard template is not allowed</value>
+  </data>
+  <data name="MC_ExcelFilenameCannotBeNull" xml:space="preserve">
+    <value>Excel filename cannot be null.</value>
+  </data>
+  <data name="MC_InvalidExcelFile" xml:space="preserve">
+    <value>Invalid file format. Please select a valid Excel file</value>
+  </data>
+  <data name="MC_InvalidExcelFileName" xml:space="preserve">
+    <value>Invalid file name. Please make sure the file name doesn't contain white spaces</value>
+  </data>
   <data name="TagSuggestionHeader" xml:space="preserve">
     <value>Suggestions</value>
   </data>
@@ -6331,6 +6370,21 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="TagInputPlaceholder" xml:space="preserve">
     <value>Create or find Tag</value>
+  </data>
+  <data name="IncludeEndDate" xml:space="preserve">
+    <value>Include end date</value>
+  </data>
+  <data name="MC_DefaultDatastoreName" xml:space="preserve">
+    <value>Default datastore</value>
+  </data>
+  <data name="MC_ExportDefaults" xml:space="preserve">
+    <value>Export defaults</value>
+  </data>
+  <data name="SearchTagInputPlaceholder" xml:space="preserve">
+    <value>Filter Tags</value>
+  </data>
+  <data name="SearchTagNoSuggestion" xml:space="preserve">
+    <value>No matches</value>
   </data>
   <data name="MC_Items" xml:space="preserve">
     <value>Items</value>

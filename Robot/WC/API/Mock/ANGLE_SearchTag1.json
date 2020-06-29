@@ -1,0 +1,54 @@
+{
+  "id": "ROBOT_ANGLE_SEARCH_TAG1",
+  "assigned_labels": [
+    "S2D"
+  ],
+  "assigned_tags": [
+    "SearchTag1",
+    "SearchTag2"
+  ],
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "[ROBOT] Angle Search Tag 1"
+    }
+  ],
+  "multi_lang_description": [],
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+        "base_classes": [
+            "PurchaseOrder",
+            "PurchaseOrderScheduleLine"
+        ]
+    }
+  ],
+  "angle_default_display": "d2e5f21e86b2916927768521090261961",
+  "display_definitions": [
+    {
+      "id": "d2e5f21e86b2916927768521090261961",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "display"
+        }
+      ],
+      "multi_lang_description": [],
+      "display_details": "{}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ID",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "ObjectType",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        }
+      ]
+    }
+  ]
+}

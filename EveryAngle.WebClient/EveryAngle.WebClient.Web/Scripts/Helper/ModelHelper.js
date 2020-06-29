@@ -91,6 +91,8 @@
 
                 if (argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.VALUE && typeof argument.value === 'undefined')
                     argument.value = null;
+                if (!argument.included_end_date)
+                    delete argument.included_end_date;
                 self.ExtendValidProperty(argument);
             });
         };
@@ -171,6 +173,8 @@
             delete step.is_adhoc;
             delete step.is_applied;
             delete step.is_dashboard_filter;
+            delete step.can_include_end_date;
+            delete step.included_end_date;
             delete step.valid_field;
             delete step.tech_info;
             delete step.step_type_index;

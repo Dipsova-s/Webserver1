@@ -89,6 +89,13 @@ Verify Last Execute Time Angle
     ${lastExecuteTime}    Get Time From Date String    ${lastExecuteDateTimeString}
     Should Be True    ${now}<=${lastExecuteTime}
     Close Angle Statistic Popup
+
+Get Model Date Time
+    Open Angle Statistic Popup
+    ${getModelDateTimeStamp}    Get Model Date
+    ${getUnixModelDateTimeStamp}    Get Time From Date String   ${getModelDateTimeStamp}
+    Close Angle Statistic Popup
+    [Return]    ${getUnixModelDateTimeStamp}
     
 Create New Display on Angle Page
     [Arguments]   ${displaytype}   ${name}=${EMPTY}     ${isAdhoc}=${False}
@@ -113,11 +120,6 @@ Create New Chart Display on Angle Page
     [Arguments]   ${name}=${EMPTY}  ${isAdhoc}=${False}
     Create New Display on Angle Page    chart  ${name}  ${isAdhoc}
     Wait Until Chart Display Loaded
-
-Login And Create Angle By 2 Objects From Object List
-    [Arguments]    ${objectName}    ${angleName}
-    Login To WC By Power User
-    Create Angle From Object List And Save   ${objectName}    ${angleName}
 
 Back To Search And Delete Angle Are Created
     [Arguments]   ${angleName}

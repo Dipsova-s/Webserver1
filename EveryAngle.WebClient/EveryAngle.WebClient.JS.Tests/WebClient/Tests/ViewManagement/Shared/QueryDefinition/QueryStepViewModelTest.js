@@ -10,6 +10,8 @@
                 var viewModel = new QueryStepViewModel(queryStep, modelUri, checkValid);
 
                 expect(viewModel.step_type).toBe('filter');
+                expect(viewModel.can_include_end_date()).toBe(false);
+                expect(viewModel.included_end_date()).toBe(false);
             });
         });
 

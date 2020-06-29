@@ -41,6 +41,14 @@
         var value = argument.value ? WC.WidgetFilterHelper.ConvertUnixTimeToPicker(argument.value) : null;
         input.data('handler').value(value);
     };
+    self.CanIncludeEndDate = function () {
+        return self.Data.operator() === enumHandlers.OPERATOR.BETWEEN.Value
+            || self.Data.operator() === enumHandlers.OPERATOR.NOTBETWEEN.Value;
+    };
+    self.EnableIncludeEndDate = function () {
+        return self.Data.arguments().length === 2
+            && self.Data.arguments()[1].argument_type === enumHandlers.FILTERARGUMENTTYPE.VALUE;
+    };
 
     // multiple argument
     self.InitialMultipleArgumentUI = function (container) {

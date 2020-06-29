@@ -253,7 +253,7 @@ Back To Search
 
 Get Time From Date String
     [Arguments]  ${strDate}
-    ${time}    Execute Javascript     return WC.DateHelper.LocalDateToUnixTime(kendo.parseDate("${strDate}", WC.FormatHelper.GetFormatter('datetime')))
+    ${time}    Execute Javascript     return kendo.parseDate("${strDate}", WC.FormatHelper.GetFormatter('datetime'))/1000
     [Return]    ${time}
 
 Click Element If Not Active
