@@ -9,6 +9,10 @@ Wait Until Dashboard Execute Parameters Popup Loaded
     Wait Until Page Contains Element       ${divExecuteParametersPopup}
     Wait Until Page Does Not Contain Element    ${pgbExecuteParameters}
 
+Dashboard Execute Parameters Popup Should Not Be Visible
+    Sleep  ${TIMEOUT_LARGEST}
+    Page Should Not Contain Element  ${divExecuteParametersPopup} 
+
 Check If Dashboard Has Execute Parameters From Search Page Then Execute The Popup
     ${foundPopup}    Set Variable    False
     : FOR    ${INDEX}    IN RANGE    0    ${TIMEOUT_AJAX_COMPLETE}

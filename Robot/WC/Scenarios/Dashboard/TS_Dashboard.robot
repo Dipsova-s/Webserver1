@@ -81,6 +81,14 @@ Check Third Angle Should Apply Dashboard Execution Parameters
     Close Window
     Switch Window   MAIN
 
+Prepare Filter With Execution Parameters To Dashboard
+    Set Editor Context: Dashboard Tab
+    Add Filter  "Bottleneck Type"  BottleneckType  ${TRUE}
+    Set Editor Index  0
+    Choose Dropdown Filter Operator Via Edit Filter  is not empty
+    Click Execute Parameter To Edit Filter
+    Click Apply Filter Button
+
 Create Dashboard With 2 Angles
     [Arguments]   ${dashboardName}
     Search By Text     Angle For

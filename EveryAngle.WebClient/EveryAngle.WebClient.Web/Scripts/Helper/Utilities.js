@@ -150,8 +150,11 @@
         // default behavior
         window.open(url);
     };
-    window.WC.Utility.RedirectUrl = function (url) {
-        window.location = url;
+    window.WC.Utility.RedirectUrl = function (url, replace) {
+        if (replace === true)
+            window.location.replace(url);
+        else
+            window.location = url;
     };
     window.WC.Utility.DownloadFile = function (url) {
         var queryStringSymbol = url.indexOf('?') !== -1 ? '&' : '?';

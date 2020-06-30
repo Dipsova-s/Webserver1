@@ -57,9 +57,8 @@ Verify Search Terms
     Search Input Should Be                  ${Text2}
 
 Verify Search Tags
-    [Tags]  acc_wc
+    [Tags]  acc_wc  TC_C230000
     [Documentation]     Search items by tags
-    [Tags]      TC_C230000
     [Setup]  Run Keywords  Import Angle By API  /models/1  ANGLE_SearchTag1.json  user=${Username}
     ...         AND        Import Angle By API  /models/1  ANGLE_SearchTag2.json  user=${Username}
     

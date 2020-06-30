@@ -184,7 +184,7 @@ Click Dashboard Save All
     Wait Progress Bar Closed
     Wait Until Ajax Complete
     Page Should Contain Toast Success
-    Wait Display Executed
+    Wait Dashboard Widgets Loaded
 
 Click Save Dashboard As
     ${hasButton}  Is Element Exist  ${btnSaveDashboardAs} 

@@ -683,6 +683,25 @@ describe("DashboardPageHandler", function () {
         });
     });
 
+    describe(".CreateDashboard", function () {
+        it("should create & redirect", function () {
+            spyOn(dashboardModel, 'CreateDashboard').and.returnValue($.when({}));
+            spyOn(dashboardPageHandler.DashboardModel, 'SetData');
+            spyOn(jQuery, 'localStorage').and.returnValue({});
+            spyOn(jQuery, 'storageWatcher');
+            spyOn(WC.Utility, 'RedirectUrl');
+            dashboardPageHandler.CreateDashboard({});
+
+            // assert
+            expect(dashboardPageHandler.QueryDefinitionHandler.ForcedSetData).toEqual(true);
+            expect(dashboardPageHandler.QueryDefinitionHandler.IsExecutedParameters).toEqual(true);
+            expect(dashboardPageHandler.DashboardModel.SetData).toHaveBeenCalled();
+            expect(jQuery.localStorage).toHaveBeenCalled();
+            expect(jQuery.storageWatcher).toHaveBeenCalled();
+            expect(WC.Utility.RedirectUrl).toHaveBeenCalled();
+        });
+    });
+
     //handlers
     describe(".SaveQueryDefinition", function () {
         it("should do nothing when QueryDefinitionHandler.HasChanged is false", function () {
