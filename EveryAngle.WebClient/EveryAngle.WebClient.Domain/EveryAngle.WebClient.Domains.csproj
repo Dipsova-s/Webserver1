@@ -47,6 +47,7 @@
     <Compile Include="Constants\DatastoreSettingConstant.cs" />
     <Compile Include="Constants\TaskArgumentConstant.cs" />
     <Compile Include="Enums\ComponentServiceManagerType.cs" />
+    <Compile Include="Enums\TaskStatus.cs" />
     <Compile Include="Enums\ModelServerStatus.cs" />
     <Compile Include="EveryAngleEnums.cs" />
     <Compile Include="Enums\ModelAgentType.cs" />

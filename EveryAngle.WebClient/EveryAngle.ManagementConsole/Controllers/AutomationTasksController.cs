@@ -9,6 +9,7 @@ using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Domain.Constants;
+using EveryAngle.WebClient.Domain.Enums;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using EveryAngle.WebClient.Service.Security;
 using Kendo.Mvc.UI;
@@ -226,6 +227,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             // use for checking priviledge
             ViewData["AllModels"] = allModels;
+            ViewBag.TaskHistoryUri = SessionHelper.Version.GetEntryByName("eventlog").Uri.ToString();
 
             return PartialView("~/Views/AutomationTasks/Tasks/TaskDetail.cshtml");
         }
@@ -520,6 +522,27 @@ namespace EveryAngle.ManagementConsole.Controllers
         public void DeleteTask(string taskUri)
         {
             _automationTaskService.DeleteDataStore(taskUri);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ExecuteTaskAction(string task)
+        {
+            string tasksUri = SessionHelper.Version.GetEntryByName("tasks").Uri.ToString();
+            TaskViewModel result = _modelService.CreateTask(tasksUri, task);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CheckExecutionTask(string uri)
+        {
+            TaskHistoryViewModel history = _modelService.GetTaskHistories(uri).Data.FirstOrDefault(f => (f.result.Equals(TaskStatus.Finished.ToString(), StringComparison.InvariantCultureIgnoreCase)
+                                                                                                      || f.result.Equals(TaskStatus.Failed.ToString(), StringComparison.InvariantCultureIgnoreCase)));
+            return Json(history, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetHistory(string eventlogUri)
+        {
+            TaskHistoryViewModel history = _modelService.GetTaskHistories(eventlogUri).Data.FirstOrDefault(w => !string.IsNullOrEmpty(w.correlation_id));
+            return Json(history, JsonRequestBehavior.AllowGet);
         }
 
         public string GetDataStoresUri()

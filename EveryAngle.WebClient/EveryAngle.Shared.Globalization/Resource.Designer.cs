@@ -16274,6 +16274,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to executing.
+        /// </summary>
+        public static string ProgressExecuting {
+            get {
+                return ResourceManager.GetString("ProgressExecuting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to getting report.
+        /// </summary>
+        public static string ProgressGettingReport {
+            get {
+                return ResourceManager.GetString("ProgressGettingReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Published.
         /// </summary>
         public static string Published {
@@ -17071,6 +17089,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string SinceLastRefresh {
             get {
                 return ResourceManager.GetString("SinceLastRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Single Action] .
+        /// </summary>
+        public static string SingleActionExecute {
+            get {
+                return ResourceManager.GetString("SingleActionExecute", resourceCulture);
             }
         }
         

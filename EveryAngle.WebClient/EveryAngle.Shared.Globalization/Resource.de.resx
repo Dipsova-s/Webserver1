@@ -6374,6 +6374,15 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="IncludeEndDate" xml:space="preserve">
     <value>Include end date</value>
   </data>
+  <data name="ProgressExecuting" xml:space="preserve">
+    <value>executing</value>
+  </data>
+  <data name="ProgressGettingReport" xml:space="preserve">
+    <value>getting report</value>
+  </data>
+  <data name="SingleActionExecute" xml:space="preserve">
+    <value>[Single Action]</value>
+  </data>
   <data name="MC_DefaultDatastoreName" xml:space="preserve">
     <value>Default datastore</value>
   </data>

@@ -84,3 +84,11 @@ Delete Task By Delete Action
     [Arguments]    ${taskName}
     Delete Task   ${taskName}
     Verify Task Dose Not Exists      ${taskName}
+
+Verify Execute Single Action
+    [Arguments]    ${taskName}    ${actionName}
+    
+    Click Edit Task Action By Task Name    ${taskName} 
+    Click Action In Grid By Name     ${taskName}    ${trRowTaskGrid}    ${btnEditTask}
+    Wait Edit Tasks Page Ready    Edit task
+    Task Action Should Contain Execute Button    ${actionName}

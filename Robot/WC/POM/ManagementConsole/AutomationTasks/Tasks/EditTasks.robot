@@ -43,9 +43,13 @@ ${txtEmailDescription}         jquery=#email_body
 ${txtDatastoreFileName}        css=#file_name
 ${chkDatastoreAppendResult}    css=#append
 
+${trGridTaskAction}            jquery=#TaskActionsGrid tbody tr
+${btnExecutetAction}           .btnGroupInner .btnExecute
+
 *** Keywords ***
 Wait Edit Tasks Page Ready
-      Wait Until Page Contains    Create task
+      [Arguments]    ${pagename}
+      Wait Until Page Contains    ${pagename}
       Wait Until Page Contains    Maximum run time
       Wait Until Page Contains Element    ${ddlTaskTriggerType}
       Wait MC Progress Bar Closed
@@ -168,3 +172,9 @@ Unselect Datastore Append Result
 Input Datastore Filename
     [Arguments]    ${value}
     Input Text    ${txtDatastoreFileName}    ${value}
+
+Task Action Should Contain Execute Button
+    [Arguments]     ${actionName}
+    Page Should Contain Element     ${trGridTaskAction} td:contains('${actionName}') 
+    Click Show Action Dropdown In Grid By Name    ${actionName}    ${trGridTaskAction}
+    Wait Until Page Contains Element    ${trGridTaskAction}:contains(${actionName}) ${btnExecutetAction}

@@ -1,6 +1,8 @@
-﻿using EveryAngle.Core.ViewModels;
+﻿using EveryAngle.Core.Interfaces.Services;
+using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Cycle;
 using EveryAngle.Core.ViewModels.DataStore;
+using EveryAngle.Core.ViewModels.Directory;
 using EveryAngle.Core.ViewModels.Item;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.Privilege;
@@ -48,6 +50,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 }
             };
             sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            sessionHelper.SetupGet(x => x.Version).Returns(new VersionViewModel
+            {
+                Version = "1",
+                Entries = new List<Entry> {
+                    new Entry { Name = "tasks", Uri = new Uri("/tasks", UriKind.Relative) },
+                    new Entry { Name = "eventlog", Uri = new Uri("/eventlog", UriKind.Relative) },
+                    new Entry { Name = "system_datastores", Uri = new Uri("/system_datastores", UriKind.Relative) },
+                    new Entry { Name = "system_datastore_plugins", Uri = new Uri("/system_datastore_plugins", UriKind.Relative) }
+                }
+            });
+
             sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
             {
                 new ModelViewModel
@@ -371,7 +384,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             automationTaskService.Setup(x => x.GetDatastorePlugins(It.IsAny<string>())).Returns(plugin);
 
             // execute
-            var result = _testingController.EditDefaultDatastore(pluginname,true);
+            var result = _testingController.EditDefaultDatastore(pluginname, true);
 
             //Assert
             Assert.AreEqual(_testingController.ViewBag.DatastorePlugin, pluginname);
@@ -461,11 +474,58 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             //Execute
             var result = _testingController.EditDatastore(data.Uri.ToString(), "", pluginname);
-
-            //Assert
-            Assert.AreEqual(_testingController.ViewBag.DatastoreDetails, dataStore);
         }
+
+        [TestCase]
+        public void Can_CheckExecutionTask()
+        {
+            modelService.ResetCalls();
+            string taskUri = "TASK_URI";
+            modelService.Setup(x => x.GetTaskHistories(It.IsAny<string>())).Returns(new ListViewModel<TaskHistoryViewModel>
+            {
+                Data = new List<TaskHistoryViewModel>() { new TaskHistoryViewModel { result = "finished" } }
+            });
+
+            // execute
+            _testingController.CheckExecutionTask(taskUri);
+
+            // assert
+            modelService.Verify(f => f.GetTaskHistories(It.IsAny<string>()), Times.Once);
+        }
+
+        [TestCase]
+        public void Can_GetHistory()
+        {
+            modelService.ResetCalls();
+            string taskUri = "TASK_URI";
+            modelService.Setup(x => x.GetTaskHistories(It.IsAny<string>())).Returns(new ListViewModel<TaskHistoryViewModel>
+            {
+                Data = new List<TaskHistoryViewModel>() { new TaskHistoryViewModel { result = "finished" } }
+            });
+
+            // execute
+            _testingController.GetHistory(taskUri);
+
+            // assert
+            modelService.Verify(f => f.GetTaskHistories(It.IsAny<string>()), Times.Once);
+
+        }
+
+        [TestCase]
+        public void Can_ExecuteTaskAction()
+        {
+            string task = "{}";
+            modelService.Setup(x => x.CreateTask(It.IsAny<string>(), It.IsAny<string>())).Returns(new TaskViewModel());
+
+            // execute
+            _testingController.ExecuteTaskAction(task);
+
+            // assert
+            modelService.Verify(f => f.CreateTask(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+
+        }
+
         #endregion
     }
 
-}
+    }

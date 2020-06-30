@@ -48,3 +48,21 @@ Verify Delete Task
 
     [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}
     ...         AND           Go To All Tasks Page
+
+Verify Execute Task Single Action
+    [Tags]      TC_C230009
+    [Documentation]    Enable users to execute a single action of an Automation Task
+    @{cleanUpItems}    Create List
+    Create Context: Web
+    ${angleData}    Create Angle    /models/1    Angle_For_SingleAction.json
+    ${angleUri}    Get Uri From Response    ${angleData}
+    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
+
+    Create Context: Web
+    Create Task    TaskForSingleAction.json
+
+    Go To All Tasks Page
+    Verify Execute Single Action    TaskForSingleAction    Angle for single action
+
+    [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}
+    ...         AND           Go To All Tasks Page
