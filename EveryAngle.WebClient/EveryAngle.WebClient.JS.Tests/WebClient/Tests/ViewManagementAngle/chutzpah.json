@@ -35,6 +35,7 @@
         { "Path": "/../../Dependencies/ViewManagement/Angle/DisplayResultHandler/DisplayPivotResultHandler.js" },
         { "Path": "/../../Dependencies/ViewManagement/Angle/DisplayOverviewHandler.js" },
         { "Path": "/../../Dependencies/ViewManagement/Angle/DisplayDrilldownHandler.js" },
+        { "Path": "/../../Dependencies/ViewManagement/Angle/DisplayExcelTemplateHandler.js" },
         { "Path": "/../../Dependencies/ViewManagement/Angle/DisplayStatisticView.js" },
         { "Path": "/../../Dependencies/ViewManagement/Angle/DisplayStatisticHandler.js" },
         { "Path": "/../../Dependencies/ViewManagement/Angle/DisplayHandler.js" }

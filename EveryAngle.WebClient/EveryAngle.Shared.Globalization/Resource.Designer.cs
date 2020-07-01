@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -3058,6 +3058,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [Default] {0}.
+        /// </summary>
+        public static string Default_Placeholder {
+            get {
+                return ResourceManager.GetString("Default_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Angle.
         /// </summary>
         public static string DefaultAngleName {
@@ -3945,6 +3954,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Euro {
             get {
                 return ResourceManager.GetString("Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excel Template.
+        /// </summary>
+        public static string ExcelTemplate {
+            get {
+                return ResourceManager.GetString("ExcelTemplate", resourceCulture);
             }
         }
         
@@ -16283,6 +16301,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to executing.
+        /// </summary>
+        public static string ProgressExecuting {
+            get {
+                return ResourceManager.GetString("ProgressExecuting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to getting report.
+        /// </summary>
+        public static string ProgressGettingReport {
+            get {
+                return ResourceManager.GetString("ProgressGettingReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Published.
         /// </summary>
         public static string Published {
@@ -17080,6 +17116,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string SinceLastRefresh {
             get {
                 return ResourceManager.GetString("SinceLastRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Single Action] .
+        /// </summary>
+        public static string SingleActionExecute {
+            get {
+                return ResourceManager.GetString("SingleActionExecute", resourceCulture);
             }
         }
         

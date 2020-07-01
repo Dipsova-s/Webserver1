@@ -148,6 +148,7 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmanagement/shared/systemcurrencyhandler.js",
                 "~/scripts/viewmanagement/shared/systemdefaultusersettinghandler.js",
                 "~/scripts/viewmanagement/shared/systemtaghandler.js",
+                "~/scripts/viewmanagement/shared/defaultexceldatastorehandler.js",
                 "~/scripts/viewmanagement/shared/aboutsystemhandler.js",
                 "~/scripts/viewmanagement/shared/userfriendlynamehandler.js",
                 "~/scripts/viewmanagement/shared/businessprocesshandler.js",
@@ -529,6 +530,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/shared/baseitemhandler.js",
                     "~/scripts/viewmanagement/angle/anglehandler.js",
                     "~/scripts/viewmanagement/angle/displaydrilldownhandler.js",
+                    "~/scripts/viewmanagement/angle/displayexceltemplatehandler.js",
                     "~/scripts/viewmanagement/angle/displayhandler.js",
                     "~/scripts/viewmanagement/angle/resulthandler.js",
 

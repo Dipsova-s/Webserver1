@@ -52,7 +52,8 @@
             .append(self.View.GetSectionAggregationTemplate())
             .append(self.View.GetSectionDescriptionTemplate())
             .append(self.View.GetSectionDisplayOptionsTemplate())
-            .append(self.View.GetSectionDefaultDrilldownTemplate());
+            .append(self.View.GetSectionDefaultDrilldownTemplate())
+            .append(self.View.GetSectionExcelTemplate());
 
         // display accordions
         self.InitialAccordion(self.StateManager.DisplayAccordions, _self.$displayAccordions);

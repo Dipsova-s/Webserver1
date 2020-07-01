@@ -1,4 +1,4 @@
-﻿/// <reference path="/../../Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
 
 describe("BusinessProcessesModel", function () {
 

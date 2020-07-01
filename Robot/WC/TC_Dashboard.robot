@@ -47,6 +47,19 @@ Verify Execute Dashboard With Execution Parameters
 
     [Teardown]  Clean Up Items And Go To Search Page
 
+Verify New Dashboard With Execution Parameters
+    [Documentation]  Saving adhoc Dashboard with execution parameters.
+    ...              Risk/coverage area: Dashboard execution parameters.
+    [Tags]  TC_C229292
+    ${dashboardName}  Set variable  [ROBOT] New Dashboard With Execution Parameters
+    Create Adhoc Dashboard  Angle For General Test    ${dashboardName}
+    Click Dashboard Tab
+    Prepare Filter With Execution Parameters To Dashboard
+    Click Dashboard Save All
+    Dashboard Execute Parameters Popup Should Not Be Visible
+    [Teardown]  Back To Search And Delete Dashboard Are Created    ${dashboardName}
+
+
 Verify Dashboard Drilldown
     [Documentation]  Check drilldown 2 widgets in Dashboard.
     ...              One is a normal drilldown on Chart then get adhoc list Display.

@@ -95,16 +95,20 @@
         show: function () {
             var self = this;
 
-            if (this.type === this.TYPE.error)
+            if (self.type === self.TYPE.error || (self.handleByUser && jQuery(self.loader).is(':visible')))
                 return;
 
-            jQuery(this.loaderSpinnerContainer).show();
-            jQuery(this.loaderMessageContainer).hide();
-
-            clearTimeout(this.fnPreventSmallLoading);
-            this.fnPreventSmallLoading = setTimeout(function () {
+            jQuery(self.loaderSpinnerContainer).show();
+            jQuery(self.loaderMessageContainer).hide();
+            clearTimeout(self.fnPreventSmallLoading);
+            if (self.handleByUser) {
                 jQuery(self.loader).show();
-            }, this.smallLoadingTime);
+            }
+            else {
+                self.fnPreventSmallLoading = setTimeout(function () {
+                    jQuery(self.loader).show();
+                }, self.smallLoadingTime);
+            }
         },
         showAndHide: function () {
             var self = this;

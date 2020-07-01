@@ -954,6 +954,9 @@
   <data name="None" xml:space="preserve">
     <value>[None]</value>
   </data>
+  <data name="ExcelTemplate" xml:space="preserve">
+    <value>Excel Template</value>
+  </data>
   <data name="CreateNewAngleFromSchema" xml:space="preserve">
     <value>Crear Angle</value>
   </data>
@@ -2042,6 +2045,9 @@
   </data>
   <data name="Default" xml:space="preserve">
     <value>Predeterminado</value>
+  </data>
+  <data name="Default_Placeholder" xml:space="preserve">
+    <value>[Predeterminado] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
@@ -6379,6 +6385,15 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="MC_ExportDefaults" xml:space="preserve">
     <value>Export defaults</value>
+  </data>
+  <data name="ProgressExecuting" xml:space="preserve">
+    <value>executing</value>
+  </data>
+  <data name="ProgressGettingReport" xml:space="preserve">
+    <value>getting report</value>
+  </data>
+  <data name="SingleActionExecute" xml:space="preserve">
+    <value>[Single Action]</value>
   </data>
   <data name="SearchTagInputPlaceholder" xml:space="preserve">
     <value>Filter Tags</value>

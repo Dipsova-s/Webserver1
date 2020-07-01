@@ -33,7 +33,7 @@
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
     <Use64BitIISExpress>
-    </Use64BitIISExpress>
+	</Use64BitIISExpress>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -1055,6 +1055,7 @@
     <Content Include="Scripts\ViewManagement\Angle\AngleTemplateStateHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\Chart\ChartHelper.js" />
     <Content Include="Scripts\ViewManagement\Angle\Chart\ChartOptionsView.js" />
+    <Content Include="Scripts\ViewManagement\Angle\DisplayExcelTemplateHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayDrilldownHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\Chart\ChartOptionsHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplaySaveAsHandler.js" />
@@ -1091,6 +1092,7 @@
     <Content Include="Scripts\ViewManagement\Search\SearchSidePanelHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\BaseItemHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\Breadcrumb\DashboardBreadcrumbHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\DefaultExcelDatastoreHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ItemDescription\ItemDescriptionHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ItemDescription\ItemDescriptionView.js" />
     <Content Include="Scripts\ViewManagement\Shared\ItemSaveActionHandler.js" />

@@ -3,7 +3,7 @@ ${btnUploadTemplate}                xpath=//form[@id='UploadExcelTemplateFileFor
 ${trRowInExcelTemplateGrid}         jquery=#ExcelTemplatesGrid > div > div > table > tbody > tr
 ${popUpConfirmationTodelete}        xpath=//div[@id='popupConfirmation']
 ${btnConfirmToDelete}               xpath=//div[@id='popupConfirmation']/div[@class='popupToolbar']/a[contains(text(),'OK')]
-
+${trExcelTemplates}                 //tbody[@role='rowgroup']/tr/td/span[contains(@data-tooltip-title, 'xlsx')]
 
 *** Keywords ***
 Wait For ExcelTemplates Page Ready
@@ -36,3 +36,15 @@ Click Delete Excel Template
     Wait Until Element Is Visible      ${popUpConfirmationTodelete}
     Click Element      ${btnConfirmToDelete}
     Wait Progress Bar Closed
+
+Count of Excel Templates
+    ${countExcelTemplates}  Get Element Count   ${trExcelTemplates}
+    [Return]    ${countExcelTemplates}
+
+List of Excel Templates
+    ${count}    Count of Excel Templates
+    @{listExcelTemplates}   Create List
+    :FOR    ${i}    IN RANGE    1   ${count} + 1
+    \    ${nameExcelTemplate}    Get Text    (${trExcelTemplates})[${i}]
+    \    Append To List      ${listExcelTemplates}   ${nameExcelTemplate}
+    [Return]    ${listExcelTemplates}

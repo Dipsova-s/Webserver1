@@ -83,11 +83,13 @@ Wait Until Export Drilldown To Excel Popup Loaded
 Wait Until Export Excel Popup Close
     Check And Wait Until Element Is Not Visible    ${btnOKExportDrilldownToExcel}
 
-Check The Existence Of Definitions Sheet In Excel File
+Check For The Selected Excel Template And The Existence Of Definitions Sheet In Excel File
     [Arguments]     ${excelFile}
     Open Excel Document    ${excelFile}    doc1
     ${sheets}=	Get List Sheet Names	
     List Should Contain Value	${sheets}	Definitions
+    ${cellData}     Read Excel Cell   5  10  Summary
+    Should Be Equal As Strings   ${cellData}     None
     Close All Excel Documents
 
 Checkboxes Should Not Be Selected By Default

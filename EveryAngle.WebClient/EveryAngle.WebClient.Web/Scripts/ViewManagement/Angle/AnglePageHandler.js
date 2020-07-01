@@ -50,7 +50,8 @@ function AnglePageHandler() {
                     systemSettingHandler.LoadSystemSettings(),
                     userModel.Load(),
                     systemInformationHandler.LoadSystemInformation(),
-                    systemCurrencyHandler.LoadCurrencies()
+                    systemCurrencyHandler.LoadCurrencies(),
+                    defaultExcelDatastoreHandler.LoadDatastoreSettings(undefined, false)
                 );
             })
             .then(function () {
@@ -333,6 +334,13 @@ function AnglePageHandler() {
             self.ApplyExecutionAngle();
         };
 
+        self.HandlerDisplay.OnChangeExcelTemplate = function () {
+            var details = self.HandlerDisplay.GetDetails();
+            displayModel.Data().display_details = JSON.stringify(details);
+            displayModel.Data.commit();
+            self.ApplyExecutionAngle();
+        };
+
         // display options
         self.HandlerDisplay.IsAngleDefaultChanged = function () {
             self.HandlerDisplay.SetAngleDefault();
@@ -453,6 +461,9 @@ function AnglePageHandler() {
         // Default Drilldown
         if (self.HandlerDisplay.Data().display_type !== enumHandlers.DISPLAYTYPE.LIST)
             self.HandlerDisplay.InitialDefaultDrilldown('.section-default-drilldown');
+
+        // Excel Template
+        self.HandlerDisplay.InitialExcelTemplate('.section-default-excel-template');
 
         // angle_default_display
         var angleDefaultDisplay = self.HandlerAngle.GetDefaultDisplay();

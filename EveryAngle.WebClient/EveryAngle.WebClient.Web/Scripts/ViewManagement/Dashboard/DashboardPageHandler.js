@@ -2045,6 +2045,7 @@ function DashboardPageHandler() {
         return dashboardModel.CreateDashboard(data)
             .done(function (response) {
                 self.QueryDefinitionHandler.ForcedSetData = true;
+                self.QueryDefinitionHandler.IsExecutedParameters = true;
                 self.DashboardModel.SetData(response);
 
                 // clean localStorage
@@ -2057,7 +2058,7 @@ function DashboardPageHandler() {
 
                 // redirect to the creating dashboard
                 self.CheckBeforeRender = true;
-                window.location.replace(WC.Utility.GetDashboardPageUri(response.uri));
+                WC.Utility.RedirectUrl(WC.Utility.GetDashboardPageUri(response.uri), true);
             });
     };
     self.UpdateDashboard = function (data) {

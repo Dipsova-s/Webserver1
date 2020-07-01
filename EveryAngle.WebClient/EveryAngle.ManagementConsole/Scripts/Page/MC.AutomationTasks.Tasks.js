@@ -31,6 +31,18 @@
         self.WebClientAngleUrl = '';
         self.VerifyModelPriviledgeUri = '';
         self.IsTaskActionsSorted = false;
+        self.GetHistoryUri = '';
+        self.CheckExecutionTaskUri = '';
+        self.Status = {
+            NotStarted: 'notstarted',
+            Running: 'running',
+            Finished: 'finished',
+            Failed: 'failed',
+            Cancelled: 'cancelled',
+            Disabled: 'disabled',
+            Queued: 'queued',
+            Cancelling: 'cancelling'
+        };
 
         self.InitialAllTasks = function (data) {
 
@@ -52,6 +64,8 @@
             self.CopyTaskUri = '';
             self.VerifyModelPriviledgeUri = '';
             self.IsTaskActionsSorted = false;
+            self.GetHistoryUri = '';
+            self.CheckExecutionTaskUri = '';
 
             jQuery.extend(self, data || {});
 
@@ -212,6 +226,103 @@
                     });
             }
         };
+
+        self.ExecuteAdhocTaskAction = function (uid) {
+
+            MC.util.massReport.initial();
+            MC.util.massReport.setStatus(Localization.MC_CurrentProgress, Localization.ProgressExecuting, '');
+
+            var action = jQuery('#TaskActionsGrid').data("kendoGrid").dataSource.getByUid(uid);
+            var task = {};      
+            task.delete_after_completion = true;
+            task.start_immediately = true;
+            task.actions = [action];
+            task.name = Localization.SingleActionExecute + self.TaskData.name;
+            task.run_as_user = self.TaskData.run_as_user;
+            task.triggers = self.TaskData.triggers;
+
+            self.ExecuteSingleAction(task)
+                .then(function (data) {
+                    // check result
+                    return self.CheckExecutionTask(data.History);
+                })
+                .then(function (history) {
+                    MC.util.massReport.setStatus(Localization.MC_CurrentProgress, Localization.ProgressGettingReport, '');
+                    return self.GetTaskHistory(kendo.format('{0}/?task_id={1}', self.TaskHistoryUri, history.task_id));
+                })
+                .done(function (response) {
+                    MC.util.massReport.closeReport();
+                    $('#adhocTaskPopup').data('correlationid', response.correlation_id);
+                    $('#adhocTaskPopup').trigger('click');
+                    $("#popupLogTable_wnd_title").html(task.name);
+                });
+        };
+        self.ExecuteSingleAction = function (task) {
+            return MC.ajax.request({
+                url: self.ExecuteTaskUri,
+                parameters: {
+                    task: JSON.stringify(task)
+                },
+                type: 'POST'
+            });
+        };
+        // check execution status
+        self.CheckExecutionTask = function (uri) {
+            var deferred = $.Deferred();
+            var query = {};
+            query['uri'] = uri;
+
+            var checkExecution = function () {
+                MC.ajax
+                    .request({
+                        url: self.CheckExecutionTaskUri,
+                        parameters: query
+                    })
+                    .fail(function (xhr, status, error) {
+                        MC.ajax.setErrorDisable(xhr, status, error, deferred);
+                    })
+                    .done(function (data, status) {
+                        if (data) {
+                            var taskStatus = data.result.toLowerCase();
+                            if (taskStatus === self.Status.Finished) {
+                                MC.util.massReport.reports[0] = '<li class="success">' + Localization.MC_TaskSuccess + '</li>';
+                                deferred.resolve(data, status);
+                            }
+                            else if (taskStatus === self.Status.Failed || taskStatus === self.Status.Cancelled ) {
+                                MC.util.massReport.reports[0] = '<li class="fail">' + self.Status + '</li>';
+                                deferred.resolve(data, status);
+                            }
+                            else {
+                                MC.util.massReport.setStatus(Localization.MC_CurrentProgress, Localization.ProgressExecuting, data.result);
+                                setTimeout(function () {
+                                    checkExecution();
+                                }, 1000);
+                            }
+                        }
+                        else {
+                            setTimeout(function () {
+                                MC.util.massReport.setStatus(Localization.MC_CurrentProgress, Localization.ProgressExecuting, '');
+                                checkExecution();
+                            }, 1000);
+                        }
+                    });
+            };
+
+            checkExecution();
+            return deferred.promise();
+        };
+        self.GetTaskHistory = function (uri) {
+            return MC.ajax.request({
+                url: self.GetHistoryUri,
+                parameters: { eventlogUri: uri },
+                type: 'GET'
+            });
+        };
+        self.ShowLogTable = function (e) {
+            var correlationId = $(e).data('correlationid');
+            MC.ui.logpopup.ShowLogTable(e, correlationId);
+        };
+
         self.AbortTask = function (obj, uri) {
             if (!$(obj).hasClass('disabled')) {
                 var data = {

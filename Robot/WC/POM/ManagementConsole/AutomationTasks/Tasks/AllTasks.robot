@@ -7,6 +7,9 @@ ${btnSubmitTask}               css=#popupCopyTask .btnSubmit
 ${btnCloseTask}                css=#popupCopyTask .btnClose
 ${btnDeleteTask}               .btnGroupInner .btnDelete
 ${btnSaveDeleteTask}           css=#popupConfirmation .btnSubmit
+${btnEditTask}                 .btnGroupInner .btnEdit
+
+
 
 *** Keywords ***
 Wait All Tasks Page Ready
@@ -17,7 +20,7 @@ Wait All Tasks Page Ready
 #Create New Task
 Click Button To Add New Task
     Click Element    ${btnAddNewTasks}
-    Wait Edit Tasks Page Ready
+    Wait Edit Tasks Page Ready    Create task
 
 Create Task By Copy Task
     [Arguments]    ${taskName}    ${newTaskName}

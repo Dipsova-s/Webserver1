@@ -1,6 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/WC/POM/Search/SearchPage.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AnglePage.robot
+Resource            ${EXECDIR}/WC/POM/Angle/DisplayDetailPopup.robot
 
 *** Variables ***
 ${TEMPLATE_FOR_SORT_AND_MOVE_NAME}    Angle For Sort And Move Filters
@@ -193,4 +194,25 @@ Add Filter Before Jump From Display Details Popup
     [Arguments]   ${panelIndex}    ${fieldKeyword}    ${fieldId}    ${isSelfSource}
     Click Add Filter From Jump    ${panelIndex}
     Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}
+
+Get Excel Templates Count
+    ${countExcelTemplates}  Excel Templates Count
+    [Return]    ${countExcelTemplates}
+
+Get Excel Templates List
+    ${listExcelTemplates}  Excel Templates List
+    [Return]    ${listExcelTemplates}
+
+Selected Excel Template Should Be
+    [Arguments]     ${expectedExcelTemplate}
+    ${actualExcelTemplate}  Selected Excel Template
+    Should Be Equal As Strings  ${actualExcelTemplate}  ${expectedExcelTemplate}
+
+Select Excel Template To
+    [Arguments]     ${excelTemplateName}
+    Select Excel Template   ${excelTemplateName}
+
+Save Selected Excel Template
+    Main Save Button Should Be Enable
+    Click Main Save
 

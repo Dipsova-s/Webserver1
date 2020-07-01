@@ -1,8 +1,8 @@
-﻿/// <reference path="/../../Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <reference path="/../../Dependencies/ViewManagement/User/UserSettingView.js" />
-/// <reference path="/../../Dependencies/ViewManagement/Shared/NotificationsFeedHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/User/UserSettingView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/NotificationsFeedHandler.js" />
 
 describe("NotificationsFeed", function () {
     var notificationsFeedHandler;

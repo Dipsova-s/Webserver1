@@ -172,6 +172,18 @@ $side-content-color: #fcfcfc;
         }
     }
 
+    .section-default-excel-template {
+        .form-col-body {
+            margin-left: 19px;
+            display: flex;
+            flex-basis: 0;
+
+            & > span {
+                flex-grow: 1;
+            }
+        }
+    }
+
     .section-business-processes {
         .business-process-multi-select {
             color: #fff;

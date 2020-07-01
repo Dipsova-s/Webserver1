@@ -56,6 +56,22 @@
             '</div>'
         ].join('');
     };
+    self.GetSectionExcelTemplate = function () {
+        return [
+            '<div class="card section-default-excel-template">',
+                '<div class="card-body">',
+                    '<div class="form-row">',
+                        '<div class="form-col">',
+                            '<label>' + Localization.ExcelTemplate + '</label>',
+                        '</div>',
+                        '<div class="form-col form-col-body">',
+                            '<select class="k-dropdown default-excel-template" id="DefaultExcelTemplate"></select>',
+                        '</div>',
+                    '</div>',
+                '</div>',
+            '</div>'
+        ].join('');
+    };
     self.GetSectionDisplayOptionsTemplate = function () {
         return [
             '<div class="card section-display-options">',

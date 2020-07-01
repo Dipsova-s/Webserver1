@@ -92,7 +92,6 @@ Choose Dropdown Filter Operator Via Edit Filter
     Wait Until Page Contains Element     ${EditorContext} ${EditorIndex} ${dropdownOperator} 
     Select Dropdown By Text   ${EditorContext} ${EditorIndex} ${dropdownOperator}    ${selectText}    
 
-
 Click Execute Parameter To Edit Filter
     Click Element   ${EditorContext} ${EditorIndex} ${chkExecutionParameter}
 
@@ -169,7 +168,7 @@ Click Undo Filters And Jumps
     Wait Until Element Is Visible    ${EditorContext} ${btnUndo} 
     Click Element    ${EditorContext} ${btnUndo}
 
-Click Apply Filter Button   
+Click Apply Filter Button
     Wait Until Element Is Visible    ${EditorContext} ${btnApplyFilter} 
     Click Element    ${EditorContext} ${btnApplyFilter}    
 
