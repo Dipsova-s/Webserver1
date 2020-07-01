@@ -695,13 +695,19 @@
                     if (jQuery.deepCompare(displayDetails1[key], displayDetails2[key]))
                         delete displayDetails1[key];
                 });
-                if (jQuery.isEmptyObject(displayDetails1) && !self.DefaultDrillDownDisplayIsChanged(displayDetails1, displayDetails2))
+                if (jQuery.isEmptyObject(displayDetails1)
+                    && !self.DefaultDrillDownDisplayIsChanged(displayDetails1, displayDetails2)
+                    && !self.DisplayExcelTemplateIsChangedToDefault(displayDetails1, displayDetails2))
                     delete data1.display_details;
             }
         };
 
         self.DefaultDrillDownDisplayIsChanged = function (displayDetails1, displayDetails2) {
             return (displayDetails1["drilldown_display"] === undefined && displayDetails2["drilldown_display"] !== undefined);
+        };
+
+        self.DisplayExcelTemplateIsChangedToDefault = function (displayDetails1, displayDetails2) {
+            return (displayDetails1["excel_template"] === undefined && displayDetails2["excel_template"] !== undefined);
         };
 
         _self.MetadataFromBlockQueryStep = function (metadata, queryBlock) {

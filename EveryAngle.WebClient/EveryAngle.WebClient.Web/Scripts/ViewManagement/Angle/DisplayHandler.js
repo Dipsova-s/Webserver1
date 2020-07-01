@@ -12,6 +12,7 @@ function DisplayHandler(model, parent) {
     self.DisplayResultHandler = new BaseDisplayResultHandler(self);
     self.DisplayDrilldownHandler = new DisplayDrilldownHandler(self);
     self.DisplayStatisticHandler = new DisplayStatisticHandler(self);
+    self.DisplayExcelTemplateHandler = new DisplayExcelTemplateHandler(self);
 
     self.Initial = function (model, parent) {
         self.AngleHandler = parent;
@@ -150,6 +151,13 @@ function DisplayHandler(model, parent) {
     };
     self.OnChangeDefaultDrilldown = jQuery.noop;
 
+    // excel template
+    self.InitialExcelTemplate = function (target) {
+        self.DisplayExcelTemplateHandler.OnChanged = self.OnChangeExcelTemplate;
+        self.DisplayExcelTemplateHandler.Initial(target);
+    }
+    self.OnChangeExcelTemplate = jQuery.noop;
+    
     // filter & jump
     _self.queryDefinitionProperty = 'query_blocks';
     self.InitialQueryDefinition = function (definition) {

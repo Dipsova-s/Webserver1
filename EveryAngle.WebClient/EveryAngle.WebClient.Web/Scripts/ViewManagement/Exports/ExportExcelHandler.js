@@ -398,6 +398,17 @@ function ExportExcelHandler() {
 
         return true;
     };
+
+    self.GetExcelTemplate = function () {
+        var displayDetails = WC.Utility.ParseJSON(displayModel.Data().display_details);
+        if (typeof displayDetails.excel_template !== 'undefined' && self.IsTemplateExist(displayDetails.excel_template))
+            return displayDetails.excel_template;
+        return self.CurrentExportModel.TemplateFile();
+    };
+
+    self.IsTemplateExist = function (template) {
+        return defaultExcelDatastoreHandler.GetExcelTemplates().options.hasObject('id', template);
+    };
     /*
     * M4-9963: Export to excel: data only for chart
     * 3.This function use for collect client side data, angle/display/result uri and send these information to web server generate excel file
@@ -412,7 +423,7 @@ function ExportExcelHandler() {
         self.DefaultSetting = [
         {
             "id": "template_file",
-            "value": self.CurrentExportModel.TemplateFile()
+            "value": self.GetExcelTemplate()
         },
         {
             "id": "model_timestamp_index",
@@ -571,7 +582,7 @@ function ExportExcelHandler() {
             },
             {
                 "id": "template_file",
-                "value": self.CurrentExportModel.TemplateFile()
+                "value": self.GetExcelTemplate()
             },
             {
                 "id": "include_techinfo",

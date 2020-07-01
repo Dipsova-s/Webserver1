@@ -17,6 +17,11 @@ ${btnCloseDisplayDetailPopup}     //div[@id='popupDisplayDetail']/..//div/a[@cla
 ${btnCloseJumpNotification}       btn-popupNotification0
 ${btnSubmitJumpConfirmation}      btn-popupNotification1
 
+#Excel Templates
+${optionExcelTemplates}         //select[@id='DefaultExcelTemplate']/option
+${txtExcelTemplate}             xpath=//span[contains(@class, 'default-excel-template')]/descendant::span[@class='k-input']
+${ddlExistingExcelTemplates}    css=#DefaultExcelTemplate_ddlWrapper
+
 *** Keywords ***
 Wait Display Detail Document Loaded
     Wait Until Ajax Complete
@@ -74,3 +79,23 @@ Close Move Filter Warning Popup
 Click Display Detail DisplayStatistic Tab
     Wait Until Element Is Visible    ${tabDisplayStatistic}
     Click Element    ${tabDisplayStatistic}
+
+Excel Templates Count
+    ${countExcelTemplates}     Get Element Count   ${optionExcelTemplates}
+    [Return]    ${countExcelTemplates}
+
+Excel Templates List
+    ${count}    Excel Templates Count
+    @{excelTemplatesList}   Create List
+    :FOR    ${i}    IN RANGE    1   ${count} + 1
+    \    ${nameExcelTemplate}    Get Value    (${optionExcelTemplates})[${i}]
+    \    Append To List      ${excelTemplatesList}   ${nameExcelTemplate}
+    [Return]    ${excelTemplatesList}
+
+Selected Excel Template
+    ${getExcelTemplate}     Get Text    ${txtExcelTemplate}
+    [Return]    ${getExcelTemplate}
+
+Select Excel Template
+    [Arguments]     ${excelTemplateName}
+    Select Dropdown By Text     ${ddlExistingExcelTemplates}    ${excelTemplateName}

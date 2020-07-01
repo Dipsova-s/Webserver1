@@ -129,6 +129,7 @@
     <Content Include="WebClient\Tests\ViewManagementAngle\DisplayResultHandler\DisplayChartResultHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagementAngle\DisplayResultHandler\DisplayPivotResultHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagementAngle\DisplayResultHandler\BaseDisplayResultHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayExcelTemplateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplaySaveAsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleUserSpecificHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayOverviewHandlerTest.js" />
@@ -145,6 +146,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardUserSpecificHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleSaveAsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\DashboardExecutionHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\DefaultExcelDatastoreHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ItemSaveActionHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\BaseItemHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayHandlerTest.js" />

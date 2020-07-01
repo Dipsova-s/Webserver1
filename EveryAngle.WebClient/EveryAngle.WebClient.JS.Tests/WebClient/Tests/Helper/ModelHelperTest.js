@@ -28,6 +28,30 @@ describe("ModelHelper", function () {
         });
     });
 
+    describe(".DisplayExcelTemplateIsChanged", function () {
+
+        it("when excel_template is changed from non-default to default, should return true", function () {
+            var displayDetails1 = {};
+            var displayDetails2 = { excel_template: 'excel_template_id_01.xlsx' };
+            var result = window.WC.ModelHelper.DisplayExcelTemplateIsChangedToDefault(displayDetails1, displayDetails2);
+            expect(result).toEqual(true);
+        });
+
+        it("when excel_template is changed from default to non-default, should return false", function () {
+            var displayDetails1 = { excel_template: 'excel_template_id_01.xlsx' };
+            var displayDetails2 = {};
+            var result = window.WC.ModelHelper.DisplayExcelTemplateIsChangedToDefault(displayDetails1, displayDetails2);
+            expect(result).toEqual(false);
+        });
+
+        it("when excel_template not changed, should return false", function () {
+            var displayDetails1 = { excel_template: 'excel_template_id_01.xlsx' };
+            var displayDetails2 = { excel_template: 'excel_template_id_01.xlsx' };
+            var result = window.WC.ModelHelper.DisplayExcelTemplateIsChangedToDefault(displayDetails1, displayDetails2);
+            expect(result).toEqual(false);
+        });
+    });
+
     describe(".ExtendMultiLinguals", function () {
 
         it("should fill multi_lang_name and multi_lang_description by name and description when multi_lang_name and multi_lang_description are empty", function () {

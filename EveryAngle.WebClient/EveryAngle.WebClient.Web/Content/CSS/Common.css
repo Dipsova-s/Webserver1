@@ -3662,6 +3662,12 @@ a.breadcrumbLink:hover {
     flex-basis: 0; }
     .side-content .section-default-drilldown .form-col-body > span {
       flex-grow: 1; }
+  .side-content .section-default-excel-template .form-col-body {
+    margin-left: 19px;
+    display: flex;
+    flex-basis: 0; }
+    .side-content .section-default-excel-template .form-col-body > span {
+      flex-grow: 1; }
   .side-content .section-business-processes .business-process-multi-select {
     color: #fff; }
     .side-content .section-business-processes .business-process-multi-select .btn-remove {

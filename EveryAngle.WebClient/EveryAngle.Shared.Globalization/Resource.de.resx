@@ -954,6 +954,9 @@
   <data name="None" xml:space="preserve">
     <value>[None]</value>
   </data>
+  <data name="ExcelTemplate" xml:space="preserve">
+    <value>Excel Template</value>
+  </data>
   <data name="CreateNewAngleFromSchema" xml:space="preserve">
     <value>Angle erstellen</value>
   </data>
@@ -2042,6 +2045,9 @@
   </data>
   <data name="Default" xml:space="preserve">
     <value>Standard</value>
+  </data>
+  <data name="Default_Placeholder" xml:space="preserve">
+    <value>[Standard] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
