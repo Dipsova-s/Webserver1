@@ -220,9 +220,7 @@ describe("ExportExcelHandlerTest", function () {
     });
     describe("call SetDefaultExcelSetting", function () {
         beforeEach(function () {
-            exportExcelHandler.CurrentExportModel = new ExportExcelModel({
-                FileName: 'Test'
-            });
+            exportExcelHandler.CurrentExportModel = new ExportExcelModel();
             resultModel.Data({ data_rows: '12' })
         });
         it("should call a function", function () {
@@ -238,7 +236,15 @@ describe("ExportExcelHandlerTest", function () {
             spyOn(exportExcelHandler, 'GetDefaultExcelDatastore').and.returnValue();
             exportExcelHandler.SetDefaultExcelSettings();
             expect(exportExcelHandler.GetDefaultExcelDatastore).toHaveBeenCalled();
+            expect(window.CleanExcelFileName).not.toHaveBeenCalled();
         });
 
+    });
+    describe(".SetButtonStatus", function () {
+        it("Should call a function", function () {
+            spyOn(jQuery.fn, 'removeClass').and.returnValue($());
+            exportExcelHandler.SetButtonStatus();
+            expect(jQuery.fn.removeClass).toHaveBeenCalled();
+        });
     });
 });

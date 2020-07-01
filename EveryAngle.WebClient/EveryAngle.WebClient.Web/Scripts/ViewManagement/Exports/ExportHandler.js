@@ -67,11 +67,10 @@ function ExportHandler() {
         }
         else {
             var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
-            var filename = CleanExcelFileName(angleInfoModel.Name() + ' - ' + displayModel.Name(), 'ExportAngle');
 
             if (typeof ko.dataFor(jQuery('#export-csv-area').get(0)) === 'undefined') {
                 self.CurrentExportModel = new ExportCSVModel({
-                    FileName: filename,
+                    FileName: '',
                     DatarowUri: resultModel.Data().data_rows,
                     MaxPageSize: systemSettingHandler.GetMaxPageSize(),
                     DisplayUri: displayModel.Data().uri,
@@ -85,7 +84,6 @@ function ExportHandler() {
                 WC.HtmlHelper.ApplyKnockout(self.CurrentExportModel, jQuery('#export-csv-area'));
             }
             else {
-                self.CurrentExportModel.FileName(filename);
                 self.CurrentExportModel.DatarowUri = resultModel.Data().data_rows;
                 self.CurrentExportModel.MaxPageSize = systemSettingHandler.GetMaxPageSize();
                 self.CurrentExportModel.DisplayUri = displayModel.Data().uri;
@@ -122,7 +120,12 @@ function ExportHandler() {
             .always(function () {
                 self.SetExportModelUI();
                 jQuery('#popupExportToCSV').busyIndicator(false);
+                self.SetButtonStatus();
             });
+    };
+
+    self.SetButtonStatus = function () {
+        jQuery('a[id*=btn-popupExportToCSV]').removeClass('executing');
     };
 
     self.SetExportModel = function (datastore) {
@@ -240,8 +243,7 @@ function ExportHandler() {
 
         // M4-33218: new modeldate ui
         self.CreateAddModelDateUI();
-
-        jQuery('a[id*=btn-popupExportToCSV]').removeClass('executing');
+        
     };
     self.CreateAddModelDateUI = function () {
         var addModelDateUI;

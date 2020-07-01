@@ -70,6 +70,7 @@ Verify Export Item Drilldown To Excel From Action Menu
     Click Drilldown To Item By Name    IDES Consumer Products
     Select Filter "Reference" On Drilldown To Item
     Click Angle Dropdown To Export Drilldown To Excel
+    Wait Progress Bar Closed
     Click Export Drilldown To Excel Button
     Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
     Wait Until Export Excel Popup Close

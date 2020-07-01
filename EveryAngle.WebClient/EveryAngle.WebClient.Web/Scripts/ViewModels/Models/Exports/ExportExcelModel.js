@@ -13,11 +13,11 @@
     self.HeaderFormat = ko.observable();
     self.SheetName = ko.observable('');
     self.TemplateFile = ko.observable('EveryAngle-Standard.xlsx');
-    self.AddAngleSummary = ko.observable(false);
-    self.AddAngleDefinition = ko.observable(false);
-    self.MaxRowsToExport = ko.observable(1);
-    self.ModelTimestampIndex = ko.observable(1);
-    self.TechnicalInfo = ko.observable(1);
+    self.AddAngleSummary = ko.observable();
+    self.AddAngleDefinition = ko.observable();
+    self.MaxRowsToExport = ko.observable(-1);
+    self.ModelTimestampIndex = ko.observable();
+    self.TechnicalInfo = ko.observable();
 };
 ExportExcelModel.prototype = new ExportModel();
 ExportExcelModel.prototype.constructor = ExportExcelModel;

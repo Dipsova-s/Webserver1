@@ -11,28 +11,17 @@ function ExportCSVModel(option) {
         { TEXT: enumHandlers.CSVHEADERENUM.SHORTNAME.TEXT, VALUE: enumHandlers.CSVHEADERENUM.SHORTNAME.VALUE },
         { TEXT: enumHandlers.CSVHEADERENUM.LONGNAME.TEXT, VALUE: enumHandlers.CSVHEADERENUM.LONGNAME.VALUE }
     ];
-    self.DefaultEnquoteCharacter = '"';
-    self.DefaultEnquoteHeaders = true;
     self.EnquoteSettings = [
         { TEXT: enumHandlers.CSVENQUOTEENUM.NONE.TEXT, VALUE: enumHandlers.CSVENQUOTEENUM.NONE.VALUE },
         { TEXT: enumHandlers.CSVENQUOTEENUM.ONLYSTRINGS.TEXT, VALUE: enumHandlers.CSVENQUOTEENUM.ONLYSTRINGS.VALUE },
         { TEXT: enumHandlers.CSVENQUOTEENUM.ALL.TEXT, VALUE: enumHandlers.CSVENQUOTEENUM.ALL.VALUE }
     ];
-    self.DefaultFieldSeparator = '\t';
     self.LineSeparators = [
         { TEXT: enumHandlers.LINESEPARATORENUM.CRLF, VALUE: enumHandlers.LINESEPARATORENUM.CRLF },
         { TEXT: enumHandlers.LINESEPARATORENUM.CR, VALUE: enumHandlers.LINESEPARATORENUM.CR },
         { TEXT: enumHandlers.LINESEPARATORENUM.LF, VALUE: enumHandlers.LINESEPARATORENUM.LF }
     ];
-    self.DefaultDecimalSeparator = '.';
-    self.DefaultDateSeparator = '/';
-    self.DefaultTimeSeparator = ':';
-    self.DefaultDecimals = -1;
     self.MaximizeDecimals = 30; /* M4-13474: Added maximize decimal property into export csv model, Set 30 to maximize decimal value */
-    self.DefaultBoolChars = {
-        TrueChar: 'true',
-        FalseChar: 'false'
-    };
     self.EnumFormats = [
         { TEXT: enumHandlers.CSVENUMFORMAT.ID.TEXT, VALUE: enumHandlers.CSVENUMFORMAT.ID.VALUE },
         { TEXT: enumHandlers.CSVENUMFORMAT.DISPLAY.TEXT, VALUE: enumHandlers.CSVENUMFORMAT.DISPLAY.VALUE }
@@ -59,9 +48,9 @@ function ExportCSVModel(option) {
     /* M4-13475: Created and set model timestamp default value to null in export csv model */
     self.DefaultAddModelDateAtColumn = null;
 
-    self.HeaderFormat = self.HeaderFormats[2].VALUE;
-    self.EnquoteCharacter = ko.observable(self.DefaultEnquoteCharacter);
-    self.EnquoteHeader = ko.observable(self.DefaultEnquoteHeaders);
+    self.HeaderFormat = '';
+    self.EnquoteCharacter = ko.observable();
+    self.EnquoteHeader = ko.observable(true);
     self.EnquoteHeader.ForEditing = ko.computed({
         read: function () {
             return self.EnquoteHeader().toString();
@@ -71,21 +60,21 @@ function ExportCSVModel(option) {
         },
         owner: self
     });
-    self.EnquoteSetting = self.EnquoteSettings[1].VALUE;
-    self.FieldSeparator = ko.observable(',');
-    self.LineSeparator = self.LineSeparators[0].VALUE;
-    self.DecimalSeparator = ko.observable(self.DefaultDecimalSeparator);
-    self.DateSeparator = ko.observable(self.DefaultDateSeparator);
-    self.TimeSeparator = ko.observable(self.DefaultTimeSeparator);
-    self.DateFormat = ko.observable(enumHandlers.CSVDATEFORMAT.yyyyMMdd.VALUE);
-    self.TimeFormat = ko.observable(enumHandlers.CSVETIMEFORMAT.HHmmss.VALUE);
-    self.Decimal = self.DefaultDecimals;
-    self.TrueChar = ko.observable(self.DefaultBoolChars.TrueChar);
-    self.FalseChar = ko.observable(self.DefaultBoolChars.FalseChar);
-    self.EnumFormat = self.EnumFormats[0].VALUE;
+    self.EnquoteSetting = '';
+    self.FieldSeparator = ko.observable('');
+    self.LineSeparator = '';
+    self.DecimalSeparator = ko.observable('');
+    self.DateSeparator = ko.observable('');
+    self.TimeSeparator = ko.observable('');
+    self.DateFormat = ko.observable('');
+    self.TimeFormat = ko.observable('');
+    self.Decimal = '';
+    self.TrueChar = ko.observable('');
+    self.FalseChar = ko.observable();
+    self.EnumFormat = '';
 
     /* M4-13475: Created property to kept time stamp colum index in export csv model */
-    self.AddModelDateAtColumn = self.DefaultAddModelDateAtColumn;
+    self.AddModelDateAtColumn = '';
 
     self.MaxRowsToExport = ko.observable(-1);
     //EOF: Properties

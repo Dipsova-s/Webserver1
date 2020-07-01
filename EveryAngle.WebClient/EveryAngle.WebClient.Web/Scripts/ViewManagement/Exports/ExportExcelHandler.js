@@ -144,11 +144,6 @@ function ExportExcelHandler() {
 
                 //M4-23209: Indicate when charttype not supported
                 self.ShowNotSupportExportChartToExcelWarning(displayType, WC.Utility.ParseJSON(displayModel.Data().display_details));
-            },
-            close: function (e) {
-                setTimeout(function () {
-                    e.sender.destroy();
-                }, 500);
             }
         };
 
@@ -172,7 +167,7 @@ function ExportExcelHandler() {
         return jQuery('.k-chart-item').length > 0;
     };
 
-    self.ShowExportExcelPopupCallback = function (displayType) {     
+    self.ShowExportExcelPopupCallback = function (displayType) {
         self.SetDefaultExcelSettings();
         var rowCount = resultModel.Data().row_count;
         var exportRow = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES);
@@ -218,40 +213,17 @@ function ExportExcelHandler() {
         * 1.Default workbook name = <row.Object.shortname> #<row.id>
         * 2.Default sheet name = 'sheet1' or whatever the default in excel version
         */
-        var objectShortName = '';
-        var listDrilldown = null;
-        if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
-            listDrilldown = JSON.parse(decodeURI(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)));
-            var classObject = modelClassesHandler.GetClassById(listDrilldown.ObjectType, angleInfoModel.Data().model);
-            objectShortName = !classObject ? '' : classObject.short_name;
-        }
 
-        var workbookName = objectShortName ? objectShortName + ' #' + listDrilldown.ID : angleInfoModel.Name();
-        var sheetName = objectShortName ? 'Sheet1' : displayModel.Name();
-        // EOF: M4-10439: FB: Excel single item export
-
-        workbookName = CleanExcelFileName(workbookName, 'ExportAngle');
-        sheetName = CleanSheetName(sheetName, 'Sheet1', 31);
-
-        
         self.SetVisibleHeaderFormat(displayType);
-        jQuery('[id="SaveFileName"]:visible').val(workbookName);
-        jQuery('[id="SaveSheetName"]:visible').val(sheetName);
-        jQuery('[id="SaveFileName"]:visible, [id="SaveSheetName"]:visible').removeClass('k-invalid');
-        jQuery('a[id*=btn-popupExportExcel]').removeClass('executing');
-        /*
-        * M4-9903: Implement for single item
-        * 3.Removed class executing from ok button
-        */
-        jQuery('a[id*=btn-popupExportDrilldownExcel]:visible').removeClass('executing');
+
+        jQuery('[id="SaveFileName"]:visible, [id="SaveSheetName"]:visible').removeClass('k-invalid');        
     };
     self.SetDefaultExcelSettings = function () {
         var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
-        var filename = CleanExcelFileName(angleInfoModel.Name() + ' - ' + displayModel.Name(), 'ExportAngle');
-    
+
         if (typeof ko.dataFor(jQuery('#ExportOptionArea').get(0)) === 'undefined') {
             self.CurrentExportModel = new ExportExcelModel({
-                FileName: filename,
+                FileName: '',
                 DatarowUri: resultModel.Data().data_rows,
                 MaxPageSize: systemSettingHandler.GetMaxPageSize(),
                 DisplayUri: displayModel.Data().uri,
@@ -265,7 +237,6 @@ function ExportExcelHandler() {
             WC.HtmlHelper.ApplyKnockout(self.CurrentExportModel, jQuery('#ExportOptionArea'));
         }
         else {
-            self.CurrentExportModel.FileName(filename);
             self.CurrentExportModel.DatarowUri = resultModel.Data().data_rows;
             self.CurrentExportModel.MaxPageSize = systemSettingHandler.GetMaxPageSize();
             self.CurrentExportModel.DisplayUri = displayModel.Data().uri;
@@ -284,7 +255,7 @@ function ExportExcelHandler() {
         var query = {};
         query["default_datastore"] = true;
 
-        jQuery('#popupExportExcel').busyIndicator(true);
+        jQuery('.popupExportExcel').busyIndicator(true);
         return GetDataFromWebService(request, query)
             .then(function (data) {
                 if (data && data.datastores && data.datastores.findObject('datastore_plugin', 'msexcel')) {
@@ -299,8 +270,17 @@ function ExportExcelHandler() {
             })
             .always(function () {
                 self.SetExportModelUI();
-                jQuery('#popupExportExcel').busyIndicator(false);
+                jQuery('.popupExportExcel').busyIndicator(false);
+                self.SetButtonStatus();
             });
+    };
+    self.SetButtonStatus = function () {
+        jQuery('a[id*=btn-popupExportExcel]').removeClass('executing');
+        /*
+        * M4-9903: Implement for single item
+        * 3.Removed class executing from ok button
+        */
+        jQuery('a[id*=btn-popupExportDrilldownExcel]:visible').removeClass('executing');
     };
     self.SetExportModel = function (datastore) {
         self.CurrentExportModel.HeaderFormat(self.GetDatastoreDataSetting(datastore, 'header_format'));
@@ -471,7 +451,7 @@ function ExportExcelHandler() {
         }
         return true;
     };
-    self.ExportPivotDisplay = function (e, options) {       
+    self.ExportPivotDisplay = function (e, options) {
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
@@ -601,7 +581,7 @@ function ExportExcelHandler() {
             });
     };
 
-    self.ExportListDisplay = function (e, options) {        
+    self.ExportListDisplay = function (e, options) {
         //get number of export's rows
         var numberOfItem;
         if (jQuery('[id="NumberOfRowsCustom"]:visible').is(':checked')) {
@@ -722,34 +702,34 @@ function ExportExcelHandler() {
             "file_name": options.FileName.substr(0, 39) + '-' + WC.DateHelper.GetCurrentUnixTime(),
             "data_settings": {
                 "setting_list": [
-                     {
-                         "id": "is_single_item",
-                         "value": true
-                     },
-                     {
-                         "id": "sheet_name",
-                         "value": options.SheetName
-                     },
-                     {
-                         "id": "add_angle_definition",
-                         "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
-                     },
-                     {
-                         "id": "headers_text",
-                         "value": headersText
-                     },
-                     {
-                         "id": "sort",
-                         "value": sortQuery.sort
-                     },
-                     {
-                         "id": "dir",
-                         "value": sortQuery.dir
-                     },
-                     {
-                         "id": "fq",
-                         "value": jQuery.isEmptyObject(facetsQuery) ? "" : facetsQuery.fq
-                     }
+                    {
+                        "id": "is_single_item",
+                        "value": true
+                    },
+                    {
+                        "id": "sheet_name",
+                        "value": options.SheetName
+                    },
+                    {
+                        "id": "add_angle_definition",
+                        "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
+                    },
+                    {
+                        "id": "headers_text",
+                        "value": headersText
+                    },
+                    {
+                        "id": "sort",
+                        "value": sortQuery.sort
+                    },
+                    {
+                        "id": "dir",
+                        "value": sortQuery.dir
+                    },
+                    {
+                        "id": "fq",
+                        "value": jQuery.isEmptyObject(facetsQuery) ? "" : facetsQuery.fq
+                    }
                 ]
             }
         };

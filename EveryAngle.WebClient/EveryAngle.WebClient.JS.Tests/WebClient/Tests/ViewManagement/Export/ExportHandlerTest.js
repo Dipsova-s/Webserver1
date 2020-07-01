@@ -162,4 +162,11 @@ describe("ExportHandlerTest", function () {
             });
         });
     });
+    describe(".SetButtonStatus", function () {
+        it("Should call a function", function () {
+            spyOn(jQuery.fn, 'removeClass').and.returnValue($());
+            exportHandler.SetButtonStatus();
+            expect(jQuery.fn.removeClass).toHaveBeenCalled();
+        });
+    });
 });
