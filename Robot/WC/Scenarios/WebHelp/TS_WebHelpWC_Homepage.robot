@@ -3,8 +3,7 @@ Screenshot "WC_Homepage" page
     Crop Panes Homepage
 
 Crop Panes Homepage
-    Set Window Size    1300   850
-    Sleep    ${TIMEOUT_LARGEST}
+    Resize WebHelp Window    1300   850
 
     # make videos screenshot
     Search Filter By Query String    sort=name&dir=asc&fq=facetcat_bp:(S2D)%20AND%20-facetcat_characteristics:(facet_has_warnings)
@@ -56,8 +55,7 @@ Crop Panes Homepage
     ...  $('#WelcomePlayer img:eq(1)').attr('src', "${video2}");
     ...  $('#WelcomePlayer img:eq(2)').attr('src', "${video3}");
 
-    Set Window Size    ${WINDOW_WIDTH}   900
-    Sleep    ${TIMEOUT_LARGEST}
+    Resize WebHelp Window    ${WINDOW_WIDTH}   900
 
     Highlight WebHelp Element    css=#TopBar           text=1
     Update Heightlight Box   height   3
@@ -70,5 +68,4 @@ Crop Panes Homepage
     Crop WebHelp Image    WC_panes_homepage.png    css=body
     Clear WebHelp Highlights
 
-    Maximize Browser window
-    Sleep    ${TIMEOUT_LARGEST}
+    Maximize WebHelp Window

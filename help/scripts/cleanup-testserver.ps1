@@ -9,8 +9,9 @@ If (!$currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Adminis
 Get-WmiObject Win32_UserAccount -Filter "LocalAccount='True' And Name LIKE 'U_%'" | % {Invoke-Command -ScriptBlock {net user $_.Name /delete}}
 
 # Cleanup log/temp
-Get-ChildItem "C:\inetpub\logs\LogFiles\W3SVC1\*" -Recurse | Remove-Item -Recurse
-Get-ChildItem "C:\Program Files\Every Angle\ETL Server\logs\*" -Recurse | Remove-Item -Recurse
-Get-ChildItem "C:\Windows\Microsoft.NET\Framework*\v*\Temporary ASP.NET Files" -Recurse | Remove-Item -Recurse
+Get-ChildItem "C:\inetpub\logs\LogFiles\W3SVC1\*" -Recurse | Remove-Item -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem "C:\Program Files\Every Angle\ETL Server\logs\*" -Recurse | Remove-Item -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem "C:\Windows\Microsoft.NET\Framework*\v*\Temporary ASP.NET Files" -Recurse | Remove-Item -Recurse -ErrorAction SilentlyContinue
+Remove-Item "C:\Windows\temp\scoped_dir*" -Recurse -Force -ErrorAction SilentlyContinue
 
 Sleep 2

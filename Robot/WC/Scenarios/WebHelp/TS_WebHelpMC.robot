@@ -3,12 +3,12 @@ Resource            ${EXECDIR}/WC/POM/WebHelp/WebHelp.robot
 
 *** Keywords ***
 Suite Setup MC WebHelp
-    Initialize WebHelp    ${MC_HELP_IMAGE_PATH}
+    Initialize WebHelp    ${WEBHELP_MC_OUTPUT}
 
 Test Setup MC WebHelp
     # output by specific language
-    Set Test Variable    ${WEB_HELP_LANGUAGE_CODE}    en
-    Set Test Variable    ${WEB_HELP_LANGUAGE_OUTPUT}    ${MC_HELP_IMAGE_PATH}
+    Set Test Variable    ${WEBHELP_LANGUAGE_CODE}    en
+    Set Test Variable    ${WEBHELP_LANGUAGE_OUTPUT}    ${WEBHELP_MC_OUTPUT}
 
     # login
     Go to MC Then Login With Admin User
@@ -17,7 +17,7 @@ Test Teardown MC WebHelp
     Force Logout MC Then Close Browser
 
 Set WebHelp Username
-    Execute JavaScript    $('#UserMenuControl').contents().get(0).textContent='[USERNAME]';
+    Execute JavaScript    $('#UserControlName').text('[USERNAME]');
 
 Crop Overview Page
     Highlight WebHelp Element    css=#topWrapper        text=1    fontSize=45px    fontWeight=normal

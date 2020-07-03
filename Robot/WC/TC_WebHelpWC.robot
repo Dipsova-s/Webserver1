@@ -1,5 +1,6 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
+Resource            ${EXECDIR}/resources/WebhelpSettings.robot
 Resource            ${EXECDIR}/resources/Selenium2Screenshots.robot
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpWC.robot
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpWC_Action_Button_Bar.robot
@@ -39,32 +40,30 @@ Force Tags          webhelp  webhelp_wc
 *** Test Cases ***
 # Prerequisite
 # 1. add users to server by running "<robot>/webhelp_items/add-users.ps1" script
-# 2. import users at MC > Users > All users page
-# 3. enable languages at MC > Models > EA2_800 > Languages page
-# 4. activate "DiagramHelp" pakage at MC > EA2_800 > Packages page
-# 5. import items by running "webhelp_import" tag
-# 6. upload movies from "<robot>/webhelp_items/movies" to "<website>/resources/movies"
+# 2. run "r:webhelp_setup" category via TestServer
 # Extra
-# - Docu. server: https://nl-docsf01.everyangle.org/current
+# - Docu. server: https://nl-docsf01.eatestad.local
+# - import items by running "webhelp_import" tag (this also included in "webhelp_setup" tag)
 # - export items by running "webhelp_export" tag
+
 WebHelp WC English
-    [Setup]  Test Setup WC WebHelp  \msmith    P@ssw0rd  en  language_dependent/en
+    [Setup]  Test Setup WC WebHelp  ${WEBHELP_USER_EN.name}  ${WEBHELP_USER_EN.password}  ${WEBHELP_USER_EN.language}  ${WEBHELP_USER_EN.output}
     WebHelp WC
 
 WebHelp WC Dutch
-    [Setup]  Test Setup WC WebHelp  \edejong  P@ssw0rd  nl  language_dependent/nl
+    [Setup]  Test Setup WC WebHelp  ${WEBHELP_USER_NL.name}  ${WEBHELP_USER_NL.password}  ${WEBHELP_USER_NL.language}  ${WEBHELP_USER_NL.output}
     WebHelp WC
 
 WebHelp WC French
-    [Setup]  Test Setup WC WebHelp  \adubois  P@ssw0rd  fr  language_dependent/fr
+    [Setup]  Test Setup WC WebHelp  ${WEBHELP_USER_FR.name}  ${WEBHELP_USER_FR.password}  ${WEBHELP_USER_FR.language}  ${WEBHELP_USER_FR.output}
     WebHelp WC
 
 WebHelp WC German
-    [Setup]  Test Setup WC WebHelp  \cmueller  P@ssw0rd  de  language_dependent/de
+    [Setup]  Test Setup WC WebHelp  ${WEBHELP_USER_DE.name}  ${WEBHELP_USER_DE.password}  ${WEBHELP_USER_DE.language}  ${WEBHELP_USER_DE.output}
     WebHelp WC
 
 WebHelp WC Spanish
-    [Setup]  Test Setup WC WebHelp  \jgarcia  P@ssw0rd  es  language_dependent/es
+    [Setup]  Test Setup WC WebHelp  ${WEBHELP_USER_ES.name}  ${WEBHELP_USER_ES.password}  ${WEBHELP_USER_ES.language}  ${WEBHELP_USER_ES.output}
     WebHelp WC
 
 *** Keywords ***

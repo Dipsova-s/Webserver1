@@ -8,16 +8,10 @@ set "CURRENT=%~dp0%"
 if not defined TAG echo please input TAG &pause &exit
 
 :: check COPYTO
-if not defined COPYTO goto show_warning
 if defined COPYTO goto copy_test
 
-:show_warning
-::::::::::::::::::::::::::::::::
-:: show warning if empty
-::::::::::::::::::::::::::::::::
+:: set path
 set "COPYTO=%~dp0%"
-cls
-echo You might get command too long exception, see "report" directory if failed.
 goto run_test
 
 :copy_test
@@ -33,12 +27,12 @@ if exist "%COPYTO%WC" rd "%COPYTO%WC" /s /q
 
 :: copy all
 xcopy * %COPYTO% /E /S /Y /Q
-if exist "%COPYTO%report" rd "%COPYTO%report" /s /q
 
 :run_test
 ::::::::::::::::::::::::::::::::
 :: run robot
 ::::::::::::::::::::::::::::::::
+if exist "%COPYTO%report" rd "%COPYTO%report" /s /q
 cls
 set WebHelpMode=webhelp
 If %SILENCE%==1 set WebHelpMode=silence

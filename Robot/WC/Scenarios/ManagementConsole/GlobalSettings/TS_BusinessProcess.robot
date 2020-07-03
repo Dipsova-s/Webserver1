@@ -4,8 +4,8 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/Overview.robot
 
 *** Keywords ***
 Go to Business Process
-    Click Side Menu Global Settings
-    Click Side Menu Business Process
+    Go To MC Page    /Global%20settings/Business%20Processes/
+    Wait Until Business Process Page Loaded
 
 Create New Business Process
     [Arguments]    ${businessProcssName}

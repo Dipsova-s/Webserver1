@@ -15,6 +15,3 @@ Validate Online Support portal link in WC
     Validate Support button Should be displayed in WC
     Click on Support Button
     Validate user is redirected to online support portal
-
-
-   

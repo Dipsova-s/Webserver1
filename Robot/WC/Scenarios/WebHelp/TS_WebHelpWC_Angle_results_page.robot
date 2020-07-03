@@ -5,14 +5,10 @@ Screenshot "WC_Angle_results_page" page
     Find Angle By ID Then Execute The First Angle    ${AngleId}
     Click Angle Tab  ${False}
 
-    Set Window Size    1300   700
-    Sleep    ${TIMEOUT_LARGEST}
-    
+    Resize WebHelp Window    1300   700
     Crop Angle Result Page
     Crop Toggle Panel Button
-
-    Maximize Browser window
-    Sleep    ${TIMEOUT_LARGEST}
+    Maximize WebHelp Window
 
 Crop Angle Result Page
     # Create 2 boxes

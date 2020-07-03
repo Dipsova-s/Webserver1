@@ -1,5 +1,6 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
+Resource            ${EXECDIR}/resources/WebhelpSettings.robot
 Resource            ${EXECDIR}/resources/Selenium2Screenshots.robot
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpMC.robot
 Suite Setup         Suite Setup MC WebHelp

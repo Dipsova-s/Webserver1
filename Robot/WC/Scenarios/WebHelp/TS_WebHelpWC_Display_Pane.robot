@@ -33,8 +33,6 @@ Crop Adhoc Icon
     Crop WebHelp Image  WC_Yellow_Asterisk_Icon.png  jquery=#DisplayTabs .tab-menu:eq(0) .sign-unsaved  ${False}
 
 Crop Arrows Icon
-    Set Window Size    1000   700
-    Sleep    ${TIMEOUT_LARGEST}
+    Resize WebHelp Window    1000   700
     Crop WebHelp Image With Dimensions  WC_Arrow_Icons.png  jquery=#DisplayTabs .right-btn-wrapper  6  1  45  20  ${False}
-    Maximize Browser window
-    Sleep    ${TIMEOUT_LARGEST}
+    Maximize WebHelp Window

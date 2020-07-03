@@ -1,8 +1,11 @@
-class HeadlessDownload(object):
+import os, ssl
+
+class Bootstrap(object):
 
     ROBOT_LIBRARY_VERSION = 1.0
 
     def __init__(self):
+        ssl._create_default_https_context = ssl._create_unverified_context
         pass
 
     def enable_download_in_headless_chrome(self, driver, download_dir):

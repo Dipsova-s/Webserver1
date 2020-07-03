@@ -304,8 +304,11 @@ Open Chrome Browser With Options
     # set options
     Call Method    ${options}    add_argument    --no-sandbox
     Run Keyword If  ${DevMode}==0   Call Method    ${options}    add_argument    --headless
-    Run Keyword If  ${DevMode}==0   Call Method    ${options}    add_argument    --disable-gpu
-    Call Method    ${options}    add_argument    --window-size\=1366,768
+    Call Method    ${options}    add_argument    --disable-gpu
+    Call Method    ${options}    add_argument    --window-size\=1920,1080
+    Call Method    ${options}    add_argument    --ignore-certificate-errors
+    Call Method    ${options}    add_argument    --high-dpi-support\=1
+    Call Method    ${options}    add_argument    --force-device-scale-factor\=1
 
     ${status}    ${value}    Run Keyword And Ignore Error    Create WebDriver    Chrome    chrome_options=${options}
     Run Keyword If      '${status}' == 'FAIL'    Sleep    5s

@@ -1,15 +1,9 @@
-*** Variables ***
-${HelpIconWC}              id=HelpIcon
-${HelpIconITMC}            id=HelpMenuControl
-${SupportButtonText}     xpath=//a/span[text()='Support']
-${SupportButton}         //a[@class='actionDropdownItem btnSupport']
-
 *** Keywords ***
 Initialize WebHelp
     [Arguments]    ${directory}
     Create Directory     ${directory}
     Empty Directory      ${directory}
-    Set Suite Variable    ${WEB_HELP_OUTPUT}    ${directory}
+    Set Suite Variable    ${WEBHELP_OUTPUT}    ${directory}
     Restore Crop Margin
 
 Set Crop Margin
@@ -19,29 +13,26 @@ Set Crop Margin
 Restore Crop Margin
     Set Crop Margin    1
 
-Get Images In Test Scenario
-    [Arguments]    ${robotFile}
-    ${text}    Get File    ${robotFile}
-    ${result}    Get Lines Matching Regexp    ${text}    ^(\\s*Crop WebHelp Image)    partial_match=true
-    @{lines}    Split To Lines    ${result}
-    @{images}    Create List
-    :FOR    ${line}    IN    @{lines}
-    \    ${matches}    Get Regexp Matches     ${line}    \\w+\.png
-    \    Append To List   ${images}    @{matches}[0]
-    [Return]    ${images}
+Resize WebHelp Window
+    [Arguments]  ${width}  ${height}
+    Set Window Size    ${width}  ${height}
+    Sleep  ${TIMEOUT_LARGEST}
+
+Maximize WebHelp Window
+    Resize WebHelp Window    ${WINDOW_WIDTH}   ${WINDOW_HEIGHT}
 
 Get WebHelp Output Folder
     [Arguments]    ${languageDependent}=${True}
-    ${output}    Set Variable If   ${languageDependent} == True    ${WEB_HELP_LANGUAGE_OUTPUT}    ${WEB_HELP_OUTPUT}
+    ${output}    Set Variable If   ${languageDependent} == True    ${WEBHELP_LANGUAGE_OUTPUT}    ${WEBHELP_OUTPUT}
     [Return]    ${output}
 
 Get Localization Text
     [Arguments]    ${en}  ${nl}  ${de}  ${es}  ${fr}
     ${text}   Set Variable If
-    ...   '${WEB_HELP_LANGUAGE_CODE}'=='nl'    ${nl}
-    ...   '${WEB_HELP_LANGUAGE_CODE}'=='de'    ${de}
-    ...   '${WEB_HELP_LANGUAGE_CODE}'=='es'    ${es}
-    ...   '${WEB_HELP_LANGUAGE_CODE}'=='fr'    ${fr}    ${en}
+    ...   '${WEBHELP_LANGUAGE_CODE}'=='nl'    ${nl}
+    ...   '${WEBHELP_LANGUAGE_CODE}'=='de'    ${de}
+    ...   '${WEBHELP_LANGUAGE_CODE}'=='es'    ${es}
+    ...   '${WEBHELP_LANGUAGE_CODE}'=='fr'    ${fr}    ${en}
     [Return]    ${text}
 
 Update Popup Position
@@ -58,11 +49,11 @@ Update Popup Position
 Copy Image To Webhelp Folder
     [Arguments]    ${path}    ${languageDependent}=${True}
     ${output}    Get WebHelp Output Folder   ${languageDependent}
-    Copy File    ${WEBHELP_ITEM_PATH}${/}${path}    ${output}
+    Copy File    ${WEBHELP_ITEMS_PATH}${/}${path}    ${output}
 
 Get WebHelp Image Name
     [Arguments]    ${filename}    ${languageDependent}=${True}
-    ${imageName}  Run Keyword If  ${languageDependent}==${True} and '${WEB_HELP_LANGUAGE_CODE}'!='en'  Replace String  ${filename}  .png  -${WEB_HELP_LANGUAGE_CODE}.png
+    ${imageName}  Run Keyword If  ${languageDependent}==${True} and '${WEBHELP_LANGUAGE_CODE}'!='en'  Replace String  ${filename}  .png  -${WEBHELP_LANGUAGE_CODE}.png
     ...             ELSE  Set variable  ${filename}
     [Return]  ${imageName}
 
@@ -156,31 +147,3 @@ Image To Base64
     ${binary}  Get Binary File  ${image}
     ${base64Image}  Evaluate  base64.b64encode($binary)  modules=base64
     [Return]  ${pngHeader}${base64Image}
-
-Click on Help icon in WC
-    Wait Until Ajax Complete
-    Custom click element  ${HelpIconWC}
-
-Click on Help icon in ITMC
-    Wait Until Ajax Complete
-    Custom click element  ${HelpIconITMC}
-
-Validate Support button Should be displayed in WC
-    Wait Until Ajax Complete
-    # validate Support button is displayed
-    page should contain element   ${SupportButtonText}   message=Support button is not displayed
-    
-Click on Support Button
-    Custom click element  ${SupportButton}
-
-Validate user is redirected to online support portal
-    Select Window   title=Welcome to Magnitude’s Support Community | Magnitude Software   timeout=15s
-    Wait Until Ajax Complete
-    ${SupportUrl}=  Get Location
-    should contain  ${SupportUrl}   https://magnitude.com/online-support/
-
-Validate Support button Should be displayed in ITMC
-    Wait Until Ajax Complete
-    # validate Support button is displayed
-    page should contain element   ${SupportButtonText}   message=Support button is not displayed
-

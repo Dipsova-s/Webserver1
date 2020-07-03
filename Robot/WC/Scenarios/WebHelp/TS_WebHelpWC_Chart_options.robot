@@ -12,13 +12,9 @@ Screenshot "WC_Chart_options" page
     Crop Format Field Popup
     Crop Apply Chart Button
 
-    Set Window Size    1000   700
-    Sleep    ${TIMEOUT_LARGEST}
-    
+    Resize WebHelp Window    1000   700
     Crop Chart Navigator
-
-    Maximize Browser window
-    Sleep    ${TIMEOUT_LARGEST}
+    Maximize WebHelp Window
 
 Crop Chart Type
     ${left}    ${top}    Get Element Offset  css=.k-widget.chart-type

@@ -1,10 +1,9 @@
 ::::::::::::::::::::::::::::::::::
 :: specify host name
 ::::::::::::::::::::::::::::::::::
-:: nl-webmb03.everyangle.org
-:: nl-eatst026.everyangle.org
+:: nl-web2020-2.eatestad.local
 :: localhost:xxxxx
-set SERVER=nl-eatst026.everyangle.org
+set SERVER=nl-cqamb04.everyangle.org
 
 ::::::::::::::::::::::::::::::::::
 :: specify sub directory
@@ -22,7 +21,7 @@ set COMPARE_BRANCH=master
 :: specify test tag
 ::::::::::::::::::::::::::::::::::
 :: allangles,performance,audit,smk_wc,acc_wc,smk_mc,acc_mc
-:: webhelp,webhelp_wc,webhelp_mc,webhelp_import,webhelp_export
+:: webhelp_setup,webhelp,webhelp_wc,webhelp_mc,webhelp_import,webhelp_export
 set TAG=allangles
 
 ::::::::::::::::::::::::::::::::::
@@ -43,4 +42,4 @@ set "QUERY=fq=facetcat_itemtype:(facet_angle facet_template)"
 :: specify path to copy test to other place, prevent command too long exception
 ::::::::::::::::::::::::::::::::::
 :: - empty means no copy
-set COPYTO=D:\Robot\
+set COPYTO=

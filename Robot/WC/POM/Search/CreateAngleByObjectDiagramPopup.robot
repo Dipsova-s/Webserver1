@@ -22,10 +22,15 @@ Open Create Angle By Object Diagram Popup
 Click Back Create Angle Popup Option Object Diagram Loaded
     Click Link    ${btnObjectDiagramBack}
 
-
 Click P2P Business Processes On Create Angle Diagram Options
 	Click Element    ${p2pBusinessProcess}
 	Wait Until Ajax Complete
+    Sleep  ${TIMEOUT_LARGEST}
+
+Click S2D Business Processes On Create Angle Diagram Options
+	Click Element    ${s2dBusinessProcess}
+	Wait Until Ajax Complete
+    Sleep  ${TIMEOUT_LARGEST}
 
 Select A Diagram
 	${jQuerySelector}    Get jQuery Selector    ${pdDiagram}

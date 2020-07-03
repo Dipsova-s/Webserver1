@@ -4,16 +4,17 @@
 - [Work with JavaScript unit test](#work-with-javascript-unit-test)
 - [Work with font icon](#work-with-font-icon)
 - [Work with SCSS](#work-with-scss)
+- [Add a new license](#add-a-new-license)
 - [Troubleshoot](#troubleshoot)
 
 # Introduction 
 EveryAngle.WebClient
 - contains 2 apps, WebClient (WC) and Management console (MC)
-- MC will deploy as subdirectory  of EveryAngle.WebClient, e.g. C:\inetpub\wwwroot\web\admin\
+- MC will be deployed as subdirectory  of EveryAngle.WebClient, e.g. C:\inetpub\wwwroot\web\admin\
 
 EveryAngle.ODataService
 - contains odata service
-- it will deploy as subdirectory of EveryAngle.WebClient, e.g. C:\inetpub\wwwroot\web\odata\\<model_id>\
+- it will be deployed as subdirectory of EveryAngle.WebClient, e.g. C:\inetpub\wwwroot\web\odata\\<model_id>\
 
 Robot
 - contains automation test using [Robot framework](https://robotframework.org/)
@@ -30,10 +31,10 @@ SetupFiles
     3.  Chutzpah Test Adapter for the Test Explorer
     4.  SonarLint for Visual Studio
     5.  Web Compiler
-1.  Add EAPackages feed to NuGet Package Manager in Visual studio
+2.  Add EAPackages feed to NuGet Package Manager in Visual studio
     * Name: EAPackages
     * Source: https://everyangle.pkgs.visualstudio.com/_packaging/EAPackages/nuget/v3/index.json
-2.  Add/Clone repo - you must include submodule
+3.  Add/Clone repo - you must include submodule
 4.	Add missing files
     1. /EveryAngle.WebClient/EveryAngle.WebClient.Web/Admin/UploadedResources/FieldCategoryIcons copy from /EveryAngle.WebClient/EveryAngle.ManagementConsole/UploadedResources/FieldCategoryIcons
     2. /SetupFiles/ThirdParty/7-Zip/7za.exe download from [7-zip.org](https://www.7-zip.org/download.html)
@@ -49,7 +50,7 @@ SetupFiles
 6.  Running locally
     1. Set "Configuration=DEVMODE" in Visual studio
     2. Update **WebServerBackendUrl** and **WebServiceBackendNOAPort** in the Web.config file to target environment
-    3. Update trust IP address to AppServer in MC or using API, e.g.
+    3. Update trust IP address to AppServer in MC > Global settings > Authentication page or using API, e.g.
 ```javascript
     PUT https://<WebServerBackendUrl>:<WebServiceBackendNOAPort>/system/settings
     {
@@ -66,7 +67,9 @@ We use Visual studio code as editor with **Robot Framework Intellisense** extens
 
 There are 2 files for running Robot test locally.
 1. runrobot-config.cmd is a setting file.
-2. runrobot-wrapper.cmd uses for executing, this file will install prerequisite stuff at the first run.
+2. runrobot-wrapper.cmd uses for executing, this file will install prerequisite stuff at the first running.
+
+Robot test also contains "webhelp" category, it is created for UE team in order to capture screenshots of WC and MC then uses them to create Webhelp page. You can run "webhelp" category via TestServer by using **r:webhelp_setup, r:webhelp**
 
 # Work with JavaScript unit test
 We uses Jasmine as unit test and Chutzpah is a test runner.
@@ -114,25 +117,43 @@ We try to migrate all CSS to SCSS and use [Web compiler](https://marketplace.vis
 3. Main css is **common.scss**, it will be renamed to main.scss later
 4. scss files will be compiled after changed or built, see compilerconfig.json and sub-files
 
+# Add a new license
+You need to update license information if you have a new library.
+This information will be shown at License and Copyright page (https://\<website>/en/sharedcomponent/copyright).
+
+There are 2 ways for applying,
+1. Nuget package, it contains license information in the nuspec file.
+2. Add comment header to js file, this should be defined to a generic format, e.g.
+```javascript
+    /*!
+    * jQuery JavaScript Library v2.1.1
+    * http://jquery.com/
+    *
+    * Includes Sizzle.js
+    * http://sizzlejs.com/
+    *
+    * Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors
+    * Released under the MIT license
+    * http://jquery.org/license
+    *
+    * Date: 2014-05-01T17:11Z
+    */
+```
+After your PBI completed to master branch then you must to create a new PBI to Release Management team, they will verify and approve a new license.
+
 # Troubleshoot
 1. I cannot use POSTMAN thru AppServer api.
-   - you need to disable SSL verification in your POSTMAN's setting.
+   - you need to turn off SSL verification in your POSTMAN's setting.
 
    ![](/help/images/postman.png)
-2. I get SSL error on running Robot test.
-   - you need to install certificates, they can be found at TestServer (C:\TestServer\Data\Certificates) and import them to Google Chrome certificates setting.
-
-    ![](/help/images/certificate1.png)
-
-    ![](/help/images/certificate2.png)
-3. I need a certificate for my local machine.
+2. I need a certificate for my local machine.
    - You can run this [script](/help/scripts/license.ps1)
-4. I get Javascript unit test failures on Azure DevOps but local machine.
+3. I get Javascript unit test failures on Azure DevOps but local machine.
    - Azure DevOps will run unit tests by using vstest adapter, you can use Test Explorer in Visual studio.
    - Alternatively, you just run test from chutzpah.json file
-5. I have updated scss file but it does not generate css file
+4. I have updated scss file but it does not generate css file
    - This can be happened on scss file in EveryAngle.Shared.EmbeddedViews project, you can update it manaully (Right click the scss file -> Web Compiler -> Re-compile file)
-6. I need to upgrade Kendo UI to a new version
+5. I need to upgrade Kendo UI to a new version
    - Go to https://www.telerik.com/account/, getting the account from IT support.
    - Download UI for ASP .NET MVC file (Telerik.UI.for.AspNet.Mvc5.####.#.###.nupkg)
    - Custom package
@@ -143,12 +164,12 @@ We try to migrate all CSS to SCSS and use [Web compiler](https://marketplace.vis
    - Name the new package as Telerik.UI.for.AspNet.Mvc5.####.#.###.custom.nupkg
    - Publish the new package to EAPackages feed https://everyangle.visualstudio.com/EveryAngle/_packaging?_a=connect&feed=EAPackages
    - js and css files are referred as linked file, you need to update path in csproj files of both WC and MC.
-7. I need to upgrade DevExpress to a new version
+6. I need to upgrade DevExpress to a new version
    - Go to https://www.devexpress.com/MyAccount/LogIn/, getting the account from IT support.
    - Download DevExpress Component Installer or connect with DevExpress Nuget feed in the download page.
    - Create nuget packages for each dll files, you can filter with "devexpress" in [EAPackages page](https://everyangle.visualstudio.com/EveryAngle/_packaging?_a=feed&feed=EAPackages) to see the list
      - there is many tools in internet which can do this job
      - add one more minor version for each packages, e.g. DevExpress.Data.19.2.4 -> DevExpress.Data.19.2.4.1
    - Publish the new package to EAPackages feed https://everyangle.visualstudio.com/EveryAngle/_packaging?_a=connect&feed=EAPackages
-8. My TestServer runs out of space.
+7. My TestServer runs out of space.
    - You can run this [script](/help/scripts/cleanup-testserver.ps1) on your TestServer

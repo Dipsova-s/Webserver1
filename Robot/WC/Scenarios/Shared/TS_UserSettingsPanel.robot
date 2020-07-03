@@ -219,7 +219,7 @@ Get User Setting Language
 Reset UserSettings Language
     Create Context: Web
     ${path}    Execute JavaScript    return userModel.Data().user_settings;
-    Update UserSettings Language    ${path}     USER_SETTINGS.json
+    Update User Settings    ${path}     {"default_language":"en"}
 
 Read All Business Process Checkbox Values
     ${value}       Get the Business Process Checkbox Value      ${divUserSettingsBusinessProcessItems} #P2P

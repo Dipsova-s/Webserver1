@@ -6,8 +6,8 @@ Library             DateTime
 Library             String
 Library             Collections
 Library             OperatingSystem
-Library             HeadlessDownload.py
-Library             ExcelLibrary.py
+Library             ExcelLibrary
+Library             Bootstrap.py
 Library             ${EXECDIR}/python/PythonUtility.py
 Resource            ${EXECDIR}/WC/POM/Shared/Utility.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Shared/MC_Utility.robot
@@ -19,6 +19,7 @@ Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_EditDescription.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_ImportItem.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_FilterEditor.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_About.robot
+Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_Help.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_Search.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchFilter.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchBusinessProcess.robot
@@ -64,7 +65,6 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/TS_Sessions.
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Packages/TS_Packages.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Communications.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelsLanguages.robot
-Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_Help.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AngleExports/TS_ExcelTemplate.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/ExportDefaults/TS_ExportDefaults.robot
 
@@ -82,10 +82,6 @@ ${TIMEOUT_MC_PROGRESS_BAR}    210s
 ${RunAllAngleName}    TC_RunAllAngles_
 ${RunAllAngleTemplateFile}    ${EXECDIR}/WC/TC_RunAllAnglesTemplate.robot
 ${SPACE4}    ${SPACE}${SPACE}${SPACE}${SPACE}
-${WEBHELP_ITEM_PATH}      ${EXECDIR}/webhelp_items
-${WEBHELP_COMMON_FOLDER}  language_independent
-${WC_HELP_IMAGE_PATH}     ${EXECDIR}/webhelp/Webclient/${WEBHELP_COMMON_FOLDER}
-${MC_HELP_IMAGE_PATH}     ${EXECDIR}/webhelp/ManagementConsole/${WEBHELP_COMMON_FOLDER}
 # Users
 ${AdminUsername}            \\eaadmin
 ${TestPrivilegesUser}       \\EATestUserRole

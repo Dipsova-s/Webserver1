@@ -82,7 +82,7 @@ Check Add Script Action Popup Elements
 
 Delete Task By Delete Action
     [Arguments]    ${taskName}
-    Delete Task   ${taskName}
+    Delete Task By Name   ${taskName}
     Verify Task Dose Not Exists      ${taskName}
 
 Verify Execute Single Action

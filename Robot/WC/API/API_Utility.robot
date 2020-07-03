@@ -22,6 +22,12 @@ Create Context
     Create Http Context    ${host}    ${scheme}
     Set Basic Auth    ${user}    ${pwd}
 
+    ${context}  Create Dictionary  url=${url}  user=${user}  pwd=${pwd}
+    Set Test Variable  ${HTTP_CONTEXT}  ${context}
+
+Restore Created Context
+    Create Context  ${HTTP_CONTEXT.url}  ${HTTP_CONTEXT.user}  ${HTTP_CONTEXT.pwd}
+
 Create Context: Web
     [Arguments]    ${user}=${AdminUsername}    ${pwd}=${Password}
     ${url}    Execute JavaScript    return window.webAPIUrl;

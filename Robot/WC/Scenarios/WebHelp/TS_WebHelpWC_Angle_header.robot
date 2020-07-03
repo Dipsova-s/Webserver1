@@ -5,17 +5,13 @@ Screenshot "WC_Angle_header" page
 
     Find Angle By ID Then Execute The First Angle    ${AngleId}
 
-    Set Window Size    1600   700
-    Sleep    ${TIMEOUT_LARGEST}
-
+    Resize WebHelp Window    1600   700
     Crop Angle Details Panel
     Crop Display Action Buttons
     Crop Save Action Buttons
     Crop Create New Display Button
 
-    Maximize Browser window
-    Sleep    ${TIMEOUT_LARGEST}
-
+    Maximize WebHelp Window
     Find Angle By ID Then Execute The First Angle    ${AngleId2}
     Crop Publishing Buttons
     Crop Validating Buttons
@@ -41,6 +37,7 @@ Crop Display Action Buttons
 Crop Save Action Buttons
     Click Display Tab
     Select Checkbox Execute On Login
+    Sleep  ${TIMEOUT_LARGEST}
     Crop WebHelp Image  WC_Button_Save_Active.png       css=#AngleSavingWrapper .saving-wrapper
     Unselect Checkbox Execute On Login
     Highlight WebHelp Element  css=#AngleSavingWrapper .btn-saving-options

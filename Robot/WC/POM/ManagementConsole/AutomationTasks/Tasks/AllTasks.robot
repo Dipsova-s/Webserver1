@@ -29,7 +29,7 @@ Create Task By Copy Task
     Fill in Task Name    ${newTaskName}
     Click OK Copy Task
 
-Delete Task
+Delete Task By Name
     [Arguments]    ${taskName}
     Click Edit Task Action By Task Name     ${taskName}
     Click Delete Task Action By Task Name   ${taskName}

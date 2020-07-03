@@ -28,11 +28,13 @@ ${divPreviewBusinessProcess}                css=.businessProcesses
 
 #Preview Business
 ${btnConfirmDeleteBusinessProcess}          css=#popupConfirmAction .btnSubmit
-
 ${divNewBusinessProcessRow}                 .newRow
 
-
 *** Keywords ***
+Wait Until Business Process Page Loaded
+    Wait MC Progress Bar Closed
+    Wait Until Page Contains Element  ${btnMCAddBusinessProcess}
+
 Click Add Business Process
     [Arguments]    ${businessProcssName}
     ${chkLableExist}    Is Element Visible    ${trRowInBusinessProcessGrid}:contains(${businessProcssName})

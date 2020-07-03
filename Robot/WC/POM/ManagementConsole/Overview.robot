@@ -64,52 +64,11 @@ Click Side Menu Authentication
     Click Element    ${divSideMenuGlobalSettingsAuthentication}
     Wait Until Page Contains   Assign trusted webservers
 
-Click Side Menu Custom Icons
-    Wait Until Element Is Visible    ${divSideMenuGlobalSettingsCustomIcons}
-    Wait MC Progress Bar Closed
-    Click Element    ${divSideMenuGlobalSettingsCustomIcons}
-    Wait Until Page Contains   All icons for field type
-    Wait Until Page Contains   GRC
-
-Click Side Menu Packages
-    Wait Until Element Is Visible    ${divSideMenuGlobalSettingsUploadEASets}
-    Wait MC Progress Bar Closed
-    Click Element    ${divSideMenuGlobalSettingsUploadEASets}
-    Wait Until Page Contains    All uploaded packages
-
-Click Side Menu System Roles
-    Wait MC Progress Bar Closed
-    Wait Until Element Is Visible    ${divSideMenuGlobalSettingsSystemRoles}
-    Click Element    ${divSideMenuGlobalSettingsSystemRoles}
-    Wait Until Ajax Complete
-
-Click Side Menu Label Categories
-    Wait MC Progress Bar Closed
-    Wait Until Element Is Visible    ${divSideMenuGlobalSettingsAllLabelCategories}
-    Click Element    ${divSideMenuGlobalSettingsAllLabelCategories}
-    Wait Until Page Contains   Label category settings
-
 Click Side Menu Languages
     Wait MC Progress Bar Closed
     Wait Until Element Is Visible    ${divSideMenuGlobalSettingsLanguages}
     Click Element    ${divSideMenuGlobalSettingsLanguages}
     Wait Until Page Contains    Language Settings
-
-Click Side Menu Business Process
-    Sleep    ${TIMEOUT_GENERAL}
-    Wait Until Element Is Visible    ${divSideMenuGlobalSettingsBusinessProcesses}
-    Click Element    ${divSideMenuGlobalSettingsBusinessProcesses}
-    Wait MC Progress Bar Closed
-
-Click Side Menu System Settings
-    Wait MC Progress Bar Closed
-    Wait Until Element Is Visible    ${divSideMenuGlobalSettingsSystemSettings}
-    Click Element    ${divSideMenuGlobalSettingsSystemSettings}
-
-Click Side Menu Web Server Settings
-    Wait MC Progress Bar Closed
-    Wait Until Element Is Visible    ${divSideMenuGlobalSettingsWebClientSettings}
-    Click Element    ${divSideMenuGlobalSettingsWebClientSettings}
 
 Click Side Menu Welcome Page
     Wait MC Progress Bar Closed
@@ -182,15 +141,6 @@ Click Side Menu Users
     Wait Until Page Contains   All users
     Wait Until Page Contains   Sessions
     Wait Until Page Contains   User defaults
-    Sleep    ${TIMEOUT_GENERAL}
-
-Click Side Menu All Users
-    Wait Until Page Contains Element    ${divSideMenuUsers}
-    Click Element    ${divSideMenuUsers}
-    Wait MC Progress Bar Closed
-    Wait Until Ajax Complete
-    Wait Until Page Contains   Add users
-    Wait Until Page Contains   Mass change
     Sleep    ${TIMEOUT_GENERAL}
 
 Click Side Menu User Defaults

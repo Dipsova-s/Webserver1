@@ -50,8 +50,8 @@ if "%updateRobot%"=="yes" pip install %updateRobotVersion%
 if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
 if "%updatePabot%"=="yes" pip install %updatePabotVersion%
 if "%updateHttpLibrary%"=="yes" pip install %updateHttpLibraryVersion%
-if "%updateSelenium2screenshots%"=="yes" if "%7"=="webhelp" pip install %updateSelenium2screenshotsVersion%
-if "%updatePillow%"=="yes" if "%7"=="webhelp" pip install %updatePillowVersion%
+if "%updateSelenium2screenshots%"=="yes" pip install %updateSelenium2screenshotsVersion%
+if "%updatePillow%"=="yes" pip install %updatePillowVersion%
 if "%updateExcelLibrary%"=="yes" pip install %updateExcelLibraryVersion%
 
 ECHO ###### Checking Chrome Driver  ######
@@ -112,9 +112,9 @@ if "%7"=="webhelp" set DevMode=1
 ::Report folder
 Set BaseReportFolder=report/
 set ReportFolder=%BaseReportFolder%%TestCategory%
-set ReportFolderParallel=%ReportFolder%_parallel
-set ReportFolderSingle=%ReportFolder%_single
-set ReportFolderSetup=%ReportFolder%_setup
+set ReportFolderSetup=%ReportFolder%_1
+set ReportFolderParallel=%ReportFolder%_2
+set ReportFolderSingle=%ReportFolder%_3
 
 ECHO ###### Running Robot Framework ######
 call :executeRobot

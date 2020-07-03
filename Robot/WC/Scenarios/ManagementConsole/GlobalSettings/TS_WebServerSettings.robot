@@ -3,9 +3,7 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/WebServer
 
 *** Keywords ***
 Go To Web Server Settings Page
-    Wait Side Menu Ready
-    Click Side Menu Global Settings
-    Click Side Menu Web Server Settings
+    Go To MC Page  /Global%20settings/Web%20Server%20settings/
     Wait Web Server Settings Page Ready
 
 Verify Web Server Settings Page Is Ready

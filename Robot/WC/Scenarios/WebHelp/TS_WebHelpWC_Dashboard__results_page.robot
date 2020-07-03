@@ -5,12 +5,9 @@ Screenshot "WC_Dashboard__results_page" page
     Find Dashboard By ID Then Execute The First Dashboard    ${DashboardId}
     Click Dashboard Tab
 
-    Set Window Size    1100   700
-    Sleep    3s
+    Resize WebHelp Window    1100   700
     Crop Dashboard Results
-
-    Maximize Browser window
-    Sleep    ${TIMEOUT_LARGEST}
+    Maximize WebHelp Window
 
 Crop Dashboard Results
     # Create 2 boxes

@@ -1,5 +1,5 @@
 *** Settings ***
-Resource            ${EXECDIR}/WC/POM/WebHelp/WebHelp.robot
+Resource            ${EXECDIR}/WC/POM/Shared/Help.robot
 
 *** Keywords ***
 Roll back to WC page

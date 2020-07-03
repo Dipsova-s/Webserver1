@@ -30,3 +30,26 @@ Update User Roles
     ${data}  Set Variable  {"assigned_roles":${roles}}
     ${body}  Update User  ${path}  ${data}
     [Return]    ${body}
+
+Import Users
+    [Arguments]  ${users}  ${providerId}=local
+    ${body}  Send GET  /system/authenticationproviders
+    ${providers}  Get From Dictionary  ${body}  authentication_providers
+    Should Not Be Empty  ${providers}
+    :FOR  ${provider}  IN  @{providers}
+    \  ${id}  Get From Dictionary  ${provider}  id
+    \  Run Keyword If  "${id}"=="${providerId}"
+    \  ...  Run Keywords  Enable User From Provider  ${provider}  ${users}
+    \  ...  AND           Exit For Loop
+
+Enable User From Provider
+    [Arguments]  ${provider}  ${users}
+    ${usersUri}  Get From Dictionary  ${provider}  users
+    :FOR  ${user}  IN  @{users}
+    \  Restore Created Context
+    \  ${userData}  Send PUT  ${usersUri}/${user.name}  {"is_enabled":true}
+    \  ${userUri}  Get From Dictionary  ${userData}  user
+    \  Restore Created Context
+    \  Update User Roles   ${userUri}  ${user.roles}
+    \  Restore Created Context
+    \  Update User Settings   ${userUri}/settings  {"default_language":"${user.language}"}

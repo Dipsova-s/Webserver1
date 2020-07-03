@@ -23,9 +23,7 @@
     ],
     "labels": "/models/1/angles/735/labels",
     "assigned_labels": [
-        "S2D",
-        "Service",
-        "Measure"
+        "S2D"
     ],
     "executed": {
         "user": "/users/15",

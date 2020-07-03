@@ -3,13 +3,9 @@ Screenshot "WC_Search_Results_Pane" page
     Search Filter By Query String    sort=name&dir=asc&fq=facetcat_bp:(S2D)%20AND%20-facetcat_characteristics:(facet_has_warnings)
     Click Change View To Displays Mode
     
-    Set Window Size    1600   740
-    Sleep    ${TIMEOUT_LARGEST}
-
+    Resize WebHelp Window    1600   740
     Crop Search Result
-
-    Maximize Browser window
-    Sleep    ${TIMEOUT_LARGEST}
+    Maximize WebHelp Window
 
     Crop Search Result Icons
     Crop Display Type Icons
@@ -31,7 +27,7 @@ Crop Search Result Icons
     Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-private');
     Crop WebHelp Image    WC_Private.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.SearchResult:first .ResultCoFntent .rear .icon:eq(0)').attr('class', 'icon icon-angle');
+    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-angle');
     Crop WebHelp Image    WC_Angle_Icon.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
     Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-template');

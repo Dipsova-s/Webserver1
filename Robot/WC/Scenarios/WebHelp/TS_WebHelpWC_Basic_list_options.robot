@@ -7,12 +7,10 @@ Screenshot "WC_Basic_list_options" page
     Click Display Tab
     Set Editor Context: Display Tab
 
-    Set Window Size    1300   ${WINDOW_HEIGHT}
-    Sleep    ${TIMEOUT_LARGEST}
+    Resize WebHelp Window    1300   ${WINDOW_HEIGHT}
     Crop Remove List Display Column
     Crop Add New Column Button
-    Maximize Browser window
-    Sleep    ${TIMEOUT_LARGEST}
+    Maximize WebHelp Window
 
     Crop Suggested Filter
     Crop Add Filter Panel
