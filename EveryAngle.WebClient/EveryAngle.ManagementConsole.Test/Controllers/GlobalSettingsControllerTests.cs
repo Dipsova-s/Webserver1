@@ -150,18 +150,48 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual("test.log", file.FileDownloadName);
         }
 
-        [TestCase("WebClient", ".log")]
-        [TestCase("ManagementConsole", ".log")] 
-        public void GetSystemlog_Should_Return_File_Contents_For_Log_File(string target, string fileExtension)
+        [TestCase("WebClient", ".log", true)]
+        [TestCase("ManagementConsole", ".log", true)] 
+        [TestCase("AppServer", ".log", false)] 
+        [TestCase("ModelServer", ".log", false)] 
+        [TestCase("Repository", ".log", false)] 
+        public void GetSystemlog_Should_Return_File_Contents_For_Log_File(string target, string fileExtension, bool isOnClient)
         {
             var filePath = "test" + fileExtension;
             logFileReaderService
                 .Setup(x => x.CopyForLogFile(It.IsAny<string>(), It.IsAny<string>()));
-            logFileReaderService
-                .Setup(x => x.GetLogFileDetails(It.IsAny<string>()))
-                .Returns(new FileReaderResult { ErrorMessage = "", StringContent = "Sample Data", Success = true });
+            if (isOnClient)
+            {
+                logFileReaderService
+                    .Setup(x => x.GetLogFileDetails(It.IsAny<string>()))
+                    .Returns(new FileReaderResult { ErrorMessage = "", StringContent = "Sample Data", Success = true });
+            }
+            else
+            {
+                logFileReaderService
+                    .Setup(x => x.Get(It.IsAny<string>()))
+                    .Returns(new FileReaderResult { ErrorMessage = "", StringContent = "Sample Data", Success = true });
+            }
+            
             ContentResult objContentResult = _testingController.GetSystemlog(filePath, 0, 0, "", "", target);
             Assert.AreEqual("Sample Data", objContentResult.Content);
+        }
+
+        [TestCase("WebClient", ".csl")]
+        [TestCase("ManagementConsole", ".csl")]
+        [ExpectedException("System.Web.HttpException")]
+        public void GetSystemlog_Should_Throw_HttpException_For_CSL_File(string target, string fileExtension)
+        {
+            var filePath = "test" + fileExtension;
+            logFileReaderService
+                .Setup(x => x.CopyForLogFile(It.IsAny<string>(), It.IsAny<string>()));
+            Mock<System.Web.Mvc.UrlHelper> mockUrl = new Mock<System.Web.Mvc.UrlHelper>();
+            mockUrl.Setup(x => x.Action(It.IsAny<string>(), It.IsAny<string>())).Returns("");
+            _testingController.Url = mockUrl.Object;
+            logFileService
+                .Setup(x => x.GetJsonFromCsl(It.IsAny<ExecuteParameters>()))
+                .Returns(new ExecuteJsonResult());
+            _testingController.GetSystemlog(filePath, 0, 0, "", "", target);
         }
 
         [Test]

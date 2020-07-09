@@ -1,4 +1,5 @@
-﻿using EveryAngle.Core.ViewModels.SystemLog;
+﻿using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.Core.ViewModels.SystemLog;
 using EveryAngle.WebClient.Service.ApplicationServices;
 using Moq;
 using NUnit.Framework;
@@ -15,6 +16,26 @@ namespace EveryAngle.ManagementConsole.Test.Services
         public void SetUp()
         {
             _service = new Mock<LogFileReaderService>();
+        }
+
+        [Test]
+        public void Get_Should_ReturnData_When_Called()
+        {
+            _service.Setup(x => x.Download(It.IsAny<string>())).Returns(new FileViewModel() { FileBytes = new byte[0], FileName = "" });
+            FileReaderResult result = _service.Object.Get("");
+            Assert.NotNull(result);
+            _service.Verify(x => x.Download(It.IsAny<string>()));
+            Assert.AreEqual(true, result.Success);
+        }
+
+        [Test]
+        public void Get_Should_Give_Exception_When_Called()
+        {
+            _service.Setup(x => x.Download(It.IsAny<string>()))
+                    .Throws<IOException>();
+            FileReaderResult result = _service.Object.Get("");
+            Assert.NotNull(result);
+            Assert.AreEqual(false, result.Success);
         }
 
         [Test]

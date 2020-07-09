@@ -95,8 +95,8 @@
         Target: '',
         LogType: ''
     };
-    logpopup.GetFileExtension = function (fullPath) {
-        return fullPath.split('.').pop();
+    logpopup.LogFileCheck = function (fullPath) {
+        return fullPath.match('log$');
     };
     logpopup.ShowLogHideGrid = function (flag) {
         if (flag) {
@@ -124,8 +124,7 @@
         $('#LogFileDetails .logDetails').removeClass('fail').empty();
         var fullPath = typeof correlation_id === 'undefined' ? $(sender).parent("div").parent("div").prev('input').val() : MC.ui.logpopup.TaskHistoryUri + '?correlation_id=' + correlation_id;
         var win = $(sender.data('target')).data('kendoWindow');
-        var extenstion = MC.ui.logpopup.GetFileExtension(fullPath);
-        _self.isLogFile = extenstion === 'log';
+        _self.isLogFile = MC.ui.logpopup.LogFileCheck(fullPath);
 
         if (win && !win.__bind_resize_event) {
             // initial window

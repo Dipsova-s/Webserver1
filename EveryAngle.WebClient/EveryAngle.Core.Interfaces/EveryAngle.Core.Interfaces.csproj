@@ -78,6 +78,10 @@
       <Project>{fd678f41-ed45-41ba-9d41-0c96498d2b7a}</Project>
       <Name>EveryAngle.Core.ViewModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.Shared.Helpers\EveryAngle.Shared.Helpers.csproj">
+      <Project>{25EF80A0-14D8-4EFC-9AD2-265EF87B2429}</Project>
+      <Name>EveryAngle.Shared.Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

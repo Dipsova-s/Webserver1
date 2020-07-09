@@ -35,6 +35,7 @@ using System.Net.Mime;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using UrlHelper = EveryAngle.Shared.Helpers.UrlHelper;
 
@@ -1147,19 +1148,10 @@ namespace EveryAngle.ManagementConsole.Controllers
             string target = "")
         {
             SystemLogType logType = GetSystemLogType(target);
-            if (logType == SystemLogType.AppServer || logType == SystemLogType.ModelServer || logType == SystemLogType.Repository)
+            bool isFileFromServer = logType == SystemLogType.AppServer || logType == SystemLogType.ModelServer || logType == SystemLogType.Repository;
+            if (fullPath.EndsWith("log"))
             {
-                DownloadAndCreateLogFile(ref fullPath);
-            }
-            else
-            {
-                var fileInfo = new FileInfo(fullPath);
-                fullPath = Path.Combine(logDirectory.FullName, fileInfo.Name);
-                logFileReaderService.CopyForLogFile(fileInfo.FullName, fullPath);
-            }
-            if (fullPath.EndsWith(".log"))
-            {
-                var executeResult = logFileReaderService.GetLogFileDetails(fullPath);
+                var executeResult = isFileFromServer ? logFileReaderService.Get(UrlHelper.GetRequestUrl(URLType.NOA) + fullPath) : logFileReaderService.GetLogFileDetails(fullPath);
                 if (executeResult.Success)
                 {
                     return Content(executeResult.StringContent);
@@ -1172,20 +1164,20 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
             else
             {
-                ExecuteParameters para = new ExecuteParameters
+                if (isFileFromServer)
                 {
-                    Parameters = "-x " + fullPath,
-                    CommandPath = Path.Combine(Server.MapPath(TEMP_LOG_PATH), CSL_EXPLORER),
-                    ExecutePath = fullPath,
-                    Uri = Url.Action("GetSystemlogByDetailsUri", "GlobalSettings"),
-                    Q = q,
-                    MessageType = type
-                };
+                    DownloadAndCreateLogFile(ref fullPath);
+                }
+                else
+                {
+                    var fileInfo = new FileInfo(fullPath);
+                    fullPath = Path.Combine(logDirectory.FullName, fileInfo.Name);
+                    logFileReaderService.CopyForLogFile(fileInfo.FullName, fullPath);
+                }
+                
+                ExecuteParameters para = GetExecuteParametersForCsl(fullPath, q, type, offset, limit);
 
-                para.Offset = offset ?? 0;
-                para.Limit = limit ?? DefaultPageSize;
-
-                ExecuteJsonResult executeResult = UtilitiesHelper.GetJsonFromCsl(para);
+                ExecuteJsonResult executeResult = logFileService.GetJsonFromCsl(para);
 
                 if (executeResult.Success)
                 {
@@ -1310,9 +1302,24 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
 
             System.IO.File.WriteAllBytes(fullPath, downloadFileByte);
-            
         }
 
+        private ExecuteParameters GetExecuteParametersForCsl(string fullPath, string q, string type, int? offset, int? limit)
+        {
+            ExecuteParameters param = new ExecuteParameters
+            {
+                Parameters = "-x " + fullPath,
+                CommandPath = Path.Combine(HostingEnvironment.MapPath(TEMP_LOG_PATH) ?? "", CSL_EXPLORER),
+                ExecutePath = fullPath,
+                Uri = Url.Action("GetSystemlogByDetailsUri", "GlobalSettings"),
+                Q = q,
+                MessageType = type
+            };
+
+            param.Offset = offset ?? 0;
+            param.Limit = limit ?? DefaultPageSize;
+            return param;
+        }
         public ActionResult AllEventLog(string target)
         {
             ViewBag.DefaultPageSize = DefaultPageSize;
