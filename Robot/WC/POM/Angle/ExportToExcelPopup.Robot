@@ -107,5 +107,5 @@ Check For Default Selection For Header Format
 Check Default Excel Datastore values in Export to Excel
     Checkboxes Should Not Be Selected By Default   uncheck     uncheck
     Check For Default Selection For Header Format   ID
-    Input Excel File Name Should Be     {modeltimestamp}{anglename:normalized}
+    Input Excel File Name Should Be     {anglename:normalized}
     Input Excel Sheet Name Should Be    {displayname:normalized}

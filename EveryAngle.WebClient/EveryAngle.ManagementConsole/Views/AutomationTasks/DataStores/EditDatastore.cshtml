@@ -19,7 +19,9 @@
                 PluginType: '@Model.datastore_plugin',
                 DefaultDatastore:'@Model.is_default',
                 DefaultDatastoreUri: '@Url.Action("EditDefaultDatastoreCallback", "AutomationTasks")',
-                isSupportAutomateTask:'@ViewBag.isSupportAutomateTask'
+                isSupportAutomateTask: '@ViewBag.isSupportAutomateTask',
+                EditDefaultCsvDatastoreUri: '@SiteMapHelper.ActionHash("AngleExports/ExportDefault/ExportCsv")',
+                EditDefaultExcelDatastoreUri:'@SiteMapHelper.ActionHash("AngleExports/ExportDefault/ExportExcel")'
             });
         }
     });

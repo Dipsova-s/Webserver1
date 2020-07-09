@@ -12,6 +12,8 @@
         self.PluginType = '';
         self.DefaultDatastoreUri = '';
         self.isSupportAutomateTask = '';
+        self.EditDefaultCsvDatastoreUri = '';
+        self.EditDefaultExcelDatastoreUri = '';
 
         self.InitialAllDataStores = function (data) {
             self.DataStoresUri = '';
@@ -48,15 +50,13 @@
             self.SettingDatastoreUri = '';
             self.DefaultDatastoreUri = '';
             self.isSupportAutomateTask = '';
+            self.EditDefaultCsvDatastoreUri = '';
+            self.EditDefaultExcelDatastoreUri = '';
 
             jQuery.extend(self, data || {});
 
             if (data.DefaultDatastore === "True") {
-                var sidemenu = "#sideMenu-AngleExports-";
-                var plugin = data.PluginType === 'csv' ? 'Csv' : 'Excel';
-                $(sidemenu + "ExportDefault").addClass("active");
-                $(sidemenu + "ExportDefault-Export" + plugin).addClass("active");
-                $(sidemenu + "DataStores").removeClass("active");
+                location.hash = data.PluginType === 'csv' ? self.EditDefaultCsvDatastoreUri : self.EditDefaultExcelDatastoreUri;
             }
             if (data.isSupportAutomateTask === "False") {
                 $('#name').attr('readonly', 'true');

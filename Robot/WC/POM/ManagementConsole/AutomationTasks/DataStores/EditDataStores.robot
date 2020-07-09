@@ -108,6 +108,11 @@ Click on Save button in DataStore
     Enter Text in Datastore filter page  ${datastoreName}
     Wait Until Element Exist And Visible  //div[@id='DataStoresGridContainer']//tr/td[text()='${datastoreName}']/parent::tr/td[text()='${datastorePlugin}']
 
+Click on Cancel button in DataStore
+    Wait Until Element Exist And Visible  ${btnCancelEditDataStoresGrid}
+    Click Element      ${btnCancelEditDataStoresGrid}
+    Wait Until Element Exist And Visible  ${dataGridDataStoresGrid}
+
 Fill Data Settings for Excel Export
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${fileName}     ${templateFileName}     ${sheetName}     ${techInfo}
     Input kendo Numeric TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
