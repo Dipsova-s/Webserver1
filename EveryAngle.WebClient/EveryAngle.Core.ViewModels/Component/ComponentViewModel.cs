@@ -73,9 +73,7 @@ namespace EveryAngle.Core.ViewModels
             {
                 ComponentServiceManagerType[] checkTypes = new ComponentServiceManagerType[]
                 {
-                    ComponentServiceManagerType.ApplicationServer,
-                    ComponentServiceManagerType.WebServer,
-                    ComponentServiceManagerType.ITManagementConsole
+                    ComponentServiceManagerType.ApplicationServer
                 };
                 return !checkTypes.Contains(Type);
             }

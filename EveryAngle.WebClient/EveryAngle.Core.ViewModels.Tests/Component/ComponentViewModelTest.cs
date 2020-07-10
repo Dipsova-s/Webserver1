@@ -8,7 +8,7 @@ namespace EveryAngle.Core.ViewModels.Tests.Component
     {
         #region IsDeletable
         [TestCase(ComponentServiceManagerType.ApplicationServer, false)]
-        [TestCase(ComponentServiceManagerType.WebServer, false)]
+        [TestCase(ComponentServiceManagerType.WebServer, true)]
         [TestCase(ComponentServiceManagerType.ClassicModelQueryService, true)]
         [TestCase(ComponentServiceManagerType.DataDiscoveryService, true)]
         [TestCase(ComponentServiceManagerType.ExtractionService, true)]

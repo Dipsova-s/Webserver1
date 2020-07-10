@@ -12,7 +12,7 @@ Go To System Components Page
 
 Check System Components
     Page Should Contain Element         ${trComponent}:contains(ApplicationServer) .btnDelete.disabled
-    Page Should Contain Element         ${trComponent}:contains(WebServer) .btnDelete.disabled
+    Page Should Contain Element         ${trComponent}:contains(WebServer) .btnDelete:not(.disabled)
     Page Should Contain Element         ${trComponent}:contains(ModelRepositoryService) .btnDelete:not(.disabled)
     Page Should Contain Element         ${trComponent}:contains(ModelRepositoryService) .btnDownload.disabled
     Page Should Contain Element         ${trComponent}:contains(ModelRepositoryService) .btnInfo.disabled
@@ -25,6 +25,7 @@ Check System Components
     Page Should Contain Element         ${trComponent}:contains(ExtractionService) .btnInfo:not(.disabled)
     Page Should Contain Element         ${trComponent}:contains(ExtractionService) .btnDownload.disabled
     Page Should Contain Element         ${trComponent}:contains(ExtractionService) .btnDelete:not(.disabled)
+    Page Should Contain Element         ${trComponent}:contains(ITManagementConsole) .btnDelete:not(.disabled)
 
 Click on Action drop down and select Info option for Extraction service Component
     Wait Until Element Exist And Visible  ${trComponent}

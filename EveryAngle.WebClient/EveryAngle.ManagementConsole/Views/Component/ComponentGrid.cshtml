@@ -3,29 +3,29 @@
 @using EveryAngle.Shared.Globalization
 
 @{
-            List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
-            buttons.Add(new PageToolbarButtonModel
-            {
-                Type = PageToolbarButtonType.GridEditDelete,
-                Privilege = PrivilegeType.System,
-                DisableTemplate = "",
-                EnableTemplate = "# if(data.IsDeletable) { #"
-                                    + "<a href=\"" + Url.Content("~/Component/DeleteComponent") + "\" onclick=\"MC.GlobalSettings.Components.DeleteComponent(event, this)\" class=\"btn btnDelete\" data-parameters='{\"registrationId\":\"#= data.RegistrationId #\"}' data-delete-template=\"" + Resource.MC_DeleteComponentConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
-                                    + "# } else { #"
-                                    + "<a class='btn btnDelete disabled'>" + Resource.Delete + "</a>"
-                                    + "# } #"
-            });
-
-            buttons.Add(new PageToolbarButtonModel
-            {
-                Type = PageToolbarButtonType.GridEditDelete,
-                Privilege = PrivilegeType.None,
-                EnableTemplate = "# if(data.IsDownloadMetadataEnabled) { #"
-                            + "<a href=\"" + Url.Content("~/component/downloadmetadata") + "\" class=\"btn btnDownload\" onclick=\"MC.GlobalSettings.Components.DownloadModelServerMetaData(event, this)\" data-parameters='{\"MetadataName\":\"#= data.ModelServer.MetadataName #\",\"MetadataUri\":\"#= data.ModelServer.MetadataUri #\"}'>" + Resource.MC_DownloadMetadata + "</a>"
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.System,
+        DisableTemplate = "",
+        EnableTemplate = "# if(data.IsDeletable) { #"
+                            + "<a href=\"" + Url.Content("~/Component/DeleteComponent") + "\" onclick=\"MC.GlobalSettings.Components.DeleteComponent(event, this)\" class=\"btn btnDelete\" data-parameters='{\"registrationId\":\"#= data.RegistrationId #\"}' data-delete-template=\"" + Resource.MC_DeleteComponentConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
                             + "# } else { #"
-                            + "<a class=\"btn btnDownload disabled\">" + Resource.MC_DownloadMetadata + "</a>"
+                            + "<a class='btn btnDelete disabled'>" + Resource.Delete + "</a>"
                             + "# } #"
     });
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.None,
+        EnableTemplate = "# if(data.IsDownloadMetadataEnabled) { #"
+                    + "<a href=\"" + Url.Content("~/component/downloadmetadata") + "\" class=\"btn btnDownload\" onclick=\"MC.GlobalSettings.Components.DownloadModelServerMetaData(event, this)\" data-parameters='{\"MetadataName\":\"#= data.ModelServer.MetadataName #\",\"MetadataUri\":\"#= data.ModelServer.MetadataUri #\"}'>" + Resource.MC_DownloadMetadata + "</a>"
+                    + "# } else { #"
+                    + "<a class=\"btn btnDownload disabled\">" + Resource.MC_DownloadMetadata + "</a>"
+                    + "# } #"
+});
 
     buttons.Add(new PageToolbarButtonModel
     {
