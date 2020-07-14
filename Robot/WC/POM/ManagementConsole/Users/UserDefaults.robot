@@ -36,6 +36,7 @@ ${chbBPS2D}     S2D
 ${chbBPO2C}     O2C
 ${chbBPF2R}     F2R
 ${chbBPPM}     PM
+${chbBPQM}     QM
 ${chbBPHCM}     HCM
 ${chbBPGRC}     GRC
 ${chbBPIT}     IT
@@ -153,10 +154,11 @@ Get the Default setting for Business Processes selected value
     ${chbox2}    Is Element Checked  ${chbBPO2C}
     ${chbox3}    Is Element Checked  ${chbBPF2R}
     ${chbox4}    Is Element Checked  ${chbBPPM}
-    ${chbox5}    Is Element Checked  ${chbBPHCM}
-    ${chbox6}    Is Element Checked  ${chbBPGRC}
-    ${chbox7}    Is Element Checked  ${chbBPIT}
-    [Return]      ${chbox}    ${chbox1}   ${chbox2}   ${chbox3}   ${chbox4}   ${chbox5}   ${chbox6}   ${chbox7}
+    ${chbox5}    Is Element Checked  ${chbBPQM}
+    ${chbox6}    Is Element Checked  ${chbBPHCM}
+    ${chbox7}    Is Element Checked  ${chbBPGRC}
+    ${chbox8}    Is Element Checked  ${chbBPIT}
+    [Return]      ${chbox}    ${chbox1}   ${chbox2}   ${chbox3}   ${chbox4}   ${chbox5}   ${chbox6}   ${chbox7}   ${chbox8}
 
 Get the Auto execute items on login option selected value
     ${chbox}    Is Element Checked  ${chbAutoExecuteItems}
@@ -252,15 +254,16 @@ Select the Compressed list header option check box
     Set Checkbox  ${chbCompressedListHeader}    ${chbOption}
 
 Select the Default setting for Business Processes check box
-    [Arguments]     ${chbOption}    ${chbOption1}   ${chbOption2}   ${chbOption3}   ${chbOption4}   ${chbOption5}   ${chbOption6}   ${chbOption7}
+    [Arguments]     ${chbOption}    ${chbOption1}   ${chbOption2}   ${chbOption3}   ${chbOption4}   ${chbOption5}   ${chbOption6}   ${chbOption7}   ${chbOption8}
     Set Checkbox  ${chbBPP2P}    ${chbOption}
     Set Checkbox  ${chbBPS2D}    ${chbOption1}
     Set Checkbox  ${chbBPO2C}    ${chbOption2}
     Set Checkbox  ${chbBPF2R}    ${chbOption3}
     Set Checkbox  ${chbBPPM}    ${chbOption4}
-    Set Checkbox  ${chbBPHCM}    ${chbOption5}
-    Set Checkbox  ${chbBPGRC}    ${chbOption6}
-    Set Checkbox  ${chbBPIT}    ${chbOption7}
+    Set Checkbox  ${chbBPQM}    ${chbOption5}
+    Set Checkbox  ${chbBPHCM}    ${chbOption6}
+    Set Checkbox  ${chbBPGRC}    ${chbOption7}
+    Set Checkbox  ${chbBPIT}    ${chbOption8}
     
 Select the Auto execute items on login check box
     [Arguments]     ${chbOption}

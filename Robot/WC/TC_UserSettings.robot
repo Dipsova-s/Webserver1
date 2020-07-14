@@ -71,3 +71,4 @@ Verify Whether User Can Deselect All Business Process
     Click System Tab
     Verify If All Business Process Checkbox Are Deselected
     Restore The Old BP Values          
+    Click Save User Settings

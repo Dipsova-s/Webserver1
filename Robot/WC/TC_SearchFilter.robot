@@ -61,6 +61,7 @@ Verify Search Tags
     [Documentation]     Search items by tags
     [Setup]  Run Keywords  Import Angle By API  /models/1  ANGLE_SearchTag1.json  user=${Username}
     ...         AND        Import Angle By API  /models/1  ANGLE_SearchTag2.json  user=${Username}
+    ...         AND        Reload Search Page
     
     # there are 3 tags available
     Filter Item Tag  SearchTag
@@ -69,8 +70,7 @@ Verify Search Tags
     Tag Should Be Available  SearchTag3
 
     # filter with SearchTag2 will get 2 items
-    ${tags}  Create List  SearchTag2
-    Select Tags  ${tags}
+    Select Tag  SearchTag2
     Wait Progress Bar Search Closed
     Number Of Search Results Should Be  2
     Check Existing Angle From Search Result  [ROBOT] Angle Search Tag 1

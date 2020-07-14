@@ -151,7 +151,7 @@ Filter Specify Tables By Keyword
     [Arguments]    ${valueText}
     Wait Until Page Contains Element   ${txtTableFilter}
     Input Text By JQuery    ${txtTableFilter}    ${valueText}
-    Press key    ${txtTableFilter}    \\13
+    Press keys    ${txtTableFilter}    RETURN
     Wait Until Specify Tables Popup Loaded
  
 Specify Tables Grid Should Contains

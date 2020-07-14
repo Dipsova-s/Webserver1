@@ -1,48 +1,6 @@
 *** Settings ***
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Users/UserDefaults.robot
 
-*** Variables ***
-${dpdDecimalSeparatorValue}
-${dpdThousandsSeparatorValue}
-${dpdDateOrderValue}
-${dpdDayFormatValue}
-${dpdMonthFormatValue}
-${dpdYearFormatValue}
-${dpdDateSeparatorValue}
-${dpdTimeFormatValue}
-${dpdTimeSeparatorValue}
-${dpdDefaultLanguageValue}
-${dpdDefaultCurrencyValue}
-
-${dpdNumbersFormatValue}
-${dpdNumbersFormatPrefixValue}
-${chbNumbersThousandSeparatorValue}
-${dpdCurrenciesFormatValue}
-${dpdCurrenciesFormatPrefixValue}
-${chbCurrenciesThousandSeparatorValue}
-${dpdPercentageFormatValue}
-${dpdPercentageFormatPrefixValue}
-${chbPercentageThousandSeparatorValue}
-
-${dpdexportLinesValue}
-${chbSAPChooserValue}
-${chbSAPHeaderValue}
-${chbDefaultStarreddFieldValue}
-${chbDefaultSuggestedFieldValue}
-${chbCompressedListHeaderValue}
-
-${chbBPP2PValue}
-${chbBPS2DValue}
-${chbBPO2CValue}
-${chbBPF2RValue}
-${chbBPPMValue}
-${chbBPHCMValue}
-${chbBPGRCValue}
-${chbBPITValue}
-
-${chbAutoExecuteItemsValue}
-${dpdDefaultSettingSetValue}
-
 *** Keywords ***
 Go To User defaults Page With Admin User
     Go to MC Then Login With Admin User
@@ -68,7 +26,7 @@ Fill all the User defaults fields
     Select the SAP fields in header option check box        False
     Select the By default selected field option check box       False   False
     Select the Compressed list header option check box      False
-    Select the Default setting for Business Processes check box     True   True   True   True   True   True   True   True
+    Select the Default setting for Business Processes check box     True   True   True   True   True   True   True   True   True
     Select the Auto execute items on login check box    False
     Select the Default settings for set option drop down value      Short name (Long name)
 
@@ -142,7 +100,7 @@ Verify the field values in User defaults page
     ${returnText}   Get the Compressed list header option selected value
     Should Not Be True      ${returnText}
 
-    ${returnText}    ${returnText1}   ${returnText2}   ${returnText3}   ${returnText4}   ${returnText5}   ${returnText6}   ${returnText7}   Get the Default setting for Business Processes selected value
+    ${returnText}    ${returnText1}   ${returnText2}   ${returnText3}   ${returnText4}   ${returnText5}   ${returnText6}   ${returnText7}   ${returnText8}   Get the Default setting for Business Processes selected value
     Should Be True      ${returnText}
     Should Be True      ${returnText1}
     Should Be True      ${returnText2}
@@ -151,6 +109,7 @@ Verify the field values in User defaults page
     Should Be True      ${returnText5}
     Should Be True      ${returnText6}
     Should Be True      ${returnText7}
+    Should Be True      ${returnText8}
     
     ${returnText}   Get the Auto execute items on login option selected value
     Should Not Be True      ${returnText}
@@ -160,24 +119,41 @@ Verify the field values in User defaults page
     Should Be Equal     ${expectedValue}   ${returnText}
 
 Get User defaults and store
-    ${dpdDecimalSeparatorValue}   Get the Decimal Separator drop down selected Value
-    ${dpdThousandsSeparatorValue}   Get the Thousands Separator drop down selected value
-    ${dpdDateOrderValue}   Get the Date Order drop down selected value
-    ${dpdDayFormatValue}   Get the Day Format drop down selected value
-    ${dpdMonthFormatValue}   Get the Month Format drop down selected value
-    ${dpdYearFormatValue}   Get the Year Format drop down selected value
-    ${dpdDateSeparatorValue}   Get the Date Separator drop down selected value
-    ${dpdTimeFormatValue}   Get the Time Format drop down selected value
-    ${dpdTimeSeparatorValue}   Get the Time Separator drop down selected value
-    ${dpdDefaultLanguageValue}   Get the Default Setting for language drop down selected value
-    ${dpdDefaultCurrencyValue}   Get the Default setting for currency drop down selected value
+    ${value}   Get the Decimal Separator drop down selected Value
+    Set Test Variable  ${dpdDecimalSeparatorValue}  ${value}
+    ${value}   Get the Thousands Separator drop down selected value
+    Set Test Variable  ${dpdThousandsSeparatorValue}  ${value}
+    ${value}   Get the Date Order drop down selected value
+    Set Test Variable  ${dpdDateOrderValue}  ${value}
+    ${value}   Get the Day Format drop down selected value
+    Set Test Variable  ${dpdDayFormatValue}  ${value}
+    ${value}   Get the Month Format drop down selected value
+    Set Test Variable  ${dpdMonthFormatValue}  ${value}
+    ${value}   Get the Year Format drop down selected value
+    Set Test Variable  ${dpdYearFormatValue}  ${value}
+    ${value}   Get the Date Separator drop down selected value
+    Set Test Variable  ${dpdDateSeparatorValue}  ${value}
+    ${value}   Get the Time Format drop down selected value
+    Set Test Variable  ${dpdTimeFormatValue}  ${value}
+    ${value}   Get the Time Separator drop down selected value
+    Set Test Variable  ${dpdTimeSeparatorValue}  ${value}
+    ${value}   Get the Default Setting for language drop down selected value
+    Set Test Variable  ${dpdDefaultLanguageValue}  ${value}
+    ${value}   Get the Default setting for currency drop down selected value
+    Set Test Variable  ${dpdDefaultCurrencyValue}  ${value}
     
-    ${dpdNumbersFormatValue}     ${dpdNumbersFormatPrefixValue}   ${value}    Get the Number format options selected value
-    Set Test Variable   ${chbNumbersThousandSeparatorValue}     ${value}
-    ${dpdCurrenciesFormatValue}     ${dpdCurrenciesFormatPrefixValue}   ${value}    Get the Currencies format options selected value
-    Set Test Variable   ${chbCurrenciesThousandSeparatorValue}  ${value}
-    ${dpdPercentageFormatValue}     ${dpdPercentageFormatPrefixValue}   ${value}    Get the Percentages format options selected value
-    Set Test Variable   ${chbPercentageThousandSeparatorValue}  ${value}
+    ${value1}     ${value2}   ${value3}    Get the Number format options selected value
+    Set Test Variable   ${dpdNumbersFormatValue}     ${value1}
+    Set Test Variable   ${dpdNumbersFormatPrefixValue}     ${value2}
+    Set Test Variable   ${chbNumbersThousandSeparatorValue}     ${value3}
+    ${value1}     ${value2}   ${value3}    Get the Currencies format options selected value
+    Set Test Variable   ${dpdCurrenciesFormatValue}  ${value1}
+    Set Test Variable   ${dpdCurrenciesFormatPrefixValue}  ${value2}
+    Set Test Variable   ${chbCurrenciesThousandSeparatorValue}  ${value3}
+    ${value1}     ${value2}   ${value3}    Get the Percentages format options selected value
+    Set Test Variable   ${dpdPercentageFormatValue}  ${value1}
+    Set Test Variable   ${dpdPercentageFormatPrefixValue}  ${value2}
+    Set Test Variable   ${chbPercentageThousandSeparatorValue}  ${value3}
 
     ${value}    Get the Default settings for export lines drop down selected value
     Set Test Variable   ${dpdexportLinesValue}   ${value}
@@ -185,25 +161,27 @@ Get User defaults and store
     Set Test Variable   ${chbSAPChooserValue}   ${value}
     ${value}   Get the SAP fields in header option selected value
     Set Test Variable   ${chbSAPHeaderValue}    ${value}
-    ${value}    ${value1}   Get the By default selected field option selected value
-    Set Test Variable   ${chbDefaultStarreddFieldValue}   ${value}
-    Set Test Variable   ${chbDefaultSuggestedFieldValue}   ${value1}
+    ${value1}    ${value2}   Get the By default selected field option selected value
+    Set Test Variable   ${chbDefaultStarreddFieldValue}   ${value1}
+    Set Test Variable   ${chbDefaultSuggestedFieldValue}   ${value2}
     ${value}   Get the Compressed list header option selected value
     Set Test Variable   ${chbCompressedListHeaderValue}     ${value}
 
-    ${value}    ${value1}   ${value2}   ${value3}   ${value4}   ${value5}   ${value6}   ${value7}   Get the Default setting for Business Processes selected value
-    Set Test Variable   ${chbBPP2PValue}    ${value}
-    Set Test Variable   ${chbBPS2DValue}   ${value1}
-    Set Test Variable   ${chbBPO2CValue}   ${value2}
-    Set Test Variable   ${chbBPF2RValue}   ${value3}
-    Set Test Variable   ${chbBPPMValue}   ${value4}
-    Set Test Variable   ${chbBPHCMValue}   ${value5}
-    Set Test Variable   ${chbBPGRCValue}   ${value6}
-    Set Test Variable   ${chbBPITValue}     ${value7}
+    ${value1}    ${value2}   ${value3}   ${value4}   ${value5}   ${value6}   ${value7}   ${value8}   ${value9}   Get the Default setting for Business Processes selected value
+    Set Test Variable   ${chbBPP2PValue}    ${value1}
+    Set Test Variable   ${chbBPS2DValue}   ${value2}
+    Set Test Variable   ${chbBPO2CValue}   ${value3}
+    Set Test Variable   ${chbBPF2RValue}   ${value4}
+    Set Test Variable   ${chbBPPMValue}   ${value5}
+    Set Test Variable   ${chbBPQMValue}   ${value6}
+    Set Test Variable   ${chbBPHCMValue}   ${value7}
+    Set Test Variable   ${chbBPGRCValue}   ${value8}
+    Set Test Variable   ${chbBPITValue}     ${value9}
 
     ${value}   Get the Auto execute items on login option selected value
     Set Test Variable   ${chbAutoExecuteItemsValue}     ${value}
-    ${dpdDefaultSettingSetValue}   Get the Default settings for set option selected value
+    ${value}   Get the Default settings for set option selected value
+    Set Test Variable   ${dpdDefaultSettingSetValue}     ${value}
 
 Set User defaults fields and Save the values
     Select the Decimal Separator drop down Value    ${dpdDecimalSeparatorValue}
@@ -225,7 +203,7 @@ Set User defaults fields and Save the values
     Select the SAP fields in header option check box        ${chbSAPHeaderValue}
     Select the By default selected field option check box       ${chbDefaultStarreddFieldValue}   ${chbDefaultSuggestedFieldValue}
     Select the Compressed list header option check box      ${chbCompressedListHeaderValue}
-    Select the Default setting for Business Processes check box     ${chbBPP2PValue}   ${chbBPS2DValue}   ${chbBPO2CValue}   ${chbBPF2RValue}   ${chbBPPMValue}   ${chbBPHCMValue}   ${chbBPGRCValue}   ${chbBPITValue}
+    Select the Default setting for Business Processes check box     ${chbBPP2PValue}   ${chbBPS2DValue}   ${chbBPO2CValue}   ${chbBPF2RValue}   ${chbBPPMValue}   ${chbBPQMValue}   ${chbBPHCMValue}   ${chbBPGRCValue}   ${chbBPITValue}
     Select the Auto execute items on login check box    ${chbAutoExecuteItemsValue}
     Select the Default settings for set option drop down value      ${dpdDefaultSettingSetValue}
     Click on Save in User defaults

@@ -12,7 +12,6 @@ Fill User defaults and verify the data saved successfully with given values
     Get User defaults and store
     Fill all the User defaults fields
     Click on Save in User defaults
-    Go To All Tasks Page
     Go to User Defaults page in MC
     Verify the field values in User defaults page
     Set User defaults fields and Save the values
