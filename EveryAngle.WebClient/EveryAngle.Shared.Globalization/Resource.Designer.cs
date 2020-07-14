@@ -10343,6 +10343,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Items.
+        /// </summary>
+        public static string MC_Items {
+            get {
+                return ResourceManager.GetString("MC_Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to items added.
         /// </summary>
         public static string MC_ItemsAdded {
@@ -11451,11 +11460,11 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Private Angles/Displays.
+        ///   Looks up a localized string similar to Private Items.
         /// </summary>
-        public static string MC_PrivateAnglesAndDisplays {
+        public static string MC_PrivateItems {
             get {
-                return ResourceManager.GetString("MC_PrivateAnglesAndDisplays", resourceCulture);
+                return ResourceManager.GetString("MC_PrivateItems", resourceCulture);
             }
         }
         
