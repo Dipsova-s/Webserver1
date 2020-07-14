@@ -10,6 +10,9 @@ ${btnOKExportToExcel}               btn-popupExportExcel1
 ${btnOKExportDrilldownToExcel}      btn-popupExportDrilldownExcel1
 ${pgbExportToExcel}                 css=#popupExportToExcel .k-loading-mask
 ${textDefaultHeaderFormat}          xpath=//div[text()='Header format']/following::div/descendant::span[@class='k-input']
+${textExcelTemplate}                //div[contains(text(), 'Excel template')]/following::div/descendant::span[@class='k-input']
+${ddlExcelTemplates}                css=[aria-owns="ExcelTemplate_listbox"]
+${excelTemplatesCount}              //div[contains(@class, 'k-list-container')]/descendant::ul[@id='ExcelTemplate_listbox']/li[@role='option']
 
 *** Keywords ***
 Input Excel File Name
@@ -109,3 +112,48 @@ Check Default Excel Datastore values in Export to Excel
     Check For Default Selection For Header Format   ID
     Input Excel File Name Should Be     {anglename:normalized}
     Input Excel Sheet Name Should Be    {displayname:normalized}
+
+Selected Excel Template in Export to Excel Pop up Should Be
+    [Arguments]     ${expectedExcelTemplate}
+    ${actualExcelTemplate}  Selected Excel Template in Export to Excel Pop up
+    Should Be Equal As Strings  ${actualExcelTemplate}  ${expectedExcelTemplate}
+
+Selected Excel Template in Export to Excel Pop up
+    ${getExcelTemplate}     Get Text    ${textExcelTemplate}
+    [Return]    ${getExcelTemplate}
+
+Select Excel Template in Export to Excel Pop up To
+    [Arguments]     ${excelTemplateName}
+    Select Dropdown By InnerText     ${ddlExcelTemplates}    ${excelTemplateName}
+
+Get Excel Templates Count in Export to Excel Pop up
+    ${countExcelTemplates}     Get Element Count   ${excelTemplatesCount}
+    [Return]    ${countExcelTemplates}
+
+Get Excel Templates List in Export to Excel Pop up
+    ${count}    Get Excel Templates Count in Export to Excel Pop up
+    @{excelTemplatesList}   Create List
+    :FOR    ${i}    IN RANGE    1   ${count} + 1
+    \    ${nameExcelTemplate}    Get Element Attribute    (${excelTemplatesCount})[${i}]    innerHTML
+    \    ${condition}   Run Keyword    Condition For Checking Substring [Default]    ${nameExcelTemplate}
+    \    ${nameExcelTemplateUpdated}      Run Keyword If    '${condition}' == 'True'      Update Excel Template String     ${nameExcelTemplate}
+    \    ...                              ELSE      Set Variable     ${nameExcelTemplate}
+    \    Append To List      ${excelTemplatesList}   ${nameExcelTemplateUpdated}
+    [Return]    ${excelTemplatesList}
+
+Update Excel Template String
+    [Arguments]     ${string}
+    ${updatedString}      Replace String     ${string}  [Default]${SPACE}   ${EMPTY}
+    [Return]    ${updatedString}
+
+Contains Substring [Default]
+    [Arguments]     ${string}
+    ${expectedString}   Set Variable    \[Default\]
+    ${updatedString}    Get Substring   ${string}   0   9
+    ${returnStatus}     Run Keyword And Return Status   Should Be Equal As Strings  ${updatedString}    ${expectedString}
+    [Return]    ${returnStatus}
+
+Condition For Checking Substring [Default]
+    [Arguments]     ${nameExcelTemplate}
+    ${returnStatus}     Run Keyword     Contains Substring [Default]    ${nameExcelTemplate}
+    [Return]    ${returnStatus}    

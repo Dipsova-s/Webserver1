@@ -33,6 +33,20 @@ describe("ExportExcelHandlerTest", function () {
                     {
                         id: 'file_name',
                         value: 'new_display'
+                    },
+                    {
+                        id: 'template_file',
+                        value: 'EveryAngle-Test.xlsx',
+                        options: [
+                            {
+                                id: "EveryAngle-Test.xlsx",
+                                name: "EveryAngle-Test.xlsx"
+                            },
+                            {
+                                id: "EveryAngle-Test1.xlsx",
+                                name: "EveryAngle-Test1.xlsx"
+                            }
+                        ]
                     }]
             }
         };
@@ -150,7 +164,8 @@ describe("ExportExcelHandlerTest", function () {
         it("should call function ", function () {
             exportExcelHandler.CurrentExportModel.HeaderFormats = {};
             exportExcelHandler.CurrentExportModel = {
-                HeaderFormat: function () { }
+                HeaderFormat: function () { },
+                TemplateFile: function () { }
             };
             $.fn.kendoDropDownList = $.noop;
             spyOn($.fn, 'kendoDropDownList').and.returnValue($());
@@ -210,12 +225,20 @@ describe("ExportExcelHandlerTest", function () {
         });
 
         it("should set add angle definition  to Export Model", function () {
+            spyOn(exportExcelHandler, "GetExcelTemplate").and.returnValue();
+            spyOn(exportExcelHandler, "SetExcelTemplates").and.returnValue();
             var result = exportExcelHandler.SetExportModel(datastore);
             expect(result.AddAngleDefinition()).toBe(false);
+            expect(exportExcelHandler.GetExcelTemplate).toHaveBeenCalled();
+            expect(exportExcelHandler.SetExcelTemplates).toHaveBeenCalled();
         });
         it("should set file name  to Export Model", function () {
+            spyOn(exportExcelHandler, "GetExcelTemplate").and.returnValue();
+            spyOn(exportExcelHandler, "SetExcelTemplates").and.returnValue();
             var result = exportExcelHandler.SetExportModel(datastore);
             expect(result.FileName()).toBe('new_display');
+            expect(exportExcelHandler.GetExcelTemplate).toHaveBeenCalled();
+            expect(exportExcelHandler.SetExcelTemplates).toHaveBeenCalled();
         });        
     });
     describe("call SetDefaultExcelSetting", function () {
@@ -245,6 +268,33 @@ describe("ExportExcelHandlerTest", function () {
             spyOn(jQuery.fn, 'removeClass').and.returnValue($());
             exportExcelHandler.SetButtonStatus();
             expect(jQuery.fn.removeClass).toHaveBeenCalled();
+        });
+    });
+    describe(".SetExcelTemplates", function () {
+        it("it should contain expected result", function () {
+            exportExcelHandler.SetExcelTemplates(datastore);
+            expect(exportExcelHandler.CurrentExportModel.ExcelTemplates.length).toBe(2);
+            expect(exportExcelHandler.CurrentExportModel.ExcelTemplates[0].VALUE).toBe("EveryAngle-Test.xlsx");
+        });
+    });
+    describe(".GetExcelTemplate", function () {
+        it("It should return the displayData excel template", function () {
+            var displayData = {
+                display_details: "{\"excel_template\" : \"EveryAngle-Standard.xlsx\"}"
+            };
+            spyOn(displayModel, 'Data').and.returnValue(displayData);
+            spyOn(exportExcelHandler, 'IsTemplateExist').and.returnValue(true);
+            var result = exportExcelHandler.GetExcelTemplate(datastore);
+            expect(result).toBe("EveryAngle-Standard.xlsx");
+        });
+        it("It should return the datastore default excel template", function () {
+            var displayData = {
+                display_details: ""
+            };
+            spyOn(displayModel, 'Data').and.returnValue(displayData);
+            spyOn(exportExcelHandler, 'IsTemplateExist').and.returnValue(false);
+            var result = exportExcelHandler.GetExcelTemplate(datastore);
+            expect(result).toBe("EveryAngle-Test.xlsx");
         });
     });
 });

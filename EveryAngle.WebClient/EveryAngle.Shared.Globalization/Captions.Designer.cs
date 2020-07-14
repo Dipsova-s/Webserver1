@@ -232,6 +232,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Excel template.
+        /// </summary>
+        public static string ExcelTemplate {
+            get {
+                return ResourceManager.GetString("ExcelTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Example.
         /// </summary>
         public static string FieldFormat_Example {

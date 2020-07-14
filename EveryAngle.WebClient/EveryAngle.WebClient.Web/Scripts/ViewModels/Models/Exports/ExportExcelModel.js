@@ -8,11 +8,11 @@
         { VALUE: 'display', TEXT: Localization.ListFormatEnumShortName },
         { VALUE: 'longname', TEXT: Localization.ListFormatEnumLongName }
     ];
-
+    self.ExcelTemplates = [];
     self.TotalRow = ko.observable();
     self.HeaderFormat = ko.observable();
     self.SheetName = ko.observable('');
-    self.TemplateFile = ko.observable('EveryAngle-Standard.xlsx');
+    self.TemplateFile = ko.observable('');
     self.AddAngleSummary = ko.observable();
     self.AddAngleDefinition = ko.observable();
     self.MaxRowsToExport = ko.observable(-1);

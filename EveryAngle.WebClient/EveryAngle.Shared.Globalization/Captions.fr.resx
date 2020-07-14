@@ -825,4 +825,7 @@
   <data name="Popup_Display_Info" xml:space="preserve">
     <value>Informations sur le Display</value>
   </data>
+  <data name="ExcelTemplate" xml:space="preserve">
+    <value>Excel template</value>
+  </data>
 </root>
