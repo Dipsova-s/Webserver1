@@ -7,7 +7,6 @@ ${labelActive}                              ')]//following-sibling::td//label//i
 ${labelValid}                               ')]//following-sibling::td//label//input[@name='used_for_authorization']
 ${labelRequired}                            ')]//following-sibling::td//label//input[@name='is_required']
 ${filterTextbox}                            //input[@id='FilterLabelCategoryTextbox']
-${gridLabel}                                css=#Grid .k-loading-mask
 
 *** Keywords ***
 Verify Category Data
@@ -48,7 +47,7 @@ Verify Filtering
 
 Wait Until Label Grid Loaded
     Sleep    ${TIMEOUT_GENERAL}
-    Wait Until Page Does Not Contain Element    ${gridLabel}
+    Wait Until Page Does Not Contain Element    ${gridLoading}
     Wait MC Progress Bar Closed
     Sleep    ${TIMEOUT_GENERAL}
 

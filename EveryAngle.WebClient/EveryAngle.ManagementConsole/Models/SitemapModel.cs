@@ -355,21 +355,22 @@ namespace EveryAngle.ManagementConsole.Models
 
             if (isSupportAutomateTask)
             {
-                //Datasource
-                if (!canUseOnlyAutomationTask)
-                {
-                    siteMap.Childs.Add(GetDataStoresMenu());
-                }
                 //AutomationTasks
                 if (canAccessSystem || canUseOnlyAutomationTask)
                 {
                     siteMap.Childs.Add(GetAutomationTaskMenu());
                 }
+                //Datasource
+                if (!canUseOnlyAutomationTask)
+                {
+                    siteMap.Childs.Add(GetDataStoresMenu());
+                }
+                
             }
             if (!canUseOnlyAutomationTask)
             {
                 //ExcelTemplates
-                siteMap.Childs.Insert(0, GetExcelTemplatesMenu());
+                siteMap.Childs.Add(GetExcelTemplatesMenu());
                 //ExportDefaults
                 int lastIndexofList = siteMap.Childs.Count;
                 siteMap.Childs.Insert(lastIndexofList, GetExcelDefaultsMenu(isSupportAutomateTask));

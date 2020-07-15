@@ -11,9 +11,11 @@ ${dpdDatastorePlugin}   xpath=//span[@aria-owns='DatastorePluginSelect_listbox']
 #Delete Data Store
 ${btnSaveDeleteDataStore}               css=#popupConfirmation .btnSubmit
 ${btnDatastoreOptionSubmit}             css=.btnSubmit
-${inputCountDatastoreDefaultCheckBox}        //input[@checked='checked']
+${inputCountDatastoreDefaultCheckBox}        //img[@alt='Default Datastore']
 ${inputDatastoreDefaultCheckBox1}            //td[text()='
-${inputDatastoreDefaultCheckBox2}            ']/following-sibling::td/label/input[@data-default='true']
+${inputDatastoreDefaultCheckBox2}            ']/following-sibling::td/img[@alt='Default Datastore']
+${txtDefaultColumn}                          //a[text()='Default']
+${trDatastoreName}                          //div[contains(@class, 'virtual-scrollable')]/descendant::tr[@role='row']/td[1]
 
 *** Keywords ***
 Count of Default Datastores
@@ -22,7 +24,31 @@ Count of Default Datastores
 
 Default Checkbox For Default Datastores
     [Arguments]     ${DefaultDatastoreName}
-    Checkbox Should Be Selected     ${inputDatastoreDefaultCheckBox1}${DefaultDatastoreName}${inputDatastoreDefaultCheckBox2}
+    Page Should Contain Image     ${inputDatastoreDefaultCheckBox1}${DefaultDatastoreName}${inputDatastoreDefaultCheckBox2}
+
+Sorting on Default Column    
+    [Arguments]     ${expectedName1}    ${expectedName2}
+    ${returnedDatastoresList}   Return Datastore List after Sorting
+    ${actualName1}   Get From List   ${returnedDatastoresList}   0
+    ${actualName2}   Get From List   ${returnedDatastoresList}   1
+    Should Be Equal As Strings  ${actualName1}    ${expectedName1}
+    Should Be Equal As Strings  ${actualName2}    ${expectedName2}
+    ${returnedDatastoresList}   Return Datastore List after Sorting
+    ${getLength}    Get Length    ${returnedDatastoresList}
+    ${actualName3}   Get From List   ${returnedDatastoresList}   ${getLength-2}
+    ${actualName4}   Get From List   ${returnedDatastoresList}   ${getLength-1}
+    Should Be Equal As Strings  ${actualName3}    ${expectedName1}
+    Should Be Equal As Strings  ${actualName4}    ${expectedName2}
+
+Return Datastore List after Sorting
+    Click Element   ${txtDefaultColumn}
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Page Does Not Contain Element    ${gridLoading}
+    Wait MC Progress Bar Closed
+    Sleep    ${TIMEOUT_GENERAL}
+    ${count}    Get Element Count   ${trDatastoreName}
+    ${datastoresList}=    Create a List of String     ${trDatastoreName}
+    [Return]    ${datastoresList}
 
 Click Action On Data Stores By Index
     [Arguments]    ${index}

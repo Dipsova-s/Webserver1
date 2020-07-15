@@ -58,6 +58,7 @@ ${tblDatastoresGridRows}    css=#DataStoresGrid .k-grid-content tr
 ${scrollableDatastorePage}  css=#mainContent
 ${sectionDataSettings}      css=.data_settings
 ${sectionFormatSettings}        css=#format_options
+${btnEditDefaultDatastore}      .gridColumnToolbar .btn
 
 *** Keywords ***
 Fill Create New Datastore
@@ -162,6 +163,14 @@ Enter Text in Datastore filter page
     Input Text      ${txtDatastoreFilter}      ${filterText}
     Wait Until Ajax Complete
 
+Clear Text in Datastore filter page
+    Clear Element Text      ${txtDatastoreFilter}
+    Press Keys    ${txtDatastoreFilter}    RETURN
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Page Does Not Contain Element    ${gridLoading}
+    Wait MC Progress Bar Closed
+    Sleep    ${TIMEOUT_GENERAL}
+
 Verify the DataStoresGrid is filtered with Text
     [Arguments]     ${filterText}
     @{rowList}  Get Grid Column Texts  ${tblDatastoresGridRows}  1
@@ -176,6 +185,14 @@ Click on Edit in action drop down by Datastore name
     Scroll Vertical To Element    ${scrollBarGrid}    ${trRowDatastoreGrid}:contains(${name})
     Click Element    ${trRowDatastoreGrid}:contains(${name}) ${btnEditAction}
     Wait Until Login Page Contains Text     Edit datastore
+
+Click on Edit in action drop down by Default Datastore name
+    [Arguments]    ${name}
+    Wait Until Page Contains Element    ${trRowDatastoreGrid}:contains(${name}) ${btnEditDefaultDatastore}
+    Scroll Horizontal  ${scrollBarHorizontalGrid}  2000
+    Scroll Vertical To Element    ${scrollBarGrid}    ${trRowDatastoreGrid}:contains(${name})
+    Click Element    ${trRowDatastoreGrid}:contains(${name}) ${btnEditDefaultDatastore}
+    Wait Until Login Page Contains Text     Export defaults
 
 Verify the field values for Datastore Name
     [Arguments]     ${datastoreName}     
@@ -227,11 +244,12 @@ Click on Delete in action drop down by Datastore name and Delete Datastore
     Click Show Action Dropdown In Grid By Name   ${name}     ${trRowDatastoreGrid}
     Click Action In Grid By Name    ${name}     ${trRowDatastoreGrid}   ${btnDeleteAction}
     Wait Until Login Page Contains Text     Delete Data Store:
-    Click Element   ${btnDeleteDatastore}
+    Click Element   ${btnDeleteDatastore}    
+    Wait Until Element Is Visible       ${dataGridDataStoresGrid}
+    Wait Datastores Page Ready
 
 Verify the datastore is not available in Datastore Grid
     [Arguments]     ${datastorePlugin}      ${datastoreName}
-    Sleep   10s
     Enter Text in Datastore filter page  ${datastoreName}
     Element Should Not Be Visible   //div[@id='DataStoresGridContainer']//tr/td[text()='${datastoreName}']/parent::tr/td[text()='${datastorePlugin}']
 

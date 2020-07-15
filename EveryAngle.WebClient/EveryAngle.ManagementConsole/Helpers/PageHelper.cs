@@ -105,7 +105,8 @@ namespace EveryAngle.ManagementConsole.Helpers
                     {
                         { "name", "&sort=name" },
                         { "plugin_name", "&sort=type" },
-                        { "allow_write", "&sort=allow_write" }
+                        { "allow_write", "&sort=allow_write" },
+                        { "is_default", "&sort=is_default" }
                     };
                     return GetSortingQuery(sortDescriptor, sortDatastoreMappers);
                 }

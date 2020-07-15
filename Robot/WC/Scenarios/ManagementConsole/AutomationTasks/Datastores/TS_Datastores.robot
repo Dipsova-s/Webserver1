@@ -10,6 +10,15 @@ Default Checkbox For Default Datastores Should Be Selected
     [Arguments]     ${defaultDatastoreName}
     Default Checkbox For Default Datastores     ${defaultDatastoreName}
 
+Sorting Default Datastores
+    Click Add Data Stores
+    Select Datastore Plugins option in popup    ${pluginExcel}
+    Create a New Excel Datastore with Default Settings      ${pluginExcel}   AlphaTest
+    Clear Text in Datastore filter page
+    Sorting on Default Column   Export to CSV - Default     Export to Excel Default
+    Verify the Datastore is deleted successfully      ${pluginExcel}   AlphaTest
+    Clear Text in Datastore filter page
+
 Create a New CSV DataStores
     [Arguments]     ${datastorePlugin}      ${datastoreName}
     Fill Create New Datastore   ${datastoreName}      
@@ -32,6 +41,12 @@ Create a New Excel DataStores
     Fill Connection Settings  outputfolderpath
     Fill Data Settings for Excel Export  5  Short name  Display  6  {anglename:}     EveryAngle-Orange.xlsx  {displayname:}  check
     Fill Angle Settings  check  check
+    Click on Save button in DataStore   ${datastorePlugin}      ${datastoreName}
+
+Create a New Excel Datastore with Default Settings
+    [Arguments]     ${datastorePlugin}      ${datastoreName}
+    Fill Create New Datastore   ${datastoreName}   
+    Fill Connection Settings  outputfolderpath
     Click on Save button in DataStore   ${datastorePlugin}      ${datastoreName}
 
 Create a New SQL DataStores
@@ -103,7 +118,7 @@ Verify the edited value is displayed in SQL Datastore
 
 Default Values are displayed in Default Excel Datastore
     [Arguments]     ${editedDatastoreName}
-    Click on Edit in action drop down by Datastore name     ${editedDatastoreName}
+    Click on Edit in action drop down by Default Datastore name     ${editedDatastoreName}
     Wait For Export Defaults Page     Export defaults   Export to Excel
     Verify the Default value for Default datastores in Edit Datastore   Export to Excel Default
     Verify the Default value for Default datastores in Connection Settings    Data\\AppServer\\ExportOutput
@@ -113,7 +128,7 @@ Default Values are displayed in Default Excel Datastore
 
 Default Values are displayed in Default CSV Datastore
     [Arguments]     ${editedDatastoreName}
-    Click on Edit in action drop down by Datastore name     ${editedDatastoreName}
+    Click on Edit in action drop down by Default Datastore name     ${editedDatastoreName}
     Wait For Export Defaults Page     Export defaults   Export to CSV
     Verify the Default value for Default datastores in Edit Datastore   Export to CSV - Default
     Verify the Default value for Default datastores in Connection Settings    Data\\AppServer\\ExportOutput

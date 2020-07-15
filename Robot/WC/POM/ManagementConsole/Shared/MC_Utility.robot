@@ -12,6 +12,7 @@ ${btnAction}                .btnGroupContainer a:first
 ${btnView}                  .btn btnInfo.first
 ${btnDelete}                .btnDelete.first
 
+${gridLoading}              css=#Grid .k-loading-mask
 
 *** Keywords ***
 Go To MC Page

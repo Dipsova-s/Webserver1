@@ -26,13 +26,9 @@
 
         columns.Bound(model => model.is_default)
             .ClientTemplate(
-                "<label>"
-                + "# if (data.is_default == true) { #"
-                + "<input name=\"IsEnabled\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" disabled=\"disabled\">"
-                + "# } else { #"
-                + "<input name=\"IsEnabled\" data-default=\"false\" type=\"checkbox\" disabled=\"disabled\">"
-                + "# } #"
-                + "<span class=\"label\"></span></label>")
+                "# if (data.is_default == true) { #"
+                + "<img alt='Default Datastore' src='" + string.Format(Url.Content("~/images/icons/icon_check.svg")) + "' />"
+                + "# } #")
             .HeaderHtmlAttributes(new { @class = "columnBoolean" })
             .HtmlAttributes(new { @Class = "columnBoolean" })
             .Width(75)
@@ -40,7 +36,15 @@
             .Title(Resource.Default);
 
         columns.Bound("Uri")
-            .ClientTemplate(gridButton)
+            .ClientTemplate(
+                "# if (data.is_default == true && data.datastore_plugin == 'csv') { #"
+                + "<a class='btn btnOpenWindow btnLink' href='\\" + SiteMapHelper.ActionHash("AngleExports/ExportDefault/ExportCsv") + "' />"
+                + "# } else if (data.is_default == true && data.datastore_plugin == 'msexcel') { #"
+                + "<a class='btn btnOpenWindow btnLink' href='\\"+ SiteMapHelper.ActionHash("AngleExports/ExportDefault/ExportExcel") + "' />"
+                + "# } else { #"
+                + gridButton
+                + "# } #"
+            )
             .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
             .HtmlAttributes(new { @class = "gridColumnToolbar" })
             .Width(75)

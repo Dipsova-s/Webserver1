@@ -1746,6 +1746,12 @@ table.grid tbody td:first-child {
     line-height: 1;
 }
 
+.gridContainer .k-grid .columnBoolean > img {
+    vertical-align: middle;
+    height: 15px;
+    width: 15px;
+}
+
 .gridContainer .k-grid .columnBoolean > label {
     width: 13px;
     display: inline-block;
@@ -1767,6 +1773,11 @@ table.grid tbody td:first-child {
     height: 16px;
     margin-right: 10px;
     background: transparent none center center no-repeat;
+}
+
+.gridContainer .btnLink {
+    vertical-align: middle;
+    transform: scale(1.2);
 }
 
 .gridContainer .iconFilter {
