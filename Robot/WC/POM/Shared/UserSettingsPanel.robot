@@ -93,6 +93,7 @@ Click Fields Tab
 Click Save User Settings
     Click Element    ${btnSaveSettings}
     Wait Search Page Document Loaded
+    Close All Toasts
 
 Set Vertical Scrollbar To Be Visible
     ${wrapper}    Get JQuery Selector    ${divSettingPanelWrapper}
