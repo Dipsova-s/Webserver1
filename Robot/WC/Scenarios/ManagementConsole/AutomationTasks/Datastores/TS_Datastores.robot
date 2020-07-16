@@ -53,7 +53,7 @@ Create a New SQL DataStores
     [Arguments]     ${datastorePlugin}      ${datastoreName}
     Fill Create New Datastore   ${datastoreName}    
     Fill Connection Settings for SQL Export  nl-bangalore1\SQLEXPRESS  sa  ea  2019sp2  check
-    Fill Data Settings for SQL Export  5  Short name  Display  6  {anglename:}  100  check
+    Fill Data Settings for SQL Export  5  Short name  Display  6  {anglename:}  100  Append
     Click on Save button in DataStore   ${datastorePlugin}      ${datastoreName}
 
 Verify the Datastore Filtered with Text
@@ -106,7 +106,7 @@ Edit the Existing SQL Datastore by name
     Click on Edit in action drop down by Datastore name     ${name}
     Fill Create New Datastore   ${editedDatastoreName}    
     Fill Connection Settings for SQL Export  nl-bangalore1\SQLEXPRESS  sa  ea  2019sp2  check
-    Fill Data Settings for SQL Export  6  Long name  Id  5  {anglename:edited}  99  uncheck
+    Fill Data Settings for SQL Export  6  Long name  Id  5  {anglename:edited}  99  Overwrite
     Click on Save button in DataStore   ${datastorePlugin}      ${editedDatastoreName}
 
 Verify the edited value is displayed in SQL Datastore
@@ -114,7 +114,7 @@ Verify the edited value is displayed in SQL Datastore
     Click on Edit in action drop down by Datastore name     ${editedDatastoreName}
     Verify the field values for Datastore Name  ${editedDatastoreName}     
     Verify the field values for SQL Datastore in Connection Settings    nl-bangalore1\SQLEXPRESS  sa  ea  2019sp2  uncheck
-    Verify the field values for SQL Datastore in Data Settings    6  longname  id  5  {anglename:edited}  99  uncheck
+    Verify the field values for SQL Datastore in Data Settings    6  longname  id  5  {anglename:edited}  99  overwrite
 
 Default Values are displayed in Default Excel Datastore
     [Arguments]     ${editedDatastoreName}

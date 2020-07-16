@@ -21,6 +21,7 @@ ${ddlSetFormat}    enum_format
 ${txtMaxRowsToExport}    max_rows_to_export
 ${txtTableName}    css=#table_name
 ${ckbAppendResult}    append
+${ddlSqlExportType}    result_export_type
 ${txtDatastoreFileName}      css=#file_name
 ${txtDefaultDatastoreName}  xpath=//label[text()='Default datastore:']/following::p/descendant::span[@class='k-input']
 ${ddlTemplateFileName}      template_file
@@ -123,9 +124,9 @@ Fill Data Settings for Excel Export
     Input Text  ${txtDatastoreFileName}  ${fileName}
     Select Dropdown By InnerText  ${ddlTemplateFileName}  ${templateFileName}
     Input Text  ${txtDatastoreSheetName}  ${sheetName}
-    Run Keyword If    '${techInfo}' == 'check'     Select Checkbox  ${ckbTechInfo}
+	Run Keyword If    '${techInfo}' == 'check'     Select Checkbox  ${ckbTechInfo}
     Run Keyword If    '${techInfo}' == 'uncheck'     Unselect Checkbox  ${ckbTechInfo}
-
+    
 Fill Angle Settings
     [Arguments]     ${angleSummary}     ${angleDefinition}
     Run Keyword If    '${angleSummary}' == 'check'     Select Checkbox  ${ckbAngleSummary}
@@ -142,9 +143,8 @@ Fill Data Settings for SQL Export
     Input kendo Numeric TextBox  ${txtMaxRowsToExport}  ${maxRowstoExport}
     Input Text  ${txtTableName}  ${tableName}
     Input kendo Numeric TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
-    Run Keyword If    '${appendResult}' == 'check'     Select Checkbox  ${ckbAppendResult}
-    Run Keyword If    '${appendResult}' == 'uncheck'     Unselect Checkbox  ${ckbAppendResult}
-
+    Select Dropdown By InnerText   ${ddlSqlExportType}  ${appendResult}
+    
 Fill Connection Settings for SQL Export
     [Arguments]     ${serverName}   ${userName}     ${password}     ${databaseName}     ${integratedSecurity}
     Input Text  ${txtSQLServerName}      ${serverName}
@@ -290,9 +290,8 @@ Verify the field values for SQL Datastore in Data Settings
     Textfield value should be   ${txtMaxRowsToExport}  ${maxRowstoExport}
     Textfield value should be   ${txtTableName}  ${tableName}
     Textfield value should be     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
-    Run Keyword If    '${appendResult}' == 'check'     Checkbox should be selected  ${ckbAppendResult}
-    Run Keyword If    '${appendResult}' == 'uncheck'     Checkbox should not be selected  ${ckbAppendResult}
-
+    Textfield value should be   ${ddlSqlExportType}  ${appendResult}
+    
 Wait For Export Defaults Page
     [Arguments]     ${expectedElementName1}  ${expectedElementName2}
     Wait Until Page Contains    ${expectedElementName1}
