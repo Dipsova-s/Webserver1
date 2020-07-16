@@ -12,7 +12,6 @@
 
             self.PopupExportPackageId = '#PopupExportPackage';
         self.ExportPackageFormId = '#ExportPackageForm';
-        self.ItemExportSelectorId = '#ItemExportSelector';
         self.ModelExportSelectorId = '#ModelExportSelector';
         self.ExportPackageButtonId = '#ExportPackageButton';
         self.ExportPackageCountId = '#ExportPackageCount';
@@ -186,7 +185,6 @@
             var form = $(self.ExportPackageFormId);
             var exportPackageSelectionInput = form.find('.packageFilter input[type=checkbox]');
             $(self.ModelExportSelectorId).data("kendoDropDownList").enable(!isEnabled);
-            $(self.ItemExportSelectorId).data("kendoDropDownList").enable(!isEnabled);
             exportPackageSelectionInput.each(function () {
                 $(this).prop('disabled', isEnabled);
             });
@@ -261,10 +259,10 @@
             // initial checkboxes
             filterItems.prop('checked', true);
             filterItems.prop('disabled', false);
-            filterItems = filterItems.filter('.item');
-            self.InitialItemExportSelector(form, filterItems)
+            self.InitialItemExportSelector(filterItems)
                 .then(self.InitialExportPackageFilter)
                 .done(function () {
+                    filterItems = filterItems.filter('.item');
                     self.InitialPackageSummary(filterItems, 0);
                 });
 
@@ -282,21 +280,14 @@
                 packageId.val(id);
             }).trigger('change');
         };
-        self.InitialItemExportSelector = function (form, filterItems) {
-            var dropdownElement = form.find(self.ItemExportSelectorId);
-            var dropdown = dropdownElement.data("kendoDropDownList");
-            if (dropdown) {
-                dropdown.selectedIndex = 0;
-            }
-            else {
-                dropdownElement.kendoDropDownList({
-                    change: function () {
-                        // request counting data from server
-                        self.InitialPackageSummary(filterItems, 0);
-                    }
-                });
-            }
-
+        
+        self.InitialItemExportSelector = function (filterItems) {
+            var facetCheckBoxes = filterItems.filter('.facetItem');
+            facetCheckBoxes.off('change').on('change', function () {
+                // request counting data from server
+                self.InitialPackageSummary(filterItems, 0);
+            });
+            filterItems = filterItems.filter('.item');
             return $.when(filterItems);
         };
         self.InitialExportPackageFilter = function (checkboxes) {
@@ -328,7 +319,7 @@
 
                 // show loading indicator
                 var popup = $(self.PopupExportPackageId).data('kendoWindow');
-                var itemIds = self.DropdownValuesById(self.ItemExportSelectorId);
+                var itemIds = self.GetFacetString(formData);
                 kendo.ui.progress(popup.element, true);
 
                 // disallow black overlay
@@ -479,7 +470,7 @@
 
         self.GetFacetParameters = function (formData) {
             var modelId = self.DropdownValuesById(self.ModelExportSelectorId);
-            var itemType = self.DropdownValuesById(self.ItemExportSelectorId);
+            var itemType = self.GetFacetString(formData);
             return {
                 modelId: modelId,
                 itemType: itemType,
@@ -504,6 +495,25 @@
             var key = kendo.format('{0},{1},{2}', facetParameters.includePrivate, facetParameters.includePublished, facetParameters.includeValidated);
             var fq = kendo.format(queryTemplate, facetParameters.itemType, facetParameters.modelId, characteristicsQuery[key]);
             return fq;
+        };
+
+        //Build facet values from checkbox
+        self.GetFacetString = function (formData) {
+            var characteristicsQuery = {
+                'true,true,true': 'facet_angle facet_template facet_dashboard',
+                'false,true,true': 'facet_template facet_dashboard',
+                'true,true,false': 'facet_angle facet_template',
+                'true,false,true': 'facet_angle facet_dashboard',
+                'false,false,true': 'facet_dashboard',
+                'true,false,false': 'facet_angle',
+                'false,true,false': 'facet_template',
+                'false,false,false': ' '
+            };
+            var facetAngle = formData.hasObject('name', 'has_facet_angle');
+            var facetTemplate = formData.hasObject('name', 'has_facet_template');
+            var facetDashboard = formData.hasObject('name', 'has_facet_dashboard');
+            var key = kendo.format('{0},{1},{2}', facetAngle, facetTemplate, facetDashboard);
+            return characteristicsQuery[key];
         };
 
         // callback after export package

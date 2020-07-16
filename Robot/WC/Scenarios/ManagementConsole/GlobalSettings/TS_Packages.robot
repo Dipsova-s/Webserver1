@@ -30,24 +30,27 @@ Verify GUI Export Package Popup
     # all UI exist
     Select Radio Button     packageCreationBy       Selection
     Page Should Contain Radio Button    ${rdoExportPackageMode}
-    Page Should Contain List    ${ddlItemTypeList}
+    Page Should Contain Checkbox    ${chkFacetAngleItem}
+    Page Should Contain Checkbox    ${chkFacetTemplateItem}
+    Page Should Contain Checkbox    ${chkFacetDashboardItem}
     Page Should Contain Checkbox    ${chkPrivateItems}
     Page Should Contain Checkbox    ${chkPublishedItems}
     Page Should Contain Checkbox    ${chkValidatedItems}
     Page Should Contain Checkbox    ${chkLabelItems}
-
-    # Angles, Templates and Both are in the list
-    @{itemTypeList}    Get List Items    ${ddlItemTypeList}
-    ${itemTypeListLength}    Get Length          ${itemTypeList}
-    Should Be True    ${itemTypeListLength} == 3
-
+   
     # checkboxes are checked by default
+    Checkbox Should Be Selected    ${chkFacetAngleItem}
+    Checkbox Should Be Selected    ${chkFacetTemplateItem}
+    Checkbox Should Be Selected    ${chkFacetDashboardItem}
     Checkbox Should Be Selected    ${chkPrivateItems}
     Checkbox Should Be Selected    ${chkPublishedItems}
     Checkbox Should Be Selected    ${chkValidatedItems}
     Checkbox Should Be Selected    ${chkLabelItems}
 
     # checkboxes are enabled by default
+    Element Should Be Enabled    ${chkFacetAngleItem}
+    Element Should Be Enabled    ${chkFacetTemplateItem}
+    Element Should Be Enabled    ${chkFacetDashboardItem}
     Element Should Be Enabled    ${chkPrivateItems}
     Element Should Be Enabled    ${chkPublishedItems}
     Element Should Be Enabled    ${chkValidatedItems}

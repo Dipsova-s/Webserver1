@@ -2887,6 +2887,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dashboards.
+        /// </summary>
+        public static string Dashboards {
+            get {
+                return ResourceManager.GetString("Dashboards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angle description.
         /// </summary>
         public static string DashboardWidgetInfo_HeaderAngleDescription {
@@ -9828,7 +9837,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include or exclude Private Angles and/or Templates.
+        ///   Looks up a localized string similar to Include or exclude Private items.
         /// </summary>
         public static string MC_ExportPackageIncludePrivateItemDescription {
             get {
@@ -9837,7 +9846,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include or exclude all Published (Unvalidated) Angles and/or Templates.
+        ///   Looks up a localized string similar to Include or exclude all Published (Unvalidated) items.
         /// </summary>
         public static string MC_ExportPackageIncludePublishedItemDescription {
             get {
@@ -9846,7 +9855,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include or exclude all Validated Angles and/or Templates.
+        ///   Looks up a localized string similar to Include or exclude all Validated items.
         /// </summary>
         public static string MC_ExportPackageIncludeValidatedItemDescription {
             get {

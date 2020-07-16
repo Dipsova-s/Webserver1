@@ -57,12 +57,10 @@
                         }
                     </select>
                 </p>
-                <p class="itemExportSelectorContainer">
-                    <select id="ItemExportSelector">
-                        <option value="facet_angle">@Resource.Angles</option>
-                        <option value="facet_template">@Resource.Templates</option>
-                        <option value="facet_template facet_angle">@Resource.Both</option>
-                    </select>
+                <p id="ItemExportSelector">
+                    <label><input class="facetItem" type="checkbox" name="has_facet_angle" value="facet_angle" /><span class="label">@Resource.Angles</span></label>
+                    <label><input class="facetItem" type="checkbox" name="has_facet_template" value="facet_template" /><span class="label">@Resource.Templates</span></label>
+                    <label><input class="facetItem" type="checkbox" name="has_facet_dashboard" value="facet_dashboard" /><span class="label">@Resource.Dashboards</span></label>
                 </p>
                 <br />
                 <p>

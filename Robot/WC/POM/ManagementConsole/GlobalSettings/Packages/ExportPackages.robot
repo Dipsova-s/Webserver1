@@ -9,7 +9,9 @@ ${btnCloseExportPackagePopup}                                   jquery=#ExportPa
 ${pgPopupExportPackage}                                         jquery=#PopupExportPackage .k-loading-image
 
 ${rdoExportPackageMode}                                         jquery=#ExportPackageForm .packageSelection input[type=radio]
-${ddlItemTypeList}                                              jquery=#ExportPackageForm .packageFilter select#ItemExportSelector
+${chkFacetAngleItem}                                            jquery=#ExportPackageForm .packageFilter input[name="has_facet_angle"]
+${chkFacetTemplateItem}                                         jquery=#ExportPackageForm .packageFilter input[name="has_facet_template"]
+${chkFacetDashboardItem}                                        jquery=#ExportPackageForm .packageFilter input[name="has_facet_dashboard"]
 ${chkPrivateItems}                                              jquery=#ExportPackageForm .packageFilter input[name="has_private"]
 ${chkPublishedItems}                                            jquery=#ExportPackageForm .packageFilter input[name="has_published"]
 ${chkValidatedItems}                                            jquery=#ExportPackageForm .packageFilter input[name="has_validated"]
@@ -56,9 +58,7 @@ Unselect Checkbox In Export Package Popup
     Wait Until Export Package Popup Is Ready
 
 Select Content drop down value in Export Package Popup
-    [Arguments]     ${dpdValue}
     Select Radio Button     packageCreationBy       Selection
-    Select Dropdown By InnerText  ${dpdItemTypeList}   ${dpdValue}
     Wait Until Export Package Popup Is Ready
 
 Click on OK button in Create Package popup

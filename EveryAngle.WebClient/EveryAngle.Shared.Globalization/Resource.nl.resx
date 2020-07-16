@@ -3440,13 +3440,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Include or exclude all Label categories and labels</value>
   </data>
   <data name="MC_ExportPackageIncludePrivateItemDescription" xml:space="preserve">
-    <value>Include or exclude Private Angles and/or Templates</value>
+    <value>Include or exclude Private items</value>
   </data>
   <data name="MC_ExportPackageIncludePublishedItemDescription" xml:space="preserve">
-    <value>Include or exclude all Published (Unvalidated) Angles and/or Templates</value>
+    <value>Include or exclude all Published (Unvalidated) items</value>
   </data>
   <data name="MC_ExportPackageIncludeValidatedItemDescription" xml:space="preserve">
-    <value>Include or exclude all Validated Angles and/or Templates</value>
+    <value>Include or exclude all Validated items</value>
   </data>
   <data name="MC_PackageInfo" xml:space="preserve">
     <value>Package info</value>
@@ -3992,5 +3992,8 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   </data>
   <data name="MC_Items" xml:space="preserve">
     <value>Items</value>
+  </data>
+  <data name="Dashboards" xml:space="preserve">
+    <value>Dashboards</value>
   </data>
 </root>

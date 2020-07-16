@@ -5714,13 +5714,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Include or exclude all Label categories and labels</value>
   </data>
   <data name="MC_ExportPackageIncludePrivateItemDescription" xml:space="preserve">
-    <value>Include or exclude Private Angles and/or Templates</value>
+    <value>Include or exclude Private items</value>
   </data>
   <data name="MC_ExportPackageIncludePublishedItemDescription" xml:space="preserve">
-    <value>Include or exclude all Published (Unvalidated) Angles and/or Templates</value>
+    <value>Include or exclude all Published (Unvalidated) items</value>
   </data>
   <data name="MC_ExportPackageIncludeValidatedItemDescription" xml:space="preserve">
-    <value>Include or exclude all Validated Angles and/or Templates</value>
+    <value>Include or exclude all Validated items</value>
   </data>
   <data name="MC_PackageInfo" xml:space="preserve">
     <value>Package info</value>
@@ -6418,5 +6418,8 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="MC_Items" xml:space="preserve">
     <value>Items</value>
+  </data>
+  <data name="Dashboards" xml:space="preserve">
+    <value>Dashboards</value>
   </data>
 </root>

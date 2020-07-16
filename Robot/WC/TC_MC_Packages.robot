@@ -32,7 +32,7 @@ Create new package and verify the package is created successfully
     ${randomString}     Generate Random String   8    [LETTERS]
     ${packageName}   catenate  ${randomString}_Robot_Package
     Click To Open Export Package Popup
-    Select Content drop down value in Export Package Popup  Both
+    Select Content drop down value in Export Package Popup
     Edit the GUI Export Package options     ${packageName}
     Click on OK button in Create Package popup
     Verify Uploaded Package And Filter The Package  ${packageName}

@@ -49,7 +49,8 @@ describe("MC.GlobalSettings.Packages", function () {
                 return true;
             });
 
-            spyOn(packages, 'DropdownValuesById').and.returnValues('EA2_800', 'facet_angle');
+            spyOn(packages, 'DropdownValuesById').and.returnValues('EA2_800');
+            spyOn(packages, 'GetFacetString').and.returnValues('facet_angle');
 
             // act
             var actualResult = packages.GetFacetParameters(formData);
@@ -308,4 +309,31 @@ describe("MC.GlobalSettings.Packages", function () {
             expect(packages.CheckSubmitButtonState).toHaveBeenCalled();
         });
     });
+
+    describe(".GetFacetString", function () {
+        var tests = [
+            { name: 'should return all facet values', facetAngle: true, facetTemplate: true, facetDashboard: true, expectedResult: "facet_angle facet_template facet_dashboard" },
+            { name: 'should return facet_template and facet_dashboard values', facetAngle: false, facetTemplate: true, facetDashboard: true, expectedResult: "facet_template facet_dashboard" },
+            { name: 'should return facet_angle and facet_template values', facetAngle: true, facetTemplate: true, facetDashboard: false, expectedResult: "facet_angle facet_template" },
+            { name: 'should return facet_angle and facet_dashboard values', facetAngle: true, facetTemplate: false, facetDashboard: true, expectedResult: "facet_angle facet_dashboard" },
+            { name: 'should return facet_dashboard value', facetAngle: false, facetTemplate: false, facetDashboard: true, expectedResult: "facet_dashboard" },
+            { name: 'should return facet_angle value', facetAngle: true, facetTemplate: false, facetDashboard: false, expectedResult: "facet_angle" },
+            { name: 'should return facet_template value', facetAngle: false, facetTemplate: true, facetDashboard: false, expectedResult: "facet_template" },
+            { name: 'should return no facet value', facetAngle: false, facetTemplate: false, facetDashboard: false, expectedResult: " " },
+        ];
+        var formData = {
+            hasObject: $.noop
+        };
+
+        $.each(tests, function (index, test) {
+            it(test.name, function () {
+                spyOn(formData, 'hasObject').and.returnValues(test.facetAngle, test.facetTemplate, test.facetDashboard);
+                // act
+                var actualResult = packages.GetFacetString(formData);
+                // assert
+                expect(test.expectedResult).toEqual(actualResult);
+            });
+        });
+    });
+
 });
