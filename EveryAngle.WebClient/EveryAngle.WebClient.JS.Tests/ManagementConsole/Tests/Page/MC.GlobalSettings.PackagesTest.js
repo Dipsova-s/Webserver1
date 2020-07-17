@@ -8,7 +8,7 @@ describe("MC.GlobalSettings.Packages", function () {
         packages = MC.GlobalSettings.Packages;
     });
 
-    describe(".InitExportPostData()", function () {
+    describe(".InitExportPostData", function () {
         it("verify export post data", function () {
             // arrange
             var expectedResult = {
@@ -29,7 +29,7 @@ describe("MC.GlobalSettings.Packages", function () {
         });
     });
 
-    describe(".GetFacetParameters(formData)", function () {
+    describe(".GetFacetParameters", function () {
         it("verify facet parameters", function () {
             // arrange
             var formData = {
@@ -60,7 +60,7 @@ describe("MC.GlobalSettings.Packages", function () {
         });
     });
 
-    describe(".GetFacetQueryString(facetParameter)", function () {
+    describe(".GetFacetQueryString", function () {
         // arrange
         var tests = [{
             name: 'all items',
@@ -135,7 +135,7 @@ describe("MC.GlobalSettings.Packages", function () {
         });
     });
 
-    describe(".HasItems(itemSummaries)", function () {
+    describe(".HasItems", function () {
         // arrange
         var tests = [{
             expectedResult: false,
@@ -164,7 +164,7 @@ describe("MC.GlobalSettings.Packages", function () {
         });
     });
 
-    describe(".GetExportPostData()", function () {
+    describe(".GetExportPostData", function () {
 
         var tests = [
             { name: 'should get export post data with include labels option for selecton', labels: true, labelExpected: true, packageCreationBy: 'Selection' },
@@ -319,7 +319,7 @@ describe("MC.GlobalSettings.Packages", function () {
             { name: 'should return facet_dashboard value', facetAngle: false, facetTemplate: false, facetDashboard: true, expectedResult: "facet_dashboard" },
             { name: 'should return facet_angle value', facetAngle: true, facetTemplate: false, facetDashboard: false, expectedResult: "facet_angle" },
             { name: 'should return facet_template value', facetAngle: false, facetTemplate: true, facetDashboard: false, expectedResult: "facet_template" },
-            { name: 'should return no facet value', facetAngle: false, facetTemplate: false, facetDashboard: false, expectedResult: " " },
+            { name: 'should return no facet value', facetAngle: false, facetTemplate: false, facetDashboard: false, expectedResult: " " }
         ];
         var formData = {
             hasObject: $.noop
@@ -336,4 +336,27 @@ describe("MC.GlobalSettings.Packages", function () {
         });
     });
 
+
+    describe(".DownloadPackage", function () {
+        var e;
+        beforeEach(function () {
+            e = { preventDefault: $.noop };
+            spyOn(e, 'preventDefault');
+            spyOn(MC.util, 'download');
+        });
+        it("should not download", function () {
+            packages.DownloadPackage(e, $('<a href="test.txt" class="disabled"/>')[0]);
+
+            // assert
+            expect(MC.util.download).not.toHaveBeenCalled();
+            expect(e.preventDefault).toHaveBeenCalled();
+        });
+        it("should download", function () {
+            packages.DownloadPackage(e, $('<a href="test.txt"/>')[0]);
+
+            // assert
+            expect(MC.util.download).not.toHaveBeenCalledWith('test.txt');
+            expect(e.preventDefault).toHaveBeenCalled();
+        });
+    });
 });

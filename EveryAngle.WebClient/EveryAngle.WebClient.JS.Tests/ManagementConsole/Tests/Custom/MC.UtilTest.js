@@ -1,4 +1,4 @@
-﻿describe("MC.util.js", function () {
+﻿describe("MC.util", function () {
 
     var getOffsetText = function (offset) {
         return 'UTC' + (offset <= 0 ? '+' : '') + (-1 * offset / 60);
@@ -8,15 +8,37 @@
         return kendo.toString(hour, '00') + ':00';
     };
 
-    describe("when create new instance", function () {
+    describe(".download", function () {
+        it("should download with iframe", function () {
+            spyOn(MC.util, 'getDownloadUrl').and.returnValue('test.pdf');
+            spyOn($.fn, 'on').and.returnValue($());
+            spyOn($.fn, 'attr').and.returnValue($());
+            spyOn($.fn, 'appendTo').and.returnValue($());
+            MC.util.download('test.pdf', true);
 
-        it("should be defined", function () {
-            expect(MC.util).toBeDefined();
+            expect($.fn.on).toHaveBeenCalled();
+            expect($.fn.attr).toHaveBeenCalledWith('src', 'test.pdf');
+            expect($.fn.appendTo).toHaveBeenCalledWith('body');
         });
-
     });
 
-    describe("MC.util.setWindowTitle", function () {
+    describe(".getDownloadUrl", function () {
+        beforeEach(function () {
+            spyOn(ValidationRequestService, 'getVerificationTokenAsQueryString').and.returnValue('request_verification_token=my-secret-key');
+        });
+        it("should get download url with token (url=test.pdf)", function () {
+            var url = 'test.pdf';
+            var result = MC.util.getDownloadUrl(url);
+            expect(result).toEqual('test.pdf?request_verification_token=my-secret-key');
+        });
+        it("should get download url with token (url=test.pdf?param=value)", function () {
+            var url = 'test.pdf?param=value';
+            var result = MC.util.getDownloadUrl(url);
+            expect(result).toEqual('test.pdf?param=value&request_verification_token=my-secret-key');
+        });
+    });
+
+    describe(".setWindowTitle", function () {
         it("should set window title correctly", function () {
             var currentTitle = document.title;
             var newTitle = 'table couplings';
@@ -29,7 +51,7 @@
         });
     });
 
-    describe("MC.util.encodeHtml", function () {
+    describe(".encodeHtml", function () {
         var tests = [
             { html: '<div class="test">test1 > test2</div>', expected: '&lt;div class=&quot;test&quot;&gt;test1 &gt; test2&lt;/div&gt;' },
             { html: 'I\'m a developer, "Gaj"', expected: 'I&#39;m a developer, &quot;Gaj&quot;' }
@@ -43,7 +65,7 @@
         });
     });
 
-    describe("MC.util.getController", function () {
+    describe(".getController", function () {
 
         window.normalFunction = $.noop;
         window.deepFunction = { level1: { level2: $.noop } };
@@ -65,7 +87,7 @@
         });
     });
 
-    describe("MC.util.unixtimeToTimePicker", function () {
+    describe(".unixtimeToTimePicker", function () {
 
         var currentOffset = kendo.date.today().getTimezoneOffset();
         var tests = [
@@ -86,7 +108,7 @@
 
     });
 
-    describe("MC.util.timePickerToUnixTime", function () {
+    describe(".timePickerToUnixTime", function () {
         var tests = [
             { offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: true, expected: 0 },
             { offset: 0, date: new Date(1970, 0, 1, 1, 0, 0), utc: true, expected: 3600 }
@@ -102,7 +124,7 @@
         });
     });
 
-    describe("MC.util.getDisplayTimeUTC", function () {
+    describe(".getDisplayTimeUTC", function () {
 
         var tests = [
             { seconds: null, expected: '' },
@@ -119,7 +141,7 @@
 
     });
 
-    describe("MC.util.getDisplayTimeLocal", function () {
+    describe(".getDisplayTimeLocal", function () {
         // currecnt location offset
         var offset = kendo.date.today().getTimezoneOffset();
 
@@ -145,7 +167,7 @@
 
     });
 
-    describe("MC.util.dateStringToTimestamp", function () {
+    describe(".dateStringToTimestamp", function () {
 
         var tests = [
             { testcase: 'should return timestamp correctly, when is not null', input: '2019-04-02T07:41:11', isNull: false },
@@ -161,5 +183,4 @@
         });
 
     });
-
 });

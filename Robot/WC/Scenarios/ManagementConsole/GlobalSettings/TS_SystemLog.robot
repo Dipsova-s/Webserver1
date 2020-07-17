@@ -8,9 +8,8 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/SystemLogs/Repository.ro
 
 *** Keywords ***
 Download Forbidden File
-    [Arguments]    ${uri}
-    ${token}    Execute JavaScript    return ValidationRequestService.getVerificationTokenAsQueryString();
-    Execute JavaScript    window.location='/${Branch}/admin${uri}&${token}';
+    [Arguments]    ${url}
+    Execute JavaScript    MC.util.download('/${Branch}/admin${url}');
     Sleep     1s
     Page Should Contain    Forbidden
 

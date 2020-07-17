@@ -32,51 +32,6 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         #region "Public"
 
-        public ActionResult GetAllModelServers(string modelUri, string modelId, string q = "")
-        {
-            ViewBag.ModelId = modelId;
-            ViewBag.ModelUri = modelUri;
-
-            return PartialView("~/Views/Model/ModelServers/AllModelServer.cshtml");
-        }
-
-        public ActionResult GetFilterModelServers(string modelUri, string q = "")
-        {
-            string modelUriLower = modelUri.ToLower();
-            var sessionHelper = SessionHelper.Initialize();
-            var currentModel = sessionHelper.GetModel(modelUriLower);
-            var modelServers = GetModelServers(q, modelUriLower, 1, MaxPageSize);
-            var currentInstanceModelServerId = string.Empty;
-
-            if (modelServers != null && modelServers.Data.Any())
-            {
-                modelServers.Data = modelServers.Data.Where(model => model.id != "EA4IT_Xtractor").ToList();
-                modelServers.Header.Total = modelServers.Header.Total - 1;
-            }
-
-            if (currentModel != null && currentModel.current_instance != null)
-            {
-                var modelServer =
-                    modelServers.Data.Find(
-                        filter =>
-                            filter.instance != null &&
-                            filter.instance.ToString() == currentModel.current_instance.ToString());
-                if (modelServer != null)
-                {
-                    currentInstanceModelServerId = modelServer.id;
-                }
-            }
-
-            modelServers.Data.ForEach(x => x.status = (x.IsProcessing.HasValue && x.IsProcessing.Value) ? "Postprocessing" : x.status);
-
-            ViewData["CurrentInstanceId"] = currentInstanceModelServerId;
-            ViewData["Total"] = modelServers.Header.Total;
-            ViewData["SearchKeyword"] = string.IsNullOrEmpty(q) ? string.Empty : q;
-            ViewData["DefaultPageSize"] = MaxPageSize;
-            ViewBag.ModelUri = modelUriLower;
-            return PartialView("~/Views/Model/ModelServers/ModelServerGrid.cshtml", modelServers.Data);
-        }
-
         public ActionResult GetAllModelServer(string modelServerUri, bool isCurrentInstance)
         {
             // model instances
@@ -125,18 +80,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ReadModelServers(string q, string modelUri, [DataSourceRequest] DataSourceRequest request)
-        {
-            var modelServer = GetModelServers(q, modelUri, request.Page, DefaultPageSize);
-            var result = new DataSourceResult
-            {
-                Data = modelServer.Data,
-                Total = modelServer.Header != null ? modelServer.Header.Total : 0
-            };
-            return Json(result);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
         public void KillSAPJobs(string modelServerUri, string body)
         {
             ModelServerViewModel modelServer = _modelService.GetModelServer(modelServerUri);
@@ -176,28 +119,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         #endregion
 
         #region "Private"
-
-        private ListViewModel<ModelServerViewModel> GetModelServers(string q, string modelUri, int page, int pagesize)
-        {
-            var models = SessionHelper.Initialize().Models;
-            var model = models.FirstOrDefault(eachModel => eachModel.Uri.ToString() == modelUri);
-            var modelServer = new ListViewModel<ModelServerViewModel>();
-            if (model.ServerUri != null)
-            {
-                modelServer =
-                    _modelService.GetModelServers(model.ServerUri + "?" +
-                                                 UtilitiesHelper.GetOffsetLimitQueryString(page, pagesize, q));
-                foreach (var item in modelServer.Data)
-                {
-                    item.modelId =
-                        models.FirstOrDefault(eachModel => eachModel.Uri.ToString() == item.model.ToString()).id;
-                    item.instance_status = item.instance_status != null
-                        ? _modelService.GetInstance(item.instance.ToString()).status
-                        : "";
-                }
-            }
-            return modelServer;
-        }
 
         private void CreateReportTreeView(List<TreeViewItemModel> parentDetails,
             List<ModelServerReportViewModel> reports, string reportName)

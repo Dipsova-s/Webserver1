@@ -9,8 +9,43 @@ MC.util = {
         if (!obj.hasClass('disabled')) {
             location.hash = (obj.data('url') || obj.attr('href')) + '?parameters=' + JSON.stringify(obj.data('parameters'));
         }
-
         MC.util.preventDefault(e);
+    },
+    download: function (url, useFrame) {
+        var downloadUrl = this.getDownloadUrl(url);
+        if (useFrame === true) {
+            $('<iframe/>')
+                .on('load', function () {
+                    // error will call this event
+                    var xhr = {
+                        status: Localization.Error_Title,
+                        responseText: ''
+                    };
+                    try {
+                        var data = JSON.parse($(this).contents().find('body').text());
+                        xhr = {
+                            status: data.status,
+                            responseText: data.message
+                        };
+                    }
+                    catch (e) {
+                        // no error
+                    }
+                    var errorMessage = MC.ajax.getErrorMessage(xhr, null, null);
+                    MC.ui.loading.show();
+                    MC.ui.loading.setError(errorMessage);
+                    $(this).remove();
+                })
+                .hide()
+                .attr('src', downloadUrl)
+                .appendTo('body');
+        }
+        else {
+            location.href = downloadUrl;
+        }
+    },
+    getDownloadUrl: function (url) {
+        return url + (url.indexOf('?') === -1 ? '?' : '&') + ValidationRequestService.getVerificationTokenAsQueryString();
     },
     previewImage: function (input, target, defaultImage) {
         jQuery(input).attr('title', input.value);

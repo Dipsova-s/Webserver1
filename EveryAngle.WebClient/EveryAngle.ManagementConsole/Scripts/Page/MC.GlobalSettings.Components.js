@@ -38,24 +38,7 @@
                 obj.href,
                 jsondata.MetadataName,
                 jsondata.MetadataUri);
-
-            $('<iframe/>')
-                .on('load', function () {
-                    // error will call this event
-                    var data = JSON.parse($(this).contents().find('body').text());
-                    var xhr = {
-                        status: data.status,
-                        responseText: data.message
-                    };
-                    var errorMessage = MC.ajax.getErrorMessage(xhr, null, null);
-                    MC.ui.loading.show();
-                    MC.ui.loading.setError(errorMessage);
-                    $(this).remove();
-                })
-                .hide()
-                .attr('src', url)
-                .appendTo('body');
-
+            MC.util.download(url, true);
             MC.util.preventDefault(e);
         };
 

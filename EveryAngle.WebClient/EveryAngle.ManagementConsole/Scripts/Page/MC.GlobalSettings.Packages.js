@@ -141,7 +141,7 @@
 
         self.DownloadPackage = function (e, obj) {
             if (!$(obj).hasClass('disabled')) {
-                location.href = obj.href + "&" + ValidationRequestService.getVerificationTokenAsQueryString();
+                MC.util.download(obj.href);
             }
             MC.util.preventDefault(e);
         };

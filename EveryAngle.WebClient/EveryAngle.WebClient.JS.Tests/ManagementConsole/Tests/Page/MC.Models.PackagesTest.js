@@ -1,19 +1,8 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.Models.Packages.js" />
 
-describe("MC.Models.Packages.js", function () {
-
-    describe("MC.Models.Packages", function () {
-
-        it("should be defined", function () {
-            expect(MC.Models.Packages).toBeDefined();
-        });
-
-    });
-
-    describe("MC.Models.Packages.GetPackageButtonsTemplate", function () {
-
+describe("MC.Models.Packages", function () {
+    describe(".GetPackageButtonsTemplate", function () {
         it("should no error", function () {
-
             // prepare
             var data = {};
             var enable = true;
@@ -29,18 +18,15 @@ describe("MC.Models.Packages.js", function () {
             expect(MC.Models.Packages.GetPackageButtonHtml).toHaveBeenCalled();
             expect('').toEqual(template);
         });
-
     });
 
-    describe("MC.Models.Packages.GetPackageActionHtmlAttributes", function () {
-
+    describe(".GetPackageActionHtmlAttributes", function () {
         beforeEach(function () {
             MC.Models.Packages.ManagePackageUri = 'url1';
             MC.Models.Packages.ModelId = 'model1';
         });
 
         it("should get correct attributes for IsActivatingPackage state", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'IsActivatingPackage').and.callFake(function () { return true; });
 
@@ -50,11 +36,9 @@ describe("MC.Models.Packages.js", function () {
             // assert
             expect(attributes['class']).toEqual('btn btnSetInactive disabled');
             expect(attributes.text).toEqual(Localization.Activate);
-
         });
 
         it("should get correct attributes for IsDeactivatingPackage state", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'IsActivatingPackage').and.callFake(function () { return false; });
             spyOn(MC.Models.Packages, 'IsDeactivatingPackage').and.callFake(function () { return true; });
@@ -65,11 +49,9 @@ describe("MC.Models.Packages.js", function () {
             // assert
             expect(attributes['class']).toEqual('btn btnSetActive disabled');
             expect(attributes.text).toEqual(Localization.Deactivate);
-
         });
 
         it("should get correct attributes if CanDeactivatePackage and enable", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'IsActivatingPackage').and.callFake(function () { return false; });
             spyOn(MC.Models.Packages, 'IsDeactivatingPackage').and.callFake(function () { return false; });
@@ -85,11 +67,9 @@ describe("MC.Models.Packages.js", function () {
             expect(attributes.onclick).toBeDefined();
             expect(attributes['data-parameters']).toBeDefined();
             expect(attributes['data-delete-template']).toEqual(Localization.MC_ConfirmDeactivatePackage);
-
         });
 
         it("should get correct attributes if CanDeactivatePackage and disable", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'IsActivatingPackage').and.callFake(function () { return false; });
             spyOn(MC.Models.Packages, 'IsDeactivatingPackage').and.callFake(function () { return false; });
@@ -105,11 +85,9 @@ describe("MC.Models.Packages.js", function () {
             expect(attributes.onclick).not.toBeDefined();
             expect(attributes['data-parameters']).not.toBeDefined();
             expect(attributes['data-delete-template']).not.toBeDefined();
-
         });
 
         it("should get correct attributes if CanUpdatePackage and enable", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'IsActivatingPackage').and.callFake(function () { return false; });
             spyOn(MC.Models.Packages, 'IsDeactivatingPackage').and.callFake(function () { return false; });
@@ -126,11 +104,9 @@ describe("MC.Models.Packages.js", function () {
             expect(attributes.onclick).toBeDefined();
             expect(attributes['data-parameters']).toBeDefined();
             expect(attributes['data-delete-template']).toEqual(Localization.MC_ConfirmUpdatePackage);
-
         });
 
         it("should get correct attributes if CanUpdatePackage and disable", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'IsActivatingPackage').and.callFake(function () { return false; });
             spyOn(MC.Models.Packages, 'IsDeactivatingPackage').and.callFake(function () { return false; });
@@ -147,11 +123,9 @@ describe("MC.Models.Packages.js", function () {
             expect(attributes.onclick).not.toBeDefined();
             expect(attributes['data-parameters']).not.toBeDefined();
             expect(attributes['data-delete-template']).not.toBeDefined();
-
         });
 
         it("should get correct attributes if CanActivatePackage and enable", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'IsActivatingPackage').and.callFake(function () { return false; });
             spyOn(MC.Models.Packages, 'IsDeactivatingPackage').and.callFake(function () { return false; });
@@ -168,11 +142,9 @@ describe("MC.Models.Packages.js", function () {
             expect(attributes.onclick).toBeDefined();
             expect(attributes['data-parameters']).toBeDefined();
             expect(attributes['data-delete-template']).toEqual(Localization.MC_ConfirmActivatePackage);
-
         });
 
         it("should get correct attributes if CanActivatePackage and disable", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'IsActivatingPackage').and.callFake(function () { return false; });
             spyOn(MC.Models.Packages, 'IsDeactivatingPackage').and.callFake(function () { return false; });
@@ -189,19 +161,15 @@ describe("MC.Models.Packages.js", function () {
             expect(attributes.onclick).not.toBeDefined();
             expect(attributes['data-parameters']).not.toBeDefined();
             expect(attributes['data-delete-template']).not.toBeDefined();
-
         });
-
     });
 
-    describe("MC.Models.Packages.GetPackageDownloadHtmlAttributes", function () {
-
+    describe(".GetPackageDownloadHtmlAttributes", function () {
         beforeEach(function () {
             MC.Models.Packages.DownloadPackageUri = 'url1';
         });
 
         it("should get correct attributes for enable download state", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'CanDownloadPackage').and.callFake(function () { return true; });
 
@@ -213,11 +181,9 @@ describe("MC.Models.Packages.js", function () {
             expect(attributes.text).toEqual(Localization.Download);
             expect(attributes.href).toBeDefined();
             expect(attributes.onclick).toBeDefined();
-
         });
 
         it("should get correct attributes for disable download state", function () {
-
             // prepare
             spyOn(MC.Models.Packages, 'CanDownloadPackage').and.callFake(function () { return false; });
 
@@ -229,15 +195,11 @@ describe("MC.Models.Packages.js", function () {
             expect(attributes.text).toEqual(Localization.Download);
             expect(attributes.href).not.toBeDefined();
             expect(attributes.onclick).not.toBeDefined();
-
         });
-
     });
 
-    describe("MC.Models.Packages.GetPackageButtonHtml", function () {
-
+    describe(".GetPackageButtonHtml", function () {
         it("should create button html by attributes", function () {
-
             // prepare
             var attributes = {
                 text: 'test',
@@ -250,11 +212,9 @@ describe("MC.Models.Packages.js", function () {
             // assert
             expect('<a href=\'url\' class=\'class\'>test</a>').toEqual(template);
         });
-
     });
 
-    describe("MC.Models.Packages.IsActivatingPackage", function () {
-
+    describe(".IsActivatingPackage", function () {
         var tests = [
             {
                 status: 'Activating',
@@ -267,7 +227,6 @@ describe("MC.Models.Packages.js", function () {
         ];
 
         $.each(tests, function (index, test) {
-
             it("should " + test.expected + " for status " + test.status, function () {
 
                 // prepare
@@ -276,13 +235,11 @@ describe("MC.Models.Packages.js", function () {
                 // assert
                 expect(test.expected).toEqual(result);
             });
-
         });
 
     });
 
-    describe("MC.Models.Packages.IsDeactivatingPackage", function () {
-
+    describe(".IsDeactivatingPackage", function () {
         var tests = [
             {
                 status: 'Deactivating',
@@ -295,22 +252,17 @@ describe("MC.Models.Packages.js", function () {
         ];
 
         $.each(tests, function (index, test) {
-
             it("should " + test.expected + " for status " + test.status, function () {
-
                 // prepare
                 var result = MC.Models.Packages.IsDeactivatingPackage(test.status);
 
                 // assert
                 expect(test.expected).toEqual(result);
             });
-
         });
-
     });
 
-    describe("MC.Models.Packages.CanDeactivatePackage", function () {
-
+    describe(".CanDeactivatePackage", function () {
         var tests = [
             {
                 active: true,
@@ -340,9 +292,7 @@ describe("MC.Models.Packages.js", function () {
         ];
 
         $.each(tests, function (index, test) {
-
             it("should " + test.expected + " if active=" + test.active + ", active_version=" + test.active_version + ", Version=" + test.Version, function () {
-
                 // prepare
                 var data = {
                     active: test.active,
@@ -355,13 +305,10 @@ describe("MC.Models.Packages.js", function () {
                 // assert
                 expect(test.expected).toEqual(result);
             });
-
         });
-
     });
 
-    describe("MC.Models.Packages.CanUpdatePackage", function () {
-
+    describe(".CanUpdatePackage", function () {
         var tests = [
             {
                 active: false,
@@ -390,9 +337,7 @@ describe("MC.Models.Packages.js", function () {
         ];
 
         $.each(tests, function (index, test) {
-
             it("should " + test.expected + " if active=" + test.active + ", active_version=" + test.active_version + ", Version=" + test.Version, function () {
-
                 // prepare
                 var data = {
                     active: test.active,
@@ -404,13 +349,10 @@ describe("MC.Models.Packages.js", function () {
                 // assert
                 expect(test.expected).toEqual(result);
             });
-
         });
-
     });
 
-    describe("MC.Models.Packages.CanDownloadPackage", function () {
-
+    describe(".CanDownloadPackage", function () {
         var tests = [
             {
                 enable: true,
@@ -439,7 +381,6 @@ describe("MC.Models.Packages.js", function () {
         ];
 
         $.each(tests, function (index, test) {
-
             it("should " + test.expected + " if enable=" + test.enable + ", touch=" + test.touch + ", safari=" + test.safari, function () {
                 // keep default value
                 var defaultTouch = Modernizr.touch;
@@ -457,13 +398,33 @@ describe("MC.Models.Packages.js", function () {
                 // assert
                 expect(test.expected).toEqual(result);
             });
-
         });
-
     });
 
-    describe("MC.Models.Packages.includeLabelsSelected", function () {
+    describe(".DownloadPackage", function () {
+        var e;
+        beforeEach(function () {
+            e = { preventDefault: $.noop };
+            spyOn(e, 'preventDefault');
+            spyOn(MC.util, 'download');
+        });
+        it("should not download", function () {
+            MC.Models.Packages.DownloadPackage(e, $('<a href="test.txt" class="disabled"/>')[0]);
 
+            // assert
+            expect(MC.util.download).not.toHaveBeenCalled();
+            expect(e.preventDefault).toHaveBeenCalled();
+        });
+        it("should download", function () {
+            MC.Models.Packages.DownloadPackage(e, $('<a href="test.txt"/>')[0]);
+
+            // assert
+            expect(MC.util.download).not.toHaveBeenCalledWith('test.txt');
+            expect(e.preventDefault).toHaveBeenCalled();
+        });
+    });
+
+    describe(".includeLabelsSelected", function () {
         var tests = [{
             checked: true
         }, {
@@ -483,6 +444,5 @@ describe("MC.Models.Packages.js", function () {
                     expect($.fn.addClass).toHaveBeenCalled();
             });
         });
-
     });
 });

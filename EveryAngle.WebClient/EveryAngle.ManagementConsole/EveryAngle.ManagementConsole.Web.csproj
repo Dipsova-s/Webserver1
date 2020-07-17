@@ -666,10 +666,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DownloadTable\DowloadTableFieldsGrid.cshtml" />
-    <Content Include="Views\Model\ModelServers\AllModelServer.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Model\ModelServers\ModelServerGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\ImportUsers.cshtml" />
