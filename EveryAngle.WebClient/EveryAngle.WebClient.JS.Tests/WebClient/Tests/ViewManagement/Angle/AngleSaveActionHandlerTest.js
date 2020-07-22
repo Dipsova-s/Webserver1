@@ -27,7 +27,8 @@ describe("AngleSaveActionHandler", function () {
             CanSetTemplate: $.noop,
             CanCreateTemplateAngle: $.noop,
             ConfirmSave: $.noop,
-            SaveAll: $.noop
+            SaveAll: $.noop,
+            SaveDisplay: $.noop
         };
         stateHandler = {
             SetTemplateStatus: $.noop
@@ -256,6 +257,139 @@ describe("AngleSaveActionHandler", function () {
             // assert
             expect(angleSaveActionHandler.Redirect).not.toHaveBeenCalled();
             expect(angleSaveActionHandler.AngleHandler.ForceInitial).toHaveBeenCalled();
+            expect(angleSaveActionHandler.ExecuteAngle).toHaveBeenCalled();
+        });
+    });
+
+    describe(".VisibleSaveDisplay", function () {
+        var tests = [
+            {
+                title: 'should be true (isAdhoc=false, canSave=true)',
+                isAdhoc: false,
+                canSave: true,
+                expected: true
+            },
+            {
+                title: 'should be false (isAdhoc=true, canSave=true)',
+                isAdhoc: true,
+                canSave: true,
+                expected: false
+            },
+            {
+                title: 'should be false (isAdhoc=false, canSave=false)',
+                isAdhoc: false,
+                canSave: false,
+                expected: false
+            }
+        ];
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(angleSaveActionHandler.AngleHandler, 'IsAdhoc').and.returnValue(test.isAdhoc);
+                spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue({
+                    CanCreateOrUpdate: function () { return test.canSave; }
+                });
+
+                var actual = angleSaveActionHandler.VisibleSaveDisplay();
+                expect(actual).toEqual(test.expected);
+            });
+        });
+    });
+    describe(".EnableSaveDisplay", function () {
+        var tests = [
+            {
+                title: 'should be true (canSave=true, hasData=true)',
+                canSave: true,
+                hasData: true,
+                expected: true
+            },
+            {
+                title: 'should be false (canSave=false, hasData=true)',
+                canSave: false,
+                hasData: true,
+                expected: false
+            },
+            {
+                title: 'should be false (canSave=true, hasData=false)',
+                canSave: true,
+                hasData: false,
+                expected: false
+            }
+        ];
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue({
+                    CanCreateOrUpdate: function () { return test.canSave; },
+                    GetCreateOrUpdateData: function () { return test.hasData; }
+                });
+
+                var actual = angleSaveActionHandler.EnableSaveDisplay();
+                expect(actual).toEqual(test.expected);
+            });
+        });
+    });
+    describe(".SaveDisplay", function () {
+        var displayHandler;
+        beforeEach(function () {
+            displayHandler = {
+                ConfirmSave: $.noop
+            };
+            spyOn(displayHandler, 'ConfirmSave');
+            spyOn(angleSaveActionHandler, 'HideSaveOptionsMenu');
+            spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue(displayHandler);
+        });
+        it('should not save', function () {
+            spyOn(angleSaveActionHandler, 'EnableSaveDisplay').and.returnValue(false);
+            angleSaveActionHandler.SaveDisplay();
+
+            // assert
+            expect(angleSaveActionHandler.HideSaveOptionsMenu).not.toHaveBeenCalled();
+            expect(displayHandler.ConfirmSave).not.toHaveBeenCalled();
+        });
+        it('should save', function () {
+            spyOn(angleSaveActionHandler, 'EnableSaveDisplay').and.returnValue(true);
+            angleSaveActionHandler.SaveDisplay();
+
+            // assert
+            expect(angleSaveActionHandler.HideSaveOptionsMenu).toHaveBeenCalled();
+            expect(displayHandler.ConfirmSave).toHaveBeenCalled();
+        });
+    });
+    describe(".ForceSaveDisplay", function () {
+        it('should save', function () {
+            spyOn(angleSaveActionHandler, 'IsRedirect');
+            spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue({
+                Data: ko.observable({ id: $.noop })
+            });
+            spyOn(progressbarModel, 'ShowStartProgressBar');
+            spyOn(progressbarModel, 'SetDisableProgressBar');
+            spyOn(angleSaveActionHandler.AngleHandler, 'SaveDisplay').and.returnValue($.when());
+            spyOn(angleSaveActionHandler, 'SaveDisplayDone');
+            angleSaveActionHandler.ForceSaveDisplay();
+
+            // assert
+            expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
+            expect(progressbarModel.SetDisableProgressBar).toHaveBeenCalled();
+            expect(angleSaveActionHandler.AngleHandler.SaveDisplay).toHaveBeenCalled();
+            expect(angleSaveActionHandler.SaveDisplayDone).toHaveBeenCalled();
+        });
+    });
+    describe(".SaveDisplayDone", function () {
+        beforeEach(function () {
+            spyOn(angleSaveActionHandler, 'ExecuteAngle');
+            spyOn(angleSaveActionHandler, 'Redirect');
+        });
+        it('should redirect', function () {
+            angleSaveActionHandler.SaveDisplayDone(true, 'id');
+
+            // assert
+            expect(angleSaveActionHandler.Redirect).toHaveBeenCalled();
+            expect(angleSaveActionHandler.ExecuteAngle).not.toHaveBeenCalled();
+        });
+        it('should execute Angle', function () {
+            angleSaveActionHandler.SaveDisplayDone(false, 'id');
+
+            // assert
+            expect(angleSaveActionHandler.Redirect).not.toHaveBeenCalled();
             expect(angleSaveActionHandler.ExecuteAngle).toHaveBeenCalled();
         });
     });
