@@ -344,7 +344,7 @@ Check Keep Active Display Filter Enabled When Has Filter On Display
     Add Or Change Filter    ID     ID    has_value     ${TRUE}
 	Click Apply Filter On Display
     Keep Active Display Filter Should Enabled
-    Click Save All
+    Click Save Display
 
 Check Filter Is Applied When Enabled Keep Active Display Filter And Switch To Other Display
     Create New List Display on Angle Page

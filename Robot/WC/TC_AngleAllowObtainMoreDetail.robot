@@ -22,7 +22,7 @@ Verify Angle For Allow Obtain More Details Test
     Verify Visibility Of Adding Filter And Jump In Side Panel    ${True}
     Verify Disable Drilldown In Context Menu    ${False}    ${fieldId}    ${fieldKeyword}    ${TRUE}
     Verify Disable Removing Column And Adding Filter In Column Menu    ${False}    ${fieldId}
-    Click Save All
+    Click Save Display
     Set Angle To Not Allow User To Obtain More Details
     Add New Column Should Not Be Visible
     Verify Visibility Of Adding Filter And Jump In Side Panel    ${False}

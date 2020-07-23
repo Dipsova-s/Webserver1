@@ -33,7 +33,7 @@ Remember Changes When Switch Display
     ...              A Display will keep changes when swiched back to it.
     ...              Clicking Save button should remove the asterisk sign.
     ...              Risk/Cover area: Changing and saving Displays
-    [Tags]  TC_C219259  TC_C228702
+    [Tags]  TC_C219259  TC_C230315
     ${angleName}  Set Variable  [ROBOT] Test Remember Changes When Switch Display
     Create Angle From Object List And Save    PD    ${angleName}
 
