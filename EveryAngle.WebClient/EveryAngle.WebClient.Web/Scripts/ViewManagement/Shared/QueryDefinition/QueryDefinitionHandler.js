@@ -286,6 +286,9 @@
         return self.Authorizations.CanSave();
     };
     self.Cancel = function () {
+        if (!self.HasChanged(false, false))
+            return;
+
         // revert every changes
         var sourceQueryDefinition = self.GetRawQueryDefinition();
         self.ForcedUpdateData(sourceQueryDefinition);

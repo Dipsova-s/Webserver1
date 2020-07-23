@@ -27,7 +27,7 @@ SetupFiles
 # Getting Started
 1.	Install Visual studio extensions
     1.  NUnit 2 Test Adapter
-    2.  Chutzpah Test Runner Context MEnu Extension
+    2.  Chutzpah Test Runner Context Menu Extension
     3.  Chutzpah Test Adapter for the Test Explorer
     4.  SonarLint for Visual Studio
     5.  Web Compiler

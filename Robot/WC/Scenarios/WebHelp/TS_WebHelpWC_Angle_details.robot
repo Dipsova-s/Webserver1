@@ -39,7 +39,7 @@ Crop Edit Filter Button
     Crop WebHelp Image  WC_Icon_Edit.png  css=#TabContentAngle .item-filter .action-edit  ${False}
 
 Crop Undo Button
-    Crop WebHelp Image  WC_Icon_Undo.png  css=#TabContentAngle .action-cancel  ${False}
+    Crop WebHelp Image  WC_Icon_Undo.png  css=#TabContentAngle .btn-cancel  ${False}
     Click Undo Filters And Jumps
 
 Crop Angle Publishing Popup

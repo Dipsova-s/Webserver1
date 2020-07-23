@@ -92,6 +92,9 @@ QueryStepView.prototype.GetFiltersAndJumpsTemplate = function () {
                 '<a class="btn btn-secondary btn-small btn-save" data-bind="click: Save, css: { disabled: !HasChanged(true, false) }, attr: { \'data-busy\': Localization.Saving }">',
                     '<span data-bind="text: Texts().ApplyButton"></span>',
                 '</a>',
+                '<a class="btn btn-ghost btn-small btn-cancel" data-bind="click: Cancel, css: { disabled: !HasChanged(false, false) }">',
+                    '<span data-bind="text: Localization.Cancel"></span>',
+                '</a>',
             '</div>',
             '<!-- /ko -->',
         '</div>'

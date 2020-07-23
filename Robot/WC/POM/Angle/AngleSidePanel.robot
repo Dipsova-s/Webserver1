@@ -37,7 +37,7 @@ ${btnAddFilter}                         .action-edit-filters
 ${btnAddJump}                           .action-add-jump
 ${btnAddFilterToJump}                   .action-add-filter
 ${btnDeleteOperator}                    .action-delete
-${btnUndo}                              .action-cancel
+${btnUndo}                              .btn-cancel
 ${btnApplyFilter}                       .btn-save
 ${chkExecutionParameter}                .query-execution-parameter
 ${btnSelectField}                       .btn-select-field
