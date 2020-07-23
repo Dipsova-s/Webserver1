@@ -1229,7 +1229,8 @@ div.k-tooltip.k-chart-tooltip {
 .k-tagtextbox.k-state-focused {
   box-shadow: none; }
   .k-tagtextbox.k-state-focused > .k-multiselect-wrap {
-    box-shadow: none; }
+    box-shadow: none;
+    border-color: #358ed7; }
 
 .k-tagtextbox.k-state-border-down > .k-multiselect-wrap, .k-tagtextbox.k-state-border-down.k-state-focused > .k-multiselect-wrap, .k-tagtextbox.k-state-border-down.k-state-focused:hover > .k-multiselect-wrap {
   border-color: #358ed7;

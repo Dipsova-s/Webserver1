@@ -19,6 +19,7 @@ ${txtbox1}                  //div[@class='sectionWelcome sectionWelcomeDetail1']
 ${btnModelingWorkbench}     //a[@id='btnWorkbench']
 ${txtbox2}                  //div[@class='sectionWelcome sectionWelcomeDetail2']
 ${imgCustomerLogo}          css=.sectionWelcomeLogo > img[src*="logo_EN"]
+${divMostUsedTagFilter}     css=#MostUsedTags .item-label
 
 #Sort options
 ${ddlSorting}               SortItemBySelect_ddlWrapper
@@ -694,3 +695,6 @@ Delete Angle Via Search Page
 Check Existing Tag From Search Result
     [Arguments]    ${tag}
     Element Should Contain   ${gridSearchResult}    ${tag}
+
+Check Existing Most Used Tag From Search Filter
+    Page Should Contain Element  ${divMostUsedTagFilter}

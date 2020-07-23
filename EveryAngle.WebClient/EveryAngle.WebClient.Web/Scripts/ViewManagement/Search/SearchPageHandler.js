@@ -102,7 +102,7 @@ window.SearchPageHandler = function () {
 
             // facet
             WC.HtmlHelper.ApplyKnockout(facetFiltersViewModel, jQuery('#LeftMenu .facetFilter'));
-            facetFiltersViewModel.CreateTagInputUI();
+            facetFiltersViewModel.InitialTagUI();
 
             createNewAngleViewManagementModel.UpdateCreateNewAngleButton();
 
@@ -122,12 +122,12 @@ window.SearchPageHandler = function () {
             if (isExecuteAutoWhenLogon && hasExecuteAutoWhenLogon)
                 self.AutoExecuteList();
 
-            // update layout
-            self.UpdateLayout();
-
             WCNotificationsFeedCreator.Create(userModel.Data().id);
 
             self.HandlerSidePanel.Initial();
+
+            // update layout
+            self.UpdateLayout();
         }
 
         // callback
@@ -787,7 +787,7 @@ window.SearchPageHandler = function () {
         });
     };
     self.SearchItemFail = function () {
-        facetFiltersViewModel.CreateTagInputUI();
+        facetFiltersViewModel.InitialTagUI();
         searchQueryModel.SetUIControlFromUrl();
     };
     self.SearchItemSuccess = function (data) {
@@ -811,7 +811,7 @@ window.SearchPageHandler = function () {
             jQuery('#SearchFilterView, #SearchSortingView').show();
 
             facetFiltersViewModel.SetFacetAndSort(data);
-            facetFiltersViewModel.CreateTagInputUI();
+            facetFiltersViewModel.InitialTagUI();
             self.RenderActionDropdownList();
             self.BindSortingDropdown();
             createNewAngleViewManagementModel.UpdateCreateNewAngleButton();

@@ -999,7 +999,11 @@
     .item-label-wrapper {
         display: block;
         margin-top: 2px;
-        min-height: 25px;
+        height: 25px;
+
+        .item-label {
+            font-size: 12px;
+        }
     }
 
     .Date {

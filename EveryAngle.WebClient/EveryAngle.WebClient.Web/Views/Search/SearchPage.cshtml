@@ -39,11 +39,9 @@
 
 <div id="MainContent" class="Wrapper content-wrapper">
     <div id="LeftMenu" class="hidden">
-        <div class="left-menu-wrapper box-scrollable">
-            <div class="left-menu-container box-scrollable-content">
-                @{Html.RenderPartial("~/Views/Search/PartialViews/CreateNewAngle.cshtml"); }
-                @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters.cshtml"); }
-            </div>
+        <div class="left-menu-wrapper">
+            @{Html.RenderPartial("~/Views/Search/PartialViews/CreateNewAngle.cshtml"); }
+            @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters.cshtml"); }
         </div>
     </div>
     <div id="Content" class="main-content">

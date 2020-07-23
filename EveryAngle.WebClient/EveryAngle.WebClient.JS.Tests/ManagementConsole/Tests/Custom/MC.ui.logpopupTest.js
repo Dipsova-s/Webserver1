@@ -88,13 +88,13 @@
         var testCases = [
             { filePath: "test.log", result: true },
             { filePath: "logtest.log", result: true },
-            { filePath: "test.csl", result: false }
+            { filePath: "test.csl", result: false },
             { filePath: "logtest.csl", result: false }
         ];
         testCases.forEach(function (testCase) {
             it("should return " + testCase.result + " if log file", function () {
                 var isLogFile = MC.ui.logpopup.LogFileCheck(testCase.filePath);
-                expect(isLogFile).toBe(testCase.result);
+                expect(!!isLogFile).toBe(testCase.result);
             });
         });
     });

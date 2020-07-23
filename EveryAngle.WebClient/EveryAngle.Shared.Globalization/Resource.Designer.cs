@@ -16895,7 +16895,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter Tags.
+        ///   Looks up a localized string similar to Search Tag.
         /// </summary>
         public static string SearchTagInputPlaceholder {
             get {

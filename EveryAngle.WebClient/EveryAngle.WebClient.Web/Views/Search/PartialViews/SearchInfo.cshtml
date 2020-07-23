@@ -6,7 +6,7 @@
         <!-- ko foreach: { data: ListView, as: 'facet' } -->
         <!-- ko foreach:  { data: facet.filters(), as: 'filter' } -->
         <!-- ko if: filter.checked()-->
-        <div class="item-label item-label-light">
+        <div class="item-label item-label-primary">
             <span data-bind="text: filter.name, css: { 'strike-through': filter.negative }"></span>
             <a class="btn-remove" data-bind="click: $root.UnselectFacetFilter.bind(this, filter)"><i class="icon icon-close"></i></a>
         </div>

@@ -68,7 +68,7 @@
 
         clearTimeout(_self.fnSaveTimeout);
         if (getValue(tags) !== getValue(self.GetValue()))
-            _self.fnSaveTimeout = setTimeout(jQuery.proxy(self.Save, self, tags), self.DashboardModel.IsTemporaryDashboard() ? 0 : _self.saveTimeout);
+            _self.fnSaveTimeout = setTimeout(jQuery.proxy(self.Save, self, tags), self.DashboardModel.IsTemporaryDashboard() || !e.sender._isDeselected ? 0 : _self.saveTimeout);
     };
     self.Save = function (tags) {
         if (self.DashboardModel.IsTemporaryDashboard()) {

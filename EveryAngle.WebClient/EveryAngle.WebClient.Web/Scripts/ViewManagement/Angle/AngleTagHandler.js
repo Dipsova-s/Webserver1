@@ -65,7 +65,7 @@
         };
         clearTimeout(_self.fnSaveTimeout);
         if (getValue(tags) !== getValue(self.GetValue()))
-            _self.fnSaveTimeout = setTimeout(jQuery.proxy(self.Save, self, tags), self.AngleHandler.IsAdhoc() ? 0 : _self.saveTimeout);
+            _self.fnSaveTimeout = setTimeout(jQuery.proxy(self.Save, self, tags), self.AngleHandler.IsAdhoc() || !e.sender._isDeselected ? 0 : _self.saveTimeout);
     };
     self.Save = function (tags) {
         self.$Container.busyIndicator(true);

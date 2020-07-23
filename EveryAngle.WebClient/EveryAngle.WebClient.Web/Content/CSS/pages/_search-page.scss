@@ -96,6 +96,40 @@ $left-menu-background-color: #fcfcfc;
         display: none;
     }
 
+    .tags-most-used {
+        margin-right: -5px;
+
+        .item-label {
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 0 7px 0 7px;
+            max-width: 186px;
+
+            &:hover {
+                background-color: #d8d8d8;
+                text-shadow: $text-shadow-bold;
+            }
+
+            .tag-content {
+                display: flex;
+            }
+
+            .tag-count {
+                padding-left: 3px;
+            }
+        }
+
+        .item-label-selected {
+            background-color: $primary-color;
+
+            &:hover {
+                background-color: $primary-color;
+                text-shadow: none;
+            }
+        }
+    }
+
     .facetFilter {
 
         .facetFilterSection .FilterCheckBox {

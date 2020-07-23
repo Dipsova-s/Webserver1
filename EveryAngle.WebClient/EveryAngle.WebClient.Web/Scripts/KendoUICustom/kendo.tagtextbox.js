@@ -152,6 +152,7 @@
             var dataItem = that._getTagByName(e.dataItem[that.options.dataTextField]);
             if (dataItem)
                 dataItem.deselected = true;
+            that._isDeselected = true;
             that._userOptions.deselect.call(that, e);
         },
         _forcedChange: function (e) {
@@ -181,6 +182,7 @@
             if (that._canTriggerChanged && that._hasChanged()) {
                 that._defaultValue = that.value().slice();
                 that._userOptions.change.call(that, e);
+                delete that._isDeselected;
             }
         },
 

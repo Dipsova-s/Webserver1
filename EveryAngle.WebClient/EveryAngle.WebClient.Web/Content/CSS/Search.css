@@ -809,7 +809,9 @@
   .ResultContent .item-label-wrapper {
     display: block;
     margin-top: 2px;
-    min-height: 25px; }
+    height: 25px; }
+    .ResultContent .item-label-wrapper .item-label {
+      font-size: 12px; }
   .ResultContent .Date {
     color: #919699;
     padding-top: 6px;
@@ -1029,6 +1031,26 @@
     z-index: 10; }
   #LeftMenu .k-tagtextbox ul {
     display: none; }
+  #LeftMenu .tags-most-used {
+    margin-right: -5px; }
+    #LeftMenu .tags-most-used .item-label {
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 0 7px 0 7px;
+      max-width: 186px; }
+      #LeftMenu .tags-most-used .item-label:hover {
+        background-color: #d8d8d8;
+        text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
+      #LeftMenu .tags-most-used .item-label .tag-content {
+        display: flex; }
+      #LeftMenu .tags-most-used .item-label .tag-count {
+        padding-left: 3px; }
+    #LeftMenu .tags-most-used .item-label-selected {
+      background-color: #358ed7; }
+      #LeftMenu .tags-most-used .item-label-selected:hover {
+        background-color: #358ed7;
+        text-shadow: none; }
   #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox {
     padding-bottom: 9px; }
   #LeftMenu .facetFilter .k-tagtextbox {

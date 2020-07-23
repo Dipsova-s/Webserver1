@@ -26,6 +26,11 @@
         }
 
         jQuery(".content-wrapper").addClass('active');
+
+        // scroll bar
+        leftPanel.find('.left-menu-wrapper')
+            .addClass('scrollbar-custom')
+            .scrollbar();
     };
 
     self.Toggle = function () {

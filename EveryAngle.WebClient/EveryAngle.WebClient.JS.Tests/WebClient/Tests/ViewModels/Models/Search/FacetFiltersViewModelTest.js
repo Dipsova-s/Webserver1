@@ -68,6 +68,18 @@ describe("FacetFiltersViewModel", function () {
         });
     });
 
+    describe(".InitialTagUI", function () {
+        it("should initial UI", function () {
+            spyOn(facetFiltersViewModel, 'CreateTagInputUI');
+            spyOn(facetFiltersViewModel, 'CreateTagMostUsed');
+            facetFiltersViewModel.InitialTagUI();
+
+            // assert
+            expect(facetFiltersViewModel.CreateTagInputUI).toHaveBeenCalled();
+            expect(facetFiltersViewModel.CreateTagMostUsed).toHaveBeenCalled();
+        });
+    });
+
     describe(".CreateTagInputUI", function () {
         it("should create UI", function () {
             $.fn.kendoTagTextBox = $.noop;
@@ -134,22 +146,139 @@ describe("FacetFiltersViewModel", function () {
     });
 
     describe(".TagInputChange", function () {
-        it("should select checkbox state and search", function () {
-            var data = [
-                { name: 'Tag1', id: 'Tag1', checked: ko.observable(false) },
-                { name: 'Tag2', id: 'Tag2', checked: ko.observable(false) }
-            ];
+        it("should search by tags", function () {
             var e = {
                 sender: {
                     value: ko.observableArray(['Tag2'])
                 }
             };
-            spyOn(searchQueryModel, 'Search');
-            facetFiltersViewModel.TagInputChange(data, e);
+            spyOn(facetFiltersViewModel, 'SearchByTags');
+            facetFiltersViewModel.TagInputChange(e);
 
             // assert
-            expect(data[0].checked()).toEqual(false);
-            expect(data[1].checked()).toEqual(true);
+            expect(facetFiltersViewModel.SearchByTags).toHaveBeenCalledWith(['Tag2'], true);
+        });
+    });
+
+    describe(".CreateTagMostUsed", function () {
+        var element;
+        beforeEach(function () {
+            element = $('<div id="LeftMenu"><div class="tags-most-used"><div class="item-label">old</div></div></div>');
+            element.appendTo('body');
+        });
+        afterEach(function () {
+            element.remove();
+        });
+        it("should show 15 tags and sorted by count", function () {
+            var filters = [
+                { count: ko.observable(1), name: 'tag01' },
+                { count: ko.observable(4), name: 'tag02' },
+                { count: ko.observable(3), name: 'tag03' },
+                { count: ko.observable(1), name: 'tag04' },
+                { count: ko.observable(10), name: 'tag05' },
+                { count: ko.observable(100), name: 'tag06' },
+                { count: ko.observable(41), name: 'tag07' },
+                { count: ko.observable(5), name: 'tag08' },
+                { count: ko.observable(9), name: 'tag09' },
+                { count: ko.observable(1), name: 'tag10' },
+                { count: ko.observable(1), name: 'tag11' },
+                { count: ko.observable(1), name: 'tag12' },
+                { count: ko.observable(1), name: 'tag13' },
+                { count: ko.observable(1), name: 'tag14' },
+                { count: ko.observable(2), name: 'tag15' },
+                { count: ko.observable(1), name: 'tag16' },
+                { count: ko.observable(99), name: 'tag17' },
+                { count: ko.observable(87), name: 'tag18' },
+                { count: ko.observable(3), name: 'tag19' },
+                { count: ko.observable(16), name: 'tag20' }
+            ];
+            spyOn(facetFiltersViewModel, 'TagInputData').and.returnValue(filters);
+            facetFiltersViewModel.CreateTagMostUsed();
+            var $tags = element.find('.item-label');
+
+            // assert
+            expect($tags.length).toEqual(15);
+            expect($tags.eq(0).text()).toEqual('tag06(100)');
+            expect($tags.eq(1).text()).toEqual('tag17(99)');
+            expect($tags.eq(2).text()).toEqual('tag18(87)');
+            expect($tags.eq(3).text()).toEqual('tag07(41)');
+            expect($tags.eq(4).text()).toEqual('tag20(16)');
+            expect($tags.eq(5).text()).toEqual('tag05(10)');
+            expect($tags.eq(6).text()).toEqual('tag09(9)');
+            expect($tags.eq(7).text()).toEqual('tag08(5)');
+            expect($tags.eq(8).text()).toEqual('tag02(4)');
+            expect($tags.eq(9).text()).toEqual('tag03(3)');
+            expect($tags.eq(10).text()).toEqual('tag19(3)');
+            expect($tags.eq(11).text()).toEqual('tag15(2)');
+            expect($tags.eq(12).text()).toEqual('tag01(1)');
+            expect($tags.eq(13).text()).toEqual('tag04(1)');
+            expect($tags.eq(14).text()).toEqual('tag10(1)');
+        });
+    });
+
+    describe(".SetSearchTag", function () {
+        beforeEach(function () {
+            spyOn(facetFiltersViewModel, 'SetTagElementState');
+            spyOn(facetFiltersViewModel, 'SearchByTags');
+        });
+        var tests = [
+            { checked: false, expected: true },
+            { checked: true, expected: false }
+        ];
+        tests.forEach(function (test) {
+            it("should set tag states on adding [checked=" + test.checked + "] => [checked=" + test.expected + "]", function () {
+                var filter = {
+                    name: 'test',
+                    checked: test.checked
+                };
+                facetFiltersViewModel.SetSearchTag(filter, {});
+
+                // assert
+                expect(facetFiltersViewModel.SetTagElementState).toHaveBeenCalled();
+                expect(facetFiltersViewModel.SearchByTags).toHaveBeenCalledWith(['test'], test.expected);
+            });
+        });
+    });
+
+    describe(".SetTagElementState", function () {
+        beforeEach(function () {
+            spyOn($.fn, 'addClass').and.returnValue($());
+            spyOn($.fn, 'removeClass').and.returnValue($());
+        });
+        it("should set state for adding", function () {
+            facetFiltersViewModel.SetTagElementState($(), true, true);
+
+            // assert
+            expect($.fn.addClass).toHaveBeenCalled();
+            expect($.fn.removeClass).not.toHaveBeenCalled();
+        });
+        it("should set state for removing", function () {
+            facetFiltersViewModel.SetTagElementState($(), false, false);
+
+            // assert
+            expect($.fn.addClass).not.toHaveBeenCalled();
+            expect($.fn.removeClass).toHaveBeenCalled();
+        });
+    });
+
+    describe(".SearchByTags", function () {
+        it("should select checkbox state and search", function () {
+            var data = [
+                { name: 'Tag1', id: 'Tag1', checked: ko.observable(false), negative: ko.observable(false) },
+                { name: 'Tag2', id: 'Tag2', checked: ko.observable(false), negative: ko.observable(false) },
+                { name: 'Tag3', id: 'Tag3', checked: ko.observable(true), negative: ko.observable(true) }
+            ];
+            spyOn(facetFiltersViewModel, 'TagInputData').and.returnValue(data);
+            spyOn(searchQueryModel, 'Search');
+            facetFiltersViewModel.SearchByTags(['Tag1'], true);
+
+            // assert
+            expect(data[0].checked()).toEqual(true);
+            expect(data[0].negative()).toEqual(false);
+            expect(data[1].checked()).toEqual(false);
+            expect(data[1].negative()).toEqual(false);
+            expect(data[2].checked()).toEqual(true);
+            expect(data[2].negative()).toEqual(true);
             expect(searchQueryModel.Search).toHaveBeenCalled();
         });
     });

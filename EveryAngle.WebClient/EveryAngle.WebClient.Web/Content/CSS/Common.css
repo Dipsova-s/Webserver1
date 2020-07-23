@@ -2171,6 +2171,13 @@ a.breadcrumbLink:hover {
     .item-label .btn-remove .icon {
       line-height: 12px; }
 
+.item-label-primary {
+  background-color: #358ed7;
+  color: #fff;
+  border-radius: 2px; }
+  .item-label-primary .btn-remove {
+    color: #fff; }
+
 .item-label-light {
   background-color: transparent;
   background-image: linear-gradient(to right, #e6effb 0%, #f5fcff);

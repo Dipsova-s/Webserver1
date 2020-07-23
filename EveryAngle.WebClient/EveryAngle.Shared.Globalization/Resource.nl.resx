@@ -3970,7 +3970,7 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
     <value>Inclusief einddatum</value>
   </data>
   <data name="SearchTagInputPlaceholder" xml:space="preserve">
-    <value>Filter Tags</value>
+    <value>Zoek op Tag</value>
   </data>
   <data name="SearchTagNoSuggestion" xml:space="preserve">
     <value>Geen resultaten</value>

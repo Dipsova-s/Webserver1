@@ -16,6 +16,7 @@
              visible: facet.panel_opened()">
             <!-- ko if: $root.GroupTag === facet.type -->
             <select class="tags-input" id="SearchTag"></select>
+            <div class="item-label-wrapper tags-most-used" id="MostUsedTags"></div>
             <!-- /ko -->
             <ul data-bind="foreach: { data: facet.filters(), as: 'filter' }, attr: { 'class': facet.id }">
                 <li data-bind="visible: $root.CheckAngleFacetVisibility(filter.id, filter.count()) && $root.GroupTag !== facet.type">

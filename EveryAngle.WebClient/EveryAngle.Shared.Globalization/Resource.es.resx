@@ -6396,7 +6396,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>[Single Action]</value>
   </data>
   <data name="SearchTagInputPlaceholder" xml:space="preserve">
-    <value>Filter Tags</value>
+    <value>Search Tag</value>
   </data>
   <data name="SearchTagNoSuggestion" xml:space="preserve">
     <value>No matches</value>

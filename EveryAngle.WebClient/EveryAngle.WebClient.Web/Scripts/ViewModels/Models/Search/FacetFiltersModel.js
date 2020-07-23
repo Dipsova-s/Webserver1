@@ -193,6 +193,10 @@ function FacetFiltersViewModel() {
         }
         return facetItems;
     };
+    self.InitialTagUI = function () {
+        self.CreateTagInputUI();
+        self.CreateTagMostUsed();
+    };
     self.CreateTagInputUI = function () {
         var element = self.GetTagInputElement();
         var data = self.TagInputData();
@@ -211,7 +215,7 @@ function FacetFiltersViewModel() {
                 suggestion: Localization.TagSuggestionHeader,
                 noData: Localization.SearchTagNoSuggestion
             },
-            change: jQuery.proxy(self.TagInputChange, self, data)
+            change: self.TagInputChange
         });
     };
     self.GetTagInputElement = function () {
@@ -232,12 +236,48 @@ function FacetFiltersViewModel() {
         var facetTag = facets.findObject('type', self.GroupTag);
         return facetTag ? facetTag.filters() : [];
     };
-    self.TagInputChange = function(data, e) {
+    self.TagInputChange = function(e) {
         var tags = e.sender.value();
+        self.SearchByTags(tags, true);
+    };
+    self.CreateTagMostUsed = function () {
+        var maxTags = 15;
+        var element = jQuery('#LeftMenu .tags-most-used').empty();
+        var data = ko.toJS(self.TagInputData());
+        data.sortObject('count', enumHandlers.SORTDIRECTION.DESC);
+        data.splice(maxTags, data.length);
+        jQuery.each(data, function (_index, filter) {
+            // create tag element
+            var $tag = jQuery('<div class="item-label text-ellipsis"/>');
+            $tag.html(kendo.format('<span data-role="tooltip" data-showwhenneed="true" class="tag-name text-ellipsis">{0}</span><span class="tag-count">({1})</span>', filter.name, filter.count));
+            $tag.on('click', jQuery.proxy(self.SetSearchTag, self, filter));
+            self.SetTagElementState($tag, filter.checked);
+            element.append($tag);
+        });
+    };
+    self.SetSearchTag = function (filter, e) {
+        var checked = !filter.checked;
+
+        // current element
+        self.SetTagElementState(jQuery(e.currentTarget).closest('.item-label'), checked);
+
+        // data
+        self.SearchByTags([filter.name], checked);
+    };
+    self.SetTagElementState = function (element, checked) {
+        if (checked)
+            element.addClass('item-label-primary item-label-selected');
+        else
+            element.removeClass('item-label-primary item-label-selected');
+    };
+    self.SearchByTags = function (tags, checked) {
+        var data = self.TagInputData();
         jQuery.each(tags, function (_index, tag) {
             var filter = data.findObject('name', tag);
-            if (filter)
-                filter.checked(true);
+            if (filter) {
+                filter.checked(checked);
+                filter.negative(false);
+            }
         });
         searchQueryModel.Search();
     };
@@ -246,90 +286,88 @@ function FacetFiltersViewModel() {
         var facet, filter, facetData, filterItemList;
         jQuery.each(fq, function (facetId, filters) {
             facetData = {};
+            facetId = facetId.replace('-', '');
 
-            if (facetId.indexOf('-') === -1) {
-                // facet category
-                var currentFacet = currentFacets.findObject('id', facetId, false);
-                if (currentFacet) {
-                    facet = jQuery.extend({}, currentFacet);
+            // facet category
+            var currentFacet = currentFacets.findObject('id', facetId, false);
+            if (currentFacet) {
+                facet = jQuery.extend({}, currentFacet);
+            }
+            else {
+                facet = facetsCache.findObject('id', facetId, false);
+            }
+            if (!facet) {
+                facet = {
+                    id: facetId,
+                    name: facetId,
+                    description: facetId,
+                    type: facetId,
+                    filters: []
+                };
+            }
+            else {
+                if (!facet.filters) {
+                    facet.filters = [];
+                }
+            }
+            jQuery.extend(facetData, facet, { filters: [] });
+
+            // facet filters
+            jQuery.each(filters, function (index, filterId) {
+                var currentFilter = currentFacet ? currentFacet.filters.findObject('id', filterId, false) : null;
+                if (currentFilter) {
+                    filter = jQuery.extend({}, currentFilter);
                 }
                 else {
-                    facet = facetsCache.findObject('id', facetId, false);
+                    filterItemList = [];
+                    jQuery.each(facet.filters, function (index, filterItem) {
+                        filterItemList.push(filterItem);
+                    });
+
+                    filter = filterItemList.findObject('id', filterId, false);
+                    if (filter) {
+                        filter.count = 0;
+                    }
                 }
-                if (!facet) {
-                    facet = {
-                        id: facetId,
-                        name: facetId,
-                        description: facetId,
-                        type: facetId,
-                        filters: []
-                    };
+                if (filter) {
+                    facetData.filters.push(filter);
                 }
                 else {
-                    if (!facet.filters) {
-                        facet.filters = [];
-                    }
-                }
-                jQuery.extend(facetData, facet, { filters: [] });
-
-                // facet filters
-                jQuery.each(filters, function (index, filterId) {
-                    var currentFilter = currentFacet ? currentFacet.filters.findObject('id', filterId, false) : null;
-                    if (currentFilter) {
-                        filter = jQuery.extend({}, currentFilter);
-                    }
-                    else {
+                    // get facet detail from cach
+                    // Fix M4-14475: WC: Facet name will change when I select many facets
+                    var cachFacetName = filterId;
+                    var cachDescription = filterId;
+                    var cachFacetItem = facetsCache.findObject('id', facetId, false);
+                    if (cachFacetItem) {
                         filterItemList = [];
-                        jQuery.each(facet.filters, function (index, filterItem) {
+                        jQuery.each(cachFacetItem.filters, function (index, filterItem) {
                             filterItemList.push(filterItem);
                         });
 
-                        filter = filterItemList.findObject('id', filterId, false);
-                        if (filter) {
-                            filter.count = 0;
+                        var cachFilterItem = filterItemList.findObject('id', filterId, false);
+                        if (cachFilterItem) {
+                            cachFacetName = cachFilterItem.name;
+                            cachDescription = cachFilterItem.description;
                         }
                     }
-                    if (filter) {
-                        facetData.filters.push(filter);
-                    }
-                    else {
-                        // get facet detail from cach
-                        // Fix M4-14475: WC: Facet name will change when I select many facets
-                        var cachFacetName = filterId;
-                        var cachDescription = filterId;
-                        var cachFacetItem = facetsCache.findObject('id', facetId, false);
-                        if (cachFacetItem) {
-
-                            filterItemList = [];
-                            jQuery.each(cachFacetItem.filters, function (index, filterItem) {
-                                filterItemList.push(filterItem);
-                            });
-
-                            var cachFilterItem = filterItemList.findObject('id', filterId, false);
-                            if (cachFilterItem) {
-                                cachFacetName = cachFilterItem.name;
-                                cachDescription = cachFilterItem.description;
-                            }
-                        }
-                        facetData.filters.push({
-                            id: filterId,
-                            name: cachFacetName,
-                            description: cachDescription
-                        });
-                    }
-                });
-
-                // update currentFacets
-                if (!currentFacet) {
-                    currentFacets.push(facetData);
-                }
-                else {
-                    jQuery.each(filters, function (index, filterId) {
-                        if (!currentFacet.filters.hasObject('id', filterId, false)) {
-                            currentFacet.filters.push(facetData.filters.findObject('id', filterId, false));
-                        }
+                    facetData.filters.push({
+                        id: filterId,
+                        name: cachFacetName,
+                        description: cachDescription
                     });
                 }
+            });
+
+            // update currentFacets
+            if (!currentFacet) {
+                currentFacets.push(facetData);
+            }
+            else {
+                jQuery.each(filters, function (index, filterId) {
+                    if (!currentFacet.filters.hasObject('id', filterId, false)) {
+                        currentFacet.filters.push(facetData.filters.findObject('id', filterId, false));
+                    }
+                });
             }
         });
     };

@@ -62,6 +62,9 @@ Verify Search Tags
     [Setup]  Run Keywords  Import Angle By API  /models/1  ANGLE_SearchTag1.json  user=${Username}
     ...         AND        Import Angle By API  /models/1  ANGLE_SearchTag2.json  user=${Username}
     ...         AND        Reload Search Page
+
+    # check most used tags are existed
+    Check Existing Most Used Tag From Search Filter
     
     # there are 3 tags available
     Filter Item Tag  SearchTag
