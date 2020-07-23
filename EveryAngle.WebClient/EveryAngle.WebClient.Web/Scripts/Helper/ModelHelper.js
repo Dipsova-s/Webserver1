@@ -378,8 +378,10 @@
             });
 
             // user_specific
-            if (data.user_specific)
+            if (data.user_specific) {
                 delete data.user_specific.times_executed;
+                delete data.user_specific.user_default_display;
+            }
 
             // authorizations
             delete data.authorizations;

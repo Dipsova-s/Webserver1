@@ -455,6 +455,19 @@ describe("DisplayHandler", function () {
         });
     });
 
+    describe(".InitialExcelTemplate", function () {
+        it("should initial", function () {
+            //initial
+            spyOn(displayHandler.DisplayExcelTemplateHandler, 'Initial');
+
+            //prepare
+            displayHandler.InitialExcelTemplate();
+
+            //assert
+            expect(displayHandler.DisplayExcelTemplateHandler.Initial).toHaveBeenCalled();
+        });
+    });
+
     describe(".InitialQueryDefinition", function () {
         it("should initial query definition", function () {
             //initial
@@ -1393,6 +1406,52 @@ describe("DisplayHandler", function () {
         });
     });
 
+    describe(".ConfirmSave", function () {
+        var fn = {
+            checker: null,
+            callback: $.noop
+        };
+        beforeEach(function () {
+            spyOn(fn, 'callback');
+            spyOn(displayHandler, 'IsUsedInTask').and.returnValue(true);
+            spyOn(popup, 'Confirm');
+        });
+        it("should show confirmation popup with a default logic", function () {
+            // prepare
+            fn.checker = null;
+            displayHandler.ConfirmSave(fn.checker, fn.callback, $.noop);
+
+            // assert
+            expect(displayHandler.IsUsedInTask).toHaveBeenCalled();
+            expect(popup.Confirm).toHaveBeenCalled();
+            expect(fn.callback).not.toHaveBeenCalled();
+        });
+        it("should show confirmation popup with a custom logic", function () {
+            // prepare
+            fn.checker = $.noop;
+            spyOn(fn, 'checker').and.returnValue(true);
+            displayHandler.ConfirmSave(fn.checker, fn.callback, $.noop);
+
+            // assert
+            expect(displayHandler.IsUsedInTask).not.toHaveBeenCalled();
+            expect(popup.Confirm).toHaveBeenCalled();
+            expect(fn.checker).toHaveBeenCalled();
+            expect(fn.callback).not.toHaveBeenCalled();
+        });
+        it("should execute callback function", function () {
+            // prepare
+            fn.checker = $.noop;
+            spyOn(fn, 'checker').and.returnValue(false);
+            displayHandler.ConfirmSave(fn.checker, fn.callback, $.noop);
+
+            // assert
+            expect(displayHandler.IsUsedInTask).not.toHaveBeenCalled();
+            expect(popup.Confirm).not.toHaveBeenCalled();
+            expect(fn.checker).toHaveBeenCalled();
+            expect(fn.callback).toHaveBeenCalled();
+        });
+    });
+
     describe(".GetChangeData", function () {
         it("should get changes data", function () {
             //process
@@ -1477,11 +1536,19 @@ describe("DisplayHandler", function () {
     });
 
     describe(".UpdateModel", function () {
+        var otherDisplay;
         beforeEach(function () {
             spyOn(displayModel, 'LoadSuccess');
             spyOn(displayModel, 'SetTemporaryDisplay');
             spyOn(displayHandler, 'SetRawData');
             spyOn(displayHandler, 'Initial');
+            displayHandler.Data().id('this_display');
+
+            otherDisplay = new DisplayHandler({}, displayHandler.AngleHandler);
+            otherDisplay.Data().id('other_display');
+            spyOn(otherDisplay, 'SetRawData');
+
+            displayHandler.AngleHandler.Displays = [displayHandler, otherDisplay];
         });
         it("should update for adhoc", function () {
             // prepare
@@ -1492,6 +1559,7 @@ describe("DisplayHandler", function () {
             expect(displayModel.SetTemporaryDisplay).toHaveBeenCalled();
             expect(displayHandler.SetRawData).not.toHaveBeenCalled();
             expect(displayHandler.Initial).toHaveBeenCalled();
+            expect(otherDisplay.SetRawData).not.toHaveBeenCalled();
         });
         it("should update and raw for none-adhoc", function () {
             // prepare
@@ -1502,6 +1570,7 @@ describe("DisplayHandler", function () {
             expect(displayModel.SetTemporaryDisplay).not.toHaveBeenCalled();
             expect(displayHandler.SetRawData).toHaveBeenCalled();
             expect(displayHandler.Initial).toHaveBeenCalled();
+            expect(otherDisplay.SetRawData).not.toHaveBeenCalled();
         });
         it("should update for none-adhoc", function () {
             // prepare
@@ -1512,6 +1581,19 @@ describe("DisplayHandler", function () {
             expect(displayModel.SetTemporaryDisplay).not.toHaveBeenCalled();
             expect(displayHandler.SetRawData).not.toHaveBeenCalled();
             expect(displayHandler.Initial).toHaveBeenCalled();
+            expect(otherDisplay.SetRawData).not.toHaveBeenCalled();
+        });
+        it("should set other user_default_display=false", function () {
+            // prepare
+            displayHandler.Data().user_specific.is_user_default(true);
+            spyOn(WC.ModelHelper, 'IsAdhocUri').and.returnValue(true);
+            displayHandler.UpdateModel({}, true);
+
+            // assert
+            expect(displayModel.SetTemporaryDisplay).toHaveBeenCalled();
+            expect(displayHandler.SetRawData).not.toHaveBeenCalled();
+            expect(displayHandler.Initial).toHaveBeenCalled();
+            expect(otherDisplay.SetRawData).toHaveBeenCalled();
         });
     });
 
@@ -1590,7 +1672,7 @@ describe("DisplayHandler", function () {
         });
     });
     describe(".ShowAddReferenceLinePopup", function () {
-        it(" Show Add ReferenceLine Popup sholud be called", function () {
+        it("should show popup", function () {
             // prepare
             spyOn(displayHandler.DisplayResultHandler, 'ShowAddReferenceLinePopup');
             displayHandler.ShowAddReferenceLinePopup();
@@ -1599,5 +1681,22 @@ describe("DisplayHandler", function () {
             expect(displayHandler.DisplayResultHandler.ShowAddReferenceLinePopup).toHaveBeenCalled();
         });
     });
+    describe(".IsUsedInTask", function () {
+        it("should be true", function () {
+            // prepare
+            displayHandler.Data().used_in_task = true;
+            var result = displayHandler.IsUsedInTask();
 
+            // assert
+            expect(result).toEqual(true);
+        });
+        it("should be false", function () {
+            // prepare
+            displayHandler.Data().used_in_task = false;
+            var result = displayHandler.IsUsedInTask();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+    });
 });

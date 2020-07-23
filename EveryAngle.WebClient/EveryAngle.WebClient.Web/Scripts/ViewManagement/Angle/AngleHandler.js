@@ -367,11 +367,19 @@ function AngleHandler(model) {
     };
     self.SaveDisplays = function (forced) {
         var deferred = [];
-        jQuery.each(self.Displays, function (index, display) {
-            if (display.CanCreateOrUpdate())
-                deferred.pushDeferred(self.SaveDisplay, [display, forced]);
+        var saveUserDefaultInfo = null;
+        jQuery.each(self.Displays, function (_index, display) {
+            if (display.CanCreateOrUpdate()) {
+                if (display.Data().user_specific.is_user_default())
+                    saveUserDefaultInfo = [display, forced];
+                else
+                    deferred.pushDeferred(self.SaveDisplay, [display, forced]);
+            }
         });
-        return jQuery.whenAllSet(deferred);
+        return jQuery.whenAllSet(deferred)
+            .then(function () {
+                return saveUserDefaultInfo ? self.SaveDisplay.apply(self, saveUserDefaultInfo) : jQuery.when(null);
+            });
     };
     self.SaveDisplay = function (display, forced) {
         return display.CreateOrUpdate(
@@ -429,6 +437,17 @@ function AngleHandler(model) {
             .then(function () {
                 return !isAdhoc ? self.SaveDisplays(forced) : jQuery.when(null);
             });
+    };
+    self.SaveDefaultDisplay = function () {
+        var data = self.GetCreateOrUpdateData();
+        if (self.IsAdhoc() || !data || !data.angle_default_display)
+            return jQuery.when(self.GetData());
+
+        var defaultDisplayId = data.angle_default_display;
+        var saveData = {
+            angle_default_display: defaultDisplayId
+        };
+        return self.UpdateData(saveData, true, self.SaveAllDone, self.SaveAllFail);
     };
     self.SaveAllDone = function () {
         toast.MakeSuccessTextFormatting(self.GetName(), Localization.Toast_SaveItem);

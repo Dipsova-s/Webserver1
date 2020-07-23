@@ -10,26 +10,7 @@
 describe("AngleSaveActionHandler", function () {
     var angleSaveActionHandler, angleHandler, stateHandler;
     beforeEach(function () {
-        angleHandler = {
-            Displays: [],
-            Data: ko.observable({
-                is_template: ko.observable(false)
-            }),
-            GetData: $.noop,
-            IsAdhoc: $.noop,
-            ForceInitial: $.noop,
-            Validate: $.noop,
-            CanUseFilter: $.noop,
-            CanUseJump: $.noop,
-            CanCreate: $.noop,
-            CanCreateOrUpdate: $.noop,
-            GetCreateOrUpdateData: $.noop,
-            CanSetTemplate: $.noop,
-            CanCreateTemplateAngle: $.noop,
-            ConfirmSave: $.noop,
-            SaveAll: $.noop,
-            SaveDisplay: $.noop
-        };
+        angleHandler = new AngleHandler({});
         stateHandler = {
             SetTemplateStatus: $.noop
         };
@@ -362,6 +343,7 @@ describe("AngleSaveActionHandler", function () {
             });
             spyOn(progressbarModel, 'ShowStartProgressBar');
             spyOn(progressbarModel, 'SetDisableProgressBar');
+            spyOn(angleSaveActionHandler.AngleHandler, 'SaveDefaultDisplay').and.returnValue($.when());
             spyOn(angleSaveActionHandler.AngleHandler, 'SaveDisplay').and.returnValue($.when());
             spyOn(angleSaveActionHandler, 'SaveDisplayDone');
             angleSaveActionHandler.ForceSaveDisplay();
@@ -369,6 +351,7 @@ describe("AngleSaveActionHandler", function () {
             // assert
             expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
             expect(progressbarModel.SetDisableProgressBar).toHaveBeenCalled();
+            expect(angleSaveActionHandler.AngleHandler.SaveDefaultDisplay).toHaveBeenCalled();
             expect(angleSaveActionHandler.AngleHandler.SaveDisplay).toHaveBeenCalled();
             expect(angleSaveActionHandler.SaveDisplayDone).toHaveBeenCalled();
         });

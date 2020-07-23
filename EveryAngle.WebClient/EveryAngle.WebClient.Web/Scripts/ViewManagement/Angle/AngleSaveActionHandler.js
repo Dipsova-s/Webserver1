@@ -105,7 +105,10 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
         var displayId = display.Data().id();
         progressbarModel.ShowStartProgressBar();
         progressbarModel.SetDisableProgressBar();
-        return self.AngleHandler.SaveDisplay(display, true)
+        return self.AngleHandler.SaveDefaultDisplay()
+            .then(function () {
+                return self.AngleHandler.SaveDisplay(display, true);
+            })
             .always(function () {
                 self.SaveDisplayDone(isRedirect, displayId);
             });

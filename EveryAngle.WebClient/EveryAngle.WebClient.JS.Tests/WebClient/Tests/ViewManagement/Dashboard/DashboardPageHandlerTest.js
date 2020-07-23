@@ -831,6 +831,28 @@ describe("DashboardPageHandler", function () {
         });
     });
 
+    describe(".IsStarred", function () {
+        it("should be true", function () {
+            // prepare
+            spyOn(dashboardPageHandler.DashboardUserSpecificHandler, 'IsStarred').and.returnValue(true);
+            var result = dashboardPageHandler.IsStarred();
+
+            // assert
+            expect(result).toEqual(true);
+        });
+    });
+
+    describe(".SetFavorite", function () {
+        it("should set favorite", function () {
+            // prepare
+            spyOn(dashboardPageHandler.DashboardUserSpecificHandler, 'SetFavorite');
+            dashboardPageHandler.SetFavorite(null, {});
+
+            // assert
+            expect(dashboardPageHandler.DashboardUserSpecificHandler.SetFavorite).toHaveBeenCalled();
+        });
+    });
+
     describe(".InitialBusinessProcess", function () {
         it("should initial", function () {
             // prepare
@@ -839,6 +861,17 @@ describe("DashboardPageHandler", function () {
 
             // assert
             expect(dashboardPageHandler.DashboardBusinessProcessHandler.Initial).toHaveBeenCalled();
+        });
+    });
+
+    describe(".InitialTag", function () {
+        it("should initial", function () {
+            // prepare
+            spyOn(dashboardPageHandler.DashboardTagHandler, 'Initial');
+            dashboardPageHandler.InitialTag();
+
+            // assert
+            expect(dashboardPageHandler.DashboardTagHandler.Initial).toHaveBeenCalled();
         });
     });
 
