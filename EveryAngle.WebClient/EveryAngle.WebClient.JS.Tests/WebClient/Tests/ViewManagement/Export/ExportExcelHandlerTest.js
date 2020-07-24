@@ -161,16 +161,37 @@ describe("ExportExcelHandlerTest", function () {
         });
     });
     describe("call SetExportModelUI", function () {
+        var element;
+
+        beforeEach(function () {
+            element = $('<div id="InsertModelTimestamp" />').appendTo('body');
+        });
+
+        afterEach(function () {
+            element.remove();
+        });
+
         it("should call function ", function () {
             exportExcelHandler.CurrentExportModel.HeaderFormats = {};
             exportExcelHandler.CurrentExportModel = {
                 HeaderFormat: function () { },
-                TemplateFile: function () { }
+                TemplateFile: function () { },
+                ModelTimestampIndex: function () {}
             };
             $.fn.kendoDropDownList = $.noop;
+            element.data('kendoNumericTextBox', {
+                element: element
+            });
+            $.fn.kendoNumericTextBox = function () {
+                return element;
+            };
             spyOn($.fn, 'kendoDropDownList').and.returnValue($());
+            spyOn($.fn, 'kendoNumericTextBox').and.returnValue($());
+            spyOn(WC.HtmlHelper, 'DestroyNumericIfExists');
             exportExcelHandler.SetExportModelUI();
             expect($.fn.kendoDropDownList).toHaveBeenCalled();
+            expect(WC.HtmlHelper.DestroyNumericIfExists).toHaveBeenCalled();
+            expect($.fn.kendoNumericTextBox).toHaveBeenCalled();
         });
     });
     describe("call GetDatastoreDataSetting", function () {
@@ -295,6 +316,24 @@ describe("ExportExcelHandlerTest", function () {
             spyOn(exportExcelHandler, 'IsTemplateExist').and.returnValue(false);
             var result = exportExcelHandler.GetExcelTemplate(datastore);
             expect(result).toBe("EveryAngle-Test.xlsx");
+        });
+    });
+    describe(".SetVisibleInsertModelStamp", function () {
+        beforeEach(function () {
+            spyOn($.fn, 'show');
+            spyOn($.fn, 'hide');
+        });
+        it("Should call a function show", function () {
+            var displaytype = enumHandlers.DISPLAYTYPE.LIST;
+            exportExcelHandler.SetVisibleInsertModelStamp(displaytype);
+            expect($.fn.show).toHaveBeenCalled();
+            expect($.fn.hide).not.toHaveBeenCalled();
+        });
+        it("Should call a function hide", function () {
+            var displaytype = enumHandlers.DISPLAYTYPE.LISTDRILLDOWN;
+            exportExcelHandler.SetVisibleInsertModelStamp(displaytype);
+            expect($.fn.show).not.toHaveBeenCalled();
+            expect($.fn.hide).toHaveBeenCalled();
         });
     });
 });

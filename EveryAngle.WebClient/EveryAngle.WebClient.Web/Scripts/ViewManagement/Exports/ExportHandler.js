@@ -247,7 +247,7 @@ function ExportHandler() {
     };
     self.CreateAddModelDateUI = function () {
         var addModelDateUI;
-        var defaultValue = self.GetModelDateDefaultValue(self.CurrentExportModel.AddModelDateAtColumn);
+        var defaultValue = self.CurrentExportModel.AddModelDateAtColumn;
         var setInputValue = function (value) {
             self.SetModelDateInputValue(addModelDateUI, value);
         };
@@ -314,15 +314,9 @@ function ExportHandler() {
         };
         return addModelDateUI;
     };
-    self.GetModelDateDefaultValue = function (value) {
-        // convert index to number
-        // - if -1 or null, set to null
-        // - else index + 1
-        return typeof value === 'number' && value >= 0 ? value + 1 : null;
-    };
     self.GetModelDateInputValue = function (value) {
-        // get 'None' if 0
-        return parseFloat(value) === 0 ? Captions.Label_CSV_Export_ModelDate_None : value;
+        // get 'None' if null
+        return typeof value === 'number' ? value: Captions.Label_CSV_Export_ModelDate_None ;
     };
     self.SetModelDateInputValue = function (ui, value) {
         // - set 'None' if 0
@@ -331,9 +325,9 @@ function ExportHandler() {
     };
     self.SetModelDateColumn = function (value, fieldCount) {
         // set value to model
-        // - convert number to index (value - 1)
+        // - convert number to index (value)
         // - 0 is null
-        self.CurrentExportModel.AddModelDateAtColumn = value ? Math.min(value - 1, fieldCount) : null;
+        self.CurrentExportModel.AddModelDateAtColumn = typeof value === 'number' ? Math.min(value, fieldCount) : null;
     };
 
     self.ValidateExportCSV = function (exportSettings) {

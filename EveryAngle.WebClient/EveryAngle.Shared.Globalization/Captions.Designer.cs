@@ -340,6 +340,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use &apos;0&apos; to select the first column. When no model timestamp column is required, enter -1 or leave empty..
+        /// </summary>
+        public static string InsertModelTimestamp_info {
+            get {
+                return ResourceManager.GetString("InsertModelTimestamp_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create chart.
         /// </summary>
         public static string Label_ActionDropdown_CreateChart {
@@ -943,15 +952,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insert model date.
-        /// </summary>
-        public static string Label_CSV_Export_AddModelDate {
-            get {
-                return ResourceManager.GetString("Label_CSV_Export_AddModelDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Yes/No character.
         /// </summary>
         public static string Label_CSV_Export_BoolChars {
@@ -1308,6 +1308,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Label_FieldFormat_Year {
             get {
                 return ResourceManager.GetString("Label_FieldFormat_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert model timestamp.
+        /// </summary>
+        public static string Label_Insert_model_timestamp {
+            get {
+                return ResourceManager.GetString("Label_Insert_model_timestamp", resourceCulture);
             }
         }
         

@@ -215,8 +215,8 @@ function ExportExcelHandler() {
         */
 
         self.SetVisibleHeaderFormat(displayType);
-
-        jQuery('[id="SaveFileName"]:visible, [id="SaveSheetName"]:visible').removeClass('k-invalid');
+        self.SetVisibleInsertModelStamp(displayType);
+        jQuery('[id="SaveFileName"]:visible, [id="SaveSheetName"]:visible').removeClass('k-invalid');        
     };
     self.SetDefaultExcelSettings = function () {
         var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
@@ -313,6 +313,7 @@ function ExportExcelHandler() {
         });
     };
     self.SetExportModelUI = function () {
+        var addModelDateUI;
         jQuery('#HeaderFormatEnum').kendoDropDownList({
             dataTextField: "TEXT",
             dataValueField: "VALUE",
@@ -328,7 +329,16 @@ function ExportExcelHandler() {
                 self.CurrentExportModel.TemplateFile(e.sender.value());
             }
         });
-
+        if (!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
+            WC.HtmlHelper.DestroyNumericIfExists('#InsertModelTimestamp');
+            addModelDateUI=jQuery('#InsertModelTimestamp').kendoNumericTextBox({
+                min: -1,
+                step: 1,
+                format: 'n0',
+                decimals: 0,
+                value: self.CurrentExportModel.ModelTimestampIndex()
+            }).data('kendoNumericTextBox');
+        }
     };
     self.CloseExportExcelPopup = function (e) {
         e.kendoWindow.element.closest('.popupExportExcel').removeClass('alwaysHide');
@@ -372,7 +382,12 @@ function ExportExcelHandler() {
         else
             jQuery('#HeaderFormat').hide();
     };
-
+    self.SetVisibleInsertModelStamp = function (displayType) {
+        if (displayType === enumHandlers.DISPLAYTYPE.LIST)
+            jQuery('#ModeltimeStamp').show();
+        else
+            jQuery('#ModeltimeStamp').hide();
+    }
     /*
     * Move duplicate validate export options code to one function
     */
@@ -420,18 +435,14 @@ function ExportExcelHandler() {
         exportOptions.FileName = jQuery.trim(jQuery('[id="SaveFileName"]:visible').val());
         exportOptions.SheetName = jQuery.trim(jQuery('[id="SaveSheetName"]:visible').val());
         self.DefaultSetting = [
-            {
-                "id": "template_file",
-                "value": self.CurrentExportModel.TemplateFile()
-            },
-            {
-                "id": "model_timestamp_index",
-                "value": self.CurrentExportModel.ModelTimestampIndex()
-            },
-            {
-                "id": "include_techinfo",
-                "value": Boolean(self.CurrentExportModel.TechnicalInfo())
-            }];
+        {
+            "id": "template_file",
+            "value": self.CurrentExportModel.TemplateFile()
+        },
+        {
+            "id": "include_techinfo",
+            "value": Boolean(self.CurrentExportModel.TechnicalInfo())
+        }];
         // validate file name and sheet name
         if (!self.ValidateExportExcel(exportOptions.FileName)) {
             return false;
@@ -683,7 +694,11 @@ function ExportExcelHandler() {
             {
                 "id": "add_angle_definition",
                 "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
-            }
+            },
+            {
+                "id": "model_timestamp_index",
+                "value": parseInt(self.CurrentExportModel.ModelTimestampIndex())
+            },
         ];
         exportOptions.data_settings.setting_list = exportOptions.data_settings.setting_list.concat(self.DefaultSetting);
         self.GenerateExceljsonData = exportOptions;

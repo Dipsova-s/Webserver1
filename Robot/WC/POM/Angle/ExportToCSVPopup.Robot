@@ -146,7 +146,7 @@ Input Format Options Should Be
 Check Default CSV Datastore values in Export to CSV
     Input CSV File Name Should Be     {modeltimestamp}{anglename:normalized}
     Input File Options Should Be    ID in header    only strings    ;   true    false   "   CRLF
-    Input Format Options Should Be  /   :   .   true    false   yyyy\/MM\/dd    HH\:mm\:ss  All decimals  ID  2
+    Input Format Options Should Be  /   :   .   true    false   yyyy\/MM\/dd    HH\:mm\:ss  All decimals  ID  1
 
 Click Export CSV Button
     Click Element    ${btnOKExportToCSV}

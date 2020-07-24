@@ -112,27 +112,10 @@ describe("ExportHandlerTest", function () {
         });
     });
 
-    describe("call GetModelDateDefaultValue", function () {
-        var tests = [
-            { value: null, expected: null },
-            { value: -1, expected: null },
-            { value: 0, expected: 1 },
-            { value: 1, expected: 2 },
-            { value: 2, expected: 3 }
-        ];
-
-        $.each(tests, function (index, test) {
-            it("should get correct model date default value (" + test.value + " -> " + test.expected + ")", function () {
-                var result = exportHandler.GetModelDateDefaultValue(test.value);
-                expect(test.expected).toEqual(result);
-            });
-        });
-    });
-
     describe("call GetModelDateInputValue", function () {
         var tests = [
-            { value: null, expected: null },
-            { value: 0, expected: 'None' },
+            { value: null, expected: "None" },
+            { value: 0, expected: 0 },
             { value: 1, expected: 1 },
             { value: 2, expected: 2 }
         ];
@@ -147,10 +130,10 @@ describe("ExportHandlerTest", function () {
 
     describe("call SetModelDateColumn", function () {
         var tests = [
-            { value: 0, expected: null },
-            { value: 1, expected: 0 },
-            { value: 2, expected: 1 },
-            { value: 5, expected: 4 },
+            { value: 0, expected: 0 },
+            { value: 1, expected: 1 },
+            { value: 2, expected: 2 },
+            { value: 5, expected: 5 },
             { value: 6, expected: 5 },
             { value: 10, expected: 5 }
         ];
