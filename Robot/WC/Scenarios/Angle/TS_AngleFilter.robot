@@ -352,7 +352,7 @@ Verify Filter With Execute Parameter To List Display
     [Arguments]    ${fieldType}    ${operator}    ${fieldId}    ${fieldKeyword}
     Wait Until Page Contains Element    ${btnAddColumnToListDisplay}
     Wait Until List Display Loaded
-    Add Column By Search And Add To List Display If Not Exist    ${fieldId}  ${fieldKeyword}  ${FALSE}
+    Add Column By Search And Add To List Display If Not Exist    ${fieldId}  ${fieldKeyword}  ${TRUE}
     Set Editor Context: Display Tab
     Run Keyword If    '${operator}' != 'is empty'    Add Filter Is Not Empty To Column    ${fieldId}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
