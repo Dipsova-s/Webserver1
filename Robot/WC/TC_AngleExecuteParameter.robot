@@ -32,7 +32,7 @@ Verify Execution Parameters Behavior
 Verify Execution Parameters When Argument Contains Space Test
     [Documentation]     Verify execute an angle when argument contains space in execution parameters
     ...                 Risk/coverage area: Create an adhoc angle and then execute it on search page
-    [Tags]      TC_C196803    Book
+    [Tags]      TC_C196803
     ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters When Argument Contains Space
     Create Angle From Object List And Save    PD    ${angleName}
     Verify Filter With Execute Parameter To List Display    text    is equal to    FieldDescription    Field Description

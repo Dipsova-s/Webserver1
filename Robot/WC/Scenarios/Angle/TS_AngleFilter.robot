@@ -355,6 +355,7 @@ Verify Filter With Execute Parameter To List Display
     Add Column By Search And Add To List Display If Not Exist    ${fieldId}  ${fieldKeyword}  ${TRUE}
     Set Editor Context: Display Tab
     Run Keyword If    '${operator}' != 'is empty'    Add Filter Is Not Empty To Column    ${fieldId}
+    Scroll To Angle Grid Header List Display     ${fieldId}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     ${chooseoption} =    Convert Operator Symbol To Dropdown Option    ${operator}    ${fieldType}
