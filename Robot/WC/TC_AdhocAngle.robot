@@ -8,7 +8,7 @@ Force Tags          acc_wc
 *** Test Cases ***
 Save Adhoc Angle Without BP
     [Documentation]     Create an angle with blank object and save
-    [Tags]              TC_229220
+    [Tags]              TC_C229220
     ${angleName}  Set Variable  [ROBOT] Save Adhoc Angle Without BP
     Create Blank Adhoc Angle From One Object      PD    ${angleName}
     Click Save All And Expect Warning
@@ -20,7 +20,7 @@ Save Adhoc Angle Without BP
 
 Save Display As Adhoc Angle Without BP
     [Documentation]     creates an angle with blank object and save display as
-    [Tags]              TC_229220
+    [Tags]              TC_C229220
     ${angleName}  Set Variable  [ROBOT] Save Display As Adhoc Angle Without BP
     ${displayName}  Set Variable    [ROBOT] Display From Adhoc Angle Without BP
     Create Blank Adhoc Angle From One Object      PD    ${angleName}
@@ -33,7 +33,7 @@ Save Display As Adhoc Angle Without BP
     [Teardown]  Back To Search And Delete Angle Are Created    ${angleName}
 
 Adhoc Display Is Removed When Create Another Display In Adhoc Angle
-    [Tags]      TC_229220
+    [Tags]      TC_C229220
     [Documentation]     Ad-hoc display will be replace when create a new Ad-hoc display 
     ...                 Risk/coverage area: Create Adhoc display after anoter display was created in Adhoc angle
     ${angleName}  Set Variable  [ROBOT] Adhoc Display In Adhoc Angle
@@ -46,7 +46,7 @@ Adhoc Display Is Removed When Create Another Display In Adhoc Angle
     [Teardown]  Go to Search Page
 
 Copied Adhoc Display Is Removed When Create Another Display In Adhoc Angle
-    [Tags]      TC_229220
+    [Tags]      TC_C229220
     [Documentation]     Copired Ad-hoc display will be replace when create a new Ad-hoc display 
     ...                 Risk/coverage area: Create Adhoc display after a display was copired in Adhoc angle
     ${angleName}  Set Variable  [ROBOT] Adhoc Display In Adhoc Angle

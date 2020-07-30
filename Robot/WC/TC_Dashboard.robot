@@ -8,7 +8,7 @@ Force Tags          acc_wc    smk_content
 *** Test Cases ***
 Verify Dashboard Statistics
     [Documentation]     Dashboard statistics
-    [Tags]              smk_wc  C229134
+    [Tags]              smk_wc  TC_C229134
     ${searchText}  Set Variable  Angle For General Test
     ${dashboardName}  Set variable  [ROBOT] Test Verify Dashboard Statistics
     Create Adhoc Dashboard    ${searchText}  ${dashboardName}

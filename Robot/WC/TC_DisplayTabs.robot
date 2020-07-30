@@ -188,7 +188,7 @@ Verify Keep Active Display Filter
 
 Verify Newly Created Display Should Be Visible In Publishing Popup
     [Documentation]  Check the newly created display should be show in the publishing popup
-    [Tags]      TC_229012
+    [Tags]      TC_C229012
     [Setup]  Import Angle By API  /models/1  ANGLE_PublishingDisplay.json  user=${Username} 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_PUBLISHING_DISPLAYS
     
@@ -201,7 +201,7 @@ Verify Newly Created Display Should Be Visible In Publishing Popup
 
 Verify Removed Display Should Not Be Visible In Publishing Popup
     [Documentation]  Check the removed display should not be show in the publishing popup
-    [Tags]      TC_229012
+    [Tags]      TC_C229012
     [Setup]  Import Angle By API  /models/1  ANGLE_PublishingDisplay.json  user=${Username} 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_PUBLISHING_DISPLAYS
     

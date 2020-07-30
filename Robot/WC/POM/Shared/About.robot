@@ -12,7 +12,7 @@ ${btnCloseAboutPopup}                css=.k-i-close
 
 #copyright
 ${copyrightRow}                    css=.licensetable tr
-
+${clientVersionValue}              xpath=//div[@data-bind='text: web_client_version']
 *** Keywords ***
 Open Copyright Page
     Click Element                       ${linkCopyRight}
@@ -47,5 +47,3 @@ Get Number of License
     ${count} =  Get Element Count   ${copyrightRow}      
     [Return]    ${count} 
 
-
-   

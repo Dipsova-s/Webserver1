@@ -11,7 +11,7 @@ Select Default Drilldown And Save
     [Documentation]     Step 1   : The default drilldown display is applied correctly when saved
     ...                 Step 8.2 : Default drilldown is remembered state   (Saved display)
     ...                 Step 9   : The asterisk start shows immediately when changing Default drilldown
-    [Tags]      TC_50254
+    [Tags]      TC_C50254
     [Setup]  Import Angle By API  /models/1  ANGLE_DrilldownDisplayTesting.json  user=${Username}
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_DrilldownDisplayTesting 
     Go To Display And Set Default Drilldown         Gauge Chart     Chart
@@ -24,7 +24,7 @@ Select Default Drilldown On Adhoc Display
     [Documentation]     Step 8.1 : Default drilldown is remembered state   (Ad-hoc display)
     ...                 Step 10  : drilldown on ad-hoc display shows display type correctly when Default drilldown was added
     ...                 Step 11  : the ad-hoc display from drilldown should always have default drilldown is [None]
-    [Tags]      TC_50254
+    [Tags]      TC_C50254
     [Setup]  Import Angle By API  /models/1  ANGLE_DrilldownDisplayTesting.json  user=${Username}
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_DrilldownDisplayTesting 
     Create Chart From List Header Column    ObjectType    ObjectType  ${True}
@@ -36,7 +36,7 @@ Select Default Drilldown On Adhoc Display
 Default Drilldown Should Be Copied By Copy And Paste Display
     [Documentation]     Step 12  : copy display that contain default drill down to same Angle
     ...                 Step 13  : copy display that contain default drill down to other Angle
-    [Tags]      TC_50254
+    [Tags]      TC_C50254
     [Setup]  Run keywords   Import Angle By API  /models/1  ANGLE_WithDefaultDrilldownDisplay.json  user=${Username}
     ...      AND    Import Angle By API  /models/1  ANGLE_DrilldownDisplayTesting.json  user=${Username}
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_WithDefaultDrilldownDisplay
