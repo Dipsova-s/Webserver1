@@ -33,6 +33,7 @@ ${icoDisplayErrorItems}                 jquery=#DisplayTabs .tab-menu .validErro
 ${btnSaveMain}              css=#AngleSavingWrapper .btn-main-saving
 ${btnSaveOptions}           css=#AngleSavingWrapper .btn-saving-options
 ${btnSaveAll}               css=#AngleSavingWrapper .action-save-all
+${btnSaveDisplay}           css=#AngleSavingWrapper .action-save-display
 ${btnSaveangleAs}           css=#AngleSavingWrapper .action-save-angle-as
 ${btnSaveDisplayAs}         css=#AngleSavingWrapper .action-save-display-as
 ${btnSetToTemplate}         css=#AngleSavingWrapper .action-set-template
@@ -179,6 +180,27 @@ Save All Button Should Be Enable
 
 Save All Button Should Be Disabled
     Page Should Contain Element  ${btnSaveAll}.disabled
+
+Click Save Display
+    ${hasButton}  Is Element Exist  ${btnSaveDisplay}
+    Run Keyword If  ${hasButton}  Click Option Save  ${btnSaveDisplay}
+    ...    ELSE                   Click Main Save
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete
+    Page Should Contain Toast Success
+    Wait Display Executed
+
+Save Display Button Should Be Available
+    Page Should Contain Element  ${btnSaveDisplay}
+
+Save Display Button Should Not Be Available
+    Page Should Not Contain Element  ${btnSaveDisplay}
+
+Save Display Button Should Be Enable
+    Page Should Contain Element  ${btnSaveDisplay}:not(.disabled)
+
+Save Display Button Should Be Disabled
+    Page Should Contain Element  ${btnSaveDisplay}.disabled
 
 Click Save Angle As
     ${hasButton}  Is Element Exist  ${btnSaveAngleAs}

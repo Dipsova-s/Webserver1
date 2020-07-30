@@ -279,6 +279,16 @@ describe("AngleHandler", function () {
         });
     });
 
+    describe(".InitialTag", function () {
+        it("should initial tag", function () {
+            spyOn(angleHandler.AngleTagHandler, 'Initial');
+            angleHandler.InitialTag();
+
+            // assert
+            expect(angleHandler.AngleTagHandler.Initial).toHaveBeenCalled();
+        });
+    });
+
     describe(".SetStarred", function () {
         it("should update is_starred", function () {
             spyOn(angleHandler.AngleUserSpecificHandler, 'SaveStarred');
@@ -1157,18 +1167,34 @@ describe("AngleHandler", function () {
     });
 
     describe(".SaveDisplays", function () {
-        it("should save all Displays", function () {
-            // prepare
+        var display3;
+        beforeEach(function () {
             var display1 = new DisplayHandler({}, angleHandler);
             var display2 = new DisplayHandler({}, angleHandler);
+            display3 = new DisplayHandler({}, angleHandler);
             spyOn(display1, 'CanCreateOrUpdate').and.returnValue(true);
             spyOn(display2, 'CanCreateOrUpdate').and.returnValue(false);
-            angleHandler.Displays = [display1, display2];
+            spyOn(display3, 'CanCreateOrUpdate').and.returnValue(true);
+            angleHandler.Displays = [display1, display2, display3];
             spyOn(Array.prototype, 'pushDeferred');
+            spyOn(angleHandler, 'SaveDisplay').and.returnValue($.when());
+        });
+        it("should save all Displays with is_user_default=true", function () {
+            // prepare
+            display3.Data().user_specific.is_user_default(true);
             angleHandler.SaveDisplays();
 
             // assert
             expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(1);
+            expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(1);
+        });
+        it("should save all Displays with is_user_default=false", function () {
+            // prepare
+            angleHandler.SaveDisplays();
+
+            // assert
+            expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(2);
+            expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(0);
         });
     });
 
@@ -1374,6 +1400,48 @@ describe("AngleHandler", function () {
             // assert
             expect(angleHandler.CreateOrUpdate).toHaveBeenCalled();
             expect(angleHandler.SaveDisplays).not.toHaveBeenCalled();
+        });
+    });
+
+    describe(".SaveDefaultDisplay", function () {
+        beforeEach(function () {
+            spyOn(angleHandler, 'UpdateData');
+        });
+        it("should not save (adhoc Angle)", function () {
+            // prepare
+            spyOn(angleHandler, 'GetCreateOrUpdateData').and.returnValue({ id: 'my-id' });
+            spyOn(angleHandler, 'IsAdhoc').and.returnValue(true);
+            angleHandler.SaveDefaultDisplay();
+
+            // assert
+            expect(angleHandler.UpdateData).not.toHaveBeenCalled();
+        });
+        it("should not save (no changes)", function () {
+            // prepare
+            spyOn(angleHandler, 'GetCreateOrUpdateData').and.returnValue(null);
+            spyOn(angleHandler, 'IsAdhoc').and.returnValue(false);
+            angleHandler.SaveDefaultDisplay();
+
+            // assert
+            expect(angleHandler.UpdateData).not.toHaveBeenCalled();
+        });
+        it("should not save (no angle_default_display)", function () {
+            // prepare
+            spyOn(angleHandler, 'GetCreateOrUpdateData').and.returnValue({ id: 'my-id' });
+            spyOn(angleHandler, 'IsAdhoc').and.returnValue(false);
+            angleHandler.SaveDefaultDisplay();
+
+            // assert
+            expect(angleHandler.UpdateData).not.toHaveBeenCalled();
+        });
+        it("should save", function () {
+            // prepare
+            spyOn(angleHandler, 'GetCreateOrUpdateData').and.returnValue({ angle_default_display: 'new-id' });
+            spyOn(angleHandler, 'IsAdhoc').and.returnValue(false);
+            angleHandler.SaveDefaultDisplay();
+
+            // assert
+            expect(angleHandler.UpdateData).toHaveBeenCalled();
         });
     });
 

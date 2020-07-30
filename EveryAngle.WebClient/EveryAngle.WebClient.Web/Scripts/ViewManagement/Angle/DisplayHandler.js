@@ -155,7 +155,7 @@ function DisplayHandler(model, parent) {
     self.InitialExcelTemplate = function (target) {
         self.DisplayExcelTemplateHandler.OnChanged = self.OnChangeExcelTemplate;
         self.DisplayExcelTemplateHandler.Initial(target);
-    }
+    };
     self.OnChangeExcelTemplate = jQuery.noop;
     
     // filter & jump
@@ -480,11 +480,10 @@ function DisplayHandler(model, parent) {
         if (!jQuery.isFunction(checker))
             checker = self.IsUsedInTask;
 
-        if (checker()) {
+        if (checker())
             popup.Confirm(Localization.MessageSaveQuestionAngleUsedInTask, callback, cancel);
-        } else {
+        else
             callback();
-        }
     };
     self.GetChangeData = function (currentData, compareData) {
         return WC.ModelHelper.GetChangeDisplay(currentData, compareData);
@@ -582,6 +581,18 @@ function DisplayHandler(model, parent) {
             self.SetRawData(data);
         }
         self.Initial(data, self.AngleHandler);
+
+        // check user default
+        if (self.Data().user_specific.is_user_default()) {
+            jQuery.each(self.AngleHandler.Displays, function (_index, display) {
+                if (self.Data().id() !== display.Data().id()) {
+                    var userSpecific = ko.toJS(display.Data().user_specific);
+                    userSpecific.is_user_default = false;
+                    display.SetRawData({ user_specific: userSpecific });
+                }
+            });
+        }
+
         return jQuery.when(data);
     };
     self.CanCreate = function () {
