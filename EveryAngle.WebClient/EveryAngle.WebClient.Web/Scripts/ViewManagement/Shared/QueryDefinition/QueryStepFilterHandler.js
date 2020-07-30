@@ -89,6 +89,8 @@
         var self = this;
         queryStep.edit_mode(!queryStep.edit_mode());
         self.CreateFilterEditor(queryStep);
+        if (!queryStep.edit_mode())
+            self.TriggerUpdateBlockUI();
     };
     handler.CreateFilterEditor = function (queryStep) {
         var self = this;

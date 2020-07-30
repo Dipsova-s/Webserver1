@@ -710,11 +710,21 @@ textarea.input-light {
 .btn-secondary[disabled],
 .btn-secondary[disabled]:active,
 .btn-secondary[disabled]:hover {
-  cursor: default;
-  box-shadow: none;
   opacity: 1;
   background-color: #f1f3f4;
   border-color: #f1f3f4;
+  color: #78909c; }
+
+.btn-ghost.executing,
+.btn-ghost.executing:active,
+.btn-ghost.executing:hover,
+.btn-ghost.disabled,
+.btn-ghost.disabled:active,
+.btn-ghost.disabled:hover,
+.btn-ghost[disabled],
+.btn-ghost[disabled]:active,
+.btn-ghost[disabled]:hover {
+  border-color: #78909c;
   color: #78909c; }
 
 .btn-busy,
