@@ -178,8 +178,8 @@ Check Filter Asterisk Should Be Available
 Check Filter Asterisk Should Not Be Available
     Page Should Not Contain Element    ${EditorContext} .sign-adhoc
 
-Check Undo Filter Should Not Be Available
-    Page Should Not Contain Element    ${EditorContext} ${btnUndo}  
+Check Undo Filter Should Be Disabled
+    Page Should Contain Element    ${EditorContext} ${btnUndo}.disabled  
 
 Click Add Jump
     Wait Until Element Is Visible       ${EditorContext} ${btnAddJump}
