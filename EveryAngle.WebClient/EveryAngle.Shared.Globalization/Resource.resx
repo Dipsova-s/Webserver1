@@ -6422,4 +6422,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Dashboards" xml:space="preserve">
     <value>Dashboards</value>
   </data>
+  <data name="MC_ResultExportTypeWarning" xml:space="preserve">
+    <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
+  </data>
 </root>

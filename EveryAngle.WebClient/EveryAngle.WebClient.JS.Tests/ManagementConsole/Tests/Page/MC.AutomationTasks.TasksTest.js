@@ -812,5 +812,4 @@ describe("MC.AutomationTasks.Tasks", function () {
         });
 
     });
-
 });

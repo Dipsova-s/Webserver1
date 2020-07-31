@@ -61,6 +61,8 @@ ${sectionDataSettings}      css=.data_settings
 ${sectionFormatSettings}        css=#format_options
 ${btnEditDefaultDatastore}      .gridColumnToolbar .btn
 
+${btnCloseAlertPopup}                //a[contains(@class, 'btnSubmit')]
+
 *** Keywords ***
 Fill Create New Datastore
     [Arguments]     ${datastoreName}     
@@ -291,7 +293,11 @@ Verify the field values for SQL Datastore in Data Settings
     Textfield value should be   ${txtTableName}  ${tableName}
     Textfield value should be     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
     Textfield value should be   ${ddlSqlExportType}  ${appendResult}
-    
+
+Close Alert Popup
+    Click Element                       ${btnCloseAlertPopup}
+    Sleep                               ${TIMEOUT_GENERAL}
+
 Wait For Export Defaults Page
     [Arguments]     ${expectedElementName1}  ${expectedElementName2}
     Wait Until Page Contains    ${expectedElementName1}

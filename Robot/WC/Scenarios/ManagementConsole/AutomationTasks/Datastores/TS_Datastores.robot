@@ -107,6 +107,7 @@ Edit the Existing SQL Datastore by name
     Fill Create New Datastore   ${editedDatastoreName}    
     Fill Connection Settings for SQL Export  nl-bangalore1\SQLEXPRESS  sa  ea  2019sp2  check
     Fill Data Settings for SQL Export  6  Long name  Id  5  {anglename:edited}  99  Overwrite
+    Close Alert Popup
     Click on Save button in DataStore   ${datastorePlugin}      ${editedDatastoreName}
 
 Verify the edited value is displayed in SQL Datastore

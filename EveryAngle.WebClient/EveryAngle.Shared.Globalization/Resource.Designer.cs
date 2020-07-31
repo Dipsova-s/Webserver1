@@ -11766,6 +11766,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before..
+        /// </summary>
+        public static string MC_ResultExportTypeWarning {
+            get {
+                return ResourceManager.GetString("MC_ResultExportTypeWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role description.
         /// </summary>
         public static string MC_RoleDescription {

@@ -28,4 +28,24 @@
         });
     });
 
+    describe("MC.ui.enumSettingChange", function () {
+
+        it("should show warning if id is 'result_export_type", function () {
+            // prepare
+            spyOn(MC.util, 'showPopupAlert').and.callFake($.noop);
+            MC.ui.enumSettingChange({ sender: { element: { attr: function () { return "result_export_type" } } } });
+
+            // assert
+            expect(MC.util.showPopupAlert).toHaveBeenCalled();
+        });
+
+        it("should not show warning", function () {
+            // prepare
+            spyOn(MC.util, 'showPopupAlert').and.callFake($.noop);
+            MC.ui.enumSettingChange({ sender: { element: { attr: function () { return "some_other_id" } } } });
+
+            // assert
+            expect(MC.util.showPopupAlert).not.toHaveBeenCalled();
+        });
+    });
 });

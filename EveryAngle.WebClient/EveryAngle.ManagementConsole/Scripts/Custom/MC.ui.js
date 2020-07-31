@@ -881,6 +881,12 @@
             $('#mainContent').on('scroll.validation touchstart.validation', function () {
                 win.MC.form.validator.hideErrorMessage();
             });
+        },
+        enumSettingChange: function (obj) {
+            var id = obj.sender.element.attr('id');
+            if (id === "result_export_type") {
+                MC.util.showPopupAlert(Localization.MC_ResultExportTypeWarning);
+            }
         }
     };
 
