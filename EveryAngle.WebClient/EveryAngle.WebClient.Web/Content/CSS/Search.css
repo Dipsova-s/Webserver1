@@ -75,6 +75,9 @@
   color: #b0b0b1;
   padding-top: 8px; }
 
+.searchbar .searchBoxWrapper > a:hover {
+  color: #3d4852; }
+
 .searchbar .searchBoxWrapper > a:hover,
 .searchbar .searchBoxWrapper > a.active {
   background-color: #ebebeb; }
@@ -1012,10 +1015,10 @@
     #LeftMenu .FilterTab.border-separator {
       border-top: 1px solid #f5f5f5; }
     #LeftMenu .FilterTab .FilterTitle {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: bold;
-      text-transform: uppercase;
-      margin-right: auto; }
+      margin-right: auto;
+      letter-spacing: .24px; }
     #LeftMenu .FilterTab span {
       display: block;
       position: relative;

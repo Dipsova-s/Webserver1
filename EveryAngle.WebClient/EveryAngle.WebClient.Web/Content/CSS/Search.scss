@@ -93,6 +93,10 @@
     padding-top: 8px;
 }
 
+.searchbar .searchBoxWrapper > a:hover {
+    color: #3d4852;
+}
+
 .searchbar .searchBoxWrapper > a:hover,
 .searchbar .searchBoxWrapper > a.active {
     background-color: #ebebeb;

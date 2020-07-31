@@ -63,8 +63,18 @@ $side-content-color: #fcfcfc;
                     .action-edit-description {
                         margin-right: -3px;
 
+                        &:before {
+                            position: relative;
+                            top: 0;
+                        }
+
                         &:hover {
                             color: #3d4852;
+
+                            &:before {
+                                top: -5px;
+                                transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                            }
                         }
                     }
                 }
@@ -72,9 +82,10 @@ $side-content-color: #fcfcfc;
         }
 
         .section-info-body {
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: .44px;
             color: #78909c;
+            line-height: 16px;
         }
     }
 

@@ -158,10 +158,11 @@
 
 #ActionSelect .actionDropdownItem {
     background-color: #fff;
+    margin-left: 3px;
 
     &:before {
         background-position: center center;
-        background-size: 16px 16px;
+        background-size: 18px 18px;
     }
 
     &.save:before {
