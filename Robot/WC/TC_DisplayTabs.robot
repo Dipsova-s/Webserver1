@@ -99,7 +99,7 @@ Scroll Display Tabs Scrolling Buttons Can Scroll Left And Right
  
 New Display Tab Should Be Created On The Leftmost When Drilldown A Chart Display
     [Documentation]     Scenario 4 The tabs bar is focused correctly : Chart
-    [Tags]      TC_T430636
+    [Tags]      TC_C219259
     [Setup]  Import Angle By API  /models/1  ANGLE_ManyDisplays.json  user=${Username} 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_ManyDisplays
     Active Display Should Be Visible
@@ -113,7 +113,7 @@ New Display Tab Should Be Created On The Leftmost When Drilldown A Chart Display
 
 New Display Tab Should Be Created On The Leftmost When Drilldown A Pivot Display
     [Documentation]     Scenario 4 The tabs bar is focused correctly : Pivot
-    [Tags]      TC_T430636
+    [Tags]      TC_C219259
     [Setup]  Import Angle By API  /models/1  ANGLE_ManyDisplays.json  user=${Username} 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_ManyDisplays
     Active Display Should Be Visible

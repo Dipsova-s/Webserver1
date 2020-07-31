@@ -23,7 +23,7 @@ ${pluginSQLEditedName}        _EditedSQL
 Verify Default Datastores
      [Documentation]     This test case deals with verifying default datastores for Excel & CSV created as part of AppServer set up
      ...                 and their respective default settings
-     [Tags]      TC-C229330   TC-C230142
+     [Tags]      TC_C229330   TC_C230142
      Count of Default Datastores Is Always Two
      Default Checkbox For Default Datastores Should Be Selected       Export to CSV - Default
      Default Checkbox For Default Datastores Should Be Selected       Export to Excel Default     

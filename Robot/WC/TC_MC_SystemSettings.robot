@@ -33,7 +33,7 @@ Fill System Settings and verify the data saved successfully with given values
 Verify Active Directory Size limit changes reflects the users list in users page
     [Documentation]     This test case changes the active directory size limit and verifies the changes reflects in the user page as per the ADSL number
     ...                 Risk Coverage:This test covers the failures in the system settings page and also changes that reflects/affects other modules
-    [Tags]   smk_mc  TC-C604
+    [Tags]   smk_mc  TC_C604
     Get and change Active Directory Size Limit Value   2
     Go To All Users Page
     Click Add User Popup
@@ -48,7 +48,7 @@ Verify Active Directory Size limit changes reflects the users list in users page
 Verify Program/Scripts folder
     [Documentation]     This test case verifies the path of the Program/Scripts folder in the system settings page
     ...                 Risk Coverage: This test covers the failures in the system settings page
-    [Tags]   smk_mc  TC-C39021
+    [Tags]   smk_mc  TC_C39021
     Verify Text for info property of Program/Script folder
     Input Program/Script folder path and Save       ${Program/ScriptFolderPath}
     Verify Program/Script folder path saved correctly     ${Program/ScriptFolderPath}
@@ -56,7 +56,7 @@ Verify Program/Scripts folder
 Verify No Manage System
     [Documentation]     This test case verifies no manage system privilege in the system settings page
     ...                 Risk Coverage: This test covers the failures in the system settings page
-    [Tags]   smk_mc_s  TC-C605
+    [Tags]   smk_mc_s  TC_C605
     [Setup]  Run Keywords  Go To System Settings Page
     ...      AND  Prepare No Manage System User
 
