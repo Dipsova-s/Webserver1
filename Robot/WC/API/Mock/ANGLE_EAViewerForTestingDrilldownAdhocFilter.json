@@ -129,7 +129,7 @@
           {
             "field": "count",
             "multi_lang_alias": [],
-            "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"\"}"
+            "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"desc\"}"
           },
           {
             "field": "sum_OrderedValue",

@@ -89,7 +89,7 @@ Set Suggested Fields For Default Template
     Wait Popup Set Suggested Fields Object Loaded
     Fill In Search Object    ${ObjectName}
     Select Business Process On Suggested Popup    ${BusinessProcess}
-    Click Second Object from List
+    Click First Object from List
     Click Continue
     Click Save Confirm Suggestion Field
     Click Close Suggested Field Report

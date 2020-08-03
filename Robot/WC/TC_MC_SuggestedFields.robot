@@ -5,30 +5,31 @@ Suite Teardown            Logout MC Then Close Browser
 Test Teardown             Reload Suggested Fields Page
 
 *** Variables ***
-${ObjectName}             PD
+${PDHeaderObject}         PD Header
+${PDItemObject}           PD Item
 ${BusinessProcess}        S2D
 
 *** Test Cases ***
 Test Suggested Fields For Single Object
     [Tags]   acc_mc
-    Set Suggested Fields For Single Object    ${ObjectName}    ${BusinessProcess}
-    Verify Suggested Fields After Set    ${ObjectName}    ${BusinessProcess}
+    Set Suggested Fields For Single Object    ${PDHeaderObject}    ${BusinessProcess}
+    Verify Suggested Fields After Set    ${PDHeaderObject}    ${BusinessProcess}
     Click Clear All Suggested Fields
 
 Test Suggested Fields For Basic List
     [Tags]   acc_mc
-    Set Suggested Fields For Basic List    ${ObjectName}    ${BusinessProcess}
-    Set Suggested Fields For Clear All Suggestion    ${ObjectName}    ${BusinessProcess}
+    Set Suggested Fields For Basic List    ${PDItemObject}    ${BusinessProcess}
+    Set Suggested Fields For Clear All Suggestion    ${PDItemObject}    ${BusinessProcess}
 
 Test Suggested Fields For Default Template
     [Tags]   acc_mc
-    Set Suggested Fields For Default Template    ${ObjectName}    ${BusinessProcess}
-    Set Suggested Fields For Clear All Suggestion    ${ObjectName}    ${BusinessProcess}
+    Set Suggested Fields For Default Template    ${PDItemObject}    ${BusinessProcess}
+    Set Suggested Fields For Clear All Suggestion    ${PDItemObject}    ${BusinessProcess}
 
 Test Suggested Fields For All Template
     [Tags]   acc_mc
-    Set Suggested Fields For All Template    ${ObjectName}    ${BusinessProcess}
-    Set Suggested Fields For Clear All Suggestion    ${ObjectName}    ${BusinessProcess}
+    Set Suggested Fields For All Template    ${PDItemObject}    ${BusinessProcess}
+    Set Suggested Fields For Clear All Suggestion    ${PDItemObject}    ${BusinessProcess}
 
 Validate General information in model's Suggested fields
     [Documentation]     This test is to validate General information in model's Suggested fields

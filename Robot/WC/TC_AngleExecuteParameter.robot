@@ -35,7 +35,7 @@ Verify Execution Parameters When Argument Contains Space Test
     [Tags]      TC_C196803
     ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters When Argument Contains Space
     Create Angle From Object List And Save    PD    ${angleName}
-    Verify Filter With Execute Parameter To List Display    text    is equal to    Vendor__Description    Description
+    Verify Filter With Execute Parameter To List Display    text    is equal to    FieldDescription    Field Description
     ${numberOfObject}    Get Number Of Object
     Click Save Display
     Go to Search Page
