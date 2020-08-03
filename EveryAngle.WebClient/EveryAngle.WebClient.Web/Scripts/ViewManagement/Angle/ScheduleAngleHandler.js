@@ -145,7 +145,7 @@ function ScheduleAngleHandler() {
     };
 
     self.GetTaskUrl = function (taskUri) {
-        var taskUrl = "{0}admin/home/index#/Angle Exports/Automation tasks/Edit task/?parameters={\"tasksUri\":\"{1}{2}\",\"angleUri\":\"{3}\"}";
+        var taskUrl = "{0}admin/home/index#/Angle exports/Automation tasks/Edit task/?parameters={\"tasksUri\":\"{1}{2}\",\"angleUri\":\"{3}\"}";
         var uri = kendo.format(taskUrl, rootWebsitePath, webAPIUrl, taskUri, displayModel.Data().uri);
 
         return uri;

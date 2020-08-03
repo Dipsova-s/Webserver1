@@ -21,6 +21,7 @@ Resource            ${EXECDIR}/WC/POM/Angle/ExportToExcelPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/ExportToCSVPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayTabMenu.robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayOverview.robot
+Resource    		${EXECDIR}/WC/POM/Angle/ScheduleAngle.robot
 
 *** Variables ***
 ${divExecutionInfo}                     jquery=.content-wrapper .section-info-body
@@ -51,6 +52,7 @@ ${ddlAngleActionDropdownAddJump}                    css=#ActionDropdownListPopup
 ${ddlAngleActionDropdownListEditDisplay}            css=#ActionDropdownListPopup .editDisplay
 ${ddlAngleActionDropdownListExecuteDisplay}         css=#ActionDropdownListPopup .exitEditMode
 ${ddlAngleActionDropdownDownload}                   css=#ActionDropdownListPopup .download
+${ddlAngleActionDropdownScheduleAngle}              css=#ActionDropdownListPopup .scheduleAngle
 ${chkDisplaysSection}                               jquery=.publish-displays .accordion-body .listview-item    
 
 ${btnNewDisplay}                                    css=.btn-new-display
@@ -337,6 +339,11 @@ Click Angle Dropdown To Execute Display
 
 Click Download Angle
     Click Element  ${ddlAngleActionDropdownDownload}
+
+Click On Schedule Angle
+    Wait Until Page Contains Element    ${ddlAngleActionDropdownScheduleAngle}
+    Click Element    ${ddlAngleActionDropdownScheduleAngle}
+    Wait Until Schedule Angle Popup Ready
 
 Download Button Should Be Available
     Element Should Be Visible  ${ddlAngleActionDropdownDownload}

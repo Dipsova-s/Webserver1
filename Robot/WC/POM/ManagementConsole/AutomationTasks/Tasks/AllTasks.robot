@@ -9,8 +9,6 @@ ${btnDeleteTask}               .btnGroupInner .btnDelete
 ${btnSaveDeleteTask}           css=#popupConfirmation .btnSubmit
 ${btnEditTask}                 .btnGroupInner .btnEdit
 
-
-
 *** Keywords ***
 Wait All Tasks Page Ready
       Wait Until Page Contains    Automation tasks

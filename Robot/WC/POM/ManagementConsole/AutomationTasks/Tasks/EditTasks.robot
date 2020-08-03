@@ -46,6 +46,8 @@ ${chkDatastoreAppendResult}    css=#append
 ${trGridTaskAction}            jquery=#TaskActionsGrid tbody tr
 ${btnExecutetAction}           .btnGroupInner .btnExecute
 
+${addActionPopup}           AddActionPopup
+
 *** Keywords ***
 Wait Edit Tasks Page Ready
       [Arguments]    ${pagename}
@@ -91,6 +93,8 @@ Click Add Action Button
     Wait Add Action Popup Ready
 
 Wait Add Action Popup Ready
+    Wait Until Page Contains Element     ${addActionPopup}
+    Page Should Contain Element         ${addActionPopup}
     Sleep    ${TIMEOUT_GENERAL}
 
 Close Add Action Popup

@@ -37,6 +37,7 @@ Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_List.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Pivot.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Chart.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_FieldSettings.robot
+Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_ScheduleAngle.robot                                  
 Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_Dashboard.robot
 Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_DashboardWidgetDefinition.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_BusinessProcess.robot

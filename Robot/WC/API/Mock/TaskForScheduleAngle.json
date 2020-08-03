@@ -1,0 +1,149 @@
+{
+    "delete_after_completion": false,
+    "enabled": false,
+    "max_run_time": 0,
+    "name": "\"TaskForScheduleAngle\"",
+    "run_as_user": "local\\EAAdmin",
+    "actions": [
+        {
+            "action_type": "export_angle_to_datastore",
+            "arguments": [
+                {
+                    "name": "datastore",
+                    "value": "Export_to_CSV_Default"
+                },
+                {
+                    "name": "model",
+                    "value": "EA2_800"
+                },
+                {
+                    "name": "angle_id",
+                    "value": "AngleForScheduleAngle"
+                },
+                {
+                    "name": "display_id",
+                    "value": "DisplayForScheduleAngle"
+                },
+                {
+                    "name": "model_timestamp_index",
+                    "value": -1
+                },
+                {
+                    "name": "header_format",
+                    "value": "id"
+                },
+                {
+                    "name": "enum_format",
+                    "value": "id"
+                },
+                {
+                    "name": "max_rows_to_export",
+                    "value": -1
+                },
+                {
+                    "name": "file_name",
+                    "value": "{anglename:normalized}"
+                },
+                {
+                    "name": "append",
+                    "value": false
+                },
+                {
+                    "name": "decimal_separator",
+                    "value": "."
+                },
+                {
+                    "name": "number_of_decimals",
+                    "value": -1
+                },
+                {
+                    "name": "time_format",
+                    "value": "HH:mm:ss"
+                },
+                {
+                    "name": "time_separator",
+                    "value": ":"
+                },
+                {
+                    "name": "date_format",
+                    "value": "yyyy/MM/dd"
+                },
+                {
+                    "name": "date_separator",
+                    "value": "/"
+                },
+                {
+                    "name": "bool_format_true",
+                    "value": "true"
+                },
+                {
+                    "name": "bool_format_false",
+                    "value": "false"
+                },
+                {
+                    "name": "csv_enquote",
+                    "value": "only_strings"
+                },
+                {
+                    "name": "csv_enquote_headers",
+                    "value": true
+                },
+                {
+                    "name": "csv_field_separator",
+                    "value": ";"
+                },
+                {
+                    "name": "csv_line_separator",
+                    "value": "CRLF"
+                },
+                {
+                    "name": "csv_enquote_character",
+                    "value": "\""
+                }
+            ],
+            "notification": null,
+            "run_as_user": null,
+            "approval_state": "enabled"
+        }
+    ],
+    "triggers": [
+        {
+            "days": [
+                {
+                    "day": 0,
+                    "active": false
+                },
+                {
+                    "day": 1,
+                    "active": false
+                },
+                {
+                    "day": 2,
+                    "active": false
+                },
+                {
+                    "day": 3,
+                    "active": false
+                },
+                {
+                    "day": 4,
+                    "active": false
+                },
+                {
+                    "day": 5,
+                    "active": false
+                },
+                {
+                    "day": 6,
+                    "active": false
+                }
+            ],
+            "continuous": false,
+            "frequency": "Weekly",
+            "start_time": 72000,
+            "trigger_type": "schedule"
+        }
+    ],
+    "arguments": [],
+    "recipients": []
+}
