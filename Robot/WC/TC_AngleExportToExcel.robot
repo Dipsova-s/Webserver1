@@ -18,7 +18,7 @@ Verify Export To Excel From Action Menu
     ...                 Default Excel Template as well as Option for overruling  Default Excel Template on fly for a Display.
     [Tags]  acc_wc_aci   TC_C229226     TC_C229326     TC_C230144
     ${angleName}  Set Variable  Angle For General Test
-    ${fileNamePlaceholder}     Set Variable   {anglename:normalized}
+    ${fileNamePlaceholder}     Set Variable   Angle For General Test
     ${timeStamp}  Get Time    epoch
     ${newExcelTemplateName}  Set Variable  RobotEaTestExcelTemplate_${timeStamp}.xlsx
     ${newfileExcelTemplate}  Set Variable  ${EXECDIR}/resources/${newExcelTemplateName}
@@ -92,7 +92,7 @@ Verify Export Item Drilldown To Excel From Action Menu
 Verify Error Message If A Filename Is Too Long
     [Tags]  TC_C230013
     ${angleName}  Set Variable  Angle For General Test
-    ${fileNamePlaceholder}     Set Variable   {anglename:normalized}
+    ${fileNamePlaceholder}     Set Variable   Angle For General Test
     Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup

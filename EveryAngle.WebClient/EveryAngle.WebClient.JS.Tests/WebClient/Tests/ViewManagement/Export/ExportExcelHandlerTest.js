@@ -17,6 +17,7 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Exports/ExportExcelModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/modelclasseshandler.js" />
 
 describe("ExportExcelHandlerTest", function () {
     var exportExcelHandler;
@@ -257,7 +258,7 @@ describe("ExportExcelHandlerTest", function () {
             spyOn(exportExcelHandler, "GetExcelTemplate").and.returnValue();
             spyOn(exportExcelHandler, "SetExcelTemplates").and.returnValue();
             var result = exportExcelHandler.SetExportModel(datastore);
-            expect(result.FileName()).toBe('new_display');
+            expect(result.FileName()).toBe('Test');
             expect(exportExcelHandler.GetExcelTemplate).toHaveBeenCalled();
             expect(exportExcelHandler.SetExcelTemplates).toHaveBeenCalled();
         });        
@@ -334,6 +335,49 @@ describe("ExportExcelHandlerTest", function () {
             exportExcelHandler.SetVisibleInsertModelStamp(displaytype);
             expect($.fn.show).not.toHaveBeenCalled();
             expect($.fn.hide).toHaveBeenCalled();
+        });
+    });
+    describe(".SetSheetName", function () {
+        beforeEach(function () {
+            element = $('<input id="SaveFileName" /><input id="SaveSheetName"/>').appendTo('body');
+        });
+
+        afterEach(function () {
+            element.remove();
+        });
+        it("File Name in text box should be equal to angle name", function () {
+            angleInfoModel.Name = function () {
+                return 'angle for test';
+            };           
+            exportExcelHandler.SetSheetName();
+            var FileName = $("#SaveFileName").val();
+            expect(FileName).toBe(angleInfoModel.Name());
+        });
+        it("Sheet name in text box should be equal to display name", function () {
+            displayModel.Name = function () {
+                return 'New_display';
+            };
+            exportExcelHandler.SetSheetName();
+            var SheetName = $("#SaveSheetName").val();
+            expect(SheetName).toBe(displayModel.Name());
+        });
+        it("File name and sheet name text box value should be equal to expected", function () {
+            angleInfoModel.Data = function () {
+                return { model: "/models/1"};
+            };           
+            var drilldownUri = "{%22ID%22:%223000000005/2/1%22,%22ObjectType%22:%22PurchaseOrderScheduleLine%22}";
+            var Details = {
+                short_name: 'PD Schedule Line'
+            };
+            var expectedFileName = "PD Schedule Line #300000000521";
+            var expectedSheetName = "Drilldown to item PD Schedule ";
+            spyOn(WC.Utility, 'UrlParameter').and.returnValue(drilldownUri);
+            spyOn(modelClassesHandler,'GetClassById').and.returnValue(Details);
+            exportExcelHandler.SetSheetName();
+            var SheetName = $("#SaveSheetName").val();
+            var FileName = $("#SaveFileName").val();
+            expect(SheetName).toBe(expectedSheetName);
+            expect(FileName).toBe(expectedFileName);
         });
     });
 });

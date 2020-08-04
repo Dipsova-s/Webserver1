@@ -144,6 +144,11 @@ function ExportExcelHandler() {
 
                 //M4-23209: Indicate when charttype not supported
                 self.ShowNotSupportExportChartToExcelWarning(displayType, WC.Utility.ParseJSON(displayModel.Data().display_details));
+            },
+            close: function (e) {
+                setTimeout(function () {
+                    e.sender.destroy();
+                }, 500);
             }
         };
 
@@ -204,7 +209,7 @@ function ExportExcelHandler() {
                 }
             }
         }
-
+        self.SetSheetName();
         // Binding knockout
         /* EOF: M4-11556: Implement max export rows */
 
@@ -218,12 +223,33 @@ function ExportExcelHandler() {
         self.SetVisibleInsertModelStamp(displayType);
         jQuery('[id="SaveFileName"]:visible, [id="SaveSheetName"]:visible').removeClass('k-invalid');        
     };
+    self.SetSheetName = function () {
+        var workbookName = angleInfoModel.Name();
+        var sheetName = displayModel.Name();
+        if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
+            var listDrilldown = JSON.parse(decodeURI(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)));
+            var classObject = modelClassesHandler.GetClassById(listDrilldown.ObjectType, angleInfoModel.Data().model);
+            var objectShortName = !classObject ? listDrilldown.ObjectType : classObject.short_name;
+            workbookName = objectShortName + ' #' + listDrilldown.ID;
+            sheetName = Localization.CellPopupMenuDrillDownTo + ' ' + objectShortName;
+        }
+        // EOF: M4-10439: FB: Excel single item export
+
+        workbookName = CleanExcelFileName(workbookName, 'ExportAngle');
+        sheetName = CleanSheetName(sheetName, 'Sheet1', 30);
+
+
+        jQuery('[id="SaveFileName"]:visible').val(workbookName);
+        jQuery('[id="SaveSheetName"]:visible').val(sheetName);
+    };
     self.SetDefaultExcelSettings = function () {
         var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
 
         if (typeof ko.dataFor(jQuery('#ExportOptionArea').get(0)) === 'undefined') {
+            var filename = CleanExcelFileName(angleInfoModel.Name(), 'ExportAngle');
+
             self.CurrentExportModel = new ExportExcelModel({
-                FileName: '',
+                FileName: filename,
                 DatarowUri: resultModel.Data().data_rows,
                 MaxPageSize: systemSettingHandler.GetMaxPageSize(),
                 DisplayUri: displayModel.Data().uri,
@@ -290,10 +316,7 @@ function ExportExcelHandler() {
         self.CurrentExportModel.MaxRowsToExport(self.GetDatastoreDataSetting(datastore, 'max_rows_to_export'));
         self.CurrentExportModel.ModelTimestampIndex(self.GetDatastoreDataSetting(datastore, 'model_timestamp_index'));
         self.CurrentExportModel.TechnicalInfo(self.GetDatastoreDataSetting(datastore, 'include_techinfo'));
-        self.CurrentExportModel.SheetName(self.GetDatastoreDataSetting(datastore, 'sheet_name'));
-        var fileNameSetting = self.GetDatastoreDataSetting(datastore, 'file_name');
-        if (fileNameSetting)
-            self.CurrentExportModel.FileName(fileNameSetting);
+
         self.SetExcelTemplates(datastore);
         return self.CurrentExportModel;
     };
@@ -733,7 +756,7 @@ function ExportExcelHandler() {
 
         self.GenerateExceljsonData = {
             "plugin": "msexcel",
-            "file_name": options.FileName.substr(0, 39) + '-' + WC.DateHelper.GetCurrentUnixTime(),
+            "file_name": options.FileName.substr(0, 39),
             "data_settings": {
                 "setting_list": [
                     {

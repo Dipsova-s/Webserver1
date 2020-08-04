@@ -67,10 +67,10 @@ function ExportHandler() {
         }
         else {
             var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
-
+            var filename = CleanExcelFileName(angleInfoModel.Name(), 'ExportAngle');
             if (typeof ko.dataFor(jQuery('#export-csv-area').get(0)) === 'undefined') {
                 self.CurrentExportModel = new ExportCSVModel({
-                    FileName: '',
+                    FileName: filename,
                     DatarowUri: resultModel.Data().data_rows,
                     MaxPageSize: systemSettingHandler.GetMaxPageSize(),
                     DisplayUri: displayModel.Data().uri,
@@ -147,9 +147,6 @@ function ExportHandler() {
         self.CurrentExportModel.AddModelDateAtColumn = self.GetDatastoreDataSetting(datastore, 'model_timestamp_index');
         self.CurrentExportModel.MaxRowsToExport(self.GetDatastoreDataSetting(datastore, 'max_rows_to_export'));
 
-        var fileNameSetting = self.GetDatastoreDataSetting(datastore, 'file_name');
-        if (fileNameSetting)
-            self.CurrentExportModel.FileName(fileNameSetting);
 
         return self.CurrentExportModel;
     };

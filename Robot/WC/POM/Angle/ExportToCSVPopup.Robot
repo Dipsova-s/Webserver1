@@ -144,7 +144,7 @@ Input Format Options Should Be
     Input Insert Model Date Should Be       ${insertModelDate}
 
 Check Default CSV Datastore values in Export to CSV
-    Input CSV File Name Should Be     {modeltimestamp}{anglename:normalized}
+    Input CSV File Name Should Be     ANGLE_Pivot_fields_contain_special_characters 
     Input File Options Should Be    ID in header    only strings    ;   true    false   "   CRLF
     Input Format Options Should Be  /   :   .   true    false   yyyy\/MM\/dd    HH\:mm\:ss  All decimals  ID  1
 
