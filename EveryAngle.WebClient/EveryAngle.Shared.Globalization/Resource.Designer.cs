@@ -9902,6 +9902,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fallback export field length.
+        /// </summary>
+        public static string MC_FallbackFieldLength {
+            get {
+                return ResourceManager.GetString("MC_FallbackFieldLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;.
+        /// </summary>
+        public static string MC_FallbackFieldLengthDescription {
+            get {
+                return ResourceManager.GetString("MC_FallbackFieldLengthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Features.
         /// </summary>
         public static string MC_Features {

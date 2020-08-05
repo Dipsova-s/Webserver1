@@ -98,6 +98,10 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("MC_ScriptLocation")]
         public string script_location { get; set; }
 
+        [JsonProperty(PropertyName = "fallback_field_length")]
+        [LocalizedDisplayName("MC_FallbackFieldLength")]
+        public int fallback_field_length { get; set; }
+
         public string ReFormatTrustedWebservers
         {
             get

@@ -224,6 +224,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             updatedSystemSettings.allow_grouping_in_pivot_excel_export = systemSettings.allow_grouping_in_pivot_excel_export;
             updatedSystemSettings.include_self_in_export_headers = systemSettings.include_self_in_export_headers;
             updatedSystemSettings.script_location = systemSettings.script_location;
+            updatedSystemSettings.fallback_field_length = systemSettings.fallback_field_length;
 
             updatedSystemSettings.EmailSettings.smtp_server = systemSettings.EmailSettings.smtp_server;
             updatedSystemSettings.EmailSettings.smtp_port = systemSettings.EmailSettings.smtp_port;

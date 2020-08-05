@@ -17,6 +17,7 @@ ${txtCheckExpiredSessionMinutes}        check_expired_sessions_minutes
 ${txtInstancesToKeepPerModel}           instances_per_model
 ${txtActiveDirectlySizeLimit}           active_directory_size_limit
 ${txtDefaultMaximumExportPageSize}      default_max_export_page_size
+${txtFallbackFieldLength}               fallback_field_length
 
 ${chkEnableGroupingInPivotExports}      allow_grouping_in_pivot_excel_export
 ${chkIncludeSelfInExportHeaders}        include_self_in_export_headers
@@ -137,6 +138,10 @@ Set Include Self in export headers checkbox
 Input Program/scripts folder field
     [Arguments]     ${programScriptsFolder}
     Input Text   ${txtProgramScriptsFolder}  ${programScriptsFolder}
+
+Input Fallback Field Length field
+    [Arguments]     ${fallbackFieldLength}
+    Input kendo Numeric TextBox  ${txtFallbackFieldLength}  ${fallbackFieldLength}
 
 Click Program/scripts folder textinfo Popup
     Click Element      ${txtinfoProgramScriptsFolder}
@@ -289,6 +294,10 @@ Get Default maximum export page size field value
 
 Get Program/scripts folder field value
     ${value}    Get Value    ${txtProgramScriptsFolder}
+    [Return]    ${value}
+
+Get Fallback Field Length field value
+    ${value}    Get Kendo Value  ${txtFallbackFieldLength}
     [Return]    ${value}
 
 Get Max retention time log tables [months] field value

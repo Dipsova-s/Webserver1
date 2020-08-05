@@ -6425,4 +6425,10 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_ResultExportTypeWarning" xml:space="preserve">
     <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
   </data>
+  <data name="MC_FallbackFieldLength" xml:space="preserve">
+    <value>Fallback export field length</value>
+  </data>
+  <data name="MC_FallbackFieldLengthDescription" xml:space="preserve">
+    <value>Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
 </root>

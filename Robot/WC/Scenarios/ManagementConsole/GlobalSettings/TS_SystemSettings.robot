@@ -42,6 +42,7 @@ Verify System Settings Page Is Ready
     Page Should Contain Element    ${chkEmailSettingsUseSSL}
     Page Should Contain Element    ${txtEmailSettingsUserName}
     Page Should Contain Element    ${txtEmailSettingsPassword}
+    Page Should Contain Element    ${txtFallbackFieldLength}
 
 Verify Instance To Keep Per Model
     ${oldValue}     Get System Settings Check Instances To Keep Per Model
@@ -114,6 +115,9 @@ Get the System Settings page field values
     ${value}   Get Program/scripts folder field value
     Set Test Variable   ${txtProgramScriptsFolderValue}     ${value}
 
+    ${value}   Get Fallback Field Length field value
+    Set Test Variable   ${txtFallbackFieldLengthValue}     ${value}
+
     ${value}   Get Max retention time log tables [months] field value
     Set Test Variable   ${txtMaxGeneralHistoryValue}     ${value}
     ${value}   Get Max audit log history [months] field value
@@ -148,6 +152,7 @@ Set the System settings page field values
     Input System Settings Check Instances To Keep Per Model     ${txtInstancesToKeepPerModelValue}
     Input System Settings Active Directory Size Limit   ${txtActiveDirectlySizeLimitValue}
     Input Default maximum export page size field  ${txtDefaultMaximumExportPageSizeValue}
+    Input Fallback Field Length field  ${txtFallbackFieldLengthValue}
 
     ${chkEnableGroupingInPivotExportsValue}     Get Enable Grouping in Pivot exports checkbox state
     Set Enable Grouping in Pivot exports checkbox   ${chkEnableGroupingInPivotExportsValue}
@@ -184,6 +189,7 @@ Fill the System settings page field values
     Input System Settings Check Instances To Keep Per Model     6
     Input System Settings Active Directory Size Limit   301
     Input Default maximum export page size field  1001
+    Input Fallback Field Length field  255
 
     ${chkEnableGroupingInPivotExportsValue}     Get Enable Grouping in Pivot exports checkbox state
     Set Enable Grouping in Pivot exports checkbox   ${chkEnableGroupingInPivotExportsValue}
@@ -243,7 +249,9 @@ Verify the System Settings page field values
     ${returnText}   Get Default maximum export page size field value
     ${expectedText}     Convert to Integer    1001
     Should be equal     ${returnText}   ${expectedText}
-
+    ${returnText}   Get Fallback Field Length field value
+    ${expectedText}     Convert to Integer    255
+    Should be equal     ${returnText}   ${expectedText}
     ${returnText}   Get Enable Grouping in Pivot exports checkbox state
     ${expectedText}     Convert to Boolean    ${chkEnableGroupingInPivotExportsValue}
     Should Not be equal     ${returnText}   ${expectedText}
