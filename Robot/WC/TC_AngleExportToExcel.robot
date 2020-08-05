@@ -30,8 +30,6 @@ Verify Export To Excel From Action Menu
     Go To ExcelTemplates Page
     Verify Upload Excel Template In Excel Template Page      ${newfileExcelTemplate}    ${newExcelTemplateName}
     Verify Upload Excel Template In Excel Template Page      ${newfileExcelTemplate1}    ${newExcelTemplateName1}
-    ${countExcelTemplatesITMC}  Get Count Excel Templates
-    ${listExcelTemplatesITMC}   Get List Excel Templates
     Switch Browser  1
     Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Progress Bar Closed
@@ -39,10 +37,6 @@ Verify Export To Excel From Action Menu
     Wait Progress Bar Closed
     Click Display Tab
     Selected Excel Template Should Be       [Default] ${defaultExcelTemplateName}
-    ${countExcelTemplatesWC}    Get Excel Templates Count
-    ${listExcelTemplatesWC}    Get Excel Templates List
-    Should Be Equal     ${countExcelTemplatesITMC}   ${countExcelTemplatesWC}
-    Lists Should Be Equal   ${listExcelTemplatesITMC}   ${listExcelTemplatesWC}
     Select Excel Template To    ${newExcelTemplateName}
     Save Selected Excel Template
     Reload Angle Page
@@ -56,10 +50,6 @@ Verify Export To Excel From Action Menu
     Input Excel File Name     ${fileNamePlaceholder}
     Input Excel File Name Should Be    ${angleName}
     Selected Excel Template in Export to Excel Pop up Should Be   ${newExcelTemplateName}
-    ${countExcelTemplatesPopUp}     Get Excel Templates Count in Export to Excel Pop up
-    ${listExcelTemplatesPopup}      Get Excel Templates List in Export to Excel Pop up
-    Should Be Equal     ${countExcelTemplatesPopUp}     ${countExcelTemplatesWC}
-    Lists Should Be Equal   ${listExcelTemplatesPopup}      ${listExcelTemplatesWC}
     Select Excel Template in Export to Excel Pop up To   ${newExcelTemplateName1}
     Selected Excel Template in Export to Excel Pop up Should Be   ${newExcelTemplateName1}    
     Click Export Excel Button

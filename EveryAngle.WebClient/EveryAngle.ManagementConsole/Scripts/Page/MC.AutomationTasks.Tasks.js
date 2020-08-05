@@ -22,6 +22,8 @@
         self.GetTaskActionUri = '';
         self.TaskHistoryUri = '';
         self.CurrentAngle = {};
+        self.DisplayExcelTemplate = '';
+        self.StandardExcelTemplate = '';
         self.ModelPrivileges = '';
         self.TasksActionsUri = '';
         self.CheckTaskActionUri = '';
@@ -57,6 +59,8 @@
             self.TaskUri = '';
             self.TaskHistoryUri = '';
             self.CurrentAngle = {};
+            self.DisplayExcelTemplate = '';
+            self.StandardExcelTemplate = '';
             self.ModelPrivileges = '';
             self.TasksActionsUri = '';
             self.CheckTaskActionUri = '';
@@ -864,6 +868,12 @@
                     MC.ui.popup();
                     MC.ui.autosyncinput();
 
+                    var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
+                    if (ddlExcelTemplate) {
+                        self.StandardExcelTemplate = ddlExcelTemplate.value();
+                        self.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
+                    }
+
                     $.each(models || [], function (index, arg) {
                         var input = containerSettings.find('[id="' + arg.name + '"]');
                         self.SetDatastoreSettingValue(input, arg);
@@ -882,8 +892,13 @@
                 || settingType === 'currency_symbol'
                 || settingType === 'percentage'
                 || settingType === 'double') {
-                var inputUI = input.data('handler');
-                inputUI.value(arg.value);
+                if (arg.name === 'template_file') {
+                    self.SetTemplateFileValue(input, arg);
+                }
+                else {
+                    var inputUI = input.data('handler');
+                    inputUI.value(arg.value);
+                }
             }
             else if (settingType === 'boolean') {
                 input.prop('checked', !!arg.value);
@@ -920,6 +935,10 @@
 
             jQuery('.dataSettings input[type!="hidden"]').each(function (index, input) {
                 var setting = self.GetDataStoreSettingInfo(jQuery(input));
+                if (setting.type === 'enum' && setting.id === 'template_file' &&
+                    self.IsDefaultDisplayExcelTemplate(setting.value)) {
+                    setting.value = '';
+                }
                 if (setting.type && setting.id && !datastoreData.hasObject('id', setting.id)) {
                     datastoreData.push({
                         "name": setting.id,
@@ -1118,10 +1137,12 @@
 
                     var displayUri = e.sender.dataItem().uri;
                     self.SetLinkToDisplay(displayUri, _self.modelId);
+                    self.SetDatastoreOnDisplayChange(e.sender.dataItem().display_details);
                 }
             });
 
             self.SetLinkToDisplay(null, null);
+            self.SetDatastoreOnDisplayChange(null);
         };
         self.InitialManageActionEmailSection = function () {
             self.InitialRecipientsGrid();
@@ -1357,6 +1378,8 @@
                 $('#datastore').data('kendoDropDownList').trigger('change');
 
                 self.CurrentAngle = {};
+                self.DisplayExcelTemplate = '';
+                self.StandardExcelTemplate = '';
                 self.SetEmailNotification(null);
                 self.SetActionButtons(_self.uid);
 
@@ -1560,6 +1583,7 @@
 
                     // set link
                     self.SetLinkToDisplay(display.uri, _self.modelId);
+                    self.SetDatastoreOnDisplayChange(display.display_details);
                 }
                 else {
                     jQuery('#angle_id').val(angleUri);
@@ -1570,6 +1594,7 @@
 
                     // set link
                     self.SetLinkToDisplay(null, null);
+                    self.SetDatastoreOnDisplayChange(null);
                 }
                 ddlDisplays.value(displayId);
             };
@@ -2254,6 +2279,66 @@
                 $('#linkDisplay').removeAttr('href').addClass('disabled');
             }
         };
+        self.SetDatastoreOnDisplayChange = function (displayDetail)
+        {
+            var ddlDatastore = $('#datastore').data('kendoDropDownList');
+            var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
+            ddlDatastore.enable(self.ConfigureDefaultTemplateFile(displayDetail, ddlExcelTemplate));
+        };
+        self.ConfigureDefaultTemplateFile = function (displayDetail, ddlExcelTemplate) {
+            if (displayDetail) {
+                var displayDetailObject = JSON.parse(displayDetail)
+                var excelTemplate = displayDetailObject.excel_template;
+                if (typeof excelTemplate !== 'undefined') {
+                    self.DisplayExcelTemplate = excelTemplate;
+                    self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+                    self.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
+                }
+                else {
+                    self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+                    self.DisplayExcelTemplate = '';
+                }
+                return true;
+            }
+            else {
+                self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+                self.DisplayExcelTemplate = '';
+                return false;
+            }
+        };
+        self.AddDisplayExcelTemplateToddlExcelTemplate = function (ddlExcelTemplate) {
+            if (ddlExcelTemplate && self.DisplayExcelTemplate !== '') {
+                var defaultTemplate = kendo.format(Localization.Default_Placeholder, self.DisplayExcelTemplate);
+                var dataSource = ddlExcelTemplate.dataSource;
+                dataSource.add({
+                    id: defaultTemplate,
+                    name: defaultTemplate
+                });
+                dataSource.sync();
+                ddlExcelTemplate.value(defaultTemplate);
+            }
+        };
+        self.RemoveDisplayExcelTemplateFromddlExcelTemplate = function (ddlExcelTemplate) {
+            if (ddlExcelTemplate) {
+                var dataSource = ddlExcelTemplate.dataSource.data();
+                var defaultOption = jQuery.grep(dataSource, function (option) {
+                    return option.id.indexOf(Localization.Default_Placeholder.split(' ')[0]) === 0;
+                });
+                if (defaultOption.length !== 0) {
+                    dataSource.remove(defaultOption[0]);
+                }
+                ddlExcelTemplate.value(self.StandardExcelTemplate);
+            }
+        };
+        self.IsDefaultDisplayExcelTemplate = function (displayExcelTemplate) {
+            return Localization.Default_Placeholder.split(' ')[0] === displayExcelTemplate.split(' ')[0];
+        };
+        self.SetTemplateFileValue = function (input, arg) {
+            if (arg.value !== '') {
+                var inputUI = input.data('handler');
+                inputUI.value(arg.value);
+            }
+        };
         self.CanAccessWebClient = function (modelId) {
             var model = self.AllModels.findObject('id', modelId);
             if (model) {
@@ -2269,6 +2354,7 @@
             jQuery('#hdnAngleId').val('');
             jQuery('#angle_name').attr('title', '');
             self.SetLinkToDisplay(null, null);
+            self.SetDatastoreOnDisplayChange(null);
         };
         self.FindAngle = function () {
             var btnFindAngle = $('#AddActionPopup .btnFindAngle');
@@ -2328,6 +2414,7 @@
                         if (display) {
                             displayId = display.id;
                             self.SetLinkToDisplay(angleDisplayUrl, _self.modelId);
+                            self.SetDatastoreOnDisplayChange(display.display_details);
                         }
                         else {
                             setTimeout(function () {

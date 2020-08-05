@@ -10,13 +10,24 @@
         var datastoreTemplateSettings = defaultExcelDatastoreHandler.GetExcelTemplates();
         self.DefaultDatastoreTemplate = datastoreTemplateSettings.value;
         self.AllTemplateFiles = datastoreTemplateSettings.options;
-        self.PrefixDefaultTemplate();
+        self.AddDefaultTemplate();
         self.Render($(target));
     };
 
-    self.PrefixDefaultTemplate = function () {
-        var defaultTemplate = self.AllTemplateFiles.findObject('id', self.DefaultDatastoreTemplate);
-        defaultTemplate.name = kendo.format(Localization.Default_Placeholder, self.DefaultDatastoreTemplate);
+    self.AddDefaultTemplate = function () {
+        var defaultTemplate = kendo.format(Localization.Default_Placeholder, self.DefaultDatastoreTemplate);
+        
+        var defaultTemplateOption = jQuery.grep(self.AllTemplateFiles, function (templateFile) {
+            return templateFile.id.indexOf(Localization.Default_Placeholder.split(' ')[0]) === 0;
+        });
+
+        if (defaultTemplateOption.length === 0)
+            self.AllTemplateFiles.push({
+            id: defaultTemplate,
+            name: defaultTemplate
+        });
+
+        self.DefaultDatastoreTemplate = defaultTemplate;
     };
 
     self.GetValue = function (dataSource) {

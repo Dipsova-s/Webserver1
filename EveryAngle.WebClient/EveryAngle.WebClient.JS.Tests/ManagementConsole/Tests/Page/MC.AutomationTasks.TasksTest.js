@@ -701,6 +701,125 @@ describe("MC.AutomationTasks.Tasks", function () {
 
     });
 
+    describe(".AddDisplayExcelTemplateToddlExcelTemplate", function () {
+
+        var dropdown;
+        beforeEach(function () {
+            dropdown = $('<div id="template_file" />').kendoDropDownList({
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: [
+                    { id: 'excel_template_00.xlsx', name: 'excel_template_00.xlsx' },
+                    { id: 'excel_template_01.xlsx', name: 'excel_template_01.xlsx' },
+                    { id: 'excel_template_02.xlsx', name: 'excel_template_02.xlsx' }
+                ]
+            });
+            dropdown.appendTo('body');
+        });
+
+        afterEach(function () {
+            dropdown.remove();
+        });
+
+        it("should Add default excel template to Template file dropdown", function () {
+            // prepare
+            var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
+            automationTask.DisplayExcelTemplate = 'excel_template_02.xlsx';
+            var addedItem = '[Default] excel_template_02.xlsx';
+
+            automationTask.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
+            
+            // assert
+            var result = jQuery.grep(ddlExcelTemplate.dataSource.data(), function (option) {
+                return option.id === addedItem;
+            });
+            expect(result.length).toBe(1);
+            expect(ddlExcelTemplate.value()).toBe(addedItem);
+        });
+    });
+
+    describe(".RemoveDisplayExcelTemplateFromddlExcelTemplate", function () {
+
+        var dropdown;
+        beforeEach(function () {
+            dropdown = $('<div id="template_file" />').kendoDropDownList({
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: [
+                    { id: 'excel_template_00.xlsx', name: 'excel_template_00.xlsx'},
+                    { id: 'excel_template_01.xlsx', name: 'excel_template_01.xlsx' },
+                    { id: 'excel_template_02.xlsx', name: 'excel_template_02.xlsx' },
+                    { id: '[Default] excel_template_02.xlsx', name: '[Default] excel_template_02.xlsx' }
+                ]
+            });
+            dropdown.appendTo('body');
+        });
+
+        afterEach(function () {
+            dropdown.remove();
+        });
+
+        it("should remove default excel template from Template file dropdown", function () {
+            // prepare
+            var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
+            var addedItem = '[Default] excel_template_02.xlsx';
+            automationTask.StandardExcelTemplate = 'excel_template_01.xlsx';
+            automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+
+            // assert
+            var result = jQuery.grep(ddlExcelTemplate.dataSource.data(), function (option) {
+                return option.id === addedItem;
+            });
+            expect(result.length).toBe(0);
+            expect(ddlExcelTemplate.value()).toBe(automationTask.StandardExcelTemplate);
+        });
+    });
+
+    describe(".ConfigureDefaultTemplateFile", function () {
+        beforeEach(function () {
+            spyOn(automationTask, 'AddDisplayExcelTemplateToddlExcelTemplate').and.returnValue($.noop);
+            spyOn(automationTask, 'RemoveDisplayExcelTemplateFromddlExcelTemplate').and.returnValue($.noop);
+        });
+
+        it("should set display excel template and call AddDisplayExcelTemplate", function () {
+            // Prepare
+            var displayDetail = '{ "excel_template": "excel_template_00.xlsx" }';
+
+            var result = automationTask.ConfigureDefaultTemplateFile(displayDetail, null);
+
+            // Assert
+            expect(automationTask.AddDisplayExcelTemplateToddlExcelTemplate).toHaveBeenCalled();
+            expect(automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate).toHaveBeenCalled();
+            expect(automationTask.DisplayExcelTemplate).toBe('excel_template_00.xlsx');
+            expect(result).toBe(true);
+
+        });
+
+        it("should reset display excel template and call RemoveDisplayExcelTemplate", function () {
+            // Prepare
+            var displayDetail = '{}';
+
+            var result = automationTask.ConfigureDefaultTemplateFile(displayDetail, null);
+
+            // Assert
+            expect(automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate).toHaveBeenCalled();
+            expect(automationTask.DisplayExcelTemplate).toBe('');
+            expect(result).toBe(true);
+        });
+
+        it("should reset display excel template and return false", function () {
+            // Prepare
+            var displayDetail = null;
+
+            var result = automationTask.ConfigureDefaultTemplateFile(displayDetail, null);
+
+            // Assert
+            expect(automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate).toHaveBeenCalled();
+            expect(automationTask.DisplayExcelTemplate).toBe('');
+            expect(result).toBe(false);
+        });
+    });
+
     describe(".GetActionData", function () {
 
         var container;

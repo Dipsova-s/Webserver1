@@ -21,13 +21,13 @@ describe("DisplayExcelTemplateHandler", function () {
                 value: 'my-value',
                 options: ['my-options']
             });
-            spyOn(handler, 'PrefixDefaultTemplate');
+            spyOn(handler, 'AddDefaultTemplate');
             spyOn(handler, 'Render');
             handler.Initial('');
 
             expect(handler.DefaultDatastoreTemplate).toEqual('my-value');
             expect(handler.AllTemplateFiles).toEqual(['my-options']);
-            expect(handler.PrefixDefaultTemplate).toHaveBeenCalled();
+            expect(handler.AddDefaultTemplate).toHaveBeenCalled();
             expect(handler.Render).toHaveBeenCalled();
         });
     });
@@ -78,7 +78,7 @@ describe("DisplayExcelTemplateHandler", function () {
         });
     });
 
-    describe(".PrefixDefaultTemplate", function () {
+    describe(".AddDefaultTemplate", function () {
         var allTemplates = [
             { id: 'excel_template_id_00.xlsx' },
             { id: 'excel_template_id_01.xlsx' },
@@ -87,15 +87,18 @@ describe("DisplayExcelTemplateHandler", function () {
 
         var expected = "[Default] excel_template_id_00.xlsx"
 
-        it("should prefix default template", function () {
+        it("should add default template and set default template", function () {
             handler.DefaultDatastoreTemplate = "excel_template_id_00.xlsx";
             handler.AllTemplateFiles = allTemplates;
        
-            handler.PrefixDefaultTemplate();
+            handler.AddDefaultTemplate();
 
-            var result = handler.AllTemplateFiles.findObject('id', 'excel_template_id_00.xlsx').name;
+            var defaultOption = jQuery.grep(handler.AllTemplateFiles, function (option) {
+                return option.id === '[Default] excel_template_id_00.xlsx';
+            });
 
-            expect(result).toEqual(expected);
+            expect(defaultOption.length).toBe(1);
+            expect(handler.DefaultDatastoreTemplate).toBe(expected);
         });
     });
 
