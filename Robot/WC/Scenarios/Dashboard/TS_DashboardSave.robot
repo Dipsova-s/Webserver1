@@ -1,6 +1,6 @@
 *** Settings ***
 Resource    		${EXECDIR}/WC/POM/Search/SearchPage.robot
-Resource    		${EXECDIR}/WC/POM/Angle/DashboardPage.robot
+Resource    		${EXECDIR}/WC/POM/Dashboard/DashboardPage.robot
 Resource            ${EXECDIR}/WC/POM/Shared/FilterEditor.robot
 Resource            ${EXECDIR}/WC/POM/Dashboard/SaveDashboardAsPopup.robot
 

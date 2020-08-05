@@ -35,7 +35,8 @@ Crop Add Filter Before Jump Button
     Crop WebHelp Image  WC_Icon_Filter_Before_Jump.png  css=#TabContentAngle .item-jump .action-add-filter    ${False}
 
 Crop Edit Filter Button
-    Add Filter Before Jump On Angle  0  object  ObjectType  ${TRUE}
+    ${objectText}  Get Localization Text  object  object  objekt  objeto  objet
+    Add Filter Before Jump On Angle  0  ${objectText}  ObjectType  ${TRUE}
     Crop WebHelp Image  WC_Icon_Edit.png  css=#TabContentAngle .item-filter .action-edit  ${False}
 
 Crop Undo Button

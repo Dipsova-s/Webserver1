@@ -24,6 +24,10 @@ WebHelp WC Setup
     Create Context: Web
     Enable Model Languages  /models/1  ${languagesData}
 
+    # restart modelserver
+    Create Context: Web
+    Restart Model Server  /models/1
+
     # activate "DiagramHelp" package
     Create Context: Web
     Activate Model Package  /models/1/packages  DiagramHelp

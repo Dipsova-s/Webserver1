@@ -1661,7 +1661,7 @@ function FieldsChooserModel() {
             fnGetHelps = function (ids) {
                 return GetDataFromWebService(self.ModelUri + uriParameter + ids.join(','))
                     .done(function (response) {
-                        helpTextHandler.SetHelpTexts(response.help_texts);
+                        helpTextHandler.SetData(response.help_texts, false);
 
                         jQuery.each(response.help_texts, function (index, helpText) {
                             self.HelpTexts[helpText.uri] = helpText;
