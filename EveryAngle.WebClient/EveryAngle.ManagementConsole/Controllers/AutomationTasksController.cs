@@ -187,6 +187,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult EditTask(string tasksUri, string angleUri)
         {
             bool canManageSystem = SessionHelper.Session.IsValidToManageSystemPrivilege();
+            bool canScheduleAngles = SessionHelper.Session.IsValidToScheduleAngles();
 
             // task
             TaskViewModel task = GetTask(tasksUri);
@@ -218,6 +219,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewData["DataStores"] = GetDataStoresDataSource(dataStores);
             ViewData["Scripts"] = GetScriptsDataSource();
             ViewData["CanManageSystem"] = canManageSystem;
+            ViewData["CanScheduleAngles"] = canScheduleAngles;
             ViewData["ModelPrivileges"] = SessionHelper.Session.ModelPrivileges;
             ViewData["TaskData"] = JsonConvert.SerializeObject(task);
             ViewData["TaskCreator"] = task.created == null ? SessionHelper.CurrentUser.Uri.ToString() : task.created.Uri.ToString();
@@ -228,7 +230,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             // use for checking priviledge
             ViewData["AllModels"] = allModels;
             ViewBag.TaskHistoryUri = SessionHelper.Version.GetEntryByName("eventlog").Uri.ToString();
-
+            ViewBag.UserId = SessionHelper.CurrentUser.Id.Replace("\\", "\\\\");
             return PartialView("~/Views/AutomationTasks/Tasks/TaskDetail.cshtml");
         }
 
@@ -501,9 +503,16 @@ namespace EveryAngle.ManagementConsole.Controllers
                     _taskService.DeleteTaskAction(actionUri);
                 }
 
-                // update task itself without "actions"
-                task.Uri = new Uri(taskUri);
-                task = _taskService.UpdateTask(task, false);
+                if (CanUpdateTask(task))
+                {
+                    //update task itself without "actions"
+                    task.Uri = new Uri(taskUri);
+                    task = _taskService.UpdateTask(task, false);
+                }
+                else
+                {
+                    task.Uri = new Uri(taskUri);
+                }
             }
 
             return new JsonResult
@@ -553,6 +562,16 @@ namespace EveryAngle.ManagementConsole.Controllers
         #endregion
 
         #region private methods
+
+        private bool CanUpdateTask(TaskViewModel task)
+        {
+            var isTaskOwner = task.run_as_user == SessionHelper.CurrentUser.Id;
+            var canScheduleAngles = SessionHelper.Session.IsValidToScheduleAngles();
+            var canManageSystem = SessionHelper.Session.IsValidToManageSystemPrivilege();
+            var result = canManageSystem || (canScheduleAngles && isTaskOwner);
+            return result;
+        }
+
         private JObject GetAngle(string angleUri)
         {
             var userSettings = SessionHelper.GetUserSettings();

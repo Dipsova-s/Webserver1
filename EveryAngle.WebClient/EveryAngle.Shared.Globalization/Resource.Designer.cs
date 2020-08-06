@@ -13165,6 +13165,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Run as user.
+        /// </summary>
+        public static string MC_TaskAction_ColumnRunAsUser {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_ColumnRunAsUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When checked, the Task will fail when this action fails.&lt;br&gt;
         ///When unchecked, the Task will continue and complete itself when this action fails..
         /// </summary>

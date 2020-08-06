@@ -36,7 +36,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         // remove those properties on create/update task action
         readonly List<string> defaultCleanTaskActionProperties = new List<string>
         {
-            "Angle", "AngleName", "DisplayName", "run_as_user"
+            "Angle", "AngleName", "DisplayName"
         };
 
         #endregion

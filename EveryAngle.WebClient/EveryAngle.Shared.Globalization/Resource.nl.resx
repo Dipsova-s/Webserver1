@@ -3996,4 +3996,7 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="Dashboards" xml:space="preserve">
     <value>Dashboards</value>
   </data>
+  <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
+    <value>Run as user</value>
+  </data>
 </root>

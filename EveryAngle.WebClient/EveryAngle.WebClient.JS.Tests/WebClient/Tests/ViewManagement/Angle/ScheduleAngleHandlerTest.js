@@ -10,6 +10,7 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/ScheduleAngleHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/User/Authentication.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemInformationHandler.js" />
 
 describe("ScheduleAngleHandler", function () {
 
@@ -49,7 +50,7 @@ describe("ScheduleAngleHandler", function () {
             spyOn(displayModel, 'Data').and.returnValue({
                 used_in_task: true
             });
-
+            spyOn(scheduleAngleHandler, "IsPrivilegeUser").and.returnValue(true);
             spyOn(popup, "Alert").and.callFake($.noop);
             spyOn(scheduleAngleHandler, "CheckAlreadyAssignedDisplay").and.callFake(function () { return { tasks: [] }; });
             spyOn(scheduleAngleHandler, "BindingFieldDropdownList").and.callFake($.noop);
@@ -117,7 +118,7 @@ describe("ScheduleAngleHandler", function () {
     });
 
     describe("gPopulateTaskList", function () {
-        it("should return tasks filtered by run as user when use only user tasks", function () {
+        it("should return all tasks to the user who has schedule angle privilege or manage system privilege", function () {
             var e = {
                 sender: {
                     wrapper: $()
@@ -131,8 +132,7 @@ describe("ScheduleAngleHandler", function () {
             spyOn(popup, "Alert").and.callFake($.noop);
             spyOn(scheduleAngleHandler, "CheckAlreadyAssignedDisplay").and.callFake(function () { return { tasks: [] }; });
             spyOn(scheduleAngleHandler, "BindingFieldDropdownList").and.callFake($.noop);
-            spyOn(scheduleAngleHandler, "UseOnlyUserTasks").and.callFake(function () { return true; });
-
+            spyOn(scheduleAngleHandler, "IsPrivilegeUser").and.returnValue(true);
             var data = {
                 tasks: [
                     { name: 'task 4', uri: '/tasks/4', run_as_user: 'Viewer' },
@@ -143,13 +143,101 @@ describe("ScheduleAngleHandler", function () {
             };
             scheduleAngleHandler.PopulateTaskList(e, data);
 
-            expect(data.tasks.length).toEqual(2);
-            expect(data.tasks[0].name).toEqual('task 2');
-            expect(data.tasks[1].name).toEqual('task 4');
+            expect(data.tasks.length).toEqual(4);
+            expect(data.tasks[0].name).toEqual('task 1');
+            expect(data.tasks[1].name).toEqual('task 2');
+            expect(data.tasks[2].name).toEqual('task 3');
+            expect(data.tasks[3].name).toEqual('task 4');
 
             expect(popup.Alert).not.toHaveBeenCalled();
             expect(scheduleAngleHandler.CheckAlreadyAssignedDisplay).toHaveBeenCalled();
             expect(scheduleAngleHandler.BindingFieldDropdownList).toHaveBeenCalled();
+        });
+        it("should not return the tasks to the user who does not has schedule angle privilege or manage system privilege", function () {
+            var e = {
+                sender: {
+                    wrapper: $()
+                }
+            };
+            spyOn(displayModel, 'Data').and.returnValue({
+                used_in_task: true
+            });
+
+            spyOn(userModel, "Data").and.callFake(function () { return { 'id': 'Viewer' }; });
+            spyOn(popup, "Alert").and.callFake($.noop);
+            spyOn(scheduleAngleHandler, "IsPrivilegeUser").and.returnValue(false);
+            var data = {
+                tasks: [
+                    { name: 'task 4', uri: '/tasks/4', run_as_user: 'Viewer' },
+                    { name: 'task 3', uri: '/tasks/3', run_as_user: 'EAAdmin' },
+                ]
+            };
+            scheduleAngleHandler.PopulateTaskList(e, data);
+
+            expect(popup.Alert).toHaveBeenCalled();
+        });
+    });
+
+    describe("IsPrivilegeUser", function () {
+        it("should return true if user has manage system privilege", function () {
+            //arrange.
+            spyOn(userModel, "IsPossibleToManageSystem").and.returnValue(true); 
+            spyOn(userModel, "IsPossibleToScheduleAngles").and.returnValue(false);
+            spyOn(systemInformationHandler, "IsSupportAngleAutomation").and.returnValue(true);
+
+            //act.
+            var result = scheduleAngleHandler.IsPrivilegeUser();
+
+            //assert.
+            expect(result).toEqual(true);
+        });
+        it("should return true if user has manage schedule angles", function () {
+            //arrange.
+            spyOn(userModel, "IsPossibleToManageSystem").and.returnValue(false);
+            spyOn(userModel, "IsPossibleToScheduleAngles").and.returnValue(true);
+            spyOn(systemInformationHandler, "IsSupportAngleAutomation").and.returnValue(true);
+
+            //act.
+            var result = scheduleAngleHandler.IsPrivilegeUser();
+
+            //assert.
+            expect(result).toEqual(true);
+        });
+        it("should return false if user does not has manage schedule angles", function () {
+            //arrange.
+            spyOn(userModel, "IsPossibleToManageSystem").and.returnValue(false);
+            spyOn(userModel, "IsPossibleToScheduleAngles").and.returnValue(false);
+            spyOn(systemInformationHandler, "IsSupportAngleAutomation").and.returnValue(true);
+
+            //act.
+            var result = scheduleAngleHandler.IsPrivilegeUser();
+
+            //assert.
+            expect(result).toEqual(false);
+        });
+        it("should return true if user has both manage system privilege and manage schedule angles", function () {
+            //arrange.
+            spyOn(userModel, "IsPossibleToManageSystem").and.returnValue(true);
+            spyOn(userModel, "IsPossibleToScheduleAngles").and.returnValue(true);
+            spyOn(systemInformationHandler, "IsSupportAngleAutomation").and.returnValue(true);
+
+            //act.
+            var result = scheduleAngleHandler.IsPrivilegeUser();
+
+            //assert.
+            expect(result).toEqual(true);
+        });
+        it("should return false if manage schedule angles but not support for Angle Automation", function () {
+            //arrange.
+            spyOn(userModel, "IsPossibleToManageSystem").and.returnValue(false);
+            spyOn(userModel, "IsPossibleToScheduleAngles").and.returnValue(true);
+            spyOn(systemInformationHandler, "IsSupportAngleAutomation").and.returnValue(false);
+
+            //act.
+            var result = scheduleAngleHandler.IsPrivilegeUser();
+
+            //assert.
+            expect(result).toEqual(false);
         });
     });
 

@@ -16,13 +16,13 @@ EnableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\"  onclick
            + "<a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction(\\'#= uid #\\')\" class=\"btn btn btnExecute" + (isEditMode?"":" alwaysHidden")  + "\">" + Resource.MC_ExecuteNow + "</a>"
            + "<a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"#= data.uid #\"}\\' data-delete-template=\"" + Resource.MC_DeleteFieldConfirm + "\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">" + Resource.Delete + "</a>",
 DisableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\" onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup(\\'#= uid #\\', false)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Resource.View + "</a>"
-           + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+           + "<a class=\"btn btnDelete disabled\" data-parameters=\\'{\"uid\":\"#= data.uid #\"}\\' data-delete-template=\"" + Resource.MC_DeleteFieldConfirm + "\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">" + Resource.Delete + "</a>"
 }
 };
     string actionButtonTemplate = HttpUtility.HtmlDecode(Html.GetGridToolbar(actionButton)).Trim();
     string webClientAngleUrl = PageHelper.GetWebclientUrl();
 }
-<script>
+    <script>
     MC.util.loadScript({
         test: MC.AutomationTasks && MC.AutomationTasks.Tasks,
         url: '@Scripts.Url("~/bundles/automationtasks/tasks")',
@@ -52,8 +52,10 @@ DisableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\" onclick
                 ExecuteTaskUri: '@Url.Action("ExecuteTaskAction", "AutomationTasks")',
                 GetHistoryUri : '@Url.Action("GetHistory", "AutomationTasks")',
                 CheckExecutionTaskUri: '@Url.Action("CheckExecutionTask", "AutomationTasks")',
-                TaskHistoryUri :'@ViewBag.TaskHistoryUri'
-
+                TaskHistoryUri: '@ViewBag.TaskHistoryUri',
+                CurrentUser: '@ViewBag.UserId',
+                CanManageSystem: @Convert.ToString(@ViewData["CanManageSystem"]).ToLowerInvariant(),
+                CanScheduleAngles:@Convert.ToString(@ViewData["CanScheduleAngles"]).ToLowerInvariant()
             });
               MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
               MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
@@ -61,7 +63,7 @@ DisableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\" onclick
               MC.ui.logpopup.LogType = 'TasksEventLog'
         }
     });
-</script>
+    </script>
 
 @{
     @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
@@ -174,126 +176,132 @@ DisableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\" onclick
 
     <textarea id="TemplateManageAction" class="alwaysHidden">
     <form id="FormEditAction" data-role="validator">
-    <div class="contentSection contentSectionInfo contentSectionInfoGeneral">
-    <div class="contentSectionInfoItem contentSectionInfoItemDropdown">
-    <label>@Resource.MC_Action</label>
-    <p><input type="text" id="action_type" name="action_type" class="required" /></p>
-                </div>
+        <div class="contentSection contentSectionInfo contentSectionInfoGeneral">
+            <div class="contentSectionInfoItem">
+                <label>@Resource.RunAsUser</label>
+                <p>
+                    <input name="action_run_as_user" id="action_run_as_user" type="text" class="required" maxlength="100" @((bool)ViewData["CanManageSystem"] ? "" : " disabled=\"disabled\"") />
+                </p>
+            </div>
+            <div class="contentSectionInfoItem contentSectionInfoItemDropdown">
+                <label>@Resource.MC_Action</label>
+                <p><input type="text" id="action_type" name="action_type" class="required" /></p>
+            </div>
 
-    <div class="contentSectionInfoItem contentSectionInfoItemDropdown scriptActionType">
-    <label>@Captions.MC_Label_ScriptName</label>
-    <p>
-    <input type="text" id="script" name="script" class="required" />
-
-
-
-    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
-                        &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionScript&lt;/textarea&gt;
-                    </p>
-                </div>
-
-    <div class="contentSectionInfoItem contentSectionInfoItemInput rowParameters scriptActionType">
-    <label>@Captions.MC_Label_ScriptParameters</label>
-    <p>
-    <input type="text" id="parameters" name="parameters" />
+            <div class="contentSectionInfoItem contentSectionInfoItemDropdown scriptActionType">
+                <label>@Captions.MC_Label_ScriptName</label>
+                <p>
+                    <input type="text" id="script" name="script" class="required" />
 
 
 
-    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
-                        &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionParameters&lt;/textarea&gt;
-                    </p>
-                </div>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                    &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionScript&lt;/textarea&gt;
+                </p>
+            </div>
 
-    <div class="contentSectionInfoItem contentSectionInfoItemInput scriptActionType">
-    <label>@Resource.Username</label>
-    <p>
-    <input type="text" id="run_as_user" name="run_as_user" class="required" autocomplete="run_as_user-off" />
-
-
-
-    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
-                        &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionUsername&lt;/textarea&gt;
-                    </p>
-                </div>
-
-    <div class="contentSectionInfoItem contentSectionInfoItemInput scriptActionType">
-    <label>@Resource.Password</label>
-    <p>
-    <input type="text" id="password.inputfake" class="hidden" />
+            <div class="contentSectionInfoItem contentSectionInfoItemInput rowParameters scriptActionType">
+                <label>@Captions.MC_Label_ScriptParameters</label>
+                <p>
+                    <input type="text" id="parameters" name="parameters" />
 
 
 
-    <input type="password" id="password.fake" class="hidden" />
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                    &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionParameters&lt;/textarea&gt;
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem contentSectionInfoItemInput scriptActionType">
+                <label>@Resource.Username</label>
+                <p>
+                    <input type="text" id="run_as_user" name="run_as_user" class="required" autocomplete="run_as_user-off" />
 
 
 
-    <input type="password" id="password" name="password" class="required" autocomplete="new-password" />
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                    &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionUsername&lt;/textarea&gt;
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem contentSectionInfoItemInput scriptActionType">
+                <label>@Resource.Password</label>
+                <p>
+                    <input type="text" id="password.inputfake" class="hidden" />
 
 
 
-    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
-                        &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionPassword&lt;/textarea&gt;
-                    </p>
-                </div>
-
-    <div class="contentSectionInfoItem datastoreActionType">
-    <label>@Resource.Model</label>
-    <p><input type="hidden" id="model_id" /><label id="model_name"></label></p>
-                </div>
-
-    <div class="contentSectionInfoItem datastoreActionType">
-    <label>@Resource.Angle</label>
-    <p>
-    <input type="text" id="angle_id" name="angle_id" placeholder="contain /models/1/angles/1 or /models/1/angles/1/displays/1" class="required angle_display" />
+                    <input type="password" id="password.fake" class="hidden" />
 
 
 
-    <input type="hidden" id="hdnAngleId" />
+                    <input type="password" id="password" name="password" class="required" autocomplete="new-password" />
 
 
 
-    <a class="btn btnPrimary btnFindAngle" onclick="MC.AutomationTasks.Tasks.FindAngle()">@Resource.MC_CheckAngle</a>
-                    </p>
-                </div>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                    &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionPassword&lt;/textarea&gt;
+                </p>
+            </div>
 
-    <div class="contentSectionInfoItem datastoreActionType">
-    <label>@Resource.AngleName</label>
-    <p><label id="angle_name" /></p>
-                </div>
+            <div class="contentSectionInfoItem datastoreActionType">
+                <label>@Resource.Model</label>
+                <p><input type="hidden" id="model_id" /><label id="model_name"></label></p>
+            </div>
 
-    <div class="contentSectionInfoItem contentSectionInfoItemDropdown datastoreActionType">
-    <label>@Resource.Display</label>
-    <p><input type="text" id="display_id" name="display_id" class="required" /><a class="btn btnOpenWindow btnLink" target="_blank" id="linkDisplay"></a></p>
-    <input type="hidden" id="hdnDisplayId" />
+            <div class="contentSectionInfoItem datastoreActionType">
+                <label>@Resource.Angle</label>
+                <p>
+                    <input type="text" id="angle_id" name="angle_id" placeholder="contain /models/1/angles/1 or /models/1/angles/1/displays/1" class="required angle_display" />
 
 
 
-                </div>
+                    <input type="hidden" id="hdnAngleId" />
 
-    <div class="contentSectionInfoItem rowAbortTaskWhenError datastoreActionType scriptActionType">
-    <label>@Captions.MC_Label_ScriptAbortTaskWhenError</label>
-    <p>
-    <label><input type="checkbox" id="abort_task_when_error" name="abort_task_when_error" /><span class="label"> </span></label>
-    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
-                        &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionAbortWhenError&lt;/textarea&gt;
-                    </p>
-                </div>
 
-    <div class="contentSectionInfoItem contentSectionInfoItemDropdown datastoreActionType scriptActionType">
-    <label>@Resource.MC_ApprovalState</label>
-    <p><select type="text" id="approvalddl" name="approvalddl" class="required"></select></p>
-                </div>
 
-    <div class="contentSectionInfoItem contentSectionInfoItemCondition datastoreActionType">
-    <label>@Resource.MC_Condition</label>
-    <p><select id="condition_operator" name="condition_operator"></select><input id="condition_value" type="text" disabled="disabled" name="condition_value" class="number" /> <span>@Resource.MC_TaskDetaiObjects</span></p>
-                </div>
-    <div class="contentSectionInfoItem datastoreActionType">
-    <div class="gridContainer">
-    <div id="AngleParametersGrid" style="display: none;"></div>
-                    </div>
+                    <a class="btn btnPrimary btnFindAngle" onclick="MC.AutomationTasks.Tasks.FindAngle()">@Resource.MC_CheckAngle</a>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem datastoreActionType">
+                <label>@Resource.AngleName</label>
+                <p><label id="angle_name" /></p>
+            </div>
+
+            <div class="contentSectionInfoItem contentSectionInfoItemDropdown datastoreActionType">
+                <label>@Resource.Display</label>
+                <p><input type="text" id="display_id" name="display_id" class="required" /><a class="btn btnOpenWindow btnLink" target="_blank" id="linkDisplay"></a></p>
+                <input type="hidden" id="hdnDisplayId" />
+
+
+
+            </div>
+
+            <div class="contentSectionInfoItem rowAbortTaskWhenError datastoreActionType scriptActionType">
+                <label>@Captions.MC_Label_ScriptAbortTaskWhenError</label>
+                <p>
+                    <label><input type="checkbox" id="abort_task_when_error" name="abort_task_when_error" /><span class="label"> </span></label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                    &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionAbortWhenError&lt;/textarea&gt;
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem contentSectionInfoItemDropdown datastoreActionType scriptActionType">
+                <label>@Resource.MC_ApprovalState</label>
+                <p><select type="text" id="approvalddl" name="approvalddl" class="required" @((bool)ViewData["CanManageSystem"] ? "" : " disabled=\"disabled\"")></select></p>
+            </div>
+
+            <div class="contentSectionInfoItem contentSectionInfoItemCondition datastoreActionType">
+                <label>@Resource.MC_Condition</label>
+                <p><select id="condition_operator" name="condition_operator"></select><input id="condition_value" type="text" disabled="disabled" name="condition_value" class="number" /> <span>@Resource.MC_TaskDetaiObjects</span></p>
+            </div>
+            <div class="contentSectionInfoItem datastoreActionType">
+                <div class="gridContainer">
+                    <div id="AngleParametersGrid" style="display: none;"></div>
                 </div>
             </div>
+        </div>
     <hr />
 
 

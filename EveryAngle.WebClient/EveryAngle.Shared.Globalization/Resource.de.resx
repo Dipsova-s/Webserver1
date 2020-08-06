@@ -6407,4 +6407,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Dashboards" xml:space="preserve">
     <value>Dashboards</value>
   </data>
+  <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
+    <value>Run as user</value>
+  </data>
 </root>

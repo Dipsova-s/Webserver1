@@ -1,0 +1,13 @@
+{
+
+	"system_privileges": {
+		"has_management_access": false,
+		"manage_system": false,
+		"manage_users": false,
+		"allow_impersonation": true,
+		"schedule_angles": true
+	},
+	"id": "Scheduleonly",
+	"description": "Scheduleonly",
+	"subrole_ids": []
+}

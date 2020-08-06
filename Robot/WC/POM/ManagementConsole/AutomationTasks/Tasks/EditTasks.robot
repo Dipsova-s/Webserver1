@@ -46,7 +46,12 @@ ${chkDatastoreAppendResult}    css=#append
 ${trGridTaskAction}            jquery=#TaskActionsGrid tbody tr
 ${btnExecutetAction}           .btnGroupInner .btnExecute
 
-${addActionPopup}           AddActionPopup
+${addActionPopup}               AddActionPopup
+${txtRusAsUser}                 css=#action_run_as_user
+${btnAddAction}                 css=#AddActionPopup .btnAddAction
+          
+
+             
 
 *** Keywords ***
 Wait Edit Tasks Page Ready
@@ -96,6 +101,13 @@ Wait Add Action Popup Ready
     Wait Until Page Contains Element     ${addActionPopup}
     Page Should Contain Element         ${addActionPopup}
     Sleep    ${TIMEOUT_GENERAL}
+
+Click Ok Button On Action Popup
+    Click Element     ${btnAddAction}
+
+Action Run As User Should be
+    [Arguments]   ${name}
+    Textfield Value Should Be   ${txtRusAsUser}     ${name}
 
 Close Add Action Popup
     Click Element    ${btnCloseAddActionPopup}
@@ -182,3 +194,7 @@ Task Action Should Contain Execute Button
     Page Should Contain Element     ${trGridTaskAction} td:contains('${actionName}') 
     Click Show Action Dropdown In Grid By Name    ${actionName}    ${trGridTaskAction}
     Wait Until Page Contains Element    ${trGridTaskAction}:contains(${actionName}) ${btnExecutetAction}
+
+Task Action Should Contain Run As User
+    [Arguments]     ${index}     ${name}
+    Element Should Contain    ${trGridTaskAction}:eq(${index})  ${name}

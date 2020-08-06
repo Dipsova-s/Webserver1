@@ -280,6 +280,12 @@ describe("MC.AutomationTasks.Tasks", function () {
             var template = automationTask.SetAbilityToEditControl(data, false, true, 'run_as_user');          
             expect(template).toContain("data-parameters='{\"taskUri\":\"http://www.ea.com\"}'");
         });
+
+        it("Show execute task command when has CanScheduleAngles", function () {
+            spyOn(automationTask, 'CanManageTask').and.returnValue(false);
+            var template = automationTask.SetAbilityToEditControl(data, false, true, 'run_as_user'); 
+            expect(template).toContain("<input type=\"hidden\" name=\"uri\" value=\"http:\/\/www.ea.com\" \/><a href=\"\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"http:\/\/www.ea.com\"}' class=\"btn btnEdit\">Edit<\/a><a data-parameters='{\"taskUri\":\"http:\/\/www.ea.com\"}' data-delete-template=\"Delete Task: {reference}?\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete disabled\">Delete<\/a>");
+        });
     });
 
     describe(".GetActionsGridColumnDefinitions", function () {
@@ -289,7 +295,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             var columns = automationTask.GetActionsGridColumnDefinitions();
 
             // assert
-            expect(columns.length).toEqual(9);
+            expect(columns.length).toEqual(10);
             expect(columns[0].field).toEqual('order');
             expect(columns[1].field).toEqual('action_type_name');
             expect(typeof columns[1].template).toEqual('function');
@@ -299,10 +305,11 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(typeof columns[3].template).toEqual('function');
             expect(columns[4].field).toEqual('angle_name');
             expect(columns[5].field).toEqual('display_name');
-            expect(columns[6].field).toEqual('condition_name');
-            expect(typeof columns[6].template).toEqual('function');
-            expect(columns[7].field).toEqual('approval_state');
-            expect(columns[8].field).toEqual('action');
+            expect(columns[6].field).toEqual('run_as_user');
+            expect(columns[7].field).toEqual('condition_name');
+            expect(typeof columns[7].template).toEqual('function');
+            expect(columns[8].field).toEqual('approval_state');
+            expect(columns[9].field).toEqual('action');
         });
 
     });
@@ -519,6 +526,7 @@ describe("MC.AutomationTasks.Tasks", function () {
                 AngleName: '',
                 AngleUri: '/models/1/angles/1',
                 DisplayName: '',
+                run_as_user:'test_user',
                 approval_state: 'approval_state1',
                 notification: 'notification1',
                 arguments: [
@@ -534,6 +542,7 @@ describe("MC.AutomationTasks.Tasks", function () {
                 AngleName: '',
                 AngleUri: '/models/1/angles/3',
                 DisplayName: '',
+                run_as_user:'',
                 approval_state: 'approval_state3',
                 notification: 'notification3',
                 arguments: [
@@ -559,6 +568,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(result.data[0].uri).toEqual('/tasks/1');
             expect(result.data[0].order).toEqual(0);
             expect(result.data[0].AngleUri).toEqual('/models/1/angles/1');
+            expect(result.data[0].run_as_user).toEqual('test_user')
 
             expect(result.data[1].action_type).toEqual('action_type2');
             expect(result.data[1].angle_name).toEqual('AngleName2');
@@ -579,6 +589,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(result.data[2].uri).toEqual('/tasks/3');
             expect(result.data[2].order).toEqual(2);
             expect(result.data[2].AngleUri).toEqual('/models/1/angles/3');
+            expect(result.data[2].run_as_user).toEqual('')
 
             expect(result.sort.field).toEqual('order');
             expect(result.sort.dir).toEqual('asc');
@@ -845,10 +856,18 @@ describe("MC.AutomationTasks.Tasks", function () {
             $('<div id="action_type"/>').data('kendoDropDownList', dropdownFunction).appendTo(container);
             $('<div id="approvalddl"/>').data('kendoDropDownList', dropdownFunction).appendTo(container);
             $('<div id="display_id"/>').data('kendoDropDownList', dropdownFunction).appendTo(container);
+            $('<input name="action_run_as_user" value="test_user"/>').appendTo(container);
         });
 
         afterEach(function () {
             container.remove();
+        });
+
+        it("should get run as user value", function () {
+            var result = automationTask.GetActionData();
+
+            // assert
+            expect(result.run_as_user).toEqual('test_user');
         });
 
         it("should get data if action type is datastore", function () {
