@@ -664,8 +664,7 @@ function DashboardPageHandler() {
             return false;
 
         return !self.IsEditMode()
-            && self.CheckInvalidAngleAndDisplay(angle, display).Valid
-            && modelsHandler.GetModelByUri(angle.model).available;
+            && self.CheckInvalidAngleAndDisplay(angle, display).Valid;
     };
     self.ExecuteWidget = function (widget) {
         var widgetElement = self.GetWidgetElement(widget.id);
@@ -950,20 +949,9 @@ function DashboardPageHandler() {
                     self.SetValidFilters(widgetElement);
                 });
 
-            /*Changed to use the same function of M4-11190*/
-
-            var model = modelsHandler.GetModelByUri(angle.model);
-            if (!model) {
-                self.SetInvalidatedWidget(columnElement, '<li>No active model instance for model uri: ' + angle.model + '</li>');
-            }
-            else if (!model.available) {
-                self.SetInvalidatedWidget(columnElement, '<li>No active model instance for model ID: ' + model.id + '</li>');
-            }
-            else {
-                var invalidStatus = self.CheckInvalidAngleAndDisplay(angle, display);
-                if (!invalidStatus.Valid) {
-                    self.SetInvalidatedWidget(columnElement, invalidStatus.Message);
-                }
+            var invalidStatus = self.CheckInvalidAngleAndDisplay(angle, display);
+            if (!invalidStatus.Valid) {
+                self.SetInvalidatedWidget(columnElement, invalidStatus.Message);
             }
         }
         else {
@@ -1034,13 +1022,6 @@ function DashboardPageHandler() {
             updateDisplay();
         else
             self.UpdateDisplayLayoutChecker = setTimeout(updateDisplay, delay);
-    };
-    self.ReApplyResult = function () {
-        jQuery('#dashboardWrapper .widget-display-column').each(function (index, element) {
-            var model = jQuery(element).data('ResultModel');
-            if (model)
-                model.ApplyResult();
-        });
     };
     self.RemoveWidgetDisplayElement = function (widgetDisplayElementId, widgetContainer, displayData) {
         var widgetDisplay;

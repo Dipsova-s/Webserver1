@@ -202,6 +202,16 @@ describe("AngleHandler", function () {
         });
     });
 
+    describe(".Online", function () {
+        it("should be online", function () {
+            spyOn(modelsHandler, 'IsAvailable').and.returnValue(true);
+            var result = angleHandler.Online();
+
+            // assert
+            expect(result).toEqual(true);
+        });
+    });
+
     describe(".Load", function () {
         it("should load data", function () {
             spyOn(directoryHandler, 'ResolveDirectoryUri');
@@ -595,6 +605,7 @@ describe("AngleHandler", function () {
         var tests = [
             {
                 title: 'can change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 can_use_jump: true,
@@ -605,6 +616,18 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: false,
+                invalid_baseclass: false,
+                can_use_baseclass: true,
+                can_use_jump: true,
+                allow_more_details: true,
+                update: true,
+                is_validated: false,
+                expected: false
+            },
+            {
+                title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: true,
                 can_use_baseclass: true,
                 can_use_jump: true,
@@ -615,6 +638,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: false,
                 allow_more_details: true,
@@ -624,6 +648,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_more_details: false,
@@ -633,6 +658,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_more_details: true,
@@ -642,6 +668,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_more_details: true,
@@ -652,6 +679,7 @@ describe("AngleHandler", function () {
         ];
         $.each(tests, function (index, test) {
             var titles = [
+                'online = ' + test.online,
                 'invalid_baseclass = ' + test.invalid_baseclass,
                 'can_use_baseclass = ' + test.can_use_baseclass,
                 'allow_more_details = ' + test.allow_more_details,
@@ -661,6 +689,7 @@ describe("AngleHandler", function () {
             it(test.title + ' (' + titles.join(', ') + ')', function () {
                 //initial
                 var validation = { InvalidBaseClasses: test.invalid_baseclass };
+                spyOn(angleHandler, 'Online').and.returnValue(test.online);
                 spyOn(angleHandler, 'CanUseBaseClass').and.returnValue(test.can_use_baseclass);
                 spyOn(angleHandler, 'CanUseJump').and.returnValue(test.can_use_jump);
                 spyOn(angleHandler, 'AllowMoreDetails').and.returnValue(test.allow_more_details);
@@ -682,6 +711,7 @@ describe("AngleHandler", function () {
         var tests = [
             {
                 title: 'can change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -692,6 +722,18 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: false,
+                invalid_baseclass: false,
+                can_use_baseclass: true,
+                allow_followups: true,
+                allow_more_details: true,
+                update: true,
+                is_validated: false,
+                expected: false
+            },
+            {
+                title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: true,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -702,6 +744,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: false,
                 allow_followups: true,
@@ -712,6 +755,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: false,
@@ -722,6 +766,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -732,6 +777,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -742,6 +788,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -753,6 +800,7 @@ describe("AngleHandler", function () {
         ];
         $.each(tests, function (index, test) {
             var titles = [
+                'online = ' + test.online,
                 'invalid_baseclass = ' + test.invalid_baseclass,
                 'can_use_baseclass = ' + test.can_use_baseclass,
                 'allow_followups = ' + test.allow_followups,
@@ -763,6 +811,7 @@ describe("AngleHandler", function () {
             it(test.title + ' (' + titles.join(', ') + ')', function () {
                 //initial
                 var validation = { InvalidBaseClasses: test.invalid_baseclass };
+                spyOn(angleHandler, 'Online').and.returnValue(test.online);
                 spyOn(angleHandler, 'CanUseBaseClass').and.returnValue(test.can_use_baseclass);
                 spyOn(angleHandler, 'AllowFollowups').and.returnValue(test.allow_followups);
                 spyOn(angleHandler, 'AllowMoreDetails').and.returnValue(test.allow_more_details);
@@ -786,16 +835,29 @@ describe("AngleHandler", function () {
             var validation = { InvalidBaseClasses: false };
 
             // prepare
+            spyOn(angleHandler, 'Online').and.returnValue(true);
             var result = angleHandler.CanExecuteQuerySteps(validation);
 
             // assert
             expect(result).toEqual(true);
         });
-        it("cannot execute query steps", function () {
+        it("cannot execute query steps (online=false)", function () {
+            //initial
+            var validation = { InvalidBaseClasses: false };
+
+            // prepare
+            spyOn(angleHandler, 'Online').and.returnValue(false);
+            var result = angleHandler.CanExecuteQuerySteps(validation);
+
+            // assert
+            expect(result).toEqual(false);
+        });
+        it("cannot execute query steps (InvalidBaseClasses=true)", function () {
             //initial
             var validation = { InvalidBaseClasses: true };
 
             // prepare
+            spyOn(angleHandler, 'Online').and.returnValue(true);
             var result = angleHandler.CanExecuteQuerySteps(validation);
 
             // assert
@@ -807,6 +869,7 @@ describe("AngleHandler", function () {
         var tests = [
             {
                 title: 'can save query steps',
+                online: true,
                 invalid_baseclass: false,
                 update: true,
                 is_validated: false,
@@ -814,6 +877,15 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot save query steps',
+                online: false,
+                invalid_baseclass: false,
+                update: true,
+                is_validated: false,
+                expected: false
+            },
+            {
+                title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: true,
                 update: true,
                 is_validated: true,
@@ -821,6 +893,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: false,
                 update: true,
                 is_validated: true,
@@ -828,6 +901,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: false,
                 update: false,
                 is_validated: false,
@@ -835,6 +909,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: false,
                 update: false,
                 is_validated: true,
@@ -843,6 +918,7 @@ describe("AngleHandler", function () {
         ];
         $.each(tests, function (index, test) {
             var titles = [
+                'online = ' + test.online,
                 'invalid_baseclass = ' + test.invalid_baseclass,
                 'update = ' + test.update,
                 'is_validated = ' + test.is_validated
@@ -850,6 +926,7 @@ describe("AngleHandler", function () {
             it(test.title + ' (' + titles.join(', ') + ')', function () {
                 //initial
                 var validation = { InvalidBaseClasses: test.invalid_baseclass };
+                spyOn(angleHandler, 'Online').and.returnValue(test.online);
                 angleHandler.Data({ authorizations: { update: test.update }, is_validated: ko.observable(test.is_validated) });
 
                 // prepare
@@ -916,6 +993,25 @@ describe("AngleHandler", function () {
             expect(result.model).toEqual('/models/1');
             expect(result.query_definition[0].queryblock_type).toEqual(enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
             expect(result.query_definition[1].queryblock_type).toEqual(enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
+        });
+    });
+
+    describe(".ClearAllPostResultsData", function () {
+        it("should clear all Display results", function () {
+            // prepare
+            var display1 = new DisplayHandler({ id: 'display1' }, angleHandler);
+            display1.ResultHandler.Data = { uri: '/results/1' };
+            var display2 = new DisplayHandler({ id: 'display2' }, angleHandler);
+            display2.ResultHandler.Data = { uri: '/results/2' };
+            var display3 = new DisplayHandler({ id: 'display3' }, angleHandler);
+            display3.ResultHandler.Data = { uri: '/results/3' };
+            angleHandler.Displays = [display1, display2, display3];
+            angleHandler.ClearAllPostResultsData();
+
+            // assert
+            expect(angleHandler.Displays[0].ResultHandler.Data).toEqual({});
+            expect(angleHandler.Displays[1].ResultHandler.Data).toEqual({});
+            expect(angleHandler.Displays[2].ResultHandler.Data).toEqual({});
         });
     });
 

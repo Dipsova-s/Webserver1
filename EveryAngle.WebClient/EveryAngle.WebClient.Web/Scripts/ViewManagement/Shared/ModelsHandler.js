@@ -140,6 +140,10 @@ function ModelsHandler() {
         var model = self.GetModelById(modelId);
         return model ? model.short_name || model.id : modelId;
     };
+    self.IsAvailable = function (modelUri) {
+        var model = self.GetModelByUri(modelUri);
+        return model && model.current_instance && model.available === true;
+    };
 
     self.GetQueryFieldsUri = function (resultData, angleData, isMetaData) {
         if (typeof isMetaData === 'undefined')

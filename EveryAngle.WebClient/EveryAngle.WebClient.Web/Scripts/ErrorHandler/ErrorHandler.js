@@ -300,7 +300,7 @@ function ErrorHandlerViewModel() {
         error.append('<div class="areaErrorMessage">' + msg.replace(/\\n$/i, '').replace(/\\n/ig, '<br />') + '</div>');
         if (typeof retryFunction === 'function') {
             error.children('.areaErrorMessage')
-                .append('<a class="areaErrorRetryButton">retry</a>')
+                .append('<a class="areaErrorRetryButton">' + Localization.Reexecute + '</a>')
                 .children('.areaErrorRetryButton')
                 .click(function () {
                     jQuery(this).parents('.areaErrorContainer').remove();

@@ -9,6 +9,7 @@
 
         { "Path": "/../../Dependencies/ViewManagement/Shared/PopupPageHandlers.js" },
         { "Path": "/../../Dependencies/ViewManagement/Shared/ValidationHandler.js" },
+        { "Path": "/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" },
         { "Path": "/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" },
         { "Path": "/../../Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" },
         { "Path": "/../../Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" },

@@ -325,6 +325,8 @@ function AnglePageHandler() {
     };
     self.SetHandlerDisplay = function (handler) {
         self.HandlerDisplay = handler;
+        self.HandlerAngle.SetQueryDefinitionAuthorizations();
+        self.HandlerDisplay.SetQueryDefinitionAuthorizations();
         self.HandlerAngle.SetCurrentDisplay(handler);
         listDrilldownHandler.SetDisplayHandler(self.HandlerDisplay);
 
@@ -674,6 +676,15 @@ function AnglePageHandler() {
         }
         return true;
     };
+    self.CheckModelStatus = function () {
+        return modelsHandler.LoadModelInfo(self.HandlerAngle.Data().model)
+            .done(function () {
+                if (self.HandlerAngle.Online())
+                    self.SetModelServerAvailable();
+                else
+                    self.SetModelServerUnavailable({});
+            });
+    };
     self.ShowProgressbar = function () {
         var cancelFunction = progressbarModel.KeepCancelFunction ? progressbarModel.CancelFunction : function () {
             WC.Page.Stop();
@@ -930,6 +941,7 @@ function AnglePageHandler() {
         return true;
     };
     self.ExecuteAngle = function () {
+        self.ClearResultErrorXhr();
         WC.Ajax.AbortAll();
 
         var angleParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
@@ -976,12 +988,7 @@ function AnglePageHandler() {
                 }
             })
             .then(function () {
-                var modelUri = angleInfoModel.Data().model;
-                var model = modelsHandler.GetModelByUri(modelUri);
-                if (!model || model.available !== true || model.model_status !== 'Up')
-                    return modelsHandler.LoadModelInfo(modelUri);
-                else
-                    return jQuery.when();
+                return self.CheckModelStatus();
             })
             .then(function () {
                 return jQuery.when(
@@ -1225,29 +1232,27 @@ function AnglePageHandler() {
         resultModel.LoadResultFields(false)
             .done(function () {
                 self.LoadResultFieldDone = true;
-
                 self.ApplyExecutionAngle();
-
                 self.BuildFieldSettingWhenNoResult(displayData);
-
-                if (!angleInfoModel.ModelServerAvailable) {
-                    var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
-                    popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_NoActiveModelInstance, model.id));
-                }
             });
     };
-    /* EOF: M4-8817: After POST /results fail still show angle/display details */
+/* EOF: M4-8817: After POST /results fail still show angle/display details */
+    self.ResultErrorXhr = null;
     self.PostResult = function () {
         var renderNewResult = true;
+        self.ClearResultErrorXhr();
         progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_PostResult);
+        self.HandlerDisplay.ResultHandler.CustomError = true;
         return self.HandlerDisplay.PostResult()
             .progress(function (data) {
                 var queuedMessage;
                 if (data.queue_position === 0) {
                     queuedMessage = Localization.ExecutingAngleMessage;
-                } else if (!data.queue_position) {
+                }
+                else if (!data.queue_position) {
                     queuedMessage = '';
-                } else {
+                }
+                else {
                     queuedMessage = kendo.format(data.queue_position === 1 ? Localization.FirstInQueueMessage : Localization.LaterInQueueMessage, data.queue_position);
                 }
                 progressbarModel.SetProgressBarTextAndMessage(kendo.toString(data.progress * 100, 'n2'), queuedMessage);
@@ -1257,20 +1262,18 @@ function AnglePageHandler() {
                     progressbarModel.SetDisableProgressBar();
             })
             .fail(function (xhr, status) {
+                errorHandlerModel.IgnoreAjaxError(xhr);
+                if (xhr.status === 503) {
+                    self.SetModelServerUnavailable(xhr);
+                }
+
+                var displayData = self.HandlerDisplay.GetData();
                 if (status === 'abort' && self.IsEditMode()) {
-                    self.ApplyAngleAndDisplayWithoutResult(displayModel.Data());
+                    self.ApplyAngleAndDisplayWithoutResult(displayData);
                 }
                 else if (xhr.status !== 404) {
-                    if (xhr.status === 503) {
-                        errorHandlerModel.IgnoreAjaxError(xhr);
-                        angleInfoModel.ModelServerAvailable = false;
-                    }
-                    else {
-                        errorHandlerModel.OnClickRetryErrorCallback = function () {
-                            self.ExecuteAngle();
-                        };
-                    }
-                    self.ApplyAngleAndDisplayWithoutResult(displayModel.Data());
+                    self.ResultErrorXhr = xhr;
+                    self.ApplyAngleAndDisplayWithoutResult(displayData);
                 }
             })
             .then(function (data) {
@@ -1287,6 +1290,19 @@ function AnglePageHandler() {
                 self.LoadResultFieldDone = true;
                 return jQuery.when(renderNewResult);
             });
+    };
+    self.ClearResultErrorXhr = function () {
+        self.ResultErrorXhr = null;
+        jQuery('#AngleTableWrapper .areaErrorContainer').remove();
+    };
+    self.SetModelServerUnavailable = function (xhr) {
+        xhr.responseText = kendo.format(Localization.Info_NoActiveModelInstance, self.HandlerAngle.GetModelName());
+        self.ResultErrorXhr = xhr;
+        angleInfoModel.ModelServerAvailable = false;
+    };
+    self.SetModelServerAvailable = function () {
+        self.ResultErrorXhr = null;
+        angleInfoModel.ModelServerAvailable = true;
     };
     
     self.ApplyExecutionAngle = function () {
@@ -1790,21 +1806,24 @@ function AnglePageHandler() {
     };
     self.BuildFieldSettingWhenNoResult = function (display) {
         if (display.display_type === enumHandlers.DISPLAYTYPE.LIST) {
-            if (self.HandlerValidation.Angle.InvalidBaseClasses || !display.authorizations.update) {
-                listHandler.ReadOnly(true);
-                listHandler.DashBoardMode(true);
-            }
-            else {
-                listHandler.ReadOnly(false);
-                listHandler.DashBoardMode(false);
-            }
+            listHandler.HasResult(false);
+            listHandler.ReadOnly(self.HandlerValidation.Angle.InvalidBaseClasses || !display.authorizations.update);
+            listHandler.DashBoardMode(false);
             listHandler.GetListDisplay();
+            if (self.ResultErrorXhr)
+                listHandler.ShowError(self.ResultErrorXhr);
         }
         else if (display.display_type === enumHandlers.DISPLAYTYPE.CHART) {
-            chartHandler.GetChartDisplay(false);
+            chartHandler.HasResult(false);
+            chartHandler.GetChartDisplay();
+            if (self.ResultErrorXhr)
+                chartHandler.ShowError(self.ResultErrorXhr);
         }
         else if (display.display_type === enumHandlers.DISPLAYTYPE.PIVOT) {
-            pivotPageHandler.GetPivotDisplay(false);
+            pivotPageHandler.HasResult(false);
+            pivotPageHandler.GetPivotDisplay();
+            if (self.ResultErrorXhr)
+                pivotPageHandler.ShowError(self.ResultErrorXhr);
         }
     };
     self.UpdateAngleDisplayValidation = function () {

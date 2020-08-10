@@ -107,14 +107,25 @@ describe("DisplayPivotResultHandler", function () {
         it('can change count field state', function () {
             // prepare
             spyOn(displayPivotResultHandler.DisplayHandler.QueryDefinitionHandler, 'GetAggregationDataFields').and.returnValue([{}, {}, {}]);
+            spyOn(displayPivotResultHandler.DisplayHandler.QueryDefinitionHandler.Authorizations, 'CanChangeAggregation').and.returnValue(true);
             var result = displayPivotResultHandler.CanChangeCountFieldState();
 
             // assert
             expect(result).toEqual(true);
         });
-        it('cannot change count field state', function () {
+        it('cannot change count field state (1 field)', function () {
             // prepare
             spyOn(displayPivotResultHandler.DisplayHandler.QueryDefinitionHandler, 'GetAggregationDataFields').and.returnValue([{}]);
+            spyOn(displayPivotResultHandler.DisplayHandler.QueryDefinitionHandler.Authorizations, 'CanChangeAggregation').and.returnValue(true);
+            var result = displayPivotResultHandler.CanChangeCountFieldState();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+        it('cannot change count field state (CanChangeAggregation=false)', function () {
+            // prepare
+            spyOn(displayPivotResultHandler.DisplayHandler.QueryDefinitionHandler, 'GetAggregationDataFields').and.returnValue([{}, {}, {}]);
+            spyOn(displayPivotResultHandler.DisplayHandler.QueryDefinitionHandler.Authorizations, 'CanChangeAggregation').and.returnValue(false);
             var result = displayPivotResultHandler.CanChangeCountFieldState();
 
             // assert

@@ -190,13 +190,6 @@
     position: relative;
 }
 
-.widgetInvalid .widgetDisplay li:before {
-    content: '\2022';
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
 #dashboardWrapper .k-splitbar {
     z-index: 2;
     background-color: #f9f9f9;

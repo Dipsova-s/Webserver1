@@ -8,10 +8,10 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleSaveActionHandler.js" />
 
 describe("AngleSaveActionHandler", function () {
-    var angleSaveActionHandler, angleHandler, stateHandler;
+    var angleSaveActionHandler;
     beforeEach(function () {
-        angleHandler = new AngleHandler({});
-        stateHandler = {
+        var angleHandler = new AngleHandler({ is_template: false });
+        var stateHandler = {
             SetTemplateStatus: $.noop
         };
         angleSaveActionHandler = new AngleSaveActionHandler(angleHandler, stateHandler);
@@ -579,7 +579,7 @@ describe("AngleSaveActionHandler", function () {
         ];
         $.each(tests, function (index, test) {
             it(test.title, function () {
-                angleHandler.Data().is_template(test.template);
+                angleSaveActionHandler.AngleHandler.Data().is_template(test.template);
                 spyOn(angleSaveActionHandler.AngleHandler, 'CanCreateTemplateAngle').and.returnValue(test.authorization);
 
                 var actual = angleSaveActionHandler.VisibleSetTemplate();
@@ -610,7 +610,7 @@ describe("AngleSaveActionHandler", function () {
         ];
         $.each(tests, function (index, test) {
             it(test.title, function () {
-                angleHandler.Data().is_template(test.template);
+                angleSaveActionHandler.AngleHandler.Data().is_template(test.template);
                 spyOn(angleSaveActionHandler.AngleHandler, 'CanCreateTemplateAngle').and.returnValue(test.authorization);
 
                 var actual = angleSaveActionHandler.VisibleSetAngle();

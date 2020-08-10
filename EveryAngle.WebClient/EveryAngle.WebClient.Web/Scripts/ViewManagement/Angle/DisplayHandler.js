@@ -201,6 +201,7 @@ function DisplayHandler(model, parent) {
     };
     self.CanChangeFilter = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
             !validation.InvalidBaseClasses,
             !validation.InvalidFollowups,
             self.AngleHandler.AllowMoreDetails(self.GetModelUri()),
@@ -209,6 +210,7 @@ function DisplayHandler(model, parent) {
     };
     self.CanChangeJump = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
             !validation.InvalidBaseClasses,
             !validation.InvalidFollowups,
             self.AngleHandler.AllowMoreDetails(self.GetModelUri()),
@@ -216,11 +218,20 @@ function DisplayHandler(model, parent) {
         ]);
     };
     self.CanExecuteQuerySteps = function (validation) {
-        return !validation.InvalidBaseClasses && !validation.InvalidFollowups && !validation.InvalidFilters;
+        return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
+            !validation.InvalidBaseClasses,
+            !validation.InvalidFollowups,
+            !validation.InvalidFilters
+        ]);
     };
     self.CanUpdateQuerySteps = function (validation) {
-        var isQueryValid = !validation.InvalidBaseClasses && !validation.InvalidFollowups;
-        return isQueryValid && self.CanUpdate();
+        return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
+            !validation.InvalidBaseClasses,
+            !validation.InvalidFollowups,
+            self.CanUpdate()
+        ]);
     };
     self.UpdateAngleQueryDefinition = function () {
         if (!self.QueryDefinitionHandler.Parent()) {
@@ -342,6 +353,7 @@ function DisplayHandler(model, parent) {
     };
     self.CanChangeAggregation = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
             !validation.InvalidBaseClasses,
             !validation.InvalidFollowups,
             !self.QueryDefinitionHandler.HasErrorJump(),

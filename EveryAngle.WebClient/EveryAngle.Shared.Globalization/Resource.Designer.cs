@@ -16508,6 +16508,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re-execute.
+        /// </summary>
+        public static string Reexecute {
+            get {
+                return ResourceManager.GetString("Reexecute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Referenced object.
         /// </summary>
         public static string ReferencedObject {

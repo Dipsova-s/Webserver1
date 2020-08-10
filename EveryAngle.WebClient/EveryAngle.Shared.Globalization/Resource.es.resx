@@ -6410,4 +6410,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
     <value>Run as user</value>
   </data>
+  <data name="Reexecute" xml:space="preserve">
+    <value>Re-execute</value>
+  </data>
 </root>

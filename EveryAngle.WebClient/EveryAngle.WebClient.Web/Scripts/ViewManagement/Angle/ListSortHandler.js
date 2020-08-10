@@ -182,44 +182,6 @@ function ListSortHandler() {
             anglePageHandler.HandlerDisplay.ExecuteQueryDefinition(QueryDefinitionHandler.ExecuteAction.Adhoc);
         };
     };
-    self.ApplyFail = function (oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel) {
-        // error popup will be shown after this block, so add delay before set close event
-        setTimeout(function () {
-            popup.OnCloseCallback = function () {
-                self.RollbackSorting(oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
-            };
-        }, 100);
-    };
-    self.ApplyDone = function (sortingLimit, oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel) {
-        if (sortingLimit) {
-            // don't apply sorting result of this error
-            popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_DisplaySortingReachedLimitation, sortingLimit));
-            popup.OnCloseCallback = function () {
-                self.RollbackSorting(oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
-            };
-        }
-        else {
-            jQuery('#AngleGrid .k-scrollbar-vertical').scrollTop(0);
-            resultModel.ApplyResult();
-        }
-    };
-    self.RollbackSorting = function (oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel) {
-        self.CloseCustomPopup();
-        WC.Ajax.AbortAll();
-
-        displayQueryBlockModel.QuerySteps(oldQueryStep);
-        displayQueryBlockModel.TempQuerySteps(oldQueryStepTemp);
-        self.QuerySteps(oldSort);
-
-        displayModel.LoadSuccess(oldDisplayModel);
-        resultModel.LoadSuccess(oldDisplayModel.results);
-
-        resultModel.GetResult(resultModel.Data().uri)
-            .then(resultModel.LoadResultFields)
-            .done(function () {
-                resultModel.ApplyResult();
-            });
-    };
     self.Clear = function () {
         var oldSort = ko.toJS(self.QuerySteps());
         self.QuerySteps([{
@@ -227,19 +189,6 @@ function ListSortHandler() {
             sorting_fields: []
         }]);
         self.Apply(true, oldSort);
-    };
-    self.GetSortInfoByFieldId = function (fieldId) {
-        var data = null;
-        fieldId = fieldId.toLowerCase();
-        if (self.QuerySteps().length > 0) {
-            jQuery.each(self.QuerySteps()[0].sorting_fields, function (k, v) {
-                if (v.field_id.toLowerCase() === fieldId) {
-                    data = v;
-                    return false;
-                }
-            });
-        }
-        return data;
     };
     self.IsCustomSort = function () {
         return self.QuerySteps().length !== 0 && self.QuerySteps()[0].sorting_fields.length > 1;

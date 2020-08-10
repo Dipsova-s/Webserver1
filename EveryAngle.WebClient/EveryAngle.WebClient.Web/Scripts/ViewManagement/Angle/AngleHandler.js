@@ -92,6 +92,9 @@ function AngleHandler(model) {
 
         return data;
     };
+    self.Online = function () {
+        return modelsHandler.IsAvailable(self.Data() && self.Data().model);
+    };
     self.Load = function (uri) {
         var query = {};
         query[enumHandlers.PARAMETERS.CACHING] = false;
@@ -232,6 +235,7 @@ function AngleHandler(model) {
     };
     self.CanChangeFilter = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.Online(),
             !validation.InvalidBaseClasses,
             self.CanUseBaseClass(),
             self.CanUseJump(),
@@ -242,6 +246,7 @@ function AngleHandler(model) {
     };
     self.CanChangeJump = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.Online(),
             !validation.InvalidBaseClasses,
             self.CanUseBaseClass(),
             self.AllowFollowups(self.Data().model),
@@ -251,10 +256,11 @@ function AngleHandler(model) {
         ]);
     };
     self.CanExecuteQuerySteps = function (validation) {
-        return !validation.InvalidBaseClasses;
+        return self.Online() && !validation.InvalidBaseClasses;
     };
     self.CanUpdateQuerySteps = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.Online(),
             !validation.InvalidBaseClasses,
             self.Data().authorizations.update,
             !self.Data().is_validated()
@@ -287,6 +293,11 @@ function AngleHandler(model) {
             resultQueryDefinition.query_definition = self.QueryDefinitionHandler.GetQueryDefinition().query_definition;
         }
         return resultQueryDefinition;
+    };
+    self.ClearAllPostResultsData = function () {
+        jQuery.each(self.Displays, function (_index, display) {
+            display.ClearPostResultData();
+        });
     };
 
     // displays

@@ -53,6 +53,7 @@ function ChartHandler(elementId, container) {
     };
     self.TEXT_NULL = 'null';
 
+    self.HasResult = ko.observable(false);
     self.ReadOnly = ko.observable(false);
     self.DashBoardMode = ko.observable(false);
     self.Models = {
@@ -106,7 +107,7 @@ function ChartHandler(elementId, container) {
     self.GetContainer = function () {
         return jQuery(self.Container);
     };
-    self.GetChartDisplay = function (isValidDisplay) {
+    self.GetChartDisplay = function () {
         self.OnRenderStart();
 
         // make sure that chart details is correct
@@ -136,7 +137,7 @@ function ChartHandler(elementId, container) {
         var container = self.GetContainer();
         container.css('background-color', self.THEME.BACKGROUND);
 
-        if (isValidDisplay !== false) {
+        if (self.HasResult()) {
             self.ShowLoadingIndicator();
 
             // chart view
@@ -454,19 +455,20 @@ function ChartHandler(elementId, container) {
                     requests = requests[0];
                 if (requests instanceof Array)
                     requests = requests[0];
-
-                if (self.DashBoardMode()) {
-                    var widgetDisplayElementId = self.ElementId.slice(1);
-                    var widgetContainer = jQuery(self.ElementId + '-inner');
-                    var chartType = self.GetDisplayDetails().chart_type;
-                    self.RemoveWidgetChart(widgetDisplayElementId, widgetContainer, chartType);
-                    self.Models.Result.RetryPostResult(requests.responseText);
-                }
-                else {
-                    self.Models.Result.SetRetryPostResultToErrorPopup(requests);
-                }
+                self.ShowError(requests);
             })
             .done(self.GenerateChartDatasource);
+    };
+    self.ShowError = function (xhr) {
+        var element = self.Container;
+        if (self.DashBoardMode()) {
+            element = self.ElementId;
+            var widgetDisplayElementId = self.ElementId.slice(1);
+            var widgetContainer = jQuery(self.ElementId + '-inner');
+            var chartType = self.GetDisplayDetails().chart_type;
+            self.RemoveWidgetChart(widgetDisplayElementId, widgetContainer, chartType);
+        }
+        self.Models.Result.SetRetryPostResult(xhr, element);
     };
     self.RemoveWidgetChart = function (widgetDisplayElementId, widgetContainer, chartType) {
         if (self.IsDonutOrPieChartType(chartType)) {

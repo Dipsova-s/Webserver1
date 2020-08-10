@@ -5,25 +5,36 @@
 
 describe("ResultModel", function () {
     var resultModel;
-
     beforeEach(function () {
         resultModel = new ResultViewModel();
+        createMockHandler(window, 'anglePageHandler', {
+            ExecuteAngle: $.noop,
+            HandlerDisplay: {
+                ClearPostResultData: $.noop
+            }
+        });
+    });
+    afterEach(function () {
+        restoreMockHandlers();
     });
 
-    describe(".SetRetryPostResultToErrorPopup", function () {
-        var testCases = [
-            { title: 'should show warning popup if http status code is 404', testValue: 404, expected: true },
-            { title: 'should not show warning popup if http status code is 409', testValue: 409, expected: false },
-            { title: 'should not show warning popup if http status code is 500', testValue: 500, expected: false }
-        ];
-        testCases.forEach(function (testCase) {
-            it(testCase.title, function () {
-                spyOn(popup, 'Alert');
-                popup.OnCloseCallback = $.noop;
-                resultModel.SetRetryPostResultToErrorPopup({ status: testCase.testValue });
-                var hasOnCloseCallback = popup.OnCloseCallback !== $.noop;
-                expect(hasOnCloseCallback).toEqual(testCase.expected);
-            });
+    describe(".SetRetryPostResult", function () {
+        beforeEach(function () {
+            spyOn(errorHandlerModel, 'IgnoreAjaxError');
+            spyOn(errorHandlerModel, 'GetAreaErrorMessage').and.returnValue('my error');
+            spyOn(errorHandlerModel, 'ShowAreaError');
+        });
+        it('should set error for 404 status code', function () {
+            resultModel.SetRetryPostResult({ status: 404 });
+            expect(errorHandlerModel.IgnoreAjaxError).toHaveBeenCalled();
+            expect(errorHandlerModel.GetAreaErrorMessage).not.toHaveBeenCalled();
+            expect(errorHandlerModel.ShowAreaError).toHaveBeenCalled();
+        });
+        it('should set error for other status code', function () {
+            resultModel.SetRetryPostResult();
+            expect(errorHandlerModel.IgnoreAjaxError).toHaveBeenCalled();
+            expect(errorHandlerModel.GetAreaErrorMessage).toHaveBeenCalled();
+            expect(errorHandlerModel.ShowAreaError).toHaveBeenCalled();
         });
     });
 

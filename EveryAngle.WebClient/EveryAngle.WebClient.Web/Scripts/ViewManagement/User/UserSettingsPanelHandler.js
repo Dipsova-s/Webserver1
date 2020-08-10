@@ -737,7 +737,7 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
         }
         else if (typeof dashboardPageHandler !== 'undefined') {
             // update widgets
-            dashboardPageHandler.ReApplyResult();
+            dashboardPageHandler.ExecuteAllWidgets();
         }
 
         toast.MakeSuccessText(Localization.Toast_SaveSettings);

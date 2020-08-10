@@ -7,17 +7,8 @@ describe("AngleSaveAsHandler", function () {
 
     var angleSaveAsHandler;
     beforeEach(function () {
-        var angleHandler = {
-            Data: ko.observable({ multi_lang_name: [] }),
-            GetValidationResult: $.noop,
-            Displays: [],
-            CloneData: $.noop,
-            CreateNew: $.noop,
-            GetName: $.noop
-        };
-        var displayHandler = {
-            Data: ko.observable({ uri: '/displays/1' })
-        };
+        var angleHandler = new AngleHandler({ multi_lang_name: [] });
+        var displayHandler = new DisplayHandler({ uri: '/displays/1' }, angleHandler);
         angleSaveAsHandler = new AngleSaveAsHandler(angleHandler, displayHandler);
     });
 

@@ -574,7 +574,8 @@ describe("DisplayHandler", function () {
     describe(".CanChangeFilter", function () {
         var tests = [
             {
-                title: 'can change filter if invalid_baseclass = false, invalid_followup = false, allow_more_details = true, can_jump = true',
+                title: 'can change filter',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 allow_more_details: true,
@@ -582,7 +583,17 @@ describe("DisplayHandler", function () {
                 expected: true
             },
             {
-                title: 'cannot change filter if invalid_baseclass = true, invalid_followup = false, allow_more_details = true, can_jump = true',
+                title: 'cannot change filter',
+                online: false,
+                invalid_baseclass: false,
+                invalid_followup: false,
+                allow_more_details: true,
+                can_jump: true,
+                expected: false
+            },
+            {
+                title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: true,
                 invalid_followup: false,
                 allow_more_details: true,
@@ -590,7 +601,8 @@ describe("DisplayHandler", function () {
                 expected: false
             },
             {
-                title: 'cannot change filter if invalid_baseclass = false, invalid_followup = true, allow_more_details = true, can_jump = true',
+                title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: true,
                 allow_more_details: true,
@@ -598,7 +610,8 @@ describe("DisplayHandler", function () {
                 expected: false
             },
             {
-                title: 'cannot change filter if invalid_baseclass = false, invalid_followup = false, allow_more_details = false, can_jump = true',
+                title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 allow_more_details: false,
@@ -606,7 +619,8 @@ describe("DisplayHandler", function () {
                 expected: false
             },
             {
-                title: 'cannot change filter if invalid_baseclass = false, invalid_followup = false, allow_more_details = true, can_jump = false',
+                title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 allow_more_details: true,
@@ -615,9 +629,17 @@ describe("DisplayHandler", function () {
             }
         ];
         $.each(tests, function (index, test) {
-            it(test.title, function () {
+            var titles = [
+                'online = ' + test.online,
+                'invalid_baseclass = ' + test.invalid_baseclass,
+                'invalid_followup = ' + test.invalid_followup,
+                'allow_more_details = ' + test.allow_more_details,
+                'can_jump = ' + test.can_jump
+            ];
+            it(test.title + ' (' + titles.join(', ') + ')', function () {
                 // prepare
                 var validation = { InvalidBaseClasses: test.invalid_baseclass, InvalidFollowups: test.invalid_followup };
+                spyOn(displayHandler.AngleHandler, 'Online').and.returnValue(test.online);
                 spyOn(displayHandler.AngleHandler, 'AllowMoreDetails').and.returnValue(test.allow_more_details);
                 spyOn(displayHandler, 'CanUseJump').and.returnValue(test.can_jump);
                 var result = displayHandler.CanChangeFilter(validation);
@@ -631,7 +653,8 @@ describe("DisplayHandler", function () {
     describe(".CanChangeJump", function () {
         var tests = [
             {
-                title: 'can change jump if invalid_baseclass = false, invalid_followup = false, allow_more_details = true, allow_followups = true',
+                title: 'can change jump',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 allow_more_details: true,
@@ -639,7 +662,17 @@ describe("DisplayHandler", function () {
                 expected: true
             },
             {
-                title: 'cannot change jump if invalid_baseclass = true, invalid_followup = false, allow_more_details = true, allow_followups = true',
+                title: 'cannot change jump',
+                online: false,
+                invalid_baseclass: false,
+                invalid_followup: false,
+                allow_more_details: true,
+                allow_followups: true,
+                expected: false
+            },
+            {
+                title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: true,
                 is_adhoc: false,
                 allow_more_details: true,
@@ -647,7 +680,8 @@ describe("DisplayHandler", function () {
                 expected: false
             },
             {
-                title: 'cannot change jump if invalid_baseclass = false, invalid_followup = true, allow_more_details = true, allow_followups = true',
+                title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: true,
                 allow_more_details: true,
@@ -655,7 +689,8 @@ describe("DisplayHandler", function () {
                 expected: false
             },
             {
-                title: 'cannot change jump if invalid_baseclass = false, invalid_followup = false, allow_more_details = false, allow_followups = true',
+                title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 allow_more_details: false,
@@ -663,7 +698,8 @@ describe("DisplayHandler", function () {
                 expected: false
             },
             {
-                title: 'cannot change jump if invalid_baseclass = false, invalid_followup = false, allow_more_details = true, allow_followups = false',
+                title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 allow_more_details: true,
@@ -672,9 +708,17 @@ describe("DisplayHandler", function () {
             }
         ];
         $.each(tests, function (index, test) {
-            it(test.title, function () {
+            var titles = [
+                'online = ' + test.online,
+                'invalid_baseclass = ' + test.invalid_baseclass,
+                'invalid_followup = ' + test.invalid_followup,
+                'allow_more_details = ' + test.allow_more_details,
+                'allow_followups = ' + test.allow_followups
+            ];
+            it(test.title + ' (' + titles.join(', ') + ')', function () {
                 // prepare
                 var validation = { InvalidBaseClasses: test.invalid_baseclass, InvalidFollowups: test.invalid_followup };
+                spyOn(displayHandler.AngleHandler, 'Online').and.returnValue(test.online);
                 spyOn(displayHandler.AngleHandler, 'AllowMoreDetails').and.returnValue(test.allow_more_details);
                 spyOn(displayHandler.AngleHandler, 'AllowFollowups').and.returnValue(test.allow_followups);
                 var result = displayHandler.CanChangeJump(validation);
@@ -688,28 +732,40 @@ describe("DisplayHandler", function () {
     describe(".CanExecuteQuerySteps", function () {
         var tests = [
             {
-                title: 'can execute query steps if invalid_baseclass = false, invalid_followup = false and invalid_filter = false',
+                title: 'can execute query steps',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 invalid_filter: false,
                 expected: true
             },
             {
-                title: 'cannot execute query steps if invalid_baseclass = true, invalid_followup = false and invalid_filter = false',
+                title: 'cannot execute query steps',
+                online: false,
+                invalid_baseclass: false,
+                invalid_followup: false,
+                invalid_filter: false,
+                expected: false
+            },
+            {
+                title: 'cannot execute query steps',
+                online: true,
                 invalid_baseclass: true,
                 invalid_followup: false,
                 invalid_filter: false,
                 expected: false
             },
             {
-                title: 'cannot execute query steps if invalid_baseclass = false, invalid_followup = true and invalid_filter = false',
+                title: 'cannot execute query steps',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: true,
                 invalid_filter: false,
                 expected: false
             },
             {
-                title: 'cannot execute query steps if invalid_baseclass = false, invalid_followup = false and invalid_filter = true',
+                title: 'cannot execute query steps',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 invalid_filter: true,
@@ -717,13 +773,20 @@ describe("DisplayHandler", function () {
             }
         ];
         $.each(tests, function (index, test) {
-            it(test.title, function () {
+            var titles = [
+                'online = ' + test.online,
+                'invalid_baseclass = ' + test.invalid_baseclass,
+                'invalid_followup = ' + test.invalid_followup,
+                'invalid_filter = ' + test.invalid_filter
+            ];
+            it(test.title + ' (' + titles.join(', ') + ')', function () {
                 // prepare
                 var validation = {
                     InvalidBaseClasses: test.invalid_baseclass,
                     InvalidFollowups: test.invalid_followup,
                     InvalidFilters: test.invalid_filter
                 };
+                spyOn(displayHandler.AngleHandler, 'Online').and.returnValue(test.online);
                 var result = displayHandler.CanExecuteQuerySteps(validation);
 
                 // assert
@@ -735,28 +798,40 @@ describe("DisplayHandler", function () {
     describe(".CanUpdateQuerySteps", function () {
         var tests = [
             {
-                title: 'can save query steps if invalid_baseclass = false, invalid_followup = false and update = true',
+                title: 'can save query steps',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 update: true,
                 expected: true
             },
             {
-                title: 'cannot save query steps if invalid_baseclass = true, invalid_followup = false and update = true',
+                title: 'cannot save query steps',
+                online: false,
+                invalid_baseclass: false,
+                invalid_followup: false,
+                update: true,
+                expected: false
+            },
+            {
+                title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: true,
                 invalid_followup: false,
                 update: true,
                 expected: false
             },
             {
-                title: 'cannot save query steps if invalid_baseclass = false, invalid_followup = true and update = true',
+                title: 'cannot save query',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: true,
                 update: true,
                 expected: false
             },
             {
-                title: 'cannot save query steps if invalid_baseclass = false, invalid_followup = false and update = false',
+                title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 update: false,
@@ -764,7 +839,13 @@ describe("DisplayHandler", function () {
             }
         ];
         $.each(tests, function (index, test) {
-            it(test.title, function () {
+            var titles = [
+                'online = ' + test.online,
+                'invalid_baseclass = ' + test.invalid_baseclass,
+                'invalid_followup = ' + test.invalid_followup,
+                'update = ' + test.update
+            ];
+            it(test.title + ' (' + titles.join(', ') + ')', function () {
                 //initial
                 displayHandler.Data({ authorizations: { update: test.update } });
 
@@ -773,6 +854,7 @@ describe("DisplayHandler", function () {
                     InvalidBaseClasses: test.invalid_baseclass,
                     InvalidFollowups: test.invalid_followup
                 };
+                spyOn(displayHandler.AngleHandler, 'Online').and.returnValue(test.online);
                 var result = displayHandler.CanUpdateQuerySteps(validation);
 
                 // assert
@@ -932,7 +1014,8 @@ describe("DisplayHandler", function () {
     describe(".CanChangeAggregation", function () {
         var tests = [
             {
-                title: 'can change aggregation if invalid_baseclass = false, invalid_followup = false, can_use_filter = true and can_use_jump = true',
+                title: 'can change aggregation',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 can_use_filter: true,
@@ -940,7 +1023,17 @@ describe("DisplayHandler", function () {
                 expected: true
             },
             {
-                title: 'cannot change aggregation if invalid_baseclass = true, invalid_followup = false, can_use_filter = true and can_use_jump = true',
+                title: 'cannot change aggregation',
+                online: false,
+                invalid_baseclass: false,
+                invalid_followup: false,
+                can_use_filter: true,
+                can_use_jump: true,
+                expected: false
+            },
+            {
+                title: 'cannot change aggregation',
+                online: true,
                 invalid_baseclass: true,
                 invalid_followup: false,
                 can_use_filter: true,
@@ -948,7 +1041,8 @@ describe("DisplayHandler", function () {
                 expected: false
             },
             {
-                title: 'cannot change aggregation if invalid_baseclass = false, invalid_followup = true, can_use_filter = true and can_use_jump = true',
+                title: 'cannot change aggregation',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: true,
                 can_use_filter: true,
@@ -956,7 +1050,8 @@ describe("DisplayHandler", function () {
                 expected: false
             },
             {
-                title: 'cannot change aggregation if invalid_baseclass = false, invalid_followup = false, can_use_filter = false and can_use_jump = true',
+                title: 'cannot change aggregation',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 can_use_filter: false,
@@ -964,7 +1059,8 @@ describe("DisplayHandler", function () {
                 expected: false
             },
             {
-                title: 'cannot change aggregation if invalid_baseclass = false, invalid_followup = false, can_use_filter = true and can_use_jump = false',
+                title: 'cannot change aggregation',
+                online: true,
                 invalid_baseclass: false,
                 invalid_followup: false,
                 can_use_filter: true,
@@ -973,7 +1069,13 @@ describe("DisplayHandler", function () {
             }
         ];
         $.each(tests, function (index, test) {
-            it(test.title, function () {
+            var titles = [
+                'online = ' + test.online,
+                'invalid_baseclass = ' + test.invalid_baseclass,
+                'invalid_followup = ' + test.invalid_followup,
+                'update = ' + test.update
+            ];
+            it(test.title + ' (' + titles.join(', ') + ')', function () {
                 //initial
                 spyOn(displayHandler, 'CanUseFilter').and.returnValue(test.can_use_filter);
                 spyOn(displayHandler, 'CanUseJump').and.returnValue(test.can_use_jump);
@@ -983,6 +1085,7 @@ describe("DisplayHandler", function () {
                     InvalidBaseClasses: test.invalid_baseclass,
                     InvalidFollowups: test.invalid_followup
                 };
+                spyOn(displayHandler.AngleHandler, 'Online').and.returnValue(test.online);
                 var result = displayHandler.CanChangeAggregation(validation);
 
                 // assert
