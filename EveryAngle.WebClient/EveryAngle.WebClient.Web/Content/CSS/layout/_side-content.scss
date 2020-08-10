@@ -193,6 +193,22 @@ $side-content-color: #fcfcfc;
                 flex-grow: 1;
             }
         }
+
+        .innowera-details {
+            display: inline-block;
+            margin-left: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .innowera-details > span {
+            font-style: italic;
+            color: #5e6366;
+            font-size: 11px;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+        }
     }
 
     .section-business-processes {

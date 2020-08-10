@@ -98,7 +98,7 @@
                     $.each(response.Data, function (key, value) {
                         if (value.File === fileName) {
                             isFileExistInServer = true;
-                            if (value.Is_default_file) {
+                            if (value.IsDefaultFile) {
                                 isFileDefault = true;
                                 popupMessage = Localization.MC_ReplaceNotAllowedForStandardExcel;
                                 return false;

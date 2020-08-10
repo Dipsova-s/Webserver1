@@ -9342,6 +9342,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display Name.
+        /// </summary>
+        public static string MC_DisplayName {
+            get {
+                return ResourceManager.GetString("MC_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage private items.
         /// </summary>
         public static string MC_DisplayPrivateItem {
@@ -11510,6 +11519,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_PrivilegesOnLabels {
             get {
                 return ResourceManager.GetString("MC_PrivilegesOnLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process.
+        /// </summary>
+        public static string MC_Process {
+            get {
+                return ResourceManager.GetString("MC_Process", resourceCulture);
             }
         }
         

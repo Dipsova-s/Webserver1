@@ -820,6 +820,7 @@
     <Content Include="Images\Icons\icon_gear.svg" />
     <Content Include="Images\Icons\icon_help.svg" />
     <Content Include="Images\Icons\icon_info.svg" />
+    <Content Include="Images\Icons\icon_innowera.svg" />
     <Content Include="Images\Icons\icon_support.svg" />
     <Content Include="Images\Icons\icon_item_dashboard.svg" />
     <Content Include="Images\Icons\icon_list_addnew_hover.svg" />
@@ -867,13 +868,13 @@
     <Content Include="Images\Domains\PaymentStatus\PaymentStatusParked.png" />
     <Content Include="Images\Domains\PaymentStatus\PaymentStatusPartially.png" />
     <Content Include="Images\Domains\PaymentStatus\PaymentStatusUnknown.png" />
-	<Content Include="Images\Domains\QMResultValuation\QMResultValuationIsAccepted.png" />
-	<Content Include="Images\Domains\QMResultValuation\QMResultValuationIsFailed.png" />
-	<Content Include="Images\Domains\QMResultValuation\QMResultValuationIsRejected.png" />
-	<Content Include="Images\Domains\QualityStatus\QualityStatusqs0None.png" />
-	<Content Include="Images\Domains\QualityStatus\QualityStatusqs1Red.png" />
-	<Content Include="Images\Domains\QualityStatus\QualityStatusqs2Orange.png" />
-	<Content Include="Images\Domains\QualityStatus\QualityStatusqs3Green.png" />
+    <Content Include="Images\Domains\QMResultValuation\QMResultValuationIsAccepted.png" />
+    <Content Include="Images\Domains\QMResultValuation\QMResultValuationIsFailed.png" />
+    <Content Include="Images\Domains\QMResultValuation\QMResultValuationIsRejected.png" />
+    <Content Include="Images\Domains\QualityStatus\QualityStatusqs0None.png" />
+    <Content Include="Images\Domains\QualityStatus\QualityStatusqs1Red.png" />
+    <Content Include="Images\Domains\QualityStatus\QualityStatusqs2Orange.png" />
+    <Content Include="Images\Domains\QualityStatus\QualityStatusqs3Green.png" />
     <Content Include="Images\Domains\UserFlag\UserFlagufLockedDueToIncorrectLogins.png" />
     <Content Include="Images\Domains\UserFlag\UserFlagufLockedDueToIncorrectLoginsAndGloballyByAdmin.png" />
     <Content Include="Images\Domains\UserFlag\UserFlagufLockedDueToIncorrectLoginsAndLocallyByAdmin.png" />
@@ -1159,6 +1160,7 @@
     <Content Include="Scripts\ViewManagement\Shared\ModelLabelCategoryHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SystemCurrencyHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SystemDefaultUserSettingHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\SystemFilesHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SystemInformationHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\FieldCategoryHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\InternalResourceHandler.js" />

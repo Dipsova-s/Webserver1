@@ -1,6 +1,6 @@
 ﻿/// <loc filename="../../vsdoc.loc.xml" format="vsdoc" />
 
-function DefaultExcelDatastoreHandler() {
+function SystemFilesHandler() {
     "use strict";
 
     //BOF: Properties
@@ -13,9 +13,9 @@ function DefaultExcelDatastoreHandler() {
     self.DataKey = 'uri';       [optional] property primary key
     self.Model = null;          [optional] model to handle data
     ==================================================*/
-    self.Id = "datastore_settings"
+    self.Id = "system_file_details"
     self.Data = {};
-    self.ResponseKey = "data_settings";
+    self.ResponseKey = "files";
     self.DataKey = null;
 
     /*=============== custom properties ===============*/
@@ -37,33 +37,34 @@ function DefaultExcelDatastoreHandler() {
     ==================================================*/
 
     /*=============== custom functions ===============*/
-    self.LoadDatastoreSettings = function (params, store) {
+    self.LoadFileDetails = function (params, store) {
         if (self.HasData()) {
             var response = {};
             response[self.ResponseKey] = self.GetData();
             return jQuery.when(response);
         }
         else {
-            var uri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.SYSTEMDATASTORES);
-            params = jQuery.extend({ "default_datastore": true }, params);
-            return GetDataFromWebService(uri, params)
-                .then(function (data) {
-                    if (data && data.datastores && data.datastores.findObject('datastore_plugin', 'msexcel')) {
-                        var defaultExcelDatastoreUri = data.datastores.findObject('datastore_plugin', 'msexcel').uri;
-                        return self.Load(defaultExcelDatastoreUri, params, store);
-                    }
-                    return jQuery.when(null);
-                });
+            var uri = "system/files";
+            return self.Load(uri, params, store);
         }
     };
 
-    self.GetDefaultTemplate = function () {
-        return self.GetData().setting_list.findObject('id', 'template_file').value;
+    self.GetDropdownData = function () {
+        return self.GetData().map(function (template) {
+            return {
+                name: template.file,
+                id: template.file,
+                is_innowera: WC.Utility.ToBoolean(template.has_innowera_process),
+                innowera_details: template.innowera_process_details,
+                icon_class: WC.Utility.ToBoolean(template.has_innowera_process) ? "icon-innowera" : "none"
+            }
+        });
     };
 
     // call initializing
     self.Initial();
 }
-DefaultExcelDatastoreHandler.extend(WC.HandlerHelper);
+SystemFilesHandler.extend(WC.HandlerHelper);
 
-var defaultExcelDatastoreHandler = new DefaultExcelDatastoreHandler();
+// initialize handlers here for new type of files.
+var excelTemplateFilesHandler = new SystemFilesHandler();

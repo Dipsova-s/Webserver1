@@ -12,7 +12,7 @@ ${pgbExportToExcel}                 css=#popupExportToExcel .k-loading-mask
 ${textDefaultHeaderFormat}          xpath=//div[text()='Header format']/following::div/descendant::span[@class='k-input']
 ${textExcelTemplate}                //div[contains(text(), 'Excel template')]/following::div/descendant::span[@class='k-input']
 ${ddlExcelTemplates}                css=[aria-owns="ExcelTemplate_listbox"]
-${excelTemplatesCount}              //div[contains(@class, 'k-list-container')]/descendant::ul[@id='ExcelTemplate_listbox']/li[@role='option']
+${excelTemplatesCount}              //div[contains(@class, 'k-list-container')]/descendant::ul[@id='ExcelTemplate_listbox']/li[@role='option']//span[@class='name']
 
 *** Keywords ***
 Input Excel File Name

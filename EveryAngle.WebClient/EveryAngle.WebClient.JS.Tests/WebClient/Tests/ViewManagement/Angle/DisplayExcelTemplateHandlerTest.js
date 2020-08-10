@@ -1,5 +1,6 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/DefaultExcelDatastoreHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/DisplayExcelTemplateHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemFilesHandler.js" />
 
 describe("DisplayExcelTemplateHandler", function () {
     var handler;
@@ -17,18 +18,93 @@ describe("DisplayExcelTemplateHandler", function () {
 
     describe(".Initial", function () {
         it("should call function by sequence", function () {
-            spyOn(defaultExcelDatastoreHandler, 'GetExcelTemplates').and.returnValue({
-                value: 'my-value',
-                options: ['my-options']
-            });
+            spyOn(defaultExcelDatastoreHandler, 'GetDefaultTemplate').and.returnValue('my-template.xlsx');
+            spyOn(excelTemplateFilesHandler, 'GetDropdownData').and.returnValue([{ name: 'my-template.xlsx' }, { name: 'standard-template.xlsx' }]);
             spyOn(handler, 'AddDefaultTemplate');
             spyOn(handler, 'Render');
             handler.Initial('');
 
-            expect(handler.DefaultDatastoreTemplate).toEqual('my-value');
-            expect(handler.AllTemplateFiles).toEqual(['my-options']);
+            expect(handler.DefaultDatastoreTemplate).toEqual('my-template.xlsx');
+            expect(handler.DropdownData.length).toEqual(2);
             expect(handler.AddDefaultTemplate).toHaveBeenCalled();
             expect(handler.Render).toHaveBeenCalled();
+        });
+    });
+
+    describe(".ShowInnoweraDetails", function () {
+
+        var expected = [
+            '<span data-role=\"tooltip\" data-tooltip-text=\"MM02/MM02_Plant\">',
+            'MM02/MM02_Plant',
+            '</span><br>',
+            '<span data-role=\"tooltip\" data-tooltip-text=\"GX0K/GX0K_Material\">',
+            'GX0K/GX0K_Material',
+            '</span><br>'
+        ].join('');
+
+        beforeEach(function () {
+            element = $('<div class=\"innowera-details\"/>').appendTo('body');
+        });
+
+        afterEach(function () {
+            element.remove();
+        });
+
+        it("should show innowera details when exist", function () {
+            var fileData = {
+                is_innowera: true,
+                innowera_details: [
+                    {
+                        sap_process_name: "MM02",
+                        display_name: "MM02_Plant"
+                    },
+                    {
+                        sap_process_name: "GX0K",
+                        display_name: "GX0K_Material"
+                    }
+                ]
+            };
+            spyOn($.fn, 'find').and.returnValue(element);
+
+            handler.ShowInnoweraDetails(fileData);
+
+            expect(element.html()).toEqual(expected);
+        });
+
+        it("should not show innowera details when not exist", function () {
+            var fileData = {
+                is_innowera: false
+            };
+            spyOn($.fn, 'find').and.returnValue(element);
+
+            handler.ShowInnoweraDetails(fileData);
+
+            expect(element.html()).toEqual('');
+        });
+    });
+
+    describe(".GetItemTemplate", function () {
+
+        it("should show innowera icon when innowera file", function () {
+            var data = {
+                icon_class: "icon-innowera",
+                name: "EveryAngle-Innowera.xlsx"
+            }
+            var template = kendo.template(handler.GetItemTemplate());
+            var result = template(data);
+
+            expect($(result).find('i').hasClass('icon-innowera')).toEqual(true);
+        });
+
+        it("should not show innowera icon when standard file", function () {
+            var data = {
+                icon_class: "none",
+                name: "EveryAngle-Standard.xlsx"
+            }
+            var template = kendo.template(handler.GetItemTemplate());
+            var result = template(data);
+
+            expect($(result).find('i').hasClass('icon-innowera')).toEqual(false);
         });
     });
 
@@ -89,11 +165,11 @@ describe("DisplayExcelTemplateHandler", function () {
 
         it("should add default template and set default template", function () {
             handler.DefaultDatastoreTemplate = "excel_template_id_00.xlsx";
-            handler.AllTemplateFiles = allTemplates;
+            handler.DropdownData = allTemplates;
        
             handler.AddDefaultTemplate();
 
-            var defaultOption = jQuery.grep(handler.AllTemplateFiles, function (option) {
+            var defaultOption = jQuery.grep(handler.DropdownData, function (option) {
                 return option.id === '[Default] excel_template_id_00.xlsx';
             });
 
@@ -107,17 +183,17 @@ describe("DisplayExcelTemplateHandler", function () {
             
             spyOn(handler, 'GetValue').and.returnValue('');
             spyOn(handler, 'SetData').and.callFake($.noop);
+            spyOn(handler, 'ShowInnoweraDetails').and.returnValue($.noop);
             spyOn(handler.DisplayHandler, 'CanUpdate').and.returnValue($.noop);
 
-            var ddlExcelTemplates = { enable: $.noop, value: $.noop };
+            var ddlExcelTemplates = { enable: $.noop, value: $.noop, dataItem: $.noop };
             spyOn(ddlExcelTemplates, 'enable').and.returnValue($.noop);
             spyOn(ddlExcelTemplates, 'value').and.returnValue($.noop);
             spyOn(WC.HtmlHelper, 'DropdownList').and.returnValue(ddlExcelTemplates);
 
-            var container = { find: $.noop };
-            spyOn(container, "find").and.returnValue($.noop);
+            spyOn($.fn, "find").and.returnValue($.noop);
 
-            handler.Render(container);
+            handler.Render();
             
             expect(handler.GetValue).toHaveBeenCalled();
             expect(WC.HtmlHelper.DropdownList).toHaveBeenCalled();
@@ -129,7 +205,7 @@ describe("DisplayExcelTemplateHandler", function () {
     describe(".SetData", function () {
 
         var e = {
-            sender: { value: $.noop }
+            sender: { value: $.noop, dataItem: $.noop }
         };
 
         var testCases = [
@@ -162,6 +238,7 @@ describe("DisplayExcelTemplateHandler", function () {
                 spyOn(e.sender, 'value').and.returnValue(test.input);
 
                 var details = { excel_template: '' };
+                spyOn(handler, 'ShowInnoweraDetails').and.returnValue($.noop);
                 spyOn(handler.DisplayHandler, 'GetDetails').and.returnValue(details);
                 spyOn(handler.DisplayHandler, 'SetDetails').and.returnValue($.noop);
                 spyOn(handler.DisplayHandler.QueryDefinitionHandler, "AggregationOptions");
@@ -169,6 +246,7 @@ describe("DisplayExcelTemplateHandler", function () {
 
                 handler.SetData(e);
 
+                expect(handler.ShowInnoweraDetails).toHaveBeenCalled();
                 expect(handler.DisplayHandler.SetDetails).toHaveBeenCalled();
                 expect(handler.DisplayHandler.QueryDefinitionHandler.AggregationOptions).toHaveBeenCalled();
                 expect(handler.OnChanged).toHaveBeenCalled();

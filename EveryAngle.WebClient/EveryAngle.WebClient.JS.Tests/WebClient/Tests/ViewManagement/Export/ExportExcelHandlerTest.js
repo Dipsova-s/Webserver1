@@ -1,5 +1,7 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Exports/ExportExcelHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/HtmlTemplate/Export/exportexcelhtmltemplate.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/DefaultExcelDatastoreHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemFilesHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
@@ -161,15 +163,44 @@ describe("ExportExcelHandlerTest", function () {
             expect(result).toBe(false);
         });
     });
+    describe(".GetItemTemplate", function () {
+
+        it("should show innowera icon when innowera file", function () {
+            var data = {
+                icon_class: "icon-innowera",
+                name: "EveryAngle-Innowera.xlsx"
+            }
+            var template = kendo.template(exportExcelHandler.GetExcelItemTemplate());
+            var result = template(data);
+
+            expect($(result).find('i').hasClass('icon-innowera')).toEqual(true);
+        });
+
+        it("should not show innowera icon when standard file", function () {
+            var data = {
+                icon_class: "none",
+                name: "EveryAngle-Standard.xlsx"
+            }
+            var template = kendo.template(exportExcelHandler.GetExcelItemTemplate());
+            var result = template(data);
+
+            expect($(result).find('i').hasClass('icon-innowera')).toEqual(false);
+        });
+    });
     describe("call SetExportModelUI", function () {
-        var element;
+        var element, ddlElement;
 
         beforeEach(function () {
             element = $('<div id="InsertModelTimestamp" />').appendTo('body');
+            ddlElement = $('<div id="ExcelTemplate" />').data('kendoDropDownList', {
+                value: $.noop,
+                dataItem: $.noop
+            }).appendTo('body');
         });
 
         afterEach(function () {
             element.remove();
+            ddlElement.remove();
         });
 
         it("should call function ", function () {
@@ -186,13 +217,71 @@ describe("ExportExcelHandlerTest", function () {
             $.fn.kendoNumericTextBox = function () {
                 return element;
             };
-            spyOn($.fn, 'kendoDropDownList').and.returnValue($());
+            spyOn($.fn, 'kendoDropDownList').and.returnValue(ddlElement);
             spyOn($.fn, 'kendoNumericTextBox').and.returnValue($());
             spyOn(WC.HtmlHelper, 'DestroyNumericIfExists');
+            spyOn(exportExcelHandler, 'GetExcelItemTemplate').and.returnValue($.noop);
+            spyOn(excelTemplateFilesHandler, 'GetDropdownData').and.returnValue($.noop);
+            spyOn(exportExcelHandler, 'ShowInnoweraDetails').and.returnValue($.noop);
+
             exportExcelHandler.SetExportModelUI();
+
             expect($.fn.kendoDropDownList).toHaveBeenCalled();
             expect(WC.HtmlHelper.DestroyNumericIfExists).toHaveBeenCalled();
             expect($.fn.kendoNumericTextBox).toHaveBeenCalled();
+            expect(excelTemplateFilesHandler.GetDropdownData).toHaveBeenCalled();
+            expect(exportExcelHandler.ShowInnoweraDetails).toHaveBeenCalled();
+        });
+    });
+    describe(".ShowInnoweraDetails", function () {
+
+        var expected = [
+            '<span data-role=\"tooltip\" data-tooltip-text=\"MM02/MM02_Plant\">',
+                'MM02/MM02_Plant',
+            '</span><br>',
+            '<span data-role=\"tooltip\" data-tooltip-text=\"GX0K/GX0K_Material\">',
+                'GX0K/GX0K_Material',
+            '</span><br>'
+        ].join('');
+
+        beforeEach(function () {
+            element = $('<div id=\"InnoweraDetails\"/>').appendTo('body');
+        });
+
+        afterEach(function () {
+            element.remove();
+        });
+
+        it("should show innowera details when exist", function () {
+            var fileData = {
+                is_innowera: true,
+                innowera_details: [
+                    {
+                        sap_process_name: "MM02",
+                        display_name: "MM02_Plant"
+                    },
+                    {
+                        sap_process_name: "GX0K",
+                        display_name: "GX0K_Material"
+                    }
+                ]
+            };
+            spyOn($.fn, 'find').and.returnValue(element);
+
+            exportExcelHandler.ShowInnoweraDetails(fileData);
+
+            expect(element.html()).toEqual(expected);
+        });
+
+        it("should not show innowera details when not exist", function () {
+            var fileData = {
+                is_innowera: false
+            };
+            spyOn($.fn, 'find').and.returnValue(element);
+
+            exportExcelHandler.ShowInnoweraDetails(fileData);
+
+            expect(element.html()).toEqual('');
         });
     });
     describe("call GetDatastoreDataSetting", function () {
@@ -248,19 +337,15 @@ describe("ExportExcelHandlerTest", function () {
 
         it("should set add angle definition  to Export Model", function () {
             spyOn(exportExcelHandler, "GetExcelTemplate").and.returnValue();
-            spyOn(exportExcelHandler, "SetExcelTemplates").and.returnValue();
             var result = exportExcelHandler.SetExportModel(datastore);
             expect(result.AddAngleDefinition()).toBe(false);
             expect(exportExcelHandler.GetExcelTemplate).toHaveBeenCalled();
-            expect(exportExcelHandler.SetExcelTemplates).toHaveBeenCalled();
         });
         it("should set file name  to Export Model", function () {
             spyOn(exportExcelHandler, "GetExcelTemplate").and.returnValue();
-            spyOn(exportExcelHandler, "SetExcelTemplates").and.returnValue();
             var result = exportExcelHandler.SetExportModel(datastore);
             expect(result.FileName()).toBe('Test');
             expect(exportExcelHandler.GetExcelTemplate).toHaveBeenCalled();
-            expect(exportExcelHandler.SetExcelTemplates).toHaveBeenCalled();
         });        
     });
     describe("call SetDefaultExcelSetting", function () {
@@ -292,13 +377,6 @@ describe("ExportExcelHandlerTest", function () {
             expect(jQuery.fn.removeClass).toHaveBeenCalled();
         });
     });
-    describe(".SetExcelTemplates", function () {
-        it("it should contain expected result", function () {
-            exportExcelHandler.SetExcelTemplates(datastore);
-            expect(exportExcelHandler.CurrentExportModel.ExcelTemplates.length).toBe(2);
-            expect(exportExcelHandler.CurrentExportModel.ExcelTemplates[0].VALUE).toBe("EveryAngle-Test.xlsx");
-        });
-    });
     describe(".GetExcelTemplate", function () {
         it("It should return the displayData excel template", function () {
             var displayData = {
@@ -306,7 +384,7 @@ describe("ExportExcelHandlerTest", function () {
             };
             spyOn(displayModel, 'Data').and.returnValue(displayData);
             spyOn(exportExcelHandler, 'IsTemplateExist').and.returnValue(true);
-            var result = exportExcelHandler.GetExcelTemplate(datastore);
+            var result = exportExcelHandler.GetExcelTemplate();
             expect(result).toBe("EveryAngle-Standard.xlsx");
         });
         it("It should return the datastore default excel template", function () {
@@ -315,7 +393,8 @@ describe("ExportExcelHandlerTest", function () {
             };
             spyOn(displayModel, 'Data').and.returnValue(displayData);
             spyOn(exportExcelHandler, 'IsTemplateExist').and.returnValue(false);
-            var result = exportExcelHandler.GetExcelTemplate(datastore);
+            spyOn(defaultExcelDatastoreHandler, 'GetDefaultTemplate').and.returnValue('EveryAngle-Test.xlsx')
+            var result = exportExcelHandler.GetExcelTemplate();
             expect(result).toBe("EveryAngle-Test.xlsx");
         });
     });

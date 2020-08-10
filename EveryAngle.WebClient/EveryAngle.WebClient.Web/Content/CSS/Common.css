@@ -1224,6 +1224,9 @@ textarea.input-light {
   width: 20px;
   height: 20px; }
 
+.icon-innowera {
+  background: transparent url("../../images/icons/icon_innowera.svg") center center no-repeat; }
+
 .icon-copy {
   background: transparent url("../../images/icons/icon_copy.svg") center center no-repeat;
   width: 20px;
@@ -3698,6 +3701,18 @@ a.breadcrumbLink:hover {
     flex-basis: 0; }
     .side-content .section-default-excel-template .form-col-body > span {
       flex-grow: 1; }
+  .side-content .section-default-excel-template .innowera-details {
+    display: inline-block;
+    margin-left: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .side-content .section-default-excel-template .innowera-details > span {
+    font-style: italic;
+    color: #5e6366;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.4px; }
   .side-content .section-business-processes .business-process-multi-select {
     color: #fff; }
     .side-content .section-business-processes .business-process-multi-select .btn-remove {

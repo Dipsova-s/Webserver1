@@ -224,6 +224,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Shared\ProgressBarTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\SidePanel\SidePanelHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\SystemFilesHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ToastNotificationHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetDetails\WidgetDetailsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHelperTest.js" />

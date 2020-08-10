@@ -400,6 +400,7 @@
     <Content Include="Images\Icons\icon_edit.png" />
     <Content Include="Images\Icons\icon_filter.png" />
     <Content Include="Images\Icons\icon_info.svg" />
+	<Content Include="Images\Icons\icon_innowera.svg" />
     <Content Include="Images\Icons\icon_plus.png" />
     <Content Include="Images\Icons\icon_user.png" />
     <Content Include="Images\Icons\icon_arrow_right.png" />

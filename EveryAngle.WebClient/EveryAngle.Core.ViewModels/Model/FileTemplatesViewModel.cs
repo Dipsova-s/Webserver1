@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EveryAngle.Core.ViewModels.Model
 {
@@ -17,7 +19,46 @@ namespace EveryAngle.Core.ViewModels.Model
         public string Uri { get; set; }
 
         [JsonProperty(PropertyName = "is_default_file")]
-        public bool Is_default_file { get; set; }
-        
+        public bool IsDefaultFile { get; set; }
+
+        [JsonProperty(PropertyName = "has_innowera_process")]
+        public bool HasInnoweraProcess { get; set; }
+
+        [JsonProperty(PropertyName = "innowera_process_details")]
+        public List<InnoweraProcess> InnoweraProcessDetails { get; set; }
+
+        public string ReInnoweraProcessList
+        {
+            get
+            {
+                if (InnoweraProcessDetails != null)
+                {
+                    return string.Join(", ", InnoweraProcessDetails.Select(x => x.SapProcessName));
+                }
+                return string.Empty;
+            }
+        }
+
+        public string ReInnoweraDisplayList
+        {
+            get
+            {
+                if (InnoweraProcessDetails != null)
+                {
+                    return string.Join(", ", InnoweraProcessDetails.Select(x => x.DisplayName));
+                }
+                return string.Empty;
+            }
+        }
+
+    }
+
+    public class InnoweraProcess
+    {
+        [JsonProperty(PropertyName = "display_name")]
+        public string DisplayName { get; set; }
+
+        [JsonProperty(PropertyName = "sap_process_name")]
+        public string SapProcessName { get; set; }
     }
 }

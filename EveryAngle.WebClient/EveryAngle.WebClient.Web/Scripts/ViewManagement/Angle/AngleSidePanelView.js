@@ -68,6 +68,10 @@
                             '<select class="k-dropdown default-excel-template" id="DefaultExcelTemplate"></select>',
                         '</div>',
                     '</div>',
+                    '<div class="form-row">',
+                        '<div class="form-col innowera-details">',
+                        '</div>',
+                    '</div>',
                 '</div>',
             '</div>'
         ].join('');

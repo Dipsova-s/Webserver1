@@ -12,7 +12,7 @@
         Privilege = PrivilegeType.System,
         DisableTemplate = "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
                         + "<a class=\"btn btnDownload disabled\">" + Resource.Download + "</a>",
-        EnableTemplate = "# if (data.Is_default_file) { #"
+        EnableTemplate = "# if (data.IsDefaultFile) { #"
                         + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
                         + "# } else { #"
                         + "<a href=\"" + Url.Content("~/AngleExports/DeleteExcelTemplate") + "\" onclick=\"MC.AngleExports.ExcelTemplates.DeleteExcelTemplate(event, this)\" class=\"btn btnDelete\" data-parameters='{\"excelTemplateUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteExcelConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
@@ -30,8 +30,20 @@
     .Columns(columns =>
     {
         columns.Bound(model => model.File)
-            .ClientTemplate("<span data-tooltip-title=\"#= File #\" data-type=\"html\">#= File #</span>")
-            .Title(Resource.Name)
+            .ClientTemplate(
+                "# if (data.HasInnoweraProcess) { #" +
+                "<span class=\"icon-innowera\"></span>" +
+                "# } #" +
+                "<span data-tooltip-title=\"#= File #\" data-type=\"html\">#= File #</span>"
+            ).Title(Resource.Name)
+            .Sortable(true);
+
+        columns.Bound(model => model.ReInnoweraProcessList)
+            .Title(Resource.MC_Process)
+            .Sortable(true);
+
+        columns.Bound(model => model.ReInnoweraDisplayList)
+            .Title(Resource.MC_DisplayName)
             .Sortable(true);
 
         columns.Bound(model => model.Modified)
@@ -43,7 +55,7 @@
                 "# } #"
             ).Sortable(true);
 
-        columns.Bound("Is_default_file")
+        columns.Bound("IsDefaultFile")
             .ClientTemplate(gridActionButtons)
             .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
             .HtmlAttributes(new { @class = "gridColumnToolbar" })

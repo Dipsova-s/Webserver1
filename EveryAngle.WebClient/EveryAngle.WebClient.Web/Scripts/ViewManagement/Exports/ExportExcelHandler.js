@@ -312,12 +312,11 @@ function ExportExcelHandler() {
         self.CurrentExportModel.HeaderFormat(self.GetDatastoreDataSetting(datastore, 'header_format'));
         self.CurrentExportModel.AddAngleDefinition(self.GetDatastoreDataSetting(datastore, 'add_angle_definition'));
         self.CurrentExportModel.AddAngleSummary(self.GetDatastoreDataSetting(datastore, 'add_angle_summary'));
-        self.CurrentExportModel.TemplateFile(self.GetExcelTemplate(datastore));
+        self.CurrentExportModel.TemplateFile(self.GetExcelTemplate());
         self.CurrentExportModel.MaxRowsToExport(self.GetDatastoreDataSetting(datastore, 'max_rows_to_export'));
         self.CurrentExportModel.ModelTimestampIndex(self.GetDatastoreDataSetting(datastore, 'model_timestamp_index'));
         self.CurrentExportModel.TechnicalInfo(self.GetDatastoreDataSetting(datastore, 'include_techinfo'));
 
-        self.SetExcelTemplates(datastore);
         return self.CurrentExportModel;
     };
     self.GetDatastoreDataSetting = function (datastore, id) {
@@ -326,35 +325,37 @@ function ExportExcelHandler() {
         else
             return '';
     };
-    self.SetExcelTemplates = function (datastore) {
-        var templates = datastore.data_settings.setting_list.findObject('id', 'template_file')
-        var defaultTemplateName = kendo.format(Localization.Default_Placeholder, templates.value);
-        self.CurrentExportModel.ExcelTemplates = [];
-        $.each(templates.options, function (index, setting) {
-            var excelTemplateName = setting.id === templates.value ? defaultTemplateName : setting.name;
-            self.CurrentExportModel.ExcelTemplates.push({ VALUE: setting.id, TEXT: excelTemplateName });
-        });
+    self.GetExcelItemTemplate = function () {
+        return [
+            '<div class="displayNameContainer small">',
+            '<div class="front">',
+            '<i class="icon #= data.icon_class #"></i>',
+            '</div>',
+            '<span class="name" data-role="tooltip" data-tooltip-position="bottom" data-showwhenneed="true">#: data.name #</span>',
+            '</div>'
+        ].join('');
     };
     self.SetExportModelUI = function () {
-        var addModelDateUI;
         jQuery('#HeaderFormatEnum').kendoDropDownList({
             dataTextField: "TEXT",
             dataValueField: "VALUE",
             dataSource: self.CurrentExportModel.HeaderFormats,
             value: self.CurrentExportModel.HeaderFormat()
         });
-        jQuery('#ExcelTemplate').kendoDropDownList({
-            dataTextField: "TEXT",
-            dataValueField: "VALUE",
-            dataSource: self.CurrentExportModel.ExcelTemplates,
-            value: self.CurrentExportModel.TemplateFile(),
+        var excelDropdown = jQuery('#ExcelTemplate').kendoDropDownList({
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: excelTemplateFilesHandler.GetDropdownData(),
+            template: self.GetExcelItemTemplate(),
+            valueTemplate: self.GetExcelItemTemplate(),
             change: function (e) {
                 self.CurrentExportModel.TemplateFile(e.sender.value());
+                self.ShowInnoweraDetails(this.dataSource.get(this.value()));
             }
-        });
+        }).data(enumHandlers.KENDOUITYPE.DROPDOWNLIST);
         if (!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
             WC.HtmlHelper.DestroyNumericIfExists('#InsertModelTimestamp');
-            addModelDateUI=jQuery('#InsertModelTimestamp').kendoNumericTextBox({
+            jQuery('#InsertModelTimestamp').kendoNumericTextBox({
                 min: -1,
                 step: 1,
                 format: 'n0',
@@ -362,7 +363,21 @@ function ExportExcelHandler() {
                 value: self.CurrentExportModel.ModelTimestampIndex()
             }).data('kendoNumericTextBox');
         }
+
+        excelDropdown.value(self.CurrentExportModel.TemplateFile());
+        self.ShowInnoweraDetails(excelDropdown.dataItem());
     };
+    self.ShowInnoweraDetails = function (fileData) {
+        $('#InnoweraDetails').html('');
+        if (!fileData.is_innowera) {
+            return;
+        }
+        var processes = fileData.innowera_details.map(function (process) {
+            var text = process.sap_process_name + "/" + process.display_name;
+            return '<span data-role="tooltip" data-tooltip-text=\"' + text + '\">' + text + '</span><br\>';
+        });
+        $('#InnoweraDetails').html(processes);
+    }
     self.CloseExportExcelPopup = function (e) {
         e.kendoWindow.element.closest('.popupExportExcel').removeClass('alwaysHide');
         popup.Close('#popupExportExcel');
@@ -436,15 +451,15 @@ function ExportExcelHandler() {
         return true;
     };
 
-    self.GetExcelTemplate = function (datastore) {
+    self.GetExcelTemplate = function () {
         var displayDetails = WC.Utility.ParseJSON(displayModel.Data().display_details);
         if (typeof displayDetails.excel_template !== 'undefined' && self.IsTemplateExist(displayDetails.excel_template))
             return displayDetails.excel_template;
-        return self.GetDatastoreDataSetting(datastore, 'template_file');
+        return defaultExcelDatastoreHandler.GetDefaultTemplate();
     };
 
     self.IsTemplateExist = function (template) {
-        return defaultExcelDatastoreHandler.GetExcelTemplates().options.hasObject('id', template);
+        return excelTemplateFilesHandler.GetData().hasObject('file', template);
     };
     /*
     * M4-9963: Export to excel: data only for chart

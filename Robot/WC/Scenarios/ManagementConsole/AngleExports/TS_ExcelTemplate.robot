@@ -32,7 +32,7 @@ Verify Delete Excel Template In Excel Template Page
 Verify If Delete Button Disabled For Default Excel Template
     [Arguments]     ${DefaultExcelFileName}
     Click Show Action Dropdown In Grid By Name      ${DefaultExcelFileName}     ${trRowInExcelTemplateGrid}
-    Page Should Contain Element	       //tr[@id='row-${DefaultExcelFileName}']/td[3]/div/div/a[contains(@class,'btn btnDelete disabled')]
+    Page Should Contain Element	       //tr[@id='row-${DefaultExcelFileName}']/td[5]/div/div/a[contains(@class,'btn btnDelete disabled')]
 
 Get Count Excel Templates
     ${excelTemplatesCount}     Count of Excel Templates

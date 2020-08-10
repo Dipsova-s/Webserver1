@@ -51,7 +51,8 @@ function AnglePageHandler() {
                     userModel.Load(),
                     systemInformationHandler.LoadSystemInformation(),
                     systemCurrencyHandler.LoadCurrencies(),
-                    defaultExcelDatastoreHandler.LoadDatastoreSettings(undefined, false)
+                    defaultExcelDatastoreHandler.LoadDatastoreSettings(undefined, false),
+                    excelTemplateFilesHandler.LoadFileDetails({"fileType":"ExcelTemplate"}, false)
                 );
             })
             .then(function () {

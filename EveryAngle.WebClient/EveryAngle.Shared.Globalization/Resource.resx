@@ -2547,6 +2547,12 @@
   <data name="Uploaded" xml:space="preserve">
     <value>Uploaded</value>
   </data>
+  <data name="MC_Process" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="MC_DisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
   <data name="MC_UploadIcon" xml:space="preserve">
     <value>Upload icon</value>
   </data>
