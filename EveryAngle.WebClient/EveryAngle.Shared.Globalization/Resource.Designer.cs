@@ -3076,7 +3076,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Default] {0}.
+        ///   Looks up a localized string similar to [User default] {0}.
         /// </summary>
         public static string Default_Placeholder {
             get {
@@ -13207,6 +13207,17 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_TaskAction_DescriptionAbortWhenError {
             get {
                 return ResourceManager.GetString("MC_TaskAction_DescriptionAbortWhenError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select which Excel template to use for this export.&lt;br&gt;
+        ///When you select &quot;Use default&quot;, the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+        ///You can also select a different Excel template from the list if you don&apos;t want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro&apos;s..
+        /// </summary>
+        public static string MC_TaskAction_DescriptionExcelTemplate {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_DescriptionExcelTemplate", resourceCulture);
             }
         }
         

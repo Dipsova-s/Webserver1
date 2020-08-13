@@ -36,7 +36,7 @@ Verify Export To Excel From Action Menu
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Display Tab
-    Selected Excel Template Should Be       [Default] ${defaultExcelTemplateName}
+    Selected Excel Template Should Be       [User default] ${defaultExcelTemplateName}
     Select Excel Template To    ${newExcelTemplateName}
     Save Selected Excel Template
     Reload Angle Page
@@ -63,7 +63,7 @@ Verify Export To Excel From Action Menu
     Logout MC Then Close Browser
     Switch Browser    1
     Reload Angle Page
-    Selected Excel Template Should Be       [Default] ${defaultExcelTemplateName}
+    Selected Excel Template Should Be       [User default] ${defaultExcelTemplateName}
 
 Verify Export Item Drilldown To Excel From Action Menu
     ${angleName}  Set Variable  Angle For General Test

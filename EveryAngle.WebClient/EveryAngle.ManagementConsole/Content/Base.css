@@ -753,6 +753,22 @@ div.tagsinput .not_valid {
     background-size: 14px 14px;
 }
 
+/* #InnoweraInfoSection
+================================== */
+#InnoweraInfoSection {
+    display: inline-block;
+    width: 280px !important;
+    margin-bottom: -7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-style: italic;
+    color: #5e6366;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: .4px;
+}
+
 /* .tab
 ================================== */
 .tabNav {
@@ -1777,7 +1793,8 @@ table.grid tbody td:first-child {
 
 .gridContainer .icon-innowera {
     background-image: url(../images/icons/icon_innowera.svg);
-    height: 24px;
+    margin-right: 7px;
+    margin-left: 3px;
 }
 
 .gridContainer .btnLink {
@@ -4789,6 +4806,17 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     min-width: 285px;
 }
 
+#DatastoreSettings .innowera-processes {
+    margin-left: 150px;
+}
+
+#DatastoreSettings .exist-template {
+    margin-left: 140px;
+    margin-bottom: -7px;
+    color: red;
+    font-size: 11px;
+}
+
 a.mailto {
     color: #c33;
     text-decoration: underline;
@@ -4796,8 +4824,7 @@ a.mailto {
 
 /* .pageDatastoreEdit
 ================================== */
-.pageDatastoreEdit .contentSectionInfoItem > p,
-.pageDatastoreEdit .contentSectionInfoSubItem > p {
+    .pageDatastoreEdit .contentSectionInfoItem > p, .pageDatastoreEdit .contentSectionInfoSubItem > p {
     max-width: 320px;
     min-height: 30px;
     margin-left: 325px;
@@ -4828,6 +4855,10 @@ a.mailto {
     color: #777;
     line-height: 14px;
     margin-top: 3px;
+}
+
+.pageDatastoreEdit .innowera-processes {
+    margin-left: 330px;
 }
 
 #CheckOutputFolder hr {
@@ -5153,6 +5184,16 @@ a.mailto {
     content: "\e90f";
 }
 
+.k-dropdown .icon-innowera,
+.k-list .icon-innowera {
+    margin-left: -6px;
+    margin-top: -3px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 19px;
+    background: transparent url(../../images/icons/icon_innowera.svg) center center no-repeat;
+}
 
 #labelsFiltersGrid .k-treelist tr.k-treelist-group.top {
     cursor: pointer;

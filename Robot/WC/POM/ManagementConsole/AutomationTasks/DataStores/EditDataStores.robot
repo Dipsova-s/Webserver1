@@ -63,6 +63,9 @@ ${btnEditDefaultDatastore}      .gridColumnToolbar .btn
 
 ${btnCloseAlertPopup}                //a[contains(@class, 'btnSubmit')]
 
+#Excel Templates
+${ddlExcelTemplateInDatstores}         jquery=#template_file_listbox > li 
+
 *** Keywords ***
 Fill Create New Datastore
     [Arguments]     ${datastoreName}     
@@ -254,6 +257,19 @@ Verify the datastore is not available in Datastore Grid
     [Arguments]     ${datastorePlugin}      ${datastoreName}
     Enter Text in Datastore filter page  ${datastoreName}
     Element Should Not Be Visible   //div[@id='DataStoresGridContainer']//tr/td[text()='${datastoreName}']/parent::tr/td[text()='${datastorePlugin}']
+
+Get Excel Templates Count From Excel Template DropDown In Datastores
+    ${countExcelTemplates}     Get Element Count   ${ddlExcelTemplateInDatstores}
+    [Return]    ${countExcelTemplates}
+
+Get Excel Templates List From Excel Template DropDown In Datastores
+    ${count}    Get Excel Templates Count From Excel Template DropDown In Datastores
+    @{excelTemplatesList}   Create List
+    :FOR    ${i}    IN RANGE    0   ${count}
+    \   ${selector}    Get JQuery Selector    (${ddlExcelTemplateInDatstores}:eq(${i})
+    \   ${excelTemplateName}    Execute JavaScript    return $('${selector}').text()
+    \    Append To List      ${excelTemplatesList}   ${excelTemplateName}
+    [Return]    ${excelTemplatesList}
 
 Verify the field values for Excel Datastore in Data Settings
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${fileName}     ${templateFileName}     ${sheetName}     ${techInfo}

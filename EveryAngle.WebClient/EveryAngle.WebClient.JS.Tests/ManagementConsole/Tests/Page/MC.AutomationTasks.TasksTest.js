@@ -717,12 +717,12 @@ describe("MC.AutomationTasks.Tasks", function () {
         var dropdown;
         beforeEach(function () {
             dropdown = $('<div id="template_file" />').kendoDropDownList({
-                dataTextField: "name",
-                dataValueField: "id",
+                dataTextField: "File",
+                dataValueField: "File",
                 dataSource: [
-                    { id: 'excel_template_00.xlsx', name: 'excel_template_00.xlsx' },
-                    { id: 'excel_template_01.xlsx', name: 'excel_template_01.xlsx' },
-                    { id: 'excel_template_02.xlsx', name: 'excel_template_02.xlsx' }
+                    { File: 'excel_template_00.xlsx'},
+                    { File: 'excel_template_01.xlsx'},
+                    { File: 'excel_template_02.xlsx'}
                 ]
             });
             dropdown.appendTo('body');
@@ -736,13 +736,13 @@ describe("MC.AutomationTasks.Tasks", function () {
             // prepare
             var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
             automationTask.DisplayExcelTemplate = 'excel_template_02.xlsx';
-            var addedItem = '[Default] excel_template_02.xlsx';
+            var addedItem = '[User default] excel_template_02.xlsx';
 
             automationTask.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
             
             // assert
             var result = jQuery.grep(ddlExcelTemplate.dataSource.data(), function (option) {
-                return option.id === addedItem;
+                return option.File === addedItem;
             });
             expect(result.length).toBe(1);
             expect(ddlExcelTemplate.value()).toBe(addedItem);
@@ -754,13 +754,13 @@ describe("MC.AutomationTasks.Tasks", function () {
         var dropdown;
         beforeEach(function () {
             dropdown = $('<div id="template_file" />').kendoDropDownList({
-                dataTextField: "name",
-                dataValueField: "id",
+                dataTextField: "File",
+                dataValueField: "File",
                 dataSource: [
-                    { id: 'excel_template_00.xlsx', name: 'excel_template_00.xlsx'},
-                    { id: 'excel_template_01.xlsx', name: 'excel_template_01.xlsx' },
-                    { id: 'excel_template_02.xlsx', name: 'excel_template_02.xlsx' },
-                    { id: '[Default] excel_template_02.xlsx', name: '[Default] excel_template_02.xlsx' }
+                    { File: 'excel_template_00.xlsx'},
+                    { File: 'excel_template_01.xlsx'},
+                    { File: 'excel_template_02.xlsx'},
+                    { File: '[User default] excel_template_02.xlsx'}
                 ]
             });
             dropdown.appendTo('body');
@@ -773,13 +773,13 @@ describe("MC.AutomationTasks.Tasks", function () {
         it("should remove default excel template from Template file dropdown", function () {
             // prepare
             var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
-            var addedItem = '[Default] excel_template_02.xlsx';
+            var addedItem = '[User default] excel_template_02.xlsx';
             automationTask.StandardExcelTemplate = 'excel_template_01.xlsx';
             automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
 
             // assert
             var result = jQuery.grep(ddlExcelTemplate.dataSource.data(), function (option) {
-                return option.id === addedItem;
+                return option.File === addedItem;
             });
             expect(result.length).toBe(0);
             expect(ddlExcelTemplate.value()).toBe(automationTask.StandardExcelTemplate);

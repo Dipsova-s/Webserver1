@@ -32,6 +32,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         #region private variables
 
         private readonly IAutomationTaskService _automationTaskService;
+        private readonly IFileTemplateService _fileTemplateService;
         private readonly IModelService _modelService;
         private readonly ITaskService _taskService;
         private readonly ISystemScriptService _systemScriptService;
@@ -46,6 +47,7 @@ namespace EveryAngle.ManagementConsole.Controllers
            IModelService modelService,
            ITaskService taskService,
            IAutomationTaskService automationTaskService,
+           IFileTemplateService fileTemplateService,
            ISystemScriptService systemScriptService,
            IItemService itemService,
            SessionHelper sessionHelper)
@@ -54,6 +56,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             _modelService = modelService;
             _taskService = taskService;
             _automationTaskService = automationTaskService;
+            _fileTemplateService = fileTemplateService;
             _systemScriptService = systemScriptService;
             _itemService = itemService;
         }
@@ -62,12 +65,14 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService modelService,
             ITaskService tasklService,
             IAutomationTaskService automationTaskService,
+            IFileTemplateService fileTemplateService,
             ISystemScriptService systemScriptService,
             IItemService itemService)
         {
             _modelService = modelService;
             _taskService = tasklService;
             _automationTaskService = automationTaskService;
+            _fileTemplateService = fileTemplateService;
             _systemScriptService = systemScriptService;
             _itemService = itemService;
         }
@@ -373,6 +378,10 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetDatastore(string datstoreUri)
         {
             var datastore = _automationTaskService.GetDatastore(datstoreUri);
+            if (datastore.datastore_plugin.Equals("msexcel"))
+            {
+                AddFileDetailsToDatastore(datastore);
+            }
             return PartialView("~/Views/AutomationTasks/Tasks/DatastoreSettings.cshtml", datastore);
         }
 
@@ -665,6 +674,11 @@ namespace EveryAngle.ManagementConsole.Controllers
                 dataStore.supports_append = datastorePlugin.supports_append;
             }
 
+            if (dataStore.datastore_plugin.Equals("msexcel"))
+            {
+                AddFileDetailsToDatastore(dataStore);
+            }
+
             ClearConnectionPasswordValue(dataStore);
 
             #region view bags
@@ -678,6 +692,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             #endregion
 
             return dataStore;
+        }
+
+        private void AddFileDetailsToDatastore(DataStoresViewModel datastore)
+        {
+            datastore.data_settings.SettingList.Find(x => x.Id == "template_file").FileDataOptions = _fileTemplateService.Get().ToList();
         }
 
         internal void ClearConnectionPasswordValue(DataStoresViewModel dataStore)

@@ -2047,7 +2047,7 @@
     <value>Default</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Default] {0}</value>
+    <value>[User default] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
@@ -5910,6 +5910,11 @@ For security reasons, the password must always be reentered before saving the ac
   <data name="MC_TaskAction_DescriptionScript" xml:space="preserve">
     <value>Select the program or script file for this action.&lt;br&gt;
 You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionExcelTemplate" xml:space="preserve">
+    <value>Select which Excel template to use for this export.&lt;br&gt;
+When you select "Use default", the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+You can also select a different Excel template from the list if you don't want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro's.</value>
   </data>
   <data name="MC_ScriptLocation" xml:space="preserve">
     <value>Program/scripts folder</value>

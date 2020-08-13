@@ -161,7 +161,7 @@ describe("DisplayExcelTemplateHandler", function () {
             { id: 'excel_template_id_02.xlsx' }
         ];
 
-        var expected = "[Default] excel_template_id_00.xlsx"
+        var expected = "[User default] excel_template_id_00.xlsx"
 
         it("should add default template and set default template", function () {
             handler.DefaultDatastoreTemplate = "excel_template_id_00.xlsx";
@@ -170,7 +170,7 @@ describe("DisplayExcelTemplateHandler", function () {
             handler.AddDefaultTemplate();
 
             var defaultOption = jQuery.grep(handler.DropdownData, function (option) {
-                return option.id === '[Default] excel_template_id_00.xlsx';
+                return option.id === '[User default] excel_template_id_00.xlsx';
             });
 
             expect(defaultOption.length).toBe(1);

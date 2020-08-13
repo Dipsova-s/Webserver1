@@ -1375,6 +1375,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Template does not exist.
+        /// </summary>
+        public static string Label_Template_Not_Exist_Message {
+            get {
+                return ResourceManager.GetString("Label_Template_Not_Exist_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unsorted.
         /// </summary>
         public static string Label_Unsorted {

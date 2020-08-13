@@ -70,10 +70,14 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 }
             });
 
+            List<FileTemplatesViewModel> fileViewModels = GetMockViewModel<List<FileTemplatesViewModel>>("FileViewModel");
+            excelTemplateService.Setup(x => x.Get()).Returns(fileViewModels);
+
             _testingController = new AutomationTasksController(
                 modelService.Object,
                 taskService.Object,
                 automationTaskService.Object,
+                excelTemplateService.Object,
                 systemScriptService.Object,
                 itemService.Object,
                 sessionHelper.Object);
@@ -82,6 +86,19 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         #endregion
 
         #region tests
+
+        [TestCase]
+        public void Can_CreateAutomationTasksController()
+        {
+            // execute and assert
+            Assert.That(() => new AutomationTasksController(
+                modelService.Object,
+                taskService.Object,
+                automationTaskService.Object,
+                excelTemplateService.Object,
+                systemScriptService.Object,
+                itemService.Object), Throws.Nothing);
+        }
 
         [TestCase]
         public void Can_GetAllTasks()
@@ -124,6 +141,37 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // assert 
             Assert.That(dataStoresUri.Contains(expectedLimit));
+        }
+
+        [TestCase("csv", true)]
+        [TestCase("msexcel", true)]
+        public void Can_GetDatastore(string pluginname, Boolean isdefault)
+        {
+            DataStoresViewModel data = new DataStoresViewModel
+            {
+                datastore_plugin = pluginname,
+                is_default = isdefault,
+                Uri = new Uri("/system/datastores", UriKind.Relative),
+                data_settings = new ModelServerSettings
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Id = pluginname.Equals("msexcel") ? "template_file" : null
+                            }
+                        }
+                }
+            };
+
+            // setup
+            automationTaskService.Setup(x => x.GetDatastore(It.IsAny<string>())).Returns(data);
+
+            // execute
+            var result = _testingController.GetDatastore("uri");
+
+            // assert 
+            Assert.That(result, Is.InstanceOf<PartialViewResult>());
         }
 
         [TestCase]
@@ -375,7 +423,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 datastore_plugin = pluginname,
                 is_default = isdefault,
-                Uri = new Uri("/system/datastores", UriKind.Relative)
+                Uri = new Uri("/system/datastores", UriKind.Relative),
+                data_settings = new ModelServerSettings
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Id = pluginname.Equals("msexcel") ? "template_file" : null
+                            }
+                        }
+                }
             };
             var plugin = new ListViewModel<DataStorePluginsViewModel>();
             plugin.Data = plugins;
@@ -419,7 +477,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 datastore_plugin = pluginname,
                 is_default = isdefault,
-                Uri = new Uri("/system/datastores", UriKind.Relative)
+                Uri = new Uri("/system/datastores", UriKind.Relative),
+                data_settings = new ModelServerSettings
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Id = pluginname.Equals("msexcel") ? "template_file" : null
+                            }
+                        }
+                }
             };
             var plugin = new ListViewModel<DataStorePluginsViewModel>();
             plugin.Data = plugins;
@@ -443,7 +511,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 new DataStoresViewModel
                 {
                     datastore_plugin = pluginname,
-                    is_default =isdefault,
+                    is_default = isdefault,
                     Uri=new Uri("/system/datastores/6", UriKind.Relative)
                 }
             };
@@ -464,7 +532,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 datastore_plugin = pluginname,
                 is_default = isdefault,
-                Uri = new Uri("/system/datastores", UriKind.Relative)
+                Uri = new Uri("/system/datastores", UriKind.Relative),
+                data_settings = new ModelServerSettings
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Id = pluginname.Equals("msexcel") ? "template_file" : null
+                            }
+                        }
+                }
             };
             var plugin = new ListViewModel<DataStorePluginsViewModel>();
             plugin.Data = plugins;

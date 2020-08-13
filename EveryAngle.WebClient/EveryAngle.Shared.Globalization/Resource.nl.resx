@@ -1930,7 +1930,7 @@
     <value>Standaard</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Standaard] {0}</value>
+    <value>[Gebruik default] {0}</value>
   </data>
   <data name="DefaultSettingsUnmentionedFields" xml:space="preserve">
     <value>Standaard instellingen voor niet genoemde velden</value>

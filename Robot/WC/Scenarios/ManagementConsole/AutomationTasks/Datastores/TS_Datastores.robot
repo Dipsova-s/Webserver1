@@ -101,6 +101,11 @@ Verify the edited value is displayed in Excel Datastore
     Verify the field values for Excel Datastore in Data Settings    6  id  id  7  {anglename:edited}     EveryAngle-Standard.xlsx  {displayname:edited}  uncheck
     Verify the field values for Excel Datastore in Angle Settings   uncheck  uncheck
 
+Verify Excel Template List In Excel Template Dropdown In Excel Datastore
+    [Arguments]     ${excelTemplatesListInExcelTemplatePage}
+    ${excelTemplateListInDatastore}      Get Excel Templates List From Excel Template DropDown In Datastores
+    Lists Should Be Equal   ${excelTemplatesListInExcelTemplatePage}    ${excelTemplateListInDatastore}
+    
 Edit the Existing SQL Datastore by name
     [Arguments]     ${name}     ${editedDatastoreName}      ${datastorePlugin}
     Click on Edit in action drop down by Datastore name     ${name}

@@ -925,6 +925,7 @@
 
                     var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
                     if (ddlExcelTemplate) {
+                        ddlExcelTemplate.bind('change', self.SetActionButtons);
                         self.StandardExcelTemplate = ddlExcelTemplate.value();
                         self.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
                     }
@@ -1439,7 +1440,7 @@
                 self.DisplayExcelTemplate = '';
                 self.StandardExcelTemplate = '';
                 self.SetEmailNotification(null);
-                self.SetActionButtons(_self.uid);
+                self.SetActionButtons();
 
                 if (self.AngleUri) {
                     $('#angle_id').val(self.AngleUri);
@@ -1484,14 +1485,14 @@
                 var grid = $('#TaskActionsGrid').data('kendoGrid');
                 var dataItem = grid.dataSource.getByUid(_self.uid);
 
-                //action_run_as_user
-                var runAsUserTextbox = jQuery('#action_run_as_user');
-                runAsUserTextbox.val(dataItem.run_as_user);
-
                 // action_type
                 var actionTypeDroppdown = $('#action_type').data('kendoDropDownList');
                 actionTypeDroppdown.value(dataItem.action_type);
                 actionTypeDroppdown.trigger('change');
+
+                //action_run_as_user
+                var runAsUserTextbox = jQuery('#action_run_as_user');
+                runAsUserTextbox.val(dataItem.run_as_user);
 
                 // approval
                 jQuery('#approvalddl').data('kendoDropDownList').value(dataItem.approval_state);
@@ -1513,7 +1514,7 @@
                 self.SetEmailNotification(dataItem.notification);
 
                 // set buttons
-                self.SetActionButtons(_self.uid);
+                self.SetActionButtons();
                 $('#AddActionPopup .popupContent').scrollTop(0);
             }, 1);
         };
@@ -1554,7 +1555,7 @@
             self.SetEmailRecipientsColumns();
 
             // set buttons
-            self.SetActionButtons(_self.uid);
+            self.SetActionButtons();
         };
         self.CreateScriptDropdown = function () {
             var template = '#: name + (id ? " (." + filetype + ")" : "") #';
@@ -1730,15 +1731,23 @@
         };
         self.CanSetAction = function () {
             var ddlDisplay = $('#display_id').data('kendoDropDownList');
+            var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
             var canSelectDisplay = false;
+            var isValidExcelTemplate = true;
             if (ddlDisplay) {
                 canSelectDisplay = !ddlDisplay.wrapper.find('.k-state-disabled').length && ddlDisplay.dataSource.data().length;
             }
-            return _self.canSetAction && canSelectDisplay;
+            if (ddlExcelTemplate && self.IsDefaultDisplayExcelTemplate(ddlExcelTemplate.value())) {
+                var template = ddlExcelTemplate.options.dataSource.findObject('File', self.DisplayExcelTemplate);
+                if (!template) {
+                    isValidExcelTemplate = false;
+                }
+            }
+            return _self.canSetAction && canSelectDisplay && isValidExcelTemplate;
         };
-        self.SetActionButtons = function (uid) {
+        self.SetActionButtons = function () {
             if (self.CanCheckAction()) {
-                $('#AddActionPopup .popupToolbar a.btnCheckAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.CheckAction("' + uid + '")');
+                $('#AddActionPopup .popupToolbar a.btnCheckAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.CheckAction()');
             }
             else {
                 $('#AddActionPopup .popupToolbar a.btnCheckAction').addClass('no disabled').removeAttr("onclick");
@@ -1752,10 +1761,10 @@
             }
 
             if (self.CanSetAction() || !self.IsDatastoreAction()) {
-                if (!uid)
+                if (!_self.uid)
                     $('#AddActionPopup .popupToolbar a.btnAddAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.AddAction()');
                 else
-                    $('#AddActionPopup .popupToolbar a.btnAddAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.EditAction("' + uid + '")');
+                    $('#AddActionPopup .popupToolbar a.btnAddAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.EditAction()');
             }
             else {
                 $('#AddActionPopup .popupToolbar a.btnAddAction').addClass('no disabled').removeAttr("onclick");
@@ -2237,7 +2246,7 @@
                         }, 100);
 
                         // set buttons
-                        self.SetActionButtons(_self.uid);
+                        self.SetActionButtons();
                     });
             }
             else {
@@ -2245,7 +2254,7 @@
                 grid.dataSource.data([]);
 
                 // set buttons
-                self.SetActionButtons(_self.uid);
+                self.SetActionButtons();
             }
         };
         self.IsExportExcelAsList = function (dislayData) {
@@ -2372,24 +2381,35 @@
             if (ddlExcelTemplate && self.DisplayExcelTemplate !== '') {
                 var defaultTemplate = kendo.format(Localization.Default_Placeholder, self.DisplayExcelTemplate);
                 var dataSource = ddlExcelTemplate.dataSource;
-                dataSource.add({
-                    id: defaultTemplate,
-                    name: defaultTemplate
-                });
+                var template = dataSource.options.data.findObject('File', self.DisplayExcelTemplate);
+                if (template) {
+                    dataSource.add({
+                        File: defaultTemplate,
+                        Uri: template.Uri,
+                        HasInnoweraProcess: template.HasInnoweraProcess,
+                        InnoweraProcessDetails: template.InnoweraProcessDetails
+                    });
+                } else {
+                    dataSource.add({
+                        File: defaultTemplate
+                    });
+                }
                 dataSource.sync();
                 ddlExcelTemplate.value(defaultTemplate);
+                ddlExcelTemplate.trigger('change');
             }
         };
         self.RemoveDisplayExcelTemplateFromddlExcelTemplate = function (ddlExcelTemplate) {
             if (ddlExcelTemplate) {
                 var dataSource = ddlExcelTemplate.dataSource.data();
                 var defaultOption = jQuery.grep(dataSource, function (option) {
-                    return option.id.indexOf(Localization.Default_Placeholder.split(' ')[0]) === 0;
+                    return option.File.indexOf(Localization.Default_Placeholder.split(' ')[0]) === 0;
                 });
                 if (defaultOption.length !== 0) {
                     dataSource.remove(defaultOption[0]);
                 }
                 ddlExcelTemplate.value(self.StandardExcelTemplate);
+                ddlExcelTemplate.trigger('change');
             }
         };
         self.IsDefaultDisplayExcelTemplate = function (displayExcelTemplate) {
@@ -2399,6 +2419,7 @@
             if (arg.value !== '') {
                 var inputUI = input.data('handler');
                 inputUI.value(arg.value);
+                inputUI.trigger('change');
             }
         };
         self.CanAccessWebClient = function (modelId) {
@@ -2499,7 +2520,7 @@
                 })
                 .always(function () {
                     btnFindAngle.removeClass('disabled');
-                    self.SetActionButtons(_self.uid);
+                    self.SetActionButtons();
                 });
 
             deferred.promise();
@@ -2660,7 +2681,7 @@
             data.order = datasource.data().length;
             data.is_edited = true;
             datasource.add(data);
-            
+
             var win = $('#AddActionPopup').data('kendoWindow');
             win.close();
 
@@ -2668,14 +2689,14 @@
                 self.ModifyGridEditDeleteTemplate();
             }
         };
-        self.EditAction = function (uid) {
+        self.EditAction = function () {
             if (!self.IsActionValidated()) {
                 return;
             }
 
             var data = self.GetActionData();
             var grid = $('#TaskActionsGrid').data('kendoGrid');
-            var dataItem = grid.dataSource.getByUid(uid);
+            var dataItem = grid.dataSource.getByUid(_self.uid);
             dataItem.set("run_as_user", data.run_as_user);
             dataItem.set("action_type", data.action_type);
             dataItem.set("angle_name", data.angle_name);

@@ -831,4 +831,7 @@
   <data name="InsertModelTimestamp_info" xml:space="preserve">
     <value>Use '0' to select the first column. When no model timestamp column is required, enter -1 or leave empty.</value>
   </data>
+  <data name="Label_Template_Not_Exist_Message" xml:space="preserve">
+    <value>Template does not exist</value>
+  </data>
 </root>
