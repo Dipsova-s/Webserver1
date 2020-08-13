@@ -6413,4 +6413,10 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Reexecute" xml:space="preserve">
     <value>Re-execute</value>
   </data>
+  <data name="CloseSidebar" xml:space="preserve">
+    <value>Close sidebar</value>
+  </data>
+  <data name="OpenSidebar" xml:space="preserve">
+    <value>Open sidebar</value>
+  </data>
 </root>

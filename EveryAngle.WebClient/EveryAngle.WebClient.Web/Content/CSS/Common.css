@@ -3726,15 +3726,21 @@ a.breadcrumbLink:hover {
     font-size: 11px; }
 
 .toggle-sidebar {
-  position: absolute;
-  left: 8px;
-  top: 9px;
-  font-size: 18px;
-  color: #78909c;
-  padding: 7px; }
-  .toggle-sidebar:hover {
+    position: absolute;
+    left: 8px;
+    top: 9px;
+    font-size: 18px;
+    color: #78909c;
+    padding: 7px;
+    transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.toggle-sidebar:hover {
     border-radius: 50%;
-    background-color: #ebebeb; }
+    background-color: #ebebeb;
+    color: #3d4852;
+    top: 4px;
+}
 
 /* .content-wrapper
 ============================================ */

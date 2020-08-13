@@ -4002,4 +4002,10 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="Reexecute" xml:space="preserve">
     <value>Opnieuw uitvoeren</value>
   </data>
+  <data name="CloseSidebar" xml:space="preserve">
+    <value>Sluit zijpaneel</value>
+  </data>
+  <data name="OpenSidebar" xml:space="preserve">
+    <value>Open zijpaneel</value>
+  </data>
 </root>

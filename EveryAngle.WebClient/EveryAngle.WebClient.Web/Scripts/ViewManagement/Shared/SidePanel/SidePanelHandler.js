@@ -94,9 +94,11 @@ function SidePanelHandler() {
         var collapsed = userSettingModel.SidePanelSettingsData[self.StateManager.Collapsed.Name];
         if (collapsed) {
             element.addClass('full');
+            self.AddToolTipToButtonToggleSidePanel(Localization.OpenSidebar);
         }
         else {
             element.removeClass('full');
+            self.AddToolTipToButtonToggleSidePanel(Localization.CloseSidebar);
         }
     };
     self.Toggle = function () {
@@ -108,16 +110,27 @@ function SidePanelHandler() {
         var isOpen = !element.hasClass('full');
         if (!isOpen) {
             splitter.expand('.side-content');
+            self.AddToolTipToButtonToggleSidePanel(Localization.CloseSidebar);
         }
         element.toggleClass('full');
         clearTimeout(fnCheckSidePanel);
         fnCheckSidePanel = setTimeout(function () {
             element.removeClass('toggling');
-            if (isOpen)
+            if (isOpen) {
                 splitter.collapse('.side-content');
+                self.AddToolTipToButtonToggleSidePanel(Localization.OpenSidebar);
+            }
+               
             if (!_self.disable_states.disabled)
                 self.StateManager.Collapsed.Save(isOpen);
         }, 350);
+    };
+    self.AddToolTipToButtonToggleSidePanel = function (toolTipText) {
+        return jQuery('#ButtonToggleSidePanel')
+            .attr({
+                'data-role': 'tooltip',
+                'data-tooltip-text': toolTipText
+            });
     };
     self.Open = function (tabIndex) {
         var isOpen = !jQuery('#ContentWrapper').hasClass('full');

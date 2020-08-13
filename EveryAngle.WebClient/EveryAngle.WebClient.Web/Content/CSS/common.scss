@@ -1471,10 +1471,13 @@ $dropdown-large-item-height: 20px;
     font-size: 18px;
     color: #78909c;
     padding: 7px;
+    transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     &:hover {
         border-radius: 50%;
         background-color: #ebebeb;
+        color: #3d4852;
+        top: 4px;
     }
 }
 
