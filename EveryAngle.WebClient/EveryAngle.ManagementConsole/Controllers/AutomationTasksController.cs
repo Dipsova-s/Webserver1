@@ -375,6 +375,25 @@ namespace EveryAngle.ManagementConsole.Controllers
                 Data = dataStore
             };
         }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult GetDatastoreDetails(string fileName)
+        {
+            List<DataStoresViewModel> excelDatastore = GetAllDatastore("msexcel");
+            List<DataStoresViewModel> excelDatastores = new List<DataStoresViewModel>();
+            foreach(DataStoresViewModel datastore in excelDatastore)
+            {
+                DataStoresViewModel dataStoreDetails = GetDataStoreViewModel(datastore.Uri.ToString(),"", "msexcel");
+                string templatefile = dataStoreDetails.data_settings.SettingList.FirstOrDefault(x => x.Id.Equals("template_file")).Value.ToString();
+                if (templatefile.Equals(fileName))
+                {
+                    excelDatastores.Add(dataStoreDetails);
+                }
+            }
+            return new JsonResult
+            {
+                Data = excelDatastores
+            };
+        }
         public ActionResult GetDatastore(string datstoreUri)
         {
             var datastore = _automationTaskService.GetDatastore(datstoreUri);

@@ -15,7 +15,7 @@
         EnableTemplate = "# if (data.IsDefaultFile) { #"
                         + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
                         + "# } else { #"
-                        + "<a href=\"" + Url.Content("~/AngleExports/DeleteExcelTemplate") + "\" onclick=\"MC.AngleExports.ExcelTemplates.DeleteExcelTemplate(event, this)\" class=\"btn btnDelete\" data-parameters='{\"excelTemplateUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteExcelConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
+                        + "<a href=\"" + Url.Content("~/AngleExports/DeleteExcelTemplate") + "\" onclick=\"MC.AngleExports.ExcelTemplates.ShowDeletePopup(event, this)\" class=\"btn btnDelete\" data-parameters='{\"excelTemplateUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteExcelConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
                         + "# } #"
                         + "# if(Modernizr.touch && !!$.browser.safari) {#"
                         + "<a class=\"btn btnDownload disabled\">" + Resource.Download + "</a>"
@@ -62,6 +62,14 @@
             .Width(75)
             .Title(Resource.MC_Action)
             .Sortable(false);
+
+        columns.Bound(model => model.Display_count)
+            .ClientTemplate("<input type =\"hidden\" value=\"#=Display_count #\" />")
+            .Hidden(true);
+
+        columns.Bound(model => model.Datastore_count)
+            .ClientTemplate("<input type =\"hidden\" value=\"#=Datastore_count #\" />")
+            .Hidden(true);
     })
     .EnableCustomBinding(true)
     .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))

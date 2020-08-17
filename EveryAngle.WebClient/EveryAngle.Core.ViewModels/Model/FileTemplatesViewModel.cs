@@ -27,6 +27,12 @@ namespace EveryAngle.Core.ViewModels.Model
         [JsonProperty(PropertyName = "innowera_process_details")]
         public List<InnoweraProcess> InnoweraProcessDetails { get; set; }
 
+        [JsonProperty(PropertyName = "display_count")]
+        public int Display_count { get; set; }
+
+        [JsonProperty(PropertyName = "datastore_count")]
+        public int Datastore_count { get; set; }
+
         public string ReInnoweraProcessList
         {
             get

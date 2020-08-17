@@ -8,7 +8,10 @@
         url: '@Scripts.Url("~/bundles/angleexports/exceltemplates")',
         callback: function () {
             MC.AngleExports.ExcelTemplates.Initial({
-                GetAllExcelTemplateUri: '@Url.Action("ReadExcelTemplates", "AngleExports")'
+                GetAllExcelTemplateUri: '@Url.Action("ReadExcelTemplates", "AngleExports")',
+                AllDatastoreUri: '@Url.Action("GetDatastoreDetails", "AutomationTasks")',
+                EditDatastoreUri: '@SiteMapHelper.ActionHash("AngleExports/DataStores/EditDatastores")',
+                DefaultDatastoreUri:'@SiteMapHelper.ActionHash("AngleExports/ExportDefault/ExportExcel")'
             });
         }
     });

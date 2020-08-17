@@ -63,7 +63,7 @@ Verify Export To Excel From Action Menu
     Logout MC Then Close Browser
     Switch Browser    1
     Reload Angle Page
-    Selected Excel Template Should Be       [User default] ${defaultExcelTemplateName}
+    Selected Excel Template Should Be       ${newExcelTemplateName}
 
 Verify Export Item Drilldown To Excel From Action Menu
     ${angleName}  Set Variable  Angle For General Test
@@ -75,6 +75,7 @@ Verify Export Item Drilldown To Excel From Action Menu
     Select Filter "Reference" On Drilldown To Item
     Click Angle Dropdown To Export Drilldown To Excel
     Wait Progress Bar Closed
+    Select Excel Template in Export to Excel Pop up To  ${defaultExcelTemplateName}
     Click Export Drilldown To Excel Button
     Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
     Wait Until Export Excel Popup Close
@@ -92,6 +93,7 @@ Verify Error Message If A Filename Is Too Long
     Input Excel File Name Should Be    ${fileNamePlaceholder}
     ${filename}   Set Variable  Export angle to excel with such a long filename. A filename of 200 characters should be allowed. Since the windows max path length is 260, this could lead to a path too long exception, when this happens, show the error message to the user.
     Input Excel File Name    ${filename}
+    Select Excel Template in Export to Excel Pop up To  ${defaultExcelTemplateName}
     Click Export Excel Button
     Wait Until Page Contains    Full name of the file exceeds Windows limitations (260 characters).
 

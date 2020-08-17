@@ -5311,3 +5311,14 @@ a.mailto {
 .resultType > span.finished {
     background-image: url(../images/icons/icon_check.svg);
 }
+
+a.btnOpenWindowPopup {
+    background-image: url(../images/icons/icon_open_in_new.png);
+    margin-left: 20px;
+    background-repeat: no-repeat;
+    padding-right: 18px;
+    font-size: 20px
+}
+td.PopupExcelTemplate {
+    padding-bottom: 6px;
+}

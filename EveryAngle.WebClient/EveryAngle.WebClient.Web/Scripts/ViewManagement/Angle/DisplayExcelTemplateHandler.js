@@ -53,17 +53,32 @@
             '</div>'
         ].join('');
     };
+    self.ShowWarningMessageTemplateDeleted = function (selectedExcelTemplate) {
+        $("#template-warning-message-display").html('');
+        var warningMessage = '';
+        if (self.DropdownData.findObject('id', selectedExcelTemplate).isDeleted) {
+            warningMessage += '<span>' + Captions.Label_Template_Not_Exist_Message + '</span>';
+            $('div.display-excel-template .k-dropdown .k-dropdown-wrap').addClass('dropdown-border-warning');
+            $("#template-warning-message-display").show();
+        }
+        else {
+            $('div.display-excel-template .k-dropdown .k-dropdown-wrap').removeClass('dropdown-border-warning');
+            $("#template-warning-message-display").hide();
+        }
 
-    self.GetValue = function (dataSource) {
+        $("#template-warning-message-display").html(warningMessage);
+    };
+    self.GetValue = function () {
         var template = self.DisplayHandler.GetDetails().excel_template;
-        return dataSource.hasObject('id', template) ? template : self.DefaultDatastoreTemplate;
+        return typeof template === 'string' ? template : self.DefaultDatastoreTemplate;
     };
 
     self.Render = function () {
-        var ddlExcelTemplatesData = self.DropdownData;
+        var ddlExcelTemplatesData = self.GetDropdownData();
         var itemTemplate = self.GetItemTemplate();
-        var selectedExcelTemplate = self.GetValue(ddlExcelTemplatesData);
+        var selectedExcelTemplate = self.GetValue();
 
+        self.ShowWarningMessageTemplateDeleted(selectedExcelTemplate);
         var element = self.Container.find('select.default-excel-template:last');
         var ddlExcelTemplates = WC.HtmlHelper.DropdownList(element, ddlExcelTemplatesData, {
             dataTextField: 'name',
@@ -76,7 +91,20 @@
         ddlExcelTemplates.value(selectedExcelTemplate);
         self.ShowInnoweraDetails(ddlExcelTemplates.dataItem());
     };
-
+    self.GetDropdownData = function () {
+        var template = self.DisplayHandler.GetDetails().excel_template;
+        var excelTemplates = self.DropdownData;
+        if (typeof template === 'string' && !excelTemplates.hasObject('id', template)) {
+            excelTemplates.push({
+                id: template,
+                name: template,
+                is_innowera: false,
+                icon_class: "none",
+                isDeleted: true
+            });
+        }
+        return excelTemplates;
+    };
     self.SetData = function (e) {
         var details = self.DisplayHandler.GetDetails();
         var value = e.sender.value();

@@ -194,7 +194,8 @@ describe("ExportExcelHandlerTest", function () {
             element = $('<div id="InsertModelTimestamp" />').appendTo('body');
             ddlElement = $('<div id="ExcelTemplate" />').data('kendoDropDownList', {
                 value: $.noop,
-                dataItem: $.noop
+                dataItem: $.noop,
+                trigger: $.noop
             }).appendTo('body');
         });
 
@@ -204,11 +205,10 @@ describe("ExportExcelHandlerTest", function () {
         });
 
         it("should call function ", function () {
-            exportExcelHandler.CurrentExportModel.HeaderFormats = {};
             exportExcelHandler.CurrentExportModel = {
                 HeaderFormat: function () { },
                 TemplateFile: function () { },
-                ModelTimestampIndex: function () {}
+                ModelTimestampIndex: function () { }
             };
             $.fn.kendoDropDownList = $.noop;
             element.data('kendoNumericTextBox', {
@@ -223,14 +223,14 @@ describe("ExportExcelHandlerTest", function () {
             spyOn(exportExcelHandler, 'GetExcelItemTemplate').and.returnValue($.noop);
             spyOn(excelTemplateFilesHandler, 'GetDropdownData').and.returnValue($.noop);
             spyOn(exportExcelHandler, 'ShowInnoweraDetails').and.returnValue($.noop);
-
+            spyOn(exportExcelHandler, "ShowWarningMessageTemplateDeleted").and.returnValue($.noop);
+            spyOn(exportExcelHandler, "GetDropdownData").and.returnValue($.noop);
             exportExcelHandler.SetExportModelUI();
 
             expect($.fn.kendoDropDownList).toHaveBeenCalled();
             expect(WC.HtmlHelper.DestroyNumericIfExists).toHaveBeenCalled();
             expect($.fn.kendoNumericTextBox).toHaveBeenCalled();
-            expect(excelTemplateFilesHandler.GetDropdownData).toHaveBeenCalled();
-            expect(exportExcelHandler.ShowInnoweraDetails).toHaveBeenCalled();
+            expect(exportExcelHandler.GetDropdownData).toHaveBeenCalled();
         });
     });
     describe(".ShowInnoweraDetails", function () {
@@ -310,7 +310,7 @@ describe("ExportExcelHandlerTest", function () {
             };
             spyOn(exportExcelHandler, 'SetExportModel');
             spyOn(exportExcelHandler, 'SetExportModelUI');
-            
+            spyOn(exportExcelHandler, 'SetButtonStatus');
             spyOn(directoryHandler, 'GetDirectoryUri').and.callFake(function () { return ''; });
             spyOn(window, 'GetDataFromWebService').and.callFake(function () { return $.when(exportOptions); });
             spyOn($.fn, 'busyIndicator');
@@ -371,19 +371,42 @@ describe("ExportExcelHandlerTest", function () {
 
     });
     describe(".SetButtonStatus", function () {
-        it("Should call a function", function () {
-            spyOn(jQuery.fn, 'removeClass').and.returnValue($());
+        it("Should call removeClass function when template deleted", function () {           
+            spyOn(jQuery.fn, 'removeClass').and.returnValue($());           
+            exportExcelHandler.CurrentExportModel = {
+                TemplateFile: function () {
+                    return "EveryAngle-Test.xlsx";
+                }
+            };
+            var Data = [{
+                id: 'EveryAngle-Test.xlsx'
+            }];
+            spyOn(excelTemplateFilesHandler, "GetDropdownData").and.returnValue(Data);
             exportExcelHandler.SetButtonStatus();
             expect(jQuery.fn.removeClass).toHaveBeenCalled();
         });
+        it("Should call addClass function when template exist", function () {
+            spyOn(jQuery.fn, 'addClass').and.returnValue($());
+            exportExcelHandler.CurrentExportModel = {
+                TemplateFile: function () {
+                    return "EveryAngle-Test2.xlsx";
+                }
+            };
+            var Data = [{
+                id: 'EveryAngle-Test.xlsx'
+            }];
+            spyOn(excelTemplateFilesHandler, "GetDropdownData").and.returnValue(Data);
+            exportExcelHandler.SetButtonStatus();
+            expect(jQuery.fn.addClass).toHaveBeenCalled();
+        });
     });
+   
     describe(".GetExcelTemplate", function () {
         it("It should return the displayData excel template", function () {
             var displayData = {
                 display_details: "{\"excel_template\" : \"EveryAngle-Standard.xlsx\"}"
             };
             spyOn(displayModel, 'Data').and.returnValue(displayData);
-            spyOn(exportExcelHandler, 'IsTemplateExist').and.returnValue(true);
             var result = exportExcelHandler.GetExcelTemplate();
             expect(result).toBe("EveryAngle-Standard.xlsx");
         });
@@ -392,7 +415,6 @@ describe("ExportExcelHandlerTest", function () {
                 display_details: ""
             };
             spyOn(displayModel, 'Data').and.returnValue(displayData);
-            spyOn(exportExcelHandler, 'IsTemplateExist').and.returnValue(false);
             spyOn(defaultExcelDatastoreHandler, 'GetDefaultTemplate').and.returnValue('EveryAngle-Test.xlsx')
             var result = exportExcelHandler.GetExcelTemplate();
             expect(result).toBe("EveryAngle-Test.xlsx");
@@ -459,4 +481,62 @@ describe("ExportExcelHandlerTest", function () {
             expect(FileName).toBe(expectedFileName);
         });
     });
+    describe(".GetDropdownData", function () {
+        it("When default excel template of dispaly not deleted then it should return exsisting template", function () {
+            var excelTemplate = datastore.data_settings.setting_list[2].options;
+            var displayData = {
+                display_details: "{\"excel_template\" : \"EveryAngle-Test.xlsx\"}"
+            };
+            spyOn(displayModel, 'Data').and.returnValue(displayData);
+            spyOn(excelTemplateFilesHandler, "GetDropdownData").and.returnValue(excelTemplate);
+            var result = exportExcelHandler.GetDropdownData();
+            expect(result).toBe(excelTemplate);
+        });
+        it("When default excel template of dispaly deleted then it should return exsisting template and display template", function () {
+            var excelTemplate = datastore.data_settings.setting_list[2].options;
+            var displayData = {
+                display_details: "{\"excel_template\" : \"EveryAngle-Test2.xlsx\"}"
+            };
+            spyOn(displayModel, 'Data').and.returnValue(displayData);
+            spyOn(excelTemplateFilesHandler, "GetDropdownData").and.returnValue(excelTemplate);
+            var result = exportExcelHandler.GetDropdownData();
+            expect(result).not.toEqual(datastore.data_settings.setting_list[2].option);
+            expect(result.hasObject('id', 'EveryAngle-Test2.xlsx')).toBeTruthy();
+        });
+    });
+
+    describe(".ShowWarningMessageTemplateDeleted", function () {
+        beforeEach(function () {
+            element = $('<div id="template-warning-message-popup"></div>').appendTo('body');
+        });
+
+        afterEach(function () {
+            element.remove();
+        });
+        it("When template deleted the warning message should be displayed", function () {
+            var excelTemplate = datastore.data_settings.setting_list[2].options;
+            Captions.Label_Template_Not_Exist_Message = "Template does not exist";
+
+            spyOn(excelTemplateFilesHandler, "GetDropdownData").and.returnValue(excelTemplate);
+            spyOn(exportExcelHandler, "SetButtonStatus").and.returnValue($.noop);
+
+            exportExcelHandler.ShowWarningMessageTemplateDeleted('EveryAngle-Test2.xlsx');
+            var warningText = $("#template-warning-message-popup >span").text()
+            expect(warningText).toBe(Captions.Label_Template_Not_Exist_Message);
+            expect(exportExcelHandler.SetButtonStatus).toHaveBeenCalled();
+        });
+        it("When template exist the warning message should not  be displayed", function () {
+            var excelTemplate = datastore.data_settings.setting_list[2].options;
+            Captions.Label_Template_Not_Exist_Message = "Template does not exist";
+
+            spyOn(excelTemplateFilesHandler, "GetDropdownData").and.returnValue(excelTemplate);
+            spyOn(exportExcelHandler, "SetButtonStatus").and.returnValue($.noop);
+
+            exportExcelHandler.ShowWarningMessageTemplateDeleted('EveryAngle-Test1.xlsx');
+            var warningText = $("#template-warning-message-popup >span").text()
+            expect(warningText).toBe('');
+            expect(exportExcelHandler.SetButtonStatus).toHaveBeenCalled();
+        });
+    });
+   
 });

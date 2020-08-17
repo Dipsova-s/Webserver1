@@ -221,7 +221,7 @@ function ExportExcelHandler() {
 
         self.SetVisibleHeaderFormat(displayType);
         self.SetVisibleInsertModelStamp(displayType);
-        jQuery('[id="SaveFileName"]:visible, [id="SaveSheetName"]:visible').removeClass('k-invalid');        
+        jQuery('[id="SaveFileName"]:visible, [id="SaveSheetName"]:visible').removeClass('k-invalid');
     };
     self.SetSheetName = function () {
         var workbookName = angleInfoModel.Name();
@@ -301,12 +301,15 @@ function ExportExcelHandler() {
             });
     };
     self.SetButtonStatus = function () {
-        jQuery('a[id*=btn-popupExportExcel]').removeClass('executing');
-        /*
-        * M4-9903: Implement for single item
-        * 3.Removed class executing from ok button
-        */
-        jQuery('a[id*=btn-popupExportDrilldownExcel]:visible').removeClass('executing');
+        var templates = excelTemplateFilesHandler.GetDropdownData();
+        if (!templates.hasObject('id', self.CurrentExportModel.TemplateFile())) {
+            jQuery('a[id=btn-popupExportExcel1]').addClass('executing');
+            jQuery('a[id=btn-popupExportDrilldownExcel1]:visible').addClass('executing');
+        }
+        else {
+            jQuery('a[id=btn-popupExportExcel1]').removeClass('executing');
+            jQuery('a[id=btn-popupExportDrilldownExcel1]:visible').removeClass('executing');
+        }
     };
     self.SetExportModel = function (datastore) {
         self.CurrentExportModel.HeaderFormat(self.GetDatastoreDataSetting(datastore, 'header_format'));
@@ -342,17 +345,20 @@ function ExportExcelHandler() {
             dataSource: self.CurrentExportModel.HeaderFormats,
             value: self.CurrentExportModel.HeaderFormat()
         });
+        
         var excelDropdown = jQuery('#ExcelTemplate').kendoDropDownList({
             dataTextField: "name",
             dataValueField: "id",
-            dataSource: excelTemplateFilesHandler.GetDropdownData(),
+            dataSource: self.GetDropdownData(),
             template: self.GetExcelItemTemplate(),
             valueTemplate: self.GetExcelItemTemplate(),
             change: function (e) {
                 self.CurrentExportModel.TemplateFile(e.sender.value());
                 self.ShowInnoweraDetails(this.dataSource.get(this.value()));
+                self.ShowWarningMessageTemplateDeleted(e.sender.value());
             }
         }).data(enumHandlers.KENDOUITYPE.DROPDOWNLIST);
+
         if (!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
             WC.HtmlHelper.DestroyNumericIfExists('#InsertModelTimestamp');
             jQuery('#InsertModelTimestamp').kendoNumericTextBox({
@@ -363,13 +369,26 @@ function ExportExcelHandler() {
                 value: self.CurrentExportModel.ModelTimestampIndex()
             }).data('kendoNumericTextBox');
         }
-
+        
         excelDropdown.value(self.CurrentExportModel.TemplateFile());
-        self.ShowInnoweraDetails(excelDropdown.dataItem());
+        excelDropdown.trigger('change');
+    };
+    self.GetDropdownData = function () {
+        var excelTemplates = excelTemplateFilesHandler.GetDropdownData();
+        var displayDetails = WC.Utility.ParseJSON(displayModel.Data().display_details);
+        if (typeof displayDetails.excel_template === 'string' && !excelTemplates.hasObject('id', displayDetails.excel_template)) {
+            excelTemplates.push({
+                id: displayDetails.excel_template,
+                name: displayDetails.excel_template,
+                icon_class: "none"
+            });
+        }
+        return excelTemplates;
     };
     self.ShowInnoweraDetails = function (fileData) {
         $('#InnoweraDetails').html('');
         if (!fileData.is_innowera) {
+            $("#ExportOptionArea .innowera-details").hide();
             return;
         }
         var processes = fileData.innowera_details.map(function (process) {
@@ -377,7 +396,25 @@ function ExportExcelHandler() {
             return '<span data-role="tooltip" data-tooltip-text=\"' + text + '\">' + text + '</span><br\>';
         });
         $('#InnoweraDetails').html(processes);
-    }
+    };
+    self.ShowWarningMessageTemplateDeleted = function (template) {
+        $("#template-warning-message-popup").html('');
+        var warningMessage = '';
+        if (!excelTemplateFilesHandler.GetDropdownData().hasObject('id', template)) {
+            warningMessage += '<span>' + Captions.Label_Template_Not_Exist_Message + '</span>';
+            $("#template-warning-message-popup").show();
+            $('div.excel-template .k-dropdown .k-dropdown-wrap').addClass('dropdown-border-warning');
+            $("#ExportOptionArea .innowera-details").hide();
+        }
+        else {
+            jQuery('div.excel-template .k-dropdown .k-dropdown-wrap').removeClass('dropdown-border-warning');
+            $("#ExportOptionArea .innowera-details").show();
+            $("#template-warning-message-popup").hide();
+        }
+
+        $("#template-warning-message-popup").html(warningMessage);
+        self.SetButtonStatus();
+    };
     self.CloseExportExcelPopup = function (e) {
         e.kendoWindow.element.closest('.popupExportExcel').removeClass('alwaysHide');
         popup.Close('#popupExportExcel');
@@ -453,14 +490,11 @@ function ExportExcelHandler() {
 
     self.GetExcelTemplate = function () {
         var displayDetails = WC.Utility.ParseJSON(displayModel.Data().display_details);
-        if (typeof displayDetails.excel_template !== 'undefined' && self.IsTemplateExist(displayDetails.excel_template))
+        if (typeof displayDetails.excel_template !== 'undefined')
             return displayDetails.excel_template;
         return defaultExcelDatastoreHandler.GetDefaultTemplate();
     };
 
-    self.IsTemplateExist = function (template) {
-        return excelTemplateFilesHandler.GetData().hasObject('file', template);
-    };
     /*
     * M4-9963: Export to excel: data only for chart
     * 3.This function use for collect client side data, angle/display/result uri and send these information to web server generate excel file
@@ -473,14 +507,14 @@ function ExportExcelHandler() {
         exportOptions.FileName = jQuery.trim(jQuery('[id="SaveFileName"]:visible').val());
         exportOptions.SheetName = jQuery.trim(jQuery('[id="SaveSheetName"]:visible').val());
         self.DefaultSetting = [
-        {
-            "id": "template_file",
-            "value": self.CurrentExportModel.TemplateFile()
-        },
-        {
-            "id": "include_techinfo",
-            "value": Boolean(self.CurrentExportModel.TechnicalInfo())
-        }];
+            {
+                "id": "template_file",
+                "value": self.CurrentExportModel.TemplateFile()
+            },
+            {
+                "id": "include_techinfo",
+                "value": Boolean(self.CurrentExportModel.TechnicalInfo())
+            }];
         // validate file name and sheet name
         if (!self.ValidateExportExcel(exportOptions.FileName)) {
             return false;

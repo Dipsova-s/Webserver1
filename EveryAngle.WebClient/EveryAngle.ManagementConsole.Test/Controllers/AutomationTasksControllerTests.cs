@@ -735,6 +735,62 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
            return "{\"name\":\"new_task_updated\",\"delete_after_completion\":false,\"run_as_user\":\"local\\\\test\",\"actions\":[{\"run_as_user\":\"local\\\\test\",\"action_type\":\"export_angle_to_datastore\",\"arguments\":[{\"name\":\"datastore\",\"value\":\"Export_to_Excel_Default\"},{\"name\":\"model\",\"value\":\"EA2_800\"},{\"name\":\"angle_id\",\"value\":\"ea747c6de36f3a4db9a4b5026c74f7ffce\"},{\"name\":\"display_id\",\"value\":\"eae6ee8cca45f94a72b3520668648f8c93\"},{\"name\":\"model_timestamp_index\",\"value\":1},{\"name\":\"header_format\",\"value\":\"id\"},{\"name\":\"enum_format\",\"value\":\"id\"},{\"name\":\"max_rows_to_export\",\"value\":-1},{\"name\":\"file_name\",\"value\":\"{anglename:normalized}\"},{\"name\":\"template_file\",\"value\":\"EveryAngle-Standard.xlsx\"},{\"name\":\"sheet_name\",\"value\":\"{displayname:normalized}\"},{\"name\":\"include_techinfo\",\"value\":true},{\"name\":\"add_angle_summary\",\"value\":false},{\"name\":\"add_angle_definition\",\"value\":false},{\"name\":\"abort_task_when_error\",\"value\":false}],\"approval_state\":\"enabled\",\"notification\":null,\"order\":3}],\"enabled\":true,\"max_run_time\":9000,\"actions_uri\":\"https:\\test.com:9080\tasks\\/20\actions\",\"triggers\":[{\"days\":[{\"day\":0,\"active\":false},{\"day\":1,\"active\":false},{\"day\":2,\"active\":false},{\"day\":3,\"active\":false},{\"day\":4,\"active\":false},{\"day\":5,\"active\":false},{\"day\":6,\"active\":false}],\"trigger_type\":\"schedule\",\"continuous\":false,\"frequency\":\"Weekly\",\"start_time\":5400}]}";
         }
 
+        [TestCase]
+        public void Can_GetDatastoreDetails()
+        {
+            //setup
+            List<DataStoresViewModel> dataStore = new List<DataStoresViewModel>
+            {
+                new DataStoresViewModel
+                {
+                    datastore_plugin = "msexcel",
+                    is_default =true,
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            var datastores = new ListViewModel<DataStoresViewModel>();
+            datastores.Data = dataStore;
+            List<DataStorePluginsViewModel> plugins = new List<DataStorePluginsViewModel>
+            {
+                new DataStorePluginsViewModel
+                {
+                    id="msexcel",
+                    name="msexcel_test",
+                    supports_append=true,
+                    description="msexcel",                    
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            var plugin = new ListViewModel<DataStorePluginsViewModel>();
+            plugin.Data = plugins;
+            DataStoresViewModel data = new DataStoresViewModel
+            {
+                datastore_plugin = "msexcel",
+                is_default = true,
+                data_settings = new ModelServerSettings()
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting()
+                            {
+                                Id="template_file",
+                                Value="EveryAngle-Test.xlsx"
+                            }
+                        }
+                },
+                Uri = new Uri("/system/datastores", UriKind.Relative)
+            };
+            automationTaskService.Setup(x => x.GetDatastore(It.IsAny<string>())).Returns(data);
+            automationTaskService.Setup(x => x.GetDatastores(It.IsAny<string>())).Returns(datastores);
+            automationTaskService.Setup(x => x.GetDatastorePlugins(It.IsAny<string>())).Returns(plugin);
+            // execute
+            JsonResult result = _testingController.GetDatastoreDetails("EveryAngle-Test.xlsx") as JsonResult;
+
+            //Assert
+            List<DataStoresViewModel> resultData = result.Data as List<DataStoresViewModel>;
+            Assert.AreEqual(resultData[0], data);
+
+        }
         #endregion
     }
 }
