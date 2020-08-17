@@ -211,7 +211,38 @@ $side-content-color: #fcfcfc;
         }
     }
 
-    .section-business-processes {
+    .section-labels {
+        .label-group-header {
+            font-size: 11px;
+        }
+
+        .label-header {
+            color: #78909c;
+            font-style: italic;
+            font-weight: normal;
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .labels-wrapper {
+            border-radius: 2px;
+            border: solid 1px #b5becc;
+            background-color: #ffffff;
+            padding: 7px 2px 2px 7px;
+            margin-bottom: 10px;
+            min-height: 36px;
+            box-sizing: border-box;
+
+            .multiple-select-header {
+                display: none;
+            }
+
+            .label-selection-message,
+            .business-processes-selection-message {
+                font-size: 11px;
+            }
+        }
+
         .business-process-multi-select {
             color: #fff;
 
@@ -234,7 +265,11 @@ $side-content-color: #fcfcfc;
 
     .section-tags {
         .form-col-header {
+            color: #78909c;
+            font-style: italic;
+            font-weight: normal;
             font-size: 11px;
+            width: 100%;
         }
     }
 }

@@ -27,7 +27,7 @@
     
     handler.SavePublishSettings = function (model, event) {
         var self = this;
-        if (!self.CheckSavePublishSettings(self.Data.is_published()))
+        if (!self.CheckSavePublishSettings(jQuery('#popupPublishSettings'), self.Data.is_published()))
             return;
         
         self.ShowPublishingProgressbar(event.currentTarget);
@@ -45,7 +45,7 @@
         var valid = true;
 
         // labels
-        if (!self.CheckSavePublishSettings(true)) {
+        if (!self.CheckSavePublishSettings(jQuery('#popupPublishSettings'), true)) {
             valid = false;
         }
 

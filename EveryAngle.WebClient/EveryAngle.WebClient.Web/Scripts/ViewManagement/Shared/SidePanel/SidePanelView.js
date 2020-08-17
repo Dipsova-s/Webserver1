@@ -56,11 +56,44 @@ SidePanelView.prototype.GetSectionPersonalNoteTemplate = function () {
         '</div>'
     ].join('');
 };
-SidePanelView.prototype.GetSectionBusinessProcessTemplate = function () {
-    return [
-        '<div class="card section-business-processes">',
-            '<div class="card-body">',
-                '<div class="business-processes-wrapper"></div>',
+SidePanelView.prototype.GetSectionLabelsTemplate = function () {
+     return [
+        '<div class="accordion-item section-labels">',
+            '<div class="accordion-header open">',
+                '<i class="open-indicator icon icon-caret-down"></i>',
+                '<i class="close-indicator icon icon-caret-right"></i>',
+                '<span data-bind="text: Localization.Labels"></span>',
+            '</div>',
+            '<div class="accordion-body section-labels-body">',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-body">',
+                        '<div class="label-header" data-bind="text: Localization.BusinessProcesses"></div>',
+                        '<div class="labels-wrapper business-processes-wrapper">',
+                            '<div class="business-processes-selection"></div>',
+                            '<div class="business-processes-selection-message required clearfix"></div>',
+                        '</div>',
+                    '</div>',
+                '</div>',
+                '<!-- ko foreach: { data: Labels, as: \'group\' } -->',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-body label-group-header">',
+                        '<span class="group-name" data-bind="text: group.name"></span>',
+                        ' (<span class="group-count" data-bind="text: group.count"></span>)',
+                    '</div>',
+                '</div>',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-body publish-labels">',
+                        '<!-- ko foreach: { data: group.categories, as: \'category\' } -->',
+                        '<div class="label-header" data-bind="html: category.name + (category.is_required ? \' <em class=required>*</em>\' : \'\')"></div>',
+                        '<div class="labels-wrapper">',
+                            '<div class="label-selection" data-bind="attr: { \'data-id\': category.id }, template: { afterRender: category.render }"></div>',
+                            '<div class="label-selection-message required clearfix"></div>',
+                        '</div>',
+                        '<!-- /ko -->',
+                    '</div>',
+                '</div>',
+                '<!-- /ko -->',
+                '<div class="group-message required clearfix"></div>',
             '</div>',
         '</div>'
     ].join('');

@@ -10,7 +10,7 @@ function AngleHandler(model) {
     self.ItemDescriptionHandler = new ItemDescriptionHandler();
     self.QueryDefinitionHandler = new QueryDefinitionHandler();
     self.AngleUserSpecificHandler = new AngleUserSpecificHandler(self);
-    self.AngleBusinessProcessHandler = new AngleBusinessProcessHandler(self);
+    self.AngleLabelHandler = new AngleLabelHandler(self);
     self.AngleTagHandler = new AngleTagHandler(self);
     self.AngleStatisticHandler = new AngleStatisticHandler(self);
     self.Initial = function (model, updateRaw) {
@@ -141,9 +141,9 @@ function AngleHandler(model) {
             self.GetCurrentDisplay() && self.GetCurrentDisplay().ResultHandler.ExecutionInfo();
     };
 
-    // business processes
-    self.InitialBusinessProcess = function (target) {
-        self.AngleBusinessProcessHandler.Initial(target);
+    // labels
+    self.InitialLabel = function (target) {
+        self.AngleLabelHandler.Initial(target);
     };
 
     // tags
@@ -186,7 +186,7 @@ function AngleHandler(model) {
         var data = self.GetChangeData(self.ItemDescriptionHandler.GetData(), self.Data());
         var hasDescriptionChanged = self.CanCreateOrUpdate() && data;
         return hasDescriptionChanged && (self.IsDisplaysUsedInTask() || self.IsChangeDisplaysUsedInTask());
-    }
+    };
     self.ShowEditDescriptionPopup = function () {
         self.ItemDescriptionHandler.CanEditId(_self.canEditId);
         self.parent.prototype.ShowEditDescriptionPopup.call(self, Localization.AngleDescription);
@@ -433,11 +433,18 @@ function AngleHandler(model) {
         if (!jQuery.isFunction(checker))
             checker = self.IsConflict;
 
-        if (checker()) {
+        if (self.Data().is_validated())
+            popup.Confirm(Localization.Confirm_SaveValidatedAngle,
+                jQuery.proxy(self.ConfirmSaveWithUsedInTask, self, checker, callback, cancel),
+                cancel);
+        else
+            self.ConfirmSaveWithUsedInTask(checker, callback, cancel);
+    };
+    self.ConfirmSaveWithUsedInTask = function (checker, callback, cancel) {
+        if (checker())
             popup.Confirm(Localization.MessageSaveQuestionAngleUsedInTask, callback, cancel);
-        } else {
+        else
             callback();
-        }
     };
     self.IsConflict = function () {
         return self.IsChangeUsedInTask() || self.IsChangeDisplaysUsedInTask();
@@ -600,7 +607,7 @@ function AngleHandler(model) {
         return self.Data().is_template() ? self.Data().authorizations.unmark_template : self.Data().authorizations.mark_template;
     };
     self.Validate = function () {
-        return self.AngleBusinessProcessHandler.Validate();
+        return self.AngleLabelHandler.Validate(true);
     };
 
     // constructor

@@ -44,7 +44,7 @@
             return language ? language.name : name.lang;
         });
     };
-    self.OnPopupResized = function (e, handle) {
+    self.OnPopupResized = function (handle, e) {
         var offset = self.GetPopupPosition(e, handle);
         e.sender.setOptions({ position: offset });
     };

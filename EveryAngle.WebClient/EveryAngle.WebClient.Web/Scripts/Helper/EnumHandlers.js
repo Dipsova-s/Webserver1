@@ -70,7 +70,8 @@ function EnumHandlers() {
     self.ACCORDION = {
         DEFINITION: 'definition',
         AGGREGATION: 'aggregation',
-        DESCRIPTION: 'description'
+        DESCRIPTION: 'description',
+        LABEL: 'label'
     };
 
     self.SEPARATOR_TEMPLATE = {

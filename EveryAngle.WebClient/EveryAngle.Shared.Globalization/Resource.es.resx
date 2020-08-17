@@ -135,6 +135,9 @@
   <data name="AngleDescription" xml:space="preserve">
     <value>Descripción de Angle</value>
   </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Etiquetas</value>
+  </data>
   <data name="AngleDetailPublishTabAnglePrivileges" xml:space="preserve">
     <value>Etiquetas de privilegio</value>
   </data>

@@ -19,7 +19,7 @@ function DashboardPageHandler() {
     self.HandlerSidePanel = new DashboardSidePanelHandler();
     self.DashboardStatisticHandler = new DashboardStatisticHandler();
     self.DashboardUserSpecificHandler = new DashboardUserSpecificHandler(dashboardModel, self.DashboardModel);
-    self.DashboardBusinessProcessHandler = new DashboardBusinessProcessHandler(dashboardModel, self.DashboardModel);
+    self.DashboardLabelHandler = new DashboardLabelHandler(dashboardModel, self.DashboardModel);
     self.DashboardTagHandler = new DashboardTagHandler(dashboardModel, self.DashboardModel);
     self.QueryDefinitionHandler = new QueryDefinitionHandler();
     self.ItemDescriptionHandler = new ItemDescriptionHandler();
@@ -330,9 +330,14 @@ function DashboardPageHandler() {
         self.DashboardUserSpecificHandler.SetFavorite(e.currentTarget);
     };
 
-    // business process
-    self.InitialBusinessProcess = function () {
-        self.DashboardBusinessProcessHandler.Initial(jQuery('#TabContentDashboard .section-business-processes'));
+    // labels
+    self.InitialLabel = function () {
+        self.DashboardLabelHandler.Save = self.SaveLabels;
+        self.DashboardLabelHandler.Initial(jQuery('#TabContentDashboard .section-labels'));
+    };
+    self.SaveLabels = function (labels) {
+        var context = self.DashboardLabelHandler;
+        self.ConfirmSave(jQuery.proxy(context.ForceSave, context, labels), jQuery.proxy(context.Cancel, context));
     };
 
     // tags
@@ -707,7 +712,7 @@ function DashboardPageHandler() {
         self.InitialQueryDefinition(self.TransformFiltersData(self.DashboardModel.Data().filters));
         self.QueryDefinitionHandler.ApplyHandler(jQuery('#TabContentDashboard .section-definition'), '.definition-body-inner');
         self.InitialUserSpecific();
-        self.InitialBusinessProcess();
+        self.InitialLabel();
         self.InitialTag();
         WC.HtmlHelper.ApplyKnockout(self, jQuery('#TabContentDashboard .section-personal-note'));
         WC.HtmlHelper.ApplyKnockout(self, jQuery('#TabContentDashboard .section-description'));
@@ -1982,32 +1987,33 @@ function DashboardPageHandler() {
         }
         else {
             var deferred = jQuery.Deferred();
-            var saveDashboard = function () {
-                self.ShowSaveProgressbar();
-                var rawData = dashboardModel.GetData();
-                var updateData = self.GetChangeData(rawData, data);
-                self.EnsureLayout(updateData);
-                self.UpdateDashboard(updateData)
-                    .fail(deferred.reject)
-                    .done(function (dashboard, widgetChanged) {
-                        toast.MakeSuccessTextFormatting(dashboardModel.Data().name(), Localization.Toast_SaveItem);
-                        self.SaveDashboardCallback(dashboard, widgetChanged);
-                        deferred.resolve();
-                    })
-                    .always(self.EndSaveProgressbar);
-            };
-
-            var confirmMessageBeforeSave = self.GetConfirmMessageBeforeSave(dashboardModel.Data().is_validated());
-            if (confirmMessageBeforeSave) {
-                popup.Confirm(confirmMessageBeforeSave, saveDashboard, deferred.reject, {
-                    title: Localization.Warning_Title,
-                    icon: 'alert'
-                });
-            }
-            else {
-                saveDashboard();
-            }
+            self.ConfirmSave(jQuery.proxy(self.ForceSaveDashboard, self, deferred, data), deferred.reject);
             return deferred.promise();
+        }
+    };
+    self.ForceSaveDashboard = function (deferred, data) {
+        self.ShowSaveProgressbar();
+        var rawData = dashboardModel.GetData();
+        var updateData = self.GetChangeData(rawData, data);
+        self.EnsureLayout(updateData);
+        self.UpdateDashboard(updateData)
+            .fail(deferred.reject)
+            .done(function (dashboard, widgetChanged) {
+                toast.MakeSuccessTextFormatting(dashboardModel.Data().name(), Localization.Toast_SaveItem);
+                self.SaveDashboardCallback(dashboard, widgetChanged);
+                deferred.resolve();
+            })
+            .always(self.EndSaveProgressbar);
+    };
+    self.ConfirmSave = function (callback, cancel) {
+        if (dashboardModel.Data().is_validated()) {
+            popup.Confirm(Localization.Confirm_SaveValidatedDashboard, callback, cancel, {
+                title: Localization.Warning_Title,
+                icon: 'alert'
+            });
+        }
+        else {
+            callback();
         }
     };
     self.ShowSaveProgressbar = function () {

@@ -33,7 +33,7 @@
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
     <Use64BitIISExpress>
-	</Use64BitIISExpress>
+    </Use64BitIISExpress>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -1050,7 +1050,7 @@
     <Content Include="Scripts\VideoPlayer\video.js" />
     <Content Include="Scripts\VideoPlayer\video.min.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleTagHandler.js" />
-    <Content Include="Scripts\ViewManagement\Angle\AngleBusinessProcessHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AngleLabelHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleStatisticHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleStatisticView.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleTemplateStateHandler.js" />
@@ -1084,13 +1084,14 @@
     <Content Include="Scripts\ViewManagement\Angle\TargetLineHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardStatisticHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardStatisticView.js" />
-    <Content Include="Scripts\ViewManagement\Dashboard\DashboardBusinessProcessHandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardLabelHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardSaveAsHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardUserSpecificHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardSidePanelView.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardSidePanelHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\DashboardExecutionHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\SearchSidePanelHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ItemLabelHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\BaseItemHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\Breadcrumb\DashboardBreadcrumbHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\DefaultExcelDatastoreHandler.js" />

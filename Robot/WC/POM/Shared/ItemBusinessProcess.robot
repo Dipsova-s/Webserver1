@@ -1,6 +1,6 @@
 *** Variables ***
-${btnAddBusinessProcess}           css=.section-business-processes .multiple-select-button
-${divSelectedBusinessProcess}      css=.section-business-processes .business-process-multi-select
+${btnAddBusinessProcess}           css=.business-processes-selection .multiple-select-button
+${divSelectedBusinessProcess}      css=.business-processes-selection .business-process-multi-select
 ${divAvailableBusinessProcess}     css=.multiple-select-list.business-processes .business-process-multi-select
 
 *** Keywords ***

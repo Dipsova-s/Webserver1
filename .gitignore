@@ -313,3 +313,4 @@ __pycache__/
 /EveryAngle.WebClient/EveryAngle.WebClient.Web/Admin/UploadedResources
 **/coverage.xml
 *.pabotsuitenames
+/Robot/python/TagsFromServer.txt

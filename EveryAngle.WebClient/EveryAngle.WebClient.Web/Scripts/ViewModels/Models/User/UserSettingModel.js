@@ -223,6 +223,7 @@ function UserSettingViewModel() {
         var setting = {};
         setting[enumHandlers.ACCORDION.DEFINITION] = true;
         setting[enumHandlers.ACCORDION.DESCRIPTION] = true;
+        setting[enumHandlers.ACCORDION.LABEL] = true;
         return setting;
     };
     self.GetDefaultDisplayPanelAccordions = function () {
@@ -236,6 +237,7 @@ function UserSettingViewModel() {
         var setting = {};
         setting[enumHandlers.ACCORDION.DEFINITION] = true;
         setting[enumHandlers.ACCORDION.DESCRIPTION] = true;
+        setting[enumHandlers.ACCORDION.LABEL] = true;
         return setting;
     };
     self.GetDefaultWidgetPanelAccordions = function () {

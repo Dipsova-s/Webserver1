@@ -455,8 +455,8 @@ function AnglePageHandler() {
         self.UpdateLayout(0);
     };
     self.UpdateSidePanelHandlers = function () {
-        // business processes
-        self.HandlerAngle.InitialBusinessProcess(jQuery('.section-business-processes'));
+        // labels
+        self.HandlerAngle.InitialLabel(jQuery('.section-labels'));
 
         // tags
         self.HandlerAngle.InitialTag(jQuery('.section-tags'));
@@ -1865,10 +1865,6 @@ function AnglePageHandler() {
                 });
                 win.toFront();
                 win.element.find('.notificationIcon').attr('class', 'notificationIcon alert');
-
-                if (self.HandlerDisplay.Data().display_type === enumHandlers.DISPLAYTYPE.CHART || self.HandlerDisplay.Data().display_type === enumHandlers.DISPLAYTYPE.PIVOT) {
-                    self.HandlerSidePanel.SelectTab(1);
-                }
             }
         }, delay || 0);
     };

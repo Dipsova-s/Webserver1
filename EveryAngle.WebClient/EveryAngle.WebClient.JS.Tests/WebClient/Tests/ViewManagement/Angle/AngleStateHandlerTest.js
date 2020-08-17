@@ -1,6 +1,4 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestateview.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestatehandler.js" />
 

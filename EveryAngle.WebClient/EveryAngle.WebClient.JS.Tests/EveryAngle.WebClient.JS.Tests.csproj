@@ -100,7 +100,7 @@
     <Content Include="WebClient\Global.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.Overlay.Test.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleTagHandlerTest.js" />
-    <Content Include="WebClient\Tests\ViewManagement\Angle\AngleBusinessProcessHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angle\AngleLabelHandlerTest.js" />
     <Content Include="WebClient\Tests\AjaxHTTPHandler\AjaxRequestHandlerTest.js" />
     <Content Include="WebClient\Tests\Embedded\BusinessProcessesModelTest.js" />
     <Content Include="WebClient\Tests\Embedded\CustomKendoGridUiTest.js" />
@@ -142,12 +142,13 @@
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardStatisticHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleSidePanelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardSidePanelHandlerTest.js" />
-    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardBusinessProcessHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardLabelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\QuickFilterHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardWidgetDefinitionHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardUserSpecificHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleSaveAsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\DashboardExecutionHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ItemLabelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\DefaultExcelDatastoreHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ExecutionParameterHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ItemSaveActionHandlerTest.js" />

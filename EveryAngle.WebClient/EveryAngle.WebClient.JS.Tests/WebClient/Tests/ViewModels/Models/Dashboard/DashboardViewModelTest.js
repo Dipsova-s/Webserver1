@@ -376,7 +376,7 @@ describe("DashboardModel", function () {
         });
     });
 
-    describe(".SetBusinessProcesses", function () {
+    describe(".SetAssignedLabels", function () {
         it("should update locally for adhoc Dashboard", function () {
             // prepare
             var labels = ['Gaj1', 'Gaj2'];
@@ -384,7 +384,7 @@ describe("DashboardModel", function () {
             spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(true);
             spyOn(dashboardModel, 'GetData');
             spyOn(dashboardModel, 'SaveDashboard');
-            dashboardModel.SetBusinessProcesses(labels);
+            dashboardModel.SetAssignedLabels(labels);
 
             // assert
             expect(dashboardModel.Data().assigned_labels).toEqual(labels);
@@ -397,7 +397,7 @@ describe("DashboardModel", function () {
             spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(false);
             spyOn(dashboardModel, 'GetData');
             spyOn(dashboardModel, 'SaveDashboard');
-            dashboardModel.SetBusinessProcesses(labels);
+            dashboardModel.SetAssignedLabels(labels);
 
             // assert
             expect(dashboardModel.SaveDashboard).toHaveBeenCalled();

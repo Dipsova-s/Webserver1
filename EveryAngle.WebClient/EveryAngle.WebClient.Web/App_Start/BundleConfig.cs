@@ -538,8 +538,9 @@ namespace EveryAngle.WebClient.Web
                     // download
                     "~/scripts/viewmanagement/shared/itemdownloadhandler.js",
 
-                    // business processes
-                    "~/scripts/viewmanagement/angle/anglebusinessprocesshandler.js",
+                    // assigned labels
+                    "~/scripts/viewmanagement/shared/itemlabelhandler.js",
+                    "~/scripts/viewmanagement/angle/anglelabelhandler.js",
 
                     // tags
                     "~/scripts/viewmanagement/angle/angletaghandler.js",
@@ -606,8 +607,9 @@ namespace EveryAngle.WebClient.Web
                     // dashboard user specific
                     "~/scripts/viewmanagement/dashboard/dashboarduserspecifichandler.js",
 
-                    // business process
-                    "~/scripts/viewmanagement/dashboard/dashboardbusinessprocesshandler.js",
+                    // assigned labels
+                    "~/scripts/viewmanagement/shared/itemlabelhandler.js",
+                    "~/scripts/viewmanagement/dashboard/dashboardlabelhandler.js",
 
                     // tags
                     "~/scripts/viewmanagement/dashboard/dashboardtaghandler.js",

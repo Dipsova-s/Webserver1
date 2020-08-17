@@ -1,8 +1,4 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemvalidatestatehandler.js" />
-
-describe("ItemStateHandler", function () {
+﻿describe("ItemStateHandler", function () {
 
     var itemStateHandler;
     beforeEach(function () {

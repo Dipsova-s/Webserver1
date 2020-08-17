@@ -10,29 +10,24 @@ describe("UserSettingViewModel", function () {
 
     describe(".GetUserLocalCultureName", function () {
         it("should get culture name from default language", function () {
-
             spyOn(userSettingModel, "GetByName").and.callFake(function (value) {
-
                 if (value === enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES)
                     return 'nl';
                 if (value === enumHandlers.USERSETTINGS.FORMAT_LOCALE)
                     return 'en';
             });
-
             var cultureName = userSettingViewModel.GetUserLocalCultureName();
             expect(cultureName).toEqual('nl');
         });
     });
 
     describe(".GetClientSettingsData", function () {
-
         beforeEach(function () {
             window.searchPageHandler = {};
             spyOn(userSettingViewModel, 'GetClientSettingByPropertyName').and.returnValue('url_old');
             spyOn(userSettingViewModel, 'GetByName').and.returnValue('{}');
             userModel.Data({ settings: '' });
         });
-
         var tests = [
             {
                 title: 'should not get client settings data if it is not search page',
@@ -75,7 +70,6 @@ describe("UserSettingViewModel", function () {
                 expectNull: false
             }
         ];
-
         $.each(tests, function (index, test) {
             it(test.title, function () {
                 window.SearchPageHandler = test.searchHandler;
@@ -140,7 +134,7 @@ describe("UserSettingViewModel", function () {
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED]).toEqual(false);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE]).toEqual(310);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB]).toEqual(0);
-            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS]).toEqual({ definition: true, description: true });
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS]).toEqual({ definition: true, description: true, label: true });
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_PANEL_ACCORDIONS]).toEqual({ definition: true, aggregation: true, description: true });
 
             //search
@@ -150,7 +144,7 @@ describe("UserSettingViewModel", function () {
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_COLLAPSED]).toEqual(false);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE]).toEqual(310);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_TAB]).toEqual(0);
-            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS]).toEqual({ definition: true, description: true });
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS]).toEqual({ definition: true, description: true, label: true });
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.WIDGET_PANEL_ACCORDIONS]).toEqual({ definition: true });
         });
 
@@ -160,7 +154,7 @@ describe("UserSettingViewModel", function () {
             settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED] = true;
             settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE] = 320;
             settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB] = 1;
-            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS] = { definition: true, description: false };
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS] = { definition: true, description: false, label: true };
             settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_PANEL_ACCORDIONS] = { definition: true, aggregation: false, description: true };
 
             //search
@@ -170,7 +164,7 @@ describe("UserSettingViewModel", function () {
             settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_COLLAPSED] = true;
             settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE] = 400;
             settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_TAB] = 0;
-            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS] = { definition: true, description: false };
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS] = { definition: true, description: false, label: true };
             settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.WIDGET_PANEL_ACCORDIONS] = { definition: false };
 
             spyOn(userSettingViewModel, 'GetClientSettings').and.returnValue(settings);
@@ -180,7 +174,7 @@ describe("UserSettingViewModel", function () {
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED]).toEqual(true);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE]).toEqual(320);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB]).toEqual(1);
-            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS]).toEqual({ definition: true, description: false });
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS]).toEqual({ definition: true, description: false, label: true });
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_PANEL_ACCORDIONS]).toEqual({ definition: true, aggregation: false, description: true });
 
             // search sidebar
@@ -190,7 +184,7 @@ describe("UserSettingViewModel", function () {
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_COLLAPSED]).toEqual(true);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE]).toEqual(400);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_TAB]).toEqual(0);
-            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS]).toEqual({ definition: true, description: false });
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS]).toEqual({ definition: true, description: false, label: true });
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.WIDGET_PANEL_ACCORDIONS]).toEqual({ definition: false });
         });
     });
@@ -212,7 +206,6 @@ describe("UserSettingViewModel", function () {
     });
 
     describe(".GetSidePanelSettingsData", function () {
-
         var element;
         beforeEach(function () {
             element = $('<div class="content-wrapper" />').appendTo('body');
@@ -252,6 +245,56 @@ describe("UserSettingViewModel", function () {
             var result = userSettingViewModel.GetSidePanelSettingsData();
 
             expect(result).not.toEqual(null);
+        });
+    });
+
+    describe(".GetDefaultAnglePanelAccordions", function () {
+        it("should get default values", function () {
+            // prepare
+            var result = userSettingViewModel.GetDefaultAnglePanelAccordions();
+
+            // assert
+            expect(Object.keys(result).length).toEqual(3);
+            expect(result[enumHandlers.ACCORDION.DEFINITION]).toEqual(true);
+            expect(result[enumHandlers.ACCORDION.DESCRIPTION]).toEqual(true);
+            expect(result[enumHandlers.ACCORDION.LABEL]).toEqual(true);
+        });
+    });
+
+    describe(".GetDefaultDisplayPanelAccordions", function () {
+        it("should get default values", function () {
+            // prepare
+            var result = userSettingViewModel.GetDefaultDisplayPanelAccordions();
+
+            // assert
+            expect(Object.keys(result).length).toEqual(3);
+            expect(result[enumHandlers.ACCORDION.DEFINITION]).toEqual(true);
+            expect(result[enumHandlers.ACCORDION.AGGREGATION]).toEqual(true);
+            expect(result[enumHandlers.ACCORDION.DESCRIPTION]).toEqual(true);
+        });
+    });
+
+    describe(".GetDefaultDashboardPanelAccordions", function () {
+        it("should get default values", function () {
+            // prepare
+            var result = userSettingViewModel.GetDefaultDashboardPanelAccordions();
+
+            // assert
+            expect(Object.keys(result).length).toEqual(3);
+            expect(result[enumHandlers.ACCORDION.DEFINITION]).toEqual(true);
+            expect(result[enumHandlers.ACCORDION.DESCRIPTION]).toEqual(true);
+            expect(result[enumHandlers.ACCORDION.LABEL]).toEqual(true);
+        });
+    });
+
+    describe(".GetDefaultWidgetPanelAccordions", function () {
+        it("should get default values", function () {
+            // prepare
+            var result = userSettingViewModel.GetDefaultWidgetPanelAccordions();
+
+            // assert
+            expect(Object.keys(result).length).toEqual(1);
+            expect(result[enumHandlers.ACCORDION.DEFINITION]).toEqual(true);
         });
     });
 });

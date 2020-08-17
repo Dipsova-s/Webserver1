@@ -279,13 +279,13 @@ describe("AngleHandler", function () {
         });
     });
 
-    describe(".InitialBusinessProcess", function () {
-        it("should initial business processes", function () {
-            spyOn(angleHandler.AngleBusinessProcessHandler, 'Initial');
-            angleHandler.InitialBusinessProcess();
+    describe(".InitialLabel", function () {
+        it("should initial", function () {
+            spyOn(angleHandler.AngleLabelHandler, 'Initial');
+            angleHandler.InitialLabel();
 
             // assert
-            expect(angleHandler.AngleBusinessProcessHandler.Initial).toHaveBeenCalled();
+            expect(angleHandler.AngleLabelHandler.Initial).toHaveBeenCalled();
         });
     });
 
@@ -1419,30 +1419,54 @@ describe("AngleHandler", function () {
     });
 
     describe(".ConfirmSave", function () {
-        it("should call confirm when angle has conflict", function () {
-            // prepare
-            spyOn(jQuery, 'isFunction').and.callFake(function () { return false; });
-            spyOn(angleHandler, 'IsConflict').and.returnValue(true);
+        beforeEach(function () {
+            spyOn(angleHandler, 'ConfirmSaveWithUsedInTask');
             spyOn(popup, 'Confirm');
-
+        });
+        it("should confirm when angle is validated", function () {
+            // prepare
+            angleHandler.Data().is_validated(true);
             angleHandler.ConfirmSave(null, $.noop, $.noop);
 
             // assert
             expect(popup.Confirm).toHaveBeenCalled();
-            expect(angleHandler.IsConflict).toHaveBeenCalled();
+            expect(angleHandler.ConfirmSaveWithUsedInTask).not.toHaveBeenCalled();
         });
-
-        it("should not call confirm when angle has not conflict", function () {
+        it("should not confirm when angle is not validated", function () {
             // prepare
-            spyOn(jQuery, 'isFunction').and.callFake(function () { return false; });
-            spyOn(angleHandler, 'IsConflict').and.returnValue(false);
-            spyOn(popup, 'Confirm');
-
-            angleHandler.ConfirmSave(null, $.noop, $.noop);
+            angleHandler.Data().is_validated(false);
+            angleHandler.ConfirmSave($.noop, $.noop, $.noop);
 
             // assert
             expect(popup.Confirm).not.toHaveBeenCalled();
-            expect(angleHandler.IsConflict).toHaveBeenCalled();
+            expect(angleHandler.ConfirmSaveWithUsedInTask).toHaveBeenCalled();
+        });
+    });
+
+    describe(".ConfirmSaveWithUsedInTask", function () {
+        var fn = {};
+        beforeEach(function () {
+            fn.callback = $.noop;
+            spyOn(fn, 'callback');
+            spyOn(popup, 'Confirm');
+        });
+        it("should confirm when checker = true", function () {
+            // prepare
+            var checker = function () { return true; };
+            angleHandler.ConfirmSaveWithUsedInTask(checker, fn.callback, $.noop);
+
+            // assert
+            expect(popup.Confirm).toHaveBeenCalled();
+            expect(fn.callback).not.toHaveBeenCalled();
+        });
+        it("should not confirm when checker = false", function () {
+            // prepare
+            var checker = function () { return false; };
+            angleHandler.ConfirmSave(checker, fn.callback, $.noop);
+
+            // assert
+            expect(popup.Confirm).not.toHaveBeenCalled();
+            expect(fn.callback).toHaveBeenCalled();
         });
     });
 
@@ -1911,11 +1935,11 @@ describe("AngleHandler", function () {
 
     describe(".Validate", function () {
         it("should call validate function(s)", function () {
-            spyOn(angleHandler.AngleBusinessProcessHandler, 'Validate');
+            spyOn(angleHandler.AngleLabelHandler, 'Validate');
 
             angleHandler.Validate();
 
-            expect(angleHandler.AngleBusinessProcessHandler.Validate).toHaveBeenCalled();
+            expect(angleHandler.AngleLabelHandler.Validate).toHaveBeenCalled();
         });
     });
 });

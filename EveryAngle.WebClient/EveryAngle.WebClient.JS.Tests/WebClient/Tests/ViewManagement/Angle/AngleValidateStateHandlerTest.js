@@ -1,7 +1,4 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemvalidatestatehandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestateview.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestatehandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglevalidatestatehandler.js" />
@@ -17,7 +14,7 @@ describe("AngleStateHandler", function () {
             ExecuteAngle: $.noop,
             HandlerAngle: {
                 ClearData: $.noop,
-                ConfirmSave: $.noop
+                ConfirmSaveWithUsedInTask: $.noop
             }
         });
     });
@@ -26,14 +23,26 @@ describe("AngleStateHandler", function () {
     });
 
     describe(".ValidateItem", function () {
-        it('set all functions and call confirm save', function () {
-            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSave');
+        it('should set all functions and call confirm save', function () {
+            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSaveWithUsedInTask');
 
             // act
             angleStateHandler.ValidateItem();
 
             // assert
-            expect(anglePageHandler.HandlerAngle.ConfirmSave).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerAngle.ConfirmSaveWithUsedInTask).toHaveBeenCalled();
+        });
+    });
+
+    describe(".CancelValidateItem", function () {
+        it('should set checkbox state', function () {
+            // act
+            var element = $('<input type="checkbox"/>');
+            var isValidate = true;
+            angleStateHandler.CancelValidateItem(element, isValidate);
+
+            // assert
+            expect(element.prop('checked')).toEqual(true);
         });
     });
 
@@ -58,6 +67,25 @@ describe("AngleStateHandler", function () {
             expect(angleStateHandler.CloseValidatePopup).toHaveBeenCalled();
             expect(anglePageHandler.HandlerAngle.ClearData).toHaveBeenCalled();
             expect(anglePageHandler.ExecuteAngle).toHaveBeenCalled();
+        });
+    });
+
+    describe(".ShowValidatePopupCallback", function () {
+        it('should update checkbox and set new event', function () {
+            spyOn($.fn, 'prop');
+            spyOn($.fn, 'on');
+            spyOn(angleStateHandler.parent.prototype, 'ShowValidatePopupCallback');
+            var e = {
+                sender: {
+                    element: $()
+                }
+            };
+            angleStateHandler.ShowValidatePopupCallback(e);
+
+            // assert
+            expect($.fn.prop).toHaveBeenCalledWith('checked', false);
+            expect($.fn.on).toHaveBeenCalled();
+            expect(angleStateHandler.parent.prototype.ShowValidatePopupCallback).toHaveBeenCalled();
         });
     });
 });

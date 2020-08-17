@@ -35,9 +35,7 @@
             actions: ["Close"],
             width: 350,
             minHeight: 100,
-            resize: function (e) {
-                self.OnPopupResized(e, handle);
-            },
+            resize: jQuery.proxy(self.OnPopupResized, self, handle),
             open: jQuery.proxy(self.ShowPublishSettingsCallback, self),
             close: popup.Destroy
         };
@@ -106,7 +104,7 @@
         var self = this;
         var data = [];
         var labelCategories = modelLabelCategoryHandler.GetLabelCategoriesByModel(self.Data.model);
-        jQuery.each(labelCategories, function (indexCategory, category) {
+        jQuery.each(labelCategories, function (_indexCategory, category) {
             if (category.contains_businessprocesses)
                 return;
 
@@ -159,24 +157,39 @@
             name: category.name,
             used_for_authorization: category.used_for_authorization,
             is_required: category.is_required,
-            render: function (elements, model) {
-                var element = target.find('.label-selection[data-id=' + model.id + ']');
-                WC.HtmlHelper.MultiSelect(element, {
-                    header: (model.is_required ? '<em class="required">*</em> ' : '') + model.name,
-                    data: model.labels,
-                    value: self.Data.assigned_labels,
-                    readonly: self.Data.is_validated(),
-                    render: jQuery.proxy(self.RenderLabelHtml, self),
-                    change: function (what, item, itemElement) {
-                        var groupItem = ko.dataFor(itemElement.closest('.publish-labels').get(0));
-                        var delta = what === 'add' ? 1 : -1;
-                        groupItem.count(groupItem.count() + delta);
-                        self.CheckSavePublishSettings(self.Data.is_published());
-                    }
-                });
-            },
+            render: jQuery.proxy(self.RenderLabelSelection, self, target),
             labels: []
         };
+    };
+    handler.RenderLabelSelection = function (target, _elements, model) {
+        var self = this;
+        var element = target.find('.label-selection[data-id=' + model.id + ']');
+        WC.HtmlHelper.MultiSelect(element, {
+            header: (model.is_required ? '<em class="required">*</em> ' : '') + model.name,
+            data: model.labels,
+            min: self.Data.is_published() && model.is_required ? 1 : 0,
+            value: self.Data.assigned_labels,
+            readonly: self.Data.is_validated(),
+            render: jQuery.proxy(self.RenderLabelHtml, self),
+            change: jQuery.proxy(self.LabelSelectionChange, self, target)
+        });
+        self.UpdateLabelGroupCount(element);
+    };
+    handler.LabelSelectionChange = function (target, _what, item, itemElement) {
+        var self = this;
+        self.UpdateLabelGroupCount(itemElement);
+        self.CheckSavePublishSettings(target, self.Data.is_published());
+        self.LabelChange(item);
+    };
+    handler.UpdateLabelGroupCount = function (element) {
+        var container = element.closest('.publish-labels');
+        var groupItem = ko.dataFor(container.get(0));
+        groupItem.count(0);
+        container.find('.multiple-select').each(function (_index, multiselect) {
+            var ui = $(multiselect).data('MultiSelect');
+            if (ui)
+                groupItem.count(groupItem.count() + ui.value().length);
+        });
     };
     handler.GetLabelGroupCategoryData = function (category) {
         var self = this;
@@ -198,6 +211,7 @@
         data.sortObject('name', enumHandlers.SORTDIRECTION.ASC, false);
         return data;
     };
+    handler.LabelChange = jQuery.noop;
     handler.RenderLabelHtml = function (where, item, element) {
         var self = this;
         if (self.IsLabelHaveWarning(item.privilege, !self.Data.is_published()))
@@ -270,24 +284,21 @@
     handler.GetUpdatedValidatedItemMessage = function () {
         return '';
     };
-    handler.CheckSavePublishSettings = function (isPublished) {
+    handler.CheckSavePublishSettings = function (target, isPublished) {
         var self = this;
         // clean messages
-        jQuery('#popupPublishSettings .group-message').empty();
-        jQuery('#popupPublishSettings .label-selection-message').empty();
+        target.find('.group-message').empty();
+        target.find('.label-selection-message').empty();
 
         // check labels
         var valid = true;
         var requiredCategories = [];
         var labelHaveWarning = false;
         var labelCategoryCount = 0;
-        var setLabelErrorMessage = function (target, message) {
-            if (target.text())
-                return;
-
-            target.text(message);
-            if (target.is(':hidden'))
-                target.closest('.publish-labels').children('.accordion-header').trigger('click');
+        var setLabelErrorMessage = function (element, message) {
+            element.text(message);
+            if (element.is(':hidden'))
+                element.closest('.publish-labels').children('.accordion-header').trigger('click');
         };
         if (isPublished) {
             jQuery.each(self.Data.assigned_labels, function (index, assignedLabel) {
@@ -298,7 +309,7 @@
                 }
             });
             
-            jQuery('#popupPublishSettings .label-selection').each(function (index, element) {
+            target.find('.label-selection').each(function (index, element) {
                 var handler = jQuery(element).data('MultiSelect');
                 if (!handler)
                     return;
@@ -334,7 +345,7 @@
             var minLabelCategories = systemSettingHandler.GetMinLabelCategoryToPublish();
             if (labelCategoryCount < minLabelCategories) {
                 valid = false;
-                jQuery('#popupPublishSettings .group-message').text(kendo.format(Localization.Info_RequiredAtLeastOneLabelBeforePublish, minLabelCategories));
+                target.find('.group-message').text(kendo.format(Localization.Info_RequiredAtLeastOneLabelBeforePublish, minLabelCategories));
             }
         }
 
@@ -344,7 +355,7 @@
     handler.CheckPublishItem = function () {
         var self = this;
         // labels
-        if (!self.CheckSavePublishSettings(true)) {
+        if (!self.CheckSavePublishSettings(jQuery('#popupPublishSettings'), true)) {
             return false;
         }
 

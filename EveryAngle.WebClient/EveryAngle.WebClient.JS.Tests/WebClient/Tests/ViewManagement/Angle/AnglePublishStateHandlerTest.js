@@ -2,9 +2,6 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/resultmodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itempublishstatehandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestateview.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglestatehandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/anglepublishstatehandler.js" />
@@ -143,16 +140,12 @@ describe("AngleStateHandler", function () {
         var event = { currentTarget: null };
 
         beforeEach(function () {
-            spyOn(angleStateHandler, 'GetUpdatedPublishSettingsData').and.callFake(function () {
-                return { display_definitions: [] };
-            });
+            spyOn(angleStateHandler, 'GetUpdatedPublishSettingsData').and.returnValue({ display_definitions: [] });
             spyOn(anglePageHandler.HandlerAngle, 'ConfirmSave');
         });
 
         it("should save publish settings when save data is valid", function () {
-            spyOn(angleStateHandler, 'CheckSavePublishSettings').and.callFake(function () {
-                return true;
-            });
+            spyOn(angleStateHandler, 'CheckSavePublishSettings').and.returnValue(true);
             angleStateHandler.SavePublishSettings(null, event);
 
             expect(angleStateHandler.GetUpdatedPublishSettingsData).toHaveBeenCalled();
@@ -160,9 +153,7 @@ describe("AngleStateHandler", function () {
         });
 
         it("should not save publish settings when save data is invalid", function () {
-            spyOn(angleStateHandler, 'CheckSavePublishSettings').and.callFake(function () {
-                return false;
-            });
+            spyOn(angleStateHandler, 'CheckSavePublishSettings').and.returnValue(false);
 
             angleStateHandler.SavePublishSettings(null, event);
 
@@ -181,18 +172,14 @@ describe("AngleStateHandler", function () {
 
 
         it("should publish Angle when values is valid", function () {
-            spyOn(angleStateHandler, 'CheckPublishItem').and.callFake(function () {
-                return true;
-            });
+            spyOn(angleStateHandler, 'CheckPublishItem').and.returnValue(true);
             angleStateHandler.PublishItem(null, event);
             
             expect(anglePageHandler.HandlerAngle.ConfirmSave).toHaveBeenCalled();
         });
 
         it("should not publish Angle when values is invalid", function () {
-            spyOn(angleStateHandler, 'CheckPublishItem').and.callFake(function () {
-                return false;
-            });
+            spyOn(angleStateHandler, 'CheckPublishItem').and.returnValue(false);
             angleStateHandler.PublishItem(null, event);
             
             expect(anglePageHandler.HandlerAngle.ConfirmSave).not.toHaveBeenCalled();

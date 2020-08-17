@@ -53,7 +53,7 @@
 
     handler.SavePublishSettings = function (model, event) {
         var self = this;
-        if (!self.CheckSavePublishSettings(self.Data.is_published()))
+        if (!self.CheckSavePublishSettings(jQuery('#popupPublishSettings'), self.Data.is_published()))
             return;
 
         var data = self.GetUpdatedPublishSettingsData();
