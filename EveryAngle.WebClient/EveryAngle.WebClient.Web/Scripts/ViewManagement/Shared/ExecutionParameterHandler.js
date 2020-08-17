@@ -109,8 +109,8 @@ function ExecutionParameterHandler(angle, display) {
         var queryDefinitionHandler = new QueryDefinitionHandler();
         queryDefinitionHandler.AllowExecutionParameter(false);
         queryDefinitionHandler.Authorizations.CanChangeFilter(true);
-        queryDefinitionHandler.CanEditFilter = function (queryStep) {
-            return queryStep.is_execution_parameter();
+        queryDefinitionHandler.CanEditFilter = function () {
+            return false;
         };
         queryDefinitionHandler.CanSortFilter = function () {
             return false;
@@ -144,8 +144,8 @@ function ExecutionParameterHandler(angle, display) {
         queryDefinitionHandler.Parent(self.WidgetFilterAngle);
         queryDefinitionHandler.AllowExecutionParameter(false);
         queryDefinitionHandler.Authorizations.CanChangeFilter(true);
-        queryDefinitionHandler.CanEditFilter = function (queryStep) {
-            return queryStep.is_execution_parameter();
+        queryDefinitionHandler.CanEditFilter = function () {
+            return false;
         };
         queryDefinitionHandler.CanSortFilter = function () {
             return false;
@@ -189,16 +189,22 @@ function ExecutionParameterHandler(angle, display) {
     };
     self.SetNotifyLineVisibility = function () {
         // M4-10341: Ask at execution pop-up: show uncollapsed filterline
-        self.EditFirstFilter(self.WidgetFilterAngle);
-        self.EditFirstFilter(self.WidgetFilterDisplay);
+        self.EditAllFilters(self.WidgetFilterAngle);
+        self.EditAllFilters(self.WidgetFilterDisplay);
     };
-    self.EditFirstFilter = function (handler) {
+    self.EditAllFilters = function (handler) {
         if (!handler)
             return;
 
-        var executionParameters = handler.GetFilters().findObjects('is_execution_parameter', function (parameter) { return parameter(); });
+        var executionParameters = handler.GetExecutionParameters();
+        for (var i = 0; i < executionParameters.length; i++) {
+            handler.EditFilter(executionParameters[i]);
+        }
+        for (var j = 0; j < executionParameters.length; j++) {
+            executionParameters[j].edit_mode(true);
+        }
         if (executionParameters.length)
-            handler.EditFilter(executionParameters[0]);
+            handler.ScrollToItem(executionParameters[0]);
     };
     self.CompleteExecutionParameterPopup = function (e) {
         setTimeout(function () {
