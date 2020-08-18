@@ -4008,4 +4008,8 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="OpenSidebar" xml:space="preserve">
     <value>Open zijpaneel</value>
   </data>
+  <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
+    <value>Specificeer in welke kolom de model tijdstempel moet worden toegevoegd.&lt;br&gt;
+Kies '1' voor de eerste kolom. Als de model tijdstempel niet benodigd is, kies dan 'Geen'.</value>
+  </data>
 </root>
