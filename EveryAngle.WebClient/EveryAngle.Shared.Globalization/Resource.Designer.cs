@@ -7666,6 +7666,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to approved.
+        /// </summary>
+        public static string MC_approved {
+            get {
+                return ResourceManager.GetString("MC_approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arguments.
         /// </summary>
         public static string MC_Arguments {

@@ -38,6 +38,7 @@
         self.CurrentUser = '';
         self.CanManageSystem = '';
         self.CanScheduleAngles = '';
+        self.IsTaskOwner = '';
         self.Status = {
             NotStarted: 'notstarted',
             Running: 'running',
@@ -73,6 +74,10 @@
             self.IsTaskActionsSorted = false;
             self.GetHistoryUri = '';
             self.CheckExecutionTaskUri = '';
+            self.CurrentUser = '';
+            self.CanManageSystem = '';
+            self.CanScheduleAngles = '';
+            self.IsTaskOwner = '';
 
             jQuery.extend(self, data || {});
 
@@ -195,7 +200,7 @@
             else {
                 template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.View + "</a>";
             }
-            template += "<a data-parameters='{\"taskUri\":\"" + uri + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !manageSystemPrivilege ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
+            template += "<a data-parameters='{\"taskUri\":\"" + uri + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !canManageTask ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
             return template;
         };
         self.CanManageTask = function (manageSystemPrivilege, canScheduleAngles, currentUser, taskOwner) {
@@ -268,7 +273,6 @@
         };
 
         self.ExecuteAdhocTaskAction = function (uid) {
-
             MC.util.massReport.initial();
             MC.util.massReport.setStatus(Localization.MC_CurrentProgress, Localization.ProgressExecuting, '');
 
@@ -278,7 +282,11 @@
             task.start_immediately = true;
             task.actions = [action];
             task.name = Localization.SingleActionExecute + self.TaskData.name;
-            task.run_as_user = self.TaskData.run_as_user;
+            if (self.CanManageTask(self.CanManageSystem, self.CanScheduleAngles, self.CurrentUser, self.TaskData.run_as_user)) {
+                task.run_as_user = self.TaskData.run_as_user
+            } else {
+                task.run_as_user = action.run_as_user;
+            }
             task.triggers = self.TaskData.triggers;
 
             self.ExecuteSingleAction(task)
@@ -396,7 +404,6 @@
         self.EditTaskPage = '';
         self.GetDataStoreTemplateUri = '';
         self.GetDataStoreTemplate = {};
-        self.ActionButtonTemplate = '';
         self.OPERATOR = {
             HASVALUE: { Text: Localization.OperatorHasValue, Value: 'has_value' },
             HASNOVALUE: { Text: Localization.OperatorHasNoValue, Value: 'has_no_value' },
@@ -476,13 +483,13 @@
         };
 
         self.APPROVAL_STATE_ID = {
-            ENABLED: 'enabled',
+            APPROVED: 'approved',
             DISABLED: 'disabled',
             REQUESTED: 'requested',
             REJECTED: 'rejected'
         };
         self.APPROVAL_STATE = {};
-        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.ENABLED] = Localization.MC_enabled;
+        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.APPROVED] = Localization.MC_approved;
         self.APPROVAL_STATE[self.APPROVAL_STATE_ID.DISABLED] = Localization.MC_Disabled;
         self.APPROVAL_STATE[self.APPROVAL_STATE_ID.REQUESTED] = Localization.MC_Requested;
         self.APPROVAL_STATE[self.APPROVAL_STATE_ID.REJECTED] = Localization.MC_Rejected;
@@ -528,7 +535,6 @@
             self.EditTaskPage = '';
             self.GetDataStoreTemplateUri = '';
             self.GetDataStoreTemplate = {};
-            self.ActionButtonTemplate = '';
             self.GetFieldsUri = '';
             self.GetFieldSourceUri = '';
             self.GetFieldDomainUri = '';
@@ -730,10 +736,6 @@
                 dataBound: self.TaskActionsGridDataBound
             });
 
-            if (self.CanScheduleAngles === true) {
-                self.ModifyGridEditDeleteTemplate();
-            }
-
             MC.util.sortableGrid('#TaskActionsGrid', function () {
                 self.IsTaskActionsSorted = true;
                 var taskActionsGrid = jQuery('#TaskActionsGrid').data("kendoGrid");
@@ -742,18 +744,6 @@
                     var dataitem = taskActionsGrid.dataSource.getByUid(uid);
                     dataitem.set("order", index);
                 });
-            });
-        };
-
-        self.ModifyGridEditDeleteTemplate = function () {
-            var taskActionsGrid = jQuery('#TaskActionsGrid').data("kendoGrid");
-            jQuery.each(taskActionsGrid.items(), function (index, action) {
-                var uid = jQuery(action).data("uid");
-                var dataitem = taskActionsGrid.dataSource.getByUid(uid);
-                if (dataitem.run_as_user == self.CurrentUser) {
-                    var row = taskActionsGrid.table.find("tr[data-uid='" + uid + "']");
-                    row.find('.btnDelete').removeClass('disabled');
-                }
             });
         };
 
@@ -786,6 +776,26 @@
             ];
             return columns;
         };
+
+        self.ActionButtonTemplate = function(data){
+            var template = '';
+            var isEditMode = false;
+            if (self.TaskUri != null && self.TaskUri != '') {
+                isEditMode = true;
+            }
+            var canScheduleTask = self.CanManageSystem || self.CanScheduleAngles && self.IsTaskOwner;
+            if (canScheduleTask || (self.CanScheduleAngles && self.CurrentUser === data.run_as_user)) {
+                template += "<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('" + data.uid + "', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Localization.Edit + "</a>";
+                template += "<a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('" + data.uid + "')\" class=\"btn btn btnExecute" + (isEditMode ? "" : " alwaysHidden") + "\">" + Localization.MC_ExecuteNow + "</a>";
+                template += "<a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= " + data.uid + "\"}\\' data-delete-template=\"" + Localization.MC_DeleteFieldConfirm + "\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">" + Localization.Delete + "</a>";
+            }
+            else {
+                template += "<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('" + data.uid + "', false)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Localization.View + "</a>";
+                template += "<a class=\"btn btnDelete disabled\">" + Localization.Delete + "</a>";
+            }
+            return template;
+        };
+
         self.GetActionTypeName = function (data) {
             return self.ACTION_TYPE[data.action_type];
         };
@@ -1434,7 +1444,10 @@
                 $('#datastore').data('kendoDropDownList').trigger('change');
 
                 var runAsUserTextbox = jQuery('#action_run_as_user');
-                var runAsUser = self.CanManageSystem === true ? self.TaskData.run_as_user : self.CurrentUser;
+                var runAsUser = null;
+                if (!self.CanManageTask(self.CanManageSystem, self.CanScheduleAngles, self.CurrentUser, self.TaskData.run_as_user)) {
+                    runAsUser = self.CurrentUser;
+                }
                 runAsUserTextbox.val(runAsUser);
                 self.CurrentAngle = {};
                 self.DisplayExcelTemplate = '';
@@ -2679,15 +2692,14 @@
             var datasource = kendoGrid.dataSource;
             var data = self.GetActionData();
             data.order = datasource.data().length;
+            if (data.run_as_user === "") {
+                data.run_as_user = null;
+            }
             data.is_edited = true;
             datasource.add(data);
 
             var win = $('#AddActionPopup').data('kendoWindow');
             win.close();
-
-            if (self.CanScheduleAngles === true) {
-                self.ModifyGridEditDeleteTemplate();
-            }
         };
         self.EditAction = function () {
             if (!self.IsActionValidated()) {
@@ -2697,6 +2709,9 @@
             var data = self.GetActionData();
             var grid = $('#TaskActionsGrid').data('kendoGrid');
             var dataItem = grid.dataSource.getByUid(_self.uid);
+            if (data.run_as_user === "") {
+                data.run_as_user = null;
+            }
             dataItem.set("run_as_user", data.run_as_user);
             dataItem.set("action_type", data.action_type);
             dataItem.set("angle_name", data.angle_name);

@@ -3,23 +3,6 @@
 @using EveryAngle.Shared.Globalization
 @{
     string taskCreator = (string)ViewData["TaskCreator"];
-    bool isEditMode = !string.IsNullOrEmpty(ViewBag.TasksUri);
-    List<PageToolbarButtonModel> actionButton = new List<PageToolbarButtonModel>
-{
-new PageToolbarButtonModel
-{
-Type = PageToolbarButtonType.GridEditDelete,
-Privilege = PrivilegeType.ScheduleTask,
-IsTaskOwner = ViewBag.IsTaskOwner,
-UserUri = taskCreator,
-EnableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup(\\'#= uid #\\', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Resource.Edit + "</a>"
-           + "<a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction(\\'#= uid #\\')\" class=\"btn btn btnExecute" + (isEditMode?"":" alwaysHidden")  + "\">" + Resource.MC_ExecuteNow + "</a>"
-           + "<a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"#= data.uid #\"}\\' data-delete-template=\"" + Resource.MC_DeleteFieldConfirm + "\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">" + Resource.Delete + "</a>",
-DisableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\" onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup(\\'#= uid #\\', false)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Resource.View + "</a>"
-           + "<a class=\"btn btnDelete disabled\" data-parameters=\\'{\"uid\":\"#= data.uid #\"}\\' data-delete-template=\"" + Resource.MC_DeleteFieldConfirm + "\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">" + Resource.Delete + "</a>"
-}
-};
-    string actionButtonTemplate = HttpUtility.HtmlDecode(Html.GetGridToolbar(actionButton)).Trim();
     string webClientAngleUrl = PageHelper.GetWebclientUrl();
 }
     <script>
@@ -38,7 +21,6 @@ DisableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\" onclick
                 AngleUri: @Html.Raw(Json.Encode(ViewData["AngleUri"])),
                 EditTaskPage: '@SiteMapHelper.ActionHash("AngleExports/AutomationTasks/EditTask")',
                 GetDataStoreTemplateUri: '@Url.Action("GetDatastore", "AutomationTasks")',
-                ActionButtonTemplate : '@Html.Raw(actionButtonTemplate)',
                 ModelPrivileges :  '@Html.Raw(Json.Encode(ViewData["ModelPrivileges"]))',
                 TasksActionsUri : '@ViewBag.TasksActionsUri',
                 AllTaskPageUri: '@SiteMapHelper.ActionHash("AngleExports/AutomationTasks")',
@@ -55,7 +37,8 @@ DisableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\" onclick
                 TaskHistoryUri: '@ViewBag.TaskHistoryUri',
                 CurrentUser: '@ViewBag.UserId',
                 CanManageSystem: @Convert.ToString(@ViewData["CanManageSystem"]).ToLowerInvariant(),
-                CanScheduleAngles:@Convert.ToString(@ViewData["CanScheduleAngles"]).ToLowerInvariant()
+                CanScheduleAngles:@Convert.ToString(@ViewData["CanScheduleAngles"]).ToLowerInvariant(),
+                IsTaskOwner: @Convert.ToString(@ViewBag.IsTaskOwner).ToLowerInvariant()
             });
               MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
               MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
@@ -180,7 +163,7 @@ DisableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\" onclick
             <div class="contentSectionInfoItem">
                 <label>@Resource.RunAsUser</label>
                 <p>
-                    <input name="action_run_as_user" id="action_run_as_user" type="text" class="required" maxlength="100" @((bool)ViewData["CanManageSystem"] ? "" : " disabled=\"disabled\"") />
+                    <input name="action_run_as_user" id="action_run_as_user" type="text" maxlength="100" @((bool)ViewData["CanManageSystem"] ? "" : " disabled=\"disabled\"") />
                 </p>
             </div>
             <div class="contentSectionInfoItem contentSectionInfoItemDropdown">

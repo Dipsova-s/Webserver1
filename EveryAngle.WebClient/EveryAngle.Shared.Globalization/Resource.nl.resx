@@ -4008,4 +4008,7 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="OpenSidebar" xml:space="preserve">
     <value>Open zijpaneel</value>
   </data>
+  <data name="MC_approved" xml:space="preserve">
+    <value>approved</value>
+  </data>
 </root>
