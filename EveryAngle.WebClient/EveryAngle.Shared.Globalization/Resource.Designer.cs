@@ -5944,6 +5944,16 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specify in what column the model timestamp should be inserted.&lt;br&gt;
+        ///Use &apos;1&apos; to select the first column. When no model timestamp column is required, select &apos;None&apos;..
+        /// </summary>
+        public static string InsertCSVModelTimestamp_info {
+            get {
+                return ResourceManager.GetString("InsertCSVModelTimestamp_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert field.
         /// </summary>
         public static string InsertField {

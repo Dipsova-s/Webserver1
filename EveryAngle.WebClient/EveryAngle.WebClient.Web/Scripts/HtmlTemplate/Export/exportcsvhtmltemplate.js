@@ -108,7 +108,7 @@ var exportCSVHtmlTemplate = function () {
                     '<div class="field">' + Captions.Label_Insert_model_timestamp + '</div>',
                     '<div class="input">',
                         '<input id="add-model-date-at-column" type="text" class="eaNumeric" />', /* M4-13475: Changed model timestamp GUI from bool to int */
-                        '<a class="btn-info btn-modelstamp" data-role="tooltip" data-tooltip-text="'+ Captions.InsertModelTimestamp_info +'" data-tooltip-position="bottom" >',
+        '<a class="btn-info btn-modelstamp" data-role="tooltip" data-type="html" data-tooltip-text="' + Localization.InsertCSVModelTimestamp_info +'" data-tooltip-position="bottom" >',
                             '<i class="icon icon-info"></i>',
                         '</a>',
                     '</div>',
