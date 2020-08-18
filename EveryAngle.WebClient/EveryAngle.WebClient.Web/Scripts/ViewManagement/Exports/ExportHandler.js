@@ -316,7 +316,7 @@ function ExportHandler() {
         return !self.IsNoneValue(value) ? value : Captions.Label_CSV_Export_ModelDate_None;
     };
     self.IsNoneValue = function (value) {
-        return !(!isNaN(value) && parseInt(value) !== 0);
+        return (parseInt(value) <= 0 || isNaN(parseInt(value)) );
     };
     self.SetModelDateInputValue = function (ui, value) {
         // - set 'None' if 0
@@ -327,7 +327,7 @@ function ExportHandler() {
         // set value to model
         // - convert number to index (value)
         // - 0 is null
-        self.CurrentExportModel.AddModelDateAtColumn = !self.IsNoneValue(value) ? Math.min(value, fieldCount) : null;
+        self.CurrentExportModel.AddModelDateAtColumn = !self.IsNoneValue(value) ? Math.min(value - 1, fieldCount) : null;
     };
 
     self.ValidateExportCSV = function (exportSettings) {
@@ -478,7 +478,7 @@ function ExportHandler() {
                     },
                     {
                         "id": "model_timestamp_index",
-                        "value": isNaN(exportSettings.AddModelDateAtColumn) ? exportSettings.DefaultAddModelDateAtColumn : parseFloat(exportSettings.AddModelDateAtColumn) - 1
+                        "value": isNaN(exportSettings.AddModelDateAtColumn) ? exportSettings.DefaultAddModelDateAtColumn : parseFloat(exportSettings.AddModelDateAtColumn)
                     },
                     {
                         "id": "max_rows_to_export",
