@@ -24,7 +24,7 @@ Resource            ${EXECDIR}/WC/POM/Angle/DisplayOverview.robot
 Resource    		${EXECDIR}/WC/POM/Angle/ScheduleAngle.robot
 
 *** Variables ***
-${divExecutionInfo}                     jquery=.content-wrapper .section-info-body
+${divExecutionInfo}                     jquery=.display-execution-info
 ${tabCurrentDisplay}                    jquery=#DisplayTabs .tab-menu.active
 ${tabCurrentDisplayIcon}                jquery=#DisplayTabs .tab-menu.active .display-icon
 ${tabCurrentDisplayName}                jquery=#DisplayTabs .tab-menu.active .name

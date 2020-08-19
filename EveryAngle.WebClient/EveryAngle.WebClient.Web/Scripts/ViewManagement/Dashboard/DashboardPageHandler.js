@@ -282,11 +282,12 @@ function DashboardPageHandler() {
             });
         }
     };
-    self.RenderBreadcrumb = function () {
+    self.InitialBreadcrumb = function () {
+        dashboardBreadcrumbHandler.ShowEditPopup = self.ShowEditDescriptionPopup;
         var viewModel = dashboardBreadcrumbHandler.GetDashboardViewModel(
             dashboardModel.Data().name(),
             dashboardModel.Data().is_validated());
-        dashboardBreadcrumbHandler.Build([viewModel]);
+        dashboardBreadcrumbHandler.Initial(jQuery('.breadcrumb-wrapper'), [viewModel]);
     };
     self.UpdateModel = function (data, forced) {
         self.DashboardModel.Angles = ko.toJS(dashboardModel.Angles);
@@ -700,7 +701,7 @@ function DashboardPageHandler() {
         }, 2000);
     };
     self.ApplyBindingHandler = function () {
-        self.RenderBreadcrumb();
+        self.InitialBreadcrumb();
 
         // Update Dashboard's states
         self.HandlerState.SetDashboardData(self.DashboardModel.Data());
@@ -1806,8 +1807,7 @@ function DashboardPageHandler() {
         self.UpdateDetailSection();
     };
     self.ApplyKnockoutInfoSection = function () {
-        WC.HtmlHelper.ApplyKnockout(self, jQuery('#ContentWrapper .section-info .section-info-header'), true);
-        WC.HtmlHelper.ApplyKnockout(self, jQuery('#ContentWrapper .section-info .section-info-body'), true);
+        WC.HtmlHelper.ApplyKnockout(self, jQuery('#ContentWrapper .section-info'), true);
     };
 
     // name & description
@@ -1833,7 +1833,7 @@ function DashboardPageHandler() {
     };
     self.SaveDescriptionDone = function () {
         self.ItemDescriptionHandler.CloseEditPopup();
-        self.RenderBreadcrumb();
+        self.InitialBreadcrumb();
         if (dashboardModel.Data().name())
             WC.HtmlHelper.SetPageTitle(dashboardModel.Data().name());
 

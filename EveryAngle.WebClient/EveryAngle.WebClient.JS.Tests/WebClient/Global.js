@@ -3,6 +3,7 @@ var webApiVersion = 'versions/2';
 var rootWebsitePath = '';
 var showAngleAndDisplayID = true;
 var ajaxTimeoutExpirationInSeconds = 1000;
+var intervalTime = 500;
 var maxNumberOfDashboard = 2;
 var searchPageUrl = '/en/search/searchpage';
 var anglePageUrl = '/en/angle/anglepage';

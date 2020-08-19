@@ -2,6 +2,7 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/ResultModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelClassesHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/businessprocesshandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 
@@ -935,6 +936,18 @@ describe("AngleHandler", function () {
                 // assert
                 expect(result).toEqual(test.expected);
             });
+        });
+    });
+
+    describe(".GetObjectInfo", function () {
+        it("should get start object information", function () {
+            // prepare
+            spyOn(angleHandler.QueryDefinitionHandler, 'GetBaseClasses').and.returnValue(['class1', 'class2']);
+            spyOn(modelClassesHandler, 'GetClassName').and.returnValues('Name1', 'Name2');
+            var result = angleHandler.GetObjectInfo();
+
+            // assert
+            expect(result).toEqual('Start object: Name1, Name2');
         });
     });
 

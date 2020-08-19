@@ -22,7 +22,7 @@ Close Angle Statistic Popup
 Check Angle Execution Info
     Page Should Contain    SAP system
     Page Should Contain    Date & time download
-    Page Should Contain    Start object
+    Page Should Contain    Current object
     Page Should Contain    Number of items
     Page Should Contain    Runtime Model Server
     Page Should Contain    Response time

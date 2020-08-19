@@ -3442,7 +3442,7 @@
     <value>Le nombre maximum d'Angles sélectionnés est {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Objet de départ</value>
+    <value>Current object</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Nombre d'éléments</value>

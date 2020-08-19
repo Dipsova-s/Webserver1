@@ -284,8 +284,17 @@ $delete-icon-color: #ea3d2f;
     min-height: 20px;
     box-shadow: 1px -2px 3px 0 rgba(0, 0, 0, .06);
 
+    .display-execution-info {
+        flex-grow: 1;
+        margin-right: 10px;
+        color: #78909c;
+        font-size: 11px;
+        letter-spacing: .44px;
+    }
+
     .display-option {
         margin-left: auto;
+        white-space: nowrap;
 
         input[type="checkbox"]:not(:checked) + .label,
         input[type="checkbox"]:checked + .label {

@@ -7,39 +7,49 @@
 
 describe("AngleBreadcrumbHandler", function () {
     var angleBreadcrumbHandlerTest;
-
     beforeEach(function () {
         angleBreadcrumbHandlerTest = new AngleBreadcrumbHandler();
     });
 
     describe(".GetAngleViewModel", function () {
+        it("should get angle breadcrumb view model correctly when no url", function () {
+            spyOn(angleBreadcrumbHandlerTest, 'GetAngleUrl').and.returnValue('');
+            var viewModel = angleBreadcrumbHandlerTest.GetAngleViewModel('angle name', true, false);
 
+            expect(viewModel.label()).toEqual('angle name');
+            expect(viewModel.url()).toEqual(false);
+            expect(viewModel.hasEditIcon()).toEqual(true);
+            expect(viewModel.frontIcon()).toEqual('icon icon-angle icon-breadcrumb-front');
+            expect(viewModel.rearIcon()).toEqual('icon icon-validated icon-breadcrumb-rear');
+        });
         it("should get angle breadcrumb view model correctly when angle is not template", function () {
             spyOn(angleBreadcrumbHandlerTest, 'GetAngleUrl').and.returnValue('/test/url');
             var viewModel = angleBreadcrumbHandlerTest.GetAngleViewModel('angle name', true, false);
+
             expect(viewModel.label()).toEqual('angle name');
             expect(viewModel.url()).toEqual('/test/url');
-            expect(viewModel.itemIcon()).toEqual('icon-angle');
+            expect(viewModel.hasEditIcon()).toEqual(false);
+            expect(viewModel.frontIcon()).toEqual('icon icon-angle icon-breadcrumb-front');
+            expect(viewModel.rearIcon()).toEqual('icon icon-validated icon-breadcrumb-rear');
         });
-
         it("should get angle breadcrumb view model correctly when angle is template", function () {
             spyOn(angleBreadcrumbHandlerTest, 'GetAngleUrl').and.returnValue('/test/url');
-            var viewModel = angleBreadcrumbHandlerTest.GetAngleViewModel('angle name', true, true);
+            var viewModel = angleBreadcrumbHandlerTest.GetAngleViewModel('angle name', false, true);
+
             expect(viewModel.label()).toEqual('angle name');
             expect(viewModel.url()).toEqual('/test/url');
-            expect(viewModel.itemIcon()).toEqual('icon-template');
+            expect(viewModel.hasEditIcon()).toEqual(false);
+            expect(viewModel.frontIcon()).toEqual('icon icon-template icon-breadcrumb-front');
+            expect(viewModel.rearIcon()).toEqual('always-hide');
         });
-
     });
 
     describe(".GetAngleUrl", function () {
-
         it("should not get Angle url", function () {
             spyOn(WC.Utility, 'UrlParameter').and.returnValue(null);
             var result = angleBreadcrumbHandlerTest.GetAngleUrl();
             expect(result).toEqual('');
         });
-
         it("should get Angle url", function () {
             spyOn(WC.Utility, 'UrlParameter').and.callFake(function (name) {
                 var mappers = {};
@@ -58,30 +68,25 @@ describe("AngleBreadcrumbHandler", function () {
             var result = angleBreadcrumbHandlerTest.GetAngleUrl();
             expect(result).toEqual(anglePageUrl + '#/?angle=/angles/1&display=/angles/1/displays/1&editmode=true');
         });
-
     });
 
     describe(".GetDrilldownViewModel", function () {
-
         it("should get drilldown result view model", function () {
             spyOn(angleBreadcrumbHandlerTest, 'GetDrilldownResultLabel').and.returnValue('Drilldown to item "Customer"');
             
             var result = angleBreadcrumbHandlerTest.GetDrilldownViewModel({}, '/models/1');
-            expect(result.frontIcon()).toEqual('icon icon-chevron-right icon-breadcrumb-chevron');
+            expect(result.separatorIcon()).toEqual('icon icon-chevron-right icon-breadcrumb-separator');
             expect(result.label()).toEqual('Drilldown to item "Customer"');
         });
-        
     });
 
     describe(".GetDrilldownResultLabel", function () {
-
         it("should get drilldown result label from class model", function () {
             spyOn(modelClassesHandler, 'GetClassName').and.returnValue('Customer');
             
             var resultLabel = angleBreadcrumbHandlerTest.GetDrilldownResultLabel('CustomerType', '/models/1');
             expect(resultLabel).toEqual('Drilldown to item "Customer"');
         });
-        
     });
     
 });

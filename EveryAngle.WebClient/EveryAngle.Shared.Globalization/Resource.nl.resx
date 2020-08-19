@@ -2395,7 +2395,7 @@
     <value>Het maximum aantal te selecteren Angles is {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Startobject</value>
+    <value>Current object</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Aantal items</value>

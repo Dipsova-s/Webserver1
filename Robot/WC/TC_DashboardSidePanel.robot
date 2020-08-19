@@ -106,12 +106,12 @@ Verify Dashboard Sidebar Business Processes
     Verify Dashboard Business Processes Should Be Selected  P2P  S2D
     
     ${bps}=    Create List    O2C  PM  IT
-    Add Business Processes    ${bps}   isAdhoc=${True}
+    Add Business Processes    ${bps}
     Reload Dashboard Page
     Verify Dashboard Business Processes Should Be Selected  P2P  S2D  O2C  PM  IT
 
     ${bps}=    Create List    P2P  O2C  PM  IT
-    Delete Business Processes  ${bps}   isAdhoc=${True}
+    Delete Business Processes  ${bps}
     Reload Dashboard Page
     Verify Dashboard Business Processes Should Be Selected  S2D
     Verify Dashboard Business Processes Should Not Be Selected  P2P  O2C  PM  IT

@@ -16,7 +16,7 @@
                         '</div>',
                     '</div>',
                 '</div>',
-                '<div class="card-body section-info-body" data-bind="html: GetResultExecution()"></div>',
+                '<div class="card-body section-info-body" data-bind="text: GetObjectInfo()"></div>',
             '</div>'
         ].join('');
     };

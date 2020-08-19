@@ -33,6 +33,7 @@ function ResultHandler(displayHandler) {
     self.ClearData = function () {
         clearTimeout(_self.fnGetResult);
         self.Data = {};
+        self.ExecutionInfo(null);
         _self.angleQueryDefinition = [];
         _self.displayQueryDefinition = [];
     };

@@ -439,10 +439,7 @@ function AnglePageHandler() {
         self.HandlerDisplayOverview.IsVisibleKeepFilter(self.HandlerDisplayOverview.CanKeepFilter());
     };
     self.ApplyKnockoutInfoSection = function () {
-        ko.cleanNode(jQuery('#ContentWrapper .section-info .section-info-header').get(0));
-        ko.cleanNode(jQuery('#ContentWrapper .section-info .section-info-body').get(0));
-        WC.HtmlHelper.ApplyKnockout(self.HandlerAngle, jQuery('#ContentWrapper .section-info .section-info-header'));
-        WC.HtmlHelper.ApplyKnockout(self.HandlerDisplay, jQuery('#ContentWrapper .section-info .section-info-body'));
+        WC.HtmlHelper.ApplyKnockout(self.HandlerAngle, jQuery('#ContentWrapper .section-info'), true);
     };
     self.ApplyKnockoutDisplayTab = function () {
         WC.HtmlHelper.ApplyKnockout(self.HandlerDisplay, jQuery('#TabContentDisplay .section-description'));
@@ -1095,14 +1092,21 @@ function AnglePageHandler() {
                     .done(self.CheckLoadMetadataDone);
             });
     };
-    self.RenderBreadcrumb = function () {
+    self.InitialBreadcrumb = function () {
+        angleBreadcrumbHandler.ShowEditPopup = jQuery.proxy(self.HandlerAngle.ShowEditDescriptionPopup, self.HandlerAngle);
         var viewModels = [];
-        var angleName = WC.Utility.GetDefaultMultiLangText(angleInfoModel.Data().multi_lang_name);
-        viewModels.push(angleBreadcrumbHandler.GetAngleViewModel(angleName, angleInfoModel.IsValidated(), angleInfoModel.IsTemplate()));
-        if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
-            viewModels.push(angleBreadcrumbHandler.GetDrilldownViewModel(listDrilldownHandler.PrimaryData, angleInfoModel.Data().model));
-        }
-        angleBreadcrumbHandler.Build(viewModels);
+
+        // item
+        var angleName = self.HandlerAngle.GetName();
+        var validated = self.HandlerAngle.Data().is_validated();
+        var template = self.HandlerAngle.Data().is_template();
+        viewModels.push(angleBreadcrumbHandler.GetAngleViewModel(angleName, validated, template));
+
+        // drilldown
+        if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN))
+            viewModels.push(angleBreadcrumbHandler.GetDrilldownViewModel(listDrilldownHandler.PrimaryData, self.HandlerAngle.Data().model));
+
+        angleBreadcrumbHandler.Initial(jQuery('.breadcrumb-wrapper'), viewModels);
     };
 
     var isLoadMetadataDone = false;
@@ -1167,6 +1171,9 @@ function AnglePageHandler() {
     };
     /* BOF: M4-8817: After POST /results fail still show angle/display details */
     self.ApplyAngleAndDisplayWithoutResult = function (displayData) {
+        var isEditMode = self.IsEditMode();
+        if (isEditMode)
+            self.HandlerDisplay.ClearPostResultData();
         progressbarModel.SetDisableProgressBar();
         self.SetWrapperHeight();
 
@@ -1208,7 +1215,6 @@ function AnglePageHandler() {
         }
         else {
             // result
-            var isEditMode = self.IsEditMode();
             var canEditDisplay = isEditMode && displayData.authorizations.update;
             var isAngleInvalid = self.HandlerValidation.Angle.InvalidBaseClasses || self.HandlerValidation.Angle.InvalidFollowups;
             var isDisplayInvalid = self.HandlerValidation.Display.InvalidFieldsAll || self.HandlerValidation.Display.InvalidFields;
@@ -1327,7 +1333,7 @@ function AnglePageHandler() {
         self.HandlerState.SetAngleData(self.HandlerAngle.GetData());
 
         // breadcrumb
-        self.RenderBreadcrumb();
+        self.InitialBreadcrumb();
 
         self.IsExecuted = true;
 

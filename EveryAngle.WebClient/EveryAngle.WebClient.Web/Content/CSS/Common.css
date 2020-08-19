@@ -2109,48 +2109,52 @@ textarea.input-light {
   .block-overlay.right {
     width: 100%; }
 
-.breadcrumbDirectory {
+.breadcrumb-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   margin: 0 5px;
   padding: 0;
   height: 24px; }
-  .breadcrumbDirectory .breadcrumbIcon {
+  .breadcrumb-wrapper .breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap; }
+    .breadcrumb-wrapper .breadcrumb-item .breadcrumb-label {
+      display: inline-flex;
+      cursor: default;
+      color: #333;
+      font-weight: bold; }
+      .breadcrumb-wrapper .breadcrumb-item .breadcrumb-label.icon-breadcrumb-edit {
+        color: #78909c; }
+    .breadcrumb-wrapper .breadcrumb-item .breadcrumb-link {
+      cursor: pointer;
+      color: #818181; }
+      .breadcrumb-wrapper .breadcrumb-item .breadcrumb-link:hover .breadcrumb-name {
+        color: #358ed7;
+        text-decoration: underline; }
+    .breadcrumb-wrapper .breadcrumb-item .breadcrumb-editable {
+      cursor: pointer; }
+      .breadcrumb-wrapper .breadcrumb-item .breadcrumb-editable .icon-breadcrumb-edit {
+        display: none;
+        color: #78909c; }
+      .breadcrumb-wrapper .breadcrumb-item .breadcrumb-editable:hover .icon-breadcrumb-edit {
+        display: block; }
+  .breadcrumb-wrapper .icon-breadcrumb-home {
+    margin-top: -2px;
+    margin-right: 10px;
+    min-width: 10px; }
+  .breadcrumb-wrapper .icon-breadcrumb-separator {
+    margin: 0 10px;
+    min-width: 12px; }
+  .breadcrumb-wrapper .icon-breadcrumb-front {
     margin-right: 7px; }
-    .breadcrumbDirectory .breadcrumbIcon.icon-angle {
-      margin-top: -2px;
+    .breadcrumb-wrapper .icon-breadcrumb-front.icon-angle {
       color: #ff6c2c; }
-
-.breadcrumbItem {
-  display: inline-flex;
-  align-items: center;
-  flex-wrap: nowrap; }
-
-.breadcrumbLabel {
-  color: #333;
-  font-weight: bold; }
-
-a.breadcrumbLink {
-  color: #818181; }
-
-a.breadcrumbLink:hover {
-  color: #358ed7;
-  text-decoration: underline; }
-
-.icon-breadcrumb-home {
-  margin-top: -2px;
-  margin-right: 10px;
-  min-width: 10px; }
-
-.icon-breadcrumb-chevron {
-  margin: 0 10px;
-  min-width: 12px; }
-
-.icon-breadcrumb-validated {
-  margin-left: 3px;
-  margin-top: -2px;
-  color: #7dc855; }
+  .breadcrumb-wrapper .icon-breadcrumb-rear {
+    margin-left: 5px; }
+    .breadcrumb-wrapper .icon-breadcrumb-rear.icon-validated {
+      color: #7dc855; }
 
 /* .item-label
 ============================================ */
@@ -3501,8 +3505,15 @@ a.breadcrumbLink:hover {
   padding-right: 20px;
   min-height: 20px;
   box-shadow: 1px -2px 3px 0 rgba(0, 0, 0, 0.06); }
+  .display-option-wrapper .display-execution-info {
+    flex-grow: 1;
+    margin-right: 10px;
+    color: #78909c;
+    font-size: 11px;
+    letter-spacing: .44px; }
   .display-option-wrapper .display-option {
-    margin-left: auto; }
+    margin-left: auto;
+    white-space: nowrap; }
     .display-option-wrapper .display-option input[type="checkbox"]:not(:checked) + .label,
     .display-option-wrapper .display-option input[type="checkbox"]:checked + .label {
       padding-left: 20px; }
@@ -3751,21 +3762,18 @@ a.breadcrumbLink:hover {
     width: 100%; }
 
 .toggle-sidebar {
-    position: absolute;
-    left: 8px;
-    top: 9px;
-    font-size: 18px;
-    color: #78909c;
-    padding: 7px;
-    transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.toggle-sidebar:hover {
+  position: absolute;
+  left: 8px;
+  top: 9px;
+  font-size: 18px;
+  color: #78909c;
+  padding: 7px;
+  transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+  .toggle-sidebar:hover {
     border-radius: 50%;
     background-color: #ebebeb;
     color: #3d4852;
-    top: 4px;
-}
+    top: 4px; }
 
 /* .content-wrapper
 ============================================ */

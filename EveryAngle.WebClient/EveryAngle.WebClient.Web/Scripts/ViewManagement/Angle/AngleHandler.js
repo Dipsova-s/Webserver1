@@ -267,6 +267,16 @@ function AngleHandler(model) {
         ]);
     };
 
+    // object
+    self.GetObjectInfo = function () {
+        var classes = self.QueryDefinitionHandler.GetBaseClasses();
+        var format = classes.length > 1 ? enumHandlers.FRIENDLYNAMEMODE.SHORTNAME : enumHandlers.FRIENDLYNAMEMODE.LONGNAME;
+        var names = jQuery.map(classes, function (id) {
+            return modelClassesHandler.GetClassName(id, self.Data().model, format);
+        });
+        return kendo.format('{0}: {1}', Localization.StartObject, names.join(', '));
+    };
+
     // results
     self.GetResultQueryDefinition = function () {
         // create posting result query block

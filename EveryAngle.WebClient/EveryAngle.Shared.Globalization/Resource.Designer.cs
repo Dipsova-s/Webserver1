@@ -1456,7 +1456,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start object.
+        ///   Looks up a localized string similar to Current object.
         /// </summary>
         public static string BaseClassName {
             get {

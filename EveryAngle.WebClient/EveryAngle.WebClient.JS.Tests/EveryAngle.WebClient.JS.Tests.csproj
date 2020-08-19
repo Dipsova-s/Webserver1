@@ -136,6 +136,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleUserSpecificHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayOverviewHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayStatisticHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angle\ResultHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\TargetLineHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardTagHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardSaveActionHandlerTest.js" />

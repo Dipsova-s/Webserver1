@@ -357,6 +357,7 @@ function DisplayOverviewHandler(angleHandler) {
         html.push('</ul>');
         return html.join('');
     };
+
     // Display option
     self.CanKeepFilter = function () {
         if (self.IsEditMode())
@@ -370,5 +371,11 @@ function DisplayOverviewHandler(angleHandler) {
     };
     self.IsEditMode = function () {
         return !!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.EDITMODE);
+    };
+
+    // execution info
+    self.ExecutionInfo = function () {
+        var currentDisplay = self.AngleHandler.GetCurrentDisplay();
+        return currentDisplay.GetResultExecution();
     };
 }
