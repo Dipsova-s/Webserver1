@@ -993,7 +993,7 @@ describe("DashboardPageHandler", function () {
             it(test.title, function () {
                 // initial
                 spyOn(dashboardPageHandler.ItemDescriptionHandler, 'CloseEditPopup');
-                spyOn(dashboardPageHandler, 'RenderBreadcrumb');
+                spyOn(dashboardPageHandler, 'InitialBreadcrumb');
                 spyOn(dashboardPageHandler, 'GetName').and.returnValue("");
                 spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(test.is_adhoc);
                 spyOn(dashboardModel, "Data").and.returnValue({
@@ -1006,7 +1006,7 @@ describe("DashboardPageHandler", function () {
 
                 // assert
                 expect(dashboardPageHandler.ItemDescriptionHandler.CloseEditPopup).toHaveBeenCalled();
-                expect(dashboardPageHandler.RenderBreadcrumb).toHaveBeenCalled();
+                expect(dashboardPageHandler.InitialBreadcrumb).toHaveBeenCalled();
                 expect(dashboardPageHandler.GetName).toHaveBeenCalledTimes(test.expected);
                 expect(toast.MakeSuccessTextFormatting).toHaveBeenCalledTimes(test.expected);
             });

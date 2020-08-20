@@ -211,7 +211,7 @@
                                 }
                             ],
                             "notification": null,
-                            "approval_state": "enabled"
+                            "approval_state": "approved"
                         }
                     ],
                     "description": "Mass change of suggested fields",

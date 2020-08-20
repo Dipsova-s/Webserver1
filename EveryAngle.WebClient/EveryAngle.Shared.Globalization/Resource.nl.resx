@@ -2395,7 +2395,7 @@
     <value>Het maximum aantal te selecteren Angles is {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Startobject</value>
+    <value>Current object</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Aantal items</value>
@@ -4007,6 +4007,9 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   </data>
   <data name="OpenSidebar" xml:space="preserve">
     <value>Open zijpaneel</value>
+  </data>
+  <data name="MC_approved" xml:space="preserve">
+    <value>approved</value>
   </data>
   <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
     <value>Specificeer in welke kolom de model tijdstempel moet worden toegevoegd.&lt;br&gt;

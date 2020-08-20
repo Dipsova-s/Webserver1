@@ -103,7 +103,7 @@
             ],
             "notification": null,
             "run_as_user": null,
-            "approval_state": "enabled"
+            "approval_state": "approved"
         }
     ],
     "triggers": [

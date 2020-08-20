@@ -1456,7 +1456,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start object.
+        ///   Looks up a localized string similar to Current object.
         /// </summary>
         public static string BaseClassName {
             get {
@@ -7672,6 +7672,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_ApprovalState {
             get {
                 return ResourceManager.GetString("MC_ApprovalState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to approved.
+        /// </summary>
+        public static string MC_approved {
+            get {
+                return ResourceManager.GetString("MC_approved", resourceCulture);
             }
         }
         

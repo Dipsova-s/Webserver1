@@ -1,13 +1,15 @@
 *** Variables ***
-${breadcrumbLinkSearchResults}                      jquery=.breadcrumbLink:nth(0)
-${breadcrumbLinkItem}                               jquery=.breadcrumbLink:nth(1)
-${breadcrumbLabelItem}                                jquery=.breadcrumbLabel
-${breadcrumbLabelDrilldownResults}                    jquery=.breadcrumbLabel
-${breadcrumbIconValidated}                          jquery=.icon-breadcrumb-validated
+${breadcrumb}                    css=.breadcrumb-wrapper
+${breadcrumbLinkSearch}          ${breadcrumb} .breadcrumb-item:nth-child(1) .breadcrumb-label.breadcrumb-link
+${breadcrumbLinkItem}            ${breadcrumb} .breadcrumb-item:nth-child(2) .breadcrumb-label.breadcrumb-link
+${breadcrumbLabelItem}           ${breadcrumb} .breadcrumb-item:nth-child(2) .breadcrumb-label:not(.breadcrumb-link)
+${breadcrumbLabelDrilldown}      ${breadcrumb} .breadcrumb-item:nth-child(3) .breadcrumb-label:not(.breadcrumb-link)
+${breadcrumbIconValidated}       ${breadcrumb} .breadcrumb-item:nth-child(2) .icon-validated
 
 *** Keywords ***
 Click Search Results Link
-    Click Element                                   ${breadcrumbLinkSearchResults}
+    Wait Until Element Is Visible                   ${breadcrumbLinkSearch}
+    Click Element                                   ${breadcrumbLinkSearch}
     Wait Search Page Document Loaded
 
 Click Item Link
@@ -15,8 +17,8 @@ Click Item Link
     Wait Angle Page Document Loaded
 
 Page Should Contain Search Results Link
-    Wait Until Page Contains Element                ${breadcrumbLinkSearchResults}
-    Page Should Contain Element                     ${breadcrumbLinkSearchResults}
+    Wait Until Page Contains Element                ${breadcrumbLinkSearch}
+    Page Should Contain Element                     ${breadcrumbLinkSearch}
 
 Page Should Contain Item Link
     Wait Until Page Contains Element                ${breadcrumbLinkItem}
@@ -27,8 +29,8 @@ Page Should Contain Item Label
     Page Should Contain Element                     ${breadcrumbLabelItem}
 
 Page Should Contain Drilldown Label
-    Wait Until Page Contains Element                ${breadcrumbLabelDrilldownResults}
-    Page Should Contain Element                     ${breadcrumbLabelDrilldownResults}
+    Wait Until Page Contains Element                ${breadcrumbLabelDrilldown}
+    Page Should Contain Element                     ${breadcrumbLabelDrilldown}
 
 Page Should Contain Validated Icon
     Wait Until Page Contains Element                ${breadcrumbIconValidated}

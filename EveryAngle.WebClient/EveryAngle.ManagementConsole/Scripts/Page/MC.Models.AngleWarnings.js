@@ -677,7 +677,7 @@
                             ],
                             notification: null,
                             run_as_user: null,
-                            approval_state: 'enabled'
+                            approval_state: 'approved'
                         };
 
                         var argumentAction = {
@@ -1023,7 +1023,7 @@
                 arguments: [],
                 notification: null,
                 run_as_user: null,
-                approval_state: 'enabled'
+                approval_state: 'approved'
             };
         };
         // create task's model argument

@@ -5,37 +5,15 @@ describe("DisplayOverviewHandler", function () {
 
     var displayOverviewHandler;
     beforeEach(function () {
-        createMockHandler(window, 'DisplayHandler', function () {
-            this.CreateNew = $.noop;
-            this.GetData = $.noop;
+        var angleHandler = new AngleHandler({
+            id: '1234',
+            multi_lang_name: [
+                { lang: 'en', text: 'name-en' },
+                { lang: 'nl', text: '' }
+            ],
+            uri: '/angles/1'
         });
-
-        var angleHandler = {
-            Data: ko.observable({
-                id: '1234',
-                multi_lang_name: [
-                    { lang: 'en', text: 'name-en' },
-                    { lang: 'nl', text: '' }
-                ],
-                uri: '/angles/1'
-            }),
-            GetDisplay: function () {
-                return {
-                    GetName: $.noop
-                };
-            },
-            AddDisplay: $.noop,
-            IsAdhoc: $.noop,
-            AllowMoreDetails: $.noop,
-            GetCurrentDisplay: $.noop,
-            GetData: $.noop
-        };
-
         displayOverviewHandler = new DisplayOverviewHandler(angleHandler);
-    });
-
-    afterEach(function () {
-        restoreMockHandlers();
     });
 
     describe("constructor", function () {
@@ -485,6 +463,7 @@ describe("DisplayOverviewHandler", function () {
             // prepare
             spyOn(toast, 'MakeSuccessTextFormatting');
             spyOn(displayOverviewHandler, 'Redirect');
+            spyOn(displayOverviewHandler.AngleHandler, 'GetDisplay').and.returnValue(new DisplayHandler({}, displayOverviewHandler.AngleHandler));
             displayOverviewHandler.CreateNewDisplayDone({ id: '123', uri: '', is_adhoc: false });
 
             // assert
@@ -646,6 +625,19 @@ describe("DisplayOverviewHandler", function () {
                 // assert
                 expect(result).toEqual(test.expected);
             });
+        });
+    });
+
+    describe(".ExecutionInfo", function () {
+        it('should get execution info', function () {
+            // prepare
+            var display = new DisplayHandler({}, displayOverviewHandler.AngleHandler);
+            spyOn(display, 'GetResultExecution').and.returnValue('my-execution-info');
+            spyOn(displayOverviewHandler.AngleHandler, 'GetCurrentDisplay').and.returnValue(display);
+            var result = displayOverviewHandler.ExecutionInfo();
+
+            // assert
+            expect(result).toContain('my-execution-info');
         });
     });
 });

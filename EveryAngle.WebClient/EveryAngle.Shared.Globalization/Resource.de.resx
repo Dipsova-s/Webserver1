@@ -3442,7 +3442,7 @@
     <value>Die Höchstzahl ausgewählter Angles ist {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Start-Objekt</value>
+    <value>Current object</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Anzahl der Einträge</value>
@@ -6425,5 +6425,8 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
     <value>Specify in what column the model timestamp should be inserted.&lt;br&gt;
 Use '1' to select the first column. When no model timestamp column is required, select 'None'.</value>
+  </data>
+  <data name="MC_approved" xml:space="preserve">
+    <value>approved</value>
   </data>
 </root>

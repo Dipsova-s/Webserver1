@@ -288,6 +288,41 @@ describe("MC.AutomationTasks.Tasks", function () {
         });
     });
 
+    describe(".ActionButtonTemplate", function () {
+        it("Show all button if user has manage system privilege", function () {
+            // prepare
+            var data = {
+                run_as_user:'test'
+            };
+            automationTask.CanManageSystem = true;
+            var template = automationTask.ActionButtonTemplate(data);
+            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">Edit<\/a><a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('undefined')\" class=\"btn btn btnExecute alwaysHidden\">Execute now<\/a><a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= undefined\"}\\' data-delete-template=\"Delete Field: {reference}?\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">Delete<\/a>");
+        });
+        it("Show all button if user has schedule angle privilege and task owner", function () {
+            // prepare
+            var data = {
+                run_as_user: 'test'
+            };
+            automationTask.CanManageSystem = false;
+            automationTask.CanScheduleAngles = true;
+            automationTask.IsTaskOwner = true;
+            var template = automationTask.ActionButtonTemplate(data);
+            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">Edit<\/a><a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('undefined')\" class=\"btn btn btnExecute alwaysHidden\">Execute now<\/a><a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= undefined\"}\\' data-delete-template=\"Delete Field: {reference}?\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">Delete<\/a>");
+        });
+        it("Show only view button and disabled delete button if user has only schedule angle privilege", function () {
+            // prepare
+            var data = {
+                run_as_user: 'test'
+            };
+            automationTask.CanManageSystem = false;
+            automationTask.CanScheduleAngles = true;
+            automationTask.IsTaskOwner = false;
+            var template = automationTask.ActionButtonTemplate(data);
+            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', false)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">View<\/a><a class=\"btn btnDelete disabled\">Delete<\/a>");
+            expect(template).toContain("disabled");
+        });
+    });
+
     describe(".GetActionsGridColumnDefinitions", function () {
 
         it("should get task action columns", function () {

@@ -163,6 +163,7 @@
                     </div>
                 </div>
                 <div class="form-row display-option-wrapper" id="DisplayOption" data-bind="visible: true" style="display: none">
+                    <div class="display-execution-info text-ellipsis" data-role="tooltip" data-tooltip-position="bottom" data-showwhenneed="true" data-bind="html: ExecutionInfo()"></div>
                     <div class="display-option">
                         <label data-bind="attr: { 'data-tooltip-text': IsVisibleKeepFilter() ? '' : Localization.NoDisplayFiltersActive }" data-role="tooltip" data-tooltip-position="bottom">
                             <input id="KeepFilter" type="checkbox" data-bind="enable: IsVisibleKeepFilter, checked: KeepFilter" />
