@@ -131,15 +131,16 @@ describe("ExportHandlerTest", function () {
     describe("call SetModelDateColumn", function () {
         var tests = [
             { value: 0, expected: null },
-            { value: 1, expected: 1 },
-            { value: 2, expected: 2 },
-            { value: 5, expected: 5 },
+            { value: 1, expected: 0 },
+            { value: 2, expected: 1 },
+            { value: 5, expected: 4 },
             { value: 6, expected: 5 },
-            { value: 10, expected: 5 }
+            { value: 10, expected: 9 }
         ];
 
         $.each(tests, function (index, test) {
             it("should set correct model date column with 5 columns (" + test.value + " -> " + test.expected + ")", function () {
+                
                 exportHandler.SetModelDateColumn(test.value, 5);
                 expect(test.expected).toEqual(exportHandler.CurrentExportModel.AddModelDateAtColumn);
             });

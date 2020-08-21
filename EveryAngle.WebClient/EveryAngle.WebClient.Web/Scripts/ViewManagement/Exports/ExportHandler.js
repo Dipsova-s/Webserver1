@@ -327,7 +327,7 @@ function ExportHandler() {
         // set value to model
         // - convert number to index (value)
         // - 0 is null
-        self.CurrentExportModel.AddModelDateAtColumn = !self.IsNoneValue(value) ? Math.min(value - 1, fieldCount) : null;
+        self.CurrentExportModel.AddModelDateAtColumn = !self.IsNoneValue(value) ? (value - 1) : null;
     };
 
     self.ValidateExportCSV = function (exportSettings) {
