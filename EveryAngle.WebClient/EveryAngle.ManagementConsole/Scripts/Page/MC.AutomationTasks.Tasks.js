@@ -2330,6 +2330,7 @@
             $('#row-enum_format')[action]();
 
             self.HideOrShowMaxRowsToExport();
+            self.HideOrShowModelTimestampIndex();
         };
         self.HideOrShowMaxRowsToExport = function () {
             var ddlDatastore = jQuery('#datastore').data('kendoDropDownList').dataItem();
@@ -2343,6 +2344,20 @@
             }
             else {
                 $('#row-max_rows_to_export').show();
+            }
+        };
+        self.HideOrShowModelTimestampIndex = function () {
+            var ddlDatastore = jQuery('#datastore').data('kendoDropDownList').dataItem();
+            if (ddlDatastore && self.IsChartOrPivot() && self.IsExcelDataStore()) {
+                $('#row-model_timestamp_index').hide();
+
+                // set value to chart or pivot
+                var maxRowsExport = $('#model_timestamp_index').data('handler');
+                if (maxRowsExport)
+                    maxRowsExport.value(-1);
+            }
+            else {
+                $('#row-model_timestamp_index').show();
             }
         };
         self.IsExcelDataStore = function () {
