@@ -171,6 +171,7 @@ function DisplayHandler(model, parent) {
         self.QueryDefinitionHandler.Texts().ConfirmMoveFilter = Localization.Info_ConfirmDropFilterToAngleDefinition;
         self.QueryDefinitionHandler.Texts().AskForExecutionParamter = Localization.AskForValueWhenTheDisplayOpens;
         self.QueryDefinitionHandler.Texts().ConfirmJump = Localization.Confirm_CreateNewFollowUp;
+        self.QueryDefinitionHandler.Texts().SubHeader = Localization.DisplayFilters;
         self.SetAggregationFunctions();
         self.parent.prototype.InitialQueryDefinition.call(self, definition, _self.queryDefinitionProperty, self.GetModelUri());
 
@@ -244,6 +245,7 @@ function DisplayHandler(model, parent) {
         self.QueryDefinitionHandler.Parent().SetData(self.AngleHandler.Data().query_definition, 'query_definition', self.GetModelUri());
         self.QueryDefinitionHandler.Parent().SetExecutedParameters(self.AngleHandler.QueryDefinitionHandler.GetExecutedParameters());
         self.QueryDefinitionHandler.Parent().Authorizations.CanSave(self.CanMoveFilter());
+        self.QueryDefinitionHandler.Parent().Texts().SubHeader = Localization.AngleFilters;
     };
     self.CanMoveFilter = function () {
         return self.AngleHandler.QueryDefinitionHandler.Authorizations.CanChangeFilter();

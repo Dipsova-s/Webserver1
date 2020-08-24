@@ -6439,4 +6439,10 @@ Note: Invalid Angles are not included in the package. If the results in the pack
 Actions can only be executed when the Approval state is "approved".
 The "manage system" privileges is required to change the Approval state of an Action.</value>
   </data>
+  <data name="AngleFilters" xml:space="preserve">
+    <value>Angle filters &amp; jumps</value>
+  </data>
+  <data name="DisplayFilters" xml:space="preserve">
+    <value>Display filters &amp; jumps</value>
+  </data>
 </root>

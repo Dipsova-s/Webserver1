@@ -771,7 +771,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             // prepare
             var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
             automationTask.DisplayExcelTemplate = 'excel_template_02.xlsx';
-            var addedItem = '[User default] excel_template_02.xlsx';
+            var addedItem = '[Use default] excel_template_02.xlsx';
 
             automationTask.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
 
@@ -795,7 +795,7 @@ describe("MC.AutomationTasks.Tasks", function () {
                     { File: 'excel_template_00.xlsx' },
                     { File: 'excel_template_01.xlsx' },
                     { File: 'excel_template_02.xlsx' },
-                    { File: '[User default] excel_template_02.xlsx' }
+                    { File: '[Use default] excel_template_02.xlsx' }
                 ]
             });
             dropdown.appendTo('body');
@@ -808,7 +808,7 @@ describe("MC.AutomationTasks.Tasks", function () {
         it("should remove default excel template from Template file dropdown", function () {
             // prepare
             var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
-            var addedItem = '[User default] excel_template_02.xlsx';
+            var addedItem = '[Use default] excel_template_02.xlsx';
             automationTask.StandardExcelTemplate = 'excel_template_01.xlsx';
             automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
 

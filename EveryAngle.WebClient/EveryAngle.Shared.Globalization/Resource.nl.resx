@@ -4025,4 +4025,10 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
 Actions can only be executed when the Approval state is "approved".
 The "manage system" privileges is required to change the Approval state of an Action.</value>
   </data>
+  <data name="AngleFilters" xml:space="preserve">
+    <value>Angle filters &amp; jumps</value>
+  </data>
+  <data name="DisplayFilters" xml:space="preserve">
+    <value>Display filters &amp; jumps</value>
+  </data>
 </root>

@@ -8,7 +8,7 @@
 .k-widget .k-picker-wrap,
 .k-widget .k-numeric-wrap {
   background: #fff none;
-  border: 1px solid #e3e5e5;
+  border: 1px solid #b5becc;
   padding: 0 30px 0 0;
   border-radius: 0;
   box-shadow: none;
@@ -748,7 +748,7 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-widget.k-dropdown .k-dropdown-wrap,
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-focused,
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-focused:hover {
-  border-color: #e3e5e5; }
+  border-color: #b5becc; }
 
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-down,
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-down.k-state-focused,
@@ -1191,7 +1191,7 @@ div.k-tooltip.k-chart-tooltip {
    height: 36/20
 =================================== */
 .k-tagtextbox .k-multiselect-wrap {
-  border-color: #e3e5e5;
+  border-color: #b5becc;
   border-radius: 0;
   padding-top: 7px;
   padding-left: 7px;

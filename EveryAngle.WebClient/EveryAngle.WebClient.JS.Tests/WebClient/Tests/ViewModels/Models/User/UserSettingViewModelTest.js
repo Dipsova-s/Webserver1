@@ -132,7 +132,7 @@ describe("UserSettingViewModel", function () {
 
             //angle sidebar
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED]).toEqual(false);
-            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE]).toEqual(310);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE]).toEqual(320);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB]).toEqual(0);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS]).toEqual({ definition: true, description: true, label: true });
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_PANEL_ACCORDIONS]).toEqual({ definition: true, aggregation: true, description: true });
@@ -142,7 +142,7 @@ describe("UserSettingViewModel", function () {
 
             //dashboard sidebar
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_COLLAPSED]).toEqual(false);
-            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE]).toEqual(310);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE]).toEqual(320);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_TAB]).toEqual(0);
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS]).toEqual({ definition: true, description: true, label: true });
             expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.WIDGET_PANEL_ACCORDIONS]).toEqual({ definition: true });

@@ -22,13 +22,13 @@ SidePanelView.prototype.GetSectionFiltersAndJumpsTemplate = function () {
                 '<!-- ko if: $root.Parent -->',
                 '<div class="query-definition-drop-area" data-bind="css: { \'empty\': !$root.Parent().GetFiltersAndJumps().length }">',
                     '<div class="definition-body-inner" data-bind="with: $root.Parent"></div>',
-                    '<div class="drop-area-cover" data-bind="text: Localization.Info_DropFilterToAngleDefinition"></div>',
-                    '<hr />',
+                    '<div data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete"  class="drop-area-cover" data-bind="text: Localization.Info_DropFilterToAngleDefinition, click: ClickDropArea"></div>',
                 '</div>',
                 '<!-- /ko -->',
                 '<div class="definition-body-inner"></div>',
             '</div>',
-        '</div>'
+            '<hr>',
+        '</div>',
     ].join('');
 };
 SidePanelView.prototype.GetSectionDescriptionTemplate = function () {
@@ -43,7 +43,8 @@ SidePanelView.prototype.GetSectionDescriptionTemplate = function () {
                 '</div>',
             '</div>',
             '<div class="accordion-body section-description-body" data-bind="html: GetDescriptionText()"></div>',
-        '</div>'
+            '<hr>',
+        '</div>',
     ].join('');
 };
 SidePanelView.prototype.GetSectionPersonalNoteTemplate = function () {
@@ -53,7 +54,8 @@ SidePanelView.prototype.GetSectionPersonalNoteTemplate = function () {
                 '<span data-bind="text: Localization.PersonalNote"></span>',
             '</div>',
             '<div class="card-body section-personal-note-body" data-bind="text: HasPrivateNote() ? GetPrivateNote() : Localization.AddNote, css: { \'add-note\': !HasPrivateNote() }"></div>',
-        '</div>'
+            '<hr style="display:none;">',
+        '</div>',
     ].join('');
 };
 SidePanelView.prototype.GetSectionLabelsTemplate = function () {
@@ -95,7 +97,8 @@ SidePanelView.prototype.GetSectionLabelsTemplate = function () {
                 '<!-- /ko -->',
                 '<div class="group-message required clearfix"></div>',
             '</div>',
-        '</div>'
+            '<hr>',
+         '</div>',
     ].join('');
 };
 SidePanelView.prototype.GetSectionTagsTemplate = function () {
@@ -109,6 +112,7 @@ SidePanelView.prototype.GetSectionTagsTemplate = function () {
                     '<div class="form-col form-col-body"><input class="tags-input"/></div>',
                 '</div>',
             '</div>',
-        '</div>'
+            '<hr>',
+        '</div>',
     ].join('');
 };

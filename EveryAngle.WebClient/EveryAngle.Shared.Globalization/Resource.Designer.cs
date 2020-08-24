@@ -1258,6 +1258,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angle filters &amp; jumps.
+        /// </summary>
+        public static string AngleFilters {
+            get {
+                return ResourceManager.GetString("AngleFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angle ID.
         /// </summary>
         public static string AngleId {
@@ -3085,7 +3094,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [User default] {0}.
+        ///   Looks up a localized string similar to [Use default] {0}.
         /// </summary>
         public static string Default_Placeholder {
             get {
@@ -3297,6 +3306,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string DisplayDropdownListKeepFilter {
             get {
                 return ResourceManager.GetString("DisplayDropdownListKeepFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display filters &amp; jumps.
+        /// </summary>
+        public static string DisplayFilters {
+            get {
+                return ResourceManager.GetString("DisplayFilters", resourceCulture);
             }
         }
         

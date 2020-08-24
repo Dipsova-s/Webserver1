@@ -25,6 +25,7 @@
         AggregationHeaderRow: '',
         AggregationHeaderColumn: '',
         AggregationHeaderData: '',
+        SubHeader: '',
         ApplyButton: Localization.Apply
     });
     self.Property = null;
@@ -385,6 +386,7 @@
         if (target.hasClass('close'))
             target.trigger('click');
     };
+    self.ClickDropArea = jQuery.noop;
 }
 
 QueryDefinitionHandler.ExecuteAction = {

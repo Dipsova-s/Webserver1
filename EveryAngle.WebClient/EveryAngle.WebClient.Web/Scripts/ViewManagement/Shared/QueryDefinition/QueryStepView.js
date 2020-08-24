@@ -2,6 +2,9 @@
 QueryStepView.prototype.GetFiltersAndJumpsTemplate = function () {
     return [
         '<div class="query-definition-wrapper" data-bind="css: { readonly: ReadOnly }">',
+            '<!--ko if: GetFiltersAndJumps().length && Texts().SubHeader -->',
+            '<span class="query-definition-subheader" data-bind="text: Texts().SubHeader"></span>',
+            '<!-- /ko -->',
             '<ul class="query-definition">',
                 '<!-- ko foreach: { data: Data, as: \'query\' } -->',
                 '<!-- ko if: $parent.IsFilter(query) -->',

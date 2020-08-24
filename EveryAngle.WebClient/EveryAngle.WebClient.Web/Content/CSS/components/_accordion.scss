@@ -7,6 +7,11 @@
     margin: 0;
     padding: 0;
     list-style: none;
+
+    hr {
+        border-top: 2px solid #fff;
+        margin: 0 10px;
+    }
 }
 
 .accordion-item {

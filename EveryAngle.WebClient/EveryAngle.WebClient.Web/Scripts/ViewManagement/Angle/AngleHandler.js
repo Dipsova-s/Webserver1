@@ -200,6 +200,7 @@ function AngleHandler(model) {
         self.QueryDefinitionHandler.FilterFor = WC.WidgetFilterHelper.FILTERFOR.ANGLE;
         self.QueryDefinitionHandler.Texts().AskForExecutionParamter = Localization.AskForValueWhenTheAngleOpens;
         self.QueryDefinitionHandler.Texts().ConfirmJump = Localization.Confirm_SaveAngleWithWarning;
+        self.QueryDefinitionHandler.Texts().SubHeader = Localization.AngleFilters;
         self.QueryDefinitionHandler.Texts().ApplyButton = Localization.Save;
         self.parent.prototype.InitialQueryDefinition.call(self, definition, _self.queryDefinitionProperty, self.Data().model);
 

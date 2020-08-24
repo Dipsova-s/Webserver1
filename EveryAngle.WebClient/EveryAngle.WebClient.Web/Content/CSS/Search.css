@@ -98,7 +98,7 @@
 .searchbar .searchBoxWrapper > input {
   padding-left: 35px;
   padding-right: 65px;
-  background: #f7f7f9 url(../../images/search-grey.svg) 10px center no-repeat;
+  background: #f7f9fa url(../../images/search-grey.svg) 10px center no-repeat;
   background-size: 16px 16px;
   border-radius: 2px;
   transition: all .2s ease-in-out; }
@@ -418,7 +418,7 @@
   display: none;
   padding: 30px 37px 0 37px;
   overflow: auto;
-  background-color: #fafafa; }
+  background-color: #f7f9fa; }
 
 .sectionWelcomeRow {
   float: left;
@@ -978,7 +978,7 @@
 #LeftMenu {
   position: absolute;
   z-index: 0;
-  background-color: #fcfcfc; }
+  background-color: #f7f9fa; }
   #LeftMenu .left-menu-wrapper {
     width: 230px;
     min-height: 200px;

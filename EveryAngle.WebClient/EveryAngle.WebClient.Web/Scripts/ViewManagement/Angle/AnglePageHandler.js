@@ -371,6 +371,9 @@ function AnglePageHandler() {
             self.HandlerDisplay.parent.prototype.SaveQueryDefinitionDone.apply(self.HandlerDisplay, arguments);
             self.HandlerDisplay.ExecuteQueryDefinition(QueryDefinitionHandler.ExecuteAction.Saved);
         };
+        self.HandlerDisplay.QueryDefinitionHandler.ClickDropArea = function () {
+            self.HandlerSidePanel.Open(0);
+        };
         self.HandlerDisplay.ExecuteQueryDefinition = function () {
             // forced to execute a new result
             if (self.HandlerDisplay.ResultHandler.HasChanged()) {

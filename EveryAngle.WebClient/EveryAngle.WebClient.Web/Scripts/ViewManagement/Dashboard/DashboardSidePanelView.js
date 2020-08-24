@@ -36,7 +36,8 @@
                 '<div class="accordion-body definition-body">',
                     '<div class="definition-body-inner"></div>',
                 '</div>',
-            '</div>'
+                '<hr>',
+           '</div>'
         ].join('');
     };
     self.GetSectionExecuteAtLogonTemplate = function () {
@@ -52,6 +53,7 @@
                         '</div>',
                     '</div>',
                 '</div>',
+                '<hr style="display:none;">',
             '</div>'
         ].join('');
     };
