@@ -244,7 +244,7 @@ function ExportHandler() {
     };
     self.CreateAddModelDateUI = function () {
         var addModelDateUI;
-        var defaultValue = self.CurrentExportModel.AddModelDateAtColumn;
+        var defaultValue = self.ConvertDefaultModelTimestampToCSVModelTimestamp(self.CurrentExportModel.AddModelDateAtColumn);
         var setInputValue = function (value) {
             self.SetModelDateInputValue(addModelDateUI, value);
         };
@@ -268,9 +268,7 @@ function ExportHandler() {
             change: valueChanged,
             spin: valueChanged
         }).data('kendoNumericTextBox');
-        addModelDateUI.value(defaultValue);
-        addModelDateUI.trigger('change');
-
+     
         // placeholder - set placeholder text
         addModelDateUI.__placeholder = addModelDateUI._placeholder;
         addModelDateUI._placeholder = function (value) {
@@ -309,6 +307,8 @@ function ExportHandler() {
             }
             this.__blur();
         };
+        addModelDateUI.value(defaultValue);
+        addModelDateUI.trigger('change');
         return addModelDateUI;
     };
     self.GetModelDateInputValue = function (value) {
@@ -316,7 +316,10 @@ function ExportHandler() {
         return !self.IsNoneValue(value) ? value : Captions.Label_CSV_Export_ModelDate_None;
     };
     self.IsNoneValue = function (value) {
-        return (parseInt(value) <= 0 || isNaN(parseInt(value)) );
+        return (parseInt(value) <= 0 || isNaN(parseInt(value)));
+    };
+    self.ConvertDefaultModelTimestampToCSVModelTimestamp = function (value) {
+        return (!isNaN(parseInt(value)) && value >= 0) ? (value + 1) : null;
     };
     self.SetModelDateInputValue = function (ui, value) {
         // - set 'None' if 0

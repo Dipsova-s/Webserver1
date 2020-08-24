@@ -170,4 +170,21 @@ describe("ExportHandlerTest", function () {
             });
         });
     });
+
+    describe(".ConvertDefaultModelTimestampToCSVModelTimestamp", function () {
+        var tests = [
+            { value: '', expected: null },
+            { value: 0, expected: 1 },
+            { value: -1, expected: null },
+            { value: 1, expected: 2 },
+            { value: 5, expected: 6 }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should return correct result from  (" + test.value + " -> " + test.expected + ")", function () {
+                var actual = exportHandler.ConvertDefaultModelTimestampToCSVModelTimestamp(test.value);
+                expect(test.expected).toEqual(actual);
+            });
+        });
+    });
 });
