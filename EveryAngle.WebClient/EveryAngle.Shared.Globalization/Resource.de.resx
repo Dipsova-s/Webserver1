@@ -6416,16 +6416,27 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Reexecute" xml:space="preserve">
     <value>Re-execute</value>
   </data>
-	 <data name="CloseSidebar" xml:space="preserve">
+  <data name="CloseSidebar" xml:space="preserve">
     <value>Close sidebar</value>
   </data>
   <data name="OpenSidebar" xml:space="preserve">
     <value>Open sidebar</value>
   </data>
-  <data name="MC_approved" xml:space="preserve">
+  <data name="MC_Approved" xml:space="preserve">
     <value>approved</value>
   </data>
   <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
     <value>Show only my own private Displays</value>
+  </data>
+  <data name="AngleExport" xml:space="preserve">
+    <value>Angle Export</value>
+  </data>
+  <data name="MC_DefaultApprovalState" xml:space="preserve">
+    <value>Default approval state Automation task actions</value>
+  </data>
+  <data name="MC_DefaultApprovalStateDescription" xml:space="preserve">
+    <value>The default Approval state of newly added Actions in Automation tasks.
+Actions can only be executed when the Approval state is "approved".
+The "manage system" privileges is required to change the Approval state of an Action.</value>
   </data>
 </root>

@@ -40,6 +40,7 @@ namespace EveryAngle.ManagementConsole.Test.App_Start
             AddBind<IComponentService, ComponentService>(kernel);
             AddBind<ILogFileService, LogFileService>(kernel);
             AddBind<ILogFileReaderService, LogFileReaderService>(kernel);
+            AddBind<IGlobalSettingsAppService, GlobalSettingsAppService>(kernel);
             AddBind<ICopyrightService, CopyrightService>(kernel);
             AddBind<IFileTemplateService, ExcelTemplatesService>(kernel);
 

@@ -96,7 +96,10 @@ Verify Execute Single Action
 Verify Run as User On Action Popup
     Action Run As User Should be      local\\EAViewer
 
-Able To Add Action
+Verify Approval State On Action Popup
+    Approval State Should be     requested
+    
+Able To Add Action 
     Select Dropdown Datastore      Export to Excel Default
     Click Ok Button On Action Popup
 

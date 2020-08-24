@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -1101,6 +1101,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string AngleDropdownListSelectDisplay {
             get {
                 return ResourceManager.GetString("AngleDropdownListSelectDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angle Export.
+        /// </summary>
+        public static string AngleExport {
+            get {
+                return ResourceManager.GetString("AngleExport", resourceCulture);
             }
         }
         
@@ -7668,9 +7677,9 @@ namespace EveryAngle.Shared.Globalization {
         /// <summary>
         ///   Looks up a localized string similar to approved.
         /// </summary>
-        public static string MC_approved {
+        public static string MC_Approved {
             get {
-                return ResourceManager.GetString("MC_approved", resourceCulture);
+                return ResourceManager.GetString("MC_Approved", resourceCulture);
             }
         }
         
@@ -8792,6 +8801,26 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_DecimalSeparator {
             get {
                 return ResourceManager.GetString("MC_DecimalSeparator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default approval state Automation task actions.
+        /// </summary>
+        public static string MC_DefaultApprovalState {
+            get {
+                return ResourceManager.GetString("MC_DefaultApprovalState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The default Approval state of newly added Actions in Automation tasks.
+        ///Actions can only be executed when the Approval state is &quot;approved&quot;.
+        ///The &quot;manage system&quot; privileges is required to change the Approval state of an Action..
+        /// </summary>
+        public static string MC_DefaultApprovalStateDescription {
+            get {
+                return ResourceManager.GetString("MC_DefaultApprovalStateDescription", resourceCulture);
             }
         }
         

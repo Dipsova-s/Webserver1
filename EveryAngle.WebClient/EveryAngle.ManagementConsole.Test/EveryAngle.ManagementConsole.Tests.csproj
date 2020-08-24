@@ -123,8 +123,8 @@
     <Compile Include="Controllers\CommentControllerTests.cs" />
     <Compile Include="Controllers\ComponentControllerTests.cs" />
     <Compile Include="Controllers\DownloadTableControllerTests.cs" />
-    <Compile Include="Controllers\RefreshCycleControllerTests.cs" />
     <Compile Include="Controllers\GlobalSettingsControllerTests.cs" />
+    <Compile Include="Controllers\RefreshCycleControllerTests.cs" />
     <Compile Include="Controllers\ModelControllerTests.cs" />
     <Compile Include="Controllers\PackagesControllerTests.cs" />
     <Compile Include="Controllers\SystemRoleControllerTest.cs" />
@@ -150,6 +150,7 @@
     <Compile Include="Localization\UserCultureTests.cs" />
     <Compile Include="Models\SiteMapModelTests.cs" />
     <Compile Include="Services\ExcelTemplatesServiceTest.cs" />
+    <Compile Include="Services\GlobalSettingsAppServiceTest.cs" />
     <Compile Include="Services\LogFileReaderServiceTest.cs" />
     <Compile Include="Services\LogFileServiceTest.cs" />
     <Compile Include="Services\RepositoryLogServiceTest.cs" />

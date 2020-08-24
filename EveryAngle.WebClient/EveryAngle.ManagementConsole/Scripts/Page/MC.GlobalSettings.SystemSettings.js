@@ -138,6 +138,7 @@
             var includeSelfInExportHeaders = $('#include_self_in_export_headers').is(':checked');
             var scriptLocation = $('#script_location').val();
             var fallbackFieldLength = $('#fallback_field_length').val();
+            var defaultApprovalState = $('#default_approval_state').val();
 
             var emailSettings = {
                 "smtp_server": smtpServer,
@@ -171,7 +172,8 @@
                 'include_self_in_export_headers': includeSelfInExportHeaders,
                 'default_max_export_page_size': defaultMaxExportPageSize,
                 'script_location': scriptLocation,
-                'fallback_field_length': fallbackFieldLength
+                'fallback_field_length': fallbackFieldLength,
+                'default_approval_state': defaultApprovalState
             };
 
             return {
