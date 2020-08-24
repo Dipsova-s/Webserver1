@@ -80,7 +80,8 @@
                 'general_decimal_seperator': $('#GeneralDecimalSeperatorDropdown').val(),
                 'general_thousand_seperator': $('#GeneralThousandSeperatorDropdown').val(),
                 'format_time': JSON.stringify({ hour: $('#TimeHourFormatDropdown').val(), separator: $('#TimeSeparatorDropdown').val() }),
-                'format_date': JSON.stringify({ order: $('#DateOrderDropdown').val(), day: $('#DateDayDropdown').val(), month: $('#DateMonthDropdown').val(), year: $('#DateYearDropdown').val(), separator: $('#DateSeparatorDropdown').val() })
+                'format_date': JSON.stringify({ order: $('#DateOrderDropdown').val(), day: $('#DateDayDropdown').val(), month: $('#DateMonthDropdown').val(), year: $('#DateYearDropdown').val(), separator: $('#DateSeparatorDropdown').val() }),
+                'hide_other_users_private_display': $('#ShowOnlyOwnPrivateDisplays').is(':checked')
             };
             return data;
         };

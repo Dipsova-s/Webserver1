@@ -244,6 +244,7 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
     self.InitialControls = function () {
         var setting = userSettingModel.Data();
         var clientSettings = WC.Utility.ParseJSON(setting[enumHandlers.USERSETTINGS.CLIENT_SETTINGS]);
+        WC.HtmlHelper.ApplyKnockout(self, jQuery('#SettingsPanelGeneralBody'));
 
         // User tab
         self.InitialControlUser();
@@ -257,6 +258,7 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
         self.InitialControlsLanguage(setting);
         self.InitialControlsRowExportToExcel(setting);
         self.InitialControlsFacetWarning(clientSettings);
+        self.InitialControlsHidePrivateDisplay(setting);
         self.InitialControlsFieldChooser(clientSettings);
         self.InitialControlsTechnicalInfo(setting);
         self.InitialControlsGotoSap(clientSettings);
@@ -356,6 +358,9 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
     };
     self.InitialControlsFacetWarning = function (clientSettings) {
         WC.HtmlHelper.SetCheckBoxStatus('#ShowFacetAngleWarnings', !!clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SHOW_FACET_ANGLE_WARNINGS]);
+    };
+    self.InitialControlsHidePrivateDisplay = function (setting) {
+        WC.HtmlHelper.SetCheckBoxStatus('#ShowOnlyOwnPrivateDisplays', setting[enumHandlers.USERSETTINGS.HIDE_OTHER_USERS_PRIVATE_DISPLAY]);
     };
     self.InitialControlsFieldChooser = function (clientSettings) {
         WC.HtmlHelper.SetCheckBoxStatus('#DefaultStarredfields', !!clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DEFAULT_STARRED_FIELDS]);
@@ -517,7 +522,7 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
         self.SetAutoExecuteAtLogin(defaultUserSetting, userSettings);
         self.SetAutoExecuteAtLogin(defaultUserSetting, userSettings);
         self.SetClientSetting(defaultUserSetting, userSettings, generalDecimalSeparator, generalThousandSeparator);
-
+        self.SetHidePrivateDisplay(defaultUserSetting, userSettings);
         if (userSettingModel.TempRemoveList().length) {
             userSettingModel.ReloadAfterChanged(true);
         }
@@ -557,6 +562,14 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
         var defaultExportLine = parseInt(WC.HtmlHelper.DropdownList('#ExcelRowSelect').value());
         if (defaultExportLine !== defaultUserSetting[enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES]) {
             userSettings[enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES] = defaultExportLine;
+        }
+    };
+    self.SetHidePrivateDisplay = function (defaultUserSetting, userSettings) {
+        if (self.CheckManagePrivateItems()) {
+            var hidePrivateDisplay = WC.HtmlHelper.GetCheckBoxStatus('#ShowOnlyOwnPrivateDisplays');
+            if (hidePrivateDisplay !== defaultUserSetting[enumHandlers.USERSETTINGS.HIDE_OTHER_USERS_PRIVATE_DISPLAY]) {
+                userSettings[enumHandlers.USERSETTINGS.HIDE_OTHER_USERS_PRIVATE_DISPLAY] = hidePrivateDisplay;
+            }
         }
     };
     self.SetTechnicalInfoSapFieldChooser = function (defaultUserSetting, userSettings) {
@@ -1017,6 +1030,10 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
     self.DownloadSAPLauncher = function (url) {
         WC.Ajax.EnableBeforeExit = false;
         WC.Utility.DownloadFile(url);
+    };
+
+    self.CheckManagePrivateItems = function () {
+        return privilegesViewModel.IsManagePrivateItemsAllowed();
     };
 }
 

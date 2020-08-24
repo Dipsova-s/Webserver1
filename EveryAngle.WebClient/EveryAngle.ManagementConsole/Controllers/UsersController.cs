@@ -1002,6 +1002,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             updateduserDefaults.format_locale = userDefaults.format_locale;
             updateduserDefaults.default_Starred_Fields = userDefaults.default_Starred_Fields;
             updateduserDefaults.default_Suggested_Fields = userDefaults.default_Suggested_Fields;
+            updateduserDefaults.hide_other_users_private_display = userDefaults.hide_other_users_private_display;
 
             string clientSettingsTemplate = "{{\"default_Starred_Fields\":{0},\"default_Suggested_Fields\":{1},\"general_decimal_seperator\":\"{2}\",\"general_thousand_seperator\":\"{3}\"}}";
             updateduserDefaults.client_settings = string.Format(clientSettingsTemplate,

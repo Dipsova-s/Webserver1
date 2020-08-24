@@ -4011,4 +4011,7 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="MC_approved" xml:space="preserve">
     <value>approved</value>
   </data>
+  <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
+    <value>Toon alleen mijn eigen privé Displays</value>
+  </data>
 </root>

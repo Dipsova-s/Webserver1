@@ -17221,6 +17221,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show only my own private Displays.
+        /// </summary>
+        public static string ShowOnlyOwnPrivateDisplays {
+            get {
+                return ResourceManager.GetString("ShowOnlyOwnPrivateDisplays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Since.
         /// </summary>
         public static string Since {

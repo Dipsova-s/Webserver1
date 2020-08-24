@@ -198,7 +198,8 @@ function EnumHandlers() {
         FORMAT_ENUM: 'format_enum',
         FORMAT_DATE: 'format_date',
         FORMAT_PERIOD: 'format_period',
-        FORMAT_TIME: 'format_time'
+        FORMAT_TIME: 'format_time',
+        HIDE_OTHER_USERS_PRIVATE_DISPLAY : 'hide_other_users_private_display'
     };
 
     // query steps type
