@@ -135,7 +135,7 @@ Get Excel Templates List in Export to Excel Pop up
     @{excelTemplatesList}   Create List
     :FOR    ${i}    IN RANGE    1   ${count} + 1
     \    ${nameExcelTemplate}    Get Element Attribute    (${excelTemplatesCount})[${i}]    innerHTML
-    \    ${condition}   Run Keyword    Condition For Checking Substring [User default]    ${nameExcelTemplate}
+    \    ${condition}   Run Keyword    Condition For Checking Substring [Use default]    ${nameExcelTemplate}
     \    ${nameExcelTemplateUpdated}      Run Keyword If    '${condition}' == 'True'      Update Excel Template String     ${nameExcelTemplate}
     \    ...                              ELSE      Set Variable     ${nameExcelTemplate}
     \    Append To List      ${excelTemplatesList}   ${nameExcelTemplateUpdated}
@@ -143,17 +143,17 @@ Get Excel Templates List in Export to Excel Pop up
 
 Update Excel Template String
     [Arguments]     ${string}
-    ${updatedString}      Replace String     ${string}  [User default]${SPACE}   ${EMPTY}
+    ${updatedString}      Replace String     ${string}  [Use default]${SPACE}   ${EMPTY}
     [Return]    ${updatedString}
 
-Contains Substring [User default]
+Contains Substring [Use default]
     [Arguments]     ${string}
-    ${expectedString}   Set Variable    \[User default\]
+    ${expectedString}   Set Variable    \[Use default\]
     ${updatedString}    Get Substring   ${string}   0   9
     ${returnStatus}     Run Keyword And Return Status   Should Be Equal As Strings  ${updatedString}    ${expectedString}
     [Return]    ${returnStatus}
 
-Condition For Checking Substring [User default]
+Condition For Checking Substring [Use default]
     [Arguments]     ${nameExcelTemplate}
-    ${returnStatus}     Run Keyword     Contains Substring [User default]    ${nameExcelTemplate}
+    ${returnStatus}     Run Keyword     Contains Substring [Use default]    ${nameExcelTemplate}
     [Return]    ${returnStatus}    

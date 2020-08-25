@@ -36,7 +36,7 @@ Verify Export To Excel From Action Menu
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Display Tab
-    Selected Excel Template Should Be       [User default] ${defaultExcelTemplateName}
+    Selected Excel Template Should Be       [Use default] ${defaultExcelTemplateName}
     Select Excel Template To    ${newExcelTemplateName}
     Save Selected Excel Template
     Reload Angle Page

@@ -2265,6 +2265,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
 /* .pageSystemSettings
 ================================== */
 .pageSystemSettings .k-numerictextbox,
+.pageSystemSettings .k-dropdown,
 .pageSystemSettings input[type="text"],
 .pageSystemSettings input[type="password"] {
     width: 260px;

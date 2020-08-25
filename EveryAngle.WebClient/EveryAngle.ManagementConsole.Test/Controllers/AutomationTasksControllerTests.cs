@@ -604,7 +604,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void Can_EditTask_SetUserIdAndCanScheduleAngles()
+        public void Can_EditTask_Set_ViewBags()
         {
             //arrange.
             SessionViewModel sessionViewModel = new SessionViewModel {
@@ -612,9 +612,15 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 {
                     manage_system = true,
                     schedule_angles = true
-                }
+                },
             };
+            var systemSettings = new SystemSettingViewModel
+            {
+                default_approval_state = "disabled"
+            };
+
             sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            sessionHelper.SetupGet(x => x.SystemSettings).Returns(systemSettings);
 
             List<SystemScriptViewModel> scripts = new List<SystemScriptViewModel>
             {
@@ -666,6 +672,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             //assert.
             Assert.AreEqual(_testingController.ViewBag.UserId, "testing_user");
             Assert.AreEqual(_testingController.ViewBag.CanScheduleAngles, true);
+            Assert.AreEqual(_testingController.ViewBag.DefaultApprovalState, systemSettings.default_approval_state);
         }
 
         [TestCase]

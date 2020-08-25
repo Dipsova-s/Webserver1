@@ -17,7 +17,7 @@ function UserSettingViewModel() {
     self.AutoExecuteList = ko.observableArray([]);
     self.TempRemoveList = ko.observableArray([]);
     self.SidePanelSettingsData = {};
-    self.MinSidePanelSize = 310;
+    self.MinSidePanelSize = 320;
 
     var resultsText = Localization.SystemSettingResults;
 
@@ -63,7 +63,7 @@ function UserSettingViewModel() {
 
         return GetDataFromWebService(uri)
             .done(function (data) {
-                self.IsLoaded(true);
+                    self.IsLoaded(true);
                 self.LoadSuccess(data);
                 SetWebSiteLanguage(self.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES));
             });

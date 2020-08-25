@@ -219,6 +219,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.TasksUri = tasksUri;
             ViewBag.TasksActionsUri = tasksUri + "/actions";
             ViewBag.IsTaskOwner = task.run_as_user == SessionHelper.CurrentUser.Id;
+            ViewBag.DefaultApprovalState = SessionHelper.SystemSettings.default_approval_state;
 
             ViewData["AngleUri"] = angleUri;
             ViewData["DataStores"] = GetDataStoresDataSource(dataStores);

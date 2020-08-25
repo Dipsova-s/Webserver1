@@ -102,6 +102,18 @@ function PrivilegesViewModel() {
         }
         return false;
     };
+    self.IsManagePrivateItemsAllowed = function () {
+        var isPrivileged = false;
+        if (self.Data() instanceof Array) {
+            jQuery.each(self.Data(), function (index, value) {
+                if (value.privileges.manage_private_items) {
+                    isPrivileged = true;
+                    return false;
+                }
+            });
+        }
+        return isPrivileged;
+    };
     self.GetLabelAuthorization = function (modelUri, labelId) {
         var modelPrivileges = self.GetModelPrivilegesByUri(modelUri);
         if (modelPrivileges.length) {

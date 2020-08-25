@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -1105,6 +1105,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angle Export.
+        /// </summary>
+        public static string AngleExport {
+            get {
+                return ResourceManager.GetString("AngleExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to download {0} individual Angles?.
         /// </summary>
         public static string AngleExport_DownloadAngleConfirmation {
@@ -1245,6 +1254,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string AngleExport_WarningNoExportItem {
             get {
                 return ResourceManager.GetString("AngleExport_WarningNoExportItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angle filters &amp; jumps.
+        /// </summary>
+        public static string AngleFilters {
+            get {
+                return ResourceManager.GetString("AngleFilters", resourceCulture);
             }
         }
         
@@ -3076,7 +3094,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [User default] {0}.
+        ///   Looks up a localized string similar to [Use default] {0}.
         /// </summary>
         public static string Default_Placeholder {
             get {
@@ -3288,6 +3306,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string DisplayDropdownListKeepFilter {
             get {
                 return ResourceManager.GetString("DisplayDropdownListKeepFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display filters &amp; jumps.
+        /// </summary>
+        public static string DisplayFilters {
+            get {
+                return ResourceManager.GetString("DisplayFilters", resourceCulture);
             }
         }
         
@@ -7678,9 +7705,9 @@ namespace EveryAngle.Shared.Globalization {
         /// <summary>
         ///   Looks up a localized string similar to approved.
         /// </summary>
-        public static string MC_approved {
+        public static string MC_Approved {
             get {
-                return ResourceManager.GetString("MC_approved", resourceCulture);
+                return ResourceManager.GetString("MC_Approved", resourceCulture);
             }
         }
         
@@ -8802,6 +8829,26 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_DecimalSeparator {
             get {
                 return ResourceManager.GetString("MC_DecimalSeparator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default approval state Automation task actions.
+        /// </summary>
+        public static string MC_DefaultApprovalState {
+            get {
+                return ResourceManager.GetString("MC_DefaultApprovalState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The default Approval state of newly added Actions in Automation tasks.
+        ///Actions can only be executed when the Approval state is &quot;approved&quot;.
+        ///The &quot;manage system&quot; privileges is required to change the Approval state of an Action..
+        /// </summary>
+        public static string MC_DefaultApprovalStateDescription {
+            get {
+                return ResourceManager.GetString("MC_DefaultApprovalStateDescription", resourceCulture);
             }
         }
         
@@ -17227,6 +17274,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string ShowFacetForAngleWarnings {
             get {
                 return ResourceManager.GetString("ShowFacetForAngleWarnings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show only my own private Displays.
+        /// </summary>
+        public static string ShowOnlyOwnPrivateDisplays {
+            get {
+                return ResourceManager.GetString("ShowOnlyOwnPrivateDisplays", resourceCulture);
             }
         }
         

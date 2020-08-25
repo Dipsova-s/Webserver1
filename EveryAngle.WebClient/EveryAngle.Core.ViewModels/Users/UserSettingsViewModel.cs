@@ -75,6 +75,8 @@ namespace EveryAngle.Core.ViewModels.Users
         [LocalizedDisplayName("MC_DefaultSuggestedFields")]
         public bool default_Suggested_Fields { get; set; }
 
+        public bool hide_other_users_private_display { get; set; }
+
         private bool IsDefaultStarredFields()
         {
             dynamic cliendSettings = JsonConvert.DeserializeObject(this.client_settings);

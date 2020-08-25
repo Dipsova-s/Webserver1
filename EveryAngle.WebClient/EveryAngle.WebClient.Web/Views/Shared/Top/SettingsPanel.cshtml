@@ -91,7 +91,7 @@
             <div class="settingsPanelSection">
                 <div class="card settingsPanelGeneral">
                     <div class="card-header">@Resource.FormatSettingLabelGeneral</div>
-                    <div class="card-body">
+                    <div class="card-body" id="SettingsPanelGeneralBody">
                         <div class="form-row">
                             <div class="form-col form-col-half">
                                 @Resource.AdvanceFilterLanguageTitle
@@ -112,12 +112,22 @@
                                         name="settingsPanelRowForExportToExcelSelector" />
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-row" data-bind="visible: userModel.IsPossibleToCreateAngle()">
                             <div class="form-col">
                                 <label class="checkbox">
                                     <input id="ShowFacetAngleWarnings" type="checkbox" />
-                                    <span id="ShowFacetAngleWarningsLabel" class="label" data-bind="visible: userModel.IsPossibleToCreateAngle()">
+                                    <span id="ShowFacetAngleWarningsLabel" class="label">
                                         @Html.Raw(Resource.ShowFacetForAngleWarnings)
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-row" data-bind="visible: userSettingsPanelHandler.CheckManagePrivateItems()">
+                            <div class="form-col">
+                                <label class="checkbox">
+                                    <input id="ShowOnlyOwnPrivateDisplays" type="checkbox" />
+                                    <span id="ShowOnlyOwnPrivateDisplaysLabel" class="label">
+                                        @Resource.ShowOnlyOwnPrivateDisplays
                                     </span>
                                 </label>
                             </div>

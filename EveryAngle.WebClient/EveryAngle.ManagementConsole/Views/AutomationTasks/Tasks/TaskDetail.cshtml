@@ -38,7 +38,8 @@
                 CurrentUser: '@ViewBag.UserId',
                 CanManageSystem: @Convert.ToString(@ViewData["CanManageSystem"]).ToLowerInvariant(),
                 CanScheduleAngles:@Convert.ToString(@ViewData["CanScheduleAngles"]).ToLowerInvariant(),
-                IsTaskOwner: @Convert.ToString(@ViewBag.IsTaskOwner).ToLowerInvariant()
+                IsTaskOwner: @Convert.ToString(@ViewBag.IsTaskOwner).ToLowerInvariant(),
+                DefaultApprovalState: '@ViewBag.DefaultApprovalState'
             });
               MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
               MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',

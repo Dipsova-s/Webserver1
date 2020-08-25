@@ -283,7 +283,7 @@
             }
 
             .btn-select-field {
-                border: 1px solid #e3e5e5;
+                border: 1px solid #b5becc;
                 border-left: 0;
             }
         }
@@ -389,6 +389,8 @@
 
             .col-list {
                 .input-argument-list {
+                    border-color: #b5becc;
+
                     &.active {
                         border: 1px solid #4d90fe;
                         box-shadow: 0 0 2px #236e97;

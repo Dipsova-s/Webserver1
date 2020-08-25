@@ -37,6 +37,7 @@
                     '</div>',
                 '</div>',
                 '<div class="accordion-body aggregation-body"></div>',
+                '<hr>',
             '</div>'
         ].join('');
     };
@@ -77,6 +78,7 @@
                         '</div>',
                     '</div>',
                 '</div>',
+                '<hr style="display:none;">',
             '</div>'
         ].join('');
     };
@@ -111,7 +113,7 @@
                     '</div>',
                     '<!-- /ko -->',
                 '</div>',
-            '</div>'
+            '</div>',
         ].join('');
     };
 }

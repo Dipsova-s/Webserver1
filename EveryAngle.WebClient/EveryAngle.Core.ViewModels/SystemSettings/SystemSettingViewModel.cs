@@ -102,6 +102,10 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("MC_FallbackFieldLength")]
         public int fallback_field_length { get; set; }
 
+        [JsonProperty(PropertyName = "default_approval_state")]
+        [LocalizedDisplayName("MC_DefaultApprovalState")]
+        public string default_approval_state { get; set; }
+
         public string ReFormatTrustedWebservers
         {
             get

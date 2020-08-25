@@ -1,7 +1,7 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
-$side-content-color: #fcfcfc;
+$side-content-color: #f7f9fa;
 
 /* .side-content
 ============================================ */
@@ -99,6 +99,13 @@ $side-content-color: #fcfcfc;
             margin-left: -15px;
             margin-right: -15px;
         }
+
+        .query-definition-subheader {
+            font-size: 11px;
+            font-style: italic;
+            letter-spacing: .25px;
+            color: #78909c;
+        }
     }
 
     .section-aggregation {
@@ -114,6 +121,7 @@ $side-content-color: #fcfcfc;
             .accordion-header, .accordion-body {
                 padding-left: 10px;
                 padding-right: 10px;
+                background-color: #fff;
             }
         }
     }
@@ -138,7 +146,7 @@ $side-content-color: #fcfcfc;
 
     .section-personal-note {
         background-color: #fcf3d7;
-        margin: 10px 14px;
+        margin: 15px 14px;
         overflow-wrap: break-word;
 
         &.disabled {
@@ -185,7 +193,7 @@ $side-content-color: #fcfcfc;
 
     .section-default-excel-template {
         .form-col-body {
-            margin-left: 19px;
+            margin-left: 21px;
             display: flex;
             flex-basis: 0;
 

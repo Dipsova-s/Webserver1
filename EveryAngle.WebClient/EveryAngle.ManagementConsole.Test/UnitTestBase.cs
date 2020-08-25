@@ -50,6 +50,7 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<IRepositoryLogService> repositoryLogService = new Mock<IRepositoryLogService>();
         protected readonly Mock<ILogFileService> logFileService = new Mock<ILogFileService>();
         protected readonly Mock<ILogFileReaderService> logFileReaderService = new Mock<ILogFileReaderService>();
+        protected readonly Mock<IGlobalSettingsAppService> systemSettingsService = new Mock<IGlobalSettingsAppService>();
         protected readonly Mock<ISystemScriptService> systemScriptService = new Mock<ISystemScriptService>();
         protected readonly Mock<IComponentService> componentService = new Mock<IComponentService>();
         protected readonly Mock<IFileTemplateService> excelTemplateService = new Mock<IFileTemplateService>();

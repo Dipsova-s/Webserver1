@@ -39,6 +39,7 @@
         self.CanManageSystem = '';
         self.CanScheduleAngles = '';
         self.IsTaskOwner = '';
+        self.DefaultApprovalState = '';
         self.Status = {
             NotStarted: 'notstarted',
             Running: 'running',
@@ -489,7 +490,7 @@
             REJECTED: 'rejected'
         };
         self.APPROVAL_STATE = {};
-        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.APPROVED] = Localization.MC_approved;
+        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.APPROVED] = Localization.MC_Approved;
         self.APPROVAL_STATE[self.APPROVAL_STATE_ID.DISABLED] = Localization.MC_Disabled;
         self.APPROVAL_STATE[self.APPROVAL_STATE_ID.REQUESTED] = Localization.MC_Requested;
         self.APPROVAL_STATE[self.APPROVAL_STATE_ID.REJECTED] = Localization.MC_Rejected;
@@ -1615,6 +1616,9 @@
                 dataValueField: "id",
                 dataSource: approvalDatasources
             });
+            jQuery('#approvalddl')
+                .data('kendoDropDownList')
+                .value(self.DefaultApprovalState);
         };
         self.CreateConditionDropdown = function () {
             var conditionDatasources = [];
@@ -2330,6 +2334,7 @@
             $('#row-enum_format')[action]();
 
             self.HideOrShowMaxRowsToExport();
+            self.HideOrShowModelTimestampIndex();
         };
         self.HideOrShowMaxRowsToExport = function () {
             var ddlDatastore = jQuery('#datastore').data('kendoDropDownList').dataItem();
@@ -2343,6 +2348,20 @@
             }
             else {
                 $('#row-max_rows_to_export').show();
+            }
+        };
+        self.HideOrShowModelTimestampIndex = function () {
+            var ddlDatastore = jQuery('#datastore').data('kendoDropDownList').dataItem();
+            if (ddlDatastore && self.IsChartOrPivot() && self.IsExcelDataStore()) {
+                $('#row-model_timestamp_index').hide();
+
+                // set value to chart or pivot
+                var maxRowsExport = $('#model_timestamp_index').data('handler');
+                if (maxRowsExport)
+                    maxRowsExport.value(-1);
+            }
+            else {
+                $('#row-model_timestamp_index').show();
             }
         };
         self.IsExcelDataStore = function () {
