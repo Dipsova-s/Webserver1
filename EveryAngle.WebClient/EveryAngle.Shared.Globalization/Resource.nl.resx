@@ -4032,7 +4032,7 @@ The "manage system" privileges is required to change the Approval state of an Ac
     <value>Display filters &amp; jumps</value>
   </data>
   <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
-    <value>Specificeer in welke kolom de model tijdstempel moet worden toegevoegd.&lt;br&gt;
-Kies '1' voor de eerste kolom. Als de model tijdstempel niet benodigd is, kies dan 'Geen'.</value>
+    <value>Specificeer in welke kolom de tijdstempel van het model moet worden toegevoegd.&lt;br&gt;
+Kies '1' voor de eerste kolom. Als de tijdstempel van het model niet nodig is, kies dan 'Geen'.</value>
   </data>
 </root>
