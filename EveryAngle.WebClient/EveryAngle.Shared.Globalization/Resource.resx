@@ -6461,7 +6461,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Specify in what column the model timestamp should be inserted.&lt;br&gt;
 Use '1' to select the first column. When no model timestamp column is required, select 'None'.</value>
   </data>
-  <data name="MC_approved" xml:space="preserve">
+  <data name="MC_Approved" xml:space="preserve">
     <value>approved</value>
   </data>
   <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
