@@ -366,11 +366,24 @@ describe("AngleHandler", function () {
     });
 
     describe(".SaveDescription", function () {
-        it("should call confirm save", function () {
-            //initial
+        beforeEach(function () {
             spyOn(angleHandler.parent.prototype, 'SaveDescription');
             spyOn(angleHandler, 'ConfirmSave');
             spyOn(angleHandler, 'IsDescriptionUsedInTask');
+        });
+        it("should not pass validation", function () {
+            //initial
+            spyOn(angleHandler, 'Validate').and.returnValue(false);
+
+            // prepare
+            angleHandler.SaveDescription();
+
+            // assert
+            expect(angleHandler.ConfirmSave).not.toHaveBeenCalled();
+        });
+        it("should call confirm save", function () {
+            //initial
+            spyOn(angleHandler, 'Validate').and.returnValue(true);
 
             // prepare
             angleHandler.SaveDescription();
@@ -1508,6 +1521,31 @@ describe("AngleHandler", function () {
             expect(result).toBeFalsy();
             expect(angleHandler.IsChangeUsedInTask).toHaveBeenCalled();
             expect(angleHandler.IsChangeDisplaysUsedInTask).toHaveBeenCalled();
+        });
+    });
+
+    describe(".SaveOrders", function () {
+        it("should save", function () {
+            // prepare
+            spyOn(window, 'UpdateDataToWebService').and.returnValue($.when({
+                display_definitions: [
+                    { uri: '/displays/1', order: 1 },
+                    { uri: '/displays/2', order: 2 }
+                ]
+            }));
+            var rawAngle = { display_definitions: [{ uri: '/displays/2' }] };
+            spyOn(angleHandler, 'GetRawData').and.returnValue(rawAngle);
+            var display = new DisplayHandler({}, angleHandler);
+            spyOn(display, 'SetRawData');
+            spyOn(angleHandler, 'GetDisplay').and.returnValues(null, display);
+            spyOn(angleHandler, 'SetRawData');
+            angleHandler.SaveOrders([]);
+
+            // assert
+            expect(rawAngle.display_definitions[0].order).toEqual(2);
+            expect(display.Data().order).toEqual(2);
+            expect(display.SetRawData).toHaveBeenCalled();
+            expect(angleHandler.SetRawData).toHaveBeenCalled();
         });
     });
 

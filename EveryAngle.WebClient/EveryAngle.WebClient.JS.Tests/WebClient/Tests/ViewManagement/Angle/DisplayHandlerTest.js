@@ -1745,6 +1745,36 @@ describe("DisplayHandler", function () {
         });
     });
 
+    describe(".CanUpdateOrder", function () {
+        it("should be able to update order", function () {
+            // prepare
+            displayHandler.Data().is_public(true);
+            spyOn(displayHandler.AngleHandler, 'CanUpdate').and.returnValue(true);
+            var result = displayHandler.CanUpdateOrder();
+
+            // assert
+            expect(result).toEqual(true);
+        });
+        it("should not be able to update order (private)", function () {
+            // prepare
+            displayHandler.Data().is_public(false);
+            spyOn(displayHandler.AngleHandler, 'CanUpdate').and.returnValue(true);
+            var result = displayHandler.CanUpdateOrder();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+        it("should not be able to update order (no authorization)", function () {
+            // prepare
+            displayHandler.Data().is_public(true);
+            spyOn(displayHandler.AngleHandler, 'CanUpdate').and.returnValue(false);
+            var result = displayHandler.CanUpdateOrder();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+    });
+
     describe('.OnAggregationChangeCallback', function () {
         it('should call function', function () {
             // prepare

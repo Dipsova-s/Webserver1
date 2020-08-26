@@ -51,7 +51,7 @@ textarea.input-light {
     border-right-color: transparent;
 
     &:focus {
-        border-bottom-color: #358ed7;
+        border-bottom-color: $primary-color;
         outline: none;
     }
 }

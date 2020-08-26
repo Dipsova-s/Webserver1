@@ -28,9 +28,9 @@ Verify Audit: Create Display action performance
 Create Angle action performance
     [Arguments]    ${target}
 
+    Run Keyword    Create Context: ${target}
     @{itemList}    Create List
     : FOR    ${INDEX}    IN RANGE    0    ${API_SEED}
-    \    Run Keyword    Create Context: ${target}
     \    Run Keyword    Start Clock: ${target}
     \    ${angleData}    Create Angle    /models/1    PREF_AUDIT_CREATE_ANGLE.json
     \    Run Keyword    Stop Clock: ${target}
@@ -48,7 +48,6 @@ Create Display action performance
     @{itemList}    Create List    ${angleUri}
 
     : FOR    ${INDEX}    IN RANGE    0    ${API_SEED}
-    \    Run Keyword    Create Context: ${target}
     \    Run Keyword    Start Clock: ${target}
     \    Create Display    ${angleUri}    PREF_AUDIT_CREATE_DISPLAY.json
     \    Run Keyword    Stop Clock: ${target}

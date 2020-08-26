@@ -3,13 +3,10 @@
     var self = this;
 
     self.DisplayHandler = displayHandler;
-    self.DisplayOverviewHandler = new DisplayOverviewHandler();
+    self.DisplayOverviewHandler = new DisplayOverviewHandler(displayHandler.AngleHandler);
     self.Initial = function (target) {
-        self.DisplayOverviewHandler.SetData(
-            self.DisplayHandler.AngleHandler.Displays,
-            self.DisplayHandler.Data().uri);
-
-        self.Render($(target));
+        self.DisplayOverviewHandler.SetData(self.DisplayHandler.AngleHandler.Displays, self.DisplayHandler.Data().uri);
+        self.Render(jQuery(target));
     };
     self.GetItemTemplate = function () {
         return [

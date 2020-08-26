@@ -4,7 +4,7 @@ function DisplayHandler(model, parent) {
     var _self = {};
 
     var self = this;
-    self.AngleHandler = null;
+    self.AngleHandler = parent;
     self.Data = ko.observable(null);
     self.ItemDescriptionHandler = new ItemDescriptionHandler();
     self.QueryDefinitionHandler = new QueryDefinitionHandler();
@@ -617,6 +617,9 @@ function DisplayHandler(model, parent) {
     };
     self.CanCreateOrUpdate = function () {
         return self.IsAdhoc() ? self.CanCreate() : self.CanUpdate();
+    };
+    self.CanUpdateOrder = function () {
+        return self.Data().is_public() && self.AngleHandler.CanUpdate();
     };
     self.IsUsedInTask = function () {
         return self.Data().used_in_task;

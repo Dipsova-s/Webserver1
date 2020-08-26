@@ -2,19 +2,8 @@
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Models/SuggestedFields.robot
 
 *** Keywords ***
-Go To Suggested Fields Page
-    Wait Side Menu Ready
-    Click Side Menu Models
-    Click Side Menu Models EA2_800
-    Click Side Menu Suggested Fields
-    Wait Until Suggested Fields Page Loaded
-
-Go To Suggested Fields Page With Admin User
-    Go to MC Then Login With Admin User
-    Go To Suggested Fields Page
-
-Reload Suggested Fields Page
-    Click Side Menu Suggested Fields
+Go To ${model} Suggested Fields Page
+    Go To MC Page    /Models/${model}/Suggested%20fields/
     Wait Until Suggested Fields Page Loaded
 
 Set Suggested Fields For Single Object

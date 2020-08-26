@@ -256,8 +256,8 @@ $position-y: 38px;
         }
 
         &.active, &:hover.active {
-            border-color: #358ed7;
-            box-shadow: 0 0 0 1px #358ed7;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 1px $primary-color;
         }
     }
 }

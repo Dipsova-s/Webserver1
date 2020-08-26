@@ -6445,4 +6445,19 @@ The "manage system" privileges is required to change the Approval state of an Ac
   <data name="DisplayFilters" xml:space="preserve">
     <value>Display filters &amp; jumps</value>
   </data>
+  <data name="DisplayGroupPublic" xml:space="preserve">
+    <value>Publiée ({0})</value>
+  </data>
+  <data name="DisplayGroupPrivate" xml:space="preserve">
+    <value>Privé ({0})</value>
+  </data>
+  <data name="DisplayGroupOther" xml:space="preserve">
+    <value>Autre ({0})</value>
+  </data>
+  <data name="DisplayGroupOpen" xml:space="preserve">
+    <value>Show group</value>
+  </data>
+  <data name="DisplayGroupClose" xml:space="preserve">
+    <value>Hide group</value>
+  </data>
 </root>

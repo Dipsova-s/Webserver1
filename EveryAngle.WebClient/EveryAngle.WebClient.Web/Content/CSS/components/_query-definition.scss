@@ -190,7 +190,7 @@
 }
 .query-definition-drop-area.focus {
     .drop-area-cover {
-        @include border-custom(solid, #358ed7);
+        @include border-custom(solid, $primary-color);
     }
 }
 

@@ -386,6 +386,7 @@ Click Confirm Delete Display
     Wait Until Page Contains    Delete Display:
     Click Element    ${btnConfirmDeleteDisplay}
     Wait Progress Bar Closed
+    Wait Until Ajax Complete
 
 Get Display Warning Count
     ${count}    Get Element Count    ${icoDisplayWarningItems}

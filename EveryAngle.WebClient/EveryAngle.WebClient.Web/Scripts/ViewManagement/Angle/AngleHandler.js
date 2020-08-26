@@ -179,6 +179,9 @@ function AngleHandler(model) {
         _self.canEditId = canEditId;
     };
     self.SaveDescription = function () {
+        if (!self.Validate())
+            return;
+
         var callback = jQuery.proxy(self.parent.prototype.SaveDescription, self);
         self.ConfirmSave(self.IsDescriptionUsedInTask, callback);
     };
@@ -459,6 +462,34 @@ function AngleHandler(model) {
     };
     self.IsConflict = function () {
         return self.IsChangeUsedInTask() || self.IsChangeDisplaysUsedInTask();
+    };
+    self.SaveOrders = function (orders) {
+        var data = {
+            display_definitions: orders
+        };
+        var uri = self.Data().uri + '/order';
+        var query = {};
+        query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'no';
+        query[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
+        query[enumHandlers.PARAMETERS.FORCED] = true;
+        return UpdateDataToWebService(uri + '?' + jQuery.param(query), data)
+            .done(function (angle) {
+                var rawAngle = self.GetRawData();
+                jQuery.each(angle.display_definitions, function (_index, display) {
+                    // update Angle
+                    var rawAngleDisplay = rawAngle.display_definitions.findObject('uri', display.uri);
+                    if (rawAngleDisplay)
+                        rawAngleDisplay.order = display.order;
+
+                    // update Display
+                    var handler = self.GetDisplay(display.uri);
+                    if (handler) {
+                        handler.Data().order = display.order;
+                        handler.SetRawData({ order: display.order });
+                    }
+                });
+                self.SetRawData(rawAngle);
+            });
     };
     self.SaveAll = function (forced) {
         var isAdhoc = self.IsAdhoc();

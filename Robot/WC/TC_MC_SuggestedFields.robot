@@ -1,8 +1,8 @@
 *** Settings ***
 Resource                  ${EXECDIR}/resources/WCSettings.robot
-Suite Setup               Go To Suggested Fields Page With Admin User
+Suite Setup               Go to MC Then Login With Admin User
 Suite Teardown            Logout MC Then Close Browser
-Test Teardown             Reload Suggested Fields Page
+Test Setup                Go To EA2_800 Suggested Fields Page
 
 *** Variables ***
 ${PDHeaderObject}         PD Header
