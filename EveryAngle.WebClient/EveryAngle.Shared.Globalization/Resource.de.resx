@@ -6425,6 +6425,10 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="OpenSidebar" xml:space="preserve">
     <value>Open sidebar</value>
   </data>
+  <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
+    <value>Specify in what column the model timestamp should be inserted.&lt;br&gt;
+Use '1' to select the first column. When no model timestamp column is required, select 'None'.</value>
+  </data>
   <data name="MC_Approved" xml:space="preserve">
     <value>approved</value>
   </data>

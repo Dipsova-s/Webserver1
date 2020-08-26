@@ -169,7 +169,7 @@ function ExportHandler() {
         });
         headerFormatDropdownlist.value(self.CurrentExportModel.HeaderFormat);
 
-        var enquoteDropdownlist = WC.HtmlHelper.DropdownList('#enquote-dropdownlist', self.CurrentExportModel.EnquoteSettings,{
+        var enquoteDropdownlist = WC.HtmlHelper.DropdownList('#enquote-dropdownlist', self.CurrentExportModel.EnquoteSettings, {
             dataTextField: "TEXT",
             dataValueField: "VALUE",
             index: 1,
@@ -179,7 +179,7 @@ function ExportHandler() {
         });
         enquoteDropdownlist.value(self.CurrentExportModel.EnquoteSetting);
 
-        var lineSeparatorDropdownlist = WC.HtmlHelper.DropdownList('#line-separator-dropdownlist', self.CurrentExportModel.LineSeparators,{
+        var lineSeparatorDropdownlist = WC.HtmlHelper.DropdownList('#line-separator-dropdownlist', self.CurrentExportModel.LineSeparators, {
             dataTextField: "TEXT",
             dataValueField: "TEXT",
             index: 0,
@@ -240,11 +240,11 @@ function ExportHandler() {
 
         // M4-33218: new modeldate ui
         self.CreateAddModelDateUI();
-        
+
     };
     self.CreateAddModelDateUI = function () {
         var addModelDateUI;
-        var defaultValue = self.CurrentExportModel.AddModelDateAtColumn;
+        var defaultValue = self.ConvertDefaultModelTimestampToCSVModelTimestamp(self.CurrentExportModel.AddModelDateAtColumn);
         var setInputValue = function (value) {
             self.SetModelDateInputValue(addModelDateUI, value);
         };
@@ -268,9 +268,7 @@ function ExportHandler() {
             change: valueChanged,
             spin: valueChanged
         }).data('kendoNumericTextBox');
-        addModelDateUI.value(defaultValue);
-        addModelDateUI.trigger('change');
-
+     
         // placeholder - set placeholder text
         addModelDateUI.__placeholder = addModelDateUI._placeholder;
         addModelDateUI._placeholder = function (value) {
@@ -309,11 +307,19 @@ function ExportHandler() {
             }
             this.__blur();
         };
+        addModelDateUI.value(defaultValue);
+        addModelDateUI.trigger('change');
         return addModelDateUI;
     };
     self.GetModelDateInputValue = function (value) {
         // get 'None' if null
-        return typeof value === 'number' ? value: Captions.Label_CSV_Export_ModelDate_None ;
+        return !self.IsNoneValue(value) ? value : Captions.Label_CSV_Export_ModelDate_None;
+    };
+    self.IsNoneValue = function (value) {
+        return (parseInt(value) <= 0 || isNaN(parseInt(value)));
+    };
+    self.ConvertDefaultModelTimestampToCSVModelTimestamp = function (value) {
+        return (!isNaN(parseInt(value)) && value >= 0) ? (value + 1) : null;
     };
     self.SetModelDateInputValue = function (ui, value) {
         // - set 'None' if 0
@@ -324,7 +330,7 @@ function ExportHandler() {
         // set value to model
         // - convert number to index (value)
         // - 0 is null
-        self.CurrentExportModel.AddModelDateAtColumn = typeof value === 'number' ? Math.min(value, fieldCount) : null;
+        self.CurrentExportModel.AddModelDateAtColumn = !self.IsNoneValue(value) ? (value - 1) : null;
     };
 
     self.ValidateExportCSV = function (exportSettings) {
@@ -413,69 +419,69 @@ function ExportHandler() {
             "fields": self.CurrentExportModel.CurrentFields,
             "data_settings": {
                 "setting_list": [
-                     {
-                         "id": "header_format",
-                         "value": exportSettings.HeaderFormat
-                     },
-                     {
-                         "id": "csv_enquote_headers",
-                         "value": exportSettings.EnquoteHeader
-                     },
-                     {
-                         "id": "csv_enquote",
-                         "value": exportSettings.EnquoteSetting
-                     },
-                     {
-                         "id": "csv_enquote_character",
-                         "value": exportSettings.EnquoteCharacter || exportSettings.DefaultEnquoteCharacter
-                     },
-                     {
-                         "id": "csv_field_separator",
-                         "value": exportSettings.FieldSeparator || exportSettings.DefaultFieldSeparator
-                     },
-                     {
-                         "id": "csv_line_separator",
-                         "value": exportSettings.LineSeparator
-                     },
-                     {
-                         "id": "decimal_separator",
-                         "value": exportSettings.DecimalSeparator || exportSettings.DefaultDecimalSeparator
-                     },
-                     {
-                         "id": "date_separator",
-                         "value": exportSettings.DateSeparator || exportSettings.DefaultDateSeparator
-                     },
-                     {
-                         "id": "time_separator",
-                         "value": exportSettings.TimeSeparator || exportSettings.DefaultTimeSeparator
-                     },
-                     {
-                         "id": "date_format",
-                         "value": exportSettings.DateFormat
-                     },
-                     {
-                         "id": "time_format",
-                         "value": exportSettings.TimeFormat
-                     },
-                     {
-                         "id": "number_of_decimals",
-                         "value": isNaN(exportSettings.Decimal) ? exportSettings.DefaultDecimals : parseFloat(exportSettings.Decimal)
-                     },
-                     {
-                         "id": "bool_format_true",
-                         "value": exportSettings.TrueChar || exportSettings.DefaultBoolChars.TrueChar
-                     },
-                     {
-                         "id": "bool_format_false",
-                         "value": exportSettings.FalseChar || exportSettings.DefaultBoolChars.FalseChar
-                     },
-                     {
-                         "id": "enum_format",
-                         "value": exportSettings.EnumFormat
-                     },
-                     {
-                         "id": "model_timestamp_index",
-                         "value": isNaN(exportSettings.AddModelDateAtColumn) ? exportSettings.DefaultAddModelDateAtColumn : parseFloat(exportSettings.AddModelDateAtColumn)
+                    {
+                        "id": "header_format",
+                        "value": exportSettings.HeaderFormat
+                    },
+                    {
+                        "id": "csv_enquote_headers",
+                        "value": exportSettings.EnquoteHeader
+                    },
+                    {
+                        "id": "csv_enquote",
+                        "value": exportSettings.EnquoteSetting
+                    },
+                    {
+                        "id": "csv_enquote_character",
+                        "value": exportSettings.EnquoteCharacter || exportSettings.DefaultEnquoteCharacter
+                    },
+                    {
+                        "id": "csv_field_separator",
+                        "value": exportSettings.FieldSeparator || exportSettings.DefaultFieldSeparator
+                    },
+                    {
+                        "id": "csv_line_separator",
+                        "value": exportSettings.LineSeparator
+                    },
+                    {
+                        "id": "decimal_separator",
+                        "value": exportSettings.DecimalSeparator || exportSettings.DefaultDecimalSeparator
+                    },
+                    {
+                        "id": "date_separator",
+                        "value": exportSettings.DateSeparator || exportSettings.DefaultDateSeparator
+                    },
+                    {
+                        "id": "time_separator",
+                        "value": exportSettings.TimeSeparator || exportSettings.DefaultTimeSeparator
+                    },
+                    {
+                        "id": "date_format",
+                        "value": exportSettings.DateFormat
+                    },
+                    {
+                        "id": "time_format",
+                        "value": exportSettings.TimeFormat
+                    },
+                    {
+                        "id": "number_of_decimals",
+                        "value": isNaN(exportSettings.Decimal) ? exportSettings.DefaultDecimals : parseFloat(exportSettings.Decimal)
+                    },
+                    {
+                        "id": "bool_format_true",
+                        "value": exportSettings.TrueChar || exportSettings.DefaultBoolChars.TrueChar
+                    },
+                    {
+                        "id": "bool_format_false",
+                        "value": exportSettings.FalseChar || exportSettings.DefaultBoolChars.FalseChar
+                    },
+                    {
+                        "id": "enum_format",
+                        "value": exportSettings.EnumFormat
+                    },
+                    {
+                        "id": "model_timestamp_index",
+                        "value": isNaN(exportSettings.AddModelDateAtColumn) ? exportSettings.DefaultAddModelDateAtColumn : parseFloat(exportSettings.AddModelDateAtColumn)
                     },
                     {
                         "id": "max_rows_to_export",
@@ -502,26 +508,26 @@ function ExportHandler() {
         clearTimeout(fnCheckExportProgress);
         if (!progressbarModel.IsCancelPopup) {
             GetDataFromWebService(uri)
-            .done(function (response) {
-                progressbarModel.SetProgressBarText(kendo.toString(response.progress * 100, 'n0'), null, Localization.ProgressBar_CurrentRetrievingCSVFileFromApplicationServer);
-                if (response.status.toLowerCase() === "finished") {
+                .done(function (response) {
+                    progressbarModel.SetProgressBarText(kendo.toString(response.progress * 100, 'n0'), null, Localization.ProgressBar_CurrentRetrievingCSVFileFromApplicationServer);
+                    if (response.status.toLowerCase() === "finished") {
 
-                    WC.Ajax.EnableBeforeExit = false;
-                    WC.Utility.DownloadFile(WC.Ajax.BuildRequestUrl(response.file_uri, false));
+                        WC.Ajax.EnableBeforeExit = false;
+                        WC.Utility.DownloadFile(WC.Ajax.BuildRequestUrl(response.file_uri, false));
 
-                    fnCheckExportProgress = setTimeout(function () {
-                        self.DoneToGenerateCSV(e, false);
-                    }, 2000);
+                        fnCheckExportProgress = setTimeout(function () {
+                            self.DoneToGenerateCSV(e, false);
+                        }, 2000);
 
-                }
-                else if (response.status.toLowerCase() === "failed") {
-                    popup.Error(Localization.Error_Title, response.message);
-                    self.DoneToGenerateCSV(e);
-                }
-                else {
-                    fnCheckExportProgress = setTimeout(self.GenerateCSV.bind(self, e), 2000);
-                }
-            });
+                    }
+                    else if (response.status.toLowerCase() === "failed") {
+                        popup.Error(Localization.Error_Title, response.message);
+                        self.DoneToGenerateCSV(e);
+                    }
+                    else {
+                        fnCheckExportProgress = setTimeout(self.GenerateCSV.bind(self, e), 2000);
+                    }
+                });
         }
         else {
             DeleteDataToWebService(uri);
@@ -554,11 +560,11 @@ function ExportHandler() {
             var fieldSettings = (displayType === enumHandlers.DISPLAYTYPE.CHART ? chartHandler : pivotPageHandler).FieldSettings.GetFields().findObjects("IsSelected", true);
             for (var loop = 0; loop < fieldSettings.length; loop++) {
                 results.push({
-                    field:              fieldSettings[loop].FieldName,
-                    field_details:      fieldSettings[loop].FieldDetails,
-                    valid:              fieldSettings[loop].Valid,
-                    validation_error:   fieldSettings[loop].ValidError,
-                    multi_lang_alias:   fieldSettings[loop].MultiLangAlias
+                    field: fieldSettings[loop].FieldName,
+                    field_details: fieldSettings[loop].FieldDetails,
+                    valid: fieldSettings[loop].Valid,
+                    validation_error: fieldSettings[loop].ValidError,
+                    multi_lang_alias: fieldSettings[loop].MultiLangAlias
                 });
             }
         }

@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -6012,6 +6012,16 @@ namespace EveryAngle.Shared.Globalization {
         public static string InsertColumn {
             get {
                 return ResourceManager.GetString("InsertColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify in what column the model timestamp should be inserted.&lt;br&gt;
+        ///Use &apos;1&apos; to select the first column. When no model timestamp column is required, select &apos;None&apos;..
+        /// </summary>
+        public static string InsertCSVModelTimestamp_info {
+            get {
+                return ResourceManager.GetString("InsertCSVModelTimestamp_info", resourceCulture);
             }
         }
         

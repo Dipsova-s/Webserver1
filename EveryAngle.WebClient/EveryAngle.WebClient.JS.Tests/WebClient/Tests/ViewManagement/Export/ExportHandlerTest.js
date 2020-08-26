@@ -115,7 +115,7 @@ describe("ExportHandlerTest", function () {
     describe("call GetModelDateInputValue", function () {
         var tests = [
             { value: null, expected: "None" },
-            { value: 0, expected: 0 },
+            { value: 0, expected: "None" },
             { value: 1, expected: 1 },
             { value: 2, expected: 2 }
         ];
@@ -130,16 +130,17 @@ describe("ExportHandlerTest", function () {
 
     describe("call SetModelDateColumn", function () {
         var tests = [
-            { value: 0, expected: 0 },
-            { value: 1, expected: 1 },
-            { value: 2, expected: 2 },
-            { value: 5, expected: 5 },
+            { value: 0, expected: null },
+            { value: 1, expected: 0 },
+            { value: 2, expected: 1 },
+            { value: 5, expected: 4 },
             { value: 6, expected: 5 },
-            { value: 10, expected: 5 }
+            { value: 10, expected: 9 }
         ];
 
         $.each(tests, function (index, test) {
             it("should set correct model date column with 5 columns (" + test.value + " -> " + test.expected + ")", function () {
+                
                 exportHandler.SetModelDateColumn(test.value, 5);
                 expect(test.expected).toEqual(exportHandler.CurrentExportModel.AddModelDateAtColumn);
             });
@@ -150,6 +151,40 @@ describe("ExportHandlerTest", function () {
             spyOn(jQuery.fn, 'removeClass').and.returnValue($());
             exportHandler.SetButtonStatus();
             expect(jQuery.fn.removeClass).toHaveBeenCalled();
+        });
+    });
+
+    describe(".IsNoneValue", function () {
+        var tests = [
+            { value: '', expected: true },
+            { value: 0 , expected: true },
+            { value: -1, expected: true },
+            { value: 1, expected: false },
+            { value: 5, expected: false }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should return correct result from  (" + test.value + " -> " + test.expected + ")", function () {
+                var actual=  exportHandler.IsNoneValue(test.value);
+                expect(test.expected).toEqual(actual);
+            });
+        });
+    });
+
+    describe(".ConvertDefaultModelTimestampToCSVModelTimestamp", function () {
+        var tests = [
+            { value: '', expected: null },
+            { value: 0, expected: 1 },
+            { value: -1, expected: null },
+            { value: 1, expected: 2 },
+            { value: 5, expected: 6 }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should return correct result from  (" + test.value + " -> " + test.expected + ")", function () {
+                var actual = exportHandler.ConvertDefaultModelTimestampToCSVModelTimestamp(test.value);
+                expect(test.expected).toEqual(actual);
+            });
         });
     });
 });
