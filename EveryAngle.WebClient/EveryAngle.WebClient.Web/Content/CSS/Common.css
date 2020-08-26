@@ -2251,7 +2251,7 @@ textarea.input-light {
       width: auto;
       font-size: 16px !important;
       font-style: normal;
-      color: #f3aa18;
+      color: #ff9800;
       padding: 0 2px;
       margin-top: -4px; }
       .displayNameContainer .icon.icon-adhoc:before {
@@ -2298,7 +2298,8 @@ textarea.input-light {
       width: 13px;
       height: 13px; }
     .displayNameContainer.small .icon.icon-adhoc {
-      width: auto; }
+      width: auto;
+      font-size: 14px !important; }
   .displayNameContainer.small .name {
     top: 1px; }
 
@@ -3441,6 +3442,11 @@ textarea.input-light {
       .display-tab .tab-menu-wrapper .tab-menu .validWarning {
         margin: unset;
         box-sizing: border-box; }
+      .display-tab .tab-menu-wrapper .tab-menu .displayNameContainer.small .icon.icon-adhoc {
+        margin-left: -2px;
+        margin-top: -8px; }
+      .display-tab .tab-menu-wrapper .tab-menu .displayNameContainer.small .icon.display-icon.default {
+        margin-right: 3px; }
       .display-tab .tab-menu-wrapper .tab-menu .icon-close {
         visibility: hidden;
         cursor: pointer;

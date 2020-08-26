@@ -125,6 +125,7 @@
                             <div class="displayNameContainer small">
                                 <div class="front">
                                     <i data-bind="attr: { 'class': 'display-icon icon ' + DisplayTypeClassName + ' ' + ExtendDisplayTypeClassName }"></i>
+                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + UnSavedClassName }"></i>
                                 </div>
                                 <span class="name textEllipsis" data-bind="text: Name, attr: { 'data-tooltip-text': Name }" data-role="tooltip" data-tooltip-position="bottom" data-showwhenneed="true"></span>
                                 <div class="rear">
@@ -132,7 +133,6 @@
                                     <i class="icon" data-bind="attr: { 'class': 'icon ' + ValidClassName }"></i>
                                     <i class="icon" data-bind="attr: { 'class': 'icon ' + FilterClassName }"></i>
                                     <i class="icon" data-bind="attr: { 'class': 'icon ' + ParameterizedClassName }"></i>
-                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + UnSavedClassName }"></i>
                                     <!-- ko if: IsSelected -->
                                     <i class="icon icon-pencil btn-edit-description" data-bind="click: $root.ShowEditDescriptionPopup, attr: { 'data-tooltip-text': Localization.Edit }" data-role="tooltip" data-tooltip-position="bottom"></i>
                                     <!-- /ko -->

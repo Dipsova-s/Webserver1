@@ -169,6 +169,19 @@ $delete-icon-color: #ea3d2f;
                 box-sizing: border-box;
             }
 
+            .displayNameContainer.small {
+                .icon {
+                    &.icon-adhoc {
+                        margin-left: -2px;
+                        margin-top: -8px;
+                    }
+
+                    &.display-icon.default {
+                        margin-right: 3px;
+                    }
+                }
+            }
+
             .icon-close {
                 visibility: hidden;
                 cursor: pointer;
