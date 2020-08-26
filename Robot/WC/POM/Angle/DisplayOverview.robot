@@ -6,10 +6,13 @@ ${ddlSelectDisplayItems}                jquery=#DisplayOverview .listview-item:v
 ${ddlSelectDisplaySelectedItem}         jquery=#DisplayOverview .listview-item:visible.active
 ${ddlSelectDisplayType}                 jquery=#NewDisplay .listview-item:visible
 ${chkKeepActiveDisplayFilters}          jquery=#KeepFilter
+${btnAddNewDisplay}                     jquery=#DisplayTabs .btn-new-display
+${displayPopup}                         jquery=#DisplayTabs .new-display-popup
 
 *** Keywords ***
 Wait Until Display Overview Is Ready
     Wait Until Display Tab Is Ready
+    Sleep  ${TIMEOUT_GENERAL}
 
 Display Count Should Be
     [Arguments]  ${expected}
@@ -73,6 +76,10 @@ Active Display Should Be Visible In Dropdown
     Element Should Be Visible   ${ddlSelectDisplaySelectedItem}
 
 # display type popup
+Wait Display Type Popup Loaded
+    Wait Until Page Contains Element    ${displayPopup}
+    Wait Until Element Is Visible       ${displayPopup}
+
 Open Display Type Dropdown
     Click Element    ${btnAddNewDisplay}
     Wait Display Type Popup Loaded

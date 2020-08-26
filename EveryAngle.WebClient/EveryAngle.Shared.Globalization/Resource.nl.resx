@@ -390,6 +390,9 @@
   <data name="Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
+  <data name="SaveAll" xml:space="preserve">
+    <value>Alles opslaan</value>
+  </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Zoekresultaten</value>
   </data>
@@ -4030,6 +4033,21 @@ The "manage system" privileges is required to change the Approval state of an Ac
   </data>
   <data name="DisplayFilters" xml:space="preserve">
     <value>Display filters &amp; jumps</value>
+  </data>
+  <data name="DisplayGroupPublic" xml:space="preserve">
+    <value>Gepubliceerd ({0})</value>
+  </data>
+  <data name="DisplayGroupPrivate" xml:space="preserve">
+    <value>Privé ({0})</value>
+  </data>
+  <data name="DisplayGroupOther" xml:space="preserve">
+    <value>Andere ({0})</value>
+  </data>
+  <data name="DisplayGroupOpen" xml:space="preserve">
+    <value>Toon groep</value>
+  </data>
+  <data name="DisplayGroupClose" xml:space="preserve">
+    <value>Verberg groep</value>
   </data>
   <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
     <value>Specificeer in welke kolom de tijdstempel van het model moet worden toegevoegd.&lt;br&gt;

@@ -1,4 +1,5 @@
-﻿@import '../abstracts/mixins';
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
 
 .breadcrumb-wrapper {
     position: relative;
@@ -28,7 +29,7 @@
             color: #818181;
 
             &:hover .breadcrumb-name {
-                color: #358ed7;
+                color: $primary-color;
                 text-decoration: underline;
             }
         }

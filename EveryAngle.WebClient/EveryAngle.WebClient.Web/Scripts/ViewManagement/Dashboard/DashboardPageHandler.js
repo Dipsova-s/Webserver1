@@ -2154,7 +2154,7 @@ function DashboardPageHandler() {
 
     // before unload
     self.SaveClientSettings = function () {
-        var clientSettingsRequest = userSettingModel.GetSidePanelSettingsData();
+        var clientSettingsRequest = userSettingModel.GetClientSettingsData();
         var additionalRequests = [];
         if (clientSettingsRequest) {
             userSettingModel.UpdateClientSettings(JSON.parse(clientSettingsRequest.data));

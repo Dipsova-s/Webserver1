@@ -3328,6 +3328,51 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide group.
+        /// </summary>
+        public static string DisplayGroupClose {
+            get {
+                return ResourceManager.GetString("DisplayGroupClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show group.
+        /// </summary>
+        public static string DisplayGroupOpen {
+            get {
+                return ResourceManager.GetString("DisplayGroupOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other ({0}).
+        /// </summary>
+        public static string DisplayGroupOther {
+            get {
+                return ResourceManager.GetString("DisplayGroupOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private ({0}).
+        /// </summary>
+        public static string DisplayGroupPrivate {
+            get {
+                return ResourceManager.GetString("DisplayGroupPrivate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published ({0}).
+        /// </summary>
+        public static string DisplayGroupPublic {
+            get {
+                return ResourceManager.GetString("DisplayGroupPublic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display ID.
         /// </summary>
         public static string DisplayId {
@@ -16905,6 +16950,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save all.
+        /// </summary>
+        public static string SaveAll {
+            get {
+                return ResourceManager.GetString("SaveAll", resourceCulture);
             }
         }
         

@@ -1,19 +1,8 @@
 ﻿describe("DisplayDrilldownHandler", function () {
     var handler;
     beforeEach(function () {
-        handler = new DisplayDrilldownHandler({
-            AngleHandler: {
-                Displays: '',
-                GetDisplay: $.noop
-            },
-            QueryDefinitionHandler: {
-                AggregationOptions: $.noop
-            },
-            Data: $.noop,
-            GetDetails: $.noop,
-            SetDetails: $.noop,
-            CanUpdate: $.noop
-        });
+        var displayHandler = new DisplayHandler({}, new AngleHandler({}));
+        handler = new DisplayDrilldownHandler(displayHandler);
     });
 
     describe(".Initial", function () {

@@ -25,15 +25,14 @@ Verify Audit: Delete Display action performance
 Delete Angle action performance
     [Arguments]    ${target}
 
+    Run Keyword    Create Context: ${target}
     @{itemList}    Create List
     : FOR    ${INDEX}    IN RANGE    0    ${API_SEED}
-    \    Run Keyword    Create Context: ${target}
     \    ${angleData}    Create Angle    /models/1    PREF_AUDIT_CREATE_ANGLE.json
     \    ${angleUri}    Get Uri From Response    ${angleData}
     \    Append To List   ${itemList}    ${angleUri}
 
     : FOR    ${itemUri}    IN    @{itemList}
-    \    Run Keyword    Create Context: ${target}
     \    Run Keyword    Start Clock: ${target}
     \    Delete Angle    ${itemUri}
     \    Run Keyword    Stop Clock: ${target}
@@ -50,13 +49,11 @@ Delete Display action performance
 
     @{displayUriList}    Create List
     : FOR    ${INDEX}    IN RANGE    0    ${API_SEED}
-    \    Run Keyword    Create Context: ${target}
     \    ${displayData}    Create Display    ${angleUri}    PREF_AUDIT_CREATE_DISPLAY.json
     \    ${displayUri}    Get Uri From Response    ${displayData}
     \    Append To List   ${displayUriList}    ${displayUri}
 
     : FOR    ${itemUri}    IN    @{displayUriList}
-    \    Run Keyword    Create Context: ${target}
     \    Run Keyword    Start Clock: ${target}
     \    Delete Display    ${itemUri}
     \    Run Keyword    Stop Clock: ${target}

@@ -152,10 +152,8 @@
         return data;
     };
     self.Save = function () {
-
-        if (!self.AngleHandler.Validate()) {
+        if (!self.AngleHandler.Validate())
             return;
-        }
 
         var data = self.GetSaveData();
         self.ItemSaveAsHandler.ShowProgressbar();

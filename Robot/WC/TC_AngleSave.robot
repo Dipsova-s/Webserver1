@@ -15,7 +15,7 @@ Verify Saving Privilege
 
     # EAPower
     Verify EAPower: Save Buttons Privilege
-    Click Save All
+    Click Save Angle
     Publish Angle
     Validate Angle
 

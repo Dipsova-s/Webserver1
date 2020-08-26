@@ -58,6 +58,7 @@ Set Next Request Expectation
 
 Send GET
     [Arguments]   ${path}    ${success}=True
+    Restore Created Context
     Set Next Request Expectation    ${success}
     Set Request Header    Content-Type    application/json
     GET     ${path}
@@ -66,6 +67,7 @@ Send GET
 
 Send PUT
     [Arguments]   ${path}    ${data}    ${success}=True
+    Restore Created Context
     Set Next Request Expectation    ${success}
     Set Request Header    Content-Type    application/json
     ${body}    Get Request Body    ${data}
@@ -76,6 +78,7 @@ Send PUT
 
 Send POST
     [Arguments]   ${path}    ${data}    ${success}=True
+    Restore Created Context
     Set Next Request Expectation    ${success}
     Set Request Header    Content-Type    application/json
     ${body}    Get Request Body    ${data}
@@ -86,6 +89,7 @@ Send POST
 
 Send DELETE
     [Arguments]   ${path}    ${success}=True
+    Restore Created Context
     Set Next Request Expectation    ${success}
     Set Request Header    Content-Type    application/json
     DELETE     ${path}
@@ -174,5 +178,5 @@ Get Peek Time
 Clean Up Items
     [Arguments]    ${target}    ${items}    ${user}=${AdminUsername}    ${pwd}=${Password}
     : FOR    ${item}    IN   @{items}
-    \    Run Keyword    Run Keyword    Create Context: ${target}  ${user}  ${pwd}
+    \    Run Keyword    Create Context: ${target}  ${user}  ${pwd}
     \    Send DELETE    ${item}

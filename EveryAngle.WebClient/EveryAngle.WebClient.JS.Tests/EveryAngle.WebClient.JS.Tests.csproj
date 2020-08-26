@@ -56,15 +56,12 @@
   <ItemGroup>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\**\*.js">
       <Link>ManagementConsole\Dependencies\%(RecursiveDir)\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\**\*.js">
       <Link>SharedDependencies\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\**\*.js">
       <Link>WebClient\Dependencies\%(RecursiveDir)\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />

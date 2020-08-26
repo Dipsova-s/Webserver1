@@ -65,7 +65,10 @@ function EnumHandlers() {
         DASHBOARD_PANEL_SIZE: 'dashboard_panel_size',
         DASHBOARD_PANEL_TAB: 'dashboard_panel_tab',
         DASHBOARD_PANEL_ACCORDIONS: 'dashboard_panel_accordions',
-        WIDGET_PANEL_ACCORDIONS: 'widget_panel_accordions'
+        WIDGET_PANEL_ACCORDIONS: 'widget_panel_accordions',
+        DISPLAY_GROUP_PUBLIC: 'display_group_public',
+        DISPLAY_GROUP_PRIVATE: 'display_group_private',
+        DISPLAY_GROUP_OTHER: 'display_group_other'
     };
     self.ACCORDION = {
         DEFINITION: 'definition',

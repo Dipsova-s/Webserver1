@@ -4,7 +4,7 @@ Resource            ${EXECDIR}/WC/API/API_Angle.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_DisplayDrilldown.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
-Force Tags          acceptance_s     acc_wc_s
+Force Tags          acc_wc_s
 
 *** Test Cases ***
 Select Default Drilldown And Save
@@ -17,6 +17,7 @@ Select Default Drilldown And Save
     Go To Display And Set Default Drilldown         Gauge Chart     Chart
     Verify Asterisk Is Shown                        Gauge Chart
     Verify Display Remember Drilldown Display       Gauge Chart     Chart
+    Click Save All
     Verify Drilldown Display Value After Saving     Gauge Chart     Chart
     [Teardown]  Clean Up Items And Go To Search Page
 
@@ -40,14 +41,12 @@ Default Drilldown Should Be Copied By Copy And Paste Display
     [Setup]  Run keywords   Import Angle By API  /models/1  ANGLE_WithDefaultDrilldownDisplay.json  user=${Username}
     ...      AND    Import Angle By API  /models/1  ANGLE_DrilldownDisplayTesting.json  user=${Username}
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_WithDefaultDrilldownDisplay
-    Click Angle Dropdown Actions Copy Display
-    Click Angle Dropdown Actions Paste Display
-    Wait Angle Page Document Loaded
+    Copy Display
+    Paste Display
     Verify Selected Default Drilldown Display       Pivot Display
     # open another angle
     Go to Search Page
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_DrilldownDisplayTesting 
-    Click Angle Dropdown Actions Paste Display
-    Wait Angle Page Document Loaded
+    Paste Display
     Verify Selected Default Drilldown Display       [None]
     [Teardown]  Clean Up Items And Go To Search Page

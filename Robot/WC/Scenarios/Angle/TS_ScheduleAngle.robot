@@ -23,14 +23,10 @@ Verify Wheather User Redirects To Add Action Page
 
 Preparing Schedule Angle
     Import Angle By API    /models/1    Angle_For_ScheduleAngle.json
-    Create Context: Web
     Create Task     TaskForScheduleAngle.json
-    Create Context: Web
     ${roleData}    Create Role    SYSTEMROLE_Scheduler.json
     ${roleUri}     Get Uri From Response    ${roleData}
-    Add Clean Up Item     ${roleUri}?forced=true    
-    Create Context: Web
+    Add Clean Up Item     ${roleUri}?forced=true
     ${user}  Get User By Name  EAViewer
     ${uri}  Get Uri From Response  ${user}
-    Create Context: Web
     Update User Roles  ${uri}  [{"role_id":"EA2_800_VIEWER","model_id":"EA2_800"},{"role_id":"Scheduleonly"}]}]

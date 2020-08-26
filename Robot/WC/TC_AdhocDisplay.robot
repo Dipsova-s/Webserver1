@@ -23,7 +23,8 @@ Adhoc Display Is Editable In Adhoc Angle
     [Documentation]     Able to update id,name,description to a new display on ad-hoc angle
     ...                 Risk/coverage area: Created Adhoc display in Adhoc angle should be editable
     ${angleName}  Set Variable  [ROBOT] Adhoc Display Is Editable In Adhoc Angle
-    Create Blank Adhoc Angle From One Object      PD    ${angleName}
+    ${bps}    Create List    S2D
+    Create Blank Adhoc Angle From One Object      PD    ${angleName}  ${bps}
     Create An Adhoc Chart                   Chart Display
     Edit Display Description                en      new Chart Display     my description    ${TRUE}
     Display Tab Should Be Visible By Name   new Chart Display

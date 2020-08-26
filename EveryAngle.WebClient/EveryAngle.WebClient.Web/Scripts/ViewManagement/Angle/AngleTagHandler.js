@@ -59,6 +59,11 @@
         return self.AngleHandler.Data().assigned_tags();
     };
     self.OnChange = function (e) {
+        if (!self.AngleHandler.Validate()) {
+            self.Cancel();
+            return;
+        }
+
         var tags = e.sender.value();
         var getValue = function (value) {
             return value.slice().sort().join(',');

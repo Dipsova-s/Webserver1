@@ -224,7 +224,14 @@ function AnglePageHandler() {
         self.SetHandlerAngle();
         
         self.HandlerAngle.InitialAngleUserSpecific();
+
+        // display overview
+        self.HandlerDisplayOverview.Initial();
         self.HandlerDisplayOverview.Redirect = self.Redirect;
+        self.HandlerDisplayOverview.SwitchDisplay = self.SwitchDisplay;
+        self.HandlerDisplayOverview.CreateNewDisplay = displayModel.CreateNewDisplay;
+        self.HandlerDisplayOverview.DeleteDisplay = self.DeleteDisplay;
+        self.HandlerDisplayOverview.ShowEditDescriptionPopup = self.ShowEditDescriptionPopup;
 
         // save actions
         self.InitialSaveActions();
@@ -1319,8 +1326,6 @@ function AnglePageHandler() {
         self.UpdateSidePanelHandlers();
         self.RenderActionDropdownList();
         self.RenderDisplayTabs();
-        self.HandlerDisplayOverview.UpdateScrollButtonState();
-        self.HandlerDisplayOverview.ScrollToFocusedDisplay();
         self.SetWrapperHeight();
 
         // trigger save button
@@ -1420,20 +1425,14 @@ function AnglePageHandler() {
     self.RenderDisplayTabs = function () {
         if (!self.HandlerAngle.Displays.length)
             return;
-        // prepare data
+
         self.HandlerDisplayOverview.CanCreateNewDisplay(self.CanCreateNewDisplay());
         self.HandlerDisplayOverview.SetData(self.HandlerAngle.Displays, self.HandlerDisplay.Data().uri);
-        self.HandlerDisplayOverview.SwitchDisplay = self.SwitchDisplay;
-        self.HandlerDisplayOverview.CreateNewDisplay = displayModel.CreateNewDisplay;
-        self.HandlerDisplayOverview.DeleteDisplay = self.DeleteDisplay;
-        self.HandlerDisplayOverview.ShowEditDescriptionPopup = self.ShowEditDescriptionPopup;
+        self.HandlerDisplayOverview.UpdateScrollButtonState();
+        self.HandlerDisplayOverview.ScrollToFocusedDisplay();
 
         // set to old model, will be remove later
         displayModel.DisplayInfo.Displays(self.HandlerDisplayOverview.Displays());
-
-        // knockout
-        WC.HtmlHelper.ApplyKnockout(self.HandlerDisplayOverview, jQuery('#DisplayTabs'));
-        WC.HtmlHelper.ApplyKnockout(self.HandlerDisplayOverview, jQuery('#DisplayOption'));
     };
     self.SwitchDisplay = function (display) {
         // cannot switch (rendering) or same display
@@ -1891,7 +1890,7 @@ function AnglePageHandler() {
         jQuery.localStorage(displayModel.TemporaryDisplayName, adhocDisplays);
     };
     self.SaveClientSettings = function () {
-        var clientSettingsRequest = userSettingModel.GetSidePanelSettingsData();
+        var clientSettingsRequest = userSettingModel.GetClientSettingsData();
         var additionalRequests = [];
         if (clientSettingsRequest) {
             userSettingModel.UpdateClientSettings(JSON.parse(clientSettingsRequest.data));

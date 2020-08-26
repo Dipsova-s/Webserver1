@@ -21,7 +21,7 @@ Verify Angle & Display Statistics
     Verify Adhoc Display Statistics
 
     # saved
-    Click Save All
+    Click Save Angle
     Verify Saved Angle Statistics
     Verify Saved Display Statistics
 
@@ -50,7 +50,7 @@ Verify Angle Descriptions
     Assert Values Edit Angle Description    en    English Name    English Description
     Assert Values Edit Angle Description    nl    Dutch Name    Dutch Description
     Assert Values Edit Angle Description    fr    French Name    French Description
-    Click Save All
+    Click Save Angle
 
     Edit Angle Description   en    ${angleName}    ${EMPTY}
     Delete Language Edit Angle Description    nl

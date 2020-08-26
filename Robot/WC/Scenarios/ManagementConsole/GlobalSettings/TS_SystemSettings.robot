@@ -14,7 +14,6 @@ Prepare No Manage System User
     ${roles}  Stringify Json  ${roles}
     Set Test Variable  ${TEST_USER_URI}  ${uri}
     Set Test Variable  ${TEST_USER_ROLES}  ${roles}
-    Create Context: Web
     Update User Roles  ${uri}  [{"role_id":"EA2_800_ALL","model_id":"EA2_800"}]}]
 
 Restore No Manage System User

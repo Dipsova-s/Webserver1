@@ -2213,7 +2213,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
 #SystemLogDetails li {
     padding: 0 0 0 8px;
     position: relative;
-    white-space: normal;
+    white-space: pre-line;
     word-wrap: break-word;
 }
 

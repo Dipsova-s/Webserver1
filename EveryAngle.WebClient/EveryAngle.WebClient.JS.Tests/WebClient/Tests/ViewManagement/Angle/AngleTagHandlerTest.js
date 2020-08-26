@@ -126,18 +126,31 @@ describe("AngleTagHandler", function () {
     });
 
     describe(".OnChange", function () {
-        it("should save value with delay", function (done) {
-            var e = {
+        var e;
+        beforeEach(function () {
+            e = {
                 sender: {
                     value: ko.observable(['test'])
                 }
             };
             spyOn(angleTagHandler.AngleHandler, 'IsAdhoc').and.returnValue(false);
             spyOn(angleTagHandler, 'GetValue').and.returnValue([]);
+            spyOn(angleTagHandler, 'Cancel');
             spyOn(angleTagHandler, 'Save');
+        });
+        it("should not pass validation", function () {
+            spyOn(angleTagHandler.AngleHandler, 'Validate').and.returnValue(false);
             angleTagHandler.OnChange(e);
 
             // assert
+            expect(angleTagHandler.Cancel).toHaveBeenCalled();
+        });
+        it("should save value with delay", function (done) {
+            spyOn(angleTagHandler.AngleHandler, 'Validate').and.returnValue(true);
+            angleTagHandler.OnChange(e);
+
+            // assert
+            expect(angleTagHandler.Cancel).not.toHaveBeenCalled();
             expect(angleTagHandler.Save).not.toHaveBeenCalled();
             setTimeout(function () {
                 expect(angleTagHandler.Save).toHaveBeenCalled();

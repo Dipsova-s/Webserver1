@@ -14,7 +14,6 @@ Go To Display And Set Default Drilldown
 
 Verify Drilldown Display Value After Saving
     [Arguments]     ${displayName}      ${displayToDrilldown}
-    Click Save All
     Reload Angle Page
     Verify Selected Default Drilldown Display   ${displayToDrilldown}
 

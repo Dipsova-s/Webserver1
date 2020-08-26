@@ -355,6 +355,14 @@ function DisplayModel(model) {
 
         jQuery.extend(display, displayObject);
 
+        // make sure that creator is current user
+        var currentUser = userModel.Data();
+        display.created = {
+            user: currentUser.uri,
+            datetime: WC.DateHelper.GetCurrentUnixTime(),
+            full_name: currentUser.full_name
+        };
+
         // set temporary display to localStorage
         self.SetTemporaryDisplay(display.uri, display);
 
