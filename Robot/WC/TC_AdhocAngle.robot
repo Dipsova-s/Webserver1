@@ -12,11 +12,11 @@ Save Adhoc Angle Without BP
     ${angleName}  Set Variable  [ROBOT] Save Adhoc Angle Without BP
     ${bps}    Create List    S2D
     Execute Blank Adhoc Angle From One Object      PD
-    Click Save All And Expect Warning
+    Click Save Angle And Expect Warning
     Verify Popup Warning For BP And Close
     Add Business Processes      ${bps}     ${TRUE}
     Edit Angle Description    en    ${angleName}    ${EMPTY}    ${TRUE}
-    Click Save All
+    Click Save Angle
     [Teardown]  Back To Search And Delete Angle Are Created    ${angleName}
 
 Save Display As Adhoc Angle Without BP

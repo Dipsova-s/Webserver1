@@ -52,17 +52,17 @@ Create Adhoc Angle From All Object List
 Create Angle From Object List And Save
     [Arguments]   ${objectName}    ${angleName}
     Create Adhoc Angle From Object List   ${objectName}    ${angleName}
-    Click Save All
+    Click Save Angle
 
 Create Angle From All Object List And Save
     [Arguments]   ${objectName}    ${angleName}
     Create Adhoc Angle From All Object List   ${objectName}    ${angleName}
-    Click Save All
+    Click Save Angle
 
 Create Angle From One Object List And Save
     [Arguments]   ${objectName}    ${angleName}
     Create Adhoc Angle From One Object   ${objectName}    ${angleName}
-    Click Save All
+    Click Save Angle
 
 Copy And Delete Angle Via Search Page
     [Arguments]    ${angleName}

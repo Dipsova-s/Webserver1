@@ -393,6 +393,9 @@
   <data name="Save" xml:space="preserve">
     <value>Speichern</value>
   </data>
+  <data name="SaveAll" xml:space="preserve">
+    <value>Save all</value>
+  </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Suchergebnisse</value>
   </data>

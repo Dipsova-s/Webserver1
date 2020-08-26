@@ -17,6 +17,7 @@ Select Default Drilldown And Save
     Go To Display And Set Default Drilldown         Gauge Chart     Chart
     Verify Asterisk Is Shown                        Gauge Chart
     Verify Display Remember Drilldown Display       Gauge Chart     Chart
+    Click Save All
     Verify Drilldown Display Value After Saving     Gauge Chart     Chart
     [Teardown]  Clean Up Items And Go To Search Page
 

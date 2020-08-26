@@ -23,7 +23,7 @@ Verify Download Item From Angle Page
     ${angleName}  Set Variable  [ROBOT] Angle Download Test
     Create Adhoc Angle From Object List  PD   ${angleName}
     Download Button Should Not Be Available
-    Click Save All
+    Click Save Angle
     Verify Angle Downloading Confirmation
     Click Download Angle
     Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done

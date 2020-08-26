@@ -390,6 +390,9 @@
   <data name="Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
+  <data name="SaveAll" xml:space="preserve">
+    <value>Alles opslaan</value>
+  </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Zoekresultaten</value>
   </data>
