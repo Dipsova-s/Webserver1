@@ -70,6 +70,7 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Communic
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelsLanguages.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AngleExports/TS_ExcelTemplate.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/ExportDefaults/TS_ExportDefaults.robot
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/WebHelp/TS_TocMC.robot
 
 *** Variables ***
 ${URL_WC}    http://${URL}/${Branch}

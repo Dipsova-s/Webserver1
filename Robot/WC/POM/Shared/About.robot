@@ -34,7 +34,7 @@ Open Web Client Help Page
     Click Help Menu
     Click Element  ${btnWebClientHelp}
     Switch Window  NEW
-    Wait Until Keyword Succeeds  1 min  2 sec  Title Should Be  Every Angle Web Client
+    Wait Until Keyword Succeeds  1 min  2 sec  Title Should Be  Introduction
 
 Close About Popup
     Click Element                       ${btnCloseAboutPopup}

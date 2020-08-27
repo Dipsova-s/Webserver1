@@ -1,19 +1,24 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With Admin User
-Test Setup          Go to WebHelp Page
+Test Setup          Go to Web Help Page of WC
 Test Teardown       Switch Window      Every Angle - Search page
 Suite Teardown      Logout WC Then Close Browser
 Force Tags          acc_wc
 
 *** Variables ***
-${SubjcetItemInToc}             Introduction
+${SubjectItemInTOC}             Introduction
 
 *** Test Cases ***
-Verify Expand And Collapse Items In Webhelp ToC
+Verify Expand And Collapse Items In WC Webhelp ToC
     [Tags]      TC_C230012
-    [Documentation]     Verifying expand and collapse items in the navigation tree on the left panel Webhelp ToC.
-    Switch Window     Every Angle Web Client
-    Expand/Collapse Subject Item In Webhelp Page Toc       ${SubjcetItemInToc}
-    Verify Expanded Item In Webhelp Page Toc
-    Expand/Collapse Subject Item In Webhelp Page Toc       ${SubjcetItemInToc}
+    [Documentation]     Verifying direct navigation to Introduction page, expand/collapse items in the navigation tree on
+    ...                 the left panel and navigation to pages using items link in WC Webhelp.
+    Switch Window     Introduction
+    Header text of Web Help Page Should Be     Introduction
+    Verify Expanded Item In Webhelp Page TOC
+    Expand/Collapse Subject Item In Webhelp Page TOC       ${SubjectItemInTOC}
+    Verify Collapsed Item In Webhelp Page TOC
+    Expand/Collapse Subject Item In Webhelp Page TOC       ${SubjectItemInTOC}
+    Verify Expanded Item In Webhelp Page TOC
+    Header text of a page on clicking an Item link in left panel Should Be       Supporting concepts     Supporting concepts
