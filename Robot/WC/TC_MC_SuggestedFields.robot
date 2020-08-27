@@ -5,8 +5,8 @@ Suite Teardown            Logout MC Then Close Browser
 Test Setup                Go To EA2_800 Suggested Fields Page
 
 *** Variables ***
-${PDHeaderObject}         PD Header
-${PDItemObject}           PD Item
+${PDHeaderObject}         PD
+${PDItemObject}           PD
 ${BusinessProcess}        S2D
 
 *** Test Cases ***
