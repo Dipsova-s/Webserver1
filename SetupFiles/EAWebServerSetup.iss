@@ -9,7 +9,7 @@
 
 #define SourceDir AddBackslash(SourcePath) + ".\.."
 #define VersionFile = "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.WebClient.Web.dll"
-       
+    
 #if FileExists(AddBackslash(SourceDir) + VersionFile) == 0
   #pragma error "FILE: " + AddBackslash(SourceDir) + VersionFile + " NOT FOUND"
 #endif
@@ -1487,7 +1487,39 @@ begin
     Log(Format('[w]: getAppPoolIdentity: No identity found [appPool: %s, userName: %s]', [applicationPool, userName])); 
 end;
 
-// Run MSDeploy for the Web Client and Management Console
+procedure WriteOdataWebConfig(odataPath,modelName: string);
+var 
+  ODataWebConfig,
+  NewOdataConfig: variant;
+  
+begin
+ 
+  // Open Odata web.config
+	if not LoadXMLConfigFileEx(odataPath, 'web.config', false, ODataWebConfig) then
+	begin
+		ODataWebConfig := emptyAppSettings();
+	end;
+
+  // Set LogFileFolder in Odata web.Config
+	setAppSetting(ODataWebConfig, 'LogFileFolder', LogFolder + '\odata\' + modelName);
+
+	// Merge the new odata web.config with the existing one.
+	if not LoadXMLConfigFileEx(odataPath, 'web.config', false, NewOdataConfig) then
+	begin
+	ShowError('Error loading OData configuration'#13 +
+		  odataPath + '\web.config'#13
+		  'Setup can not continue!', mbError, MB_OK);
+	DoAbort();
+	end;
+
+	// Copy appSettings in old web.config to new appSettings
+	ODataWebConfig := MergeAppSettings(ODataWebConfig, NewOdataConfig);
+
+  // Save odata config
+  SaveXMLConfigFile(ODataWebConfig, odataPath, 'web.config');
+end;
+
+// Run MSDeploy for Odata
 procedure ODataAfterInstall(IISPhysicalPath, WebSite_FQDN: string);
 var 
   msg1,
@@ -1521,7 +1553,7 @@ begin
   AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], false));
   WebServerUrl := AddProtocolUrl(WebSite_FQDN + IISVirtualPath.Text);
   
-  ODataWebConfig := emptyAppSettings();
+
 
 // TODO: Progress updates
 
@@ -1541,29 +1573,9 @@ begin
     // Write updated json settings
     WriteODataConfigForModel(ODataPath, ODataModels[i], WebServerUrl, AppServerUrl, ODataUser, ODataPassword, ODataConfig); 
 	
-	// Open Odata web.config
-	if not LoadXMLConfigFileEx(IISPhysicalPath + '\odata\' + ODataModels[i], 'web.config', false, ODataWebConfig) then
-	begin
-		ODataWebConfig := emptyAppSettings();
-	end;
+	  WriteOdataWebConfig(ODataPath + '\' +ODataModels[i] ,ODataModels[i]);
 	
-	// Set LogFileFolder in Odata web.Config
-	setAppSetting(ODataWebConfig, 'LogFileFolder', LogFolder + '\OData\' + ODataModels[i]);
-
-	// Merge the new odata web.config with the existing one.
-	if not LoadXMLConfigFileEx(IISPhysicalPath + '\odata\' + ODataModels[i], 'web.config', false, {out}NewODataWebConfig) then
-	begin
-	ShowError('Error loading OData configuration'#13 +
-		  IISPhysicalPath + '\odata\' + ODataModels[i] + '\web.config'#13
-		  'Setup can not continue!', mbError, MB_OK);
-	DoAbort();
-	end;
-
-	// Copy appSettings in old web.config to new appSettings
-	ODataWebConfig := MergeAppSettings(ODataWebConfig, NewODataWebConfig);
-
-	// Save OData web.config
-	SaveXMLConfigFile(ODataWebConfig, IISPhysicalPath + '\odata\'+ ODataModels[i], 'web.config');
+	
   end;
 
   HideProgress();
