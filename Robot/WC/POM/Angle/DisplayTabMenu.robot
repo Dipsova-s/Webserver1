@@ -2,7 +2,7 @@
 ${divDisplayTab}                        jquery=#DisplayTabs
 ${divDisplayTabMenus}                   ${divDisplayTab} .tab-menu
 ${divActiveDisplayTabMenu}              ${divDisplayTab} .tab-menu.active
-${divDisplayGroupPublic}                ${divDisplayTab} .tab-menu-header:contains(Public)
+${divDisplayGroupPublic}                ${divDisplayTab} .tab-menu-header:contains(Published)
 ${divDisplayGroupPrivate}               ${divDisplayTab} .tab-menu-header:contains(Private)
 ${divDisplayGroupOther}                 ${divDisplayTab} .tab-menu-header:contains(Other)
 

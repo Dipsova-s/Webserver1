@@ -14,10 +14,8 @@
 
 describe("DisplayModel", function () {
     var displayModel;
-
     beforeEach(function () {
         displayModel = new DisplayModel();
-
         createMockHandler(window, 'anglePageHandler', {
             HandlerAngle: {
                 AddDisplay: $.noop
@@ -457,7 +455,7 @@ describe("DisplayModel", function () {
         });
     });
 
-    describe("SetTemporaryDisplay", function () {
+    describe(".SetTemporaryDisplay", function () {
         it("should store temp display in local storage when value is not null", function () {
 
             var displayUri = 'display_uri';
@@ -492,6 +490,71 @@ describe("DisplayModel", function () {
 
             expect(displayModel.TemporaryDisplay()).toEqual({});
             expect(jQuery.localStorage).toHaveBeenCalledWith('temp_displays', {});
+        });
+    });
+
+    describe(".CreateTempDisplay", function () {
+        it("should get adhoc Display data", function () {
+            var data = {
+                is_angle_default: true,
+                used_in_task: true,
+                uri_template: '/models/1/angles/2/displays/3',
+                user_specific: {
+                    is_user_default: true,
+                    execute_on_login: true
+                },
+                other: 'yes'
+            };
+            userModel.Data({
+                uri: '/users/1',
+                full_name: 'My Name'
+            });
+            angleInfoModel.Data({ display_definitions: [] });
+            angleInfoModel.Data.commit();
+            spyOn(jQuery, 'GUID').and.returnValue('mnop-qrst-uvwx-yz');
+            spyOn(WC.DateHelper, 'GetCurrentUnixTime').and.returnValue(1000000);
+            spyOn(WC.Utility, 'UrlParameter').and.returnValue('/models/1/angles/abcd-efgh-ijhl');
+            spyOn(displayModel, 'GetDefaultAdhocAuthorization').and.returnValue({
+                'update_user_specific': false,
+                'delete': false,
+                'make_angle_default': false,
+                'publish': false,
+                'unpublish': false,
+                'update': true
+            });
+            spyOn(displayModel, 'SetTemporaryDisplay');
+            spyOn(angleInfoModel, 'SetData');
+            $.when(displayModel.CreateTempDisplay('list', data))
+                .done(function (result) {
+                    expect(result.id).toEqual('dmnopqrstuvwxyz');
+                    expect(result.display_type).toEqual('list');
+                    expect(result.uri).toEqual('/models/1/angles/abcd-efgh-ijhl/displays/mnop-qrst-uvwx-yz');
+                    expect(result.is_angle_default).toEqual(true);
+                    expect(result.authorizations).toEqual({
+                        'update_user_specific': false,
+                        'delete': false,
+                        'make_angle_default': false,
+                        'publish': false,
+                        'unpublish': false,
+                        'update': true
+                    });
+                    expect(result.used_in_task).toBeUndefined();
+                    expect(result.uri_template).toBeUndefined();
+                    expect(result.user_specific).toEqual({
+                        is_user_default: false,
+                        execute_on_login: false
+                    });
+                    expect(result.is_public).toEqual(false);
+                    expect(result.is_adhoc).toEqual(true);
+                    expect(result.created).toEqual({
+                        user: '/users/1',
+                        datetime: 1000000,
+                        full_name: 'My Name'
+                    });
+                    expect(result.other).toEqual('yes');
+                    expect(displayModel.SetTemporaryDisplay).toHaveBeenCalled();
+                    expect(angleInfoModel.SetData).toHaveBeenCalled();
+                });
         });
     });
 });
