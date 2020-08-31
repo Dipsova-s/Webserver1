@@ -610,7 +610,7 @@
     <value>Vraag naar waarde wanneer de Angle wordt uitgevoerd</value>
   </data>
   <data name="AskForValueWhenTheDashboardOpens" xml:space="preserve">
-    <value>Vraag naar waarde wanneer de Dashboard opent</value>
+    <value>Vraag naar waarde wanneer de Dashboard wordt uitgevoerd</value>
   </data>
   <data name="Before" xml:space="preserve">
     <value>Voor</value>
@@ -946,13 +946,13 @@
     <value>Bewaar actieve Displayfilters</value>
   </data>
   <data name="DisplayDrilldownDefault" xml:space="preserve">
-    <value>Default drilldown</value>
+    <value>Standaard-drilldown</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>[Geen]</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel template</value>
+    <value>Excel-template</value>
   </data>
   <data name="CreateNewAngleFromSchema" xml:space="preserve">
     <value>Maak Angle</value>
@@ -1936,7 +1936,7 @@
     <value>Standaard</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Gebruik default] {0}</value>
+    <value>[Gebruik standaard] {0}</value>
   </data>
   <data name="DefaultSettingsUnmentionedFields" xml:space="preserve">
     <value>Standaard instellingen voor niet genoemde velden</value>
@@ -2398,7 +2398,7 @@
     <value>Het maximum aantal te selecteren Angles is {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Current object</value>
+    <value>Huidig object</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Aantal items</value>
@@ -3242,10 +3242,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Is op {0}</value>
   </data>
   <data name="WidgetFilter_Preview_NotBetween" xml:space="preserve">
-    <value>Is before {0} of na {1}</value>
+    <value>Is voor {0} of na {1}</value>
   </data>
   <data name="WidgetFilter_Preview_NotBetween_EndDate" xml:space="preserve">
-    <value>Is voor {0} of na of op {1}</value>
+    <value>Is voor {0} of op of na {1}</value>
   </data>
   <data name="WidgetFilter_Preview_NotEqual" xml:space="preserve">
     <value>Is niet op {0}</value>
@@ -3908,10 +3908,10 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Dashboard downloaden</value>
   </data>
   <data name="Confirm_DownloadItem" xml:space="preserve">
-    <value>U hebt niet opgeslagen wijzigingen die niet zullen worden meegenomen in de download.&lt;br/&gt;Wilt u doorgaan?</value>
+    <value>U hebt niet-opgeslagen wijzigingen. Deze zullen niet worden meegenomen in de download.&lt;br/&gt;Wilt u doorgaan?</value>
   </data>
   <data name="ActivationFailed" xml:space="preserve">
-    <value>Activation failed</value>
+    <value>Activeren mislukt</value>
   </data>
   <data name="Support" xml:space="preserve">
     <value>Support</value>
@@ -3961,7 +3961,7 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
     <value>Geen suggesties</value>
   </data>
   <data name="TagNew" xml:space="preserve">
-    <value>{0} (Nieuwe Tag)</value>
+    <value>{0} (Nieuwe Tag(s))</value>
   </data>
   <data name="TagLabel" xml:space="preserve">
     <value>Tags</value>
@@ -3985,13 +3985,13 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
     <value>Export defaults</value>
   </data>
   <data name="ProgressExecuting" xml:space="preserve">
-    <value>executing</value>
+    <value>bezig met uitvoeren</value>
   </data>
   <data name="ProgressGettingReport" xml:space="preserve">
-    <value>getting report</value>
+    <value>rapport wordt opgehaald</value>
   </data>
   <data name="SingleActionExecute" xml:space="preserve">
-    <value>[Single Action]</value>
+    <value>[Enkele actie]</value>
   </data>
   <data name="MC_Items" xml:space="preserve">
     <value>Items</value>
@@ -4015,10 +4015,10 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
     <value>approved</value>
   </data>
   <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
-    <value>Toon alleen mijn eigen privé Displays</value>
+    <value>Toon alleen mijn eigen Privédisplays</value>
   </data>
   <data name="AngleExport" xml:space="preserve">
-    <value>Angle Export</value>
+    <value>Angle export</value>
   </data>
   <data name="MC_DefaultApprovalState" xml:space="preserve">
     <value>Default approval state Automation task actions</value>
@@ -4029,10 +4029,10 @@ Actions can only be executed when the Approval state is "approved".
 The "manage system" privileges is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
-    <value>Angle filters &amp; jumps</value>
+    <value>Angle Filters &amp; Jumps</value>
   </data>
   <data name="DisplayFilters" xml:space="preserve">
-    <value>Display filters &amp; jumps</value>
+    <value>Display Filters &amp; Jumps</value>
   </data>
   <data name="DisplayGroupPublic" xml:space="preserve">
     <value>Gepubliceerd ({0})</value>
