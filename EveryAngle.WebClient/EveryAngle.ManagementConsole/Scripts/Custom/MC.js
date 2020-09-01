@@ -70,20 +70,20 @@ var MC = {
                 jQuery('html').addClass('keyboard');
                 jQuery(window).scrollTop(jQuery(window).scrollTop() + 34);
             })
-            .on('blur', 'input, textarea', function () {
-                jQuery('html').removeClass('keyboard');
-                setTimeout(function () {
-                    jQuery(window).scrollTop(jQuery(window).scrollTop() - 1);
-                }, 10);
-            })
-            .on('click', 'input:file', function () {
-                jQuery('html').addClass('keyboard');
-                jQuery(window).scrollTop(jQuery(window).scrollTop() + 34);
-                document.body.onfocus = function () {
+                .on('blur', 'input, textarea', function () {
                     jQuery('html').removeClass('keyboard');
-                    document.body.onfocus = null;
-                };
-            });
+                    setTimeout(function () {
+                        jQuery(window).scrollTop(jQuery(window).scrollTop() - 1);
+                    }, 10);
+                })
+                .on('click', 'input:file', function () {
+                    jQuery('html').addClass('keyboard');
+                    jQuery(window).scrollTop(jQuery(window).scrollTop() + 34);
+                    document.body.onfocus = function () {
+                        jQuery('html').removeClass('keyboard');
+                        document.body.onfocus = null;
+                    };
+                });
         }
     },
 
@@ -232,10 +232,10 @@ function checkUrlForPackageExport(value) {
     var paramString = value.split('?')[1];
     var urlParameters = $.deparam(paramString);
     $.each(urlParameters, function (key, element) {
-        if (key === "sort" || key === "dir") {
+        if (key === "sort" || key === "dir" || key === "viewmode") {
             requiredObjectCount++;
         }
-        if (jQuery.inArray(key,["sort", "dir", "fq"]) === -1) {
+        if (jQuery.inArray(key, ["sort", "dir", "fq", "viewmode"]) === -1) {
             returnValue = false;
             return false;
         }

@@ -48,12 +48,16 @@
             { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)', expected: true },
             { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800)', expected: true },
             { url: 'https://test.com/searchpage#/?fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800)', expected: true },
+            { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800)&viewmode=compact', expected: true },
+            { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800)&viewmode=display', expected: true },
 
             //invalid
             { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800%20TestServer)', expected: false },
             { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_models:(EA2_800%20TestServer)', expected: false },
             { url: 'https://test.com/searchpage#/?sort=name&dir=asc', expected: false },
             { url: 'https://test.com/searchpage#/?sort=name&', expected: false },
+            { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_models:(EA2_800%20TestServer)&viewmode=display', expected: false },
+            { url: 'https://test.com/searchpage#/?q=Test&sort=relevancy&fq=facetcat_bp:(S2D)&viewmode=compact', expected: false }
 
         ];
         $.each(tests, function (index, test) {
