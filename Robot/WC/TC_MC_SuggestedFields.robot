@@ -5,15 +5,14 @@ Suite Teardown            Logout MC Then Close Browser
 Test Setup                Go To EA2_800 Suggested Fields Page
 
 *** Variables ***
-${PDHeaderObject}         PD
 ${PDItemObject}           PD
 ${BusinessProcess}        S2D
 
 *** Test Cases ***
 Test Suggested Fields For Single Object
     [Tags]   acc_mc
-    Set Suggested Fields For Single Object    ${PDHeaderObject}    ${BusinessProcess}
-    Verify Suggested Fields After Set    ${PDHeaderObject}    ${BusinessProcess}
+    Set Suggested Fields For Single Object    ${PDItemObject}    ${BusinessProcess}
+    Verify Suggested Fields After Set    ${PDItemObject}    ${BusinessProcess}
     Click Clear All Suggested Fields
 
 Test Suggested Fields For Basic List
