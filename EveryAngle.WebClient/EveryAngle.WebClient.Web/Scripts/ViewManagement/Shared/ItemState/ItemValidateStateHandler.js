@@ -25,9 +25,7 @@
             modal: false,
             minWidth: 260,
             minHeight: 42,
-            resize: function (e) {
-                self.OnPopupResized(e, handle);
-            },
+            resize: jQuery.proxy(self.OnPopupResized, self, handle),
             open: jQuery.proxy(self.ShowValidatePopupCallback, self),
             close: popup.Destroy
         };

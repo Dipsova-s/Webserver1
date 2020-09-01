@@ -22,6 +22,8 @@
         self.GetTaskActionUri = '';
         self.TaskHistoryUri = '';
         self.CurrentAngle = {};
+        self.DisplayExcelTemplate = '';
+        self.StandardExcelTemplate = '';
         self.ModelPrivileges = '';
         self.TasksActionsUri = '';
         self.CheckTaskActionUri = '';
@@ -33,6 +35,11 @@
         self.IsTaskActionsSorted = false;
         self.GetHistoryUri = '';
         self.CheckExecutionTaskUri = '';
+        self.CurrentUser = '';
+        self.CanManageSystem = '';
+        self.CanScheduleAngles = '';
+        self.IsTaskOwner = '';
+        self.DefaultApprovalState = '';
         self.Status = {
             NotStarted: 'notstarted',
             Running: 'running',
@@ -57,6 +64,8 @@
             self.TaskUri = '';
             self.TaskHistoryUri = '';
             self.CurrentAngle = {};
+            self.DisplayExcelTemplate = '';
+            self.StandardExcelTemplate = '';
             self.ModelPrivileges = '';
             self.TasksActionsUri = '';
             self.CheckTaskActionUri = '';
@@ -66,6 +75,10 @@
             self.IsTaskActionsSorted = false;
             self.GetHistoryUri = '';
             self.CheckExecutionTaskUri = '';
+            self.CurrentUser = '';
+            self.CanManageSystem = '';
+            self.CanScheduleAngles = '';
+            self.IsTaskOwner = '';
 
             jQuery.extend(self, data || {});
 
@@ -127,6 +140,36 @@
             obj.kendoAutoComplete(settings);
         };
 
+        self.InitialRunAsUserForActionAutoComplete = function (options) {
+            var settings = jQuery.extend({
+                dataTextField: "Id",
+                ignoreCase: true,
+                minLength: 1,
+                filter: 'contains',
+                dataSource: new kendo.data.DataSource({
+                    type: "json",
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+                            MC.ajax.request({
+                                url: self.GetUserUri,
+                                parameters: { q: jQuery("input[name^='action_run_as_user']").val(), offset: 0, limit: 100 },
+                                type: "GET",
+                                ajaxStart: function () {
+                                    disableLoading();
+                                }
+                            })
+                                .done(options.success);
+                        }
+                    }
+                })
+            }, options || {});
+
+            //M4-15415: [ACCEPTATIE][MC] Name field cleared when creating automated task
+            var obj = jQuery("input[name^='action_run_as_user']");
+            obj.kendoAutoComplete(settings);
+        };
+
         self.InitialCopyToClipboard = function () {
             MC.util.clipboard('.btnCopyCommand');
         };
@@ -152,10 +195,13 @@
 
                 template += "<a onclick=\"MC.AutomationTasks.Tasks.AbortTask(this,'" + uri + "')\" class=\"btn btnAbort" + (!isExecuting ? " disabled" : "") + "\">" + Localization.MC_Abort + "</a>";
             }
+            else if (canScheduleAngles) {
+                template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.Edit + "</a>";
+            }
             else {
                 template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.View + "</a>";
             }
-            template += "<a data-parameters='{\"taskUri\":\"" + uri + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !manageSystemPrivilege ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
+            template += "<a data-parameters='{\"taskUri\":\"" + uri + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !canManageTask ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
             return template;
         };
         self.CanManageTask = function (manageSystemPrivilege, canScheduleAngles, currentUser, taskOwner) {
@@ -228,7 +274,6 @@
         };
 
         self.ExecuteAdhocTaskAction = function (uid) {
-
             MC.util.massReport.initial();
             MC.util.massReport.setStatus(Localization.MC_CurrentProgress, Localization.ProgressExecuting, '');
 
@@ -238,7 +283,11 @@
             task.start_immediately = true;
             task.actions = [action];
             task.name = Localization.SingleActionExecute + self.TaskData.name;
-            task.run_as_user = self.TaskData.run_as_user;
+            if (self.CanManageTask(self.CanManageSystem, self.CanScheduleAngles, self.CurrentUser, self.TaskData.run_as_user)) {
+                task.run_as_user = self.TaskData.run_as_user
+            } else {
+                task.run_as_user = action.run_as_user;
+            }
             task.triggers = self.TaskData.triggers;
 
             self.ExecuteSingleAction(task)
@@ -356,7 +405,6 @@
         self.EditTaskPage = '';
         self.GetDataStoreTemplateUri = '';
         self.GetDataStoreTemplate = {};
-        self.ActionButtonTemplate = '';
         self.OPERATOR = {
             HASVALUE: { Text: Localization.OperatorHasValue, Value: 'has_value' },
             HASNOVALUE: { Text: Localization.OperatorHasNoValue, Value: 'has_no_value' },
@@ -436,13 +484,13 @@
         };
 
         self.APPROVAL_STATE_ID = {
-            ENABLED: 'enabled',
+            APPROVED: 'approved',
             DISABLED: 'disabled',
             REQUESTED: 'requested',
             REJECTED: 'rejected'
         };
         self.APPROVAL_STATE = {};
-        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.ENABLED] = Localization.MC_enabled;
+        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.APPROVED] = Localization.MC_Approved;
         self.APPROVAL_STATE[self.APPROVAL_STATE_ID.DISABLED] = Localization.MC_Disabled;
         self.APPROVAL_STATE[self.APPROVAL_STATE_ID.REQUESTED] = Localization.MC_Requested;
         self.APPROVAL_STATE[self.APPROVAL_STATE_ID.REJECTED] = Localization.MC_Rejected;
@@ -488,7 +536,6 @@
             self.EditTaskPage = '';
             self.GetDataStoreTemplateUri = '';
             self.GetDataStoreTemplate = {};
-            self.ActionButtonTemplate = '';
             self.GetFieldsUri = '';
             self.GetFieldSourceUri = '';
             self.GetFieldDomainUri = '';
@@ -700,6 +747,7 @@
                 });
             });
         };
+
         self.GetActionsGridColumnDefinitions = function () {
             var columns = [
                 {
@@ -715,6 +763,7 @@
                 { field: 'model_name', title: Localization.MC_TaskAction_ColumnModel, width: 80, template: self.GetModelNameFromActionData },
                 { field: 'angle_name', title: Localization.MC_TaskAction_ColumnAngle },
                 { field: 'display_name', title: Localization.MC_TaskAction_ColumnDisplay, attributes: { 'data-display-uri': '#= display_uri #' } },
+                { field: 'run_as_user', title: Localization.MC_TaskAction_ColumnRunAsUser },
                 { field: 'condition_name', title: Localization.MC_TaskAction_ColumnCondition, width: 140, template: self.GetConditionName },
                 { field: 'approval_state', title: Localization.MC_TaskAction_ColumnApprovalState, width: 100 },
                 {
@@ -728,6 +777,26 @@
             ];
             return columns;
         };
+
+        self.ActionButtonTemplate = function(data){
+            var template = '';
+            var isEditMode = false;
+            if (self.TaskUri != null && self.TaskUri != '') {
+                isEditMode = true;
+            }
+            var canScheduleTask = self.CanManageSystem || self.CanScheduleAngles && self.IsTaskOwner;
+            if (canScheduleTask || (self.CanScheduleAngles && self.CurrentUser === data.run_as_user)) {
+                template += "<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('" + data.uid + "', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Localization.Edit + "</a>";
+                template += "<a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('" + data.uid + "')\" class=\"btn btn btnExecute" + (isEditMode ? "" : " alwaysHidden") + "\">" + Localization.MC_ExecuteNow + "</a>";
+                template += "<a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= " + data.uid + "\"}\\' data-delete-template=\"" + Localization.MC_DeleteFieldConfirm + "\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">" + Localization.Delete + "</a>";
+            }
+            else {
+                template += "<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('" + data.uid + "', false)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Localization.View + "</a>";
+                template += "<a class=\"btn btnDelete disabled\">" + Localization.Delete + "</a>";
+            }
+            return template;
+        };
+
         self.GetActionTypeName = function (data) {
             return self.ACTION_TYPE[data.action_type];
         };
@@ -778,6 +847,7 @@
                 var angleId = self.GetArgumentValueByName(action.arguments, 'angle_id');
                 var displayId = self.GetArgumentValueByName(action.arguments, 'display_id');
                 var model = {
+                    run_as_user: action.run_as_user,
                     action_type: action.action_type,
                     angle_name: action.AngleName || angleId,
                     display_name: action.DisplayName || displayId,
@@ -864,6 +934,13 @@
                     MC.ui.popup();
                     MC.ui.autosyncinput();
 
+                    var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
+                    if (ddlExcelTemplate) {
+                        ddlExcelTemplate.bind('change', self.SetActionButtons);
+                        self.StandardExcelTemplate = ddlExcelTemplate.value();
+                        self.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
+                    }
+
                     $.each(models || [], function (index, arg) {
                         var input = containerSettings.find('[id="' + arg.name + '"]');
                         self.SetDatastoreSettingValue(input, arg);
@@ -882,8 +959,13 @@
                 || settingType === 'currency_symbol'
                 || settingType === 'percentage'
                 || settingType === 'double') {
-                var inputUI = input.data('handler');
-                inputUI.value(arg.value);
+                if (arg.name === 'template_file') {
+                    self.SetTemplateFileValue(input, arg);
+                }
+                else {
+                    var inputUI = input.data('handler');
+                    inputUI.value(arg.value);
+                }
             }
             else if (settingType === 'boolean') {
                 input.prop('checked', !!arg.value);
@@ -920,6 +1002,10 @@
 
             jQuery('.dataSettings input[type!="hidden"]').each(function (index, input) {
                 var setting = self.GetDataStoreSettingInfo(jQuery(input));
+                if (setting.type === 'enum' && setting.id === 'template_file' &&
+                    self.IsDefaultDisplayExcelTemplate(setting.value)) {
+                    setting.value = '';
+                }
                 if (setting.type && setting.id && !datastoreData.hasObject('id', setting.id)) {
                     datastoreData.push({
                         "name": setting.id,
@@ -1118,10 +1204,12 @@
 
                     var displayUri = e.sender.dataItem().uri;
                     self.SetLinkToDisplay(displayUri, _self.modelId);
+                    self.SetDatastoreOnDisplayChange(e.sender.dataItem().display_details);
                 }
             });
 
             self.SetLinkToDisplay(null, null);
+            self.SetDatastoreOnDisplayChange(null);
         };
         self.InitialManageActionEmailSection = function () {
             self.InitialRecipientsGrid();
@@ -1333,7 +1421,7 @@
             var template = $('#TemplateManageAction').val();
             $('#AddActionPopup .popupContent').html(template);
             MC.form.template.autoTemplate();
-
+            self.InitialRunAsUserForActionAutoComplete();
             self.CreateActionTypeDropdown();
             self.CreateScriptDropdown();
             self.CreateDatastoreDropdown();
@@ -1356,9 +1444,17 @@
                 $('#action_type').data('kendoDropDownList').trigger('change');
                 $('#datastore').data('kendoDropDownList').trigger('change');
 
+                var runAsUserTextbox = jQuery('#action_run_as_user');
+                var runAsUser = null;
+                if (!self.CanManageTask(self.CanManageSystem, self.CanScheduleAngles, self.CurrentUser, self.TaskData.run_as_user)) {
+                    runAsUser = self.CurrentUser;
+                }
+                runAsUserTextbox.val(runAsUser);
                 self.CurrentAngle = {};
+                self.DisplayExcelTemplate = '';
+                self.StandardExcelTemplate = '';
                 self.SetEmailNotification(null);
-                self.SetActionButtons(_self.uid);
+                self.SetActionButtons();
 
                 if (self.AngleUri) {
                     $('#angle_id').val(self.AngleUri);
@@ -1408,6 +1504,10 @@
                 actionTypeDroppdown.value(dataItem.action_type);
                 actionTypeDroppdown.trigger('change');
 
+                //action_run_as_user
+                var runAsUserTextbox = jQuery('#action_run_as_user');
+                runAsUserTextbox.val(dataItem.run_as_user);
+
                 // approval
                 jQuery('#approvalddl').data('kendoDropDownList').value(dataItem.approval_state);
 
@@ -1428,7 +1528,7 @@
                 self.SetEmailNotification(dataItem.notification);
 
                 // set buttons
-                self.SetActionButtons(_self.uid);
+                self.SetActionButtons();
                 $('#AddActionPopup .popupContent').scrollTop(0);
             }, 1);
         };
@@ -1469,7 +1569,7 @@
             self.SetEmailRecipientsColumns();
 
             // set buttons
-            self.SetActionButtons(_self.uid);
+            self.SetActionButtons();
         };
         self.CreateScriptDropdown = function () {
             var template = '#: name + (id ? " (." + filetype + ")" : "") #';
@@ -1516,6 +1616,9 @@
                 dataValueField: "id",
                 dataSource: approvalDatasources
             });
+            jQuery('#approvalddl')
+                .data('kendoDropDownList')
+                .value(self.DefaultApprovalState);
         };
         self.CreateConditionDropdown = function () {
             var conditionDatasources = [];
@@ -1560,6 +1663,7 @@
 
                     // set link
                     self.SetLinkToDisplay(display.uri, _self.modelId);
+                    self.SetDatastoreOnDisplayChange(display.display_details);
                 }
                 else {
                     jQuery('#angle_id').val(angleUri);
@@ -1570,6 +1674,7 @@
 
                     // set link
                     self.SetLinkToDisplay(null, null);
+                    self.SetDatastoreOnDisplayChange(null);
                 }
                 ddlDisplays.value(displayId);
             };
@@ -1643,15 +1748,23 @@
         };
         self.CanSetAction = function () {
             var ddlDisplay = $('#display_id').data('kendoDropDownList');
+            var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
             var canSelectDisplay = false;
+            var isValidExcelTemplate = true;
             if (ddlDisplay) {
                 canSelectDisplay = !ddlDisplay.wrapper.find('.k-state-disabled').length && ddlDisplay.dataSource.data().length;
             }
-            return _self.canSetAction && canSelectDisplay;
+            if (ddlExcelTemplate && self.IsDefaultDisplayExcelTemplate(ddlExcelTemplate.value())) {
+                var template = ddlExcelTemplate.options.dataSource.findObject('File', self.DisplayExcelTemplate);
+                if (!template) {
+                    isValidExcelTemplate = false;
+                }
+            }
+            return _self.canSetAction && canSelectDisplay && isValidExcelTemplate;
         };
-        self.SetActionButtons = function (uid) {
+        self.SetActionButtons = function () {
             if (self.CanCheckAction()) {
-                $('#AddActionPopup .popupToolbar a.btnCheckAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.CheckAction("' + uid + '")');
+                $('#AddActionPopup .popupToolbar a.btnCheckAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.CheckAction()');
             }
             else {
                 $('#AddActionPopup .popupToolbar a.btnCheckAction').addClass('no disabled').removeAttr("onclick");
@@ -1665,10 +1778,10 @@
             }
 
             if (self.CanSetAction() || !self.IsDatastoreAction()) {
-                if (!uid)
+                if (!_self.uid)
                     $('#AddActionPopup .popupToolbar a.btnAddAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.AddAction()');
                 else
-                    $('#AddActionPopup .popupToolbar a.btnAddAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.EditAction("' + uid + '")');
+                    $('#AddActionPopup .popupToolbar a.btnAddAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.EditAction()');
             }
             else {
                 $('#AddActionPopup .popupToolbar a.btnAddAction').addClass('no disabled').removeAttr("onclick");
@@ -2150,7 +2263,7 @@
                         }, 100);
 
                         // set buttons
-                        self.SetActionButtons(_self.uid);
+                        self.SetActionButtons();
                     });
             }
             else {
@@ -2158,7 +2271,7 @@
                 grid.dataSource.data([]);
 
                 // set buttons
-                self.SetActionButtons(_self.uid);
+                self.SetActionButtons();
             }
         };
         self.IsExportExcelAsList = function (dislayData) {
@@ -2221,6 +2334,7 @@
             $('#row-enum_format')[action]();
 
             self.HideOrShowMaxRowsToExport();
+            self.HideOrShowModelTimestampIndex();
         };
         self.HideOrShowMaxRowsToExport = function () {
             var ddlDatastore = jQuery('#datastore').data('kendoDropDownList').dataItem();
@@ -2234,6 +2348,20 @@
             }
             else {
                 $('#row-max_rows_to_export').show();
+            }
+        };
+        self.HideOrShowModelTimestampIndex = function () {
+            var ddlDatastore = jQuery('#datastore').data('kendoDropDownList').dataItem();
+            if (ddlDatastore && self.IsChartOrPivot() && self.IsExcelDataStore()) {
+                $('#row-model_timestamp_index').hide();
+
+                // set value to chart or pivot
+                var maxRowsExport = $('#model_timestamp_index').data('handler');
+                if (maxRowsExport)
+                    maxRowsExport.value(-1);
+            }
+            else {
+                $('#row-model_timestamp_index').show();
             }
         };
         self.IsExcelDataStore = function () {
@@ -2254,6 +2382,78 @@
                 $('#linkDisplay').removeAttr('href').addClass('disabled');
             }
         };
+        self.SetDatastoreOnDisplayChange = function (displayDetail)
+        {
+            var ddlDatastore = $('#datastore').data('kendoDropDownList');
+            var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
+            ddlDatastore.enable(self.ConfigureDefaultTemplateFile(displayDetail, ddlExcelTemplate));
+        };
+        self.ConfigureDefaultTemplateFile = function (displayDetail, ddlExcelTemplate) {
+            if (displayDetail) {
+                var displayDetailObject = JSON.parse(displayDetail)
+                var excelTemplate = displayDetailObject.excel_template;
+                if (typeof excelTemplate !== 'undefined') {
+                    self.DisplayExcelTemplate = excelTemplate;
+                    self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+                    self.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
+                }
+                else {
+                    self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+                    self.DisplayExcelTemplate = '';
+                }
+                return true;
+            }
+            else {
+                self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+                self.DisplayExcelTemplate = '';
+                return false;
+            }
+        };
+        self.AddDisplayExcelTemplateToddlExcelTemplate = function (ddlExcelTemplate) {
+            if (ddlExcelTemplate && self.DisplayExcelTemplate !== '') {
+                var defaultTemplate = kendo.format(Localization.Default_Placeholder, self.DisplayExcelTemplate);
+                var dataSource = ddlExcelTemplate.dataSource;
+                var template = dataSource.options.data.findObject('File', self.DisplayExcelTemplate);
+                if (template) {
+                    dataSource.add({
+                        File: defaultTemplate,
+                        Uri: template.Uri,
+                        HasInnoweraProcess: template.HasInnoweraProcess,
+                        InnoweraProcessDetails: template.InnoweraProcessDetails
+                    });
+                } else {
+                    dataSource.add({
+                        File: defaultTemplate
+                    });
+                }
+                dataSource.sync();
+                ddlExcelTemplate.value(defaultTemplate);
+                ddlExcelTemplate.trigger('change');
+            }
+        };
+        self.RemoveDisplayExcelTemplateFromddlExcelTemplate = function (ddlExcelTemplate) {
+            if (ddlExcelTemplate) {
+                var dataSource = ddlExcelTemplate.dataSource.data();
+                var defaultOption = jQuery.grep(dataSource, function (option) {
+                    return option.File.indexOf(Localization.Default_Placeholder.split(' ')[0]) === 0;
+                });
+                if (defaultOption.length !== 0) {
+                    dataSource.remove(defaultOption[0]);
+                }
+                ddlExcelTemplate.value(self.StandardExcelTemplate);
+                ddlExcelTemplate.trigger('change');
+            }
+        };
+        self.IsDefaultDisplayExcelTemplate = function (displayExcelTemplate) {
+            return Localization.Default_Placeholder.split(' ')[0] === displayExcelTemplate.split(' ')[0];
+        };
+        self.SetTemplateFileValue = function (input, arg) {
+            if (arg.value !== '') {
+                var inputUI = input.data('handler');
+                inputUI.value(arg.value);
+                inputUI.trigger('change');
+            }
+        };
         self.CanAccessWebClient = function (modelId) {
             var model = self.AllModels.findObject('id', modelId);
             if (model) {
@@ -2269,6 +2469,7 @@
             jQuery('#hdnAngleId').val('');
             jQuery('#angle_name').attr('title', '');
             self.SetLinkToDisplay(null, null);
+            self.SetDatastoreOnDisplayChange(null);
         };
         self.FindAngle = function () {
             var btnFindAngle = $('#AddActionPopup .btnFindAngle');
@@ -2328,6 +2529,7 @@
                         if (display) {
                             displayId = display.id;
                             self.SetLinkToDisplay(angleDisplayUrl, _self.modelId);
+                            self.SetDatastoreOnDisplayChange(display.display_details);
                         }
                         else {
                             setTimeout(function () {
@@ -2350,7 +2552,7 @@
                 })
                 .always(function () {
                     btnFindAngle.removeClass('disabled');
-                    self.SetActionButtons(_self.uid);
+                    self.SetActionButtons();
                 });
 
             deferred.promise();
@@ -2376,6 +2578,7 @@
         };
         self.GetActionData = function () {
             var actionData = {};
+            actionData.run_as_user = jQuery('[name^="action_run_as_user"]').val();
             actionData.action_type = $('#action_type').data('kendoDropDownList').value();
             actionData.approval_state = jQuery('#approvalddl').data('kendoDropDownList').value();
 
@@ -2508,20 +2711,27 @@
             var datasource = kendoGrid.dataSource;
             var data = self.GetActionData();
             data.order = datasource.data().length;
+            if (data.run_as_user === "") {
+                data.run_as_user = null;
+            }
             data.is_edited = true;
             datasource.add(data);
 
             var win = $('#AddActionPopup').data('kendoWindow');
             win.close();
         };
-        self.EditAction = function (uid) {
+        self.EditAction = function () {
             if (!self.IsActionValidated()) {
                 return;
             }
 
             var data = self.GetActionData();
             var grid = $('#TaskActionsGrid').data('kendoGrid');
-            var dataItem = grid.dataSource.getByUid(uid);
+            var dataItem = grid.dataSource.getByUid(_self.uid);
+            if (data.run_as_user === "") {
+                data.run_as_user = null;
+            }
+            dataItem.set("run_as_user", data.run_as_user);
             dataItem.set("action_type", data.action_type);
             dataItem.set("angle_name", data.angle_name);
             dataItem.set("display_name", data.display_name);
@@ -2720,6 +2930,7 @@
                     }
 
                     var action = {
+                        "run_as_user": dataItem.run_as_user,
                         "action_type": dataItem.action_type,
                         "arguments": dataItem.arguments,
                         'approval_state': dataItem.approval_state,

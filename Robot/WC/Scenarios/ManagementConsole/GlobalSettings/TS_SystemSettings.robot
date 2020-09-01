@@ -14,7 +14,6 @@ Prepare No Manage System User
     ${roles}  Stringify Json  ${roles}
     Set Test Variable  ${TEST_USER_URI}  ${uri}
     Set Test Variable  ${TEST_USER_ROLES}  ${roles}
-    Create Context: Web
     Update User Roles  ${uri}  [{"role_id":"EA2_800_ALL","model_id":"EA2_800"}]}]
 
 Restore No Manage System User
@@ -42,6 +41,9 @@ Verify System Settings Page Is Ready
     Page Should Contain Element    ${chkEmailSettingsUseSSL}
     Page Should Contain Element    ${txtEmailSettingsUserName}
     Page Should Contain Element    ${txtEmailSettingsPassword}
+    Page Should Contain Element    ${txtFallbackFieldLength}
+    Scroll Vertical    ${mainContent}    500
+    Page Should Contain Element    ${txtDefaultApprovalState}
 
 Verify Instance To Keep Per Model
     ${oldValue}     Get System Settings Check Instances To Keep Per Model
@@ -114,6 +116,12 @@ Get the System Settings page field values
     ${value}   Get Program/scripts folder field value
     Set Test Variable   ${txtProgramScriptsFolderValue}     ${value}
 
+    ${value}   Get Fallback Field Length field value
+    Set Test Variable   ${txtFallbackFieldLengthValue}     ${value}
+
+    ${value}   Get Default Approval State value
+    Set Test Variable   ${txtDefaultApprovalStateValue}      ${value}
+
     ${value}   Get Max retention time log tables [months] field value
     Set Test Variable   ${txtMaxGeneralHistoryValue}     ${value}
     ${value}   Get Max audit log history [months] field value
@@ -148,6 +156,8 @@ Set the System settings page field values
     Input System Settings Check Instances To Keep Per Model     ${txtInstancesToKeepPerModelValue}
     Input System Settings Active Directory Size Limit   ${txtActiveDirectlySizeLimitValue}
     Input Default maximum export page size field  ${txtDefaultMaximumExportPageSizeValue}
+    Input Fallback Field Length field  ${txtFallbackFieldLengthValue}
+    Select Default Approval State Dropdown    ${txtDefaultApprovalStateValue}
 
     ${chkEnableGroupingInPivotExportsValue}     Get Enable Grouping in Pivot exports checkbox state
     Set Enable Grouping in Pivot exports checkbox   ${chkEnableGroupingInPivotExportsValue}
@@ -184,6 +194,8 @@ Fill the System settings page field values
     Input System Settings Check Instances To Keep Per Model     6
     Input System Settings Active Directory Size Limit   301
     Input Default maximum export page size field  1001
+    Input Fallback Field Length field  255
+    Select Default Approval State Dropdown    rejected
 
     ${chkEnableGroupingInPivotExportsValue}     Get Enable Grouping in Pivot exports checkbox state
     Set Enable Grouping in Pivot exports checkbox   ${chkEnableGroupingInPivotExportsValue}
@@ -243,7 +255,9 @@ Verify the System Settings page field values
     ${returnText}   Get Default maximum export page size field value
     ${expectedText}     Convert to Integer    1001
     Should be equal     ${returnText}   ${expectedText}
-
+    ${returnText}   Get Fallback Field Length field value
+    ${expectedText}     Convert to Integer    255
+    Should be equal     ${returnText}   ${expectedText}
     ${returnText}   Get Enable Grouping in Pivot exports checkbox state
     ${expectedText}     Convert to Boolean    ${chkEnableGroupingInPivotExportsValue}
     Should Not be equal     ${returnText}   ${expectedText}
@@ -303,3 +317,9 @@ Input Program/Script folder path and Save
 Verify Program/Script folder path saved correctly
     [Arguments]     ${Program/ScriptFolderPath}
     Verify Program/Script folder path      ${Program/ScriptFolderPath}
+
+Verify Default Approval State Automation task Actions Setting Lists
+    ${expected}     Create list   approved  disabled  requested   rejected
+    ${approvalStateListInAction}     Get Default Approval State Automation task Actions Dropdown
+    Lists Should Be Equal   ${approvalStateListInAction}    ${expected}
+    

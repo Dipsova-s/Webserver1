@@ -219,9 +219,6 @@
   <data name="Label_Angle_Privilleges_SystemLocation" xml:space="preserve">
     <value>Ort des Systems</value>
   </data>
-  <data name="Label_CSV_Export_AddModelDate" xml:space="preserve">
-    <value>Modelldatum einfügen</value>
-  </data>
   <data name="Label_CSV_Export_BoolChars" xml:space="preserve">
     <value>Ja-/Nein-Zeichen</value>
   </data>
@@ -827,5 +824,14 @@
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
     <value>Excel template</value>
+  </data>
+  <data name="Label_Insert_model_timestamp" xml:space="preserve">
+    <value>Insert model timestamp</value>
+  </data>
+  <data name="InsertModelTimestamp_info" xml:space="preserve">
+    <value>Use '0' to select the first column. When no model timestamp column is required, enter -1 or leave empty.</value>
+  </data>
+  <data name="Label_Template_Not_Exist_Message" xml:space="preserve">
+    <value>Template does not exist</value>
   </data>
 </root>

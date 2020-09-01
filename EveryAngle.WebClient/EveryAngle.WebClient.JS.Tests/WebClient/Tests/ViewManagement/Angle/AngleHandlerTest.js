@@ -2,6 +2,7 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/ResultModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelClassesHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/businessprocesshandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 
@@ -202,6 +203,16 @@ describe("AngleHandler", function () {
         });
     });
 
+    describe(".Online", function () {
+        it("should be online", function () {
+            spyOn(modelsHandler, 'IsAvailable').and.returnValue(true);
+            var result = angleHandler.Online();
+
+            // assert
+            expect(result).toEqual(true);
+        });
+    });
+
     describe(".Load", function () {
         it("should load data", function () {
             spyOn(directoryHandler, 'ResolveDirectoryUri');
@@ -269,13 +280,23 @@ describe("AngleHandler", function () {
         });
     });
 
-    describe(".InitialBusinessProcess", function () {
-        it("should initial business processes", function () {
-            spyOn(angleHandler.AngleBusinessProcessHandler, 'Initial');
-            angleHandler.InitialBusinessProcess();
+    describe(".InitialLabel", function () {
+        it("should initial", function () {
+            spyOn(angleHandler.AngleLabelHandler, 'Initial');
+            angleHandler.InitialLabel();
 
             // assert
-            expect(angleHandler.AngleBusinessProcessHandler.Initial).toHaveBeenCalled();
+            expect(angleHandler.AngleLabelHandler.Initial).toHaveBeenCalled();
+        });
+    });
+
+    describe(".InitialTag", function () {
+        it("should initial tag", function () {
+            spyOn(angleHandler.AngleTagHandler, 'Initial');
+            angleHandler.InitialTag();
+
+            // assert
+            expect(angleHandler.AngleTagHandler.Initial).toHaveBeenCalled();
         });
     });
 
@@ -345,11 +366,24 @@ describe("AngleHandler", function () {
     });
 
     describe(".SaveDescription", function () {
-        it("should call confirm save", function () {
-            //initial
+        beforeEach(function () {
             spyOn(angleHandler.parent.prototype, 'SaveDescription');
             spyOn(angleHandler, 'ConfirmSave');
             spyOn(angleHandler, 'IsDescriptionUsedInTask');
+        });
+        it("should not pass validation", function () {
+            //initial
+            spyOn(angleHandler, 'Validate').and.returnValue(false);
+
+            // prepare
+            angleHandler.SaveDescription();
+
+            // assert
+            expect(angleHandler.ConfirmSave).not.toHaveBeenCalled();
+        });
+        it("should call confirm save", function () {
+            //initial
+            spyOn(angleHandler, 'Validate').and.returnValue(true);
 
             // prepare
             angleHandler.SaveDescription();
@@ -585,6 +619,7 @@ describe("AngleHandler", function () {
         var tests = [
             {
                 title: 'can change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 can_use_jump: true,
@@ -595,6 +630,18 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: false,
+                invalid_baseclass: false,
+                can_use_baseclass: true,
+                can_use_jump: true,
+                allow_more_details: true,
+                update: true,
+                is_validated: false,
+                expected: false
+            },
+            {
+                title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: true,
                 can_use_baseclass: true,
                 can_use_jump: true,
@@ -605,6 +652,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: false,
                 allow_more_details: true,
@@ -614,6 +662,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_more_details: false,
@@ -623,6 +672,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_more_details: true,
@@ -632,6 +682,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change filter',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_more_details: true,
@@ -642,6 +693,7 @@ describe("AngleHandler", function () {
         ];
         $.each(tests, function (index, test) {
             var titles = [
+                'online = ' + test.online,
                 'invalid_baseclass = ' + test.invalid_baseclass,
                 'can_use_baseclass = ' + test.can_use_baseclass,
                 'allow_more_details = ' + test.allow_more_details,
@@ -651,6 +703,7 @@ describe("AngleHandler", function () {
             it(test.title + ' (' + titles.join(', ') + ')', function () {
                 //initial
                 var validation = { InvalidBaseClasses: test.invalid_baseclass };
+                spyOn(angleHandler, 'Online').and.returnValue(test.online);
                 spyOn(angleHandler, 'CanUseBaseClass').and.returnValue(test.can_use_baseclass);
                 spyOn(angleHandler, 'CanUseJump').and.returnValue(test.can_use_jump);
                 spyOn(angleHandler, 'AllowMoreDetails').and.returnValue(test.allow_more_details);
@@ -672,6 +725,7 @@ describe("AngleHandler", function () {
         var tests = [
             {
                 title: 'can change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -682,6 +736,18 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: false,
+                invalid_baseclass: false,
+                can_use_baseclass: true,
+                allow_followups: true,
+                allow_more_details: true,
+                update: true,
+                is_validated: false,
+                expected: false
+            },
+            {
+                title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: true,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -692,6 +758,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: false,
                 allow_followups: true,
@@ -702,6 +769,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: false,
@@ -712,6 +780,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -722,6 +791,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -732,6 +802,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot change jump',
+                online: true,
                 invalid_baseclass: false,
                 can_use_baseclass: true,
                 allow_followups: true,
@@ -743,6 +814,7 @@ describe("AngleHandler", function () {
         ];
         $.each(tests, function (index, test) {
             var titles = [
+                'online = ' + test.online,
                 'invalid_baseclass = ' + test.invalid_baseclass,
                 'can_use_baseclass = ' + test.can_use_baseclass,
                 'allow_followups = ' + test.allow_followups,
@@ -753,6 +825,7 @@ describe("AngleHandler", function () {
             it(test.title + ' (' + titles.join(', ') + ')', function () {
                 //initial
                 var validation = { InvalidBaseClasses: test.invalid_baseclass };
+                spyOn(angleHandler, 'Online').and.returnValue(test.online);
                 spyOn(angleHandler, 'CanUseBaseClass').and.returnValue(test.can_use_baseclass);
                 spyOn(angleHandler, 'AllowFollowups').and.returnValue(test.allow_followups);
                 spyOn(angleHandler, 'AllowMoreDetails').and.returnValue(test.allow_more_details);
@@ -776,16 +849,29 @@ describe("AngleHandler", function () {
             var validation = { InvalidBaseClasses: false };
 
             // prepare
+            spyOn(angleHandler, 'Online').and.returnValue(true);
             var result = angleHandler.CanExecuteQuerySteps(validation);
 
             // assert
             expect(result).toEqual(true);
         });
-        it("cannot execute query steps", function () {
+        it("cannot execute query steps (online=false)", function () {
+            //initial
+            var validation = { InvalidBaseClasses: false };
+
+            // prepare
+            spyOn(angleHandler, 'Online').and.returnValue(false);
+            var result = angleHandler.CanExecuteQuerySteps(validation);
+
+            // assert
+            expect(result).toEqual(false);
+        });
+        it("cannot execute query steps (InvalidBaseClasses=true)", function () {
             //initial
             var validation = { InvalidBaseClasses: true };
 
             // prepare
+            spyOn(angleHandler, 'Online').and.returnValue(true);
             var result = angleHandler.CanExecuteQuerySteps(validation);
 
             // assert
@@ -797,6 +883,7 @@ describe("AngleHandler", function () {
         var tests = [
             {
                 title: 'can save query steps',
+                online: true,
                 invalid_baseclass: false,
                 update: true,
                 is_validated: false,
@@ -804,6 +891,15 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot save query steps',
+                online: false,
+                invalid_baseclass: false,
+                update: true,
+                is_validated: false,
+                expected: false
+            },
+            {
+                title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: true,
                 update: true,
                 is_validated: true,
@@ -811,6 +907,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: false,
                 update: true,
                 is_validated: true,
@@ -818,6 +915,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: false,
                 update: false,
                 is_validated: false,
@@ -825,6 +923,7 @@ describe("AngleHandler", function () {
             },
             {
                 title: 'cannot save query steps',
+                online: true,
                 invalid_baseclass: false,
                 update: false,
                 is_validated: true,
@@ -833,6 +932,7 @@ describe("AngleHandler", function () {
         ];
         $.each(tests, function (index, test) {
             var titles = [
+                'online = ' + test.online,
                 'invalid_baseclass = ' + test.invalid_baseclass,
                 'update = ' + test.update,
                 'is_validated = ' + test.is_validated
@@ -840,6 +940,7 @@ describe("AngleHandler", function () {
             it(test.title + ' (' + titles.join(', ') + ')', function () {
                 //initial
                 var validation = { InvalidBaseClasses: test.invalid_baseclass };
+                spyOn(angleHandler, 'Online').and.returnValue(test.online);
                 angleHandler.Data({ authorizations: { update: test.update }, is_validated: ko.observable(test.is_validated) });
 
                 // prepare
@@ -848,6 +949,18 @@ describe("AngleHandler", function () {
                 // assert
                 expect(result).toEqual(test.expected);
             });
+        });
+    });
+
+    describe(".GetObjectInfo", function () {
+        it("should get start object information", function () {
+            // prepare
+            spyOn(angleHandler.QueryDefinitionHandler, 'GetBaseClasses').and.returnValue(['class1', 'class2']);
+            spyOn(modelClassesHandler, 'GetClassName').and.returnValues('Name1', 'Name2');
+            var result = angleHandler.GetObjectInfo();
+
+            // assert
+            expect(result).toEqual('Start object: Name1, Name2');
         });
     });
 
@@ -906,6 +1019,25 @@ describe("AngleHandler", function () {
             expect(result.model).toEqual('/models/1');
             expect(result.query_definition[0].queryblock_type).toEqual(enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
             expect(result.query_definition[1].queryblock_type).toEqual(enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
+        });
+    });
+
+    describe(".ClearAllPostResultsData", function () {
+        it("should clear all Display results", function () {
+            // prepare
+            var display1 = new DisplayHandler({ id: 'display1' }, angleHandler);
+            display1.ResultHandler.Data = { uri: '/results/1' };
+            var display2 = new DisplayHandler({ id: 'display2' }, angleHandler);
+            display2.ResultHandler.Data = { uri: '/results/2' };
+            var display3 = new DisplayHandler({ id: 'display3' }, angleHandler);
+            display3.ResultHandler.Data = { uri: '/results/3' };
+            angleHandler.Displays = [display1, display2, display3];
+            angleHandler.ClearAllPostResultsData();
+
+            // assert
+            expect(angleHandler.Displays[0].ResultHandler.Data).toEqual({});
+            expect(angleHandler.Displays[1].ResultHandler.Data).toEqual({});
+            expect(angleHandler.Displays[2].ResultHandler.Data).toEqual({});
         });
     });
 
@@ -1157,18 +1289,34 @@ describe("AngleHandler", function () {
     });
 
     describe(".SaveDisplays", function () {
-        it("should save all Displays", function () {
-            // prepare
+        var display3;
+        beforeEach(function () {
             var display1 = new DisplayHandler({}, angleHandler);
             var display2 = new DisplayHandler({}, angleHandler);
+            display3 = new DisplayHandler({}, angleHandler);
             spyOn(display1, 'CanCreateOrUpdate').and.returnValue(true);
             spyOn(display2, 'CanCreateOrUpdate').and.returnValue(false);
-            angleHandler.Displays = [display1, display2];
+            spyOn(display3, 'CanCreateOrUpdate').and.returnValue(true);
+            angleHandler.Displays = [display1, display2, display3];
             spyOn(Array.prototype, 'pushDeferred');
+            spyOn(angleHandler, 'SaveDisplay').and.returnValue($.when());
+        });
+        it("should save all Displays with is_user_default=true", function () {
+            // prepare
+            display3.Data().user_specific.is_user_default(true);
             angleHandler.SaveDisplays();
 
             // assert
             expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(1);
+            expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(1);
+        });
+        it("should save all Displays with is_user_default=false", function () {
+            // prepare
+            angleHandler.SaveDisplays();
+
+            // assert
+            expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(2);
+            expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(0);
         });
     });
 
@@ -1297,30 +1445,54 @@ describe("AngleHandler", function () {
     });
 
     describe(".ConfirmSave", function () {
-        it("should call confirm when angle has conflict", function () {
-            // prepare
-            spyOn(jQuery, 'isFunction').and.callFake(function () { return false; });
-            spyOn(angleHandler, 'IsConflict').and.returnValue(true);
+        beforeEach(function () {
+            spyOn(angleHandler, 'ConfirmSaveWithUsedInTask');
             spyOn(popup, 'Confirm');
-
+        });
+        it("should confirm when angle is validated", function () {
+            // prepare
+            angleHandler.Data().is_validated(true);
             angleHandler.ConfirmSave(null, $.noop, $.noop);
 
             // assert
             expect(popup.Confirm).toHaveBeenCalled();
-            expect(angleHandler.IsConflict).toHaveBeenCalled();
+            expect(angleHandler.ConfirmSaveWithUsedInTask).not.toHaveBeenCalled();
         });
-
-        it("should not call confirm when angle has not conflict", function () {
+        it("should not confirm when angle is not validated", function () {
             // prepare
-            spyOn(jQuery, 'isFunction').and.callFake(function () { return false; });
-            spyOn(angleHandler, 'IsConflict').and.returnValue(false);
-            spyOn(popup, 'Confirm');
-
-            angleHandler.ConfirmSave(null, $.noop, $.noop);
+            angleHandler.Data().is_validated(false);
+            angleHandler.ConfirmSave($.noop, $.noop, $.noop);
 
             // assert
             expect(popup.Confirm).not.toHaveBeenCalled();
-            expect(angleHandler.IsConflict).toHaveBeenCalled();
+            expect(angleHandler.ConfirmSaveWithUsedInTask).toHaveBeenCalled();
+        });
+    });
+
+    describe(".ConfirmSaveWithUsedInTask", function () {
+        var fn = {};
+        beforeEach(function () {
+            fn.callback = $.noop;
+            spyOn(fn, 'callback');
+            spyOn(popup, 'Confirm');
+        });
+        it("should confirm when checker = true", function () {
+            // prepare
+            var checker = function () { return true; };
+            angleHandler.ConfirmSaveWithUsedInTask(checker, fn.callback, $.noop);
+
+            // assert
+            expect(popup.Confirm).toHaveBeenCalled();
+            expect(fn.callback).not.toHaveBeenCalled();
+        });
+        it("should not confirm when checker = false", function () {
+            // prepare
+            var checker = function () { return false; };
+            angleHandler.ConfirmSave(checker, fn.callback, $.noop);
+
+            // assert
+            expect(popup.Confirm).not.toHaveBeenCalled();
+            expect(fn.callback).toHaveBeenCalled();
         });
     });
 
@@ -1352,6 +1524,31 @@ describe("AngleHandler", function () {
         });
     });
 
+    describe(".SaveOrders", function () {
+        it("should save", function () {
+            // prepare
+            spyOn(window, 'UpdateDataToWebService').and.returnValue($.when({
+                display_definitions: [
+                    { uri: '/displays/1', order: 1 },
+                    { uri: '/displays/2', order: 2 }
+                ]
+            }));
+            var rawAngle = { display_definitions: [{ uri: '/displays/2' }] };
+            spyOn(angleHandler, 'GetRawData').and.returnValue(rawAngle);
+            var display = new DisplayHandler({}, angleHandler);
+            spyOn(display, 'SetRawData');
+            spyOn(angleHandler, 'GetDisplay').and.returnValues(null, display);
+            spyOn(angleHandler, 'SetRawData');
+            angleHandler.SaveOrders([]);
+
+            // assert
+            expect(rawAngle.display_definitions[0].order).toEqual(2);
+            expect(display.Data().order).toEqual(2);
+            expect(display.SetRawData).toHaveBeenCalled();
+            expect(angleHandler.SetRawData).toHaveBeenCalled();
+        });
+    });
+
     describe(".SaveAll", function () {
         it("should save all Angle and Displays", function () {
             // prepare
@@ -1374,6 +1571,48 @@ describe("AngleHandler", function () {
             // assert
             expect(angleHandler.CreateOrUpdate).toHaveBeenCalled();
             expect(angleHandler.SaveDisplays).not.toHaveBeenCalled();
+        });
+    });
+
+    describe(".SaveDefaultDisplay", function () {
+        beforeEach(function () {
+            spyOn(angleHandler, 'UpdateData');
+        });
+        it("should not save (adhoc Angle)", function () {
+            // prepare
+            spyOn(angleHandler, 'GetCreateOrUpdateData').and.returnValue({ id: 'my-id' });
+            spyOn(angleHandler, 'IsAdhoc').and.returnValue(true);
+            angleHandler.SaveDefaultDisplay();
+
+            // assert
+            expect(angleHandler.UpdateData).not.toHaveBeenCalled();
+        });
+        it("should not save (no changes)", function () {
+            // prepare
+            spyOn(angleHandler, 'GetCreateOrUpdateData').and.returnValue(null);
+            spyOn(angleHandler, 'IsAdhoc').and.returnValue(false);
+            angleHandler.SaveDefaultDisplay();
+
+            // assert
+            expect(angleHandler.UpdateData).not.toHaveBeenCalled();
+        });
+        it("should not save (no angle_default_display)", function () {
+            // prepare
+            spyOn(angleHandler, 'GetCreateOrUpdateData').and.returnValue({ id: 'my-id' });
+            spyOn(angleHandler, 'IsAdhoc').and.returnValue(false);
+            angleHandler.SaveDefaultDisplay();
+
+            // assert
+            expect(angleHandler.UpdateData).not.toHaveBeenCalled();
+        });
+        it("should save", function () {
+            // prepare
+            spyOn(angleHandler, 'GetCreateOrUpdateData').and.returnValue({ angle_default_display: 'new-id' });
+            spyOn(angleHandler, 'IsAdhoc').and.returnValue(false);
+            angleHandler.SaveDefaultDisplay();
+
+            // assert
+            expect(angleHandler.UpdateData).toHaveBeenCalled();
         });
     });
 
@@ -1747,11 +1986,11 @@ describe("AngleHandler", function () {
 
     describe(".Validate", function () {
         it("should call validate function(s)", function () {
-            spyOn(angleHandler.AngleBusinessProcessHandler, 'Validate');
+            spyOn(angleHandler.AngleLabelHandler, 'Validate');
 
             angleHandler.Validate();
 
-            expect(angleHandler.AngleBusinessProcessHandler.Validate).toHaveBeenCalled();
+            expect(angleHandler.AngleLabelHandler.Validate).toHaveBeenCalled();
         });
     });
 });

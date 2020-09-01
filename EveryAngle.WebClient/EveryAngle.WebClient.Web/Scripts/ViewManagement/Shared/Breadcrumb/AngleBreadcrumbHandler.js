@@ -2,13 +2,22 @@
     "use strict";
 
     var self = this;
+    self.IconAngle = 'icon icon-angle icon-breadcrumb-front';
+    self.IconTemplate = 'icon icon-template icon-breadcrumb-front';
 
-    self.GetAngleViewModel = function (angleName, isValidated, isTemplate) {
-        var angleViewModel = self.GetItemViewModel(angleName, isValidated, isTemplate ? 'icon-template' : 'icon-angle');
-        angleViewModel.url(self.GetAngleUrl());
-        return angleViewModel;
+    self.GetAngleViewModel = function (angleName, validated, template) {
+        var url = self.GetAngleUrl();
+        var data = self.GetItemViewModel(angleName, validated);
+        data.frontIcon(template ? self.IconTemplate : self.IconAngle);
+        if (url) {
+            data.url(url);
+        }
+        else {
+            data.hasEditIcon(true);
+            data.click = self.ShowEditPopup;
+        }
+        return data;
     };
-
     self.GetAngleUrl = function () {
         if (!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN))
             return '';
@@ -25,21 +34,17 @@
         });
         return WC.Utility.GetAnglePageUri(angleUri, displayUri, query);
     };
+    self.ShowEditPopup = jQuery.noop;
 
     self.GetDrilldownViewModel = function (listDrilldown, modelUri) {
         var title = self.GetDrilldownResultLabel(listDrilldown.ObjectType, modelUri);
-        var viewModel = new BreadcrumbViewModel();
-        viewModel.frontIcon(self.IconChevron);
-        viewModel.label(title);
-        viewModel.title(title);
-        return viewModel;
+        var data = self.GetDefaultViewModel(title);
+        return data;
     };
-
     self.GetDrilldownResultLabel = function (classId, modelUri) {
         var name = modelClassesHandler.GetClassName(classId, modelUri, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME);
         return kendo.format('{0} "{1}"', Localization.CellPopupMenuDrillDownTo, name);
     };
 }
 AngleBreadcrumbHandler.extend(BreadcrumbHandler);
-
 var angleBreadcrumbHandler = new AngleBreadcrumbHandler();

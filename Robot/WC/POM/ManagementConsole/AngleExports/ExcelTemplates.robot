@@ -28,11 +28,11 @@ Click Upload Excel Template
 
 Click Download Excel Template
     [Arguments]     ${excelFileName}
-    Click Element     //tr[@id='row-${excelFileName}']/td[3]/div/div/a[contains(text(),'Download')]
+    Click Element     //tr[@id='row-${excelFileName}']/td[5]/div/div/a[contains(text(),'Download')]
     
 Click Delete Excel Template
     [Arguments]     ${excelFileName}
-    Click Element     //tr[@id='row-${excelFileName}']/td[3]/div/div/a[contains(text(),'Delete')]
+    Click Element     //tr[@id='row-${excelFileName}']/td[5]/div/div/a[contains(text(),'Delete')]
     Wait Until Element Is Visible      ${popUpConfirmationTodelete}
     Click Element      ${btnConfirmToDelete}
     Wait Progress Bar Closed

@@ -17,13 +17,20 @@ Create Adhoc Angle From N Object List
     ${bps}=    Create List    S2D
     Add Business Processes    ${bps}    isAdhoc=${True}
     Edit Angle Description    en    ${angleName}    ${EMPTY}    ${True}
+    Open All Display Groups
 
 Create Adhoc Angle From One Object
     [Arguments]   ${objectName}    ${angleName}
     Create Adhoc Angle From N Object List    ${objectName}    ${angleName}    1
 
 Create Blank Adhoc Angle From One Object
-    [Arguments]   ${objectName}     ${angleName}
+    [Arguments]   ${objectName}     ${angleName}  ${bps}
+    Execute Blank Adhoc Angle From One Object  ${objectName}
+    Add Business Processes    ${bps}     ${TRUE}
+    Edit Angle Description    en    ${angleName}    ${EMPTY}    ${TRUE}
+
+Execute Blank Adhoc Angle From One Object
+    [Arguments]   ${objectName}
     Open Create Angle By Object List Popup
     Fill In Search Create Angle By Object List Popup    ${objectName}
     Click N Objects From List   1
@@ -32,7 +39,7 @@ Create Blank Adhoc Angle From One Object
     Wait Angle Page Document Loaded
     Open Side Panel
     Click Angle Tab
-    Edit Angle Description    en    ${angleName}    ${EMPTY}    ${True}
+    Open All Display Groups
 
 Create Adhoc Angle From Object List
     [Arguments]   ${objectName}    ${angleName}
@@ -45,17 +52,17 @@ Create Adhoc Angle From All Object List
 Create Angle From Object List And Save
     [Arguments]   ${objectName}    ${angleName}
     Create Adhoc Angle From Object List   ${objectName}    ${angleName}
-    Click Save All
+    Click Save Angle
 
 Create Angle From All Object List And Save
     [Arguments]   ${objectName}    ${angleName}
     Create Adhoc Angle From All Object List   ${objectName}    ${angleName}
-    Click Save All
+    Click Save Angle
 
 Create Angle From One Object List And Save
     [Arguments]   ${objectName}    ${angleName}
     Create Adhoc Angle From One Object   ${objectName}    ${angleName}
-    Click Save All
+    Click Save Angle
 
 Copy And Delete Angle Via Search Page
     [Arguments]    ${angleName}
@@ -154,19 +161,19 @@ Change Display To List
     Run Keyword If    '${displayType}' != 'list'    Change Display To First List
 
 Change Display To First List
-    ${firstListSelector}    Get JQuery Selector    ${divDisplayTabMenus} .icon.icon-list:first
-    ${firstListIndex}    Execute JavaScript    return $('${firstListSelector}').parents('.tab-menu').index()
-    Select Display Tab    ${divDisplayTabMenus}:eq(${firstListIndex})
+    ${selector}  Get JQuery Selector  ${divDisplayTabMenus} .icon.icon-list:first
+    ${name}      Execute JavaScript   return $('${selector}').closest('.tab-menu').attr('data-title');
+    Change Display By Name    ${name}
 
 Change Display To First Pivot
-    ${firstPivotSelector}    Get JQuery Selector    ${divDisplayTabMenus} .icon.icon-pivot:first
-    ${firstPivotIndex}       Execute JavaScript     return $('${firstPivotSelector}').parents('.tab-menu').index()
-    Select Display Tab    ${divDisplayTabMenus}:eq(${firstPivotIndex})
+    ${selector}  Get JQuery Selector  ${divDisplayTabMenus} .icon.icon-pivot:first
+    ${name}      Execute JavaScript   return $('${selector}').closest('.tab-menu').attr('data-title');
+    Change Display By Name    ${name}
 
 Change Display To First Chart
-    ${firstChartSelector}    Get JQuery Selector    ${divDisplayTabMenus} .icon.icon-chart:first
-    ${firstChartIndex}       Execute JavaScript     return $('${firstChartSelector}').parents('.tab-menu').index()
-    Select Display Tab    ${divDisplayTabMenus}:eq(${firstChartIndex})
+    ${selector}  Get JQuery Selector  ${divDisplayTabMenus} .icon.icon-chart:first
+    ${name}      Execute JavaScript   return $('${selector}').closest('.tab-menu').attr('data-title');
+    Change Display By Name    ${name}
 
 Delete Current Display
     Click Delete Active Display From Dropdown
@@ -176,6 +183,28 @@ Delete Display By Name
     [Arguments]    ${displayName}
     Click Delete Display From Dropdown By Name  ${displayName}
     Click Confirm Delete Display
+
+Verify Display Group Public
+    Page Should Contain Display Group Public
+    Close Display Group Public
+    Display Group Public Should Be Closed
+    Open Display Group Public
+    Display Group Public Should Be Opened
+    Verify Left Display Scrolling Button Is Disabled
+    Verify Right Display Scrolling Button Is Enabled
+
+Verify Display Group Private
+    Page Should Contain Display Group Private
+    Close Display Group Private
+    Display Group Private Should Be Closed
+    Verify Display Scrolling Buttons Are Hidden
+    Open Display Group Private
+    Display Group Private Should Be Opened
+    Verify Left Display Scrolling Button Is Disabled
+    Verify Right Display Scrolling Button Is Enabled
+
+Verify Display Group Other
+    Page Should Not Contain Display Group Other
 
 Execute Jump From Action Menu
     [Arguments]    ${jumpName}
@@ -344,7 +373,7 @@ Check Keep Active Display Filter Enabled When Has Filter On Display
     Add Or Change Filter    ID     ID    has_value     ${TRUE}
 	Click Apply Filter On Display
     Keep Active Display Filter Should Enabled
-    Click Save All
+    Click Save Display
 
 Check Filter Is Applied When Enabled Keep Active Display Filter And Switch To Other Display
     Create New List Display on Angle Page
@@ -364,10 +393,8 @@ Check Newly Created Display Should Exist In Publishing Popup
     Close Publish Angle Popup
 
 Check Removed Display Should Not Exist In Publishing Popup
-    [Arguments]    ${language}    ${name}    ${description}
-    Check Newly Created Display Should Exist In Publishing Popup    ${language}    ${name}    ${description}
+    [Arguments]    ${name}
     Delete Current Display
-    Wait Until Ajax Complete
     Open Angle Publishing Popup
     Verify Publishing Displays Should Not Contain A Display    ${name}
     Close Publish Angle Popup
@@ -391,3 +418,18 @@ Verify Angle Downloading Confirmation
     Select Checkbox Execute On Login
     Angle Downloading Should Get A Confirmation Popup
     Unselect Checkbox Execute On Login
+
+Copy Display
+    Click Angle Dropdown Actions Copy Display
+    Page Should Contain Toast Success
+
+Paste Display
+    Click Angle Dropdown Actions Paste Display
+    Page Should Contain Toast Success
+    Wait Display Executed
+
+Paste Display But Invalid
+    Click Angle Dropdown Actions Paste Display
+    Wait Until Notification Popup Show
+    Element Should Contain     ${popupNotification}    Display cannot be pasted
+    Click Close Info Button

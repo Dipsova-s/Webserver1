@@ -12,7 +12,7 @@ ${btnCloseAboutPopup}                css=.k-i-close
 
 #copyright
 ${copyrightRow}                    css=.licensetable tr
-
+${clientVersionValue}              xpath=//div[@data-bind='text: web_client_version']
 *** Keywords ***
 Open Copyright Page
     Click Element                       ${linkCopyRight}
@@ -34,7 +34,7 @@ Open Web Client Help Page
     Click Help Menu
     Click Element  ${btnWebClientHelp}
     Switch Window  NEW
-    Wait Until Keyword Succeeds  1 min  2 sec  Title Should Be  Every Angle Web Client
+    Wait Until Keyword Succeeds  1 min  2 sec  Title Should Be  Introduction
 
 Close About Popup
     Click Element                       ${btnCloseAboutPopup}
@@ -47,5 +47,3 @@ Get Number of License
     ${count} =  Get Element Count   ${copyrightRow}      
     [Return]    ${count} 
 
-
-   

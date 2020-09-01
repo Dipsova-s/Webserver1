@@ -13,7 +13,7 @@ ${filePath}                                ${EXECDIR}/resources/Robot-Test-1.eap
 *** Test Cases ***
 Test Welcome Page
     [Documentation]    This test case deals with entering welcome note/message and uploading customer logo in Welcome page of ITMC. It also verifies the same in Search page of WC.
-    [Tags]      TC-625      TC-628
+    [Tags]      TC_C625      TC_C628
     Login To MC By Admin User
     Wait Until Overview Page Loaded
     Go To Welcome Page

@@ -6,10 +6,10 @@ Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Pivot.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          acc_wc
 
 *** Test Cases ***
 Popup Was Closed When Switch Display
+    [Tags]  acc_wc
     ${angleName}  Set Variable  [ROBOT] Test Popup Was Close When Switch Display
     Create Angle From Object List And Save    PD    ${angleName}
     Create New Pivot Display on Angle Page
@@ -33,7 +33,7 @@ Remember Changes When Switch Display
     ...              A Display will keep changes when swiched back to it.
     ...              Clicking Save button should remove the asterisk sign.
     ...              Risk/Cover area: Changing and saving Displays
-    [Tags]  TC_C219259  TC_C228702
+    [Tags]  acc_wc  TC_C219259  TC_C230315
     ${angleName}  Set Variable  [ROBOT] Test Remember Changes When Switch Display
     Create Angle From Object List And Save    PD    ${angleName}
 
@@ -71,10 +71,13 @@ Remember Changes When Switch Display
     [Teardown]  Back To Search And Delete Angle Are Created    ${angleName}
 
 Scroll Display Tabs Scrolling Buttons Can Scroll Left And Right
+    [Documentation]     Check scrolling buttons for a lot of Displays
+    [Tags]  acc_wc  TC_C230854
     [Setup]  Import Angle By API  /models/1  ANGLE_MultiDisplayTesting.json  user=${Username}
-    ${width}	${height} =	Get Window Size
+    ${width}	${height}  Get Window Size
 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_MultiDisplayTesting
+    Open All Display Groups
     Verify Display Scrolling Buttons Are Hidden
     Set Window Size    800   768
     Sleep    ${TIMEOUT_LARGEST}
@@ -91,45 +94,49 @@ Scroll Display Tabs Scrolling Buttons Can Scroll Left And Right
     Verify Left Display Scrolling Button Is Disabled
     Verify Right Display Scrolling Button Is Enabled
     Set Window Size    ${width}     ${height}
-    Maximize Browser window
+    Maximize Browser Window
     Sleep    ${TIMEOUT_LARGEST}
     Verify Display Scrolling Buttons Are Hidden
    
     [Teardown]  Clean Up Items And Go To Search Page
  
-New Display Tab Should Be Created On The Leftmost When Drilldown A Chart Display
-    [Documentation]     Scenario 4 The tabs bar is focused correctly : Chart
-    [Tags]      TC_T430636
-    [Setup]  Import Angle By API  /models/1  ANGLE_ManyDisplays.json  user=${Username} 
+Display Tabs Behavior
+    [Documentation]  Check Display tabs behavior
+    ...              - open/close Display group
+    ...              - active tab
+    ...              - scroll left/right button
+    [Tags]   acc_wc  TC_C230854  TC_C230853
+    [Setup]  Import Angle By API  /models/1  ANGLE_ManyDisplays.json  user=${Username}
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_ManyDisplays
+    Open All Display Groups
+
+    # check Display group
+    Verify Display Group Public
+    Verify Display Group Private
+    Verify Display Group Other
+
+    # check active Display
     Active Display Should Be Visible
+
+    # create Private Display
     Change Display By Name    No. per Creation Date
     Click First Bar In Column Chart
-    Verify Left Display Scrolling Button Is Disabled
-    Verify Right Display Scrolling Button Is Enabled
-    Active Display Should Be Visible
-    Active Display Should Mark As UnSaved
-    [Teardown]  Clean Up Items And Go To Search Page
 
-New Display Tab Should Be Created On The Leftmost When Drilldown A Pivot Display
-    [Documentation]     Scenario 4 The tabs bar is focused correctly : Pivot
-    [Tags]      TC_T430636
-    [Setup]  Import Angle By API  /models/1  ANGLE_ManyDisplays.json  user=${Username} 
-    Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_ManyDisplays
-    Active Display Should Be Visible
-    Change Display By Name    Supply Demand Matching External Orders (pivot)
-    Drilldown Pivot Total Cell Value By Row Index    0
-    Verify Left Display Scrolling Button Is Disabled
+    # check scroll left/right
+    Verify Left Display Scrolling Button Is Enabled
     Verify Right Display Scrolling Button Is Enabled
+
+    # check active Display
     Active Display Should Be Visible
     Active Display Should Mark As UnSaved
+
     [Teardown]  Clean Up Items And Go To Search Page
 
 Display Overview Popup Behavior
     [Documentation]  Check all icons of Display overview popup.
     ...              Check switching Display from Display overview popup.
     ...              Risk/Cover area: Display overview popup, switching Display
-    [Tags]  TC_C228753
+    [Tags]   acc_wc  TC_C228753
     [Setup]  Import Angle By API  /models/1  ANGLE_ManyDisplays.json  user=${Username} 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_ManyDisplays
 
@@ -172,7 +179,7 @@ Display Overview Popup Behavior
 Verify Keep Active Display Filter
     [Documentation]  The current filter display is applied to the other display when setting the keep active display filter is true.
     ...              Risk/Cover area: Keep Active Display Filter under the display tab.
-    [Tags]      TC_C229133
+    [Tags]   acc_wc  TC_C229133
     [Setup]  Import Angle By API  /models/1  ANGLE_KeepActiveDisplayFilter.json  user=${Username} 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_KeepActiveDisplayFilter
     
@@ -186,27 +193,16 @@ Verify Keep Active Display Filter
 
     [Teardown]  Clean Up Items And Go To Search Page
 
-Verify Newly Created Display Should Be Visible In Publishing Popup
+Verify New And Deleted Display In Publishing Popup
     [Documentation]  Check the newly created display should be show in the publishing popup
-    [Tags]      TC_229012
+    ...              Check the removed display should not be show in the publishing popup
+    [Tags]   acc_wc   TC_C229012
     [Setup]  Import Angle By API  /models/1  ANGLE_PublishingDisplay.json  user=${Username} 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_PUBLISHING_DISPLAYS
     
     Set Editor Context: Display Tab
     Click Display Tab
     Check Newly Created Display Should Exist In Publishing Popup    en  Newly Display for publishing  Newly Display for publishing
-
-    [Teardown]  Clean Up Items And Go To Search Page
-
-
-Verify Removed Display Should Not Be Visible In Publishing Popup
-    [Documentation]  Check the removed display should not be show in the publishing popup
-    [Tags]      TC_229012
-    [Setup]  Import Angle By API  /models/1  ANGLE_PublishingDisplay.json  user=${Username} 
-    Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_PUBLISHING_DISPLAYS
-    
-    Set Editor Context: Display Tab
-    Click Display Tab
-    Check Removed Display Should Not Exist In Publishing Popup    en  Removed Display for publishing  Removed Display for publishing
+    Check Removed Display Should Not Exist In Publishing Popup    Newly Display for publishing
 
     [Teardown]  Clean Up Items And Go To Search Page

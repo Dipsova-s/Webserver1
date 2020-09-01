@@ -55,6 +55,36 @@ function HelpTextHandler() {
     ==================================================*/
 
     /*=============== custom functions ===============*/
+    self.Initial = function () {
+        self.parent.prototype.Initial.call(self);
+        jQuery.each(self.Data, function (_modelUri, data) {
+            jQuery.each(data, function (helpTextKey, helpText) {
+                if (helpText.uri.indexOf('not_found') !== -1)
+                    delete data[helpTextKey];
+            });
+        });
+        jQuery.localStorage(self.Id, self.Data);
+    };
+    self.Load = function (uri, params, store) {
+        var deferred = jQuery.Deferred();
+        self.parent.prototype.Load.call(self, uri, params, store)
+            .fail(function (xhr, status, error) {
+                if (xhr.status === 404) {
+                    // something went wrong in AppServer but it will be ok on the next request
+                    errorHandlerModel.IgnoreAjaxError(xhr);
+                    setTimeout(function () {
+                        self.parent.prototype.Load.call(self, uri, params, store)
+                            .fail(deferred.reject)
+                            .done(deferred.resolve);
+                    }, 100);
+                }
+                else {
+                    deferred.reject(xhr, status, error);
+                }
+            })
+            .done(deferred.resolve);
+        return deferred.promise();
+    };
     self.GetTemplate = function () {
         return [
         '<div class="helpHeaderContainer"></div>',
@@ -102,22 +132,18 @@ function HelpTextHandler() {
         return self.GetDataBy('uri', uri, modelUri);
     };
     self.GetHelpTextById = function (id, modelUri) {
-        return self.GetDataBy('id', id, modelUri);
-    };
-    self.SetHelpTexts = function (helpTexts, storage) {
-        var helpTextsData = [];
-        var helpTextsFakeData = [];
-        jQuery.each(helpTexts, function (uri, helpText) {
-            if (helpText.uri.indexOf('not_found') === -1) {
-                helpTextsData.push(helpText);
-            }
-            else {
-                helpTextsFakeData.push(helpText);
-            }
-        });
+        var data = self.GetData(modelUri);
+        var helpTexts = data.findObjects('id', id, false);
+        if (!helpTexts.length)
+            return null;
+        if (helpTexts.length === 1)
+            return helpTexts[0];
 
-        self.SetData(helpTextsData, storage);
-        self.SetData(helpTextsFakeData, false);
+        // don't use not_found
+        helpTexts = jQuery.grep(helpTexts, function (helpText) {
+            return helpText.uri.indexOf('not_found') === -1;
+        });
+        return helpTexts[0];
     };
 
     self.ShowHelpTextPopup = function (objectId, helpType, modelUri) {

@@ -180,6 +180,7 @@
     <Compile Include="ApiServices\UserService.cs" />
     <Compile Include="ApplicationServices\CopyrightService.cs" />
     <Compile Include="ApplicationServices\LogFileReaderService.cs" />
+    <Compile Include="ApplicationServices\GlobalSettingsAppService.cs" />
     <Compile Include="EmbededResource\EmbeddedVirtualFile.cs" />
     <Compile Include="EmbededResource\EmbeddedVirtualPathProvider.cs" />
     <Compile Include="EmbededResource\HttpHandlers\EmbeddedResourceHttpHandler.cs" />

@@ -3,18 +3,31 @@
 }
 
 <!-- ko stopBinding: true -->
-<ol class="breadcrumbDirectory" data-bind="foreach: $root.ViewModels">
-    <li class="textEllipsis breadcrumbItem" data-bind="css: { textEllipsis: $data.ellipsis }">
-        <i data-bind="attr: { class: $data.frontIcon }"></i>
-        <i class="breadcrumbIcon icon" data-bind="css: $data.itemIcon"></i>
-        <!--ko if: $data.url() -->
-        <a class="breadcrumbLabel breadcrumbLink" data-bind="text: $data.label, attr: { href: $data.url, 'data-role': 'tooltip', 'data-tooltip-position': 'bottom', 'data-showwhenneed': true, 'data-tooltip-text': $data.title }, css: { textEllipsis: $data.ellipsis }"></a>
-        <!--/ko-->
-        <!--ko ifnot: $data.url() -->
-        <span class="breadcrumbLabel" data-bind="text: $data.label, attr: { 'data-role': 'tooltip', 'data-tooltip-position': 'bottom', 'data-showwhenneed': true, 'data-tooltip-text': $data.title }, css: { textEllipsis: $data.ellipsis }"></span>
-        <!--/ko-->
-
-        <i data-bind="attr: { class: $data.rearIcon }"></i>
+<ol class="breadcrumb-wrapper" data-bind="foreach: $root.Data">
+    <li class="breadcrumb-item" data-bind="css: { 'text-ellipsis': $data.ellipsis }">
+        <span data-bind="attr: { class: $data.separatorIcon }"></span>
+        <a class="breadcrumb-label"
+           data-bind="click: $data.click,
+           attr: { href: $data.url },
+           css: {
+            'breadcrumb-link': $data.url(),
+            'breadcrumb-editable': $data.hasEditIcon(),
+            'text-ellipsis': $data.ellipsis
+           }">
+            <span data-bind="attr: { class: $data.frontIcon }"></span>
+            <span class="breadcrumb-name" data-bind="text: $data.label,
+               css: { 'text-ellipsis': $data.ellipsis },
+               attr: {
+                'data-role': 'tooltip',
+                'data-tooltip-position': 'bottom',
+                'data-tooltip-text': $data.title,
+                'data-showwhenneed': true
+               }"></span>
+            <span data-bind="attr: { class: $data.rearIcon }"></span>
+            <!-- ko if: $data.hasEditIcon() -->
+            <span class="icon-breadcrumb-rear icon-breadcrumb-edit icon icon-pencil always-hide" data-bind="css: { 'always-hide': !$data.hasEditIcon()  }"></span>
+            <!-- /ko -->
+        </a>
     </li>
 </ol>
 <!-- /ko -->

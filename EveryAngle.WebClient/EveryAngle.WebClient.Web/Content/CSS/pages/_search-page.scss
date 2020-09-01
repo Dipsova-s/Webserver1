@@ -2,7 +2,7 @@
 @import '../abstracts/mixins';
 
 $facet-filter-padding-bottom: 9px;
-$left-menu-background-color: #fcfcfc;
+$left-menu-background-color: #f7f9fa;
 
 /* #LeftMenu
 ============================================ */
@@ -68,10 +68,10 @@ $left-menu-background-color: #fcfcfc;
         }
 
         .FilterTitle {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
-            text-transform: uppercase;
             margin-right: auto;
+            letter-spacing: .24px;
         }
 
         span {

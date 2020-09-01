@@ -188,7 +188,7 @@ Create Angle From "Move And Filters" Template
     Click Link Template From Search Result    ${TEMPLATE_FOR_SORT_AND_MOVE_NAME}
     Wait Angle Page Document Loaded
     Edit Angle Description    en    ${angleName}    ${EMPTY}     ${True}
-    Click Save All
+    Click Save Angle
 
 Add Filter Before Jump From Display Details Popup
     [Arguments]   ${panelIndex}    ${fieldKeyword}    ${fieldId}    ${isSelfSource}

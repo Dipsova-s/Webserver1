@@ -278,17 +278,23 @@ function ResultViewModel() {
                 errorHandlerModel.Enable(true);
             });
     };
-    self.SetRetryPostResultToErrorPopup = function (xhr) {
-        if (xhr.status === 404) {
-            // M4-38478
-            errorHandlerModel.IgnoreAjaxError(xhr);
-            popup.Alert(Localization.Warning_Title, Localization.MessageAngleNeedsToBeReExecuted);
-            popup.OnCloseCallback = function () {
-                anglePageHandler.HandlerDisplay.ClearPostResultData();
-                resultModel.ClearResult();
-                anglePageHandler.ExecuteAngle();
-            };
-        }
+    self.SetRetryPostResult = function (xhr, element) {
+        xhr = xhr || {};
+        errorHandlerModel.IgnoreAjaxError(xhr);
+
+        var message = xhr.status === 404
+            ? Localization.MessageAngleNeedsToBeReExecuted
+            : errorHandlerModel.GetAreaErrorMessage(xhr.responseText);
+        var callbackModelServer = function () {
+            anglePageHandler.HandlerAngle.ClearAllPostResultsData();
+            anglePageHandler.ExecuteAngle();
+        };
+        var callbackCommon = function () {
+            anglePageHandler.HandlerDisplay.ClearPostResultData();
+            anglePageHandler.ExecuteAngle();
+        };
+        var callback = xhr.status === 404 || xhr.status === 503 ? callbackModelServer : callbackCommon;
+        errorHandlerModel.ShowAreaError(element, message, callback);
     };
     self.LoadSuccess = function (data) {
         if (displayModel.Data() === null) {
@@ -463,24 +469,24 @@ function ResultViewModel() {
 
         switch (displayModel.Data().display_type) {
             case enumHandlers.DISPLAYTYPE.PIVOT:
+                pivotPageHandler.HasResult(true);
+                pivotPageHandler.ReadOnly(false);
                 pivotPageHandler.GetPivotDisplay();
                 break;
             case enumHandlers.DISPLAYTYPE.CHART:
+                chartHandler.HasResult(true);
+                chartHandler.ReadOnly(false);
                 chartHandler.GetChartDisplay();
                 break;
             case enumHandlers.DISPLAYTYPE.LIST:
+                listHandler.HasResult(true);
+                listHandler.ReadOnly(false);
                 listHandler.GetListDisplay(true);
                 progressbarModel.EndProgressBar();
                 break;
             default:
                 break;
         }
-    };
-    self.SetNotSuccessfullyCompleted = function () {
-        var response = {
-            responseText: Localization.ErrorPostResultFinishWithUnknown
-        };
-        return jQuery.Deferred().reject(response, null, null).promise();
     };
     self.ApplyResultFail = function (xhr, status, error, retry404) {
         if (typeof retry404 === 'undefined')

@@ -3,10 +3,10 @@
 
 /* .display-tabs
 ===================================== */
-$tab-bar-color: #f5f5f5;
-$tab-bar-padding-top: 7px;
+$tab-bar-color: #f7f9fa;
+$tab-bar-padding-top: 10px;
 $active-tab-color: #fff;
-$hover-tab-color: #fbfbfb;
+$hover-tab-color: #fff;
 $bottom-line-thick: 0;
 $delete-icon-color: #ea3d2f;
 
@@ -16,14 +16,7 @@ $delete-icon-color: #ea3d2f;
     padding-left: 20px;
     padding-right: 20px;
     border-bottom: $bottom-line-thick solid $active-tab-color;
-
-    &.active {
-        opacity: 1;
-
-        &:before {
-            display: none;
-        }
-    }
+    box-sizing: border-box;
 
     &:before {
         content: '';
@@ -56,6 +49,64 @@ $delete-icon-color: #ea3d2f;
 
     .tab-menu-wrapper {
         overflow: hidden;
+        height: 36px;
+
+        .tab-menu-header {
+            display: inline-flex;
+            align-items: center;
+            max-height: 40px;
+            white-space: nowrap;
+            box-sizing: border-box;
+            padding: 0 12px;
+            height: 36px;
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &.open {
+                .state-close {
+                    display: none;
+                }
+            }
+
+            &.close {
+                padding-right: 0;
+
+                .state-open {
+                    display: none;
+                }
+            }
+
+            .tab-menu-header-inner {
+                @include flex-center;
+                cursor: pointer;
+                border-radius: 2px;
+                background-color: #e9ecee;
+                color: #000;
+                letter-spacing: .25px;
+                line-height: 24px;
+                padding: 0 10px;
+                height: 24px;
+
+                .state-open,
+                .state-close {
+                    font-size: 16px;
+                    color: #78909c;
+                    margin-right: 5px;
+                }
+            }
+
+            &.active .tab-menu-header-inner {
+                background-color: #e5efff;
+                color: $primary-color;
+                font-size: 13px;
+            }
+
+            + .tab-menu .seperator {
+                display: none;
+            }
+        }
 
         .tab-menu {
             background-color: transparent;
@@ -94,12 +145,15 @@ $delete-icon-color: #ea3d2f;
                 }
             }
 
-            &:first-child .seperator,
             &:hover .seperator,
             &:hover + .tab-menu .seperator,
             &.active .seperator,
             &.active + .tab-menu .seperator {
                 display: none;
+            }
+
+            .displayNameContainer {
+                min-width: 50px;
             }
 
             .front {
@@ -113,6 +167,19 @@ $delete-icon-color: #ea3d2f;
             .validWarning {
                 margin: unset;
                 box-sizing: border-box;
+            }
+
+            .displayNameContainer.small {
+                .icon {
+                    &.icon-adhoc {
+                        margin-left: -2px;
+                        margin-top: -8px;
+                    }
+
+                    &.display-icon.default {
+                        margin-right: 3px;
+                    }
+                }
             }
 
             .icon-close {
@@ -152,6 +219,10 @@ $delete-icon-color: #ea3d2f;
                     visibility: hidden;
                 }
             }
+        }
+
+        .tab-menu-placeholder {
+            opacity: .25;
         }
     }
 
@@ -232,7 +303,7 @@ $delete-icon-color: #ea3d2f;
                             top: 0;
                             width: 0;
                             height: 100%;
-                            border-left: 4px solid #358ed7;
+                            border-left: 4px solid $primary-color;
                         }
                     }
 
@@ -275,6 +346,38 @@ $delete-icon-color: #ea3d2f;
     }
 }
 
+.display-tab.active {
+    opacity: 1;
+
+    &:before {
+        display: none;
+    }
+}
+
+.display-tab.sorting {
+    height: 46px;
+    overflow: hidden;
+
+    .tab-menu-wrapper {
+        overflow: auto;
+        height: 60px;
+        align-self: flex-start;
+        align-items: flex-start;
+    }
+}
+
+.display-tab-hint {
+    padding: 0;
+
+    .tab-menu-wrapper {
+        .tab-menu {
+            &:before {
+                background-color: #ff6c2c;
+            }
+        }
+    }
+}
+
 .display-option-wrapper {
     background-color: $active-tab-color;
     padding-left: 20px;
@@ -284,8 +387,17 @@ $delete-icon-color: #ea3d2f;
     min-height: 20px;
     box-shadow: 1px -2px 3px 0 rgba(0, 0, 0, .06);
 
+    .display-execution-info {
+        flex-grow: 1;
+        margin-right: 10px;
+        color: #78909c;
+        font-size: 11px;
+        letter-spacing: .44px;
+    }
+
     .display-option {
         margin-left: auto;
+        white-space: nowrap;
 
         input[type="checkbox"]:not(:checked) + .label,
         input[type="checkbox"]:checked + .label {

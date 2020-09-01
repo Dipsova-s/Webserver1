@@ -86,7 +86,7 @@ Verify Update Template Description
     Edit Display Description  en  New Display name  New Display description     ${True}
     Display Description Should Contain  New Display description
 
-    Click Save All
+    Click Save Angle
 
     Click Angle Tab
     Angle Description Should Contain  New Angle description

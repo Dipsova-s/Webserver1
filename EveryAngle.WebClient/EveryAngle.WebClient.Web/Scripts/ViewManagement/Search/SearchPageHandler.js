@@ -1714,19 +1714,11 @@ window.SearchPageHandler = function () {
     };
     self.SaveClientSettings = function () {
         var additionalRequests = [];
-
         var clientSettingsRequest = userSettingModel.GetClientSettingsData();
         if (clientSettingsRequest) {
             userSettingModel.UpdateClientSettings(JSON.parse(clientSettingsRequest.data));
             additionalRequests.push(clientSettingsRequest);
         }
-
-        var sidePanelSettingsData = userSettingModel.GetSidePanelSettingsData();
-        if (sidePanelSettingsData) {
-            userSettingModel.UpdateClientSettings(JSON.parse(sidePanelSettingsData.data));
-            additionalRequests.push(sidePanelSettingsData);
-        }
-
         WC.Ajax.ExecuteBeforeExit(additionalRequests, true);
     };
     /*EOF: Model Methods*/

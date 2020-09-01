@@ -10,9 +10,6 @@ SidePanelView.prototype.GetSectionFiltersAndJumpsTemplate = function () {
                 '<i class="close-indicator icon icon-caret-right"></i>',
                 '<span data-bind="text: Localization.Filters"></span>',
                 '<div class="accordion-toolbar">',
-                    '<!-- ko if: !ReadOnly() && HasChanged(false, false) -->',
-                    '<a class="icon icon-undo action action-cancel" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: Cancel, attr: { \'data-tooltip-text\': Localization.Tooltip_UndoAllChanges }"></a>',
-                    '<!-- /ko -->',
                     '<!-- ko if: Authorizations.CanChangeJump() && CanAdd() -->',
                     '<a class="icon icon-followup action action-add-jump" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: ShowAddJumpPopup, css: { disabled: !CanAdd() }, attr: { \'data-tooltip-text\': Localization.AddFollowUp }"></a>',
                     '<!-- /ko -->',
@@ -25,13 +22,13 @@ SidePanelView.prototype.GetSectionFiltersAndJumpsTemplate = function () {
                 '<!-- ko if: $root.Parent -->',
                 '<div class="query-definition-drop-area" data-bind="css: { \'empty\': !$root.Parent().GetFiltersAndJumps().length }">',
                     '<div class="definition-body-inner" data-bind="with: $root.Parent"></div>',
-                    '<div class="drop-area-cover" data-bind="text: Localization.Info_DropFilterToAngleDefinition"></div>',
-                    '<hr />',
+                    '<div data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete"  class="drop-area-cover" data-bind="text: Localization.Info_DropFilterToAngleDefinition, click: ClickDropArea"></div>',
                 '</div>',
                 '<!-- /ko -->',
                 '<div class="definition-body-inner"></div>',
             '</div>',
-        '</div>'
+            '<hr>',
+        '</div>',
     ].join('');
 };
 SidePanelView.prototype.GetSectionDescriptionTemplate = function () {
@@ -46,7 +43,8 @@ SidePanelView.prototype.GetSectionDescriptionTemplate = function () {
                 '</div>',
             '</div>',
             '<div class="accordion-body section-description-body" data-bind="html: GetDescriptionText()"></div>',
-        '</div>'
+            '<hr>',
+        '</div>',
     ].join('');
 };
 SidePanelView.prototype.GetSectionPersonalNoteTemplate = function () {
@@ -56,16 +54,51 @@ SidePanelView.prototype.GetSectionPersonalNoteTemplate = function () {
                 '<span data-bind="text: Localization.PersonalNote"></span>',
             '</div>',
             '<div class="card-body section-personal-note-body" data-bind="text: HasPrivateNote() ? GetPrivateNote() : Localization.AddNote, css: { \'add-note\': !HasPrivateNote() }"></div>',
-        '</div>'
+            '<hr style="display:none;">',
+        '</div>',
     ].join('');
 };
-SidePanelView.prototype.GetSectionBusinessProcessTemplate = function () {
-    return [
-        '<div class="card section-business-processes">',
-            '<div class="card-body">',
-                '<div class="business-processes-wrapper"></div>',
+SidePanelView.prototype.GetSectionLabelsTemplate = function () {
+     return [
+        '<div class="accordion-item section-labels">',
+            '<div class="accordion-header open">',
+                '<i class="open-indicator icon icon-caret-down"></i>',
+                '<i class="close-indicator icon icon-caret-right"></i>',
+                '<span data-bind="text: Localization.Labels"></span>',
             '</div>',
-        '</div>'
+            '<div class="accordion-body section-labels-body">',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-body">',
+                        '<div class="label-header" data-bind="text: Localization.BusinessProcesses"></div>',
+                        '<div class="labels-wrapper business-processes-wrapper">',
+                            '<div class="business-processes-selection"></div>',
+                            '<div class="business-processes-selection-message required clearfix"></div>',
+                        '</div>',
+                    '</div>',
+                '</div>',
+                '<!-- ko foreach: { data: Labels, as: \'group\' } -->',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-body label-group-header">',
+                        '<span class="group-name" data-bind="text: group.name"></span>',
+                        ' (<span class="group-count" data-bind="text: group.count"></span>)',
+                    '</div>',
+                '</div>',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-body publish-labels">',
+                        '<!-- ko foreach: { data: group.categories, as: \'category\' } -->',
+                        '<div class="label-header" data-bind="html: category.name + (category.is_required ? \' <em class=required>*</em>\' : \'\')"></div>',
+                        '<div class="labels-wrapper">',
+                            '<div class="label-selection" data-bind="attr: { \'data-id\': category.id }, template: { afterRender: category.render }"></div>',
+                            '<div class="label-selection-message required clearfix"></div>',
+                        '</div>',
+                        '<!-- /ko -->',
+                    '</div>',
+                '</div>',
+                '<!-- /ko -->',
+                '<div class="group-message required clearfix"></div>',
+            '</div>',
+            '<hr>',
+         '</div>',
     ].join('');
 };
 SidePanelView.prototype.GetSectionTagsTemplate = function () {
@@ -79,6 +112,7 @@ SidePanelView.prototype.GetSectionTagsTemplate = function () {
                     '<div class="form-col form-col-body"><input class="tags-input"/></div>',
                 '</div>',
             '</div>',
-        '</div>'
+            '<hr>',
+        '</div>',
     ].join('');
 };

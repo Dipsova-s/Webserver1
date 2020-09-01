@@ -17,7 +17,8 @@ ${txtCheckExpiredSessionMinutes}        check_expired_sessions_minutes
 ${txtInstancesToKeepPerModel}           instances_per_model
 ${txtActiveDirectlySizeLimit}           active_directory_size_limit
 ${txtDefaultMaximumExportPageSize}      default_max_export_page_size
-
+${txtFallbackFieldLength}               fallback_field_length
+${txtDefaultApprovalState}              default_approval_state_label
 ${chkEnableGroupingInPivotExports}      allow_grouping_in_pivot_excel_export
 ${chkIncludeSelfInExportHeaders}        include_self_in_export_headers
 
@@ -45,7 +46,8 @@ ${btnCloseTestEmailSetting}             css=#TestEmailPopup .btnClose
 ${divTestEmailReport}                   css=#TestEmailResult
 ${pgbTestEmailReport}                   css=#TestEmailResult .k-loading-mask
 ${btnCloseTestEmailReport}              css=#TestEmailResult_wnd_title + .k-window-actions .k-i-close
-
+${defaultApprovalStateDropdown}         default_approval_state
+${defaultApprovalStateList}             css=#default_approval_state_listbox > li
 
 *** Keyword ***
 Wait System Settings Page Ready
@@ -137,6 +139,14 @@ Set Include Self in export headers checkbox
 Input Program/scripts folder field
     [Arguments]     ${programScriptsFolder}
     Input Text   ${txtProgramScriptsFolder}  ${programScriptsFolder}
+
+Input Fallback Field Length field
+    [Arguments]     ${fallbackFieldLength}
+    Input kendo Numeric TextBox  ${txtFallbackFieldLength}  ${fallbackFieldLength}
+
+Select Default Approval State Dropdown
+    [Arguments]     ${defaultStateValue}
+    Select Dropdown By InnerText    ${defaultApprovalStateDropdown}    ${defaultStateValue}  
 
 Click Program/scripts folder textinfo Popup
     Click Element      ${txtinfoProgramScriptsFolder}
@@ -291,6 +301,14 @@ Get Program/scripts folder field value
     ${value}    Get Value    ${txtProgramScriptsFolder}
     [Return]    ${value}
 
+Get Fallback Field Length field value
+    ${value}    Get Kendo Value  ${txtFallbackFieldLength}
+    [Return]    ${value}
+
+Get Default Approval State value
+    ${value}    Get Kendo Value  ${defaultApprovalStateDropdown}
+    [Return]    ${value}
+
 Get Max retention time log tables [months] field value
     ${value}    Get Kendo Value  ${txtMaxGeneralHistory}
     [Return]    ${value}
@@ -326,3 +344,16 @@ Get Password textbox field value
 Verify No Manage System On System Settings Page
     Page Should Contain Element    ${btnSaveSystemSetting}.disabled
     Page Should Contain Element    ${btnShowTestEmailSettingPopup}.disabled
+
+Get Default Approval State Automation task Actions Count
+    ${countDefaultApprovalState}     Get Element Count   ${defaultApprovalStateList}
+    [Return]    ${countDefaultApprovalState}
+
+Get Default Approval State Automation task Actions Dropdown
+    ${count}    Get Default Approval State Automation task Actions Count
+    @{List}   Create List
+    :FOR    ${i}    IN RANGE    0   ${count}
+    \   ${selector}    Get JQuery Selector    (${defaultApprovalStateList}:eq(${i})
+    \   ${defaultApprovalStateName}    Execute JavaScript    return $('${selector}').text()
+    \    Append To List      ${List}    ${defaultApprovalStateName}
+    [Return]    ${List} 

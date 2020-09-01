@@ -12,7 +12,7 @@ ${pgbExportToExcel}                 css=#popupExportToExcel .k-loading-mask
 ${textDefaultHeaderFormat}          xpath=//div[text()='Header format']/following::div/descendant::span[@class='k-input']
 ${textExcelTemplate}                //div[contains(text(), 'Excel template')]/following::div/descendant::span[@class='k-input']
 ${ddlExcelTemplates}                css=[aria-owns="ExcelTemplate_listbox"]
-${excelTemplatesCount}              //div[contains(@class, 'k-list-container')]/descendant::ul[@id='ExcelTemplate_listbox']/li[@role='option']
+${excelTemplatesCount}              //div[contains(@class, 'k-list-container')]/descendant::ul[@id='ExcelTemplate_listbox']/li[@role='option']//span[@class='name']
 
 *** Keywords ***
 Input Excel File Name
@@ -110,8 +110,8 @@ Check For Default Selection For Header Format
 Check Default Excel Datastore values in Export to Excel
     Checkboxes Should Not Be Selected By Default   uncheck     uncheck
     Check For Default Selection For Header Format   ID
-    Input Excel File Name Should Be     {anglename:normalized}
-    Input Excel Sheet Name Should Be    {displayname:normalized}
+    Input Excel File Name Should Be     ANGLE_Pivot_fields_contain_special_characters
+    Input Excel Sheet Name Should Be    New pivot display
 
 Selected Excel Template in Export to Excel Pop up Should Be
     [Arguments]     ${expectedExcelTemplate}
@@ -135,7 +135,7 @@ Get Excel Templates List in Export to Excel Pop up
     @{excelTemplatesList}   Create List
     :FOR    ${i}    IN RANGE    1   ${count} + 1
     \    ${nameExcelTemplate}    Get Element Attribute    (${excelTemplatesCount})[${i}]    innerHTML
-    \    ${condition}   Run Keyword    Condition For Checking Substring [Default]    ${nameExcelTemplate}
+    \    ${condition}   Run Keyword    Condition For Checking Substring [Use default]    ${nameExcelTemplate}
     \    ${nameExcelTemplateUpdated}      Run Keyword If    '${condition}' == 'True'      Update Excel Template String     ${nameExcelTemplate}
     \    ...                              ELSE      Set Variable     ${nameExcelTemplate}
     \    Append To List      ${excelTemplatesList}   ${nameExcelTemplateUpdated}
@@ -143,17 +143,17 @@ Get Excel Templates List in Export to Excel Pop up
 
 Update Excel Template String
     [Arguments]     ${string}
-    ${updatedString}      Replace String     ${string}  [Default]${SPACE}   ${EMPTY}
+    ${updatedString}      Replace String     ${string}  [Use default]${SPACE}   ${EMPTY}
     [Return]    ${updatedString}
 
-Contains Substring [Default]
+Contains Substring [Use default]
     [Arguments]     ${string}
-    ${expectedString}   Set Variable    \[Default\]
+    ${expectedString}   Set Variable    \[Use default\]
     ${updatedString}    Get Substring   ${string}   0   9
     ${returnStatus}     Run Keyword And Return Status   Should Be Equal As Strings  ${updatedString}    ${expectedString}
     [Return]    ${returnStatus}
 
-Condition For Checking Substring [Default]
+Condition For Checking Substring [Use default]
     [Arguments]     ${nameExcelTemplate}
-    ${returnStatus}     Run Keyword     Contains Substring [Default]    ${nameExcelTemplate}
+    ${returnStatus}     Run Keyword     Contains Substring [Use default]    ${nameExcelTemplate}
     [Return]    ${returnStatus}    

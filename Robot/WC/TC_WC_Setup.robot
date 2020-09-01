@@ -10,3 +10,7 @@ Import WC Package
     ${ids}    Set Variable    ROBOT_*
     Import Item From Directory    ${directory}    ${ids}
     
+    # check Show item ID option
+    Go To Web Server Settings Page
+    Select the Show item IDs check box  True
+    Click Save Web Server Setting

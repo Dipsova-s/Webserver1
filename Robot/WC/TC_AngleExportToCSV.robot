@@ -22,4 +22,4 @@ Verify Default CSV Datastores Values in Export Pop Up
     Click Export CSV Button
     Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
     Wait Until Export CSV Popup Close
-    Download Should Contain File   ${formattedmodelDateTimeStamp}${angleName}.csv
+    Download Should Contain File   ANGLE_Pivot_fields_contain_special_characters.csv

@@ -27,7 +27,7 @@ SetupFiles
 # Getting Started
 1.	Install Visual studio extensions
     1.  NUnit 2 Test Adapter
-    2.  Chutzpah Test Runner Context MEnu Extension
+    2.  Chutzpah Test Runner Context Menu Extension
     3.  Chutzpah Test Adapter for the Test Explorer
     4.  SonarLint for Visual Studio
     5.  Web Compiler
@@ -147,7 +147,7 @@ After your PBI completed to master branch then you must to create a new PBI to R
 
    ![](/help/images/postman.png)
 2. I need a certificate for my local machine.
-   - You can run this [script](/help/scripts/license.ps1)
+   - You can run this [script](/help/scripts/get-certificate.zip)
 3. I get Javascript unit test failures on Azure DevOps but local machine.
    - Azure DevOps will run unit tests by using vstest adapter, you can use Test Explorer in Visual studio.
    - Alternatively, you just run test from chutzpah.json file

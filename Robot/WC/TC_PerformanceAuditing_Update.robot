@@ -34,7 +34,6 @@ Update Angle action performance
     @{itemList}    Create List    ${angleUri}
 
     : FOR    ${INDEX}    IN RANGE    0    ${API_SEED}
-    \    Run Keyword    Create Context: ${target}
     \    Run Keyword    Start Clock: ${target}
     \    Update Angle    ${angleUri}    {"multi_lang_name":[{"lang":"en","text":"${INDEX}"}]}
     \    Run Keyword    Stop Clock: ${target}
@@ -51,7 +50,6 @@ Update Display action performance
     ${displayUri}    Get Display Uri From Angle Response    ${angleData}    0
 
     : FOR    ${INDEX}    IN RANGE    0    ${API_SEED}
-    \    Run Keyword    Create Context: ${target}
     \    Run Keyword    Start Clock: ${target}
     \    Update Display    ${displayUri}    {"multi_lang_name":[{"lang":"en","text":"${INDEX}"}]}
     \    Run Keyword    Stop Clock: ${target}

@@ -56,15 +56,12 @@
   <ItemGroup>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\**\*.js">
       <Link>ManagementConsole\Dependencies\%(RecursiveDir)\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\**\*.js">
       <Link>SharedDependencies\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\**\*.js">
       <Link>WebClient\Dependencies\%(RecursiveDir)\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
@@ -100,7 +97,7 @@
     <Content Include="WebClient\Global.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.Overlay.Test.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleTagHandlerTest.js" />
-    <Content Include="WebClient\Tests\ViewManagement\Angle\AngleBusinessProcessHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angle\AngleLabelHandlerTest.js" />
     <Content Include="WebClient\Tests\AjaxHTTPHandler\AjaxRequestHandlerTest.js" />
     <Content Include="WebClient\Tests\Embedded\BusinessProcessesModelTest.js" />
     <Content Include="WebClient\Tests\Embedded\CustomKendoGridUiTest.js" />
@@ -136,19 +133,22 @@
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleUserSpecificHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayOverviewHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayStatisticHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angle\ResultHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\TargetLineHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardTagHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardSaveActionHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardStatisticHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleSidePanelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardSidePanelHandlerTest.js" />
-    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardBusinessProcessHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardLabelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\QuickFilterHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardWidgetDefinitionHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardUserSpecificHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleSaveAsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\DashboardExecutionHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ItemLabelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\DefaultExcelDatastoreHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ExecutionParameterHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ItemSaveActionHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\BaseItemHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayHandlerTest.js" />
@@ -224,6 +224,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Shared\ProgressBarTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\SidePanel\SidePanelHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\SystemFilesHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ToastNotificationHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetDetails\WidgetDetailsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHelperTest.js" />

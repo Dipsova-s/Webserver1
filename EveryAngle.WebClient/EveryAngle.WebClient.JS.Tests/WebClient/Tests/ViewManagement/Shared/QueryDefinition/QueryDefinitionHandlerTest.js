@@ -808,11 +808,20 @@ describe("QueryDefinitionHandler", function () {
 
     describe(".Cancel", function () {
         it("should cancel", function () {
+            spyOn(handler, 'HasChanged').and.returnValue(true);
             spyOn(handler, 'ForcedUpdateData');
             handler.Cancel();
 
             // assert
             expect(handler.ForcedUpdateData).toHaveBeenCalled();
+        });
+        it("should not cancel", function () {
+            spyOn(handler, 'HasChanged').and.returnValue(false);
+            spyOn(handler, 'ForcedUpdateData');
+            handler.Cancel();
+
+            // assert
+            expect(handler.ForcedUpdateData).not.toHaveBeenCalled();
         });
     });
 

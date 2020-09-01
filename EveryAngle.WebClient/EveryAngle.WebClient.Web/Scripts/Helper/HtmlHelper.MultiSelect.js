@@ -61,7 +61,7 @@
                             return;
 
                         e.stopPropagation();
-                        addItem(that, jQuery(this), item);
+                        addItem(that, jQuery(this), item, false);
                         adjustListPosition(target, list);
                     });
                 list.append(itemElement);
@@ -82,7 +82,7 @@
         adjustListPosition(target, list);
     };
 
-    var addItem = function (that, element, item) {
+    var addItem = function (that, element, item, isInit) {
         var dataId = item[that.settings.dataFieldId];
         var dataName = item[that.settings.dataFieldName] || dataId;
         var itemElement = jQuery([
@@ -95,7 +95,8 @@
         that.settings.dataSelected[dataId] = true;
         checkElements(that);
         that.settings.render.call(that, 'value', item, itemElement);
-        that.settings.change.call(that, 'add', item, itemElement);
+        if (!isInit)
+            that.settings.change.call(that, 'add', item, itemElement);
 
         if (element.length) {
             var container = element.parent();
@@ -123,7 +124,7 @@
         jQuery.each(that.settings.data, function (index, item) {
             var dataId = item[that.settings.dataFieldId];
             if (jQuery.inArray(dataId, values) !== -1)
-                addItem(that, jQuery(), item);
+                addItem(that, jQuery(), item, true);
         });
         delete that.settings.value;
     };

@@ -1,55 +1,77 @@
-﻿@import '../abstracts/mixins';
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
 
-.breadcrumbDirectory {
+.breadcrumb-wrapper {
     position: relative;
     @include flex-center;
     margin: 0 5px;
     padding: 0;
     height: 24px;
 
-    .breadcrumbIcon {
+    .breadcrumb-item {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: nowrap;
+
+        .breadcrumb-label {
+            display: inline-flex;
+            cursor: default;
+            color: #333;
+            font-weight: bold;
+
+            &.icon-breadcrumb-edit {
+                color: #78909c;
+            }
+        }
+
+        .breadcrumb-link {
+            cursor: pointer;
+            color: #818181;
+
+            &:hover .breadcrumb-name {
+                color: $primary-color;
+                text-decoration: underline;
+            }
+        }
+
+        .breadcrumb-editable {
+            cursor: pointer;
+
+            .icon-breadcrumb-edit {
+                display: none;
+                color: #78909c;
+            }
+
+            &:hover .icon-breadcrumb-edit {
+                display: block;
+            }
+        }
+    }
+
+    .icon-breadcrumb-home {
+        margin-top: -2px;
+        margin-right: 10px;
+        min-width: 10px;
+    }
+
+    .icon-breadcrumb-separator {
+        margin: 0 10px;
+        min-width: 12px;
+    }
+
+    .icon-breadcrumb-front {
         margin-right: 7px;
 
         &.icon-angle {
-            margin-top: -2px;
             color: #ff6c2c;
         }
     }
-}
 
-.breadcrumbItem {
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: nowrap;
-}
+    .icon-breadcrumb-rear {
+        margin-left: 5px;
 
-.breadcrumbLabel {
-    color: #333;
-    font-weight: bold;
-}
-
-a.breadcrumbLink {
-    color: #818181;
-}
-
-a.breadcrumbLink:hover {
-    color: #358ed7;
-    text-decoration: underline;
-}
-
-.icon-breadcrumb-home {
-    margin-top: -2px;
-    margin-right: 10px;
-    min-width: 10px;
-}
-
-.icon-breadcrumb-chevron {
-    margin: 0 10px;
-    min-width: 12px;
-}
-
-.icon-breadcrumb-validated {
-    margin-left: 3px;
-    margin-top: -2px;
-    color: #7dc855;
+        &.icon-validated {
+            color: #7dc855;
+        }
+    }
 }

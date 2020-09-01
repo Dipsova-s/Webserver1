@@ -21,15 +21,14 @@ WebHelp WC Setup
     :FOR  ${user}  IN  @{WEBHELP_USERS}
     \  Append To List  ${languages}  ${user.language}
     ${languagesData}  Stringify Json  ${languages}
-    Create Context: Web
     Enable Model Languages  /models/1  ${languagesData}
 
+    # restart modelserver
+    Restart Model Server  /models/1
+
     # activate "DiagramHelp" package
-    Create Context: Web
     Activate Model Package  /models/1/packages  DiagramHelp
-    Create Context: Web
     Activate Model Package  /models/1/packages  P2P
-    Create Context: Web
     Activate Model Package  /models/1/packages  S2D
 
     # uncheck Show item ID option

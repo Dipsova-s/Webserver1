@@ -7,6 +7,11 @@
     margin: 0;
     padding: 0;
     list-style: none;
+
+    hr {
+        border-top: 2px solid #fff;
+        margin: 0 10px;
+    }
 }
 
 .accordion-item {
@@ -38,7 +43,7 @@
 
     .accordion-toolbar {
         margin-left: auto;
-        font-size: 12px;
+        font-size: 13px;
         line-height: 1;
 
         .action {
@@ -46,8 +51,21 @@
             padding: 2px;
             margin-left: 2px;
 
-            &:hover:not(.disabled) {
-                color: #3d4852;
+            &:not(.disabled) {
+
+                &:before {
+                    position: relative;
+                    top: 0;
+                }
+
+                &:hover {
+                    color: #3d4852;
+
+                    &:before {
+                        top: -5px;
+                        transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    }
+                }
             }
         }
     }

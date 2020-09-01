@@ -16,6 +16,7 @@ function ListHandler(elementId, container) {
     self.ColumnDefinitions = {};
     self.FirstColumnWidth = 45;
     self.DefaultColumnWidth = 120;
+    self.HasResult = ko.observable(false);
     self.ReadOnly = ko.observable(false);
     self.DashBoardMode = ko.observable(false);
     self.Models = {
@@ -318,9 +319,11 @@ function ListHandler(elementId, container) {
         return new kendo.data.DataSource({
             transport: {
                 read: function (options) {
-                    /* M4-8817: After POST /results fail still show angle/display details => added resultModel.Data().successfully_completed criteria */
-                    if (self.HandlerValidation.Angle.CanPostResult && self.HandlerValidation.Display.CanPostResult
-                        && self.Models.Angle.ModelServerAvailable && self.Models.Result.Data().successfully_completed) {
+                /* M4-8817: After POST /results fail still show angle/display details => added resultModel.Data().successfully_completed criteria */
+                    var setEmptyResult = function () {
+                        options.success({ total: 0, data: [] });
+                    };
+                    if (self.HasResult()) {
                         var page = options.data.page;
                         var requestUrl = self.Models.Result.Data().data_rows;
                         var query = {};
@@ -337,7 +340,6 @@ function ListHandler(elementId, container) {
                             return;
                         }
 
-                        var gridElement = jQuery(self.ElementId);
                         requestObject = GetDataFromWebService(requestUrl, query)
                             .done(function (result) {
                                 if (!jQuery.isEmptyObject(result)) {
@@ -347,26 +349,15 @@ function ListHandler(elementId, container) {
                                     options.success(dataSourceTmp[page]);
                                 }
                                 else {
-                                    gridElement.parent().busyIndicator(false)
-                                        .find('.k-grid-content').busyIndicator(false);
-
-                                    popup.Alert(Localization.Alert_Title, Localization.Info_ListEmptyResult);
+                                    setEmptyResult();
+                                    self.ShowError({
+                                        responseText: Localization.Info_ListEmptyResult
+                                    });
                                 }
                             })
                             .fail(function (xhr) {
-                                gridElement.parent().busyIndicator(false)
-                                    .find('.k-grid-content').busyIndicator(false);
-
-                                if (self.DashBoardMode()) {
-                                    var message = errorHandlerModel.GetAreaErrorMessage(xhr ? xhr.responseText : 'Error');
-                                    errorHandlerModel.ShowAreaError(gridElement.find('.k-virtual-scrollable-wrap'), message, function () {
-                                        gridElement.parent().busyIndicator(true);
-                                        self.Models.Result.Execute();
-                                    });
-                                }
-                                else {
-                                    self.Models.Result.SetRetryPostResultToErrorPopup(xhr);
-                                }
+                                setEmptyResult();
+                                self.ShowError(xhr);
                             })
                             .always(function () {
                                 measurePerformance.SetEndTime();
@@ -376,7 +367,7 @@ function ListHandler(elementId, container) {
                     else {
                         measurePerformance.SetEndTime();
                         self.OnRenderEnd();
-                        options.success({ total: 0, data: [] });
+                        setEmptyResult();
                     }
                 }
             },
@@ -387,6 +378,17 @@ function ListHandler(elementId, container) {
             pageSize: defaultPageSize,
             serverPaging: true
         });
+    };
+    self.ShowError = function (xhr) {
+        var gridElement = jQuery(self.ElementId);
+        gridElement.parent().busyIndicator(false)
+            .find('.k-grid-content').busyIndicator(false);
+
+        var element = gridElement.find('.k-virtual-scrollable-wrap');
+        if (self.DashBoardMode()) {
+            element = self.ElementId;
+        }
+        self.Models.Result.SetRetryPostResult(xhr, element);
     };
     self.ApplyGridDataSource = function (grid, scrollTop, rowHeight) {
         // prefetch next page
@@ -1351,7 +1353,7 @@ function ListHandler(elementId, container) {
         }
     };
     self.ShowHeaderPopup = function (fieldId) {
-        if (self.DashBoardMode()) {
+        if (self.DashBoardMode() || self.ReadOnly()) {
             return;
         }
 

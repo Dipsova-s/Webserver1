@@ -58,12 +58,14 @@ Create Chart From List Header Column
     Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}  ${isSelfSource}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Create Chart From Header Column
+    Open All Display Groups
 
 Create Pivot From List Header Column
     [Arguments]    ${fieldId}    ${fieldKeyword}    ${isSelfSource}
     Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}  ${isSelfSource}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Create Pivot From Header Column
+    Open All Display Groups
 
 Edit Format Field From Field Header
     [Arguments]    ${fieldName}

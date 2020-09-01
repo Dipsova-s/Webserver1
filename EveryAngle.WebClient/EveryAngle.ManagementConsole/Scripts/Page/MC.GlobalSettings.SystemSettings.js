@@ -137,6 +137,8 @@
             var allowGroupingInPivotExcelExport = $('#allow_grouping_in_pivot_excel_export').is(':checked');
             var includeSelfInExportHeaders = $('#include_self_in_export_headers').is(':checked');
             var scriptLocation = $('#script_location').val();
+            var fallbackFieldLength = $('#fallback_field_length').val();
+            var defaultApprovalState = $('#default_approval_state').val();
 
             var emailSettings = {
                 "smtp_server": smtpServer,
@@ -169,7 +171,9 @@
                 'allow_grouping_in_pivot_excel_export': allowGroupingInPivotExcelExport,
                 'include_self_in_export_headers': includeSelfInExportHeaders,
                 'default_max_export_page_size': defaultMaxExportPageSize,
-                'script_location': scriptLocation
+                'script_location': scriptLocation,
+                'fallback_field_length': fallbackFieldLength,
+                'default_approval_state': defaultApprovalState
             };
 
             return {

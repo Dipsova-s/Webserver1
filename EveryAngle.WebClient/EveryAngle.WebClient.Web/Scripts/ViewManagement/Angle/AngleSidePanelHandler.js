@@ -5,6 +5,7 @@
     _self.$angleAccordions = {};
     _self.$angleAccordions[enumHandlers.ACCORDION.DEFINITION] = '#TabContentAngle .section-definition > .accordion-header';
     _self.$angleAccordions[enumHandlers.ACCORDION.DESCRIPTION] = '#TabContentAngle .section-description > .accordion-header';
+    _self.$angleAccordions[enumHandlers.ACCORDION.LABEL] = '#TabContentAngle .section-labels > .accordion-header';
     _self.$displayAccordions = {};
     _self.$displayAccordions[enumHandlers.ACCORDION.DEFINITION] = '#TabContentDisplay .section-definition > .accordion-header';
     _self.$displayAccordions[enumHandlers.ACCORDION.AGGREGATION] = '#TabContentDisplay .section-aggregation > .accordion-header';
@@ -35,7 +36,7 @@
             .empty()
             .append(self.View.GetSectionFiltersAndJumpsTemplate())
             .append(self.View.GetSectionDescriptionTemplate())
-            .append(self.View.GetSectionBusinessProcessTemplate())
+            .append(self.View.GetSectionLabelsTemplate())
             .append(self.View.GetSectionTagsTemplate())
             .append(self.View.GetSectionPersonalNoteTemplate());
 

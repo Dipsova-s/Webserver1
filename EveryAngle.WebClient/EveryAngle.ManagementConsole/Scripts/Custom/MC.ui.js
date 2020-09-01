@@ -881,6 +881,19 @@
             $('#mainContent').on('scroll.validation touchstart.validation', function () {
                 win.MC.form.validator.hideErrorMessage();
             });
+        },
+        enumSettingChange: function (obj) {
+            var id = obj.sender.element.attr('id');
+            if (id === "result_export_type") {
+                MC.util.showPopupAlert(Localization.MC_ResultExportTypeWarning);
+            }
+            else if (id === "template_file") {
+                MC.util.showInnoweraDetails(obj);
+                if ($('#template_file').closest('#DatastoreSettings').length) {
+                    // do this only when in Add/Edit Action popup
+                    MC.util.showExistTemplateInfo(obj);
+                }
+            }
         }
     };
 

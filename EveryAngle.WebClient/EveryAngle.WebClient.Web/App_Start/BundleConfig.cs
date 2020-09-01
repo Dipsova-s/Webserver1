@@ -148,6 +148,7 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmanagement/shared/systemcurrencyhandler.js",
                 "~/scripts/viewmanagement/shared/systemdefaultusersettinghandler.js",
                 "~/scripts/viewmanagement/shared/systemtaghandler.js",
+                "~/scripts/viewmanagement/shared/systemfileshandler.js",
                 "~/scripts/viewmanagement/shared/defaultexceldatastorehandler.js",
                 "~/scripts/viewmanagement/shared/aboutsystemhandler.js",
                 "~/scripts/viewmanagement/shared/userfriendlynamehandler.js",
@@ -537,8 +538,9 @@ namespace EveryAngle.WebClient.Web
                     // download
                     "~/scripts/viewmanagement/shared/itemdownloadhandler.js",
 
-                    // business processes
-                    "~/scripts/viewmanagement/angle/anglebusinessprocesshandler.js",
+                    // assigned labels
+                    "~/scripts/viewmanagement/shared/itemlabelhandler.js",
+                    "~/scripts/viewmanagement/angle/anglelabelhandler.js",
 
                     // tags
                     "~/scripts/viewmanagement/angle/angletaghandler.js",
@@ -605,8 +607,9 @@ namespace EveryAngle.WebClient.Web
                     // dashboard user specific
                     "~/scripts/viewmanagement/dashboard/dashboarduserspecifichandler.js",
 
-                    // business process
-                    "~/scripts/viewmanagement/dashboard/dashboardbusinessprocesshandler.js",
+                    // assigned labels
+                    "~/scripts/viewmanagement/shared/itemlabelhandler.js",
+                    "~/scripts/viewmanagement/dashboard/dashboardlabelhandler.js",
 
                     // tags
                     "~/scripts/viewmanagement/dashboard/dashboardtaghandler.js",

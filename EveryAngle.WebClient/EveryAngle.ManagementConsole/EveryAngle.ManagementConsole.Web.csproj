@@ -224,63 +224,45 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\**">
       <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Default\**">
       <Link>Content\KendoUI\Default\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\fonts\glyphs\**">
       <Link>Content\KendoUI\fonts\glyphs\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\textures\**">
       <Link>Content\KendoUI\textures\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.common.min.*">
       <Link>Content\KendoUI\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.default.min.*">
       <Link>Content\KendoUI\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.da.min.*">
-      <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.de.min.*">
       <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.en.min.*">
       <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.es.min.*">
+      <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.fr.min.*">
       <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.nl.min.*">
       <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.th.min.*">
-      <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.all.min.*">
       <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.aspnetmvc.min.*">
       <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.timezones.min.*">
       <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bin\Template\Xslt\*" />
     <Content Include="Content\Login.css" />
@@ -303,6 +285,7 @@
     <Content Include="Images\Icons\icon_error.svg" />
     <Content Include="Images\Icons\icon_gear.svg" />
     <Content Include="Images\Icons\icon_help.svg" />
+    <Content Include="Images\Icons\icon_innowera.svg" />
     <Content Include="Images\Icons\icon_support.svg" />
     <Content Include="Images\Icons\icon_list.png" />
     <Content Include="Images\Icons\icon_logout.svg" />
@@ -400,6 +383,7 @@
     <Content Include="Images\Icons\icon_edit.png" />
     <Content Include="Images\Icons\icon_filter.png" />
     <Content Include="Images\Icons\icon_info.svg" />
+	<Content Include="Images\Icons\icon_innowera.svg" />
     <Content Include="Images\Icons\icon_plus.png" />
     <Content Include="Images\Icons\icon_user.png" />
     <Content Include="Images\Icons\icon_arrow_right.png" />
@@ -911,6 +895,8 @@
   <Target Name="CreateDirectories">
     <MakeDir Directories="$(ProjectDir)UploadedResources\\ExtraFiles" />
     <MakeDir Directories="$(PublishDir)Content\\ExternalResource" />
+    <MakeDir Directories="$(PublishDir)Content\\KendoUI" />
+    <MakeDir Directories="$(PublishDir)Scripts\\KendoUI" />
   </Target>
   <Import Project="..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets" Condition="Exists('..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

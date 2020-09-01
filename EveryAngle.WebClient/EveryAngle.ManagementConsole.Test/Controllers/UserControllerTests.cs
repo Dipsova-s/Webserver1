@@ -495,7 +495,23 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual(1, ((List<BusinessProcessViewModel>)_testingController.ViewData["BusinessProcesses"]).Count);
             Assert.AreEqual(1, ((List<CurrenciesViewModel>)_testingController.ViewData["DefaultCurrency"]).Count);
         }
-
+        [TestCase]
+        public void Can_SaveUserDefaultsSettings()
+        {
+            string userDefaultsSettingsData = "{\"default_language\":\"en\",\"default_currency\":\"dollar\",\"format_numbers\":\"formatNumbers\",\"format_currencies\":\"formatCurrencies\",\"format_percentages\":\"formatPercentages\",\"default_export_lines\":0,\"sap_fields_in_chooser\":false,\"sap_fields_in_header\":false,\"compressed_list_header\":false,\"default_business_processes\":null,\"auto_execute_items_on_login\":false,\"format_enum\":\"formatEnum\",\"format_date\":\"formatDate\",\"format_time\":\"formatTime\",\"format_locale\":\"formatLocale\",\"default_Starred_Fields\":false,\"default_Suggested_Fields\":false,\"hide_other_users_private_display\":false,}";
+            labelService.Setup(x => x.GetLabels(It.IsAny<string>())).Returns(new ListViewModel<LabelViewModel> { Data = new List<LabelViewModel>() });
+            SetupGetUserSetting();
+            userService.Setup(x => x.UpdateUserSetting(It.IsAny<string>(), It.IsAny<string>()));
+            _testingController = GetTestController();
+            userService.ResetCalls();
+            // execute
+            JsonResult result = _testingController.SaveUserDefaultsSettings(userDefaultsSettingsData) as JsonResult;
+            JObject data = JObject.FromObject(result.Data);
+            bool isUpdateSuccess = (bool)data["success"];
+            // assert
+            Assert.IsTrue(isUpdateSuccess);
+            userService.Verify(x => x.UpdateUserSetting(It.IsAny<string>(), It.IsAny<string>()),Times.Once);
+        }
         #endregion
 
         #region private

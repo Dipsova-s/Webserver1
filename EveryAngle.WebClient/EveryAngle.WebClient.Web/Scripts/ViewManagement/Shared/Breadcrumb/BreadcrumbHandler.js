@@ -3,60 +3,49 @@
 
     this.label = ko.observable('');
     this.title = ko.observable('');
-    this.url = ko.observable('');
+    this.url = ko.observable(false);
     this.ellipsis = ko.observable(true);
+    this.click = function () { return true; };
+    this.hasEditIcon = ko.observable(false);
 
-    //icons
-    this.frontIcon = ko.observable('');
-    this.rearIcon = ko.observable('');
-    this.itemIcon = ko.observable('always-hide');
+    // icons
+    this.separatorIcon = ko.observable('');
+    this.frontIcon = ko.observable('always-hide');
+    this.rearIcon = ko.observable('always-hide');
 }
 
 function BreadcrumbHandler() {
     "use strict";
     
     var self = this;
+    self.$Container = jQuery();
+    self.Data = ko.observableArray([]);
 
-    //icons listing
+    // icons
     self.IconHome = 'icon icon-home icon-breadcrumb-home';
-    self.IconChevron = 'icon icon-chevron-right icon-breadcrumb-chevron';
-    self.IconValidated = 'icon icon-validated icon-breadcrumb-validated';
-
-    self.ViewModels = ko.observableArray([]);
+    self.IconSeparator = 'icon icon-chevron-right icon-breadcrumb-separator';
+    self.IconValidated = 'icon icon-validated icon-breadcrumb-rear';
     
-    self.Build = function (viewModels) {
-        self.ApplyBindings();
-        self.ResetViewModels();
+    self.Initial = function (container, viewModels) {
+        self.$Container = jQuery(container);
+        WC.HtmlHelper.ApplyKnockout(self, self.$Container.get(0));
+        self.Data([]);
         
         // First level is always search results
-        self.ViewModels.push(self.GetSearchResultsViewModel());
+        self.Data.push(self.GetSearchResultsViewModel());
 
         // Optional levels
         jQuery.each(viewModels, function (index, viewModel) {
-            self.ViewModels.push(viewModel);
+            self.Data.push(viewModel);
         });
     };
-    
-    self.ResetViewModels = function () {
-        self.ViewModels([]);
-    };
 
-    self.ApplyBindings = function () {
-        var breadcrumb = jQuery('.breadcrumbDirectory');
-        WC.HtmlHelper.ApplyKnockout(self, breadcrumb.get(0));
-    };
-
-    self.GetSearchKeyword = function () {
-        return WC.Utility.GetQueryStringValue(searchStorageHandler.GetSearchUrl(), enumHandlers.SEARCHPARAMETER.Q);
-    };
-    self.GetSearchResultsLabel = function (keyword) {
-        return keyword ? kendo.format('{0}: "{1}"', Localization.SearchResults, keyword) : Localization.SearchResults;
-    };
+    // search
     self.GetSearchResultsViewModel = function () {
         var maxSearchLength = 20;
         var keyword = self.GetSearchKeyword();
         var searchResultsViewModel = new BreadcrumbViewModel();
-        searchResultsViewModel.frontIcon(self.IconHome);
+        searchResultsViewModel.separatorIcon(self.IconHome);
         var label = keyword;
         if (label.length > maxSearchLength) {
             label = jQuery.trim(label.substr(0, maxSearchLength)) + '...';
@@ -65,19 +54,28 @@ function BreadcrumbHandler() {
         searchResultsViewModel.label(self.GetSearchResultsLabel(label));
         searchResultsViewModel.title(keyword);
         searchResultsViewModel.url(searchStorageHandler.GetSearchUrl());
-
         return searchResultsViewModel;
     };
+    self.GetSearchKeyword = function () {
+        return WC.Utility.GetQueryStringValue(searchStorageHandler.GetSearchUrl(), enumHandlers.SEARCHPARAMETER.Q);
+    };
+    self.GetSearchResultsLabel = function (keyword) {
+        return keyword ? kendo.format('{0}: "{1}"', Localization.SearchResults, keyword) : Localization.SearchResults;
+    };
 
-    self.GetItemViewModel = function (itemName, isValidated, itemIcon) {
+    // item
+    self.GetDefaultViewModel = function (itemName) {
         var viewModel = new BreadcrumbViewModel();
-        viewModel.frontIcon(self.IconChevron);
-        viewModel.rearIcon(isValidated ? self.IconValidated : '');
+        viewModel.separatorIcon(self.IconSeparator);
         viewModel.label(itemName);
         viewModel.title(itemName);
-        viewModel.itemIcon(itemIcon);
         return viewModel;
     };
+    self.GetItemViewModel = function (itemName, validated) {
+        var data = self.GetDefaultViewModel(itemName);
+        if (validated)
+            data.rearIcon(self.IconValidated);
+        return data;
+    };
 }
-
 var breadcrumbHandler = new BreadcrumbHandler();

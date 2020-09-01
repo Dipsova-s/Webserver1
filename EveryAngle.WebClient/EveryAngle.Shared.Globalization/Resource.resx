@@ -135,6 +135,9 @@
   <data name="AngleDescription" xml:space="preserve">
     <value>Angle description</value>
   </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Labels</value>
+  </data>
   <data name="AngleDetailPublishTabAnglePrivileges" xml:space="preserve">
     <value>Privilege labels</value>
   </data>
@@ -389,6 +392,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SaveAll" xml:space="preserve">
+    <value>Save all</value>
   </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Search results</value>
@@ -955,7 +961,7 @@
     <value>[None]</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel Template</value>
+    <value>Excel template</value>
   </data>
   <data name="CreateNewAngleFromSchema" xml:space="preserve">
     <value>Create Angle</value>
@@ -2047,7 +2053,7 @@
     <value>Default</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Default] {0}</value>
+    <value>[Use default] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
@@ -2546,6 +2552,12 @@
   </data>
   <data name="Uploaded" xml:space="preserve">
     <value>Uploaded</value>
+  </data>
+  <data name="MC_Process" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="MC_DisplayName" xml:space="preserve">
+    <value>Display Name</value>
   </data>
   <data name="MC_UploadIcon" xml:space="preserve">
     <value>Upload icon</value>
@@ -3439,7 +3451,7 @@
     <value>The maximum number of selected Angles is {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Start object</value>
+    <value>Current object</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Number of items</value>
@@ -5905,6 +5917,11 @@ For security reasons, the password must always be reentered before saving the ac
     <value>Select the program or script file for this action.&lt;br&gt;
 You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings.</value>
   </data>
+  <data name="MC_TaskAction_DescriptionExcelTemplate" xml:space="preserve">
+    <value>Select which Excel template to use for this export.&lt;br&gt;
+When you select "Use default", the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+You can also select a different Excel template from the list if you don't want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro's.</value>
+  </data>
   <data name="MC_ScriptLocation" xml:space="preserve">
     <value>Program/scripts folder</value>
   </data>
@@ -6421,5 +6438,68 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="Dashboards" xml:space="preserve">
     <value>Dashboards</value>
+  </data>
+  <data name="MC_ResultExportTypeWarning" xml:space="preserve">
+    <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
+  </data>
+  <data name="MC_FallbackFieldLength" xml:space="preserve">
+    <value>Fallback export field length</value>
+  </data>
+  <data name="MC_FallbackFieldLengthDescription" xml:space="preserve">
+    <value>Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
+    <value>Run as user</value>
+  </data>
+  <data name="Reexecute" xml:space="preserve">
+    <value>Re-execute</value>
+  </data>
+  <data name="CloseSidebar" xml:space="preserve">
+    <value>Close sidebar</value>
+  </data>
+  <data name="OpenSidebar" xml:space="preserve">
+    <value>Open sidebar</value>
+  </data>
+  <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
+    <value>Specify in what column the model timestamp should be inserted.&lt;br&gt;
+Use '1' to select the first column. When no model timestamp column is required, select 'None'.</value>
+  </data>
+  <data name="MC_Approved" xml:space="preserve">
+    <value>approved</value>
+  </data>
+  <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
+    <value>Show only my own private Displays</value>
+  </data>
+  <data name="AngleExport" xml:space="preserve">
+    <value>Angle Export</value>
+  </data>
+  <data name="MC_DefaultApprovalState" xml:space="preserve">
+    <value>Default approval state Automation task actions</value>
+  </data>
+  <data name="MC_DefaultApprovalStateDescription" xml:space="preserve">
+    <value>The default Approval state of newly added Actions in Automation tasks.
+Actions can only be executed when the Approval state is "approved".
+The "manage system" privileges is required to change the Approval state of an Action.</value>
+  </data>
+  <data name="AngleFilters" xml:space="preserve">
+    <value>Angle filters &amp; jumps</value>
+  </data>
+  <data name="DisplayFilters" xml:space="preserve">
+    <value>Display filters &amp; jumps</value>
+  </data>
+  <data name="DisplayGroupPublic" xml:space="preserve">
+    <value>Published ({0})</value>
+  </data>
+  <data name="DisplayGroupPrivate" xml:space="preserve">
+    <value>Private ({0})</value>
+  </data>
+  <data name="DisplayGroupOther" xml:space="preserve">
+    <value>Other ({0})</value>
+  </data>
+  <data name="DisplayGroupOpen" xml:space="preserve">
+    <value>Show group</value>
+  </data>
+  <data name="DisplayGroupClose" xml:space="preserve">
+    <value>Hide group</value>
   </data>
 </root>

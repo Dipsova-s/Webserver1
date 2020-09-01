@@ -101,12 +101,18 @@ Verify the edited value is displayed in Excel Datastore
     Verify the field values for Excel Datastore in Data Settings    6  id  id  7  {anglename:edited}     EveryAngle-Standard.xlsx  {displayname:edited}  uncheck
     Verify the field values for Excel Datastore in Angle Settings   uncheck  uncheck
 
+Verify Excel Template List In Excel Template Dropdown In Excel Datastore
+    [Arguments]     ${excelTemplatesListInExcelTemplatePage}
+    ${excelTemplateListInDatastore}      Get Excel Templates List From Excel Template DropDown In Datastores
+    Lists Should Be Equal   ${excelTemplatesListInExcelTemplatePage}    ${excelTemplateListInDatastore}
+    
 Edit the Existing SQL Datastore by name
     [Arguments]     ${name}     ${editedDatastoreName}      ${datastorePlugin}
     Click on Edit in action drop down by Datastore name     ${name}
     Fill Create New Datastore   ${editedDatastoreName}    
     Fill Connection Settings for SQL Export  nl-bangalore1\SQLEXPRESS  sa  ea  2019sp2  check
     Fill Data Settings for SQL Export  6  Long name  Id  5  {anglename:edited}  99  Overwrite
+    Close Alert Popup
     Click on Save button in DataStore   ${datastorePlugin}      ${editedDatastoreName}
 
 Verify the edited value is displayed in SQL Datastore
@@ -122,7 +128,7 @@ Default Values are displayed in Default Excel Datastore
     Wait For Export Defaults Page     Export defaults   Export to Excel
     Verify the Default value for Default datastores in Edit Datastore   Export to Excel Default
     Verify the Default value for Default datastores in Connection Settings    Data\\AppServer\\ExportOutput
-    Verify the field values for Excel Datastore in Data Settings    1  id  id  -1  {anglename:normalized}     EveryAngle-Standard.xlsx  {displayname:normalized}  check
+    Verify the field values for Excel Datastore in Data Settings    -1  id  id  -1  {anglename:normalized}     EveryAngle-Standard.xlsx  {displayname:normalized}  check
     Verify the field values for Excel Datastore in Angle Settings   uncheck  uncheck
     Click on Cancel button in DataStore
 
@@ -132,5 +138,5 @@ Default Values are displayed in Default CSV Datastore
     Wait For Export Defaults Page     Export defaults   Export to CSV
     Verify the Default value for Default datastores in Edit Datastore   Export to CSV - Default
     Verify the Default value for Default datastores in Connection Settings    Data\\AppServer\\ExportOutput
-    Verify the field values for CSV Datastore in Data Settings  1  id  id  -1  {modeltimestamp}{anglename:normalized}  uncheck
+    Verify the field values for CSV Datastore in Data Settings   1  id  id  -1  {modeltimestamp}{anglename:normalized}  uncheck
     Verify the field values for CSV Datastore in Format Settings    .  -1  HH:mm:ss  :  yyyy/MM/dd   /  true  false  only_strings  check  ;  CRLF  "

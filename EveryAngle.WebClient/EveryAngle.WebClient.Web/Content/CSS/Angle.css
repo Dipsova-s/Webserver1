@@ -6,7 +6,7 @@
   top: 0;
   width: 100%;
   min-width: 762px;
-  background: #fafcfc;
+  background: #f7f9fa;
   color: #666; }
 
 .topBarWrapper .Wrapper {
@@ -113,10 +113,11 @@
   margin-left: auto; }
 
 #ActionSelect .actionDropdownItem {
-  background-color: #fff; }
+  background-color: #fff;
+  margin-left: 3px; }
   #ActionSelect .actionDropdownItem:before {
     background-position: center center;
-    background-size: 16px 16px; }
+    background-size: 18px 18px; }
   #ActionSelect .actionDropdownItem.save:before {
     background-image: url("../../images/angle/actiondropdownlist/save.svg"); }
   #ActionSelect .actionDropdownItem.save:not(.disabled):hover:before {

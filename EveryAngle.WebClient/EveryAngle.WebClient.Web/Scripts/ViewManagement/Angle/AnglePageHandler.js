@@ -51,7 +51,8 @@ function AnglePageHandler() {
                     userModel.Load(),
                     systemInformationHandler.LoadSystemInformation(),
                     systemCurrencyHandler.LoadCurrencies(),
-                    defaultExcelDatastoreHandler.LoadDatastoreSettings(undefined, false)
+                    defaultExcelDatastoreHandler.LoadDatastoreSettings(undefined, false),
+                    excelTemplateFilesHandler.LoadFileDetails({"fileType":"ExcelTemplate"}, false)
                 );
             })
             .then(function () {
@@ -223,7 +224,14 @@ function AnglePageHandler() {
         self.SetHandlerAngle();
         
         self.HandlerAngle.InitialAngleUserSpecific();
+
+        // display overview
+        self.HandlerDisplayOverview.Initial();
         self.HandlerDisplayOverview.Redirect = self.Redirect;
+        self.HandlerDisplayOverview.SwitchDisplay = self.SwitchDisplay;
+        self.HandlerDisplayOverview.CreateNewDisplay = displayModel.CreateNewDisplay;
+        self.HandlerDisplayOverview.DeleteDisplay = self.DeleteDisplay;
+        self.HandlerDisplayOverview.ShowEditDescriptionPopup = self.ShowEditDescriptionPopup;
 
         // save actions
         self.InitialSaveActions();
@@ -324,6 +332,8 @@ function AnglePageHandler() {
     };
     self.SetHandlerDisplay = function (handler) {
         self.HandlerDisplay = handler;
+        self.HandlerAngle.SetQueryDefinitionAuthorizations();
+        self.HandlerDisplay.SetQueryDefinitionAuthorizations();
         self.HandlerAngle.SetCurrentDisplay(handler);
         listDrilldownHandler.SetDisplayHandler(self.HandlerDisplay);
 
@@ -367,6 +377,9 @@ function AnglePageHandler() {
         self.HandlerDisplay.SaveQueryDefinitionDone = function () {
             self.HandlerDisplay.parent.prototype.SaveQueryDefinitionDone.apply(self.HandlerDisplay, arguments);
             self.HandlerDisplay.ExecuteQueryDefinition(QueryDefinitionHandler.ExecuteAction.Saved);
+        };
+        self.HandlerDisplay.QueryDefinitionHandler.ClickDropArea = function () {
+            self.HandlerSidePanel.Open(0);
         };
         self.HandlerDisplay.ExecuteQueryDefinition = function () {
             // forced to execute a new result
@@ -436,10 +449,7 @@ function AnglePageHandler() {
         self.HandlerDisplayOverview.IsVisibleKeepFilter(self.HandlerDisplayOverview.CanKeepFilter());
     };
     self.ApplyKnockoutInfoSection = function () {
-        ko.cleanNode(jQuery('#ContentWrapper .section-info .section-info-header').get(0));
-        ko.cleanNode(jQuery('#ContentWrapper .section-info .section-info-body').get(0));
-        WC.HtmlHelper.ApplyKnockout(self.HandlerAngle, jQuery('#ContentWrapper .section-info .section-info-header'));
-        WC.HtmlHelper.ApplyKnockout(self.HandlerDisplay, jQuery('#ContentWrapper .section-info .section-info-body'));
+        WC.HtmlHelper.ApplyKnockout(self.HandlerAngle, jQuery('#ContentWrapper .section-info'), true);
     };
     self.ApplyKnockoutDisplayTab = function () {
         WC.HtmlHelper.ApplyKnockout(self.HandlerDisplay, jQuery('#TabContentDisplay .section-description'));
@@ -452,8 +462,8 @@ function AnglePageHandler() {
         self.UpdateLayout(0);
     };
     self.UpdateSidePanelHandlers = function () {
-        // business processes
-        self.HandlerAngle.InitialBusinessProcess(jQuery('.section-business-processes'));
+        // labels
+        self.HandlerAngle.InitialLabel(jQuery('.section-labels'));
 
         // tags
         self.HandlerAngle.InitialTag(jQuery('.section-tags'));
@@ -672,6 +682,15 @@ function AnglePageHandler() {
             return false;
         }
         return true;
+    };
+    self.CheckModelStatus = function () {
+        return modelsHandler.LoadModelInfo(self.HandlerAngle.Data().model)
+            .done(function () {
+                if (self.HandlerAngle.Online())
+                    self.SetModelServerAvailable();
+                else
+                    self.SetModelServerUnavailable({});
+            });
     };
     self.ShowProgressbar = function () {
         var cancelFunction = progressbarModel.KeepCancelFunction ? progressbarModel.CancelFunction : function () {
@@ -929,6 +948,7 @@ function AnglePageHandler() {
         return true;
     };
     self.ExecuteAngle = function () {
+        self.ClearResultErrorXhr();
         WC.Ajax.AbortAll();
 
         var angleParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
@@ -975,12 +995,7 @@ function AnglePageHandler() {
                 }
             })
             .then(function () {
-                var modelUri = angleInfoModel.Data().model;
-                var model = modelsHandler.GetModelByUri(modelUri);
-                if (!model || model.available !== true || model.model_status !== 'Up')
-                    return modelsHandler.LoadModelInfo(modelUri);
-                else
-                    return jQuery.when();
+                return self.CheckModelStatus();
             })
             .then(function () {
                 return jQuery.when(
@@ -1087,14 +1102,21 @@ function AnglePageHandler() {
                     .done(self.CheckLoadMetadataDone);
             });
     };
-    self.RenderBreadcrumb = function () {
+    self.InitialBreadcrumb = function () {
+        angleBreadcrumbHandler.ShowEditPopup = jQuery.proxy(self.HandlerAngle.ShowEditDescriptionPopup, self.HandlerAngle);
         var viewModels = [];
-        var angleName = WC.Utility.GetDefaultMultiLangText(angleInfoModel.Data().multi_lang_name);
-        viewModels.push(angleBreadcrumbHandler.GetAngleViewModel(angleName, angleInfoModel.IsValidated(), angleInfoModel.IsTemplate()));
-        if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
-            viewModels.push(angleBreadcrumbHandler.GetDrilldownViewModel(listDrilldownHandler.PrimaryData, angleInfoModel.Data().model));
-        }
-        angleBreadcrumbHandler.Build(viewModels);
+
+        // item
+        var angleName = self.HandlerAngle.GetName();
+        var validated = self.HandlerAngle.Data().is_validated();
+        var template = self.HandlerAngle.Data().is_template();
+        viewModels.push(angleBreadcrumbHandler.GetAngleViewModel(angleName, validated, template));
+
+        // drilldown
+        if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN))
+            viewModels.push(angleBreadcrumbHandler.GetDrilldownViewModel(listDrilldownHandler.PrimaryData, self.HandlerAngle.Data().model));
+
+        angleBreadcrumbHandler.Initial(jQuery('.breadcrumb-wrapper'), viewModels);
     };
 
     var isLoadMetadataDone = false;
@@ -1159,6 +1181,9 @@ function AnglePageHandler() {
     };
     /* BOF: M4-8817: After POST /results fail still show angle/display details */
     self.ApplyAngleAndDisplayWithoutResult = function (displayData) {
+        var isEditMode = self.IsEditMode();
+        if (isEditMode)
+            self.HandlerDisplay.ClearPostResultData();
         progressbarModel.SetDisableProgressBar();
         self.SetWrapperHeight();
 
@@ -1200,7 +1225,6 @@ function AnglePageHandler() {
         }
         else {
             // result
-            var isEditMode = self.IsEditMode();
             var canEditDisplay = isEditMode && displayData.authorizations.update;
             var isAngleInvalid = self.HandlerValidation.Angle.InvalidBaseClasses || self.HandlerValidation.Angle.InvalidFollowups;
             var isDisplayInvalid = self.HandlerValidation.Display.InvalidFieldsAll || self.HandlerValidation.Display.InvalidFields;
@@ -1224,29 +1248,27 @@ function AnglePageHandler() {
         resultModel.LoadResultFields(false)
             .done(function () {
                 self.LoadResultFieldDone = true;
-
                 self.ApplyExecutionAngle();
-
                 self.BuildFieldSettingWhenNoResult(displayData);
-
-                if (!angleInfoModel.ModelServerAvailable) {
-                    var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
-                    popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_NoActiveModelInstance, model.id));
-                }
             });
     };
-    /* EOF: M4-8817: After POST /results fail still show angle/display details */
+/* EOF: M4-8817: After POST /results fail still show angle/display details */
+    self.ResultErrorXhr = null;
     self.PostResult = function () {
         var renderNewResult = true;
+        self.ClearResultErrorXhr();
         progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_PostResult);
+        self.HandlerDisplay.ResultHandler.CustomError = true;
         return self.HandlerDisplay.PostResult()
             .progress(function (data) {
                 var queuedMessage;
                 if (data.queue_position === 0) {
                     queuedMessage = Localization.ExecutingAngleMessage;
-                } else if (!data.queue_position) {
+                }
+                else if (!data.queue_position) {
                     queuedMessage = '';
-                } else {
+                }
+                else {
                     queuedMessage = kendo.format(data.queue_position === 1 ? Localization.FirstInQueueMessage : Localization.LaterInQueueMessage, data.queue_position);
                 }
                 progressbarModel.SetProgressBarTextAndMessage(kendo.toString(data.progress * 100, 'n2'), queuedMessage);
@@ -1256,20 +1278,18 @@ function AnglePageHandler() {
                     progressbarModel.SetDisableProgressBar();
             })
             .fail(function (xhr, status) {
+                errorHandlerModel.IgnoreAjaxError(xhr);
+                if (xhr.status === 503) {
+                    self.SetModelServerUnavailable(xhr);
+                }
+
+                var displayData = self.HandlerDisplay.GetData();
                 if (status === 'abort' && self.IsEditMode()) {
-                    self.ApplyAngleAndDisplayWithoutResult(displayModel.Data());
+                    self.ApplyAngleAndDisplayWithoutResult(displayData);
                 }
                 else if (xhr.status !== 404) {
-                    if (xhr.status === 503) {
-                        errorHandlerModel.IgnoreAjaxError(xhr);
-                        angleInfoModel.ModelServerAvailable = false;
-                    }
-                    else {
-                        errorHandlerModel.OnClickRetryErrorCallback = function () {
-                            self.ExecuteAngle();
-                        };
-                    }
-                    self.ApplyAngleAndDisplayWithoutResult(displayModel.Data());
+                    self.ResultErrorXhr = xhr;
+                    self.ApplyAngleAndDisplayWithoutResult(displayData);
                 }
             })
             .then(function (data) {
@@ -1287,14 +1307,25 @@ function AnglePageHandler() {
                 return jQuery.when(renderNewResult);
             });
     };
+    self.ClearResultErrorXhr = function () {
+        self.ResultErrorXhr = null;
+        jQuery('#AngleTableWrapper .areaErrorContainer').remove();
+    };
+    self.SetModelServerUnavailable = function (xhr) {
+        xhr.responseText = kendo.format(Localization.Info_NoActiveModelInstance, self.HandlerAngle.GetModelName());
+        self.ResultErrorXhr = xhr;
+        angleInfoModel.ModelServerAvailable = false;
+    };
+    self.SetModelServerAvailable = function () {
+        self.ResultErrorXhr = null;
+        angleInfoModel.ModelServerAvailable = true;
+    };
     
     self.ApplyExecutionAngle = function () {
         progressbarModel.EndProgressBar();
         self.UpdateSidePanelHandlers();
         self.RenderActionDropdownList();
         self.RenderDisplayTabs();
-        self.HandlerDisplayOverview.UpdateScrollButtonState();
-        self.HandlerDisplayOverview.ScrollToFocusedDisplay();
         self.SetWrapperHeight();
 
         // trigger save button
@@ -1310,7 +1341,7 @@ function AnglePageHandler() {
         self.HandlerState.SetAngleData(self.HandlerAngle.GetData());
 
         // breadcrumb
-        self.RenderBreadcrumb();
+        self.InitialBreadcrumb();
 
         self.IsExecuted = true;
 
@@ -1394,20 +1425,14 @@ function AnglePageHandler() {
     self.RenderDisplayTabs = function () {
         if (!self.HandlerAngle.Displays.length)
             return;
-        // prepare data
+
         self.HandlerDisplayOverview.CanCreateNewDisplay(self.CanCreateNewDisplay());
         self.HandlerDisplayOverview.SetData(self.HandlerAngle.Displays, self.HandlerDisplay.Data().uri);
-        self.HandlerDisplayOverview.SwitchDisplay = self.SwitchDisplay;
-        self.HandlerDisplayOverview.CreateNewDisplay = displayModel.CreateNewDisplay;
-        self.HandlerDisplayOverview.DeleteDisplay = self.DeleteDisplay;
-        self.HandlerDisplayOverview.ShowEditDescriptionPopup = self.ShowEditDescriptionPopup;
+        self.HandlerDisplayOverview.UpdateScrollButtonState();
+        self.HandlerDisplayOverview.ScrollToFocusedDisplay();
 
         // set to old model, will be remove later
         displayModel.DisplayInfo.Displays(self.HandlerDisplayOverview.Displays());
-
-        // knockout
-        WC.HtmlHelper.ApplyKnockout(self.HandlerDisplayOverview, jQuery('#DisplayTabs'));
-        WC.HtmlHelper.ApplyKnockout(self.HandlerDisplayOverview, jQuery('#DisplayOption'));
     };
     self.SwitchDisplay = function (display) {
         // cannot switch (rendering) or same display
@@ -1789,21 +1814,24 @@ function AnglePageHandler() {
     };
     self.BuildFieldSettingWhenNoResult = function (display) {
         if (display.display_type === enumHandlers.DISPLAYTYPE.LIST) {
-            if (self.HandlerValidation.Angle.InvalidBaseClasses || !display.authorizations.update) {
-                listHandler.ReadOnly(true);
-                listHandler.DashBoardMode(true);
-            }
-            else {
-                listHandler.ReadOnly(false);
-                listHandler.DashBoardMode(false);
-            }
+            listHandler.HasResult(false);
+            listHandler.ReadOnly(self.HandlerValidation.Angle.InvalidBaseClasses || !display.authorizations.update);
+            listHandler.DashBoardMode(false);
             listHandler.GetListDisplay();
+            if (self.ResultErrorXhr)
+                listHandler.ShowError(self.ResultErrorXhr);
         }
         else if (display.display_type === enumHandlers.DISPLAYTYPE.CHART) {
-            chartHandler.GetChartDisplay(false);
+            chartHandler.HasResult(false);
+            chartHandler.GetChartDisplay();
+            if (self.ResultErrorXhr)
+                chartHandler.ShowError(self.ResultErrorXhr);
         }
         else if (display.display_type === enumHandlers.DISPLAYTYPE.PIVOT) {
-            pivotPageHandler.GetPivotDisplay(false);
+            pivotPageHandler.HasResult(false);
+            pivotPageHandler.GetPivotDisplay();
+            if (self.ResultErrorXhr)
+                pivotPageHandler.ShowError(self.ResultErrorXhr);
         }
     };
     self.UpdateAngleDisplayValidation = function () {
@@ -1845,10 +1873,6 @@ function AnglePageHandler() {
                 });
                 win.toFront();
                 win.element.find('.notificationIcon').attr('class', 'notificationIcon alert');
-
-                if (self.HandlerDisplay.Data().display_type === enumHandlers.DISPLAYTYPE.CHART || self.HandlerDisplay.Data().display_type === enumHandlers.DISPLAYTYPE.PIVOT) {
-                    self.HandlerSidePanel.SelectTab(1);
-                }
             }
         }, delay || 0);
     };
@@ -1866,7 +1890,7 @@ function AnglePageHandler() {
         jQuery.localStorage(displayModel.TemporaryDisplayName, adhocDisplays);
     };
     self.SaveClientSettings = function () {
-        var clientSettingsRequest = userSettingModel.GetSidePanelSettingsData();
+        var clientSettingsRequest = userSettingModel.GetClientSettingsData();
         var additionalRequests = [];
         if (clientSettingsRequest) {
             userSettingModel.UpdateClientSettings(JSON.parse(clientSettingsRequest.data));

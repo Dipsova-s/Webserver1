@@ -277,8 +277,49 @@ describe("MC.AutomationTasks.Tasks", function () {
 
         it("Show delete command with data-parameters", function () {
             spyOn(automationTask, 'CanManageTask').and.returnValue(false);
-            var template = automationTask.SetAbilityToEditControl(data, false, true, 'run_as_user');          
+            var template = automationTask.SetAbilityToEditControl(data, false, true, 'run_as_user');
             expect(template).toContain("data-parameters='{\"taskUri\":\"http://www.ea.com\"}'");
+        });
+
+        it("Show execute task command when has CanScheduleAngles", function () {
+            spyOn(automationTask, 'CanManageTask').and.returnValue(false);
+            var template = automationTask.SetAbilityToEditControl(data, false, true, 'run_as_user');
+            expect(template).toContain("<input type=\"hidden\" name=\"uri\" value=\"http:\/\/www.ea.com\" \/><a href=\"\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"http:\/\/www.ea.com\"}' class=\"btn btnEdit\">Edit<\/a><a data-parameters='{\"taskUri\":\"http:\/\/www.ea.com\"}' data-delete-template=\"Delete Task: {reference}?\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete disabled\">Delete<\/a>");
+        });
+    });
+
+    describe(".ActionButtonTemplate", function () {
+        it("Show all button if user has manage system privilege", function () {
+            // prepare
+            var data = {
+                run_as_user:'test'
+            };
+            automationTask.CanManageSystem = true;
+            var template = automationTask.ActionButtonTemplate(data);
+            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">Edit<\/a><a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('undefined')\" class=\"btn btn btnExecute alwaysHidden\">Execute now<\/a><a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= undefined\"}\\' data-delete-template=\"Delete Field: {reference}?\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">Delete<\/a>");
+        });
+        it("Show all button if user has schedule angle privilege and task owner", function () {
+            // prepare
+            var data = {
+                run_as_user: 'test'
+            };
+            automationTask.CanManageSystem = false;
+            automationTask.CanScheduleAngles = true;
+            automationTask.IsTaskOwner = true;
+            var template = automationTask.ActionButtonTemplate(data);
+            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">Edit<\/a><a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('undefined')\" class=\"btn btn btnExecute alwaysHidden\">Execute now<\/a><a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= undefined\"}\\' data-delete-template=\"Delete Field: {reference}?\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">Delete<\/a>");
+        });
+        it("Show only view button and disabled delete button if user has only schedule angle privilege", function () {
+            // prepare
+            var data = {
+                run_as_user: 'test'
+            };
+            automationTask.CanManageSystem = false;
+            automationTask.CanScheduleAngles = true;
+            automationTask.IsTaskOwner = false;
+            var template = automationTask.ActionButtonTemplate(data);
+            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', false)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">View<\/a><a class=\"btn btnDelete disabled\">Delete<\/a>");
+            expect(template).toContain("disabled");
         });
     });
 
@@ -289,7 +330,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             var columns = automationTask.GetActionsGridColumnDefinitions();
 
             // assert
-            expect(columns.length).toEqual(9);
+            expect(columns.length).toEqual(10);
             expect(columns[0].field).toEqual('order');
             expect(columns[1].field).toEqual('action_type_name');
             expect(typeof columns[1].template).toEqual('function');
@@ -299,10 +340,11 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(typeof columns[3].template).toEqual('function');
             expect(columns[4].field).toEqual('angle_name');
             expect(columns[5].field).toEqual('display_name');
-            expect(columns[6].field).toEqual('condition_name');
-            expect(typeof columns[6].template).toEqual('function');
-            expect(columns[7].field).toEqual('approval_state');
-            expect(columns[8].field).toEqual('action');
+            expect(columns[6].field).toEqual('run_as_user');
+            expect(columns[7].field).toEqual('condition_name');
+            expect(typeof columns[7].template).toEqual('function');
+            expect(columns[8].field).toEqual('approval_state');
+            expect(columns[9].field).toEqual('action');
         });
 
     });
@@ -519,6 +561,7 @@ describe("MC.AutomationTasks.Tasks", function () {
                 AngleName: '',
                 AngleUri: '/models/1/angles/1',
                 DisplayName: '',
+                run_as_user: 'test_user',
                 approval_state: 'approval_state1',
                 notification: 'notification1',
                 arguments: [
@@ -534,6 +577,7 @@ describe("MC.AutomationTasks.Tasks", function () {
                 AngleName: '',
                 AngleUri: '/models/1/angles/3',
                 DisplayName: '',
+                run_as_user: '',
                 approval_state: 'approval_state3',
                 notification: 'notification3',
                 arguments: [
@@ -559,6 +603,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(result.data[0].uri).toEqual('/tasks/1');
             expect(result.data[0].order).toEqual(0);
             expect(result.data[0].AngleUri).toEqual('/models/1/angles/1');
+            expect(result.data[0].run_as_user).toEqual('test_user')
 
             expect(result.data[1].action_type).toEqual('action_type2');
             expect(result.data[1].angle_name).toEqual('AngleName2');
@@ -579,6 +624,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(result.data[2].uri).toEqual('/tasks/3');
             expect(result.data[2].order).toEqual(2);
             expect(result.data[2].AngleUri).toEqual('/models/1/angles/3');
+            expect(result.data[2].run_as_user).toEqual('')
 
             expect(result.sort.field).toEqual('order');
             expect(result.sort.dir).toEqual('asc');
@@ -701,6 +747,125 @@ describe("MC.AutomationTasks.Tasks", function () {
 
     });
 
+    describe(".AddDisplayExcelTemplateToddlExcelTemplate", function () {
+
+        var dropdown;
+        beforeEach(function () {
+            dropdown = $('<div id="template_file" />').kendoDropDownList({
+                dataTextField: "File",
+                dataValueField: "File",
+                dataSource: [
+                    { File: 'excel_template_00.xlsx' },
+                    { File: 'excel_template_01.xlsx' },
+                    { File: 'excel_template_02.xlsx' }
+                ]
+            });
+            dropdown.appendTo('body');
+        });
+
+        afterEach(function () {
+            dropdown.remove();
+        });
+
+        it("should Add default excel template to Template file dropdown", function () {
+            // prepare
+            var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
+            automationTask.DisplayExcelTemplate = 'excel_template_02.xlsx';
+            var addedItem = '[Use default] excel_template_02.xlsx';
+
+            automationTask.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
+
+            // assert
+            var result = jQuery.grep(ddlExcelTemplate.dataSource.data(), function (option) {
+                return option.File === addedItem;
+            });
+            expect(result.length).toBe(1);
+            expect(ddlExcelTemplate.value()).toBe(addedItem);
+        });
+    });
+
+    describe(".RemoveDisplayExcelTemplateFromddlExcelTemplate", function () {
+
+        var dropdown;
+        beforeEach(function () {
+            dropdown = $('<div id="template_file" />').kendoDropDownList({
+                dataTextField: "File",
+                dataValueField: "File",
+                dataSource: [
+                    { File: 'excel_template_00.xlsx' },
+                    { File: 'excel_template_01.xlsx' },
+                    { File: 'excel_template_02.xlsx' },
+                    { File: '[Use default] excel_template_02.xlsx' }
+                ]
+            });
+            dropdown.appendTo('body');
+        });
+
+        afterEach(function () {
+            dropdown.remove();
+        });
+
+        it("should remove default excel template from Template file dropdown", function () {
+            // prepare
+            var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
+            var addedItem = '[Use default] excel_template_02.xlsx';
+            automationTask.StandardExcelTemplate = 'excel_template_01.xlsx';
+            automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+
+            // assert
+            var result = jQuery.grep(ddlExcelTemplate.dataSource.data(), function (option) {
+                return option.File === addedItem;
+            });
+            expect(result.length).toBe(0);
+            expect(ddlExcelTemplate.value()).toBe(automationTask.StandardExcelTemplate);
+        });
+    });
+
+    describe(".ConfigureDefaultTemplateFile", function () {
+        beforeEach(function () {
+            spyOn(automationTask, 'AddDisplayExcelTemplateToddlExcelTemplate').and.returnValue($.noop);
+            spyOn(automationTask, 'RemoveDisplayExcelTemplateFromddlExcelTemplate').and.returnValue($.noop);
+        });
+
+        it("should set display excel template and call AddDisplayExcelTemplate", function () {
+            // Prepare
+            var displayDetail = '{ "excel_template": "excel_template_00.xlsx" }';
+
+            var result = automationTask.ConfigureDefaultTemplateFile(displayDetail, null);
+
+            // Assert
+            expect(automationTask.AddDisplayExcelTemplateToddlExcelTemplate).toHaveBeenCalled();
+            expect(automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate).toHaveBeenCalled();
+            expect(automationTask.DisplayExcelTemplate).toBe('excel_template_00.xlsx');
+            expect(result).toBe(true);
+
+        });
+
+        it("should reset display excel template and call RemoveDisplayExcelTemplate", function () {
+            // Prepare
+            var displayDetail = '{}';
+
+            var result = automationTask.ConfigureDefaultTemplateFile(displayDetail, null);
+
+            // Assert
+            expect(automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate).toHaveBeenCalled();
+            expect(automationTask.DisplayExcelTemplate).toBe('');
+            expect(result).toBe(true);
+        });
+
+        it("should reset display excel template and return false", function () {
+            // Prepare
+            var displayDetail = null;
+
+            var result = automationTask.ConfigureDefaultTemplateFile(displayDetail, null);
+
+            // Assert
+            expect(automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate).toHaveBeenCalled();
+            expect(automationTask.DisplayExcelTemplate).toBe('');
+            expect(result).toBe(false);
+        });
+    });
+
     describe(".GetActionData", function () {
 
         var container;
@@ -726,10 +891,18 @@ describe("MC.AutomationTasks.Tasks", function () {
             $('<div id="action_type"/>').data('kendoDropDownList', dropdownFunction).appendTo(container);
             $('<div id="approvalddl"/>').data('kendoDropDownList', dropdownFunction).appendTo(container);
             $('<div id="display_id"/>').data('kendoDropDownList', dropdownFunction).appendTo(container);
+            $('<input name="action_run_as_user" value="test_user"/>').appendTo(container);
         });
 
         afterEach(function () {
             container.remove();
+        });
+
+        it("should get run as user value", function () {
+            var result = automationTask.GetActionData();
+
+            // assert
+            expect(result.run_as_user).toEqual('test_user');
         });
 
         it("should get data if action type is datastore", function () {
@@ -813,4 +986,40 @@ describe("MC.AutomationTasks.Tasks", function () {
 
     });
 
+    describe(".HideOrShowModelTimestampIndex", function () {
+        beforeEach(function () {
+            ddlElement = $('<div id="datastore"><input id="model_timestamp_index"/></div>').data('kendoDropDownList', {
+                value: $.noop,
+                dataItem: ko.observableArray([
+                    { id: 'Datastore_test1', value:'Datastore_test1' },
+                    { Code: 'Datastore_test2', value: 'Datastore_test2' }
+                ])
+            }).appendTo('body');
+            $("#model_timestamp_index").kendoNumericTextBox({
+                value: 1
+            });
+        });
+
+        afterEach(function () {
+            ddlElement.remove();
+        });
+        it("When display type is chart or pivot model_timestamp_index value should be -1", function () {           
+            spyOn(automationTask, "IsChartOrPivot").and.returnValue(true);
+            spyOn(automationTask, "IsExcelDataStore").and.returnValue(true);
+            spyOn($.fn, 'hide').and.returnValue($.noop);
+            automationTask.HideOrShowModelTimestampIndex();
+            expect($.fn.hide).toHaveBeenCalled();
+            var modelTimestampIndexValue = $("#model_timestamp_index").data('handler').value();
+            expect(modelTimestampIndexValue).toBe(-1);
+        });
+        it("When display type is List model_timestamp_index value should be 1", function () {
+            spyOn(automationTask, "IsChartOrPivot").and.returnValue(false);
+            spyOn(automationTask, "IsExcelDataStore").and.returnValue(false);
+            spyOn($.fn, 'show').and.returnValue($.noop);
+            automationTask.HideOrShowModelTimestampIndex();
+            expect($.fn.show).toHaveBeenCalled();
+            var modelTimestampIndexValue = $("#model_timestamp_index").data('handler').value();
+            expect(modelTimestampIndexValue).toBe(1);
+        });
+    });
 });

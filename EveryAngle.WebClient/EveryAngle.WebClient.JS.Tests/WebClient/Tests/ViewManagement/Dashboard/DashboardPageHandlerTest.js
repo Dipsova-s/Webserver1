@@ -2,10 +2,9 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/dashboardstateview.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/dashboardstatehandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardWidgetDefinitionHandler.js" />
@@ -19,18 +18,15 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemDownloadHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardSaveActionHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardBusinessProcessHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardLabelHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardTagHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Dashboard/DashboardPageHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 
 describe("DashboardPageHandler", function () {
     var dashboardPageHandler;
-
     beforeEach(function () {
         dashboardPageHandler = new DashboardPageHandler();
     });
-
     afterEach(function () {
         jQuery.localStorage(enumHandlers.ANGLEPARAMETER.ADHOCFILTERS, null);
     });
@@ -702,6 +698,80 @@ describe("DashboardPageHandler", function () {
         });
     });
 
+    describe(".ForceSaveDashboard", function () {
+        var deferred;
+        beforeEach(function () {
+            deferred = {
+                reject: $.noop,
+                resolve: $.noop
+            };
+            spyOn(deferred, 'reject');
+            spyOn(deferred, 'resolve');
+            spyOn(toast, 'MakeSuccessTextFormatting');
+            spyOn(dashboardPageHandler, 'ShowSaveProgressbar');
+            spyOn(dashboardPageHandler, 'EnsureLayout');
+            spyOn(dashboardPageHandler, 'GetChangeData').and.returnValue({ id: 'new-id' });
+            spyOn(dashboardPageHandler, 'SaveDashboardCallback');
+            spyOn(dashboardPageHandler, 'EndSaveProgressbar');
+        });
+        it("should save", function () {
+            spyOn(dashboardPageHandler, 'UpdateDashboard').and.returnValue($.when());
+            dashboardPageHandler.ForceSaveDashboard(deferred, {});
+
+            // assert
+            expect(deferred.reject).not.toHaveBeenCalled();
+            expect(deferred.resolve).toHaveBeenCalled();
+            expect(dashboardPageHandler.ShowSaveProgressbar).toHaveBeenCalled();
+            expect(dashboardPageHandler.EnsureLayout).toHaveBeenCalled();
+            expect(toast.MakeSuccessTextFormatting).toHaveBeenCalled();
+            expect(dashboardPageHandler.SaveDashboardCallback).toHaveBeenCalled();
+            expect(dashboardPageHandler.EndSaveProgressbar).toHaveBeenCalled();
+        });
+        it("should not save", function () {
+            spyOn(dashboardPageHandler, 'UpdateDashboard').and.returnValue($.Deferred(function (d) {
+                d.reject();
+                return d.promise();
+            }));
+            dashboardPageHandler.ForceSaveDashboard(deferred, {});
+
+            // assert
+            expect(deferred.reject).toHaveBeenCalled();
+            expect(deferred.resolve).not.toHaveBeenCalled();
+            expect(dashboardPageHandler.ShowSaveProgressbar).toHaveBeenCalled();
+            expect(dashboardPageHandler.EnsureLayout).toHaveBeenCalled();
+            expect(toast.MakeSuccessTextFormatting).not.toHaveBeenCalled();
+            expect(dashboardPageHandler.SaveDashboardCallback).not.toHaveBeenCalled();
+            expect(dashboardPageHandler.EndSaveProgressbar).toHaveBeenCalled();
+        });
+    });
+
+    describe(".ConfirmSave", function () {
+        it("should get a confirm message for validated Dashbaord", function () {
+            // prepare
+            var fn = { callback: $.noop };
+            dashboardModel.Data().is_validated(true);
+            spyOn(popup, 'Confirm');
+            spyOn(fn, 'callback');
+            dashboardPageHandler.ConfirmSave(fn.callback, $.noop);
+
+            // assert
+            expect(popup.Confirm).toHaveBeenCalled();
+            expect(fn.callback).not.toHaveBeenCalled();
+        });
+        it("should call saving function", function () {
+            // prepare
+            var fn = { callback: $.noop };
+            dashboardModel.Data().is_validated(false);
+            spyOn(popup, 'Confirm');
+            spyOn(fn, 'callback');
+            dashboardPageHandler.ConfirmSave(fn.callback, $.noop);
+
+            // assert
+            expect(popup.Confirm).not.toHaveBeenCalled();
+            expect(fn.callback).toHaveBeenCalled();
+        });
+    });
+
     //handlers
     describe(".SaveQueryDefinition", function () {
         it("should do nothing when QueryDefinitionHandler.HasChanged is false", function () {
@@ -831,14 +901,57 @@ describe("DashboardPageHandler", function () {
         });
     });
 
-    describe(".InitialBusinessProcess", function () {
-        it("should initial", function () {
+    describe(".IsStarred", function () {
+        it("should be true", function () {
             // prepare
-            spyOn(dashboardPageHandler.DashboardBusinessProcessHandler, 'Initial');
-            dashboardPageHandler.InitialBusinessProcess();
+            spyOn(dashboardPageHandler.DashboardUserSpecificHandler, 'IsStarred').and.returnValue(true);
+            var result = dashboardPageHandler.IsStarred();
 
             // assert
-            expect(dashboardPageHandler.DashboardBusinessProcessHandler.Initial).toHaveBeenCalled();
+            expect(result).toEqual(true);
+        });
+    });
+
+    describe(".SetFavorite", function () {
+        it("should set favorite", function () {
+            // prepare
+            spyOn(dashboardPageHandler.DashboardUserSpecificHandler, 'SetFavorite');
+            dashboardPageHandler.SetFavorite(null, {});
+
+            // assert
+            expect(dashboardPageHandler.DashboardUserSpecificHandler.SetFavorite).toHaveBeenCalled();
+        });
+    });
+
+    describe(".InitialLabel", function () {
+        it("should initial", function () {
+            // prepare
+            spyOn(dashboardPageHandler.DashboardLabelHandler, 'Initial');
+            dashboardPageHandler.InitialLabel();
+
+            // assert
+            expect(dashboardPageHandler.DashboardLabelHandler.Initial).toHaveBeenCalled();
+        });
+    });
+    describe(".SaveLabels", function () {
+        it("should confirm saving", function () {
+            // prepare
+            spyOn(dashboardPageHandler, 'ConfirmSave');
+            dashboardPageHandler.SaveLabels([]);
+
+            // assert
+            expect(dashboardPageHandler.ConfirmSave).toHaveBeenCalled();
+        });
+    });
+
+    describe(".InitialTag", function () {
+        it("should initial", function () {
+            // prepare
+            spyOn(dashboardPageHandler.DashboardTagHandler, 'Initial');
+            dashboardPageHandler.InitialTag();
+
+            // assert
+            expect(dashboardPageHandler.DashboardTagHandler.Initial).toHaveBeenCalled();
         });
     });
 
@@ -880,7 +993,7 @@ describe("DashboardPageHandler", function () {
             it(test.title, function () {
                 // initial
                 spyOn(dashboardPageHandler.ItemDescriptionHandler, 'CloseEditPopup');
-                spyOn(dashboardPageHandler, 'RenderBreadcrumb');
+                spyOn(dashboardPageHandler, 'InitialBreadcrumb');
                 spyOn(dashboardPageHandler, 'GetName').and.returnValue("");
                 spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(test.is_adhoc);
                 spyOn(dashboardModel, "Data").and.returnValue({
@@ -893,7 +1006,7 @@ describe("DashboardPageHandler", function () {
 
                 // assert
                 expect(dashboardPageHandler.ItemDescriptionHandler.CloseEditPopup).toHaveBeenCalled();
-                expect(dashboardPageHandler.RenderBreadcrumb).toHaveBeenCalled();
+                expect(dashboardPageHandler.InitialBreadcrumb).toHaveBeenCalled();
                 expect(dashboardPageHandler.GetName).toHaveBeenCalledTimes(test.expected);
                 expect(toast.MakeSuccessTextFormatting).toHaveBeenCalledTimes(test.expected);
             });

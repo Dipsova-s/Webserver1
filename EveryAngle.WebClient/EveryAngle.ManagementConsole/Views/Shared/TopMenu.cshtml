@@ -3,7 +3,7 @@
 @{
     EveryAngle.Core.ViewModels.Users.UserViewModel user = SessionHelper.Initialize().CurrentUser;
     string defaultLanguage = "en";
-    string helpUri = "~/Data/Help/" + defaultLanguage + "/index.htm";
+    string helpUri = string.Format("~/data/help/{0}/UUID-98342d97-6145-7db8-0ee3-8127c987c924.html", defaultLanguage);
     string supportUri = "https://magnitude.com/online-support/";
     var FileVersion = AssemblyInfoHelper.GetFileVersion();
 

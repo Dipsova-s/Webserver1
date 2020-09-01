@@ -59,7 +59,7 @@
         <div class="k-window-content k-content">
             @{
                 string webLanguage = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
-                string helpUri = string.Format("~/data/help/{0}/index-{0}.html", webLanguage);
+                string helpUri = string.Format("~/data/help/{0}/UUID-c553e180-7b42-eaf7-41b5-534d2a32a3bc.html", webLanguage);
                 string supportUri = "https://magnitude.com/online-support/";
             }
             <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span data-bind="text: Localization.Helppage"></span></a>

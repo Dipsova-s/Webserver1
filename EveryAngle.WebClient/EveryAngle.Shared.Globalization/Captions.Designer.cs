@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Captions {
@@ -336,6 +336,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Generic_Error_Message {
             get {
                 return ResourceManager.GetString("Generic_Error_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use &apos;0&apos; to select the first column. When no model timestamp column is required, enter -1 or leave empty..
+        /// </summary>
+        public static string InsertModelTimestamp_info {
+            get {
+                return ResourceManager.GetString("InsertModelTimestamp_info", resourceCulture);
             }
         }
         
@@ -943,15 +952,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insert model date.
-        /// </summary>
-        public static string Label_CSV_Export_AddModelDate {
-            get {
-                return ResourceManager.GetString("Label_CSV_Export_AddModelDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Yes/No character.
         /// </summary>
         public static string Label_CSV_Export_BoolChars {
@@ -1312,6 +1312,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert model timestamp.
+        /// </summary>
+        public static string Label_Insert_model_timestamp {
+            get {
+                return ResourceManager.GetString("Label_Insert_model_timestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No items available for automatic execution..
         /// </summary>
         public static string Label_No_Information_About_AutoExecute {
@@ -1362,6 +1371,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Label_Sort_ThenBy {
             get {
                 return ResourceManager.GetString("Label_Sort_ThenBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template does not exist.
+        /// </summary>
+        public static string Label_Template_Not_Exist_Message {
+            get {
+                return ResourceManager.GetString("Label_Template_Not_Exist_Message", resourceCulture);
             }
         }
         

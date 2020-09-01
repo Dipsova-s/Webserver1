@@ -27,7 +27,6 @@ Execute Angle action performance
     @{itemList}     Create List    ${angleUri}
 
     : FOR    ${INDEX}     IN RANGE    0    ${API_SEED}
-    \    Run Keyword      Create Context: ${target}
     \    Run Keyword    Start Clock: ${target}
     \    ${resultData}    Create Result    ${angleUri}    ${displayUri}
     \    Run Keyword    Stop Clock: ${target}

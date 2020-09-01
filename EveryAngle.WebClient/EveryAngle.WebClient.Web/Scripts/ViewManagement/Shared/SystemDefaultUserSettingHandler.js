@@ -20,7 +20,8 @@ function SystemDefaultUserSettingModel(model) {
         default_date: '',
         default_period: '',
         default_time: '',
-        format_locale: 'en'
+        format_locale: 'en',
+        hide_other_users_private_display: false
     }, model);
 }
 

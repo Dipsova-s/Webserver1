@@ -18,7 +18,7 @@ Verify Export To Excel From Action Menu
     ...                 Default Excel Template as well as Option for overruling  Default Excel Template on fly for a Display.
     [Tags]  acc_wc_aci   TC_C229226     TC_C229326     TC_C230144
     ${angleName}  Set Variable  Angle For General Test
-    ${fileNamePlaceholder}     Set Variable   {anglename:normalized}
+    ${fileNamePlaceholder}     Set Variable   Angle For General Test
     ${timeStamp}  Get Time    epoch
     ${newExcelTemplateName}  Set Variable  RobotEaTestExcelTemplate_${timeStamp}.xlsx
     ${newfileExcelTemplate}  Set Variable  ${EXECDIR}/resources/${newExcelTemplateName}
@@ -30,19 +30,13 @@ Verify Export To Excel From Action Menu
     Go To ExcelTemplates Page
     Verify Upload Excel Template In Excel Template Page      ${newfileExcelTemplate}    ${newExcelTemplateName}
     Verify Upload Excel Template In Excel Template Page      ${newfileExcelTemplate1}    ${newExcelTemplateName1}
-    ${countExcelTemplatesITMC}  Get Count Excel Templates
-    ${listExcelTemplatesITMC}   Get List Excel Templates
     Switch Browser  1
     Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Display Tab
-    Selected Excel Template Should Be       [Default] ${defaultExcelTemplateName}
-    ${countExcelTemplatesWC}    Get Excel Templates Count
-    ${listExcelTemplatesWC}    Get Excel Templates List
-    Should Be Equal     ${countExcelTemplatesITMC}   ${countExcelTemplatesWC}
-    Lists Should Be Equal   ${listExcelTemplatesITMC}   ${listExcelTemplatesWC}
+    Selected Excel Template Should Be       [Use default] ${defaultExcelTemplateName}
     Select Excel Template To    ${newExcelTemplateName}
     Save Selected Excel Template
     Reload Angle Page
@@ -56,10 +50,6 @@ Verify Export To Excel From Action Menu
     Input Excel File Name     ${fileNamePlaceholder}
     Input Excel File Name Should Be    ${angleName}
     Selected Excel Template in Export to Excel Pop up Should Be   ${newExcelTemplateName}
-    ${countExcelTemplatesPopUp}     Get Excel Templates Count in Export to Excel Pop up
-    ${listExcelTemplatesPopup}      Get Excel Templates List in Export to Excel Pop up
-    Should Be Equal     ${countExcelTemplatesPopUp}     ${countExcelTemplatesWC}
-    Lists Should Be Equal   ${listExcelTemplatesPopup}      ${listExcelTemplatesWC}
     Select Excel Template in Export to Excel Pop up To   ${newExcelTemplateName1}
     Selected Excel Template in Export to Excel Pop up Should Be   ${newExcelTemplateName1}    
     Click Export Excel Button
@@ -73,7 +63,7 @@ Verify Export To Excel From Action Menu
     Logout MC Then Close Browser
     Switch Browser    1
     Reload Angle Page
-    Selected Excel Template Should Be       [Default] ${defaultExcelTemplateName}
+    Selected Excel Template Should Be       ${newExcelTemplateName}
 
 Verify Export Item Drilldown To Excel From Action Menu
     ${angleName}  Set Variable  Angle For General Test
@@ -85,6 +75,7 @@ Verify Export Item Drilldown To Excel From Action Menu
     Select Filter "Reference" On Drilldown To Item
     Click Angle Dropdown To Export Drilldown To Excel
     Wait Progress Bar Closed
+    Select Excel Template in Export to Excel Pop up To  ${defaultExcelTemplateName}
     Click Export Drilldown To Excel Button
     Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
     Wait Until Export Excel Popup Close
@@ -92,7 +83,7 @@ Verify Export Item Drilldown To Excel From Action Menu
 Verify Error Message If A Filename Is Too Long
     [Tags]  TC_C230013
     ${angleName}  Set Variable  Angle For General Test
-    ${fileNamePlaceholder}     Set Variable   {anglename:normalized}
+    ${fileNamePlaceholder}     Set Variable   Angle For General Test
     Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
@@ -102,6 +93,7 @@ Verify Error Message If A Filename Is Too Long
     Input Excel File Name Should Be    ${fileNamePlaceholder}
     ${filename}   Set Variable  Export angle to excel with such a long filename. A filename of 200 characters should be allowed. Since the windows max path length is 260, this could lead to a path too long exception, when this happens, show the error message to the user.
     Input Excel File Name    ${filename}
+    Select Excel Template in Export to Excel Pop up To  ${defaultExcelTemplateName}
     Click Export Excel Button
     Wait Until Page Contains    Full name of the file exceeds Windows limitations (260 characters).
 

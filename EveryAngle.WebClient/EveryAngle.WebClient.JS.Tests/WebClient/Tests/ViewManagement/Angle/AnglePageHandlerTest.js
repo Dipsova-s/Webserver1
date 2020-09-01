@@ -5,9 +5,6 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/businessprocesshandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
-/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemState/itempublishstatehandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
@@ -24,6 +21,51 @@ describe("AnglePageHandler", function () {
     var anglepageHandler;
     beforeEach(function () {
         anglepageHandler = new AnglePageHandler();
+    });
+
+    describe(".InitialContent ", function () {
+        it('should initial handlers', function () {
+            spyOn(anglePageHandler.HandlerSidePanel, 'InitialAngle');
+            spyOn(anglePageHandler, 'SetHandlerAngle');
+            spyOn(anglePageHandler.HandlerAngle, 'InitialAngleUserSpecific');
+            spyOn(anglePageHandler.HandlerDisplayOverview, 'Initial');
+            spyOn(anglePageHandler, 'InitialSaveActions');
+            spyOn($.fn, 'addClass');
+
+            anglePageHandler.InitialContent();
+
+            // assert
+            expect(anglePageHandler.HandlerSidePanel.InitialAngle).toHaveBeenCalled();
+            expect(anglePageHandler.SetHandlerAngle).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerAngle.InitialAngleUserSpecific).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerDisplayOverview.Initial).toHaveBeenCalled();
+            expect(anglePageHandler.InitialSaveActions).toHaveBeenCalled();
+            expect($.fn.addClass).toHaveBeenCalledWith('active');
+        });
+    });
+
+    describe(".RenderDisplayTabs ", function () {
+        beforeEach(function () {
+            anglePageHandler.CanCreateNewDisplay = $.noop;
+            spyOn(anglePageHandler.HandlerDisplayOverview, 'CanCreateNewDisplay');
+            spyOn(anglePageHandler.HandlerDisplayOverview, 'SetData');
+        });
+        it('should not render', function () {
+            anglePageHandler.HandlerAngle.Displays = [];
+            anglePageHandler.RenderDisplayTabs();
+
+            // assert
+            expect(anglePageHandler.HandlerDisplayOverview.CanCreateNewDisplay).not.toHaveBeenCalled();
+            expect(anglePageHandler.HandlerDisplayOverview.SetData).not.toHaveBeenCalled();
+        });
+        it('should render', function () {
+            anglePageHandler.HandlerAngle.Displays = [anglePageHandler.HandlerDisplay];
+            anglePageHandler.RenderDisplayTabs();
+
+            // assert
+            expect(anglePageHandler.HandlerDisplayOverview.CanCreateNewDisplay).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerDisplayOverview.SetData).toHaveBeenCalled();
+        });
     });
 
     describe(".CheckSaveQueryDefinition", function () {

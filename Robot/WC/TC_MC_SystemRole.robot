@@ -27,4 +27,4 @@ Test Manage Users In System Role
     [Tags]      TC_C589
     Create New Role And Set All Allowed    ${SystemRole}    ${DescriptionRole}
     Add User To System Role By Name   ${SystemRole}    ${FilterAvailableUser}
-    Delete Role    ${SystemRole}
+    Delete System Role   ${SystemRole}

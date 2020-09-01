@@ -5,36 +5,28 @@
 
 describe("BreadcrumbHandler", function () {
     var breadcrumbHandlerTest;
-
     beforeEach(function () {
         breadcrumbHandlerTest = new BreadcrumbHandler();
     });
 
     describe(".Build", function () {
-
         beforeEach(function () {
-            spyOn(breadcrumbHandlerTest, 'ApplyBindings');
+            spyOn(WC.HtmlHelper, 'ApplyKnockout');
         });
-
         it("should have 1 item", function () {
-            breadcrumbHandlerTest.Build([]);
-            expect(breadcrumbHandlerTest.ViewModels().length).toEqual(1);
-        });
+            breadcrumbHandlerTest.Initial($('<div/>'), []);
 
+            expect(WC.HtmlHelper.ApplyKnockout).toHaveBeenCalled();
+            expect(breadcrumbHandlerTest.$Container.length).toEqual(1);
+            expect(breadcrumbHandlerTest.Data().length).toEqual(1);
+        });
         it("should have 2 items", function () {
-            breadcrumbHandlerTest.Build([new BreadcrumbViewModel()]);
-            expect(breadcrumbHandlerTest.ViewModels().length).toEqual(2);
+            breadcrumbHandlerTest.Initial($('<div/>'), [new BreadcrumbViewModel()]);
+
+            expect(WC.HtmlHelper.ApplyKnockout).toHaveBeenCalled();
+            expect(breadcrumbHandlerTest.$Container.length).toEqual(1);
+            expect(breadcrumbHandlerTest.Data().length).toEqual(2);
         });
-
-    });
-
-    describe(".ResetViewModels", function () {
-        it("should have no item in list", function () {
-            breadcrumbHandlerTest.ViewModels.push(new BreadcrumbViewModel());
-            breadcrumbHandlerTest.ResetViewModels();
-            expect(breadcrumbHandlerTest.ViewModels.length).toEqual(0);
-        });
-
     });
 
     describe(".GetSearchKeyword", function () {
@@ -90,23 +82,15 @@ describe("BreadcrumbHandler", function () {
             var viewModel = breadcrumbHandlerTest.GetItemViewModel('test', false);
             expect(viewModel.label()).toEqual('test');
             expect(viewModel.title()).toEqual('test');
-            expect(viewModel.frontIcon()).toEqual('icon icon-chevron-right icon-breadcrumb-chevron');
-            expect(viewModel.rearIcon()).toEqual('');
+            expect(viewModel.separatorIcon()).toEqual('icon icon-chevron-right icon-breadcrumb-separator');
+            expect(viewModel.rearIcon()).toEqual('always-hide');
         });
-
         it("should get item view model with validated state", function () {
             var viewModel = breadcrumbHandlerTest.GetItemViewModel('test', true);
             expect(viewModel.label()).toEqual('test');
             expect(viewModel.title()).toEqual('test');
-            expect(viewModel.frontIcon()).toEqual('icon icon-chevron-right icon-breadcrumb-chevron');
-            expect(viewModel.rearIcon()).toEqual('icon icon-validated icon-breadcrumb-validated');
-        });
-
-        it("should get item view model with itemIcon when itemIcon is provided", function () {
-            var viewModel = breadcrumbHandlerTest.GetItemViewModel('test', true, 'icon-item');
-            expect(viewModel.label()).toEqual('test');
-            expect(viewModel.title()).toEqual('test');
-            expect(viewModel.itemIcon()).toEqual('icon-item');
+            expect(viewModel.separatorIcon()).toEqual('icon icon-chevron-right icon-breadcrumb-separator');
+            expect(viewModel.rearIcon()).toEqual('icon icon-validated icon-breadcrumb-rear');
         });
     });
 });

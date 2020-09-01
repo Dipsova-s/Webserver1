@@ -8,28 +8,10 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleSaveActionHandler.js" />
 
 describe("AngleSaveActionHandler", function () {
-    var angleSaveActionHandler, angleHandler, stateHandler;
+    var angleSaveActionHandler;
     beforeEach(function () {
-        angleHandler = {
-            Displays: [],
-            Data: ko.observable({
-                is_template: ko.observable(false)
-            }),
-            GetData: $.noop,
-            IsAdhoc: $.noop,
-            ForceInitial: $.noop,
-            Validate: $.noop,
-            CanUseFilter: $.noop,
-            CanUseJump: $.noop,
-            CanCreate: $.noop,
-            CanCreateOrUpdate: $.noop,
-            GetCreateOrUpdateData: $.noop,
-            CanSetTemplate: $.noop,
-            CanCreateTemplateAngle: $.noop,
-            ConfirmSave: $.noop,
-            SaveAll: $.noop
-        };
-        stateHandler = {
+        var angleHandler = new AngleHandler({ is_template: false });
+        var stateHandler = {
             SetTemplateStatus: $.noop
         };
         angleSaveActionHandler = new AngleSaveActionHandler(angleHandler, stateHandler);
@@ -43,6 +25,8 @@ describe("AngleSaveActionHandler", function () {
             // assert
             expect(angleSaveActionHandler.SaveActions.Primary).toBeDefined();
             expect(angleSaveActionHandler.SaveActions.All).toBeDefined();
+            expect(angleSaveActionHandler.SaveActions.Angle).toBeDefined();
+            expect(angleSaveActionHandler.SaveActions.Display).toBeDefined();
             expect(angleSaveActionHandler.SaveActions.AngleAs).toBeDefined();
             expect(angleSaveActionHandler.SaveActions.DisplayAs).toBeDefined();
             expect(angleSaveActionHandler.SaveActions.SetTemplate).toBeDefined();
@@ -53,26 +37,37 @@ describe("AngleSaveActionHandler", function () {
     describe(".VisibleSaveAll", function () {
         var tests = [
             {
-                title: 'should be true (saveAngle=true, saveDisplay=false)',
+                title: 'should be true (isAdhoc=false, saveAngle=true, saveDisplay=false)',
+                isAdhoc: false,
                 saveAngle: true,
                 saveDisplay: false,
                 expected: true
             },
             {
-                title: 'should be true (saveAngle=false, saveDisplay=true)',
+                title: 'should be true (isAdhoc=false, saveAngle=false, saveDisplay=true)',
+                isAdhoc: false,
                 saveAngle: false,
                 saveDisplay: true,
                 expected: true
             },
             {
-                title: 'should be false (saveAngle=false, saveDisplay=false)',
+                title: 'should be false (isAdhoc=false, saveAngle=false, saveDisplay=false)',
+                isAdhoc: false,
                 saveAngle: false,
+                saveDisplay: false,
+                expected: false
+            },
+            {
+                title: 'should be false (isAdhoc=true, saveAngle=false, saveDisplay=false)',
+                isAdhoc: true,
+                saveAngle: true,
                 saveDisplay: false,
                 expected: false
             }
         ];
         $.each(tests, function (index, test) {
             it(test.title, function () {
+                spyOn(angleSaveActionHandler.AngleHandler, 'IsAdhoc').and.returnValue(test.isAdhoc);
                 spyOn(angleSaveActionHandler.AngleHandler, 'CanCreateOrUpdate').and.returnValue(test.saveAngle);
                 spyOn(Array.prototype, 'hasObject').and.returnValue(test.saveDisplay);
 
@@ -256,6 +251,197 @@ describe("AngleSaveActionHandler", function () {
             // assert
             expect(angleSaveActionHandler.Redirect).not.toHaveBeenCalled();
             expect(angleSaveActionHandler.AngleHandler.ForceInitial).toHaveBeenCalled();
+            expect(angleSaveActionHandler.ExecuteAngle).toHaveBeenCalled();
+        });
+    });
+
+    describe(".VisibleCreateAngle", function () {
+        var tests = [
+            {
+                title: 'should be true (isAdhoc=true, canCreate=true)',
+                isAdhoc: true,
+                canCreate: true,
+                expected: true
+            },
+            {
+                title: 'should be false (isAdhoc=false, canCreate=true)',
+                isAdhoc: false,
+                canCreate: true,
+                expected: false
+            },
+            {
+                title: 'should be false (isAdhoc=true, canCreate=false)',
+                isAdhoc: false,
+                canCreate: true,
+                expected: false
+            }
+        ];
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(angleSaveActionHandler.AngleHandler, 'IsAdhoc').and.returnValue(test.isAdhoc);
+                spyOn(angleSaveActionHandler.AngleHandler, 'CanCreate').and.returnValue(test.canCreate);
+
+                var actual = angleSaveActionHandler.VisibleCreateAngle();
+                expect(actual).toEqual(test.expected);
+            });
+        });
+    });
+    describe(".EnableCreateAngle", function () {
+        it("should be true", function () {
+            var actual = angleSaveActionHandler.EnableCreateAngle();
+            expect(actual).toEqual(true);
+        });
+    });
+    describe(".CreateAngle", function () {
+        it('should not create', function () {
+            spyOn(angleSaveActionHandler, 'EnableCreateAngle').and.returnValue(false);
+            spyOn(angleSaveActionHandler, 'ForceSaveAll');
+            angleSaveActionHandler.CreateAngle();
+
+            // assert
+            expect(angleSaveActionHandler.ForceSaveAll).not.toHaveBeenCalled();
+        });
+        it('should create', function () {
+            spyOn(angleSaveActionHandler, 'EnableCreateAngle').and.returnValue(true);
+            spyOn(angleSaveActionHandler, 'ForceSaveAll');
+            angleSaveActionHandler.CreateAngle();
+
+            // assert
+            expect(angleSaveActionHandler.ForceSaveAll).toHaveBeenCalledWith(false, true);
+        });
+    });
+
+    describe(".VisibleSaveDisplay", function () {
+        var tests = [
+            {
+                title: 'should be true (isAdhoc=false, canSave=true)',
+                isAdhoc: false,
+                canSave: true,
+                expected: true
+            },
+            {
+                title: 'should be false (isAdhoc=true, canSave=true)',
+                isAdhoc: true,
+                canSave: true,
+                expected: false
+            },
+            {
+                title: 'should be false (isAdhoc=false, canSave=false)',
+                isAdhoc: false,
+                canSave: false,
+                expected: false
+            }
+        ];
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(angleSaveActionHandler.AngleHandler, 'IsAdhoc').and.returnValue(test.isAdhoc);
+                spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue({
+                    CanCreateOrUpdate: function () { return test.canSave; }
+                });
+
+                var actual = angleSaveActionHandler.VisibleSaveDisplay();
+                expect(actual).toEqual(test.expected);
+            });
+        });
+    });
+    describe(".EnableSaveDisplay", function () {
+        var tests = [
+            {
+                title: 'should be true (canSave=true, hasData=true)',
+                canSave: true,
+                hasData: true,
+                expected: true
+            },
+            {
+                title: 'should be false (canSave=false, hasData=true)',
+                canSave: false,
+                hasData: true,
+                expected: false
+            },
+            {
+                title: 'should be false (canSave=true, hasData=false)',
+                canSave: true,
+                hasData: false,
+                expected: false
+            }
+        ];
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue({
+                    CanCreateOrUpdate: function () { return test.canSave; },
+                    GetCreateOrUpdateData: function () { return test.hasData; }
+                });
+
+                var actual = angleSaveActionHandler.EnableSaveDisplay();
+                expect(actual).toEqual(test.expected);
+            });
+        });
+    });
+    describe(".SaveDisplay", function () {
+        var displayHandler;
+        beforeEach(function () {
+            displayHandler = {
+                ConfirmSave: $.noop
+            };
+            spyOn(displayHandler, 'ConfirmSave');
+            spyOn(angleSaveActionHandler, 'HideSaveOptionsMenu');
+            spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue(displayHandler);
+        });
+        it('should not save', function () {
+            spyOn(angleSaveActionHandler, 'EnableSaveDisplay').and.returnValue(false);
+            angleSaveActionHandler.SaveDisplay();
+
+            // assert
+            expect(angleSaveActionHandler.HideSaveOptionsMenu).not.toHaveBeenCalled();
+            expect(displayHandler.ConfirmSave).not.toHaveBeenCalled();
+        });
+        it('should save', function () {
+            spyOn(angleSaveActionHandler, 'EnableSaveDisplay').and.returnValue(true);
+            angleSaveActionHandler.SaveDisplay();
+
+            // assert
+            expect(angleSaveActionHandler.HideSaveOptionsMenu).toHaveBeenCalled();
+            expect(displayHandler.ConfirmSave).toHaveBeenCalled();
+        });
+    });
+    describe(".ForceSaveDisplay", function () {
+        it('should save', function () {
+            spyOn(angleSaveActionHandler, 'IsRedirect');
+            spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue({
+                Data: ko.observable({ id: $.noop })
+            });
+            spyOn(progressbarModel, 'ShowStartProgressBar');
+            spyOn(progressbarModel, 'SetDisableProgressBar');
+            spyOn(angleSaveActionHandler.AngleHandler, 'SaveDefaultDisplay').and.returnValue($.when());
+            spyOn(angleSaveActionHandler.AngleHandler, 'SaveDisplay').and.returnValue($.when());
+            spyOn(angleSaveActionHandler, 'SaveDisplayDone');
+            angleSaveActionHandler.ForceSaveDisplay();
+
+            // assert
+            expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
+            expect(progressbarModel.SetDisableProgressBar).toHaveBeenCalled();
+            expect(angleSaveActionHandler.AngleHandler.SaveDefaultDisplay).toHaveBeenCalled();
+            expect(angleSaveActionHandler.AngleHandler.SaveDisplay).toHaveBeenCalled();
+            expect(angleSaveActionHandler.SaveDisplayDone).toHaveBeenCalled();
+        });
+    });
+    describe(".SaveDisplayDone", function () {
+        beforeEach(function () {
+            spyOn(angleSaveActionHandler, 'ExecuteAngle');
+            spyOn(angleSaveActionHandler, 'Redirect');
+        });
+        it('should redirect', function () {
+            angleSaveActionHandler.SaveDisplayDone(true, 'id');
+
+            // assert
+            expect(angleSaveActionHandler.Redirect).toHaveBeenCalled();
+            expect(angleSaveActionHandler.ExecuteAngle).not.toHaveBeenCalled();
+        });
+        it('should execute Angle', function () {
+            angleSaveActionHandler.SaveDisplayDone(false, 'id');
+
+            // assert
+            expect(angleSaveActionHandler.Redirect).not.toHaveBeenCalled();
             expect(angleSaveActionHandler.ExecuteAngle).toHaveBeenCalled();
         });
     });
@@ -462,7 +648,7 @@ describe("AngleSaveActionHandler", function () {
         ];
         $.each(tests, function (index, test) {
             it(test.title, function () {
-                angleHandler.Data().is_template(test.template);
+                angleSaveActionHandler.AngleHandler.Data().is_template(test.template);
                 spyOn(angleSaveActionHandler.AngleHandler, 'CanCreateTemplateAngle').and.returnValue(test.authorization);
 
                 var actual = angleSaveActionHandler.VisibleSetTemplate();
@@ -493,7 +679,7 @@ describe("AngleSaveActionHandler", function () {
         ];
         $.each(tests, function (index, test) {
             it(test.title, function () {
-                angleHandler.Data().is_template(test.template);
+                angleSaveActionHandler.AngleHandler.Data().is_template(test.template);
                 spyOn(angleSaveActionHandler.AngleHandler, 'CanCreateTemplateAngle').and.returnValue(test.authorization);
 
                 var actual = angleSaveActionHandler.VisibleSetAngle();

@@ -498,10 +498,10 @@ function DashboardViewModel(model) {
         return self.CreateDashboard(data);
     };
 
-    // SetBusinessProcesses: set business processes
+    // SetAssignedLabels: set assigned labels
     // @param
     // - labels: Array
-    self.SetBusinessProcesses = function (labels) {
+    self.SetAssignedLabels = function (labels) {
         if (self.IsTemporaryDashboard()) {
             self.Data().assigned_labels = labels;
             return jQuery.when(self.GetData());

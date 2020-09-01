@@ -5,15 +5,16 @@
 ============================================ */
 .query-aggregation-inner {
     border-radius: 2px;
-    border: solid 1px #e3e5e5;
+    border: solid 1px #b5becc;
     margin-top: 15px;
+    background-color: transparent;
 
     &:first-child {
         margin-top: 0;
     }
 
     .accordion-header {
-        background-color: #fff;
+        background-color: transparent;
     }
 
     .accordion-body {
@@ -49,7 +50,7 @@
         padding-left: 5px;
         padding-right: 5px;
         margin-top: 10px;
-        background-color: #f5f5f5;
+        background-color: #f7f9fa;
         box-sizing: border-box;
 
         &:first-child {
@@ -255,8 +256,8 @@ $position-y: 38px;
         }
 
         &.active, &:hover.active {
-            border-color: #358ed7;
-            box-shadow: 0 0 0 1px #358ed7;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 1px $primary-color;
         }
     }
 }

@@ -92,3 +92,17 @@ Verify Execute Single Action
     Click Action In Grid By Name     ${taskName}    ${trRowTaskGrid}    ${btnEditTask}
     Wait Edit Tasks Page Ready    Edit task
     Task Action Should Contain Execute Button    ${actionName}
+
+Verify Run as User On Action Popup
+    Action Run As User Should be      local\\EAViewer
+
+Verify Approval State On Action Popup
+    Approval State Should be     requested
+    
+Able To Add Action 
+    Select Dropdown Datastore      Export to Excel Default
+    Click Ok Button On Action Popup
+
+Verify Run As User On Action Grid
+    Task Action Should Contain Run As User   1     local\\EAViewer  
+    

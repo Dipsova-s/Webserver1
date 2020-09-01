@@ -113,14 +113,8 @@ function ScheduleAngleHandler() {
     self.PopulateTaskList = function (e, data) {
         var btnSubmit = e.sender.wrapper.find('.btnSubmit');
         btnSubmit.attr('target', '_blank');
-        
-        // remove taks which cannot be managed
-        if (self.UseOnlyUserTasks()) {
-            var currentUser = userModel.Data().id;
-            data.tasks = data.tasks.findObjects('run_as_user', currentUser);
-        }
 
-        if (data.tasks.length) {
+        if (data.tasks.length && self.IsPrivilegeUser()) {
             // sort before check default selection
             data.tasks.sortObject('name', enumHandlers.SORTDIRECTION.ASC, false);
 
@@ -138,14 +132,14 @@ function ScheduleAngleHandler() {
             popup.Alert(Localization.Warning_Title, Localization.NoTaskAvailable);
         }
     };
-    self.UseOnlyUserTasks = function () {
+    self.IsPrivilegeUser = function () {
         var canAccessMC = userModel.IsPossibleToManageSystem();
         var canAccessAutomationTasks = userModel.IsPossibleToScheduleAngles() && systemInformationHandler.IsSupportAngleAutomation();
-        return !canAccessMC && canAccessAutomationTasks;
+        return canAccessMC || canAccessAutomationTasks;
     };
 
     self.GetTaskUrl = function (taskUri) {
-        var taskUrl = "{0}admin/home/index#/Angle Exports/Automation tasks/Edit task/?parameters={\"tasksUri\":\"{1}{2}\",\"angleUri\":\"{3}\"}";
+        var taskUrl = "{0}admin/home/index#/Angle exports/Automation tasks/Edit task/?parameters={\"tasksUri\":\"{1}{2}\",\"angleUri\":\"{3}\"}";
         var uri = kendo.format(taskUrl, rootWebsitePath, webAPIUrl, taskUri, displayModel.Data().uri);
 
         return uri;

@@ -50,7 +50,7 @@ Verify Set Angle To Template And Template To Angle
     ${angleName}  Set Variable  [ROBOT] Verify Set Angle to Template and Template to Angle
     Create Adhoc Angle From Object List   PD    ${angleName}
     Set To Template Button Should Not Available
-    Click Save All
+    Click Save Angle
     Verify Set Angle To Template    ${angleName}
     Verify Set Template To Angle    ${angleName}
   

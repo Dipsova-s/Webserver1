@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -236,6 +237,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private static void AdjustButtonsPrivilege(List<PageToolbarButtonModel> buttons)
         {
             EveryAngle.Core.ViewModels.Users.SessionViewModel session = SessionHelper.Initialize().Session;
@@ -268,9 +270,10 @@ namespace EveryAngle.ManagementConsole.Helpers
                         break;
                     case PrivilegeType.ScheduleTask:
                         bool canScheduleAngles = session.IsValidToScheduleAngles();
-                        bool isTaskOwner = buttons[index].IsTaskOwner;
-                        bool canScheduleTask = canManageSystem || (canScheduleAngles && isTaskOwner);
+                        bool canScheduleTask = canManageSystem || canScheduleAngles;
                         if (!canScheduleTask)
+                            SetDisabledButton(buttons[index]);
+                        if (canScheduleAngles && !canManageSystem && buttons[index].Type == PageToolbarButtonType.GridEditDelete)
                             SetDisabledButton(buttons[index]);
                         break;
                     default:
@@ -319,6 +322,5 @@ namespace EveryAngle.ManagementConsole.Helpers
         }
 
         #endregion
-
     }
 }

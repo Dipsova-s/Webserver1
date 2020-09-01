@@ -57,8 +57,8 @@ function DefaultExcelDatastoreHandler() {
         }
     };
 
-    self.GetExcelTemplates = function () {
-        return self.GetData().setting_list.findObject('id', 'template_file');
+    self.GetDefaultTemplate = function () {
+        return self.GetData().setting_list.findObject('id', 'template_file').value;
     };
 
     // call initializing

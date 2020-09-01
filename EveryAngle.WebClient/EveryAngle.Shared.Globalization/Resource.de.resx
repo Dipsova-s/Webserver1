@@ -135,6 +135,9 @@
   <data name="AngleDescription" xml:space="preserve">
     <value>Angle-Beschreibung</value>
   </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Labels</value>
+  </data>
   <data name="AngleDetailPublishTabAnglePrivileges" xml:space="preserve">
     <value>Berechtigungs-Labels</value>
   </data>
@@ -389,6 +392,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Speichern</value>
+  </data>
+  <data name="SaveAll" xml:space="preserve">
+    <value>Save all</value>
   </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Suchergebnisse</value>
@@ -955,7 +961,7 @@
     <value>[None]</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel Template</value>
+    <value>Excel template</value>
   </data>
   <data name="CreateNewAngleFromSchema" xml:space="preserve">
     <value>Angle erstellen</value>
@@ -3439,7 +3445,7 @@
     <value>Die Höchstzahl ausgewählter Angles ist {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Start-Objekt</value>
+    <value>Current object</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Anzahl der Einträge</value>
@@ -6406,5 +6412,59 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="Dashboards" xml:space="preserve">
     <value>Dashboards</value>
+  </data>
+  <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
+    <value>Run as user</value>
+  </data>
+  <data name="Reexecute" xml:space="preserve">
+    <value>Re-execute</value>
+  </data>
+  <data name="CloseSidebar" xml:space="preserve">
+    <value>Close sidebar</value>
+  </data>
+  <data name="OpenSidebar" xml:space="preserve">
+    <value>Open sidebar</value>
+  </data>
+  <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
+    <value>Specify in what column the model timestamp should be inserted.&lt;br&gt;
+Use '1' to select the first column. When no model timestamp column is required, select 'None'.</value>
+  </data>
+  <data name="MC_Approved" xml:space="preserve">
+    <value>approved</value>
+  </data>
+  <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
+    <value>Show only my own private Displays</value>
+  </data>
+  <data name="AngleExport" xml:space="preserve">
+    <value>Angle Export</value>
+  </data>
+  <data name="MC_DefaultApprovalState" xml:space="preserve">
+    <value>Default approval state Automation task actions</value>
+  </data>
+  <data name="MC_DefaultApprovalStateDescription" xml:space="preserve">
+    <value>The default Approval state of newly added Actions in Automation tasks.
+Actions can only be executed when the Approval state is "approved".
+The "manage system" privileges is required to change the Approval state of an Action.</value>
+  </data>
+  <data name="AngleFilters" xml:space="preserve">
+    <value>Angle filters &amp; jumps</value>
+  </data>
+  <data name="DisplayFilters" xml:space="preserve">
+    <value>Display filters &amp; jumps</value>
+  </data>
+  <data name="DisplayGroupPublic" xml:space="preserve">
+    <value>Freigegeben ({0})</value>
+  </data>
+  <data name="DisplayGroupPrivate" xml:space="preserve">
+    <value>Privat ({0})</value>
+  </data>
+  <data name="DisplayGroupOther" xml:space="preserve">
+    <value>Andere ({0})</value>
+  </data>
+  <data name="DisplayGroupOpen" xml:space="preserve">
+    <value>Show group</value>
+  </data>
+  <data name="DisplayGroupClose" xml:space="preserve">
+    <value>Hide group</value>
   </data>
 </root>

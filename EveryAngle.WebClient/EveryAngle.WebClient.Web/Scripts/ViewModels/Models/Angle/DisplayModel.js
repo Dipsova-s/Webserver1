@@ -348,12 +348,25 @@ function DisplayModel(model) {
         display.display_type = displayType || null;
         display.uri = angleUri + '/displays/' + newDisplay;
         display.is_angle_default = false;
-        display.user_specific = { is_user_default: false };
-        display.is_public = false;
         display.authorizations = self.GetDefaultAdhocAuthorization(angleData);
-        display.is_adhoc = true;
 
         jQuery.extend(display, displayObject);
+
+        // ensure data
+        delete display.used_in_task;
+        delete display.uri_template;
+        display.user_specific = {
+            is_user_default: false,
+            execute_on_login: false
+        };
+        display.is_public = false;
+        display.is_adhoc = true;
+        var currentUser = userModel.Data();
+        display.created = {
+            user: currentUser.uri,
+            datetime: WC.DateHelper.GetCurrentUnixTime(),
+            full_name: currentUser.full_name
+        };
 
         // set temporary display to localStorage
         self.SetTemporaryDisplay(display.uri, display);

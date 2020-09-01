@@ -37,6 +37,10 @@ set updatePillow=yes
 set updatePillowVersion="Pillow==7.0.0"
 set updateExcelLibrary=yes
 set updateExcelLibraryVersion="robotframework-excellib==1.1.0"
+set updateRequestsModule=yes
+set updateRequestsModuleVersion="requests==2.23.0"
+set updatelxml=yes
+set updatelxmlVersion="lxml==4.5.0"
 for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateRobotVersion% set updateRobot=no
 	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
@@ -45,6 +49,8 @@ for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateSelenium2screenshotsVersion% set updateSelenium2screenshots=no
 	if "%%i"==%updatePillowVersion% set updatePillow=no
 	if "%%i"==%updateExcelLibraryVersion% set updateExcelLibrary=no
+	if "%%i"==%updateRequestsModuleVersion% set updateRequestsModule=no 
+	if "%%i"==%updatelxmlVersion% set updatelxml=no
 )
 if "%updateRobot%"=="yes" pip install %updateRobotVersion%
 if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
@@ -53,6 +59,8 @@ if "%updateHttpLibrary%"=="yes" pip install %updateHttpLibraryVersion%
 if "%updateSelenium2screenshots%"=="yes" pip install %updateSelenium2screenshotsVersion%
 if "%updatePillow%"=="yes" pip install %updatePillowVersion%
 if "%updateExcelLibrary%"=="yes" pip install %updateExcelLibraryVersion%
+if "%updateRequestsModule%"=="yes"  pip install %updateRequestsModuleVersion%
+if "%updatelxml%"=="yes" pip install %updatelxmlVersion%
 
 ECHO ###### Checking Chrome Driver  ######
 call :downloadChromeDriver
@@ -84,7 +92,8 @@ set TestPath=WC/*.robot
 
 ::Test name
 set TestName=Test_Suit_%TestCategory%
-
+set "CURRENT=%~dp0%"
+python %CURRENT%python\FetchServerTags.py  %TestCategory%
 :: **************** WC Setting ***********************
 ::chrome,firefox,ie,phantomjs
 ::Mandatory-First letter capital for all browsers 
@@ -140,7 +149,7 @@ exit /b 0
 					--variable CompareBranch:%CompareBranch% ^
 					--variable DevMode:%DevMode%
 
-	:: **************** Run setup ***********************
+	:: **************** Run setup ***********************				
 	ECHO Executing "%TestCategory%_i" tests
 	call pabot --processes 1 ^
 		-i %TestCategory%_i ^
@@ -189,7 +198,7 @@ exit /b 0
 	call rebot --merge -d %ReportFolder% ^
 		--output output.xml ^
 		%reports%
-
+	call :AddRobotResultToTestrail
 exit /b 0
 
 :downloadChromeDriver
@@ -198,4 +207,11 @@ exit /b 0
 
 :cleanupChromeDriver
 	call powershell -file "%~dp0%cleanup.ps1"
+exit /b 0
+
+:: **************** Add robot result to testrail  ***********************
+:AddRobotResultToTestrail
+	ECHO  Adding robot result to testrail....
+	python %CURRENT%python\TRITS.py %ReportPath%\output.xml
+	 
 exit /b 0

@@ -99,6 +99,10 @@ namespace EveryAngle.Core.ViewModels.Model
         public List<Option> Options { get; set; }
 
         [DefaultValue(null)]
+        [JsonProperty(PropertyName = "file_data_options", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public List<FileTemplatesViewModel> FileDataOptions { get; set; }
+
+        [DefaultValue(null)]
         [JsonProperty(PropertyName = "min", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public object Min { get; set; }
 

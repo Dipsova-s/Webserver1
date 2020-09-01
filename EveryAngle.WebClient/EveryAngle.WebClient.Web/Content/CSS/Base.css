@@ -894,7 +894,35 @@
 .displayWrapper.readonly .fieldListArea {
     display: none;
 }
+
 #ReferenceLabel.disabled  {
     pointer-events: none;
     opacity: 0.5; 
 }
+.btn-modelstamp {
+    padding-left:13px;
+}
+
+#ModeltimeStamp .input > span {
+    width: 88%;
+}
+
+#add-model-date .input > span {
+    width: 80%;
+}
+
+#template-warning-message-display {
+    color: #FF0000;
+    font-size: 12px;
+    justify-content: flex-start;
+    display: flex;
+    margin-left: 110px;
+    margin-bottom: 0px;
+}
+
+.dropdown-border-warning {
+    border-color: #ff0000 !important;
+}
+
+
+

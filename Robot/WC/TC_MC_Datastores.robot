@@ -23,7 +23,7 @@ ${pluginSQLEditedName}        _EditedSQL
 Verify Default Datastores
      [Documentation]     This test case deals with verifying default datastores for Excel & CSV created as part of AppServer set up
      ...                 and their respective default settings
-     [Tags]      TC-C229330   TC-C230142
+     [Tags]      TC_C229330   TC_C230142
      Count of Default Datastores Is Always Two
      Default Checkbox For Default Datastores Should Be Selected       Export to CSV - Default
      Default Checkbox For Default Datastores Should Be Selected       Export to Excel Default     
@@ -87,7 +87,12 @@ Verify the edited CSV Datastores updated successfully with the given values
 
 Verify the edited Excel Datastores updated successfully with the given values
      [Documentation]     Verify the user is able to edit the Excel datastore and the value is updated post saving the changes
-     [Tags]    TC_C39019 acc_mc_aci
+     ...                 and verify the excel template list in datstore.
+     [Tags]    TC_C39019   acc_mc_aci
+     Go To ExcelTemplates Page
+     ${excelTemplateCount}     Excel Templates Count
+     ${excelTemplatesList}     Get List Excel Templates
+     Go To Datastores Page
      Click Add Data Stores
      Select Datastore Plugins option in popup    ${pluginExcel}
      Create a New Excel DataStores        ${pluginExcel}   ${pluginExcelName}
@@ -95,6 +100,7 @@ Verify the edited Excel Datastores updated successfully with the given values
      ${pluginExcelEditedName}   catenate  ${randomString}     ${pluginExcelEditedName}
      Edit the Existing Excel Datastore by name     ${pluginExcelName}      ${pluginExcelEditedName}     ${pluginExcel}
      Verify the edited value is displayed in Excel Datastore       ${pluginExcelEditedName}
+     Verify Excel Template List In Excel Template Dropdown In Excel Datastore    ${excelTemplatesList}
      Click on Save button in DataStore   ${pluginExcel}      ${pluginExcelEditedName}
      Verify the Datastore is deleted successfully      ${pluginExcel}   ${pluginExcelEditedName}
 

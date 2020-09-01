@@ -15,6 +15,7 @@ function PivotPageHandler(elementId, container) {
     self.ColumnSize = null;
     self.IsUnSavePivot = false;
     self.ExistingBucketValue = null;
+    self.HasResult = ko.observable(false);
     self.ReadOnly = ko.observable(false);
     self.DashBoardMode = ko.observable(false);
     self.Models = {
@@ -132,7 +133,7 @@ function PivotPageHandler(elementId, container) {
         self.BuildPivotFieldSettings(options);
 
         clearInterval(fnCheckPivotInstance);
-        if (isValidDisplay !== false) {
+        if (self.HasResult()) {
             // set callback function
             window[self.PivotId + 'OnPivotEndCallback'] = self.OnPivotEndCallback;
             window[self.PivotId + 'OnPivotBeginCallback'] = self.OnPivotBeginCallback;
@@ -160,13 +161,14 @@ function PivotPageHandler(elementId, container) {
             self.GetContainer().find('.pivotAreaContainer').empty();
             self.UpdateLayout();
         }
-
+        self.ShowError(xhr);
+    };
+    self.ShowError = function (xhr) {
+        var element = self.Container;
         if (self.DashBoardMode()) {
-            self.Models.Result.RetryPostResult(xhr.responseText);
+            element = self.ElementId;
         }
-        else {
-            self.Models.Result.SetRetryPostResultToErrorPopup(xhr);
-        }
+        self.Models.Result.SetRetryPostResult(xhr, element);
     };
     self.CheckPivotInstance = function (response) {
         if (response.indexOf('LoginForm') !== -1) {

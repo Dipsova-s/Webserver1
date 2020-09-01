@@ -225,6 +225,36 @@ MC.util = {
     getTemplate: function (id, data) {
         var template = kendo.template($('#' + id).html());
         return template(data);
+    },
+    showInnoweraDetails: function (obj) {
+        var fileData = obj.sender.dataItem();
+        if (typeof fileData === 'undefined')
+            // it is undefined at Databound event when display changed in Action popup
+            return;
+        var element = $('#InnoweraInfoSection');
+        if (!fileData.HasInnoweraProcess) {
+            element.hide();
+            return;
+        }
+        var processes = fileData.InnoweraProcessDetails.map(function (process) {
+            var text = process.SapProcessName + "/" + process.DisplayName;
+            return '<span data-role="tooltip" data-tooltip-text=\"' + text + '\">' + text + '</span><br\>';
+        });
+        element.html(processes);
+        element.show();
+    },
+    showExistTemplateInfo: function (obj) {
+        var fileData = obj.sender.dataItem();
+        if (typeof fileData === 'undefined')
+            // it is undefined at Databound event when display changed in Action popup
+            return;
+        if (!fileData.Uri) {
+            $('.exist-template').show();
+            $('.exist-template').html(Captions.Label_Template_Not_Exist_Message);
+        } else {
+            $('.exist-template').hide();
+            $('.exist-template').html('');
+        }
     }
 };
 

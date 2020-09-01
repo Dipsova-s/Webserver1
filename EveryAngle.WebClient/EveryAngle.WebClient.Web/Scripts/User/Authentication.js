@@ -429,11 +429,8 @@ function Authentication() {
         setTimeout(function () {
             var additionalRequests = [];
             var clientSettingsRequest = userSettingModel.GetClientSettingsData();
-            var sidePanelSettingsData = userSettingModel.GetSidePanelSettingsData();
             if (clientSettingsRequest)
                 additionalRequests.push(clientSettingsRequest);
-            if (sidePanelSettingsData)
-                additionalRequests.push(sidePanelSettingsData);
             WC.Ajax.ExecuteBeforeExit(additionalRequests, false);
             jQuery('html').addClass('noPopup');
 

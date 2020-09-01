@@ -38,7 +38,8 @@ Crop Save Action Buttons
     Click Display Tab
     Select Checkbox Execute On Login
     Sleep  ${TIMEOUT_LARGEST}
-    Crop WebHelp Image  WC_Button_Save_Active.png       css=#AngleSavingWrapper .saving-wrapper
+    Click Caret Of Save Button
+    Crop WebHelp Image  WC_Button_Save_Active.png       css=#AngleSavingWrapper .action-save-all
     Unselect Checkbox Execute On Login
     Highlight WebHelp Element  css=#AngleSavingWrapper .btn-saving-options
     Crop WebHelp Image  WC_Button_Save_Caret.png        css=#AngleSavingWrapper .saving-wrapper

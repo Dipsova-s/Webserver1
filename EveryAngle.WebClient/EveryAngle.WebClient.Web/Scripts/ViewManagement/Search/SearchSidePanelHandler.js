@@ -19,10 +19,12 @@
         // set panel state
         if (collapsed) {
             element.addClass('full');
+            self.AddToolTipToButtonToggleSidePanel(Localization.OpenSidebar);
         }
         else {
             element.removeClass('full');
             leftPanel.removeClass('hidden');
+            self.AddToolTipToButtonToggleSidePanel(Localization.CloseSidebar);
         }
 
         jQuery(".content-wrapper").addClass('active');
@@ -44,15 +46,25 @@
         var leftPanel = jQuery('#LeftMenu');
         if (leftPanel.hasClass('hidden')) {
             leftPanel.removeClass('hidden');
+            self.AddToolTipToButtonToggleSidePanel(Localization.CloseSidebar);
         }
         else {
             setTimeout(function () {
                 var leftPanel = jQuery('#LeftMenu');
                 leftPanel.addClass('hidden');
+                self.AddToolTipToButtonToggleSidePanel(Localization.OpenSidebar);
             }, 300);
         }
 
         self.StateManager.Collapsed.Save(isOpen);
+    };
+
+    self.AddToolTipToButtonToggleSidePanel = function (toolTipText) {
+        return jQuery('#ButtonToggleSidePanel')
+            .attr({
+                'data-role': 'tooltip',
+                'data-tooltip-text': toolTipText
+            });
     };
 }
 SearchSidePanelHandler.extend(SidePanelHandler);

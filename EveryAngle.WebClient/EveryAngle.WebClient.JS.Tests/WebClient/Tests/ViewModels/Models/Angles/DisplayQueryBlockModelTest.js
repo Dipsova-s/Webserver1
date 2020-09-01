@@ -7,14 +7,6 @@ describe("displayQueryBlockModel", function () {
         displayQueryBlockModel = new DisplayQueryBlockModel();
     });
 
-    describe("when create new instance", function () {
-
-        it("should be defined", function () {
-            expect(displayQueryBlockModel).toBeDefined();
-        });
-
-    });
-
     describe(".CollectQueryBlocks", function () {
 
         var source = [{

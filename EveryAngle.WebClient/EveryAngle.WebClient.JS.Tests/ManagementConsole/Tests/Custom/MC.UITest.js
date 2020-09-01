@@ -28,4 +28,67 @@
         });
     });
 
+    describe("MC.ui.enumSettingChange", function () {
+
+        it("should show warning if id is result_export_type", function () {
+            // prepare
+            spyOn(MC.util, 'showPopupAlert').and.callFake($.noop);
+
+            // act
+            MC.ui.enumSettingChange({ sender: { element: { attr: function () { return "result_export_type" } } } });
+
+            // assert
+            expect(MC.util.showPopupAlert).toHaveBeenCalled();
+        });
+
+        it("should show innowera details if id is template_file", function () {
+            // prepare
+            spyOn(MC.util, 'showInnoweraDetails').and.callFake($.noop);
+
+            // act
+            MC.ui.enumSettingChange({ sender: { element: { attr: function () { return "template_file" } } } });
+
+            // assert
+            expect(MC.util.showInnoweraDetails).toHaveBeenCalled();
+        });
+
+        it("should show exist template info if id is template_file and page is Add/Edit Action", function () {
+            // prepare
+            var element = $('<div id=\"DatastoreSettings\"><div id=\"template_file\"/></div>').appendTo('body');
+            spyOn(MC.util, 'showInnoweraDetails').and.callFake($.noop);
+            spyOn(MC.util, 'showExistTemplateInfo').and.callFake($.noop);
+
+            // act
+            MC.ui.enumSettingChange({ sender: { element: { attr: function () { return "template_file" } } } });
+
+            // assert
+            expect(MC.util.showExistTemplateInfo).toHaveBeenCalled();
+            element.remove();
+        });
+
+        it("should not show exist template info if id is template_file and page is Create/Edit Datastores", function () {
+            // prepare
+            var element = $('<div class=\"pageDatastoreEdit\"><div id=\"template_file\"/></div>').appendTo('body');
+            spyOn(MC.util, 'showInnoweraDetails').and.callFake($.noop);
+            spyOn(MC.util, 'showExistTemplateInfo').and.callFake($.noop);
+
+            // act
+            MC.ui.enumSettingChange({ sender: { element: { attr: function () { return "template_file" } } } });
+
+            // assert
+            expect(MC.util.showExistTemplateInfo).not.toHaveBeenCalled();
+            element.remove();
+        });
+
+        it("should not show warning", function () {
+            // prepare
+            spyOn(MC.util, 'showPopupAlert').and.callFake($.noop);
+
+            // act
+            MC.ui.enumSettingChange({ sender: { element: { attr: function () { return "some_other_id" } } } });
+
+            // assert
+            expect(MC.util.showPopupAlert).not.toHaveBeenCalled();
+        });
+    });
 });

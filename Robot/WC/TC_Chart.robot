@@ -25,7 +25,7 @@ Verify Chart Display Drilldown With Floating Number Test
     [Teardown]  Clean Up Items And Go To Search Page
 
 Verify Chart Options Data Labels Functionality
-    [Tags]      TC_432358
+    [Tags]      TC_C432358
     [Documentation]     This exploratory test to cover Chart options > Data Labels
     [Setup]  Import Angle By API  /models/1  ANGLE_ChartOptionsDataLabelsTest.json  user=${Username}
     Find Angle By ID Then Execute The First Angle    ANGLE_ChartOptionsDataLabelsTest

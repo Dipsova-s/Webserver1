@@ -21,9 +21,10 @@ Resource            ${EXECDIR}/WC/POM/Angle/ExportToExcelPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/ExportToCSVPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayTabMenu.robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayOverview.robot
+Resource    		${EXECDIR}/WC/POM/Angle/ScheduleAngle.robot
 
 *** Variables ***
-${divExecutionInfo}                     jquery=.content-wrapper .section-info-body
+${divExecutionInfo}                     jquery=.display-execution-info
 ${tabCurrentDisplay}                    jquery=#DisplayTabs .tab-menu.active
 ${tabCurrentDisplayIcon}                jquery=#DisplayTabs .tab-menu.active .display-icon
 ${tabCurrentDisplayName}                jquery=#DisplayTabs .tab-menu.active .name
@@ -33,6 +34,8 @@ ${icoDisplayErrorItems}                 jquery=#DisplayTabs .tab-menu .validErro
 ${btnSaveMain}              css=#AngleSavingWrapper .btn-main-saving
 ${btnSaveOptions}           css=#AngleSavingWrapper .btn-saving-options
 ${btnSaveAll}               css=#AngleSavingWrapper .action-save-all
+${btnSaveAngle}             css=#AngleSavingWrapper .action-save-angle
+${btnSaveDisplay}           css=#AngleSavingWrapper .action-save-display
 ${btnSaveangleAs}           css=#AngleSavingWrapper .action-save-angle-as
 ${btnSaveDisplayAs}         css=#AngleSavingWrapper .action-save-display-as
 ${btnSetToTemplate}         css=#AngleSavingWrapper .action-set-template
@@ -50,6 +53,7 @@ ${ddlAngleActionDropdownAddJump}                    css=#ActionDropdownListPopup
 ${ddlAngleActionDropdownListEditDisplay}            css=#ActionDropdownListPopup .editDisplay
 ${ddlAngleActionDropdownListExecuteDisplay}         css=#ActionDropdownListPopup .exitEditMode
 ${ddlAngleActionDropdownDownload}                   css=#ActionDropdownListPopup .download
+${ddlAngleActionDropdownScheduleAngle}              css=#ActionDropdownListPopup .scheduleAngle
 ${chkDisplaysSection}                               jquery=.publish-displays .accordion-body .listview-item    
 
 ${btnNewDisplay}                                    css=.btn-new-display
@@ -131,7 +135,13 @@ Main Save Button Should Be Disabled
     Page Should Contain Element  ${btnSaveMain}.disabled
 
 Main Save Button Is Save All
+    Element Text Should Be  ${btnSaveMain}  Save all
+
+Main Save Button Is Save Angle
     Element Text Should Be  ${btnSaveMain}  Save
+
+Main Save Button Is Save Display
+    Element Text Should Be  ${btnSaveMain}  Save Display
 
 Main Save Button Is Save Angle As
     Element Text Should Be  ${btnSaveMain}  Save Angle as...
@@ -160,14 +170,6 @@ Click Save All
     Page Should Contain Toast Success
     Wait Display Executed
 
-Click Save All And Expect Warning
-    ${hasButton}  Is Element Exist  ${btnSaveAll}
-    Run Keyword If  ${hasButton}  Click Option Save  ${btnSaveAll}
-    ...    ELSE                   Click Main Save
-    Wait Progress Bar Closed
-    Wait Until Ajax Complete
-    Element Should Be Visible   ${popupNotification}
-
 Save All Button Should Be Available
     Page Should Contain Element  ${btnSaveAll}
 
@@ -179,6 +181,56 @@ Save All Button Should Be Enable
 
 Save All Button Should Be Disabled
     Page Should Contain Element  ${btnSaveAll}.disabled
+
+Click Save Angle
+    ${hasButton}  Is Element Exist  ${btnSaveAngle}
+    Run Keyword If  ${hasButton}  Click Option Save  ${btnSaveAngle}
+    ...    ELSE                   Click Main Save
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete
+    Page Should Contain Toast Success
+    Wait Display Executed
+
+Click Save Angle And Expect Warning
+    ${hasButton}  Is Element Exist  ${btnSaveAngle}
+    Run Keyword If  ${hasButton}  Click Option Save  ${btnSaveAngle}
+    ...    ELSE                   Click Main Save
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete
+    Element Should Be Visible   ${popupNotification}
+
+Save Angle Button Should Be Available
+    Page Should Contain Element  ${btnSaveAngle}
+
+Save Angle Button Should Not Be Available
+    Page Should Not Contain Element  ${btnSaveAngle}
+
+Save Angle Button Should Be Enable
+    Page Should Contain Element  ${btnSaveAngle}:not(.disabled)
+
+Save Angle Button Should Be Disabled
+    Page Should Contain Element  ${btnSaveAngle}.disabled
+
+Click Save Display
+    ${hasButton}  Is Element Exist  ${btnSaveDisplay}
+    Run Keyword If  ${hasButton}  Click Option Save  ${btnSaveDisplay}
+    ...    ELSE                   Click Main Save
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete
+    Page Should Contain Toast Success
+    Wait Display Executed
+
+Save Display Button Should Be Available
+    Page Should Contain Element  ${btnSaveDisplay}
+
+Save Display Button Should Not Be Available
+    Page Should Not Contain Element  ${btnSaveDisplay}
+
+Save Display Button Should Be Enable
+    Page Should Contain Element  ${btnSaveDisplay}:not(.disabled)
+
+Save Display Button Should Be Disabled
+    Page Should Contain Element  ${btnSaveDisplay}.disabled
 
 Click Save Angle As
     ${hasButton}  Is Element Exist  ${btnSaveAngleAs}
@@ -316,6 +368,11 @@ Click Angle Dropdown To Execute Display
 Click Download Angle
     Click Element  ${ddlAngleActionDropdownDownload}
 
+Click On Schedule Angle
+    Wait Until Page Contains Element    ${ddlAngleActionDropdownScheduleAngle}
+    Click Element    ${ddlAngleActionDropdownScheduleAngle}
+    Wait Until Schedule Angle Popup Ready
+
 Download Button Should Be Available
     Element Should Be Visible  ${ddlAngleActionDropdownDownload}
 
@@ -357,6 +414,7 @@ Click Confirm Delete Display
     Wait Until Page Contains    Delete Display:
     Click Element    ${btnConfirmDeleteDisplay}
     Wait Progress Bar Closed
+    Wait Until Ajax Complete
 
 Get Display Warning Count
     ${count}    Get Element Count    ${icoDisplayWarningItems}

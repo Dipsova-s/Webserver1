@@ -134,6 +134,9 @@ Add Clean Up Item
     Run Keyword If  ${prepend}==${False}  Append To List      ${importedItems}    ${url}
     Run Keyword If  ${prepend}==${True}   Insert Into List    ${importedItems}    0  ${url}
 
+Clean Up All Items
+    Clean Up Items     Web  ${importedItems}
+
 Clean Up Items And Go To Search Page
-    Clean Up Items     Web    ${importedItems}
+    Clean Up All Items
     Go to Search Page

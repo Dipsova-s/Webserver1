@@ -12,7 +12,7 @@ Test Teardown       Go to Search Page
 *** Test Cases ***
 Verify Angle & Display Statistics
     [Documentation]     Angle statistics
-    [Tags]              smk_wc  C229139  C229140
+    [Tags]              smk_wc  TC_C229139  TC_C229140
     ${angleName}  Set Variable  [ROBOT] Test Verify Angle Statistics
     Create Adhoc Angle From Object List    PD    ${angleName}
 
@@ -21,7 +21,7 @@ Verify Angle & Display Statistics
     Verify Adhoc Display Statistics
 
     # saved
-    Click Save All
+    Click Save Angle
     Verify Saved Angle Statistics
     Verify Saved Display Statistics
 
@@ -36,7 +36,7 @@ Verify Angle & Display Statistics
 
 Verify Last Angle Execute Time
     [Documentation]     Angle statistics
-    [Tags]    smk_wc        C229139
+    [Tags]    smk_wc        TC_C229139
     Verify Last Execute Time Angle     Angle For General Test
 
 Verify Angle Descriptions
@@ -50,7 +50,7 @@ Verify Angle Descriptions
     Assert Values Edit Angle Description    en    English Name    English Description
     Assert Values Edit Angle Description    nl    Dutch Name    Dutch Description
     Assert Values Edit Angle Description    fr    French Name    French Description
-    Click Save All
+    Click Save Angle
 
     Edit Angle Description   en    ${angleName}    ${EMPTY}
     Delete Language Edit Angle Description    nl

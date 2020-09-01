@@ -78,6 +78,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly IRepositoryLogService repositoryLogService;
         private readonly ILogFileService logFileService;
         private readonly ILogFileReaderService logFileReaderService;
+        private readonly IGlobalSettingsAppService systemSettingsService;
         #endregion
 
         public GlobalSettingsController(
@@ -86,10 +87,12 @@ namespace EveryAngle.ManagementConsole.Controllers
             IWebClientConfigService webClientConfigService,
             IRepositoryLogService repositoryLogService,
             ILogFileService logFileService,
-            ILogFileReaderService logFileReaderService
+            ILogFileReaderService logFileReaderService,
+            IGlobalSettingsAppService systemSettingsService
             )
             : this(globalSettingService, modelService, userService, webClientConfigService,
-                  repositoryLogService, logFileService, logFileReaderService, SessionHelper.Initialize())
+                  repositoryLogService, logFileService, logFileReaderService, 
+                  systemSettingsService, SessionHelper.Initialize())
         {
         }
 
@@ -100,6 +103,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             IRepositoryLogService repositoryLogService,
             ILogFileService logFileService,
             ILogFileReaderService logFileReaderService,
+            IGlobalSettingsAppService systemSettingsService,
             SessionHelper sessionHelper)
         {
             this.modelService = modelService;
@@ -109,6 +113,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             this.repositoryLogService = repositoryLogService;
             this.logFileService = logFileService;
             this.logFileReaderService = logFileReaderService;
+            this.systemSettingsService = systemSettingsService;
             SessionHelper = sessionHelper;
         }
 
@@ -119,6 +124,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             ViewBag.DefaultProvider = systemSettingModel.DefaultAuthenticationProvider;
             ViewBag.SupportAngleAutomation = SessionHelper.Info.AngleAutomation;
+            ViewBag.ApprovalStateOptions = systemSettingsService.BuildApprovalStateOptions();
             return PartialView("~/Views/GlobalSettings/SystemSettings/SystemSettings.cshtml", systemSettingModel);
         }
 
@@ -224,6 +230,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             updatedSystemSettings.allow_grouping_in_pivot_excel_export = systemSettings.allow_grouping_in_pivot_excel_export;
             updatedSystemSettings.include_self_in_export_headers = systemSettings.include_self_in_export_headers;
             updatedSystemSettings.script_location = systemSettings.script_location;
+            updatedSystemSettings.fallback_field_length = systemSettings.fallback_field_length;
+            updatedSystemSettings.default_approval_state = systemSettings.default_approval_state;
 
             updatedSystemSettings.EmailSettings.smtp_server = systemSettings.EmailSettings.smtp_server;
             updatedSystemSettings.EmailSettings.smtp_port = systemSettings.EmailSettings.smtp_port;

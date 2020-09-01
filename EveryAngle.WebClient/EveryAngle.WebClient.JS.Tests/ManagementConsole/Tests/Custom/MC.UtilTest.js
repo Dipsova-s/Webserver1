@@ -183,4 +183,104 @@
         });
 
     });
+
+    describe(".showInnoweraDetails", function () {
+        var expected = [
+            '<span data-role=\"tooltip\" data-tooltip-text=\"MM02/MM02_Plant\">',
+            'MM02/MM02_Plant',
+            '</span><br>',
+            '<span data-role=\"tooltip\" data-tooltip-text=\"GX0K/GX0K_Material\">',
+            'GX0K/GX0K_Material',
+            '</span><br>'
+        ].join('');
+
+        beforeEach(function () {
+            element = $('<div id=\"InnoweraInfoSection\"/>').appendTo('body');
+        });
+
+        afterEach(function () {
+            element.remove();
+        });
+
+        it("should show innowera details when exist", function () {
+            var fileData = {
+                HasInnoweraProcess: true,
+                InnoweraProcessDetails: [
+                    {
+                        SapProcessName: "MM02",
+                        DisplayName: "MM02_Plant"
+                    },
+                    {
+                        SapProcessName: "GX0K",
+                        DisplayName: "GX0K_Material"
+                    }
+                ]
+            };
+            var e = {
+                sender: {
+                    dataItem: function () { return fileData }
+                }
+            };
+            
+            MC.util.showInnoweraDetails(e);
+
+            expect(element.html()).toEqual(expected);
+        });
+
+        it("should not show innowera details when not exist", function () {
+            var fileData = {
+                is_innowera: false
+            };
+
+            var e = {
+                sender: {
+                    dataItem: function () { return fileData }
+                }
+            };
+
+            MC.util.showInnoweraDetails(e);
+
+            expect(element.html()).toEqual('');
+        });
+    });
+
+    describe(".showExistTemplateInfo", function () {
+        var element;
+
+        beforeEach(function () {
+            element = $('<span class=\"exist-template\"/>').appendTo('body');
+        });
+
+        afterEach(function () {
+            element.remove();
+        });
+
+        it("should show warning when template not exist", function () {
+            var fileData = {};
+            var e = {
+                sender: {
+                    dataItem: function () { return fileData }
+                }
+            };
+
+            MC.util.showExistTemplateInfo(e);
+
+            expect(element.text()).toEqual(Captions.Label_Template_Not_Exist_Message);
+        });
+
+        it("should not show warning when template exist", function () {
+            var fileData = {
+                Uri: 'system/files?fileType=ExcelTemplate&name=EveryAngle-Standard.xlsx'
+            };
+            var e = {
+                sender: {
+                    dataItem: function () { return fileData }
+                }
+            };
+
+            MC.util.showExistTemplateInfo(e);
+
+            expect(element.html()).toEqual('');
+        });
+    });
 });

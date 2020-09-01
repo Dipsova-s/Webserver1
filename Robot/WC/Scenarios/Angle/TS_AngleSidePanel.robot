@@ -18,12 +18,12 @@ Add 2 New Ad hoc Display Filters
 Set Execute On Login
     Click Display Tab
     Select Checkbox Execute On Login
-    Click Save All
+    Click Save Display
 
 Set Angle Default Display
     Click Display Tab
     Click Checkbox Angle Default Display
-    Click Save All
+    Click Save Display
 
 #endregion
 

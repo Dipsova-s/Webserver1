@@ -46,11 +46,17 @@ ${chkDatastoreAppendResult}    css=#append
 ${trGridTaskAction}            jquery=#TaskActionsGrid tbody tr
 ${btnExecutetAction}           .btnGroupInner .btnExecute
 
+${addActionPopup}               AddActionPopup
+${txtRusAsUser}                 css=#action_run_as_user
+${btnAddAction}                 css=#AddActionPopup .btnAddAction
+${txtApprovalState}             css=.k-dropdown[aria-owns="approvalddl_listbox"]
+                   
+
 *** Keywords ***
 Wait Edit Tasks Page Ready
       [Arguments]    ${pagename}
       Wait Until Page Contains    ${pagename}
-      Wait Until Page Contains    Maximum run time
+      Wait Until Page Contains    Maximum run time  60s
       Wait Until Page Contains Element    ${ddlTaskTriggerType}
       Wait MC Progress Bar Closed
       Sleep    ${TIMEOUT_GENERAL}
@@ -91,7 +97,22 @@ Click Add Action Button
     Wait Add Action Popup Ready
 
 Wait Add Action Popup Ready
+    Wait Until Page Contains Element     ${addActionPopup}
+    Page Should Contain Element         ${addActionPopup}
     Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Ajax Complete
+
+Click Ok Button On Action Popup
+    Click Element     ${btnAddAction}
+
+Action Run As User Should be
+    [Arguments]   ${name}
+    Textfield Value Should Be   ${txtRusAsUser}     ${name}
+
+Approval State Should be
+    [Arguments]    ${state}
+    Element Text Should Be    ${txtApprovalState} .k-dropdown-wrap     ${state}
+
 
 Close Add Action Popup
     Click Element    ${btnCloseAddActionPopup}
@@ -178,3 +199,7 @@ Task Action Should Contain Execute Button
     Page Should Contain Element     ${trGridTaskAction} td:contains('${actionName}') 
     Click Show Action Dropdown In Grid By Name    ${actionName}    ${trGridTaskAction}
     Wait Until Page Contains Element    ${trGridTaskAction}:contains(${actionName}) ${btnExecutetAction}
+
+Task Action Should Contain Run As User
+    [Arguments]     ${index}     ${name}
+    Element Should Contain    ${trGridTaskAction}:eq(${index})  ${name}

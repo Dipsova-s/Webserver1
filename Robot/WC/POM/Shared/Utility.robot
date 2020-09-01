@@ -247,7 +247,6 @@ Scroll Grid Vertical To Row Number
 
 Back To Search
     Wait Progress Bar Closed
-    Wait Until Element Is Visible    ${breadcrumbLinkSearchResults}
     Click Search Results Link
     Wait Search Page Document Loaded
 

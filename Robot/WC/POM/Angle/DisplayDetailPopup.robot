@@ -98,4 +98,4 @@ Selected Excel Template
 
 Select Excel Template
     [Arguments]     ${excelTemplateName}
-    Select Dropdown By Text     ${ddlExistingExcelTemplates}    ${excelTemplateName}
+    Select Dropdown By InnerText     ${ddlExistingExcelTemplates}    ${excelTemplateName}

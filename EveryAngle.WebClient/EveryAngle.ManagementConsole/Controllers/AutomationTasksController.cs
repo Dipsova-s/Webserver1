@@ -32,6 +32,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         #region private variables
 
         private readonly IAutomationTaskService _automationTaskService;
+        private readonly IFileTemplateService _fileTemplateService;
         private readonly IModelService _modelService;
         private readonly ITaskService _taskService;
         private readonly ISystemScriptService _systemScriptService;
@@ -46,6 +47,7 @@ namespace EveryAngle.ManagementConsole.Controllers
            IModelService modelService,
            ITaskService taskService,
            IAutomationTaskService automationTaskService,
+           IFileTemplateService fileTemplateService,
            ISystemScriptService systemScriptService,
            IItemService itemService,
            SessionHelper sessionHelper)
@@ -54,6 +56,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             _modelService = modelService;
             _taskService = taskService;
             _automationTaskService = automationTaskService;
+            _fileTemplateService = fileTemplateService;
             _systemScriptService = systemScriptService;
             _itemService = itemService;
         }
@@ -62,12 +65,14 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService modelService,
             ITaskService tasklService,
             IAutomationTaskService automationTaskService,
+            IFileTemplateService fileTemplateService,
             ISystemScriptService systemScriptService,
             IItemService itemService)
         {
             _modelService = modelService;
             _taskService = tasklService;
             _automationTaskService = automationTaskService;
+            _fileTemplateService = fileTemplateService;
             _systemScriptService = systemScriptService;
             _itemService = itemService;
         }
@@ -187,6 +192,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult EditTask(string tasksUri, string angleUri)
         {
             bool canManageSystem = SessionHelper.Session.IsValidToManageSystemPrivilege();
+            bool canScheduleAngles = SessionHelper.Session.IsValidToScheduleAngles();
 
             // task
             TaskViewModel task = GetTask(tasksUri);
@@ -213,11 +219,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.TasksUri = tasksUri;
             ViewBag.TasksActionsUri = tasksUri + "/actions";
             ViewBag.IsTaskOwner = task.run_as_user == SessionHelper.CurrentUser.Id;
+            ViewBag.DefaultApprovalState = SessionHelper.SystemSettings.default_approval_state;
 
             ViewData["AngleUri"] = angleUri;
             ViewData["DataStores"] = GetDataStoresDataSource(dataStores);
             ViewData["Scripts"] = GetScriptsDataSource();
             ViewData["CanManageSystem"] = canManageSystem;
+            ViewData["CanScheduleAngles"] = canScheduleAngles;
             ViewData["ModelPrivileges"] = SessionHelper.Session.ModelPrivileges;
             ViewData["TaskData"] = JsonConvert.SerializeObject(task);
             ViewData["TaskCreator"] = task.created == null ? SessionHelper.CurrentUser.Uri.ToString() : task.created.Uri.ToString();
@@ -228,7 +236,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             // use for checking priviledge
             ViewData["AllModels"] = allModels;
             ViewBag.TaskHistoryUri = SessionHelper.Version.GetEntryByName("eventlog").Uri.ToString();
-
+            ViewBag.UserId = SessionHelper.CurrentUser.Id.Replace("\\", "\\\\");
             return PartialView("~/Views/AutomationTasks/Tasks/TaskDetail.cshtml");
         }
 
@@ -368,9 +376,32 @@ namespace EveryAngle.ManagementConsole.Controllers
                 Data = dataStore
             };
         }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult GetDatastoreDetails(string fileName)
+        {
+            List<DataStoresViewModel> excelDatastore = GetAllDatastore("msexcel");
+            List<DataStoresViewModel> excelDatastores = new List<DataStoresViewModel>();
+            foreach(DataStoresViewModel datastore in excelDatastore)
+            {
+                DataStoresViewModel dataStoreDetails = GetDataStoreViewModel(datastore.Uri.ToString(),"", "msexcel");
+                string templatefile = dataStoreDetails.data_settings.SettingList.FirstOrDefault(x => x.Id.Equals("template_file")).Value.ToString();
+                if (templatefile.Equals(fileName))
+                {
+                    excelDatastores.Add(dataStoreDetails);
+                }
+            }
+            return new JsonResult
+            {
+                Data = excelDatastores
+            };
+        }
         public ActionResult GetDatastore(string datstoreUri)
         {
             var datastore = _automationTaskService.GetDatastore(datstoreUri);
+            if (datastore.datastore_plugin.Equals("msexcel"))
+            {
+                AddFileDetailsToDatastore(datastore);
+            }
             return PartialView("~/Views/AutomationTasks/Tasks/DatastoreSettings.cshtml", datastore);
         }
 
@@ -501,9 +532,16 @@ namespace EveryAngle.ManagementConsole.Controllers
                     _taskService.DeleteTaskAction(actionUri);
                 }
 
-                // update task itself without "actions"
-                task.Uri = new Uri(taskUri);
-                task = _taskService.UpdateTask(task, false);
+                if (CanUpdateTask(task))
+                {
+                    //update task itself without "actions"
+                    task.Uri = new Uri(taskUri);
+                    task = _taskService.UpdateTask(task, false);
+                }
+                else
+                {
+                    task.Uri = new Uri(taskUri);
+                }
             }
 
             return new JsonResult
@@ -553,6 +591,16 @@ namespace EveryAngle.ManagementConsole.Controllers
         #endregion
 
         #region private methods
+
+        private bool CanUpdateTask(TaskViewModel task)
+        {
+            var isTaskOwner = task.run_as_user == SessionHelper.CurrentUser.Id;
+            var canScheduleAngles = SessionHelper.Session.IsValidToScheduleAngles();
+            var canManageSystem = SessionHelper.Session.IsValidToManageSystemPrivilege();
+            var result = canManageSystem || (canScheduleAngles && isTaskOwner);
+            return result;
+        }
+
         private JObject GetAngle(string angleUri)
         {
             var userSettings = SessionHelper.GetUserSettings();
@@ -646,6 +694,11 @@ namespace EveryAngle.ManagementConsole.Controllers
                 dataStore.supports_append = datastorePlugin.supports_append;
             }
 
+            if (dataStore.datastore_plugin.Equals("msexcel"))
+            {
+                AddFileDetailsToDatastore(dataStore);
+            }
+
             ClearConnectionPasswordValue(dataStore);
 
             #region view bags
@@ -659,6 +712,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             #endregion
 
             return dataStore;
+        }
+
+        private void AddFileDetailsToDatastore(DataStoresViewModel datastore)
+        {
+            datastore.data_settings.SettingList.Find(x => x.Id == "template_file").FileDataOptions = _fileTemplateService.Get().ToList();
         }
 
         internal void ClearConnectionPasswordValue(DataStoresViewModel dataStore)

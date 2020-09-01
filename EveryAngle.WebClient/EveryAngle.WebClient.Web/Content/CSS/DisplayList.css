@@ -144,6 +144,10 @@
     display: none !important; /* NOSONAR: override runtime css */
 }
 
+#AngleGrid.grid .areaErrorContainer {
+    z-index: 99;
+}
+
 /* .column-drop-area
 ============================================ */
 .column-drop-area {

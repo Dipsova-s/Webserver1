@@ -17,7 +17,8 @@ function UserSettingViewModel() {
     self.AutoExecuteList = ko.observableArray([]);
     self.TempRemoveList = ko.observableArray([]);
     self.SidePanelSettingsData = {};
-    self.MinSidePanelSize = 310;
+    self.MinSidePanelSize = 320;
+    self.DisplayGroupSettingsData = {};
 
     var resultsText = Localization.SystemSettingResults;
 
@@ -63,7 +64,7 @@ function UserSettingViewModel() {
 
         return GetDataFromWebService(uri)
             .done(function (data) {
-                self.IsLoaded(true);
+                    self.IsLoaded(true);
                 self.LoadSuccess(data);
                 SetWebSiteLanguage(self.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES));
             });
@@ -103,7 +104,6 @@ function UserSettingViewModel() {
             return getByName();
         }
     };
-
     self.GetClientSettings = function () {
         return JSON.parse(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS)) || {};
     };
@@ -145,32 +145,111 @@ function UserSettingViewModel() {
         var url = WC.HtmlHelper.GetInternalUri('updateusersetting', 'user');
         return UpdateDataToWebService(url, null, true);
     };
+    self.UpdateClientSettings = function (clientSettings) {
+        var data = self.Data();
+        if (!data)
+            return;
+
+        jQuery.extend(data, clientSettings);
+        self.LoadSuccess(data);
+    };
     self.GetClientSettingsData = function () {
-        if (!window.SearchPageHandler || !self.Data())
+        if (!self.Data())
             return null;
 
-        var updateClientSettings = {};
-
-        var lastSearchUrl = jQuery.address.value();
-        var prevLastSearchUrl = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-        if (prevLastSearchUrl !== lastSearchUrl && lastSearchUrl !== '/')
-            updateClientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL] = lastSearchUrl;
-
-        var searchTerms = searchPageHandler.SearchTerms;
-        var prevSearchTerms = self.GetSearchTerms();
-        if (prevSearchTerms.toString() !== searchTerms.toString())
-            updateClientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_TERMS] = searchTerms;
-
-        if (jQuery.isEmptyObject(updateClientSettings))
+        var searchPageSettings = self.GetSearchPageClientSettingsData();
+        var anglePageSettings = self.GetAnglePageClientSettingsData();
+        var dashboardPageSettings = self.GetDashboardPageClientSettingsData();
+        var pageSettings = jQuery.extend({}, searchPageSettings, anglePageSettings, dashboardPageSettings);
+        if (jQuery.isEmptyObject(pageSettings))
             return null;
 
         var clientSettings = self.GetClientSettings();
-        jQuery.extend(clientSettings, updateClientSettings);
-
+        jQuery.extend(clientSettings, pageSettings);
         var data = {};
         data[enumHandlers.USERSETTINGS.CLIENT_SETTINGS] = JSON.stringify(clientSettings);
         return new RequestModel(RequestModel.METHOD.PUT, userModel.Data().user_settings, data);
     };
+
+    // search page settings
+    self.GetSearchPageClientSettingsData = function () {
+        var settings = {};
+        if (!window.SearchPageHandler)
+            return settings;
+
+        jQuery.extend(settings, self.GetLastSearchSettingsData());
+        jQuery.extend(settings, self.GetSearchTermSettingsData());
+        jQuery.extend(settings, self.GetSidePanelSettingsData());
+        return settings;
+    };
+    self.GetLastSearchSettingsData = function () {
+        var settings = {};
+        var lastSearchUrl = jQuery.address.value();
+        var prevLastSearchUrl = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
+        if (prevLastSearchUrl !== lastSearchUrl && lastSearchUrl !== '/')
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL] = lastSearchUrl;
+        return settings;
+    };
+    self.GetSearchTermSettingsData = function () {
+        var settings = {};
+        var searchTerms = searchPageHandler.SearchTerms;
+        var prevSearchTerms = self.GetSearchTerms();
+        if (prevSearchTerms.toString() !== searchTerms.toString())
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_TERMS] = searchTerms;
+        return settings;
+    };
+    self.GetSearchTerms = function () {
+        var searchTerms = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_TERMS);
+        return WC.Utility.ToArray(searchTerms);
+    };
+
+    // angle page settings
+    self.GetAnglePageClientSettingsData = function () {
+        var settings = {};
+        if (!window.AnglePageHandler)
+            return {};
+
+        jQuery.extend(settings, self.GetDisplayGroupSettingsData());
+        jQuery.extend(settings, self.GetSidePanelSettingsData());
+        return settings;
+    };
+    self.InitialDisplayGroupSettingsData = function () {
+        self.DisplayGroupSettingsData = self.GetDisplayGroupSettings();
+    };
+    self.GetDisplayGroupSettingsData = function () {
+        var settings = {};
+        var displayGroupSettings = self.GetDisplayGroupSettings();
+        if (jQuery('.tab-menu-header').length
+            && JSON.stringify(displayGroupSettings) !== JSON.stringify(self.DisplayGroupSettingsData))
+            jQuery.extend(settings, self.DisplayGroupSettingsData);
+        return settings;
+    };
+    self.GetDisplayGroupSettings = function () {
+        var clientSettings = self.GetClientSettings();
+        var getValue = function (value, fallback) {
+            return typeof value === 'boolean' ? value : fallback;
+        };
+        var settings = {};
+        settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_GROUP_PUBLIC] = getValue(clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_GROUP_PUBLIC], true);
+        settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_GROUP_PRIVATE] = getValue(clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_GROUP_PRIVATE], false);
+        settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_GROUP_OTHER] = getValue(clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_GROUP_OTHER], false);
+        return settings;
+    };
+    self.SetDisplayGroupSettings = function (property, value) {
+        self.DisplayGroupSettingsData[property] = value;
+    };
+
+    // dashboard page settings
+    self.GetDashboardPageClientSettingsData = function () {
+        var settings = {};
+        if (!window.DashboardPageHandler)
+            return {};
+
+        jQuery.extend(settings, self.GetSidePanelSettingsData());
+        return settings;
+    };
+
+    // side panel settings
     self.InitialSidePanelSettingsData = function () {
         self.SidePanelSettingsData = self.GetSidePanelSettings();
     };
@@ -198,31 +277,16 @@ function UserSettingViewModel() {
         self.SidePanelSettingsData[property] = value;
     };
     self.GetSidePanelSettingsData = function () {
-        var currentSidePanelSettings = self.GetSidePanelSettings();
-        if (!jQuery('.content-wrapper').length
-            || JSON.stringify(currentSidePanelSettings) === JSON.stringify(self.SidePanelSettingsData)
-            || !userModel.Data())
-            return null;
-
-        var clientSettings = self.GetClientSettings();
-        jQuery.extend(clientSettings, self.SidePanelSettingsData);
-
-        var data = {};
-        data[enumHandlers.USERSETTINGS.CLIENT_SETTINGS] = JSON.stringify(clientSettings);
-        return new RequestModel(RequestModel.METHOD.PUT, userModel.Data().user_settings, data);
-    };
-    self.UpdateClientSettings = function (clientSettings) {
-        var data = self.Data();
-        if (!data)
-            return;
-
-        jQuery.extend(data, clientSettings);
-        self.LoadSuccess(data);
+        var sidePanelSettings = self.GetSidePanelSettings();
+        return jQuery('.content-wrapper').length
+            && JSON.stringify(sidePanelSettings) !== JSON.stringify(self.SidePanelSettingsData)
+            ? self.SidePanelSettingsData : {};
     };
     self.GetDefaultAnglePanelAccordions = function () {
         var setting = {};
         setting[enumHandlers.ACCORDION.DEFINITION] = true;
         setting[enumHandlers.ACCORDION.DESCRIPTION] = true;
+        setting[enumHandlers.ACCORDION.LABEL] = true;
         return setting;
     };
     self.GetDefaultDisplayPanelAccordions = function () {
@@ -236,6 +300,7 @@ function UserSettingViewModel() {
         var setting = {};
         setting[enumHandlers.ACCORDION.DEFINITION] = true;
         setting[enumHandlers.ACCORDION.DESCRIPTION] = true;
+        setting[enumHandlers.ACCORDION.LABEL] = true;
         return setting;
     };
     self.GetDefaultWidgetPanelAccordions = function () {
@@ -243,10 +308,7 @@ function UserSettingViewModel() {
         setting[enumHandlers.ACCORDION.DEFINITION] = true;
         return setting;
     };
-    self.GetSearchTerms = function () {
-        var searchTerms = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_TERMS);
-        return WC.Utility.ToArray(searchTerms);
-    };
+
     self.CheckExecuteAutoWhenLogon = function () {
         return self.GetByName(enumHandlers.USERSETTINGS.AUTO_EXECUTE_ITEMS_ON_LOGIN) && jQuery.localStorage('firstLogin') === 1;
     };
@@ -447,6 +509,5 @@ function UserSettingViewModel() {
 
         return WC.FormatHelper.GetUserDefaultFormatter(enumHandlers.FIELDTYPE.TIME);
     };
-
     //EOF: View modle methods
 }

@@ -1,5 +1,8 @@
-﻿using EveryAngle.Core.ViewModels.Explorer;
+﻿using EveryAngle.Core.Interfaces.Services;
+using EveryAngle.Core.ViewModels.Directory;
+using EveryAngle.Core.ViewModels.Explorer;
 using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.Core.ViewModels.SystemInformation;
 using EveryAngle.Core.ViewModels.SystemLog;
 using EveryAngle.Core.ViewModels.SystemSettings;
 using EveryAngle.ManagementConsole.Controllers;
@@ -38,6 +41,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 repositoryLogService.Object,
                 logFileService.Object,
                 logFileReaderService.Object,
+                systemSettingsService.Object,
                 sessionHelper.Object
             );
         }
@@ -202,7 +206,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 webClientConfigService.Object,
                 repositoryLogService.Object,
                 logFileService.Object,
-                logFileReaderService.Object);
+                logFileReaderService.Object,
+                systemSettingsService.Object);
             Assert.NotNull(testController);   
         }
 
@@ -218,6 +223,41 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.IsNotNullOrEmpty(ex.Message);
         }
 
+        [Test]
+        public void GetSystemSettings_Should_Set_ApprovalStateOptions_In_ViewBag()
+        {
+            var version = new VersionViewModel
+            {
+                Entries = new List<Entry> { new Entry
+                    {
+                    Name = "system_settings",
+                    Uri = new Uri("http://dummy/")
+                    }
+                }
+            };
+            sessionHelper.SetupGet(x => x.Version)
+                .Returns(version);
+            sessionHelper.SetupGet(x => x.Info)
+                .Returns(new SystemInformationViewModel {
+                features = new List<FeatureViewModel>()});
+            globalSettingService
+                .Setup(x => x.GetSystemSettings(It.IsAny<string>()))
+                .Returns(new SystemSettingViewModel());
+
+            var approvalStateOptions = new List<ApprovalStateOption>
+            {
+                new ApprovalStateOption{ Id = "enabled", Name = "enabled" },
+                new ApprovalStateOption{ Id = "disabled", Name = "disabled" }
+            };
+            systemSettingsService
+                .Setup(x => x.BuildApprovalStateOptions())
+                .Returns(approvalStateOptions);
+            _testingController.GetSystemSettings();
+
+            Assert.NotNull(_testingController.ViewBag.ApprovalStateOptions);
+            var approvalOptions = (List<ApprovalStateOption>)_testingController.ViewBag.ApprovalStateOptions;
+            Assert.AreEqual(approvalStateOptions.Count, approvalOptions.Count);
+        }
         #endregion
 
         public class Result

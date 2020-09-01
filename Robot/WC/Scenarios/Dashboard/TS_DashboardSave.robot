@@ -1,6 +1,6 @@
 *** Settings ***
 Resource    		${EXECDIR}/WC/POM/Search/SearchPage.robot
-Resource    		${EXECDIR}/WC/POM/Angle/DashboardPage.robot
+Resource    		${EXECDIR}/WC/POM/Dashboard/DashboardPage.robot
 Resource            ${EXECDIR}/WC/POM/Shared/FilterEditor.robot
 Resource            ${EXECDIR}/WC/POM/Dashboard/SaveDashboardAsPopup.robot
 
@@ -37,7 +37,7 @@ Verify Dashboard Save All Button
     Click Dashboard Save All
     Dashboard Save Button Should Be Disabled
     Check Filter Asterisk Should Not Be Available
-    Check Undo Filter Should Not Be Available
+    Check Undo Filter Should Be Disabled
     Apply Filter Button Should Be Disable
 
 Verify Save Dashboard As Button

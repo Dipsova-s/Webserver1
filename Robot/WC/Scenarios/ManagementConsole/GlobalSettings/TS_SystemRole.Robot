@@ -16,7 +16,7 @@ Go To System Roles Page
 Create New Role And Set All Allowed
     [Arguments]    ${id}    ${description}
     ${chkIconExist}    Is Element Visible    ${trSystemRowInRolesGrid}:contains(${id})
-    Run Keyword If    ${chkIconExist} == True    Delete Role    ${id}
+    Run Keyword If    ${chkIconExist} == True    Delete System Role    ${id}
     Create New Role    ${id}    ${description}
 
 Create New Role
@@ -29,7 +29,7 @@ Create New Role
     Click Allow Manage System
     Click Save Edit System Role
 
-Delete Role
+Delete System Role
     [Arguments]    ${id}
     Click Delete System Role Action By Role Name    ${id}
     Confirm Delete System Role

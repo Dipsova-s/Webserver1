@@ -66,4 +66,80 @@ describe("MC.AngleExports.ExcelTemplates", function () {
             expect(e.preventDefault).toHaveBeenCalled();
         });
     });
+
+    describe(".ShowDeletePopup", function () {
+        var e;
+        beforeEach(function () {
+            e = { preventDefault: $.noop };
+            spyOn(e, 'preventDefault');
+        });
+        it("should call GetDatstoreDetails function when template used datastore", function () {
+            spyOn(excelTemplates, "GetDatastoreCount").and.returnValue(true);
+            spyOn(excelTemplates, "GetDatstoreDetails").and.returnValue($.noop);
+            excelTemplates.ShowDeletePopup(e, $('<a href="test.txt"/>')[0]);
+
+            expect(excelTemplates.GetDatastoreCount).toHaveBeenCalled();
+            expect(excelTemplates.GetDatstoreDetails).toHaveBeenCalled();
+        });
+        it("should call GetDisplayPopupMessage function when template used in display and not used any datastore", function () {
+            spyOn(excelTemplates, "GetDisplayCount").and.returnValue(true);
+            spyOn(excelTemplates, "GetDisplayPopupMessage").and.returnValue($.noop);
+            excelTemplates.ShowDeletePopup(e, $('<a href="test.txt"/>')[0]);
+
+            expect(excelTemplates.GetDisplayCount).toHaveBeenCalled();
+            expect(excelTemplates.GetDisplayPopupMessage).toHaveBeenCalled();
+        });
+    });
+
+    describe(".GetDatastorePopupMessage", function () {
+        beforeEach(function () {
+            MC.util.showPopupOK= function (title, message) {
+                    element = $(message).appendTo('body');
+                }
+        });
+
+        afterEach(function () {
+            element.remove();
+        });
+        it("When template used in datastore then popup should contain the datastore name and link to edit datastore", function () {
+            var datastore = [
+                {
+                    name: 'excel_plugin_for_test',
+                    Uri: 'https://Test.local//system/datastores/1'
+                },
+                {
+                    name: 'excel_plugin_for_test2',
+                    Uri: 'https://Test.local//system/datastores/2'
+                }
+            ];
+            excelTemplates.EditDatastoreUri = '#/Angle exports/Datastores/Edit datastore/';
+            excelTemplates.GetDatastorePopupMessage(datastore);
+            var countOfLink = $('.btnOpenWindowPopup').length;
+            expect(countOfLink).toBe(2);
+
+            var row = $('.k-auto-scrollable tbody tr td span');
+            $.each(datastore, function (index, setting) {
+                var datastoreName = row[index].outerText;
+                expect(setting.name).toBe(datastoreName);
+            });
+        });
+    });
+    describe(".GetDisplayPopupMessage", function () {
+        beforeEach(function () {
+            MC.util.showPopupConfirmation= function (message) {
+                    element = $(message).appendTo('body');
+                }
+        });
+
+        afterEach(function () {
+            element.remove();
+        });
+        it("Popup message should be there in the body", function () {
+            spyOn(excelTemplates, 'DeleteExcelTemplate').and.returnValue($.noop);
+            spyOn(excelTemplates, 'GetDisplayCount').and.returnValue(2);
+            excelTemplates.GetDisplayPopupMessage($('<a href="test.txt"/>')[0]);
+            var messageIndex = $('body')[0].outerText.indexOf('Are you sure you want to delete this Excel template ?');
+            expect(messageIndex !== -1).toBeTruthy();
+        });
+    });
 });

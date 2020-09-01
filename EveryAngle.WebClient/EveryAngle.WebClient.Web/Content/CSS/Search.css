@@ -75,6 +75,9 @@
   color: #b0b0b1;
   padding-top: 8px; }
 
+.searchbar .searchBoxWrapper > a:hover {
+  color: #3d4852; }
+
 .searchbar .searchBoxWrapper > a:hover,
 .searchbar .searchBoxWrapper > a.active {
   background-color: #ebebeb; }
@@ -95,7 +98,7 @@
 .searchbar .searchBoxWrapper > input {
   padding-left: 35px;
   padding-right: 65px;
-  background: #f7f7f9 url(../../images/search-grey.svg) 10px center no-repeat;
+  background: #f7f9fa url(../../images/search-grey.svg) 10px center no-repeat;
   background-size: 16px 16px;
   border-radius: 2px;
   transition: all .2s ease-in-out; }
@@ -415,7 +418,7 @@
   display: none;
   padding: 30px 37px 0 37px;
   overflow: auto;
-  background-color: #fafafa; }
+  background-color: #f7f9fa; }
 
 .sectionWelcomeRow {
   float: left;
@@ -975,7 +978,7 @@
 #LeftMenu {
   position: absolute;
   z-index: 0;
-  background-color: #fcfcfc; }
+  background-color: #f7f9fa; }
   #LeftMenu .left-menu-wrapper {
     width: 230px;
     min-height: 200px;
@@ -1012,10 +1015,10 @@
     #LeftMenu .FilterTab.border-separator {
       border-top: 1px solid #f5f5f5; }
     #LeftMenu .FilterTab .FilterTitle {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: bold;
-      text-transform: uppercase;
-      margin-right: auto; }
+      margin-right: auto;
+      letter-spacing: .24px; }
     #LeftMenu .FilterTab span {
       display: block;
       position: relative;

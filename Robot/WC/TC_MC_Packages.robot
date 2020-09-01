@@ -17,7 +17,7 @@ Test Global Packages
 
 GUI Testing For Export Package Popup
     [Documentation]     Verify the create package popup options are not persisted while selecting the options in global packages page. Medium Criticality
-    [Tags]  TC_586
+    [Tags]  TC_C586
     Click To Open Export Package Popup
     Verify GUI Export Package Popup
     Change GUI Export Package options

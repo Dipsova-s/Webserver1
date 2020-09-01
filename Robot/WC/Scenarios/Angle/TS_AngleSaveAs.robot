@@ -5,8 +5,10 @@ Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
 *** Keywords ***
 Verify EAPower: Save Buttons Privilege
     Main Save Button Should Be Enable
-    Main Save Button Is Save All
+    Main Save Button Is Save Angle
     Save All Button Should Not Be Available
+    Save Angle Button Should Not Be Available
+    Save Display Button Should Not Be Available
     Save Angle As Button Should Not Be Available
     Save Display As Button Should Be Enable
 
@@ -17,6 +19,8 @@ Verify EAViewer: Save Buttons Privilege
     Main Save Button Should Be Enable
     Main Save Button Is Save Display As
     Save All Button Should Not Be Available
+    Save Angle Button Should Not Be Available
+    Save Display Button Should Not Be Available
     Save Angle As Button Should Not Be Available
     Save Display As Button Should Not Be Available
     Logout WC Then Close Browser

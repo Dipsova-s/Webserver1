@@ -4,7 +4,7 @@ function DisplayHandler(model, parent) {
     var _self = {};
 
     var self = this;
-    self.AngleHandler = null;
+    self.AngleHandler = parent;
     self.Data = ko.observable(null);
     self.ItemDescriptionHandler = new ItemDescriptionHandler();
     self.QueryDefinitionHandler = new QueryDefinitionHandler();
@@ -155,7 +155,7 @@ function DisplayHandler(model, parent) {
     self.InitialExcelTemplate = function (target) {
         self.DisplayExcelTemplateHandler.OnChanged = self.OnChangeExcelTemplate;
         self.DisplayExcelTemplateHandler.Initial(target);
-    }
+    };
     self.OnChangeExcelTemplate = jQuery.noop;
     
     // filter & jump
@@ -171,6 +171,7 @@ function DisplayHandler(model, parent) {
         self.QueryDefinitionHandler.Texts().ConfirmMoveFilter = Localization.Info_ConfirmDropFilterToAngleDefinition;
         self.QueryDefinitionHandler.Texts().AskForExecutionParamter = Localization.AskForValueWhenTheDisplayOpens;
         self.QueryDefinitionHandler.Texts().ConfirmJump = Localization.Confirm_CreateNewFollowUp;
+        self.QueryDefinitionHandler.Texts().SubHeader = Localization.DisplayFilters;
         self.SetAggregationFunctions();
         self.parent.prototype.InitialQueryDefinition.call(self, definition, _self.queryDefinitionProperty, self.GetModelUri());
 
@@ -201,6 +202,7 @@ function DisplayHandler(model, parent) {
     };
     self.CanChangeFilter = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
             !validation.InvalidBaseClasses,
             !validation.InvalidFollowups,
             self.AngleHandler.AllowMoreDetails(self.GetModelUri()),
@@ -209,6 +211,7 @@ function DisplayHandler(model, parent) {
     };
     self.CanChangeJump = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
             !validation.InvalidBaseClasses,
             !validation.InvalidFollowups,
             self.AngleHandler.AllowMoreDetails(self.GetModelUri()),
@@ -216,11 +219,20 @@ function DisplayHandler(model, parent) {
         ]);
     };
     self.CanExecuteQuerySteps = function (validation) {
-        return !validation.InvalidBaseClasses && !validation.InvalidFollowups && !validation.InvalidFilters;
+        return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
+            !validation.InvalidBaseClasses,
+            !validation.InvalidFollowups,
+            !validation.InvalidFilters
+        ]);
     };
     self.CanUpdateQuerySteps = function (validation) {
-        var isQueryValid = !validation.InvalidBaseClasses && !validation.InvalidFollowups;
-        return isQueryValid && self.CanUpdate();
+        return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
+            !validation.InvalidBaseClasses,
+            !validation.InvalidFollowups,
+            self.CanUpdate()
+        ]);
     };
     self.UpdateAngleQueryDefinition = function () {
         if (!self.QueryDefinitionHandler.Parent()) {
@@ -233,6 +245,7 @@ function DisplayHandler(model, parent) {
         self.QueryDefinitionHandler.Parent().SetData(self.AngleHandler.Data().query_definition, 'query_definition', self.GetModelUri());
         self.QueryDefinitionHandler.Parent().SetExecutedParameters(self.AngleHandler.QueryDefinitionHandler.GetExecutedParameters());
         self.QueryDefinitionHandler.Parent().Authorizations.CanSave(self.CanMoveFilter());
+        self.QueryDefinitionHandler.Parent().Texts().SubHeader = Localization.AngleFilters;
     };
     self.CanMoveFilter = function () {
         return self.AngleHandler.QueryDefinitionHandler.Authorizations.CanChangeFilter();
@@ -342,6 +355,7 @@ function DisplayHandler(model, parent) {
     };
     self.CanChangeAggregation = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.AngleHandler.Online(),
             !validation.InvalidBaseClasses,
             !validation.InvalidFollowups,
             !self.QueryDefinitionHandler.HasErrorJump(),
@@ -480,11 +494,10 @@ function DisplayHandler(model, parent) {
         if (!jQuery.isFunction(checker))
             checker = self.IsUsedInTask;
 
-        if (checker()) {
+        if (checker())
             popup.Confirm(Localization.MessageSaveQuestionAngleUsedInTask, callback, cancel);
-        } else {
+        else
             callback();
-        }
     };
     self.GetChangeData = function (currentData, compareData) {
         return WC.ModelHelper.GetChangeDisplay(currentData, compareData);
@@ -582,6 +595,18 @@ function DisplayHandler(model, parent) {
             self.SetRawData(data);
         }
         self.Initial(data, self.AngleHandler);
+
+        // check user default
+        if (self.Data().user_specific.is_user_default()) {
+            jQuery.each(self.AngleHandler.Displays, function (_index, display) {
+                if (self.Data().id() !== display.Data().id()) {
+                    var userSpecific = ko.toJS(display.Data().user_specific);
+                    userSpecific.is_user_default = false;
+                    display.SetRawData({ user_specific: userSpecific });
+                }
+            });
+        }
+
         return jQuery.when(data);
     };
     self.CanCreate = function () {
@@ -592,6 +617,9 @@ function DisplayHandler(model, parent) {
     };
     self.CanCreateOrUpdate = function () {
         return self.IsAdhoc() ? self.CanCreate() : self.CanUpdate();
+    };
+    self.CanUpdateOrder = function () {
+        return self.Data().is_public() && self.AngleHandler.CanUpdate();
     };
     self.IsUsedInTask = function () {
         return self.Data().used_in_task;

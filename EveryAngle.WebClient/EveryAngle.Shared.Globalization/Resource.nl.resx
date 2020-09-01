@@ -135,6 +135,9 @@
   <data name="AngleDescription" xml:space="preserve">
     <value>Angle-omschrijving</value>
   </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Labels</value>
+  </data>
   <data name="AngleDetailPublishTabAnglePrivileges" xml:space="preserve">
     <value>Privilegelabels</value>
   </data>
@@ -386,6 +389,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Opslaan</value>
+  </data>
+  <data name="SaveAll" xml:space="preserve">
+    <value>Alles opslaan</value>
   </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Zoekresultaten</value>
@@ -946,7 +952,7 @@
     <value>[Geen]</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel Template</value>
+    <value>Excel template</value>
   </data>
   <data name="CreateNewAngleFromSchema" xml:space="preserve">
     <value>Maak Angle</value>
@@ -1930,7 +1936,7 @@
     <value>Standaard</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Standaard] {0}</value>
+    <value>[Gebruik default] {0}</value>
   </data>
   <data name="DefaultSettingsUnmentionedFields" xml:space="preserve">
     <value>Standaard instellingen voor niet genoemde velden</value>
@@ -2033,9 +2039,6 @@
   </data>
   <data name="Label" xml:space="preserve">
     <value>label</value>
-  </data>
-  <data name="Labels" xml:space="preserve">
-    <value>labels</value>
   </data>
   <data name="LabelCategoriesSetting" xml:space="preserve">
     <value>Labelcategorie instellingen</value>
@@ -2395,7 +2398,7 @@
     <value>Het maximum aantal te selecteren Angles is {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Startobject</value>
+    <value>Current object</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Aantal items</value>
@@ -3995,5 +3998,59 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   </data>
   <data name="Dashboards" xml:space="preserve">
     <value>Dashboards</value>
+  </data>
+  <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
+    <value>Run as user</value>
+  </data>
+  <data name="Reexecute" xml:space="preserve">
+    <value>Opnieuw uitvoeren</value>
+  </data>
+  <data name="CloseSidebar" xml:space="preserve">
+    <value>Sluit zijpaneel</value>
+  </data>
+  <data name="OpenSidebar" xml:space="preserve">
+    <value>Open zijpaneel</value>
+  </data>
+  <data name="MC_Approved" xml:space="preserve">
+    <value>approved</value>
+  </data>
+  <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
+    <value>Toon alleen mijn eigen privé Displays</value>
+  </data>
+  <data name="AngleExport" xml:space="preserve">
+    <value>Angle Export</value>
+  </data>
+  <data name="MC_DefaultApprovalState" xml:space="preserve">
+    <value>Default approval state Automation task actions</value>
+  </data>
+  <data name="MC_DefaultApprovalStateDescription" xml:space="preserve">
+    <value>The default Approval state of newly added Actions in Automation tasks.
+Actions can only be executed when the Approval state is "approved".
+The "manage system" privileges is required to change the Approval state of an Action.</value>
+  </data>
+  <data name="AngleFilters" xml:space="preserve">
+    <value>Angle filters &amp; jumps</value>
+  </data>
+  <data name="DisplayFilters" xml:space="preserve">
+    <value>Display filters &amp; jumps</value>
+  </data>
+  <data name="DisplayGroupPublic" xml:space="preserve">
+    <value>Gepubliceerd ({0})</value>
+  </data>
+  <data name="DisplayGroupPrivate" xml:space="preserve">
+    <value>Privé ({0})</value>
+  </data>
+  <data name="DisplayGroupOther" xml:space="preserve">
+    <value>Andere ({0})</value>
+  </data>
+  <data name="DisplayGroupOpen" xml:space="preserve">
+    <value>Toon groep</value>
+  </data>
+  <data name="DisplayGroupClose" xml:space="preserve">
+    <value>Verberg groep</value>
+  </data>
+  <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
+    <value>Specificeer in welke kolom de tijdstempel van het model moet worden toegevoegd.&lt;br&gt;
+Kies '1' voor de eerste kolom. Als de tijdstempel van het model niet nodig is, kies dan 'Geen'.</value>
   </data>
 </root>

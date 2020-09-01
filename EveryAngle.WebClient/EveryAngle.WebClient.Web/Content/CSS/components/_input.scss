@@ -23,7 +23,7 @@ input[type="text"],
 input[type="password"],
 textarea {
     -webkit-appearance: none;
-    border: 1px solid #e3e5e5;
+    border: 1px solid #b5becc;
     background-color: #fff;
     border-radius: 0;
     padding: 5px;
@@ -51,7 +51,7 @@ textarea.input-light {
     border-right-color: transparent;
 
     &:focus {
-        border-bottom-color: #358ed7;
+        border-bottom-color: $primary-color;
         outline: none;
     }
 }

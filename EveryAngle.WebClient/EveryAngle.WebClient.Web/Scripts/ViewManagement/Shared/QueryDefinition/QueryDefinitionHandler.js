@@ -25,6 +25,7 @@
         AggregationHeaderRow: '',
         AggregationHeaderColumn: '',
         AggregationHeaderData: '',
+        SubHeader: '',
         ApplyButton: Localization.Apply
     });
     self.Property = null;
@@ -286,6 +287,9 @@
         return self.Authorizations.CanSave();
     };
     self.Cancel = function () {
+        if (!self.HasChanged(false, false))
+            return;
+
         // revert every changes
         var sourceQueryDefinition = self.GetRawQueryDefinition();
         self.ForcedUpdateData(sourceQueryDefinition);
@@ -382,6 +386,7 @@
         if (target.hasClass('close'))
             target.trigger('click');
     };
+    self.ClickDropArea = jQuery.noop;
 }
 
 QueryDefinitionHandler.ExecuteAction = {

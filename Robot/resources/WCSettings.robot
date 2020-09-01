@@ -9,6 +9,7 @@ Library             OperatingSystem
 Library             ExcelLibrary
 Library             Bootstrap.py
 Library             ${EXECDIR}/python/PythonUtility.py
+Library             ${EXECDIR}/python/FetchServerTags.py
 Resource            ${EXECDIR}/WC/POM/Shared/Utility.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Shared/MC_Utility.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_Login.robot
@@ -36,6 +37,7 @@ Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_List.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Pivot.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Chart.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_FieldSettings.robot
+Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_ScheduleAngle.robot                               
 Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_Dashboard.robot
 Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_DashboardWidgetDefinition.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_BusinessProcess.robot
@@ -68,6 +70,7 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Communic
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelsLanguages.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AngleExports/TS_ExcelTemplate.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/ExportDefaults/TS_ExportDefaults.robot
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/WebHelp/TS_TocMC.robot
 
 *** Variables ***
 ${URL_WC}    http://${URL}/${Branch}

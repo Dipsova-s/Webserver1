@@ -5,6 +5,7 @@
     _self.$dashboardAccordions = {};
     _self.$dashboardAccordions[enumHandlers.ACCORDION.DEFINITION] = '#TabContentDashboard .section-definition > .accordion-header';
     _self.$dashboardAccordions[enumHandlers.ACCORDION.DESCRIPTION] = '#TabContentDashboard .section-description > .accordion-header';
+    _self.$dashboardAccordions[enumHandlers.ACCORDION.LABEL] = '#TabContentDashboard .section-labels > .accordion-header';
     _self.$widgetAccordions = {};
     _self.$widgetAccordions[enumHandlers.ACCORDION.DEFINITION] = '#TabContentWidgets .section-widgets > .accordion-header';
 
@@ -33,10 +34,10 @@
             .empty()
             .append(self.View.GetSectionFiltersTemplate())
             .append(self.View.GetSectionDescriptionTemplate())
-            .append(self.View.GetSectionExecuteAtLogonTemplate())
-            .append(self.View.GetSectionBusinessProcessTemplate())
+            .append(self.View.GetSectionLabelsTemplate())
             .append(self.View.GetSectionTagsTemplate())
-            .append(self.View.GetSectionPersonalNoteTemplate());
+            .append(self.View.GetSectionPersonalNoteTemplate())
+            .append(self.View.GetSectionExecuteAtLogonTemplate());
 
         // widgets tab
         jQuery('#TabContentWidgets')

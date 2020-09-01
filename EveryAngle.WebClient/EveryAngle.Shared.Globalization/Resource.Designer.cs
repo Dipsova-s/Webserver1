@@ -1105,6 +1105,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angle Export.
+        /// </summary>
+        public static string AngleExport {
+            get {
+                return ResourceManager.GetString("AngleExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to download {0} individual Angles?.
         /// </summary>
         public static string AngleExport_DownloadAngleConfirmation {
@@ -1245,6 +1254,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string AngleExport_WarningNoExportItem {
             get {
                 return ResourceManager.GetString("AngleExport_WarningNoExportItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angle filters &amp; jumps.
+        /// </summary>
+        public static string AngleFilters {
+            get {
+                return ResourceManager.GetString("AngleFilters", resourceCulture);
             }
         }
         
@@ -1456,7 +1474,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start object.
+        ///   Looks up a localized string similar to Current object.
         /// </summary>
         public static string BaseClassName {
             get {
@@ -2244,6 +2262,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close sidebar.
+        /// </summary>
+        public static string CloseSidebar {
+            get {
+                return ResourceManager.GetString("CloseSidebar", resourceCulture);
             }
         }
         
@@ -3067,7 +3094,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Default] {0}.
+        ///   Looks up a localized string similar to [Use default] {0}.
         /// </summary>
         public static string Default_Placeholder {
             get {
@@ -3283,11 +3310,65 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display filters &amp; jumps.
+        /// </summary>
+        public static string DisplayFilters {
+            get {
+                return ResourceManager.GetString("DisplayFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display for Angle.
         /// </summary>
         public static string DisplayForAngle {
             get {
                 return ResourceManager.GetString("DisplayForAngle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide group.
+        /// </summary>
+        public static string DisplayGroupClose {
+            get {
+                return ResourceManager.GetString("DisplayGroupClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show group.
+        /// </summary>
+        public static string DisplayGroupOpen {
+            get {
+                return ResourceManager.GetString("DisplayGroupOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other ({0}).
+        /// </summary>
+        public static string DisplayGroupOther {
+            get {
+                return ResourceManager.GetString("DisplayGroupOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private ({0}).
+        /// </summary>
+        public static string DisplayGroupPrivate {
+            get {
+                return ResourceManager.GetString("DisplayGroupPrivate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published ({0}).
+        /// </summary>
+        public static string DisplayGroupPublic {
+            get {
+                return ResourceManager.GetString("DisplayGroupPublic", resourceCulture);
             }
         }
         
@@ -3967,7 +4048,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Excel Template.
+        ///   Looks up a localized string similar to Excel template.
         /// </summary>
         public static string ExcelTemplate {
             get {
@@ -5935,6 +6016,16 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specify in what column the model timestamp should be inserted.&lt;br&gt;
+        ///Use &apos;1&apos; to select the first column. When no model timestamp column is required, select &apos;None&apos;..
+        /// </summary>
+        public static string InsertCSVModelTimestamp_info {
+            get {
+                return ResourceManager.GetString("InsertCSVModelTimestamp_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert field.
         /// </summary>
         public static string InsertField {
@@ -6030,6 +6121,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string LabelCategoriesSetting {
             get {
                 return ResourceManager.GetString("LabelCategoriesSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Labels.
+        /// </summary>
+        public static string Labels {
+            get {
+                return ResourceManager.GetString("Labels", resourceCulture);
             }
         }
         
@@ -7648,6 +7748,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to approved.
+        /// </summary>
+        public static string MC_Approved {
+            get {
+                return ResourceManager.GetString("MC_Approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arguments.
         /// </summary>
         public static string MC_Arguments {
@@ -8769,6 +8878,26 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default approval state Automation task actions.
+        /// </summary>
+        public static string MC_DefaultApprovalState {
+            get {
+                return ResourceManager.GetString("MC_DefaultApprovalState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The default Approval state of newly added Actions in Automation tasks.
+        ///Actions can only be executed when the Approval state is &quot;approved&quot;.
+        ///The &quot;manage system&quot; privileges is required to change the Approval state of an Action..
+        /// </summary>
+        public static string MC_DefaultApprovalStateDescription {
+            get {
+                return ResourceManager.GetString("MC_DefaultApprovalStateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default Business Processes.
         /// </summary>
         public static string MC_DefaultBusinessProcesses {
@@ -9342,6 +9471,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display Name.
+        /// </summary>
+        public static string MC_DisplayName {
+            get {
+                return ResourceManager.GetString("MC_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage private items.
         /// </summary>
         public static string MC_DisplayPrivateItem {
@@ -9898,6 +10036,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_ExtractionFailed {
             get {
                 return ResourceManager.GetString("MC_ExtractionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fallback export field length.
+        /// </summary>
+        public static string MC_FallbackFieldLength {
+            get {
+                return ResourceManager.GetString("MC_FallbackFieldLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;.
+        /// </summary>
+        public static string MC_FallbackFieldLengthDescription {
+            get {
+                return ResourceManager.GetString("MC_FallbackFieldLengthDescription", resourceCulture);
             }
         }
         
@@ -11496,6 +11652,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Process.
+        /// </summary>
+        public static string MC_Process {
+            get {
+                return ResourceManager.GetString("MC_Process", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile created on.
         /// </summary>
         public static string MC_ProfileCreatedOn {
@@ -11762,6 +11927,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_ResendLicense {
             get {
                 return ResourceManager.GetString("MC_ResendLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before..
+        /// </summary>
+        public static string MC_ResultExportTypeWarning {
+            get {
+                return ResourceManager.GetString("MC_ResultExportTypeWarning", resourceCulture);
             }
         }
         
@@ -13138,12 +13312,32 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Run as user.
+        /// </summary>
+        public static string MC_TaskAction_ColumnRunAsUser {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_ColumnRunAsUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When checked, the Task will fail when this action fails.&lt;br&gt;
         ///When unchecked, the Task will continue and complete itself when this action fails..
         /// </summary>
         public static string MC_TaskAction_DescriptionAbortWhenError {
             get {
                 return ResourceManager.GetString("MC_TaskAction_DescriptionAbortWhenError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select which Excel template to use for this export.&lt;br&gt;
+        ///When you select &quot;Use default&quot;, the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+        ///You can also select a different Excel template from the list if you don&apos;t want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro&apos;s..
+        /// </summary>
+        public static string MC_TaskAction_DescriptionExcelTemplate {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_DescriptionExcelTemplate", resourceCulture);
             }
         }
         
@@ -15086,6 +15280,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open sidebar.
+        /// </summary>
+        public static string OpenSidebar {
+            get {
+                return ResourceManager.GetString("OpenSidebar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Web Client.
         /// </summary>
         public static string OpenWebclient {
@@ -16454,6 +16657,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re-execute.
+        /// </summary>
+        public static string Reexecute {
+            get {
+                return ResourceManager.GetString("Reexecute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Referenced object.
         /// </summary>
         public static string ReferencedObject {
@@ -16738,6 +16950,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save all.
+        /// </summary>
+        public static string SaveAll {
+            get {
+                return ResourceManager.GetString("SaveAll", resourceCulture);
             }
         }
         
@@ -17107,6 +17328,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string ShowFacetForAngleWarnings {
             get {
                 return ResourceManager.GetString("ShowFacetForAngleWarnings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show only my own private Displays.
+        /// </summary>
+        public static string ShowOnlyOwnPrivateDisplays {
+            get {
+                return ResourceManager.GetString("ShowOnlyOwnPrivateDisplays", resourceCulture);
             }
         }
         

@@ -24,21 +24,15 @@ ${INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}              Angle which display has 
  Verify Copy Display Test
     [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_COPIED_ANGLE}
-    Wait Angle Page Document Loaded
-    Click Angle Dropdown Actions Copy Display
-    Page Should Contain Toast Success
+    Copy Display
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_PASTED_ANGLE}
-    Click Angle Dropdown Actions Paste Display
-    Page Should Contain Toast Success
-    Wait Angle Page Document Loaded
+    Paste Display
     Check If Angle Or Display Has A Warning Then Close The Popup
 
 Verify Copy Display When Angle Invalid Test
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_INVALIE_ANGLE_NAME}
-    Wait Angle Page Document Loaded
-    Click Angle Dropdown Actions Copy Display
-    Page Should Contain Toast Success
+    Copy Display
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${INVALIE_ANGLE_NAME}
     Check If Angle Or Display Has A Warning Then Close The Popup
@@ -47,48 +41,29 @@ Verify Copy Display When Angle Invalid Test
 Verify Copy Display When Display Invalid Field Test
     [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    ${INVALID_FIELDS_DISPLAY_ANGLE_NAME}
-    Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
-    Click Angle Dropdown Actions Copy Display
-    Page Should Contain Toast Success
+    Copy Display
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_INVALID_FIELD_DISPLAY_ANGLE_NAME}
-    Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
-    Wait Progress Bar Closed
-    Click Angle Dropdown Actions Paste Display
-    Page Should Contain Toast Success
-    Wait Angle Page Document Loaded
+    Paste Display
     Check If Angle Or Display Has A Warning Then Close The Popup
 
 Verify Copy Display When Display Invalid Query Step Test
     Search Angle From Search Page And Execute Angle    ${INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}
-    Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
-    Click Angle Dropdown Actions Copy Display
-    Page Should Contain Toast Success
+    Copy Display
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}
-    Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
-    Click Angle Dropdown Actions Paste Display
-    Wait Until Notification Popup Show
-    Element Should Contain     ${popupNotification}    Display cannot be pasted
-    Click Close Info Button
+    Paste Display But Invalid
 
 Verify Copy Display When Display Invalid Sorting Step Test
     Search Angle From Search Page And Execute Angle    ${INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}
-    Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
-    Click Angle Dropdown Actions Copy Display
-    Page Should Contain Toast Success
+    Copy Display
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}
-    Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
-    Wait Progress Bar Closed
-    Click Angle Dropdown Actions Paste Display
-    Page Should Contain Toast Success
-    Wait Angle Page Document Loaded
-    Check If Angle Or Display Has A Warning Then Close The Popup
+    Paste Display

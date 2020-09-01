@@ -7,9 +7,28 @@ function DisplayOverviewHandler(angleHandler) {
     self.CanCreateNewDisplay = ko.observable(false);
     self.ItemDescriptionHandler = new ItemDescriptionHandler();
     self.AngleHandler = angleHandler;
-
+    self.Group = {};
+    self.Group[DisplayOverviewHandler.DisplayGroup.Public] = {
+        Header: Localization.DisplayGroupPublic,
+        Visible: ko.observable(false),
+        ForceClose: ko.observable(false),
+        Key: enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_GROUP_PUBLIC
+    };
+    self.Group[DisplayOverviewHandler.DisplayGroup.MyPrivate] = {
+        Header: Localization.DisplayGroupPrivate,
+        Visible: ko.observable(false),
+        ForceClose: ko.observable(false),
+        Key: enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_GROUP_PRIVATE
+    };
+    self.Group[DisplayOverviewHandler.DisplayGroup.OtherPrivate] = {
+        Header: Localization.DisplayGroupOther,
+        Visible: ko.observable(false),
+        ForceClose: ko.observable(false),
+        Key: enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_GROUP_OTHER
+    };
     self.KeepFilter = ko.observable(false);
     self.IsVisibleKeepFilter = ko.observable(false);
+    self.ExecutionInfo = ko.observable('');
 
     // interface
     self.CreateNewDisplay = jQuery.noop;
@@ -18,7 +37,20 @@ function DisplayOverviewHandler(angleHandler) {
     self.SwitchDisplay = jQuery.noop;
     self.Redirect = jQuery.noop;
 
-    // create data
+    // implement
+    self.Initial = function () {
+        var initialVisibility = function (setting) {
+            setting.Visible(userSettingModel.DisplayGroupSettingsData[setting.Key]);
+        };
+        userSettingModel.InitialDisplayGroupSettingsData();
+        initialVisibility(self.Group[DisplayOverviewHandler.DisplayGroup.Public]);
+        initialVisibility(self.Group[DisplayOverviewHandler.DisplayGroup.MyPrivate]);
+        initialVisibility(self.Group[DisplayOverviewHandler.DisplayGroup.OtherPrivate]);
+
+        self.InitialSortable();
+        WC.HtmlHelper.ApplyKnockout(self, jQuery('#DisplayTabs'));
+        WC.HtmlHelper.ApplyKnockout(self, jQuery('#DisplayOption'));
+    };
     self.SetData = function (displays, currentDisplay) {
         var data = [];
         jQuery.each(displays, function (index, display) {
@@ -26,6 +58,7 @@ function DisplayOverviewHandler(angleHandler) {
         });
         data.sortObject('Sorting', enumHandlers.SORTDIRECTION.ASC, false);
         self.Displays(data);
+        self.UpdateExecutionInfo();
     };
     self.GetInfo = function (display, currentDisplay) {
         var displayData = display.GetData();
@@ -37,6 +70,7 @@ function DisplayOverviewHandler(angleHandler) {
         var isWarning = validation.Level === validationHandler.VALIDATIONLEVEL.WARNING;
         var hasAdhocSign = display.CanCreateOrUpdate() && display.HasChanged();
         var isNewAdhoc = !display.GetRawData();
+        var groupInfo = self.GetGroupInfo(display);
 
         var extendDisplayTypeClasses = [];
         if (displayData.is_angle_default)
@@ -65,14 +99,180 @@ function DisplayOverviewHandler(angleHandler) {
             IsSelected: currentDisplay === displayData.uri,
             IsNewAdhoc: isNewAdhoc,
             UnSavedClassName: hasAdhocSign ? 'icon-adhoc sign-unsaved' : 'none',
-            Sorting: kendo.format('{0}_{1}', isNewAdhoc ? '0' : '1', name)
+            GroupId: groupInfo.id,
+            Sorting: groupInfo.sorting,
+            Sortable: self.Sortable(display)
         };
+    };
+    self.GetGroupInfo = function (display) {
+        var name = display.GetName();
+        var template = '{0}_{1}';
+        if (display.Data().is_public()) {
+            // public -> display.order -> display.name
+            var order = typeof display.Data().order === 'number' ? display.Data().order : 999;
+            return {
+                id: DisplayOverviewHandler.DisplayGroup.Public,
+                sorting: kendo.format(template, DisplayOverviewHandler.DisplayGroup.Public * 1000 + order, name)
+            };
+        }
+        else if (!display.Data().created || display.Data().created.user === userModel.Data().uri) {
+            // my private -> display.name
+            return {
+                id: DisplayOverviewHandler.DisplayGroup.MyPrivate,
+                sorting: kendo.format(template, DisplayOverviewHandler.DisplayGroup.MyPrivate * 1000, name)
+            };
+        }
+        else {
+            // other private -> display.name
+            return {
+                id: DisplayOverviewHandler.DisplayGroup.OtherPrivate,
+                sorting: kendo.format(template, DisplayOverviewHandler.DisplayGroup.OtherPrivate * 1000, name)
+            };
+        }
+    };
+    self.GetGroupOption = function (groupId) {
+        return self.Group[groupId] || { Header: '', Visible: ko.observable(false), ForceClose: ko.observable(false) };
+    };
+    self.IsVisible = function (display) {
+        var option = self.GetGroupOption(display.GroupId);
+        return option.Visible() && !option.ForceClose();
+    };
+    self.SetVisibility = function (display) {
+        var option = self.GetGroupOption(display.GroupId);
+        option.Visible(!option.Visible());
+        userSettingModel.SetDisplayGroupSettings(option.Key, option.Visible());
+        self.UpdateScrollButtonState();
+    };
+    self.GroupHeader = function (display) {
+        var index = self.Displays.indexOf(display);
+        var previousDisplay = self.Displays()[index - 1];
+
+        if (previousDisplay && previousDisplay.GroupId === display.GroupId)
+            return '';
+
+        var option = self.GetGroupOption(display.GroupId);
+        var count = self.Displays().findObjects('GroupId', display.GroupId).length;
+        return kendo.format(option.Header, count);
+    };
+    self.IsGroupActive = function (display) {
+        var selectedDisplay = self.Displays().findObject('IsSelected', true);
+        return selectedDisplay && selectedDisplay.GroupId === display.GroupId;
+    };
+
+    // sortable
+    self.InitialSortable = function () {
+        var element = jQuery('#DisplayTabs .tab-menu-wrapper');
+        if (element.data('kendoSortable'))
+            return;
+
+        element.kendoSortable({
+            container: element,
+            autoScroll: true,
+            cursor: 'move',
+            filter: '.sortable',
+            axis: 'x',
+            hint: self.CreateSortableHint,
+            placeholder: self.CreateSortablePlaceholder,
+            start: self.SortableStart,
+            move: self.SortableMove,
+            change: self.SortableChange,
+            end: self.SortableRestore,
+            cancel: self.SortableRestore
+        });
+    };
+    self.Sortable = function (display) {
+        return display.CanUpdateOrder();
+    };
+    self.CreateSortableHint = function (element) {
+        var tab = element.clone();
+        tab.addClass('active');
+        var hint = jQuery('<div class="tab display-tab display-tab-hint"/>');
+        hint.append(jQuery('<div class="tab-menu-wrapper"/>').append(tab));
+        return hint;
+    };
+    self.CreateSortablePlaceholder = function (element) {
+        var placeholder = element.clone();
+        placeholder.removeClass('active');
+        placeholder.addClass('tab-menu-placeholder');
+        return placeholder;
+    };
+    self.SortableStart = function (e) {
+        if (!self.AngleHandler.Validate() || self.Displays().findObjects('Sortable', true).length <= 1) {
+            e.preventDefault();
+            return;
+        }
+
+        self.Group[DisplayOverviewHandler.DisplayGroup.MyPrivate].ForceClose(true);
+        self.Group[DisplayOverviewHandler.DisplayGroup.OtherPrivate].ForceClose(true);
+        jQuery('#DisplayTabs').addClass('sorting');
+    };
+    self.SortableMove = function () {
+        self.UpdateScrollButtonState();
+    };
+    self.SortableRestore = function () {
+        self.Group[DisplayOverviewHandler.DisplayGroup.MyPrivate].ForceClose(false);
+        self.Group[DisplayOverviewHandler.DisplayGroup.OtherPrivate].ForceClose(false);
+        setTimeout(function () {
+            self.UpdateScrollButtonState();
+            jQuery('#DisplayTabs').removeClass('sorting');
+        }, 1);
+    };
+    self.SortableChange = function () {
+        // get data
+        var orders = self.GetDisplayOrdersData();
+        if (!orders.length)
+            return;
+
+        // save
+        var save = jQuery.proxy(self.SaveOrders, self, orders);
+        self.AngleHandler.ConfirmSave(null, save, self.SaveOrdersCancel);
+    };
+    self.GetDisplayOrdersData = function () {
+        var orders = [];
+        var order = 1;
+        jQuery('#DisplayTabs .tab-menu').each(function (_index, element) {
+            var model = ko.dataFor(element);
+            if (model && model.Sortable) {
+                var rawDisplay = self.AngleHandler.GetRawDisplay(model.Uri);
+                if (!rawDisplay || rawDisplay.order !== order) {
+                    orders.push({
+                        uri: model.Uri,
+                        order: order
+                    });
+                }
+                order++;
+            }
+        });
+        return orders;
+    };
+    self.SaveOrders = function (orders) {
+        progressbarModel.ShowStartProgressBar();
+        progressbarModel.SetDisableProgressBar();
+        self.AngleHandler.SaveOrders(orders)
+            .fail(self.SaveOrdersFail)
+            .done(self.SaveOrdersDone)
+            .always(function () {
+                progressbarModel.EndProgressBar();
+            });
+    };
+    self.SaveOrdersCancel = function () {
+        // restore back
+        self.Displays(ko.toJS(self.Displays()));
+    };
+    self.SaveOrdersDone = function () {
+        toast.MakeSuccessTextFormatting(self.AngleHandler.GetName(), Localization.Toast_SaveItem);
+        var selectedDisplay = self.Displays().findObject('IsSelected', true);
+        self.SetData(self.AngleHandler.Displays, selectedDisplay.Uri);
+    };
+    self.SaveOrdersFail = function () {
+        // restore back
+        self.Displays(ko.toJS(self.Displays()));
     };
 
     // overview popup
     self.Show = function () {
         var target = jQuery('#DisplayOverview');
-        target.html(self.GetHtml(self.Displays()));
+        target.html(self.GetHtml(ko.toJS(self.Displays())));
         target.off('click', '.listview-item').on('click', '.listview-item', self.OnSelect);
         target.off('click', '.btn-delete').on('click', '.btn-delete', self.OnDelete);
         target.show();
@@ -109,7 +309,7 @@ function DisplayOverviewHandler(angleHandler) {
         self.Close();
     };
     self.GetHtml = function (displays) {
-        displays.sortObject('name', enumHandlers.SORTDIRECTION.ASC, false);
+        displays.sortObject('Name', enumHandlers.SORTDIRECTION.ASC, false);
         var html = ['<ul class="listview listview-popup display-listview">'];
         jQuery.each(displays, function (index, display) {
             var template = [
@@ -142,13 +342,13 @@ function DisplayOverviewHandler(angleHandler) {
         if (jQuery(e.currentTarget).hasClass('disabled'))
             return;
 
-        self.ScrollLeft(jQuery('#DisplayTabs .tab-menu-wrapper'));
+        self.ScrollLeft();
     };
     self.MoveRight = function (_data, e) {
         if (jQuery(e.currentTarget).hasClass('disabled'))
             return;
 
-        self.ScrollRight(jQuery('#DisplayTabs .tab-menu-wrapper'));
+        self.ScrollRight();
     };
     self.GetDisplayTabsContainerWidth = function () {
         var container = jQuery('#DisplayTabs');
@@ -163,7 +363,7 @@ function DisplayOverviewHandler(angleHandler) {
         jQuery('#BtnScrollLeft').removeClass('disabled invisible');
         jQuery('#BtnScrollRight').removeClass('disabled invisible');
 
-        var allTabsWidth = container.find('.tab-menu').map(function () {
+        var allTabsWidth = container.find('.tab-menu-header,.tab-menu').map(function () {
             return Math.floor(this.getBoundingClientRect().width);
         }).get().sum();
 
@@ -186,20 +386,21 @@ function DisplayOverviewHandler(angleHandler) {
         }
     };
     self.ScrollToFocusedDisplay = function () {
-        var activedTab = jQuery('#DisplayTabs .tab-menu.active');
-        if (!activedTab.length) {
+        var target = jQuery('#DisplayTabs .tab-menu.active');
+        if (!target.length)
             return;
-        }
+
+        if (target.is(':hidden'))
+            target = jQuery('#DisplayTabs .tab-menu-header.active');
 
         var containerSpace = self.GetDisplayTabsContainerWidth();
         var currentScroll = jQuery('#DisplayTabs .tab-menu-wrapper').scrollLeft();
-        var displayTabLeft = activedTab.position().left;
-        var displayTabRight = displayTabLeft + activedTab.outerWidth();
+        var displayTabLeft = target.position().left;
+        var displayTabRight = displayTabLeft + target.outerWidth();
 
         // when the actived tab is on the container
-        if (displayTabLeft >= 0 && displayTabRight <= containerSpace) {
+        if (displayTabLeft >= 0 && displayTabRight <= containerSpace)
             return;
-        }
 
         var newScrollLeft = 0;
         // when the actived tab is on the rightmost of the container
@@ -213,43 +414,51 @@ function DisplayOverviewHandler(angleHandler) {
 
         self.UpdateScrollButtonState();
     };
-    self.ScrollLeft = function (displayBar) {
-        var newLeft = self.FindPreviousTabPosition(displayBar);
-        displayBar.animate({ scrollLeft: newLeft }, 100, self.UpdateScrollButtonState);
+    self.ScrollLeft = function () {
+        var target = jQuery('#DisplayTabs .tab-menu-wrapper');
+        var newLeft = self.FindPreviousTabPosition(target);
+        target.animate({ scrollLeft: newLeft }, 100, self.UpdateScrollButtonState);
     };
-    self.ScrollRight = function (displayBar) {
-        var newLeft = self.FindNextTabPosition(displayBar);
-        displayBar.animate({ scrollLeft: newLeft }, 100, self.UpdateScrollButtonState);
+    self.ScrollRight = function () {
+        var target = jQuery('#DisplayTabs .tab-menu-wrapper');
+        var newLeft = self.FindNextTabPosition(target);
+        target.animate({ scrollLeft: newLeft }, 100, self.UpdateScrollButtonState);
     };
     self.FindPreviousTabPosition = function (displayBar) {
-        var leftMostTabs = jQuery('#DisplayTabs .tab-menu').filter(function () {
+        var leftMostTabs = jQuery('#DisplayTabs').find('.tab-menu:visible').filter(function () {
             return jQuery(this).position().left < 0;
         });
 
-        if (leftMostTabs.length <= 1) {
+        if (leftMostTabs.length <= 1)
             return 0;
-        }
 
-        var currentScroll = displayBar.scrollLeft();
+        var position = displayBar.scrollLeft();
         var tab = jQuery(leftMostTabs[leftMostTabs.length - 1]);
         if (tab.position().left < 0) {
-            return currentScroll + tab.position().left;
+            var prevTab = tab.prev('.tab-menu-header');
+            position += prevTab.length ? prevTab.position().left : tab.position().left;
         }
         else {
-            return currentScroll - parseInt(tab.outerWidth());
+            position -= tab.outerWidth();
         }
+        return parseInt(position);
     };
     self.FindNextTabPosition = function (displayBar) {
-        var nextTabs = jQuery('#DisplayTabs .tab-menu').filter(function () {
+        var nextTabs = jQuery('#DisplayTabs').find('.tab-menu-header,.tab-menu:visible').filter(function () {
             return jQuery(this).position().left + 1 >= 0;
         });
 
-        if (nextTabs.length === 0) {
+        if (!nextTabs.length)
             return 0;
-        }
 
-        var currentScroll = displayBar.scrollLeft();
-        return currentScroll + parseInt(jQuery(nextTabs[0]).outerWidth());
+        var position = displayBar.scrollLeft();
+        nextTabs.each(function (_index, tab) {
+            tab = jQuery(tab);
+            position += tab.outerWidth();
+            if (tab.hasClass('tab-menu'))
+                return false;
+        });
+        return parseInt(position);
     };
 
     // new display popup
@@ -357,6 +566,7 @@ function DisplayOverviewHandler(angleHandler) {
         html.push('</ul>');
         return html.join('');
     };
+
     // Display option
     self.CanKeepFilter = function () {
         if (self.IsEditMode())
@@ -371,4 +581,16 @@ function DisplayOverviewHandler(angleHandler) {
     self.IsEditMode = function () {
         return !!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.EDITMODE);
     };
+
+    // execution info
+    self.UpdateExecutionInfo = function () {
+        var currentDisplay = self.AngleHandler.GetCurrentDisplay();
+        self.ExecutionInfo(currentDisplay ? currentDisplay.GetResultExecution() : '');
+    };
 }
+
+DisplayOverviewHandler.DisplayGroup = {
+    Public: 1,
+    MyPrivate: 2,
+    OtherPrivate: 3
+};

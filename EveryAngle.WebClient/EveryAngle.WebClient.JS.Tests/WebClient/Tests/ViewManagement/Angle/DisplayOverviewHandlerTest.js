@@ -1,41 +1,20 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ProgressBar.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 
 describe("DisplayOverviewHandler", function () {
 
     var displayOverviewHandler;
     beforeEach(function () {
-        createMockHandler(window, 'DisplayHandler', function () {
-            this.CreateNew = $.noop;
-            this.GetData = $.noop;
+        var angleHandler = new AngleHandler({
+            id: '1234',
+            multi_lang_name: [
+                { lang: 'en', text: 'name-en' },
+                { lang: 'nl', text: '' }
+            ],
+            uri: '/angles/1'
         });
-
-        var angleHandler = {
-            Data: ko.observable({
-                id: '1234',
-                multi_lang_name: [
-                    { lang: 'en', text: 'name-en' },
-                    { lang: 'nl', text: '' }
-                ],
-                uri: '/angles/1'
-            }),
-            GetDisplay: function () {
-                return {
-                    GetName: $.noop
-                };
-            },
-            AddDisplay: $.noop,
-            IsAdhoc: $.noop,
-            AllowMoreDetails: $.noop,
-            GetCurrentDisplay: $.noop,
-            GetData: $.noop
-        };
-
         displayOverviewHandler = new DisplayOverviewHandler(angleHandler);
-    });
-
-    afterEach(function () {
-        restoreMockHandlers();
     });
 
     describe("constructor", function () {
@@ -47,6 +26,28 @@ describe("DisplayOverviewHandler", function () {
             expect($.isFunction(displayOverviewHandler.CreateNewDisplay)).toEqual(true);
             expect($.isFunction(displayOverviewHandler.DeleteDisplay)).toEqual(true);
             expect($.isFunction(displayOverviewHandler.SwitchDisplay)).toEqual(true);
+            expect(ko.toJS(displayOverviewHandler.Group)).toEqual({
+                1: { Header: 'Published ({0})', Visible: false, ForceClose: false, Key: 'display_group_public' },
+                2: { Header: 'Private ({0})', Visible: false, ForceClose: false, Key: 'display_group_private' },
+                3: { Header: 'Other ({0})', Visible: false, ForceClose: false, Key: 'display_group_other' }
+            });
+            expect(displayOverviewHandler.ExecutionInfo()).toEqual('');
+        });
+    });
+
+    describe(".Initial", function () {
+        it('should init', function () {
+            // prepare
+            spyOn(displayOverviewHandler, 'InitialSortable');
+            spyOn(WC.HtmlHelper, 'ApplyKnockout');
+            displayOverviewHandler.Initial();
+
+            // assert
+            expect(displayOverviewHandler.Group[1].Visible()).toEqual(true);
+            expect(displayOverviewHandler.Group[2].Visible()).toEqual(false);
+            expect(displayOverviewHandler.Group[3].Visible()).toEqual(false);
+            expect(displayOverviewHandler.InitialSortable).toHaveBeenCalled();
+            expect(WC.HtmlHelper.ApplyKnockout).toHaveBeenCalledTimes(2);
         });
     });
 
@@ -56,11 +57,13 @@ describe("DisplayOverviewHandler", function () {
             var displays = [{}, {}, {}];
             spyOn(Array.prototype, 'sortObject');
             spyOn(displayOverviewHandler, 'GetInfo').and.returnValue({});
+            spyOn(displayOverviewHandler, 'UpdateExecutionInfo');
             displayOverviewHandler.SetData(displays, '');
 
             // assert
             expect(displayOverviewHandler.Displays().length).toEqual(3);
             expect(Array.prototype.sortObject).toHaveBeenCalled();
+            expect(displayOverviewHandler.UpdateExecutionInfo).toHaveBeenCalled();
         });
     });
 
@@ -86,6 +89,7 @@ describe("DisplayOverviewHandler", function () {
                 get_filters: [],
                 get_jumps: [],
                 level: 'error',
+                sortable: true,
                 expected: {
                     id: 'id1',
                     uri: '/displays/1',
@@ -105,7 +109,9 @@ describe("DisplayOverviewHandler", function () {
                     is_selected: true,
                     is_new_adhoc: false,
                     unsaved_css: 'icon-adhoc sign-unsaved',
-                    sorting: '1_name1'
+                    group_id: 1,
+                    sorting: '1999_name1',
+                    sortable: true
                 }
             },
             {
@@ -128,6 +134,7 @@ describe("DisplayOverviewHandler", function () {
                 get_filters: [{}],
                 get_jumps: [],
                 level: 'warning',
+                sortable: false,
                 expected: {
                     id: 'id2',
                     uri: '/displays/2',
@@ -147,7 +154,9 @@ describe("DisplayOverviewHandler", function () {
                     is_selected: false,
                     is_new_adhoc: true,
                     unsaved_css: 'none',
-                    sorting: '0_name2'
+                    group_id: 2,
+                    sorting: '2000_name2',
+                    sortable: false
                 }
             },
             {
@@ -160,7 +169,8 @@ describe("DisplayOverviewHandler", function () {
                     used_in_task: false,
                     is_parameterized: false,
                     is_public: false,
-                    authorizations: { 'delete': false }
+                    authorizations: { 'delete': false },
+                    created: { user: '/users/2' }
                 },
                 current_uri: '/displays/1',
                 name: 'name3',
@@ -170,6 +180,7 @@ describe("DisplayOverviewHandler", function () {
                 get_filters: [],
                 get_jumps: [{}],
                 level: '',
+                sortable: false,
                 expected: {
                     id: 'id3',
                     uri: '/displays/3',
@@ -189,45 +200,26 @@ describe("DisplayOverviewHandler", function () {
                     is_selected: false,
                     is_new_adhoc: true,
                     unsaved_css: 'none',
-                    sorting: '0_name3'
+                    group_id: 3,
+                    sorting: '3000_name3',
+                    sortable: false
                 }
             }
         ];
         $.each(tests, function (index, test) {
             it(test.title, function () {
                 // prepare
-                var display = {
-                    GetData: function () {
-                        return test.data;
-                    },
-                    GetName: function () {
-                        return test.name;
-                    },
-                    HasChanged: function () {
-                        return test.has_changed;
-                    },
-                    CanCreateOrUpdate: function () {
-                        return test.create_or_update;
-                    },
-                    GetRawData: function () {
-                        return test.get_raw_data;
-                    },
-                    GetValidationResult: function () {
-                        return { Level: test.level };
-                    },
-                    AngleHandler: {
-                        Data: function () {
-                            return {};
-                        }
-                    },
-                    QueryDefinitionHandler: {
-                        GetFilters: function () { return test.get_filters; },
-                        GetJumps: function () { return test.get_jumps; },
-                        GetExecutionParameters: function () {
-                            return test.data.is_parameterized ? [{}] : [];
-                        }
-                    }
-                };
+                userModel.Data({ uri: '/users/1' });
+                var display = new DisplayHandler(test.data, displayOverviewHandler.AngleHandler);
+                spyOn(display, 'GetName').and.returnValue(test.name);
+                spyOn(display, 'HasChanged').and.returnValue(test.has_changed);
+                spyOn(display, 'CanCreateOrUpdate').and.returnValue(test.create_or_update);
+                spyOn(display, 'GetRawData').and.returnValue(test.get_raw_data);
+                spyOn(display, 'GetValidationResult').and.returnValue({ Level: test.level });
+                spyOn(display, 'CanUpdateOrder').and.returnValue(test.sortable);
+                spyOn(display.QueryDefinitionHandler, 'GetFilters').and.returnValue(test.get_filters);
+                spyOn(display.QueryDefinitionHandler, 'GetJumps').and.returnValue(test.get_jumps);
+                spyOn(display.QueryDefinitionHandler, 'GetExecutionParameters').and.returnValue(test.data.is_parameterized ? [{}] : []);
                 var result = displayOverviewHandler.GetInfo(display, test.current_uri);
 
                 // assert
@@ -250,7 +242,383 @@ describe("DisplayOverviewHandler", function () {
                 expect(result.IsNewAdhoc).toEqual(test.expected.is_new_adhoc);
                 expect(result.UnSavedClassName).toEqual(test.expected.unsaved_css);
                 expect(result.Sorting).toEqual(test.expected.sorting);
+                expect(result.Sortable).toEqual(test.expected.sortable);
             });
+        });
+    });
+
+    describe(".GetGroupOption", function () {
+        it('should get option (1)', function () {
+            // prepare
+            var result = displayOverviewHandler.GetGroupOption(1);
+
+            // assert
+            expect(ko.toJS(result)).toEqual({ Header: 'Published ({0})', Visible: false, ForceClose: false, Key: 'display_group_public' });
+        });
+        it('should get option (any)', function () {
+            // prepare
+            var result = displayOverviewHandler.GetGroupOption('any');
+
+            // assert
+            expect(ko.toJS(result)).toEqual({ Header: '', Visible: false, ForceClose: false });
+        });
+    });
+
+    describe(".IsVisible", function () {
+        it('should be true', function () {
+            // prepare
+            displayOverviewHandler.Group[2].Visible(true);
+            displayOverviewHandler.Group[2].ForceClose(false);
+            var result = displayOverviewHandler.IsVisible({ GroupId: 2 });
+
+            // assert
+            expect(result).toEqual(true);
+        });
+        it('should be false', function () {
+            // prepare
+            displayOverviewHandler.Group[2].Visible(true);
+            displayOverviewHandler.Group[2].ForceClose(true);
+            var result = displayOverviewHandler.IsVisible({ GroupId: 2 });
+
+            // assert
+            expect(result).toEqual(false);
+        });
+    });
+
+    describe(".SetVisibility", function () {
+        it('should set visibility', function () {
+            // prepare
+            spyOn(displayOverviewHandler, 'UpdateScrollButtonState');
+            spyOn(userSettingModel, 'SetDisplayGroupSettings');
+            displayOverviewHandler.SetVisibility({ GroupId: 1 });
+
+            // assert
+            expect(displayOverviewHandler.Group[1].Visible()).toEqual(true);
+            expect(userSettingModel.SetDisplayGroupSettings).toHaveBeenCalled();
+            expect(displayOverviewHandler.UpdateScrollButtonState).toHaveBeenCalled();
+        });
+    });
+
+    describe(".GroupHeader", function () {
+        it('should get empty', function () {
+            // prepare
+            displayOverviewHandler.Displays([
+                { GroupId: 1 },
+                { GroupId: 1 },
+                { GroupId: 2 }
+            ]);
+            var result = displayOverviewHandler.GroupHeader(displayOverviewHandler.Displays()[1]);
+
+            // assert
+            expect(result).toEqual('');
+        });
+        it('should get header', function () {
+            // prepare
+            displayOverviewHandler.Displays([
+                { GroupId: 1 },
+                { GroupId: 1 },
+                { GroupId: 2 }
+            ]);
+            var result = displayOverviewHandler.GroupHeader(displayOverviewHandler.Displays()[0]);
+
+            // assert
+            expect(result).toEqual('Published (2)');
+        });
+    });
+
+    describe(".IsGroupActive", function () {
+        it('should active', function () {
+            // prepare
+            displayOverviewHandler.Displays([
+                { GroupId: 1, IsSelected: true },
+                { GroupId: 1, IsSelected: false },
+                { GroupId: 2, IsSelected: false }
+            ]);
+            var result = displayOverviewHandler.IsGroupActive(displayOverviewHandler.Displays()[1]);
+
+            // assert
+            expect(result).toBeTruthy();
+        });
+        it('should not active (no selected)', function () {
+            // prepare
+            displayOverviewHandler.Displays([
+                { GroupId: 1, IsSelected: false },
+                { GroupId: 1, IsSelected: false },
+                { GroupId: 2, IsSelected: false }
+            ]);
+            var result = displayOverviewHandler.IsGroupActive(displayOverviewHandler.Displays()[1]);
+
+            // assert
+            expect(result).toBeFalsy();
+        });
+        it('should not active (differnce group)', function () {
+            // prepare
+            displayOverviewHandler.Displays([
+                { GroupId: 1, IsSelected: true },
+                { GroupId: 1, IsSelected: false },
+                { GroupId: 2, IsSelected: false }
+            ]);
+            var result = displayOverviewHandler.IsGroupActive(displayOverviewHandler.Displays()[2]);
+
+            // assert
+            expect(result).toBeFalsy();
+        });
+    });
+
+    describe(".InitialSortable", function () {
+        beforeEach(function () {
+            $.fn.kendoSortable = $.noop;
+            spyOn($.fn, 'kendoSortable');
+        });
+        it('should not init', function () {
+            // prepare
+            spyOn($.fn, 'data').and.returnValue({});
+            displayOverviewHandler.InitialSortable();
+
+            // assert
+            expect($.fn.kendoSortable).not.toHaveBeenCalled();
+        });
+        it('should init', function () {
+            // prepare
+            spyOn($.fn, 'data').and.returnValue(null);
+            displayOverviewHandler.InitialSortable();
+
+            // assert
+            expect($.fn.kendoSortable).toHaveBeenCalled();
+        });
+    });
+
+    describe(".Sortable", function () {
+        it('should be able to sort', function () {
+            // prepare
+            var display = {
+                CanUpdateOrder: function () { return true; }
+            };
+            var result = displayOverviewHandler.Sortable(display);
+
+            // assert
+            expect(result).toEqual(true);
+        });
+    });
+
+    describe(".CreateSortableHint", function () {
+        it('should get hint', function () {
+            // prepare
+            var result = displayOverviewHandler.CreateSortableHint($('<div/>'));
+
+            // assert
+            expect(result.attr('class')).toEqual('tab display-tab display-tab-hint');
+            expect(result.children().attr('class')).toEqual('tab-menu-wrapper');
+            expect(result.children().children().attr('class')).toEqual('active');
+        });
+    });
+
+    describe(".CreateSortablePlaceholder", function () {
+        it('should get placeholder', function () {
+            // prepare
+            var result = displayOverviewHandler.CreateSortablePlaceholder($('<div class="tab-menu active"/>'));
+
+            // assert
+            expect(result.attr('class')).toEqual('tab-menu tab-menu-placeholder');
+        });
+    });
+
+    describe(".SortableStart", function () {
+        var e;
+        beforeEach(function () {
+            e = {
+                preventDefault: $.noop
+            };
+            spyOn(e, 'preventDefault');
+            spyOn($.fn, 'addClass');
+            displayOverviewHandler.Displays([{ Sortable: true }, { Sortable: true }]);
+        });
+        it('should not start (invalid)', function () {
+            // prepare
+            spyOn(displayOverviewHandler.AngleHandler, 'Validate').and.returnValue(false);
+            displayOverviewHandler.SortableStart(e);
+
+            // assert
+            expect(e.preventDefault).toHaveBeenCalled();
+            expect($.fn.addClass).not.toHaveBeenCalled();
+        });
+        it('should not start (1 sortable item)', function () {
+            // prepare
+            displayOverviewHandler.Displays()[0].Sortable = false;
+            spyOn(displayOverviewHandler.AngleHandler, 'Validate').and.returnValue(false);
+            displayOverviewHandler.SortableStart(e);
+
+            // assert
+            expect(e.preventDefault).toHaveBeenCalled();
+            expect($.fn.addClass).not.toHaveBeenCalled();
+        });
+        it('should start', function () {
+            // prepare
+            spyOn(displayOverviewHandler.AngleHandler, 'Validate').and.returnValue(true);
+            displayOverviewHandler.SortableStart(e);
+
+            // assert
+            expect(e.preventDefault).not.toHaveBeenCalled();
+            expect($.fn.addClass).toHaveBeenCalledWith('sorting');
+            expect(displayOverviewHandler.Group[DisplayOverviewHandler.DisplayGroup.MyPrivate].ForceClose()).toEqual(true);
+            expect(displayOverviewHandler.Group[DisplayOverviewHandler.DisplayGroup.OtherPrivate].ForceClose()).toEqual(true);
+        });
+    });
+
+    describe(".SortableMove", function () {
+        it('should update arrow buttons', function () {
+            // prepare
+            spyOn(displayOverviewHandler, 'UpdateScrollButtonState');
+            displayOverviewHandler.SortableMove();
+
+            // assert
+            expect(displayOverviewHandler.UpdateScrollButtonState).toHaveBeenCalled();
+        });
+    });
+
+    describe(".SortableRestore", function () {
+        it('should clear UI', function (done) {
+            // prepare
+            var e = {
+                sender: {
+                    draggable: {
+                        options: {}
+                    }
+                }
+            };
+            spyOn($.fn, 'removeClass');
+            spyOn(displayOverviewHandler, 'UpdateScrollButtonState');
+            displayOverviewHandler.SortableRestore(e);
+
+            // assert
+            expect(displayOverviewHandler.Group[DisplayOverviewHandler.DisplayGroup.MyPrivate].ForceClose()).toEqual(false);
+            expect(displayOverviewHandler.Group[DisplayOverviewHandler.DisplayGroup.OtherPrivate].ForceClose()).toEqual(false);
+            setTimeout(function () {
+                expect($.fn.removeClass).toHaveBeenCalledWith('sorting');
+                expect(displayOverviewHandler.UpdateScrollButtonState).toHaveBeenCalled();
+                done();
+            }, 100);
+        });
+    });
+
+    describe(".SortableChange", function () {
+        beforeEach(function () {
+            spyOn(displayOverviewHandler.AngleHandler, 'ConfirmSave');
+        });
+        it('should not save', function () {
+            // prepare
+            spyOn(displayOverviewHandler, 'GetDisplayOrdersData').and.returnValue([]);
+            displayOverviewHandler.SortableChange();
+
+            // assert
+            expect(displayOverviewHandler.AngleHandler.ConfirmSave).not.toHaveBeenCalled();
+        });
+        it('should save', function () {
+            // prepare
+            spyOn(displayOverviewHandler, 'GetDisplayOrdersData').and.returnValue([{}]);
+            displayOverviewHandler.SortableChange();
+
+            // assert
+            expect(displayOverviewHandler.AngleHandler.ConfirmSave).toHaveBeenCalled();
+        });
+    });
+
+    describe(".GetDisplayOrdersData", function () {
+        beforeEach(function () {
+            $('<div id="DisplayTabs"/>')
+                .append('<div class="tab-menu" />')
+                .append('<div class="tab-menu" />')
+                .append('<div class="tab-menu" />')
+                .append('<div class="tab-menu" />')
+                .append('<div class="tab-menu" />')
+                .append('<div class="tab-menu" />')
+                .append('<div class="tab-menu" />')
+                .appendTo('body');
+        });
+        afterEach(function () {
+            $('#DisplayTabs').remove();
+        });
+        it('should get data', function () {
+            // prepare
+            spyOn(ko, 'dataFor').and.returnValues(
+                null,                                       // no: no model data
+                { Sortable: false, Uri: '/displays/1' },    // no: cannot sort
+                { Sortable: true, Uri: '/displays/2' },     // yes: no Display data, order=1
+                { Sortable: true, Uri: '/displays/3' },     // no: no changes
+                { Sortable: true, Uri: '/displays/4' },     // yes: has changed, order=3
+                { Sortable: true, Uri: '/displays/5' });    // yes: has changed, order=4
+            spyOn(displayOverviewHandler.AngleHandler, 'GetRawDisplay').and.callFake(function (uri) {
+                var displays = {
+                    '/displays/1': {},
+                    '/displays/3': { order: 2 },
+                    '/displays/4': { order: 0 },
+                    '/displays/5': {}
+                };
+                return displays[uri];
+            });
+            var results = displayOverviewHandler.GetDisplayOrdersData();
+
+            // assert
+            expect(results).toEqual([
+                { uri: '/displays/2', order: 1 },
+                { uri: '/displays/4', order: 3 },
+                { uri: '/displays/5', order: 4 }
+            ]);
+        });
+    });
+
+    describe(".SaveOrders", function () {
+        it('should save', function () {
+            // prepare
+            spyOn(displayOverviewHandler.AngleHandler, 'SaveOrders').and.returnValue($.when());
+            spyOn(progressbarModel, 'ShowStartProgressBar');
+            spyOn(progressbarModel, 'SetDisableProgressBar');
+            spyOn(progressbarModel, 'EndProgressBar');
+            spyOn(displayOverviewHandler, 'SaveOrdersDone');
+            displayOverviewHandler.SaveOrders();
+
+            // assert
+            expect(displayOverviewHandler.AngleHandler.SaveOrders).toHaveBeenCalled();
+            expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
+            expect(progressbarModel.SetDisableProgressBar).toHaveBeenCalled();
+            expect(progressbarModel.EndProgressBar).toHaveBeenCalled();
+            expect(displayOverviewHandler.SaveOrdersDone).toHaveBeenCalled();
+        });
+    });
+
+    describe(".SaveOrdersCancel", function () {
+        it('should restore the ordering', function () {
+            // prepare
+            spyOn(displayOverviewHandler, 'Displays');
+            displayOverviewHandler.SaveOrdersCancel();
+
+            // assert
+            expect(displayOverviewHandler.Displays).toHaveBeenCalled();
+        });
+    });
+
+    describe(".SaveOrdersFail", function () {
+        it('should restore the ordering', function () {
+            // prepare
+            spyOn(displayOverviewHandler, 'Displays');
+            displayOverviewHandler.SaveOrdersFail();
+
+            // assert
+            expect(displayOverviewHandler.Displays).toHaveBeenCalled();
+        });
+    });
+
+    describe(".SaveOrdersDone", function () {
+        it('should show notifiaction and update data', function () {
+            // prepare
+            displayOverviewHandler.Displays([{ IsSelected: true }]);
+            spyOn(toast, 'MakeSuccessTextFormatting');
+            spyOn(displayOverviewHandler, 'SetData');
+            displayOverviewHandler.SaveOrdersDone();
+
+            // assert);
+            expect(toast.MakeSuccessTextFormatting).toHaveBeenCalled();
+            expect(displayOverviewHandler.SetData).toHaveBeenCalled();
         });
     });
 
@@ -333,6 +701,48 @@ describe("DisplayOverviewHandler", function () {
 
             // assert
             expect(result).toContain('display-listview');
+        });
+    });
+
+    describe(".MoveLeft", function () {
+        it('should not move', function () {
+            // prepare
+            var e = { currentTarget: $('<div class="disabled"/>') };
+            spyOn(displayOverviewHandler, 'ScrollLeft');
+            displayOverviewHandler.MoveLeft(null, e);
+
+            // assert
+            expect(displayOverviewHandler.ScrollLeft).not.toHaveBeenCalled();
+        });
+        it('should move', function () {
+            // prepare
+            var e = { currentTarget: $('<div/>') };
+            spyOn(displayOverviewHandler, 'ScrollLeft');
+            displayOverviewHandler.MoveLeft(null, e);
+
+            // assert
+            expect(displayOverviewHandler.ScrollLeft).toHaveBeenCalled();
+        });
+    });
+
+    describe(".MoveRight", function () {
+        it('should not move', function () {
+            // prepare
+            var e = { currentTarget: $('<div class="disabled"/>') };
+            spyOn(displayOverviewHandler, 'ScrollRight');
+            displayOverviewHandler.MoveRight(null, e);
+
+            // assert
+            expect(displayOverviewHandler.ScrollRight).not.toHaveBeenCalled();
+        });
+        it('should move', function () {
+            // prepare
+            var e = { currentTarget: $('<div/>') };
+            spyOn(displayOverviewHandler, 'ScrollRight');
+            displayOverviewHandler.MoveRight(null, e);
+
+            // assert
+            expect(displayOverviewHandler.ScrollRight).toHaveBeenCalled();
         });
     });
 
@@ -485,6 +895,7 @@ describe("DisplayOverviewHandler", function () {
             // prepare
             spyOn(toast, 'MakeSuccessTextFormatting');
             spyOn(displayOverviewHandler, 'Redirect');
+            spyOn(displayOverviewHandler.AngleHandler, 'GetDisplay').and.returnValue(new DisplayHandler({}, displayOverviewHandler.AngleHandler));
             displayOverviewHandler.CreateNewDisplayDone({ id: '123', uri: '', is_adhoc: false });
 
             // assert
@@ -646,6 +1057,19 @@ describe("DisplayOverviewHandler", function () {
                 // assert
                 expect(result).toEqual(test.expected);
             });
+        });
+    });
+
+    describe(".UpdateExecutionInfo", function () {
+        it('should update execution info', function () {
+            // prepare
+            var display = new DisplayHandler({}, displayOverviewHandler.AngleHandler);
+            spyOn(display, 'GetResultExecution').and.returnValue('my-execution-info');
+            spyOn(displayOverviewHandler.AngleHandler, 'GetCurrentDisplay').and.returnValue(display);
+            displayOverviewHandler.UpdateExecutionInfo();
+
+            // assert
+            expect(displayOverviewHandler.ExecutionInfo()).toContain('my-execution-info');
         });
     });
 });

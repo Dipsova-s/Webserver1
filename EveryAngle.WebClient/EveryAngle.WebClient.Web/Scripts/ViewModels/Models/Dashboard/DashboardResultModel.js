@@ -13,9 +13,11 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
     self.AngleModel = new AngleInfoViewModel(self.Angle);
     self.DisplayModel = new DisplayModel(self.Display);
     self.DashboardModel = dashboardViewModel;
+    self.ResultErrorXhr = null;
     //EOF: View model properties
 
     self.Execute = function () {
+        self.ResultErrorXhr = null;
         self.ShowBusyIndicator();
         return self.CheckPostIntegrityQueue()
             .then(self.PostIntegrity)
@@ -138,13 +140,14 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
         };
         return CreateDataToWebService(directoryHandler.ResolveDirectoryUri(self.Data().execute_steps) + '?redirect=no', query);
     };
-    self.RetryPostResult = function (msg) {
-        var message = errorHandlerModel.GetAreaErrorMessage(msg);
+    self.SetRetryPostResult = function (xhr, element) {
+        xhr = xhr || {};
+        var message = xhr.status === 404
+            ? Localization.MessageAngleNeedsToBeReExecuted
+            : errorHandlerModel.GetAreaErrorMessage(xhr.responseText);
         self.HideBusyIndicator();
         dashboardPageHandler.RemoveWidgetDisplayElement(self.ElementId.slice(1), jQuery(self.ElementId + '-inner'), self.Display);
-        errorHandlerModel.ShowAreaError(self.ElementId, message, function () {
-            self.Execute();
-        });
+        errorHandlerModel.ShowAreaError(element, message, self.Execute);
     };
     self.ShowBusyIndicator = function () {
         jQuery(self.ElementId + '-inner').busyIndicator(true);
@@ -167,7 +170,11 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
         else {
             // finished but not successfully_completed
             if (!response.successfully_completed) {
-                jQuery.when(self.SetNotSuccessfullyCompleted())
+                self.SetNotSuccessfullyCompleted()
+                    .fail(self.ApplyResultFail);
+            }
+            else if (response.sorting_limit_exceeded) {
+                self.SetSortingLimitExceeded(response.sorting_limit_exceeded)
                     .fail(self.ApplyResultFail);
             }
             else {
@@ -186,8 +193,6 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
                         return modelInstanceFieldsHandler.LoadFieldsByIds(self.Data().query_fields, fields);
                     }
                 };
-
-                defaultValueHandler.CheckAndExtendProperties(response, enumHandlers.VIEWMODELNAME.RESULTMODEL, true);
                 response.query_definition = self.Data().query_definition;
                 self.Data(response);
                 jQuery.when(
@@ -195,10 +200,12 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
                     loadDataFields()
                 )
                 .fail(function (requests) {
-                    if (requests[0] instanceof Array) requests = requests[0];
-                    if (requests[0] instanceof Array) requests = requests[0];
-
-                    self.RetryPostResult(requests.responseText);
+                    if (requests[0] instanceof Array)
+                        requests = requests[0];
+                    if (requests[0] instanceof Array)
+                        requests = requests[0];
+                    self.ResultErrorXhr = requests;
+                    self.SetRetryPostResult(requests, self.ElementId);
                 })
                 .done(function () {
                     self.ApplyResult();
@@ -215,6 +222,7 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
         switch (self.Display.display_type) {
             case enumHandlers.DISPLAYTYPE.PIVOT:
                 model = new PivotPageHandler(self.ElementId, container);
+                model.HasResult(!self.ResultErrorXhr);
                 model.ReadOnly(true);
                 model.DashBoardMode(true);
                 model.Models.Angle = self.AngleModel;
@@ -223,10 +231,13 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
                 model.Models.Result = self;
                 model.FieldSettings = null;
                 model.GetPivotDisplay();
+                if (self.ResultErrorXhr)
+                    model.ShowError(self.ResultErrorXhr);
                 break;
 
             case enumHandlers.DISPLAYTYPE.CHART:
                 model = new ChartHandler(self.ElementId, container);
+                model.HasResult(!self.ResultErrorXhr);
                 model.ReadOnly(true);
                 model.DashBoardMode(true);
                 model.FitLayout = true;
@@ -238,10 +249,13 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
                 model.Models.Result = self;
                 model.FieldSettings = null;
                 model.GetChartDisplay();
+                if (self.ResultErrorXhr)
+                    model.ShowError(self.ResultErrorXhr);
                 break;
 
             case enumHandlers.DISPLAYTYPE.LIST:
                 model = new ListHandler(self.ElementId, container);
+                model.HasResult(!self.ResultErrorXhr);
                 model.ReadOnly(true);
                 model.DashBoardMode(true);
                 model.Models.Angle = self.AngleModel;
@@ -249,6 +263,8 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
                 model.Models.DisplayQueryBlock = new DisplayQueryBlockModel(self.Display.query_blocks);
                 model.Models.Result = self;
                 model.GetListDisplay();
+                if (self.ResultErrorXhr)
+                    model.ShowError(self.ResultErrorXhr);
                 break;
 
             default:
@@ -264,18 +280,29 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
         };
         return jQuery.Deferred().reject(response, null, null).promise();
     };
+    self.SetSortingLimitExceeded = function (count) {
+        var response = {
+            responseText: kendo.format(Localization.Info_DisplaySortingReachedLimitation, count)
+        };
+        return jQuery.Deferred().reject(response, null, null).promise();
+    };
     self.ApplyResultFail = function (xhr) {
         self.HideBusyIndicator();
         progressbarModel.EndProgressBar();
 
+        if (xhr.status === 503) {
+            var model = modelsHandler.GetModelByUri(self.Angle.model) || { id: self.Angle.model };
+            var modelName = model.short_name || model.id;
+            xhr.responseText = kendo.format(Localization.Info_NoActiveModelInstance, modelName);
+        }
         if (xhr.status === 404) {
             // re-post
             self.Execute();
         }
         else {
-            self.RetryPostResult(xhr.responseText);
+            self.ResultErrorXhr = xhr;
+            self.SetRetryPostResult(xhr, self.ElementId);
         }
-
     };
     self.LoadFields = function () {
         var fields = [];

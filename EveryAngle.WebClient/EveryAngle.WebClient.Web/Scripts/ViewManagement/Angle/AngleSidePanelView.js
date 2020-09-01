@@ -16,7 +16,7 @@
                         '</div>',
                     '</div>',
                 '</div>',
-                '<div class="card-body section-info-body" data-bind="html: GetResultExecution()"></div>',
+                '<div class="card-body section-info-body" data-bind="text: GetObjectInfo()"></div>',
             '</div>'
         ].join('');
     };
@@ -37,6 +37,7 @@
                     '</div>',
                 '</div>',
                 '<div class="accordion-body aggregation-body"></div>',
+                '<hr>',
             '</div>'
         ].join('');
     };
@@ -64,11 +65,20 @@
                         '<div class="form-col">',
                             '<label>' + Localization.ExcelTemplate + '</label>',
                         '</div>',
-                        '<div class="form-col form-col-body">',
+                        '<div class="form-col form-col-body display-excel-template">',
                             '<select class="k-dropdown default-excel-template" id="DefaultExcelTemplate"></select>',
                         '</div>',
                     '</div>',
+                    '<div class="form-row">',
+                        '<div class="form-col template-warning-message" id="template-warning-message-display">',
+                    '</div>',
+                    '</div>',
+                    '<div class="form-row">',
+                        '<div class="form-col innowera-details">',
+                        '</div>',
+                    '</div>',
                 '</div>',
+                '<hr style="display:none;">',
             '</div>'
         ].join('');
     };
@@ -103,7 +113,7 @@
                     '</div>',
                     '<!-- /ko -->',
                 '</div>',
-            '</div>'
+            '</div>',
         ].join('');
     };
 }

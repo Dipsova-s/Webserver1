@@ -1,5 +1,4 @@
-﻿using EveryAngle.Core.Interfaces.Services;
-using EveryAngle.Core.ViewModels;
+﻿using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Cycle;
 using EveryAngle.Core.ViewModels.DataStore;
 using EveryAngle.Core.ViewModels.Directory;
@@ -55,6 +54,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 Version = "1",
                 Entries = new List<Entry> {
                     new Entry { Name = "tasks", Uri = new Uri("/tasks", UriKind.Relative) },
+                    new Entry { Name = "system_scripts", Uri = new Uri("/system_scripts",UriKind.Relative) },
                     new Entry { Name = "eventlog", Uri = new Uri("/eventlog", UriKind.Relative) },
                     new Entry { Name = "system_datastores", Uri = new Uri("/system_datastores", UriKind.Relative) },
                     new Entry { Name = "system_datastore_plugins", Uri = new Uri("/system_datastore_plugins", UriKind.Relative) }
@@ -70,10 +70,14 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 }
             });
 
+            List<FileTemplatesViewModel> fileViewModels = GetMockViewModel<List<FileTemplatesViewModel>>("FileViewModel");
+            excelTemplateService.Setup(x => x.Get()).Returns(fileViewModels);
+
             _testingController = new AutomationTasksController(
                 modelService.Object,
                 taskService.Object,
                 automationTaskService.Object,
+                excelTemplateService.Object,
                 systemScriptService.Object,
                 itemService.Object,
                 sessionHelper.Object);
@@ -82,6 +86,19 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         #endregion
 
         #region tests
+
+        [TestCase]
+        public void Can_CreateAutomationTasksController()
+        {
+            // execute and assert
+            Assert.That(() => new AutomationTasksController(
+                modelService.Object,
+                taskService.Object,
+                automationTaskService.Object,
+                excelTemplateService.Object,
+                systemScriptService.Object,
+                itemService.Object), Throws.Nothing);
+        }
 
         [TestCase]
         public void Can_GetAllTasks()
@@ -124,6 +141,37 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // assert 
             Assert.That(dataStoresUri.Contains(expectedLimit));
+        }
+
+        [TestCase("csv", true)]
+        [TestCase("msexcel", true)]
+        public void Can_GetDatastore(string pluginname, Boolean isdefault)
+        {
+            DataStoresViewModel data = new DataStoresViewModel
+            {
+                datastore_plugin = pluginname,
+                is_default = isdefault,
+                Uri = new Uri("/system/datastores", UriKind.Relative),
+                data_settings = new ModelServerSettings
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Id = pluginname.Equals("msexcel") ? "template_file" : null
+                            }
+                        }
+                }
+            };
+
+            // setup
+            automationTaskService.Setup(x => x.GetDatastore(It.IsAny<string>())).Returns(data);
+
+            // execute
+            var result = _testingController.GetDatastore("uri");
+
+            // assert 
+            Assert.That(result, Is.InstanceOf<PartialViewResult>());
         }
 
         [TestCase]
@@ -375,7 +423,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 datastore_plugin = pluginname,
                 is_default = isdefault,
-                Uri = new Uri("/system/datastores", UriKind.Relative)
+                Uri = new Uri("/system/datastores", UriKind.Relative),
+                data_settings = new ModelServerSettings
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Id = pluginname.Equals("msexcel") ? "template_file" : null
+                            }
+                        }
+                }
             };
             var plugin = new ListViewModel<DataStorePluginsViewModel>();
             plugin.Data = plugins;
@@ -419,7 +477,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 datastore_plugin = pluginname,
                 is_default = isdefault,
-                Uri = new Uri("/system/datastores", UriKind.Relative)
+                Uri = new Uri("/system/datastores", UriKind.Relative),
+                data_settings = new ModelServerSettings
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Id = pluginname.Equals("msexcel") ? "template_file" : null
+                            }
+                        }
+                }
             };
             var plugin = new ListViewModel<DataStorePluginsViewModel>();
             plugin.Data = plugins;
@@ -443,7 +511,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 new DataStoresViewModel
                 {
                     datastore_plugin = pluginname,
-                    is_default =isdefault,
+                    is_default = isdefault,
                     Uri=new Uri("/system/datastores/6", UriKind.Relative)
                 }
             };
@@ -464,7 +532,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 datastore_plugin = pluginname,
                 is_default = isdefault,
-                Uri = new Uri("/system/datastores", UriKind.Relative)
+                Uri = new Uri("/system/datastores", UriKind.Relative),
+                data_settings = new ModelServerSettings
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Id = pluginname.Equals("msexcel") ? "template_file" : null
+                            }
+                        }
+                }
             };
             var plugin = new ListViewModel<DataStorePluginsViewModel>();
             plugin.Data = plugins;
@@ -525,7 +603,201 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         }
 
+        [TestCase]
+        public void Can_EditTask_Set_ViewBags()
+        {
+            //arrange.
+            SessionViewModel sessionViewModel = new SessionViewModel {
+                SystemPrivileges = new SystemPrivilegeViewModel
+                {
+                    manage_system = true,
+                    schedule_angles = true
+                },
+            };
+            var systemSettings = new SystemSettingViewModel
+            {
+                default_approval_state = "disabled"
+            };
+
+            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            sessionHelper.SetupGet(x => x.SystemSettings).Returns(systemSettings);
+
+            List<SystemScriptViewModel> scripts = new List<SystemScriptViewModel>
+            {
+                new SystemScriptViewModel()
+                {
+                    filetype = "test",
+                    name = "test",
+                    id = "test"
+                }
+            };
+            List<DataStoresViewModel> dataStore = new List<DataStoresViewModel>
+            {
+                new DataStoresViewModel
+                {
+                    datastore_plugin = "test",
+                    is_default = true,
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            var datastores = new ListViewModel<DataStoresViewModel>();
+            datastores.Data = dataStore;
+            List<DataStorePluginsViewModel> plugins = new List<DataStorePluginsViewModel>
+            {
+                new DataStorePluginsViewModel
+                {
+                    id="test",
+                    name="test",
+                    supports_append=true,
+                    description="test",
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            DataStoresViewModel data = new DataStoresViewModel
+            {
+                datastore_plugin = "test",
+                is_default =true,
+                Uri = new Uri("/system/datastores", UriKind.Relative)
+            };
+            var plugin = new ListViewModel<DataStorePluginsViewModel>();
+            plugin.Data = plugins;
+            automationTaskService.Setup(x => x.GetDatastore(It.IsAny<string>())).Returns(data);
+            automationTaskService.Setup(x => x.GetDatastores(It.IsAny<string>())).Returns(datastores);
+            automationTaskService.Setup(x => x.GetDatastorePlugins(It.IsAny<string>())).Returns(plugin);
+            systemScriptService.Setup(x => x.GetSystemScripts(It.IsAny<string>())).Returns(scripts);
+
+            //act.
+            var result = _testingController.EditTask(It.IsAny<string>(), It.IsAny<string>());
+
+            //assert.
+            Assert.AreEqual(_testingController.ViewBag.UserId, "testing_user");
+            Assert.AreEqual(_testingController.ViewBag.CanScheduleAngles, true);
+            Assert.AreEqual(_testingController.ViewBag.DefaultApprovalState, systemSettings.default_approval_state);
+        }
+
+        [TestCase]
+        public void Can_SaveAutomateTask_IfUserHasCanManageSystemPrivilege()
+        {
+            //arrange.
+            taskService.ResetCalls();
+            var taskUri = @"https://test.com:9080//tasks/20";
+            taskService.Setup(m => m.UpdateTask(It.IsAny<TaskViewModel>(), false)).Returns(new TaskViewModel() { Uri = new Uri(taskUri) });
+
+            //act.
+            var result = _testingController.SaveAutomateTask(taskUri, TestData(), "[]");
+
+            //assert
+            taskService.Verify(m => m.UpdateTask(It.IsAny<TaskViewModel>(), false), Times.Once);
+            taskService.Verify(m => m.CreateTaskAction(It.IsAny<string>(), It.IsAny<TaskAction>()), Times.Once);
+        }
+
+        [TestCase]
+        public void Can_SaveAutomateTask_OwnerOfTheTask_UserWithCanScheduleAnglesPrivilege()
+        {
+            //arrange.
+            taskService.ResetCalls();
+            var taskUri = @"https://test.com:9080//tasks/21";
+            SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
+            sessionViewModel.SystemPrivileges.manage_system = false;
+            sessionViewModel.SystemPrivileges.schedule_angles = true;
+            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            var userViewModel = new UserViewModel
+            {
+                Id = "local\\test",
+                Uri = new Uri("/users/1", UriKind.Relative)
+            };
+            sessionHelper.SetupGet(x => x.CurrentUser).Returns(userViewModel);
+            taskService.Setup(m => m.UpdateTask(It.IsAny<TaskViewModel>(), false)).Returns(new TaskViewModel() { Uri = new Uri(taskUri) });
+
+            //act.
+            var result = _testingController.SaveAutomateTask(taskUri, TestData(), "[]");
+
+            //assert
+            taskService.Verify(m => m.UpdateTask(It.IsAny<TaskViewModel>(), false), Times.Once);
+            taskService.Verify(m => m.CreateTaskAction(It.IsAny<string>(), It.IsAny<TaskAction>()), Times.Once);
+        }
+
+        [TestCase]
+        public void Can_SaveAutomateTask_SaveActionOnly_UserWithCanScheduleAnglesPrivilege()
+        {
+            //arrange.
+            taskService.ResetCalls();
+            var taskUri = @"https://test.com:9080//tasks/22";
+            SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
+            sessionViewModel.SystemPrivileges.manage_system = false;
+            sessionViewModel.SystemPrivileges.schedule_angles = true;
+            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            taskService.Setup(m => m.UpdateTask(It.IsAny<TaskViewModel>(), true)).Returns(new TaskViewModel() { Uri = new Uri(taskUri) });
+
+            //act.
+            var result = _testingController.SaveAutomateTask(taskUri, TestData(), "[]");
+
+            //assert
+            taskService.Verify(m => m.UpdateTask(It.IsAny<TaskViewModel>(), false), Times.Never);
+            taskService.Verify(m => m.CreateTaskAction(It.IsAny<string>(), It.IsAny<TaskAction>()), Times.Once);
+        }
+
+        private string TestData()
+        {
+           return "{\"name\":\"new_task_updated\",\"delete_after_completion\":false,\"run_as_user\":\"local\\\\test\",\"actions\":[{\"run_as_user\":\"local\\\\test\",\"action_type\":\"export_angle_to_datastore\",\"arguments\":[{\"name\":\"datastore\",\"value\":\"Export_to_Excel_Default\"},{\"name\":\"model\",\"value\":\"EA2_800\"},{\"name\":\"angle_id\",\"value\":\"ea747c6de36f3a4db9a4b5026c74f7ffce\"},{\"name\":\"display_id\",\"value\":\"eae6ee8cca45f94a72b3520668648f8c93\"},{\"name\":\"model_timestamp_index\",\"value\":1},{\"name\":\"header_format\",\"value\":\"id\"},{\"name\":\"enum_format\",\"value\":\"id\"},{\"name\":\"max_rows_to_export\",\"value\":-1},{\"name\":\"file_name\",\"value\":\"{anglename:normalized}\"},{\"name\":\"template_file\",\"value\":\"EveryAngle-Standard.xlsx\"},{\"name\":\"sheet_name\",\"value\":\"{displayname:normalized}\"},{\"name\":\"include_techinfo\",\"value\":true},{\"name\":\"add_angle_summary\",\"value\":false},{\"name\":\"add_angle_definition\",\"value\":false},{\"name\":\"abort_task_when_error\",\"value\":false}],\"approval_state\":\"enabled\",\"notification\":null,\"order\":3}],\"enabled\":true,\"max_run_time\":9000,\"actions_uri\":\"https:\\test.com:9080\tasks\\/20\actions\",\"triggers\":[{\"days\":[{\"day\":0,\"active\":false},{\"day\":1,\"active\":false},{\"day\":2,\"active\":false},{\"day\":3,\"active\":false},{\"day\":4,\"active\":false},{\"day\":5,\"active\":false},{\"day\":6,\"active\":false}],\"trigger_type\":\"schedule\",\"continuous\":false,\"frequency\":\"Weekly\",\"start_time\":5400}]}";
+        }
+
+        [TestCase]
+        public void Can_GetDatastoreDetails()
+        {
+            //setup
+            List<DataStoresViewModel> dataStore = new List<DataStoresViewModel>
+            {
+                new DataStoresViewModel
+                {
+                    datastore_plugin = "msexcel",
+                    is_default =true,
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            var datastores = new ListViewModel<DataStoresViewModel>();
+            datastores.Data = dataStore;
+            List<DataStorePluginsViewModel> plugins = new List<DataStorePluginsViewModel>
+            {
+                new DataStorePluginsViewModel
+                {
+                    id="msexcel",
+                    name="msexcel_test",
+                    supports_append=true,
+                    description="msexcel",                    
+                    Uri=new Uri("/system/datastores/6", UriKind.Relative)
+                }
+            };
+            var plugin = new ListViewModel<DataStorePluginsViewModel>();
+            plugin.Data = plugins;
+            DataStoresViewModel data = new DataStoresViewModel
+            {
+                datastore_plugin = "msexcel",
+                is_default = true,
+                data_settings = new ModelServerSettings()
+                {
+                    SettingList = new List<Setting>
+                        {
+                            new Setting()
+                            {
+                                Id="template_file",
+                                Value="EveryAngle-Test.xlsx"
+                            }
+                        }
+                },
+                Uri = new Uri("/system/datastores", UriKind.Relative)
+            };
+            automationTaskService.Setup(x => x.GetDatastore(It.IsAny<string>())).Returns(data);
+            automationTaskService.Setup(x => x.GetDatastores(It.IsAny<string>())).Returns(datastores);
+            automationTaskService.Setup(x => x.GetDatastorePlugins(It.IsAny<string>())).Returns(plugin);
+            // execute
+            JsonResult result = _testingController.GetDatastoreDetails("EveryAngle-Test.xlsx") as JsonResult;
+
+            //Assert
+            List<DataStoresViewModel> resultData = result.Data as List<DataStoresViewModel>;
+            Assert.AreEqual(resultData[0], data);
+
+        }
         #endregion
     }
-
-    }
+}

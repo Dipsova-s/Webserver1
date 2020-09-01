@@ -6,7 +6,9 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
     self.StateHandler = stateHandler;
 
     self.Initial = function (container) {
-        self.AddAction('All', Localization.Save, 'action-save-all', self.VisibleSaveAll, self.EnableSaveAll, self.SaveAll);
+        self.AddAction('Display', Localization.SaveDisplay, 'action-save-display', self.VisibleSaveDisplay, self.EnableSaveDisplay, self.SaveDisplay);
+        self.AddAction('Angle', Localization.Save, 'action-create-angle', self.VisibleCreateAngle, self.EnableCreateAngle, self.CreateAngle);
+        self.AddAction('All', Localization.SaveAll, 'action-save-all', self.VisibleSaveAll, self.EnableSaveAll, self.SaveAll);
         self.AddAction('AngleAs', Localization.SaveAngleAs, 'action-save-angle-as', self.VisibleSaveAngleAs, self.EnableSaveAngleAs, self.SaveAngleAs);
         self.AddAction('DisplayAs', Localization.SaveAs, 'action-save-display-as', self.VisibleSaveDisplayAs, self.EnableSaveDisplayAs, self.SaveDisplayAs);
         self.AddAction('SetTemplate', Localization.AngleDetailPublishTabTemplate, 'action-set-template', self.VisibleSetTemplate, self.EnableSetTemplate, self.SetTemplate);
@@ -23,7 +25,7 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
     self.VisibleSaveAll = function () {
         var canSaveAngle = self.AngleHandler.CanCreateOrUpdate();
         var canSaveAnyDisplay = self.AngleHandler.Displays.hasObject('CanCreateOrUpdate', function (valid) { return valid(); });
-        return canSaveAngle || canSaveAnyDisplay;
+        return !self.AngleHandler.IsAdhoc() && (canSaveAngle || canSaveAnyDisplay);
     };
     self.EnableSaveAll = function () {
         var hasAngleChanged = self.AngleHandler.CanCreateOrUpdate() && self.AngleHandler.GetCreateOrUpdateData();
@@ -78,6 +80,59 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
         
         if (forcedExecuteAngle === true)
             self.AngleHandler.ForceInitial();
+        self.ExecuteAngle();
+    };
+
+    // create Angle
+    self.VisibleCreateAngle = function () {
+        return self.AngleHandler.IsAdhoc() && self.AngleHandler.CanCreate();
+    };
+    self.EnableCreateAngle = function () {
+        return true;
+    };
+    self.CreateAngle = function () {
+        if (!self.EnableCreateAngle())
+            return;
+
+        self.ForceSaveAll(false, true);
+    };
+
+    // Display
+    self.VisibleSaveDisplay = function () {
+        return !self.AngleHandler.IsAdhoc() && self.GetDisplayHandler().CanCreateOrUpdate();
+    };
+    self.EnableSaveDisplay = function () {
+        var display = self.GetDisplayHandler();
+        return display.CanCreateOrUpdate() && display.GetCreateOrUpdateData();
+    };
+    self.SaveDisplay = function () {
+        if (!self.EnableSaveDisplay())
+            return;
+
+        // will forced save when changing angle/display that is used in task
+        var display = self.GetDisplayHandler();
+        self.HideSaveOptionsMenu();
+        display.ConfirmSave(null, jQuery.proxy(self.ForceSaveDisplay, self));
+    };
+    self.ForceSaveDisplay = function () {
+        var isRedirect = self.IsRedirect();
+        var display = self.GetDisplayHandler();
+        var displayId = display.Data().id();
+        progressbarModel.ShowStartProgressBar();
+        progressbarModel.SetDisableProgressBar();
+        return self.AngleHandler.SaveDefaultDisplay()
+            .then(function () {
+                return self.AngleHandler.SaveDisplay(display, true);
+            })
+            .always(function () {
+                self.SaveDisplayDone(isRedirect, displayId);
+            });
+    };
+    self.SaveDisplayDone = function (isRedirect, displayId) {
+        if (isRedirect) {
+            self.Redirect(displayId);
+            return;
+        }
         self.ExecuteAngle();
     };
 

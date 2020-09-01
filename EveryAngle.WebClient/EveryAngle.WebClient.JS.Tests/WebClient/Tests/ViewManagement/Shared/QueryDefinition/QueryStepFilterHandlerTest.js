@@ -318,17 +318,19 @@ describe("QueryStepFilterHandler", function () {
     describe(".EditFilter", function () {
         beforeEach(function () {
             spyOn(handler, 'CreateFilterEditor');
+            spyOn(handler, 'TriggerUpdateBlockUI');
         });
 
         it("should create filter editor for saved query step", function () {
             var queryStep = {
-                edit_mode: ko.observable(false)
+                edit_mode: ko.observable(true)
             };
             handler.EditFilter(queryStep);
 
             // assert
-            expect(queryStep.edit_mode()).toEqual(true);
+            expect(queryStep.edit_mode()).toEqual(false);
             expect(handler.CreateFilterEditor).toHaveBeenCalled();
+            expect(handler.TriggerUpdateBlockUI).toHaveBeenCalled();
         });
     });
 

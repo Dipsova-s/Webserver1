@@ -4,7 +4,7 @@ Resource            ${EXECDIR}/WC/API/API_Angle.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleState.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
-Force Tags          acceptance_s     acc_wc_s
+Force Tags          acc_wc_s
 
 *** Test Cases ***
 Verify Angle With Do not allow users to obtain more details

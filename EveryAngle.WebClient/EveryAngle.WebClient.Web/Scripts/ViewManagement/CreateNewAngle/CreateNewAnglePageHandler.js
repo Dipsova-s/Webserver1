@@ -1264,34 +1264,32 @@ function CreateNewAngleViewManagementModel() {
     /* EOF: M4-13839: Fixed unknown error returned when open 'Create new angle' pop-up */
 
     self.LoadHelptextsByIds = function (ids) {
-        var response = { help_texts: [] };
-        if (ids.length) {
-            var modelUri = self.CreateAngleSettings.model;
-            return helpTextHandler.LoadHelpTextByIds(ids, modelUri)
-                .then(function () {
-                    var helps = [];
-                    jQuery.each(ids, function (index, id) {
-                        var help = helpTextHandler.GetHelpTextById(id, modelUri);
-                        if (!help) {
-                            help = {
-                                html_help: '',
-                                id: id,
-                                long_name: '',
-                                short_name: '',
-                                uri: modelUri + '/not_found/' + id
-                            };
-                            helps.push(help);
-                        }
-                        response.help_texts.push(help);
-                    });
-                    helpTextHandler.SetHelpTexts(helps, false);
+        var data = { help_texts: [] };
+        if (!ids.length)
+            return jQuery.when(data);
 
-                    return jQuery.when(response);
+        var modelUri = self.CreateAngleSettings.model;
+        return helpTextHandler.LoadHelpTextByIds(ids, modelUri)
+            .then(function (response) {
+                data = response;
+                var helps = [];
+                jQuery.each(ids, function (index, id) {
+                    var help = helpTextHandler.GetHelpTextById(id, modelUri);
+                    if (!help) {
+                        help = {
+                            html_help: '',
+                            id: id,
+                            long_name: '',
+                            short_name: '',
+                            uri: modelUri + '/not_found/' + id
+                        };
+                        helps.push(help);
+                    }
+                    data.help_texts.push(help);
                 });
-        }
-        else {
-            return jQuery.when(response);
-        }
+                helpTextHandler.SetData(helps, false);
+                return jQuery.when(data);
+            });
     };
 
     var saveUserSettingXhr = null;

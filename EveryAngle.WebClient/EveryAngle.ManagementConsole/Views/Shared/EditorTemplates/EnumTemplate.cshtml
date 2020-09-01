@@ -2,60 +2,106 @@
 
 <label data-role="tooltip">@Model.Name</label>
 <p>
-@{
-    string selectedValue = string.Empty;
-    if (string.IsNullOrEmpty(Convert.ToString(Model.Value)))
-    {
-        if (Model.Options != null && Model.Options.Count > 0)
+    @{
+        string selectedValue = string.Empty;
+        if (string.IsNullOrEmpty(Convert.ToString(Model.Value)))
         {
-            foreach (var option in Model.Options)
+            if (Model.Options != null && Model.Options.Count > 0)
             {
-                if (option.Default.HasValue && option.Default.Value == true)
+                foreach (var option in Model.Options)
                 {
-                    selectedValue = option.id;
-                    break;
+                    if (option.Default.HasValue && option.Default.Value == true)
+                    {
+                        selectedValue = option.id;
+                        break;
+                    }
                 }
             }
         }
-    }
-    else
-    {
-        selectedValue = Convert.ToString(Model.Value);
-    }
+        else
+        {
+            selectedValue = Convert.ToString(Model.Value);
+        }
 
 
-    if (ViewData["enableValue"] != string.Empty)
-    {
-        @(Html.Kendo()
-            .DropDownList()
-            .Name(Model.Id)
-            .Value(selectedValue)
-            .DataTextField("name")
-            .DataValueField("id")
-            .BindTo(Model.Options)
-            .HtmlAttributes(new { @class = "enum enabler autosyncinput", @data_setting_type = "enum", @data_type = "kendoDropDownList" })
-            .Events(e => e.Change(@<text>
-                function(e) {
+        if (ViewData["enableValue"] != string.Empty)
+        {
+            @(Html.Kendo()
+                .DropDownList()
+                .Name(Model.Id)
+                .Value(selectedValue)
+                .DataTextField("name")
+                .DataValueField("id")
+                .BindTo(Model.Options)
+                .HtmlAttributes(new { @class = "enum enabler autosyncinput", @data_setting_type = "enum", @data_type = "kendoDropDownList" })
+                .Events(e => e.Change(@<text>
+                    function(e) {
                     MC.Models.ModelServer.EnablerValueChange(e);
-                }
-            </text>)));
+                    }
+                </text>)));
+        }
+        else if (Model.Id.Equals("template_file"))
+        {
+            @(Html.Kendo()
+                .DropDownList()
+                .Name(Model.Id)
+                .Value(selectedValue)
+                .DataTextField("File")
+                .DataValueField("File")
+                .BindTo(Model.FileDataOptions)
+                .Template(
+                    "# if (data.HasInnoweraProcess) { #" +
+                    "<span class=\"icon-innowera\"></span>" +
+                    "# } #" +
+                    "<span>#= data.File #</span>"
+                    )
+                .ValueTemplate(
+                    "# if (data.HasInnoweraProcess) { #" +
+                    "<span class=\"icon-innowera\"></span>" +
+                    "# } #" +
+                    "<span>#= data.File #</span>"
+                    )
+                .HtmlAttributes(new { @class = "enum autosyncinput", @data_setting_type = "enum", @data_type = "kendoDropDownList" })
+                .Events(e => e.DataBound(@<text>
+                    function(e) {
+                    MC.ui.enumSettingChange(e);
+                    }
+                </text>))
+                .Events(e => e.Change(@<text>
+                    function(e) {
+                    MC.ui.enumSettingChange(e);
+                    }
+                </text>)));
+        }
+        else
+        {
+            @(Html.Kendo()
+                .DropDownList()
+                .Name(Model.Id)
+                .Value(selectedValue)
+                .DataTextField("name")
+                .DataValueField("id")
+                .BindTo(Model.Options)
+                .HtmlAttributes(new { @class = "enum autosyncinput", @data_setting_type = "enum", @data_type = "kendoDropDownList" })
+                .Events(e => e.Change(@<text>
+                    function(e) {
+                    MC.ui.enumSettingChange(e);
+                    }
+                </text>)));
+        }
+
+        if (Model.Description != null)
+        {
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+            <textarea class="alwaysHidden"><pre>@Model.Description</pre></textarea>
+        }
     }
-    else
+</p>
+@*For Excel Template Dropdown*@
+@{
+    if (Model.Id.Equals("template_file"))
     {
-        @(Html.Kendo()
-            .DropDownList()
-            .Name(Model.Id)
-            .Value(selectedValue)
-            .DataTextField("name")
-            .DataValueField("id")
-            .BindTo(Model.Options)
-            .HtmlAttributes(new { @class = "enum autosyncinput", @data_setting_type = "enum", @data_type = "kendoDropDownList" }));
-    }
-    
-    if(Model.Description != null)
-    {
-        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
-        <textarea class="alwaysHidden"><pre>@Model.Description</pre></textarea>
+        <div id="InnoweraInfoSection" class="innowera-processes"></div>
+        <span class="exist-template"></span>
     }
 }
-</p>

@@ -95,6 +95,7 @@ describe("UserSettingsPanelHandler", function () {
             spyOn(userSettingModel, "Data").and.callFake(function () {
                 return {};
             });
+            spyOn(WC.HtmlHelper, 'ApplyKnockout');
             spyOn(userSettingsPanelHandler, "InitialControlUser");
             spyOn(userSettingsPanelHandler, "InitialControlsModel");
             spyOn(userSettingsPanelHandler, "InitialControlsLabelCategories");
@@ -104,6 +105,7 @@ describe("UserSettingsPanelHandler", function () {
             spyOn(userSettingsPanelHandler, "InitialControlsBusinessProcess");
             spyOn(userSettingsPanelHandler, "InitialControlsLanguage");
             spyOn(userSettingsPanelHandler, "InitialControlsRowExportToExcel");
+            spyOn(userSettingsPanelHandler, "InitialControlsHidePrivateDisplay");
             spyOn(userSettingsPanelHandler, "InitialControlsFacetWarning");
             spyOn(userSettingsPanelHandler, "InitialControlsFieldChooser");
             spyOn(userSettingsPanelHandler, "InitialControlsTechnicalInfo");
@@ -121,6 +123,10 @@ describe("UserSettingsPanelHandler", function () {
 
         it("InitialControlsExecuteLastSearch have been called", function () {
             expect(userSettingsPanelHandler.InitialControlsExecuteLastSearch).toHaveBeenCalled();
+        });
+        it("InitialControlsExecuteLastSearch have been called", function () {
+            expect(WC.HtmlHelper.ApplyKnockout).toHaveBeenCalled();
+            expect(userSettingsPanelHandler.InitialControlsHidePrivateDisplay).toHaveBeenCalled();
         });
     });
 
@@ -287,6 +293,23 @@ describe("UserSettingsPanelHandler", function () {
             expect(userSettingsPanelHandler.RenderFormatSettingDropdownlist).toHaveBeenCalled();
         });
 
+    });
+
+    describe(".InitialControlsHidePrivateDisplay", function () {
+
+        beforeEach(function () {
+            $('body').append('<input id="ShowOnlyOwnPrivateDisplays" type="checkbox">');
+        });
+
+        afterEach(function () {
+            $('#ShowOnlyOwnPrivateDisplays').remove();
+        });
+
+        it("should set hide private display to enable", function () {
+            var settings = { hide_other_users_private_display: true };
+            userSettingsPanelHandler.InitialControlsHidePrivateDisplay(settings);
+            expect($('#ShowOnlyOwnPrivateDisplays').is(':checked')).toEqual(true);
+        });
     });
 
     describe(".InitialControlsFacetWarning", function () {
@@ -715,6 +738,7 @@ describe("UserSettingsPanelHandler", function () {
             spyOn(userSettingsPanelHandler, 'SetAutoExecuteLastSearch');
             spyOn(userSettingsPanelHandler, 'SetAutoExecuteAtLogin');
             spyOn(userSettingsPanelHandler, 'SetClientSetting');
+            spyOn(userSettingsPanelHandler, 'SetHidePrivateDisplay');
             spyOn(userSettingModel, 'ReloadAfterChanged');
             spyOn(window, 'SetLoadingVisibility');
             spyOn(userSettingModel, 'PutExecuteAtLogin');
@@ -907,6 +931,30 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
+    describe(".SetHidePrivateDisplay", function () {
+
+        beforeEach(function () {
+            spyOn(userSettingsPanelHandler, "CheckManagePrivateItems").and.returnValue(true);
+            spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function () {
+                return true;
+            });
+        });
+
+        it("should set hide private display", function () {
+            var defaultUserSetting = { hide_other_users_private_display: false },
+                userSettings = {};
+            userSettingsPanelHandler.SetHidePrivateDisplay(defaultUserSetting, userSettings);
+            expect(userSettings[enumHandlers.USERSETTINGS.HIDE_OTHER_USERS_PRIVATE_DISPLAY]).toEqual(true);
+        });
+
+        it("when select default setting, should not set hide private display", function () {
+            var defaultUserSetting = { hide_other_users_private_display: true },
+                userSettings = {};
+            userSettingsPanelHandler.SetHidePrivateDisplay(defaultUserSetting, userSettings);
+            expect(userSettings[enumHandlers.USERSETTINGS.HIDE_OTHER_USERS_PRIVATE_DISPLAY]).toEqual(undefined);
+        });
+    });
+    
     describe(".SetTechnicalInfoSapFieldHeader", function () {
 
         beforeEach(function () {

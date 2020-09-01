@@ -37,10 +37,9 @@ Verify Execution Parameters When Argument Contains Space Test
     Create Angle From Object List And Save    PD    ${angleName}
     Verify Filter With Execute Parameter To List Display    text    is equal to    FieldDescription    Field Description
     ${numberOfObject}    Get Number Of Object
-    Click Save All
+    Click Save Display
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${angleName}
-    Wait Angle Page Document Loaded
     ${numberOfObjectAfterExecuteParameter}    Get Number Of Object
     Should Be True    ${numberOfObject}==${numberOfObjectAfterExecuteParameter}
 

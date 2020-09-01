@@ -1,4 +1,5 @@
-﻿@using EveryAngle.ManagementConsole.Models
+﻿@using EveryAngle.Core.Interfaces.Services;
+@using EveryAngle.ManagementConsole.Models
 @using EveryAngle.ManagementConsole.Helpers
 @using EveryAngle.Shared.Globalization
 @model EveryAngle.Core.ViewModels.SystemSettings.SystemSettingViewModel
@@ -148,6 +149,9 @@
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpActiveDirectorySizeLimit</textarea>
                 </p>
             </div>
+        </div>
+        <div class="contentSection contentSectionInfo">
+            <h2>@Resource.AngleExport</h2>
             <div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.allow_grouping_in_pivot_excel_export)
                 <p>
@@ -184,6 +188,27 @@
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpScriptLocation</textarea>
                 </p>
             </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.fallback_field_length)
+                <p>
+                    @Html.Kendo().NumericTextBoxFor(model => model.fallback_field_length).Decimals(0).Format("0").Step(1).Min(-1).Max(999999).HtmlAttributes(new { @class = "required" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_FallbackFieldLengthDescription</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.default_approval_state)
+                <p>
+                    @(Html.Kendo().DropDownListFor(model => model.default_approval_state)
+                                    .DataValueField("Id")
+                                    .DataTextField("Name")
+                                    .BindTo((List<ApprovalStateOption>)ViewBag.ApprovalStateOptions)
+                                    .Value(Model.default_approval_state)
+                    )
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_DefaultApprovalStateDescription</textarea>
+                </p>
+            </div>
         </div>
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.Logging</h2>
@@ -191,8 +216,8 @@
                 @Html.LabelFor(model => model.max_general_history)
                 <p>
                     @Html.Kendo().NumericTextBoxFor(model => model.max_general_history).Decimals(0).Format("0").Step(1).Min(0).Max(120).HtmlAttributes(new { @class = "required" })
-                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpMaxGeneralHistory</textarea>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpMaxGeneralHistory</textarea>
                 </p>
             </div>
             <div class="contentSectionInfoItem">
@@ -210,72 +235,72 @@
                 @Html.LabelFor(model => model.EmailSettings.smtp_server)
                 <p>
                     @Html.TextBoxFor(model => model.EmailSettings.smtp_server)
-                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpServer</textarea>
-            </p>
-        </div>
-        <div class="contentSectionInfoItem">
-            @Html.LabelFor(model => model.EmailSettings.smtp_port)
-            <p>
-                @Html.Kendo().NumericTextBoxFor(model => model.EmailSettings.smtp_port).Decimals(0).Format("0").Step(1).Min(0).Max(999999).Events(e => e.Change(@<text>function(e) { MC.GlobalSettings.SystemSettings.DetectSMTPPortValue(this); }</text>)).HtmlAttributes(new { @class = "required" })
-            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-            <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpPort</textarea>
-        </p>
-        </div>
-        <div class="contentSectionInfoItem">
-            @Html.LabelFor(model => model.EmailSettings.smtp_sender)
-            <p>
-                @Html.TextBoxFor(model => model.EmailSettings.smtp_sender, new { @class = "email" })
-            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-            <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpSender</textarea>
-        </p>
-        </div>
-        <div class="contentSectionInfoItem">
-            @Html.LabelFor(model => model.EmailSettings.smtp_use_ssl)
-            <p>
-                <label>
-                    <input data-val="true" id="smtp_use_ssl" name="EmailSettings.smtp_use_ssl" type="checkbox" value="true" @(Model.EmailSettings != null ? Model.EmailSettings.smtp_use_ssl ? " checked='checked'" : "" : "") /><span class="label"></span>
-                </label>
-                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpUseSsl</textarea>
-            </p>
-        </div>
-        <div class="contentSectionInfoItem">
-            @Html.LabelFor(model => model.EmailSettings.username)
-            <p>
-                @Html.TextBox("EmailSettings.username.inputfake", "", new { @class = "hidden" })
-                @Html.TextBoxFor(model => model.EmailSettings.username, new { autocomplete = "off" })
-                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailUsername</textarea>
-            </p>
-        </div>
-        <div class="contentSectionInfoItem">
-            @Html.LabelFor(model => model.EmailSettings.password)
-            <p>
-                @Html.TextBox("EmailSettings.password.inputfake", string.Empty, new { @class = "hidden" })
-                @Html.Password("EmailSettings.password.fake", string.Empty, new { @class = "hidden" })
-                @Html.Password("EmailSettings.password", string.Empty, new { autoComplete = "new-password", data_role = "password", data_has_password = Model.EmailSettings.has_password.ToString().ToLower() })
-                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailPassword</textarea>
-            </p>
-        </div>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpServer</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.smtp_port)
+                <p>
+                    @Html.Kendo().NumericTextBoxFor(model => model.EmailSettings.smtp_port).Decimals(0).Format("0").Step(1).Min(0).Max(999999).Events(e => e.Change(@<text>function(e) { MC.GlobalSettings.SystemSettings.DetectSMTPPortValue(this); }</text>)).HtmlAttributes(new { @class = "required" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpPort</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.smtp_sender)
+                <p>
+                    @Html.TextBoxFor(model => model.EmailSettings.smtp_sender, new { @class = "email" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpSender</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.smtp_use_ssl)
+                <p>
+                    <label>
+                        <input data-val="true" id="smtp_use_ssl" name="EmailSettings.smtp_use_ssl" type="checkbox" value="true" @(Model.EmailSettings != null ? Model.EmailSettings.smtp_use_ssl ? " checked='checked'" : "" : "") /><span class="label"></span>
+                    </label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpUseSsl</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.username)
+                <p>
+                    @Html.TextBox("EmailSettings.username.inputfake", "", new { @class = "hidden" })
+                    @Html.TextBoxFor(model => model.EmailSettings.username, new { autocomplete = "off" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailUsername</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.password)
+                <p>
+                    @Html.TextBox("EmailSettings.password.inputfake", string.Empty, new { @class = "hidden" })
+                    @Html.Password("EmailSettings.password.fake", string.Empty, new { @class = "hidden" })
+                    @Html.Password("EmailSettings.password", string.Empty, new { autoComplete = "new-password", data_role = "password", data_has_password = Model.EmailSettings.has_password.ToString().ToLower() })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailPassword</textarea>
+                </p>
+            </div>
 
-        @{
-            List<PageToolbarButtonModel> testEmailButton = new List<PageToolbarButtonModel>
-            {
-                new PageToolbarButtonModel
-                {
-                    Type = PageToolbarButtonType.Custom,
-                    Privilege = PrivilegeType.System,
-                    EnableTemplate = "<a class=\"btn btnPrimary btnAdd\" id=\"TestEmailButton\" data-role=\"mcPopup\" data-title=\"" + Resource.MC_TestEmailSettings + "\" data-target=\"#TestEmailPopup\" data-width=\"400\" data-height=\"200\" data-resizable=\"false\" data-scrollable=\"false\" onclick=\"MC.GlobalSettings.SystemSettings.ShowTestEmailSettingsPopup()\">" + Resource.MC_TestEmail + "</a>",
-                    DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\" id=\"TestEmailButton\">" + Resource.MC_TestEmail + "</a>"
-                }
-            };
-        }
-        <div class="contentSectionInfoItem">
-            <label></label>
-            <p>@Html.RenderPageToolbarBottom(testEmailButton)</p>
-        </div>
+            @{
+                List<PageToolbarButtonModel> testEmailButton = new List<PageToolbarButtonModel>
+                        {
+                            new PageToolbarButtonModel
+                            {
+                                Type = PageToolbarButtonType.Custom,
+                                Privilege = PrivilegeType.System,
+                                EnableTemplate = "<a class=\"btn btnPrimary btnAdd\" id=\"TestEmailButton\" data-role=\"mcPopup\" data-title=\"" + Resource.MC_TestEmailSettings + "\" data-target=\"#TestEmailPopup\" data-width=\"400\" data-height=\"200\" data-resizable=\"false\" data-scrollable=\"false\" onclick=\"MC.GlobalSettings.SystemSettings.ShowTestEmailSettingsPopup()\">" + Resource.MC_TestEmail + "</a>",
+                                DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\" id=\"TestEmailButton\">" + Resource.MC_TestEmail + "</a>"
+                            }
+                        };
+            }
+            <div class="contentSectionInfoItem">
+                <label></label>
+                <p>@Html.RenderPageToolbarBottom(testEmailButton)</p>
+            </div>
         </div>
     </form>
 </div>

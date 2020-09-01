@@ -28,9 +28,6 @@
                     '<i class="close-indicator icon icon-caret-right"></i>',
                     '<span data-bind="text: Localization.DashboardFilters_Title"></span>',
                     '<div class="accordion-toolbar">',
-                        '<!-- ko if: !ReadOnly() && HasChanged(false, false) -->',
-                        '<a class="icon icon-undo action action-cancel" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: Cancel, attr: { \'data-tooltip-text\': Localization.Tooltip_UndoAllChanges }"></a>',
-                        '<!-- /ko -->',
                         '<!-- ko if: CanAdd() -->',
                         '<a class="icon icon-plus action action-edit-filters" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: ShowAddFilterPopup, css: { disabled: !CanAdd() }, attr: { \'data-tooltip-text\': Localization.AddFilter }"></a>',
                         '<!-- /ko -->',
@@ -39,7 +36,8 @@
                 '<div class="accordion-body definition-body">',
                     '<div class="definition-body-inner"></div>',
                 '</div>',
-            '</div>'
+                '<hr>',
+           '</div>'
         ].join('');
     };
     self.GetSectionExecuteAtLogonTemplate = function () {
@@ -55,6 +53,7 @@
                         '</div>',
                     '</div>',
                 '</div>',
+                '<hr style="display:none;">',
             '</div>'
         ].join('');
     };

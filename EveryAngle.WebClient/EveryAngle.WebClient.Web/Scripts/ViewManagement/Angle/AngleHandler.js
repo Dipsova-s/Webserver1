@@ -10,7 +10,7 @@ function AngleHandler(model) {
     self.ItemDescriptionHandler = new ItemDescriptionHandler();
     self.QueryDefinitionHandler = new QueryDefinitionHandler();
     self.AngleUserSpecificHandler = new AngleUserSpecificHandler(self);
-    self.AngleBusinessProcessHandler = new AngleBusinessProcessHandler(self);
+    self.AngleLabelHandler = new AngleLabelHandler(self);
     self.AngleTagHandler = new AngleTagHandler(self);
     self.AngleStatisticHandler = new AngleStatisticHandler(self);
     self.Initial = function (model, updateRaw) {
@@ -92,6 +92,9 @@ function AngleHandler(model) {
 
         return data;
     };
+    self.Online = function () {
+        return modelsHandler.IsAvailable(self.Data() && self.Data().model);
+    };
     self.Load = function (uri) {
         var query = {};
         query[enumHandlers.PARAMETERS.CACHING] = false;
@@ -138,9 +141,9 @@ function AngleHandler(model) {
             self.GetCurrentDisplay() && self.GetCurrentDisplay().ResultHandler.ExecutionInfo();
     };
 
-    // business processes
-    self.InitialBusinessProcess = function (target) {
-        self.AngleBusinessProcessHandler.Initial(target);
+    // labels
+    self.InitialLabel = function (target) {
+        self.AngleLabelHandler.Initial(target);
     };
 
     // tags
@@ -176,6 +179,9 @@ function AngleHandler(model) {
         _self.canEditId = canEditId;
     };
     self.SaveDescription = function () {
+        if (!self.Validate())
+            return;
+
         var callback = jQuery.proxy(self.parent.prototype.SaveDescription, self);
         self.ConfirmSave(self.IsDescriptionUsedInTask, callback);
     };
@@ -183,7 +189,7 @@ function AngleHandler(model) {
         var data = self.GetChangeData(self.ItemDescriptionHandler.GetData(), self.Data());
         var hasDescriptionChanged = self.CanCreateOrUpdate() && data;
         return hasDescriptionChanged && (self.IsDisplaysUsedInTask() || self.IsChangeDisplaysUsedInTask());
-    }
+    };
     self.ShowEditDescriptionPopup = function () {
         self.ItemDescriptionHandler.CanEditId(_self.canEditId);
         self.parent.prototype.ShowEditDescriptionPopup.call(self, Localization.AngleDescription);
@@ -197,6 +203,7 @@ function AngleHandler(model) {
         self.QueryDefinitionHandler.FilterFor = WC.WidgetFilterHelper.FILTERFOR.ANGLE;
         self.QueryDefinitionHandler.Texts().AskForExecutionParamter = Localization.AskForValueWhenTheAngleOpens;
         self.QueryDefinitionHandler.Texts().ConfirmJump = Localization.Confirm_SaveAngleWithWarning;
+        self.QueryDefinitionHandler.Texts().SubHeader = Localization.AngleFilters;
         self.QueryDefinitionHandler.Texts().ApplyButton = Localization.Save;
         self.parent.prototype.InitialQueryDefinition.call(self, definition, _self.queryDefinitionProperty, self.Data().model);
 
@@ -232,6 +239,7 @@ function AngleHandler(model) {
     };
     self.CanChangeFilter = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.Online(),
             !validation.InvalidBaseClasses,
             self.CanUseBaseClass(),
             self.CanUseJump(),
@@ -242,6 +250,7 @@ function AngleHandler(model) {
     };
     self.CanChangeJump = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.Online(),
             !validation.InvalidBaseClasses,
             self.CanUseBaseClass(),
             self.AllowFollowups(self.Data().model),
@@ -251,14 +260,25 @@ function AngleHandler(model) {
         ]);
     };
     self.CanExecuteQuerySteps = function (validation) {
-        return !validation.InvalidBaseClasses;
+        return self.Online() && !validation.InvalidBaseClasses;
     };
     self.CanUpdateQuerySteps = function (validation) {
         return WC.Utility.MatchAll(true, [
+            self.Online(),
             !validation.InvalidBaseClasses,
             self.Data().authorizations.update,
             !self.Data().is_validated()
         ]);
+    };
+
+    // object
+    self.GetObjectInfo = function () {
+        var classes = self.QueryDefinitionHandler.GetBaseClasses();
+        var format = classes.length > 1 ? enumHandlers.FRIENDLYNAMEMODE.SHORTNAME : enumHandlers.FRIENDLYNAMEMODE.LONGNAME;
+        var names = jQuery.map(classes, function (id) {
+            return modelClassesHandler.GetClassName(id, self.Data().model, format);
+        });
+        return kendo.format('{0}: {1}', Localization.StartObject, names.join(', '));
     };
 
     // results
@@ -287,6 +307,11 @@ function AngleHandler(model) {
             resultQueryDefinition.query_definition = self.QueryDefinitionHandler.GetQueryDefinition().query_definition;
         }
         return resultQueryDefinition;
+    };
+    self.ClearAllPostResultsData = function () {
+        jQuery.each(self.Displays, function (_index, display) {
+            display.ClearPostResultData();
+        });
     };
 
     // displays
@@ -367,11 +392,19 @@ function AngleHandler(model) {
     };
     self.SaveDisplays = function (forced) {
         var deferred = [];
-        jQuery.each(self.Displays, function (index, display) {
-            if (display.CanCreateOrUpdate())
-                deferred.pushDeferred(self.SaveDisplay, [display, forced]);
+        var saveUserDefaultInfo = null;
+        jQuery.each(self.Displays, function (_index, display) {
+            if (display.CanCreateOrUpdate()) {
+                if (display.Data().user_specific.is_user_default())
+                    saveUserDefaultInfo = [display, forced];
+                else
+                    deferred.pushDeferred(self.SaveDisplay, [display, forced]);
+            }
         });
-        return jQuery.whenAllSet(deferred);
+        return jQuery.whenAllSet(deferred)
+            .then(function () {
+                return saveUserDefaultInfo ? self.SaveDisplay.apply(self, saveUserDefaultInfo) : jQuery.when(null);
+            });
     };
     self.SaveDisplay = function (display, forced) {
         return display.CreateOrUpdate(
@@ -414,14 +447,49 @@ function AngleHandler(model) {
         if (!jQuery.isFunction(checker))
             checker = self.IsConflict;
 
-        if (checker()) {
+        if (self.Data().is_validated())
+            popup.Confirm(Localization.Confirm_SaveValidatedAngle,
+                jQuery.proxy(self.ConfirmSaveWithUsedInTask, self, checker, callback, cancel),
+                cancel);
+        else
+            self.ConfirmSaveWithUsedInTask(checker, callback, cancel);
+    };
+    self.ConfirmSaveWithUsedInTask = function (checker, callback, cancel) {
+        if (checker())
             popup.Confirm(Localization.MessageSaveQuestionAngleUsedInTask, callback, cancel);
-        } else {
+        else
             callback();
-        }
     };
     self.IsConflict = function () {
         return self.IsChangeUsedInTask() || self.IsChangeDisplaysUsedInTask();
+    };
+    self.SaveOrders = function (orders) {
+        var data = {
+            display_definitions: orders
+        };
+        var uri = self.Data().uri + '/order';
+        var query = {};
+        query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'no';
+        query[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
+        query[enumHandlers.PARAMETERS.FORCED] = true;
+        return UpdateDataToWebService(uri + '?' + jQuery.param(query), data)
+            .done(function (angle) {
+                var rawAngle = self.GetRawData();
+                jQuery.each(angle.display_definitions, function (_index, display) {
+                    // update Angle
+                    var rawAngleDisplay = rawAngle.display_definitions.findObject('uri', display.uri);
+                    if (rawAngleDisplay)
+                        rawAngleDisplay.order = display.order;
+
+                    // update Display
+                    var handler = self.GetDisplay(display.uri);
+                    if (handler) {
+                        handler.Data().order = display.order;
+                        handler.SetRawData({ order: display.order });
+                    }
+                });
+                self.SetRawData(rawAngle);
+            });
     };
     self.SaveAll = function (forced) {
         var isAdhoc = self.IsAdhoc();
@@ -429,6 +497,17 @@ function AngleHandler(model) {
             .then(function () {
                 return !isAdhoc ? self.SaveDisplays(forced) : jQuery.when(null);
             });
+    };
+    self.SaveDefaultDisplay = function () {
+        var data = self.GetCreateOrUpdateData();
+        if (self.IsAdhoc() || !data || !data.angle_default_display)
+            return jQuery.when(self.GetData());
+
+        var defaultDisplayId = data.angle_default_display;
+        var saveData = {
+            angle_default_display: defaultDisplayId
+        };
+        return self.UpdateData(saveData, true, self.SaveAllDone, self.SaveAllFail);
     };
     self.SaveAllDone = function () {
         toast.MakeSuccessTextFormatting(self.GetName(), Localization.Toast_SaveItem);
@@ -570,7 +649,7 @@ function AngleHandler(model) {
         return self.Data().is_template() ? self.Data().authorizations.unmark_template : self.Data().authorizations.mark_template;
     };
     self.Validate = function () {
-        return self.AngleBusinessProcessHandler.Validate();
+        return self.AngleLabelHandler.Validate(true);
     };
 
     // constructor
