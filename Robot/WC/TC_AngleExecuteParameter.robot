@@ -33,8 +33,10 @@ Verify Execution Parameters When Argument Contains Space Test
     [Documentation]     Verify execute an angle when argument contains space in execution parameters
     ...                 Risk/coverage area: Create an adhoc angle and then execute it on search page
     [Tags]      TC_C196803
+    [Setup]  Import Angle By API  /models/1  ANGLE_Argument_Contains_Space.json  user=${Username}
+    
+    Find Angle By ID Then Execute The First Angle    ANGLE_ARGUMENT_CONTAINS_SPACE
     ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters When Argument Contains Space
-    Create Angle From Object List And Save    PD    ${angleName}
     Verify Filter With Execute Parameter To List Display    text    is equal to    Vendor__Description    Description
     ${numberOfObject}    Get Number Of Object
     Click Save Display
@@ -43,7 +45,7 @@ Verify Execution Parameters When Argument Contains Space Test
     ${numberOfObjectAfterExecuteParameter}    Get Number Of Object
     Should Be True    ${numberOfObject}==${numberOfObjectAfterExecuteParameter}
 
-    [Teardown]  Back To Search And Delete Angle Are Created    ${angleName}
+    [Teardown]  Clean Up Items And Go To Search Page
 
 Verify Execution Parameters When Argument Is Empty
     ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters When Argument Is Empty

@@ -101,7 +101,6 @@ Set Suggested Fields For Clear All Suggestion
     Fill In Search Object    ${ObjectName}
     Select Business Process On Suggested Popup    ${BusinessProcess}
     Click First Object from List
-    Click Second Object from List
     Click Continue
     Click Save Confirm Suggestion Field
     Click Close Suggested Field Report
