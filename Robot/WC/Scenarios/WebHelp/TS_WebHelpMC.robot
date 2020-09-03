@@ -111,3 +111,7 @@ Crop Edit Automation Task Page
     Input Task Action Email Description    <p>New daily export of {anglename}</p><p>Model timestamp: {modeltimestamp}</p><p>Displayname: {displayname}</p>
     Crop WebHelp Image With Dimensions    MC_AutoTask_MacroExample.png    jquery=#AddActionPopup .popupContent    0    2    700    600
     Copy Image To Webhelp Folder    images/MC_AutoTask_MacroResult.png
+
+Crop Default Datastore Icon
+    Go To Datastores Page
+    Crop WebHelp Image   WC_Icon_DefaultDatastore.png      jquery=#DataStoresGrid td[data-field="is_default"] img   ${False}

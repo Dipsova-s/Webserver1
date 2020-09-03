@@ -9,6 +9,9 @@ Resource            ${EXECDIR}/WC/API/API_Package.robot
 Suite Setup         Go to WC Then Login With Admin User
 Suite Teardown      Logout WC Then Close Browser
 
+*** Variables ***
+${InnoweraTemplate}                ${EXECDIR}/resources/RobotInnoweraTestTemplate.xlsx
+
 *** Test Cases ***
 WebHelp WC Setup
     [Tags]    webhelp_setup_i
@@ -35,6 +38,10 @@ WebHelp WC Setup
     Go To Web Server Settings Page
     Select the Show item IDs check box  False
     Click Save Web Server Setting
+
+    # upload innowera template
+    Go To ExcelTemplates Page
+    Verify Upload Excel Template In Excel Template Page     ${InnoweraTemplate}     RobotInnoweraTestTemplate.xlsx
 
     # upload movies
     Run Keyword And Ignore Error  Remove Directory  ${WEBHELP_MOVIES_TARGET}movies/  ${True}
