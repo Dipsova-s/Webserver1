@@ -73,7 +73,7 @@ Verify Search Tags
     Tag Should Be Available  SearchTag3
 
     # filter with SearchTag2 will get 2 items
-    Select Tag  SearchTag2
+    Select Tag  SearchTag2  ${True}
     Wait Progress Bar Search Closed
     Number Of Search Results Should Be  2
     Check Existing Angle From Search Result  [ROBOT] Angle Search Tag 1

@@ -22,18 +22,12 @@ Filter Item Tag
 
 Submit Selected Tags
     [Arguments]  ${isAdhoc}=${False}
-    Press Keys  None  ESC
     Wait Until Tags Saved  ${isAdhoc}
 
 Select Tag
-    [Arguments]  ${name}
+    [Arguments]  ${name}    ${isAdhoc}=${False}
     Click Element  ${divTagItem}:contains(${name})
-
-Select Tags
-    [Arguments]  ${names}   ${isAdhoc}=${False}
-    :FOR  ${name}  IN  @{names}
-    \  Select Tag  ${name}
-    Submit Selected Tags  ${isAdhoc}
+    Submit Selected Tags    ${isAdhoc}
 
 Select New Tag
     [Arguments]  ${isAdhoc}=${False}

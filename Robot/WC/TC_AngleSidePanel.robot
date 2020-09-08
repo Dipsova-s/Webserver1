@@ -214,6 +214,7 @@ Verify Angle Tags
     Tag Should Be Available  Robot1
     Tag Should Be Available  Robot2
     Select Tag  Robot2
+    Filter Item Tag  robot
     Select New Tag
 
     # check
