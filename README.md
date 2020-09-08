@@ -36,11 +36,7 @@ SetupFiles
     * Source: https://everyangle.pkgs.visualstudio.com/_packaging/EAPackages/nuget/v3/index.json
 3.  Add/Clone repo - you must include submodule
 4.	Add missing files
-    1. /EveryAngle.WebClient/EveryAngle.WebClient.Web/Admin/UploadedResources/FieldCategoryIcons copy from /EveryAngle.WebClient/EveryAngle.ManagementConsole/UploadedResources/FieldCategoryIcons
-    2. /SetupFiles/ThirdParty/7-Zip/7za.exe download from [7-zip.org](https://www.7-zip.org/download.html)
-    3. /EveryAngle.GoToSAP.Launcher/EveryAngle.GoToSAP.Launcher.exe download from [ModelServer build artifact](https://everyangle.visualstudio.com/EveryAngle/_build?definitionId=474)
-    4. /NET/Frontend/WebDeploy download from [WebServer build artifact](https://everyangle.visualstudio.com/EveryAngle/_build?definitionId=21)
-    5. /DeploymentTools download from [Tools build artifact](https://everyangle.visualstudio.com/EveryAngle/_build?definitionId=9)
+    * Run this [script](/check-missing-files.ps1) 
 5.	Commit code
     1.  Creating a new branch by using following format
         - feature/\<id>_\<short title> for feature type
