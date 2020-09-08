@@ -700,8 +700,6 @@ describe("ChartOptionsHandler", function () {
         it('should create UI (percentage)', function () {
             // prepare
             var settings = { type: 'percentage' };
-            $.fn.kendoNumericTextBox = $.noop;
-            $.fn.kendoPercentageTextBox = $.noop;
             spyOn($.fn, 'kendoNumericTextBox');
             spyOn($.fn, 'kendoPercentageTextBox');
             chartOptionsHandler.CreateAxisScaleRangeInput($(), settings, null, $.noop);

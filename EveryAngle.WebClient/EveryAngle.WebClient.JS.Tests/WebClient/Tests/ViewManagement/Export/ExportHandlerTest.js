@@ -33,13 +33,7 @@ describe("ExportHandlerTest", function () {
         };
     });
 
-    describe("when create new instance", function () {
-        it("should be defined", function () {
-            expect(exportHandler).toBeDefined();
-        });
-    });
-
-    describe("call SetExportModel", function () {
+    describe(".SetExportModel", function () {
 
         beforeEach(function () {
             exportHandler.CurrentExportModel = new ExportCSVModel({
@@ -61,8 +55,7 @@ describe("ExportHandlerTest", function () {
             expect(result.EnquoteHeader()).toBe(false);
         });
     });
-
-    describe("call GetDatastoreDataSetting", function () {
+    describe(".GetDatastoreDataSetting", function () {
         it("should set EnquoteHeader to Export Model", function () {
             var result = exportHandler.GetDatastoreDataSetting(datastore, 'csv_enquote_headers');
             expect(result).toBe(false);
@@ -72,78 +65,24 @@ describe("ExportHandlerTest", function () {
             expect(result).toBe('');
         });
     });
-
-    describe("call CreateAddModelDateUI", function () {
-
+    describe(".CreateAddModelDateUI", function () {
         var element;
-
         beforeEach(function () {
             element = $('<div id="add-model-date-at-column" />').appendTo('body');
         });
-
         afterEach(function () {
             element.remove();
         });
 
         it("should function exist", function () {
-            element.data('kendoNumericTextBox', {
-                element: element,
-                value: $.noop,
-                trigger: $.noop,
-                _placeholder: $.noop,
-                _focusin: $.noop,
-                _blur: $.noop
+            element.data('handler', {
+                destroy: $.noop
             });
-            $.fn.kendoNumericTextBox = function () {
-                return element;
-            };
-
-            spyOn(WC.HtmlHelper, 'DestroyNumericIfExists');
+            spyOn($.fn, 'kendoModelTimestampTextBox').and.returnValue(element);
             var result = exportHandler.CreateAddModelDateUI();
 
             expect(result).not.toBe(null);
-            expect(typeof result._placeholder).toBe('function');
-            expect(typeof result.__placeholder).toBe('function');
-            expect(typeof result._focusin).toBe('function');
-            expect(typeof result.__focusin).toBe('function');
-            expect(typeof result._blur).toBe('function');
-            expect(typeof result.__blur).toBe('function');
-            expect(WC.HtmlHelper.DestroyNumericIfExists).toHaveBeenCalled();
-        });
-    });
-
-    describe("call GetModelDateInputValue", function () {
-        var tests = [
-            { value: null, expected: "None" },
-            { value: 0, expected: "None" },
-            { value: 1, expected: 1 },
-            { value: 2, expected: 2 }
-        ];
-
-        $.each(tests, function (index, test) {
-            it("should get correct model date input value (" + test.value + " -> " + test.expected + ")", function () {
-                var result = exportHandler.GetModelDateInputValue(test.value);
-                expect(test.expected).toEqual(result);
-            });
-        });
-    });
-
-    describe("call SetModelDateColumn", function () {
-        var tests = [
-            { value: 0, expected: null },
-            { value: 1, expected: 0 },
-            { value: 2, expected: 1 },
-            { value: 5, expected: 4 },
-            { value: 6, expected: 5 },
-            { value: 10, expected: 9 }
-        ];
-
-        $.each(tests, function (index, test) {
-            it("should set correct model date column with 5 columns (" + test.value + " -> " + test.expected + ")", function () {
-                
-                exportHandler.SetModelDateColumn(test.value, 5);
-                expect(test.expected).toEqual(exportHandler.CurrentExportModel.AddModelDateAtColumn);
-            });
+            expect($.fn.kendoModelTimestampTextBox).toHaveBeenCalled();
         });
     });
     describe(".SetButtonStatus", function () {
@@ -151,40 +90,6 @@ describe("ExportHandlerTest", function () {
             spyOn(jQuery.fn, 'removeClass').and.returnValue($());
             exportHandler.SetButtonStatus();
             expect(jQuery.fn.removeClass).toHaveBeenCalled();
-        });
-    });
-
-    describe(".IsNoneValue", function () {
-        var tests = [
-            { value: '', expected: true },
-            { value: 0 , expected: true },
-            { value: -1, expected: true },
-            { value: 1, expected: false },
-            { value: 5, expected: false }
-        ];
-
-        $.each(tests, function (index, test) {
-            it("should return correct result from  (" + test.value + " -> " + test.expected + ")", function () {
-                var actual=  exportHandler.IsNoneValue(test.value);
-                expect(test.expected).toEqual(actual);
-            });
-        });
-    });
-
-    describe(".ConvertDefaultModelTimestampToCSVModelTimestamp", function () {
-        var tests = [
-            { value: '', expected: null },
-            { value: 0, expected: 1 },
-            { value: -1, expected: null },
-            { value: 1, expected: 2 },
-            { value: 5, expected: 6 }
-        ];
-
-        $.each(tests, function (index, test) {
-            it("should return correct result from  (" + test.value + " -> " + test.expected + ")", function () {
-                var actual = exportHandler.ConvertDefaultModelTimestampToCSVModelTimestamp(test.value);
-                expect(test.expected).toEqual(actual);
-            });
         });
     });
 });

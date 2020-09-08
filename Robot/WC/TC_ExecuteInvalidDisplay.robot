@@ -12,7 +12,8 @@ Verify Execute Invalid Angle
     [Setup]  Import Angle By API  /models/1  ANGLE_Execute_Invalid.json  user=${Username}
 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_EXECUTE_INVALID
-
+    Click Display Tab
+    
     # Check list menu
     Check Menu In Header Popup In Case Known Field  ObjectType
     Check Menu In Header Popup In Case Unknown Field  IDInvalid

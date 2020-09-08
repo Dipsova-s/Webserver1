@@ -587,7 +587,6 @@ describe("FilterEnumeratedEditor", function () {
 
     describe(".CreateEnumeratedListGrid", function () {
         it("should create UI", function () {
-            $.fn.kendoGrid = $.fn.kendoGrid || $.noop;
             spyOn($.fn, 'kendoGrid').and.returnValue({ data: function () { return 'grid-object'; } });
             spyOn($.fn, 'on').and.returnValue($());
             spyOn(WC.HtmlHelper, 'EnableMouseScrolling');

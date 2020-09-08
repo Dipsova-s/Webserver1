@@ -86,7 +86,8 @@ namespace EveryAngle.ManagementConsole
             bundles.Add(new ScriptBundle("~/bundles/kendo.js")
                 .Include("~/Scripts/KendoUI/kendo.all.min.js")
                 .Include("~/Scripts/KendoUI/kendo.timezones.min.js")
-                .Include("~/Scripts/KendoUICustom/kendo.percentagetextbox.js")
+                .Include("~/content/externalresource/kendo.percentagetextbox.js")
+                .Include("~/content/externalresource/kendo.modeltimestamptextbox.js")
                 .Include("~/Scripts/KendoUI/kendo.aspnetmvc.min.js")
                 .Include("~/Scripts/KendoUICustom/kendo.custom.js"));
 

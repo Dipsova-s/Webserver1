@@ -31,7 +31,7 @@ Verify Add Filter
     Verify Add Filter Time Editor
     # TimeSpan
     Verify Add Filter TimeSpan Editor
-    # TimaStamp
+    # TimeStamp
     Verify Add Filter TimeStamp Editor
     # Boolean
     Verify Add Filter Boolean Editor

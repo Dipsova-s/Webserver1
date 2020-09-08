@@ -75,9 +75,11 @@ Click Cancel Excel Button
     Click Element    ${btnCancelExportToExcel}
 
 Wait Until Export To Excel Popup Loaded
+    Sleep  ${TIMEOUT_GENERAL}
     Wait Until Page Contains Element    ${btnOKExportToExcel}
     Wait Until Element Is Visible    ${btnOKExportToExcel}
     Wait Until Page Does Not Contain Element    ${pgbExportToExcel}
+    Wait Until Ajax Complete
 
 Wait Until Export Drilldown To Excel Popup Loaded
     Wait Until Page Contains Element    ${btnOKExportDrilldownToExcel}

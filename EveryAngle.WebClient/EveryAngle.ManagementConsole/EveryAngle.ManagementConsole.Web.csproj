@@ -383,7 +383,7 @@
     <Content Include="Images\Icons\icon_edit.png" />
     <Content Include="Images\Icons\icon_filter.png" />
     <Content Include="Images\Icons\icon_info.svg" />
-	<Content Include="Images\Icons\icon_innowera.svg" />
+    <Content Include="Images\Icons\icon_innowera.svg" />
     <Content Include="Images\Icons\icon_plus.png" />
     <Content Include="Images\Icons\icon_user.png" />
     <Content Include="Images\Icons\icon_arrow_right.png" />
@@ -411,7 +411,6 @@
     <Content Include="Scripts\jQuery\jquery.tagsinput.js" />
     <Content Include="Scripts\jQuery\jquery.validate.additional-methods.js" />
     <Content Include="Scripts\jQuery\jquery.validate.min.js" />
-    <Content Include="Scripts\KendoUICustom\kendo.percentagetextbox.js" />
     <Content Include="Scripts\Knockout\knockout.min.js" />
     <Content Include="Scripts\Modernizr\modernizr.min.js" />
     <Content Include="Scripts\Custom\MC.js" />
@@ -811,6 +810,7 @@
     <Content Include="Views\Shared\Copyright.cshtml" />
     <Content Include="Views\AngleExports\ExcelTemplates.cshtml" />
     <Content Include="Views\AngleExports\ExcelTemplatesGrid.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ModelTimestampTemplate.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

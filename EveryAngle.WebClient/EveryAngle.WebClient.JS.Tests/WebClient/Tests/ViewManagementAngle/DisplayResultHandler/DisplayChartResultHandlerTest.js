@@ -1,4 +1,5 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/KendoUICustom/kendo.colorpicker.custom.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Angle/ResultModel.js" />
@@ -443,9 +444,6 @@ describe("DisplayChartResultHandler", function () {
 
     describe(".InitialGaugeUI", function () {
         beforeEach(function () {
-            $.fn.kendoPercentageTextBox = $.noop;
-            $.fn.kendoNumericTextBox = $.noop;
-            $.fn.kendoCustomColorPicker = $.noop;
             spyOn($.fn, 'kendoPercentageTextBox');
             spyOn($.fn, 'kendoNumericTextBox');
             spyOn($.fn, 'kendoCustomColorPicker');

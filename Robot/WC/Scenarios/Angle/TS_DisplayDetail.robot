@@ -11,7 +11,6 @@ Verify Sort And Move Filters
     [Arguments]   ${angleName}
     Create Angle From "Move And Filters" Template    ${angleName}
     Change Display By Name    Sort And Move Filters
-
     Click Display Tab
 
     #Verify filter can be sorted

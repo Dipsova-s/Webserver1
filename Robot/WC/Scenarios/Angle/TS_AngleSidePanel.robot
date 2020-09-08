@@ -50,7 +50,7 @@ Assert That Angle Cannot Delete A Filter On Display Tab
     Delete Filter Button Should Not Be Visible On Display   0
 
 Assert To Remove Ad hoc Display Filters On Drill Down
-    Wait Angle Page Document Loaded
+    Click Display Tab
     Drilldown Pivot Total Cell Value By Row Index    0
     Wait Angle Page Document Loaded
     Assert To Remove All Ad hoc Display Filters

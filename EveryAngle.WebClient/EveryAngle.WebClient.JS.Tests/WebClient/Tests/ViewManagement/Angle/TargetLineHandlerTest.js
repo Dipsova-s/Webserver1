@@ -1,4 +1,5 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/TargetLineHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/KendoUICustom/kendo.colorpicker.custom.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/TargetLineHandler.js" />
 
 describe("TargetLineHandler", function () {
     var targetlinehadler;
@@ -195,7 +196,6 @@ describe("TargetLineHandler", function () {
             targetlinehadler.Details({
                 targetlinedetails: { color: null }
             });
-            $.fn.kendoCustomColorPicker = $.noop;
             spyOn($.fn, 'kendoCustomColorPicker');
 
             targetlinehadler.SetColorPicker();
@@ -252,8 +252,6 @@ describe("TargetLineHandler", function () {
             var formatTemplate = "#,##0 EUR";
 
             var uiName = enumHandlers.KENDOUITYPE.PERCENTAGETEXT;
-            $.fn.kendoPercentageTextBox = $.noop;
-            $.fn.kendoNumericTextBox = $.noop;
             spyOn($.fn, 'kendoNumericTextBox').and.returnValue($());
             spyOn($.fn, 'kendoPercentageTextBox').and.returnValue($());
             targetlinehadler.CreateInput($(), uiName, formatTemplate, null);

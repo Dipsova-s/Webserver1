@@ -932,6 +932,8 @@
                     containerSettings.html(response + ($.trim(response) ? '<hr/>' : ''));
 
                     MC.ui.popup();
+                    MC.ui.percentage();
+                    MC.ui.modeltimestamp();
                     MC.ui.autosyncinput();
 
                     var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
@@ -955,16 +957,15 @@
         };
         self.SetDatastoreSettingValue = function (input, arg) {
             var settingType = input.data('setting-type');
-            if (settingType === 'enum'
-                || settingType === 'currency_symbol'
-                || settingType === 'percentage'
-                || settingType === 'double') {
+            if (MC.ui.isKendoTypeSetting(settingType)) {
+                var inputUI = input.data('handler');
                 if (arg.name === 'template_file') {
-                    self.SetTemplateFileValue(input, arg);
+                    self.SetTemplateFileValue(inputUI, arg);
                 }
                 else {
-                    var inputUI = input.data('handler');
                     inputUI.value(arg.value);
+                    if (arg.name === 'max_rows_to_export')
+                        self.SetDatastoreSettingMaxRowsToExportValue(inputUI, arg.value);
                 }
             }
             else if (settingType === 'boolean') {
@@ -974,13 +975,6 @@
                 var currentDate = new Date(arg.value * 1000);
                 var datepicker = input.data('handler');
                 datepicker.value(currentDate);
-            }
-            else if (settingType === 'integer') {
-                var integerInput = input.data('kendoNumericTextBox');
-                integerInput.value(arg.value);
-
-                if (arg.name === 'max_rows_to_export')
-                    self.SetDatastoreSettingMaxRowsToExportValue(integerInput, arg.value);
             }
             else if (settingType === 'text') {
                 input.val(arg.value);
@@ -1025,9 +1019,7 @@
         };
         self.GetDataStoreSettingInfo = function (input) {
             var setting = { 'id': input.attr('id'), 'value': null, 'type': input.data('setting-type') };
-            if (setting.type === 'enum'
-                || setting.type === 'currency_symbol'
-                || setting.type === 'percentage') {
+            if (MC.ui.isKendoTypeSetting(setting.type)) {
                 setting.value = input.data('handler').value();
             }
             else if (setting.type === 'boolean') {
@@ -1037,12 +1029,6 @@
                 var currentTime = new Date(input.val());
                 var ymd = kendo.toString(currentTime, 'yyyyMMdd');
                 setting.value = parseInt(ymd);
-            }
-            else if (setting.type === 'double') {
-                setting.value = parseFloat(input.val());
-            }
-            else if (setting.type === 'integer') {
-                setting.value = parseInt(input.val());
             }
             else if (setting.type === 'text') {
                 setting.value = input.val();
@@ -2447,9 +2433,8 @@
         self.IsDefaultDisplayExcelTemplate = function (displayExcelTemplate) {
             return Localization.Default_Placeholder.split(' ')[0] === displayExcelTemplate.split(' ')[0];
         };
-        self.SetTemplateFileValue = function (input, arg) {
-            if (arg.value !== '') {
-                var inputUI = input.data('handler');
+        self.SetTemplateFileValue = function (inputUI, arg) {
+            if (arg.value) {
                 inputUI.value(arg.value);
                 inputUI.trigger('change');
             }

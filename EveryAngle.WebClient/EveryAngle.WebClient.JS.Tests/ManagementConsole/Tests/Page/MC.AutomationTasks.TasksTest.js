@@ -1022,4 +1022,34 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(modelTimestampIndexValue).toBe(1);
         });
     });
+
+    describe(".SetTemplateFileValue", function () {
+        var ui, arg = {};
+        beforeEach(function () {
+            ui = {
+                value: $.noop,
+                trigger: $.noop
+            };
+            spyOn(ui, 'value');
+            spyOn(ui, 'trigger');
+        });
+        it("should set value", function () {
+            // prepare
+            arg.value = 'my-value';
+            automationTask.SetTemplateFileValue(ui, arg);
+
+            // assert
+            expect(ui.value).toHaveBeenCalledWith('my-value');
+            expect(ui.trigger).toHaveBeenCalledWith('change');
+        });
+        it("should not set value", function () {
+            // prepare
+            arg.value = '';
+            automationTask.SetTemplateFileValue(ui, arg);
+
+            // assert
+            expect(ui.value).not.toHaveBeenCalled();
+            expect(ui.trigger).not.toHaveBeenCalled();
+        });
+    });
 });

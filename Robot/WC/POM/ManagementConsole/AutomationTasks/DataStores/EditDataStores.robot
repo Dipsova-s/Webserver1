@@ -81,7 +81,7 @@ Fill Connection Settings
 Fill Data Settings for CSV Export
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${fileName}     ${appendResult}
     scroll Vertical To Element  ${scrollableDatastorePage}  ${sectionDataSettings}
-    Input kendo Numeric TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
+    Input kendo Model Timestamp TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
     Select Dropdown By InnerText    ${ddlHeaderFormat}  ${headerFormat}
     Select Dropdown By InnerText  ${ddlSetFormat}  ${setFormat}
     Input kendo Numeric TextBox  ${txtMaxRowsToExport}  ${maxRowstoExport}
@@ -122,7 +122,7 @@ Click on Cancel button in DataStore
 
 Fill Data Settings for Excel Export
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${fileName}     ${templateFileName}     ${sheetName}     ${techInfo}
-    Input kendo Numeric TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
+    Input kendo Model Timestamp TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
     Select Dropdown By InnerText    ${ddlHeaderFormat}  ${headerFormat}
     Select Dropdown By InnerText  ${ddlSetFormat}  ${setFormat}
     Input kendo Numeric TextBox  ${txtMaxRowsToExport}  ${maxRowstoExport}
@@ -142,12 +142,11 @@ Fill Angle Settings
 Fill Data Settings for SQL Export
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${tableName}     ${deletionTimeout}     ${appendResult}
     scroll Vertical To Element  ${scrollableDatastorePage}  ${sectionDataSettings}
-    Input kendo Numeric TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
+    Input kendo Model Timestamp TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
     Select Dropdown By InnerText    ${ddlHeaderFormat}  ${headerFormat}
     Select Dropdown By InnerText  ${ddlSetFormat}  ${setFormat}
     Input kendo Numeric TextBox  ${txtMaxRowsToExport}  ${maxRowstoExport}
     Input Text  ${txtTableName}  ${tableName}
-    Input kendo Numeric TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
     Select Dropdown By InnerText   ${ddlSqlExportType}  ${appendResult}
     
 Fill Connection Settings for SQL Export
@@ -219,7 +218,8 @@ Verify the Default value for Default datastores in Connection Settings
 
 Verify the field values for CSV Datastore in Data Settings
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${fileName}     ${appendResult}
-    Textfield value should be     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
+    ${modelTimestampIndexValue}  Get Kendo Value  ${txtModelTimestampIndex}
+    Should Be True  ${modelTimestampIndexValue}==${modalTimeStampIndex}
     Textfield value should be    ${ddlHeaderFormat}  ${headerFormat}
     Textfield value should be  ${ddlSetFormat}  ${setFormat}
     Textfield value should be  ${txtMaxRowsToExport}  ${maxRowstoExport}
@@ -273,8 +273,9 @@ Get Excel Templates List From Excel Template DropDown In Datastores
 
 Verify the field values for Excel Datastore in Data Settings
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${fileName}     ${templateFileName}     ${sheetName}     ${techInfo}
-    Textfield value should be     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
-    Textfield value should be    ${ddlHeaderFormat}  ${headerFormat}
+    ${modelTimestampIndexValue}  Get Kendo Value  ${txtModelTimestampIndex}
+    Should Be True  ${modelTimestampIndexValue}==${modalTimeStampIndex}
+    Textfield value should be  ${ddlHeaderFormat}  ${headerFormat}
     Textfield value should be  ${ddlSetFormat}  ${setFormat}
     Textfield value should be  ${txtMaxRowsToExport}  ${maxRowstoExport}
     Textfield value should be  ${txtDatastoreFileName}  ${fileName}
@@ -302,12 +303,12 @@ Verify the field values for SQL Datastore in Connection Settings
 
 Verify the field values for SQL Datastore in Data Settings
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${tableName}     ${deletionTimeout}     ${appendResult}
-    Textfield value should be     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
-    Textfield value should be    ${ddlHeaderFormat}  ${headerFormat}
+    ${modelTimestampIndexValue}  Get Kendo Value  ${txtModelTimestampIndex}
+    Should Be True  ${modelTimestampIndexValue}==${modalTimeStampIndex}
+    Textfield value should be   ${ddlHeaderFormat}  ${headerFormat}
     Textfield value should be   ${ddlSetFormat}  ${setFormat}
     Textfield value should be   ${txtMaxRowsToExport}  ${maxRowstoExport}
     Textfield value should be   ${txtTableName}  ${tableName}
-    Textfield value should be     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
     Textfield value should be   ${ddlSqlExportType}  ${appendResult}
 
 Close Alert Popup

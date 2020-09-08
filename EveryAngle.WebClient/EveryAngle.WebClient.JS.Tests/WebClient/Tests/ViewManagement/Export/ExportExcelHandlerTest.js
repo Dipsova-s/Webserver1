@@ -55,36 +55,33 @@ describe("ExportExcelHandlerTest", function () {
         };
     });
 
-    describe("Check the visibility of the number to export", function () {
+    describe(".SetVisibilityForNumberOfItems", function () {
         var element;
-
         beforeEach(function () {
             $('<div id="NumberOfItem" />').appendTo('body');
             element = $('#NumberOfItem');
         });
-
         afterEach(function () {
             $('#NumberOfItem').remove();
         });
 
-        it("Display LIST Should see the number to export", function () {
+        it("should see the number to export for list Display", function () {
             exportExcelHandler.SetVisibilityForNumberOfItems(enumHandlers.DISPLAYTYPE.LIST);
             expect(element.is(":visible")).toBe(true);
         });
 
-        it("Display CHART Should not see the number to export", function () {
+        it("should not see the number to export for chart Display", function () {
             exportExcelHandler.SetVisibilityForNumberOfItems(enumHandlers.DISPLAYTYPE.CHART);
             expect(element.is(":visible")).toBe(false);
         });
 
-        it("Display PIVOT Should not see the number to export", function () {
+        it("should not see the number to export for pivot Display", function () {
             exportExcelHandler.SetVisibilityForNumberOfItems(enumHandlers.DISPLAYTYPE.PIVOT);
             expect(element.is(":visible")).toBe(false);
         });
-
     });
 
-    describe("call ShowNotSupportExportChartToExcelWarning", function () {
+    describe(".ShowNotSupportExportChartToExcelWarning", function () {
         var element;
 
         beforeEach(function () {
@@ -119,7 +116,7 @@ describe("ExportExcelHandlerTest", function () {
         });
     });
 
-    describe("call IsSupportExcelExportAsChart", function () {
+    describe(".IsSupportExcelExportAsChart", function () {
 
         var allsupportCharts = ['area', 'column', 'line', 'bar', 'radarLine', 'donut', 'pie', 'scatter', 'bubble'];
         var supportStackCharts = ['area', 'column', 'line', 'bar', 'radarLine'];
@@ -147,7 +144,7 @@ describe("ExportExcelHandlerTest", function () {
         });
 
     });
-    describe("call ValidateExportExcel", function () {
+    describe(".ValidateExportExcel", function () {
         it("should return true", function () {
             spyOn(window, 'IsValidFileAndSheetName').and.returnValue(true);
             spyOn(popup, "Alert").and.callFake($.noop);
@@ -187,49 +184,44 @@ describe("ExportExcelHandlerTest", function () {
             expect($(result).find('i').hasClass('icon-innowera')).toEqual(false);
         });
     });
-    describe("call SetExportModelUI", function () {
-        var element, ddlElement;
-
+    describe(".SetExportModelUI", function () {
+        var ddlElement, modelTimestampElement;
         beforeEach(function () {
-            element = $('<div id="InsertModelTimestamp" />').appendTo('body');
+            exportExcelHandler.CurrentExportModel = {
+                HeaderFormat: $.noop,
+                TemplateFile: $.noop,
+                ModelTimestampIndex: $.noop
+            };
+
             ddlElement = $('<div id="ExcelTemplate" />').data('kendoDropDownList', {
                 value: $.noop,
                 dataItem: $.noop,
                 trigger: $.noop
             }).appendTo('body');
-        });
-
-        afterEach(function () {
-            element.remove();
-            ddlElement.remove();
-        });
-
-        it("should call function ", function () {
-            exportExcelHandler.CurrentExportModel = {
-                HeaderFormat: function () { },
-                TemplateFile: function () { },
-                ModelTimestampIndex: function () { }
-            };
-            $.fn.kendoDropDownList = $.noop;
-            element.data('kendoNumericTextBox', {
-                element: element
-            });
-            $.fn.kendoNumericTextBox = function () {
-                return element;
-            };
             spyOn($.fn, 'kendoDropDownList').and.returnValue(ddlElement);
-            spyOn($.fn, 'kendoNumericTextBox').and.returnValue($());
-            spyOn(WC.HtmlHelper, 'DestroyNumericIfExists');
             spyOn(exportExcelHandler, 'GetExcelItemTemplate').and.returnValue($.noop);
             spyOn(excelTemplateFilesHandler, 'GetDropdownData').and.returnValue($.noop);
             spyOn(exportExcelHandler, 'ShowInnoweraDetails').and.returnValue($.noop);
             spyOn(exportExcelHandler, "ShowWarningMessageTemplateDeleted").and.returnValue($.noop);
             spyOn(exportExcelHandler, "GetDropdownData").and.returnValue($.noop);
+
+            modelTimestampElement = $('<div id="InsertModelTimestamp" />').appendTo('body');
+            modelTimestampElement.data('handler', {
+                destroy: $.noop
+            });
+            spyOn($.fn, 'kendoModelTimestampTextBox');
+        });
+
+        afterEach(function () {
+            ddlElement.remove();
+            modelTimestampElement.remove();
+        });
+
+        it("should call function ", function () {
             exportExcelHandler.SetExportModelUI();
 
             expect($.fn.kendoDropDownList).toHaveBeenCalled();
-            expect(WC.HtmlHelper.DestroyNumericIfExists).toHaveBeenCalled();
-            expect($.fn.kendoNumericTextBox).toHaveBeenCalled();
+            expect($.fn.kendoModelTimestampTextBox).toHaveBeenCalled();
             expect(exportExcelHandler.GetDropdownData).toHaveBeenCalled();
         });
     });
@@ -284,7 +276,7 @@ describe("ExportExcelHandlerTest", function () {
             expect(element.html()).toEqual('');
         });
     });
-    describe("call GetDatastoreDataSetting", function () {
+    describe(".GetDatastoreDataSetting", function () {
         it("should return expected value ", function () {
             var exportOptions = {
                 'data_settings': {
@@ -300,7 +292,7 @@ describe("ExportExcelHandlerTest", function () {
             expect(result).toBe('new_display');
         });
     });
-    describe("call GetDefaultExcelDatastore", function () {
+    describe(".GetDefaultExcelDatastore", function () {
         it("should call a function", function () {
             var exportOptions = {
                     'datastores': {
@@ -319,7 +311,7 @@ describe("ExportExcelHandlerTest", function () {
             expect(exportExcelHandler.SetExportModelUI).toHaveBeenCalled();
         });
     });
-    describe("call SetExportModel", function () {
+    describe(".SetExportModel", function () {
         beforeEach(function () {
             exportExcelHandler.CurrentExportModel = new ExportExcelModel({
                 FileName: 'Test',
@@ -348,7 +340,7 @@ describe("ExportExcelHandlerTest", function () {
             expect(exportExcelHandler.GetExcelTemplate).toHaveBeenCalled();
         });        
     });
-    describe("call SetDefaultExcelSetting", function () {
+    describe(".SetDefaultExcelSetting", function () {
         beforeEach(function () {
             exportExcelHandler.CurrentExportModel = new ExportExcelModel();
             resultModel.Data({ data_rows: '12' })

@@ -1,27 +1,14 @@
 ﻿describe("ClassesChooser", function () {
-
-    var settings = {
-        createby_object: {
-            q: 'Q',
-            bp: ['BP1', 'Other']
-        },
-        model: 'TEST'
-    };
-
-    $.fn.kendoGrid = function () {
-        var element = $(this);
-        element.data('kendoGrid', {
-            wrapper: element,
-            element: element,
-            content: element
-        });
-        return element;
-    };
-
-    var classesChooser;
+    var classesChooser, settings;
 
     beforeEach(function () {
-
+        settings = {
+            createby_object: {
+                q: 'Q',
+                bp: ['BP1', 'Other']
+            },
+            model: 'TEST'
+        };
         classesChooser = new ClassesChooser('Test', '<div id="TestElement" />', settings);
         classesChooser.BusinessProcessHandler = {
             GetActive: $.noop,
@@ -30,7 +17,15 @@
             CanEmpty: $.noop,
             ApplyHandler: $.noop
         };
-
+        spyOn($.fn, 'kendoGrid').and.callFake(function () {
+            var element = $(this);
+            element.data('kendoGrid', {
+                wrapper: element,
+                element: element,
+                content: element
+            });
+            return element;
+        });
     });
 
     describe("when create new instance", function () {
@@ -71,7 +66,6 @@
         beforeEach(function () {
 
             $('<div id="TestElement2" />').hide().appendTo('body');
-
             classesChooser2 = new ClassesChooser('Test', '#TestElement2', settings);
             classesChooser2.BusinessProcessHandler = {
                 GetActive: $.noop,

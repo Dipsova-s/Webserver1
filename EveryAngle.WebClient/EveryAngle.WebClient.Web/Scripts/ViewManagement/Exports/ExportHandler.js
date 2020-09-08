@@ -146,8 +146,6 @@ function ExportHandler() {
         self.CurrentExportModel.EnumFormat = self.GetDatastoreDataSetting(datastore, 'enum_format');
         self.CurrentExportModel.AddModelDateAtColumn = self.GetDatastoreDataSetting(datastore, 'model_timestamp_index');
         self.CurrentExportModel.MaxRowsToExport(self.GetDatastoreDataSetting(datastore, 'max_rows_to_export'));
-
-
         return self.CurrentExportModel;
     };
 
@@ -240,97 +238,23 @@ function ExportHandler() {
 
         // M4-33218: new modeldate ui
         self.CreateAddModelDateUI();
-
     };
     self.CreateAddModelDateUI = function () {
-        var addModelDateUI;
-        var defaultValue = self.ConvertDefaultModelTimestampToCSVModelTimestamp(self.CurrentExportModel.AddModelDateAtColumn);
-        var setInputValue = function (value) {
-            self.SetModelDateInputValue(addModelDateUI, value);
-        };
-        var valueChanged = function (e, setInput) {
-            var value = e.sender.value();
-            var fieldCount = displayModel.Data().fields.length;
-            self.SetModelDateColumn(value, fieldCount);
-            if (setInput !== false)
-                setInputValue(value);
-        };
-
-        WC.HtmlHelper.DestroyNumericIfExists('#add-model-date-at-column');
-
-        addModelDateUI = jQuery('#add-model-date-at-column').kendoNumericTextBox({
-            min: 0,
-            max: 2147483646,
-            step: 1,
-            format: 'n0',
-            decimals: 0,
+        var addModelDateUI = jQuery('#add-model-date-at-column').data('handler');
+        if (addModelDateUI) {
+            addModelDateUI.destroy();
+        }
+        addModelDateUI = jQuery('#add-model-date-at-column').kendoModelTimestampTextBox({
             placeholder: Captions.Label_CSV_Export_ModelDate_Placeholder,
-            change: valueChanged,
-            spin: valueChanged
-        }).data('kendoNumericTextBox');
-     
-        // placeholder - set placeholder text
-        addModelDateUI.__placeholder = addModelDateUI._placeholder;
-        addModelDateUI._placeholder = function (value) {
-            this.__placeholder(self.GetModelDateInputValue(value));
-        };
-
-        // focus- set 'None' if 0
-        addModelDateUI.__focusin = addModelDateUI._focusin;
-        addModelDateUI._focusin = function () {
-            setInputValue(this.value());
-            this.__focusin();
-        };
-
-        // keypress - set 'None' if typing N or 0
-        addModelDateUI.element.on('keypress', function (e) {
-            var character = String.fromCharCode(e.which).toLowerCase();
-            var noneChar = Captions.Label_CSV_Export_ModelDate_None.charAt(0).toLowerCase();
-            if (character === noneChar || !$(this).val().length && character === '0') {
-                setInputValue(0);
-                e.preventDefault();
+            messages: {
+                none: Captions.Label_CSV_Export_ModelDate_None
+            },
+            value: self.CurrentExportModel.AddModelDateAtColumn,
+            change: function (e) {
+                self.CurrentExportModel.AddModelDateAtColumn = e.sender.value();
             }
-        });
-
-        // keyup - set 'None' if 0
-        addModelDateUI.element.on('keyup', function () {
-            var element = $(this);
-            setInputValue(element.val());
-        });
-
-        // blur - set value back to 0 if 'None'
-        addModelDateUI.__blur = addModelDateUI._blur;
-        addModelDateUI._blur = function () {
-            if (this.element.val() === Captions.Label_CSV_Export_ModelDate_None) {
-                this.value(0);
-                valueChanged({ sender: this }, false);
-            }
-            this.__blur();
-        };
-        addModelDateUI.value(defaultValue);
-        addModelDateUI.trigger('change');
+        }).data('handler');
         return addModelDateUI;
-    };
-    self.GetModelDateInputValue = function (value) {
-        // get 'None' if null
-        return !self.IsNoneValue(value) ? value : Captions.Label_CSV_Export_ModelDate_None;
-    };
-    self.IsNoneValue = function (value) {
-        return (parseInt(value) <= 0 || isNaN(parseInt(value)));
-    };
-    self.ConvertDefaultModelTimestampToCSVModelTimestamp = function (value) {
-        return (!isNaN(parseInt(value)) && value >= 0) ? (value + 1) : null;
-    };
-    self.SetModelDateInputValue = function (ui, value) {
-        // - set 'None' if 0
-        var newValue = self.GetModelDateInputValue(value);
-        ui.element.val(newValue);
-    };
-    self.SetModelDateColumn = function (value, fieldCount) {
-        // set value to model
-        // - convert number to index (value)
-        // - 0 is null
-        self.CurrentExportModel.AddModelDateAtColumn = !self.IsNoneValue(value) ? (value - 1) : null;
     };
 
     self.ValidateExportCSV = function (exportSettings) {

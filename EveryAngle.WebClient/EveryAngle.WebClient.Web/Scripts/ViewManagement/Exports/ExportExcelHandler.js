@@ -360,14 +360,20 @@ function ExportExcelHandler() {
         }).data(enumHandlers.KENDOUITYPE.DROPDOWNLIST);
 
         if (!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
-            WC.HtmlHelper.DestroyNumericIfExists('#InsertModelTimestamp');
-            jQuery('#InsertModelTimestamp').kendoNumericTextBox({
-                min: -1,
-                step: 1,
-                format: 'n0',
-                decimals: 0,
-                value: self.CurrentExportModel.ModelTimestampIndex()
-            }).data('kendoNumericTextBox');
+            var addModelDateUI = jQuery('#InsertModelTimestamp').data('handler');
+            if (addModelDateUI) {
+                addModelDateUI.destroy();
+            }
+            jQuery('#InsertModelTimestamp').kendoModelTimestampTextBox({
+                placeholder: Captions.Label_CSV_Export_ModelDate_Placeholder,
+                messages: {
+                    none: Captions.Label_CSV_Export_ModelDate_None
+                },
+                value: self.CurrentExportModel.ModelTimestampIndex(),
+                change: function (e) {
+                    self.CurrentExportModel.ModelTimestampIndex(e.sender.value());
+                }
+            });
         }
         
         excelDropdown.value(self.CurrentExportModel.TemplateFile());

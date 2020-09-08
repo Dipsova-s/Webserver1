@@ -218,17 +218,6 @@ Save Adhoc Display From Action Menu
     Input Name In Save Display As Popup    ${displayName}
     Save Display As
 
-Create Adhoc Angle And Execute Jump
-    [Arguments]    ${jumpName}
-    Open Create Angle By Object List Popup
-    Fill In Search Create Angle By Object List Popup    Delivery Item
-    Click First Object from List
-    Click Create New Angle from Object List Button
-    Wait Angle Page Document Loaded
-    Check If Angle Or Display Has A Warning Then Close The Popup
-    Change Display To List
-    Execute Jump From Action Menu    ${jumpName}
-
 Check Warning And Error Displays In Display Dropdown
     [Arguments]         ${angleName}
     Search Angle From Search Page And Execute Angle    ${angleName}

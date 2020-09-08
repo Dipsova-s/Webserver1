@@ -367,7 +367,6 @@ describe("DisplayOverviewHandler", function () {
 
     describe(".InitialSortable", function () {
         beforeEach(function () {
-            $.fn.kendoSortable = $.noop;
             spyOn($.fn, 'kendoSortable');
         });
         it('should not init', function () {

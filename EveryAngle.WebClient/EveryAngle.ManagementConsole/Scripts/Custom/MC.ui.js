@@ -139,6 +139,7 @@
             MC.addPageReadyFunction(this.customcheckbox);
             MC.addPageReadyFunction(this.textarea);
             MC.addPageReadyFunction(this.percentage);
+            MC.addPageReadyFunction(this.modeltimestamp);
             MC.addPageReadyFunction(this.autosyncinput);
             MC.addPageReadyFunction(this.hideErrorMessageOnScroll);
 
@@ -157,6 +158,7 @@
             MC.addAjaxDoneFunction(this.customcheckbox);
             MC.addAjaxDoneFunction(this.textarea);
             MC.addAjaxDoneFunction(this.percentage);
+            MC.addAjaxDoneFunction(this.modeltimestamp);
             MC.addAjaxDoneFunction(this.autosyncinput);
         },
         btn: function () {
@@ -820,12 +822,25 @@
                 obj = '[data-role="percentagetextbox"]';
 
             jQuery(obj).each(function (k, v) {
-                if (jQuery(v).data('kendoPercentageTextBox')) return;
+                if (jQuery(v).data('kendoPercentageTextBox'))
+                    return;
 
                 var settings = jQuery.extend({ format: ',0.00 \\%' }, jQuery(v).data());
                 if (settings.min === '') delete settings.min;
                 if (settings.max === '') delete settings.max;
                 jQuery(v).kendoPercentageTextBox(settings);
+            });
+        },
+        modeltimestamp: function (obj) {
+            if (typeof obj === 'undefined')
+                obj = '[data-role="modeltimestamptextbox"]';
+
+            jQuery(obj).each(function (k, v) {
+                if (jQuery(v).data('kendoModelTimestampTextBox'))
+                    return;
+
+                var settings = jQuery.extend({}, jQuery(v).data());
+                jQuery(v).kendoModelTimestampTextBox(settings);
             });
         },
         autosyncinput: function (obj) {
@@ -894,6 +909,10 @@
                     MC.util.showExistTemplateInfo(obj);
                 }
             }
+        },
+        isKendoTypeSetting: function (type) {
+            var kendoTypes = ['enum', 'currency_symbol', 'percentage', 'double', 'integer'];
+            return jQuery.inArray(type, kendoTypes) !== -1;
         }
     };
 

@@ -461,11 +461,11 @@ describe("BaseFilterEditor", function () {
             callInitial(null, $());
         });
         it("should initial", function () {
-            $.fn.kendoGrid = function () {
+            spyOn($.fn, 'kendoGrid').and.callFake(function () {
                 var ui = $('<div />');
                 ui.data('kendoGrid', 'this-is-grid-object');
                 return ui;
-            };
+            });
             spyOn(baseFilterEditor, 'SetElementCssClass');
             spyOn(baseFilterEditor, 'IntialMultipleArgumentValues');
             baseFilterEditor.InitialMultipleArgumentUI($());

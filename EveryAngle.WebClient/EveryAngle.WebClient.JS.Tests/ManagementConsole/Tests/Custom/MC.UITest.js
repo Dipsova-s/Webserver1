@@ -1,15 +1,35 @@
 ﻿describe("MC.ui.js", function () {
-
-    describe("when create new instance", function () {
-
-        it("should be defined", function () {
-            expect(MC.ui).toBeDefined();
+    describe("MC.ui.percentage", function () {
+        beforeEach(function () {
+            spyOn($.fn, 'kendoPercentageTextBox');
+            $('<div data-role="percentagetextbox" data-kendo-percentage-text-box="{}"/><div data-role="percentagetextbox"/>').appendTo('body');
         });
+        afterEach(function () {
+            $('[data-role="percentagetextbox"]').remove();
+        });
+        it("should create UI", function () {
+            MC.ui.percentage();
 
+            expect($.fn.kendoPercentageTextBox).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe("MC.ui.modeltimestamp", function () {
+        beforeEach(function () {
+            spyOn($.fn, 'kendoModelTimestampTextBox');
+            $('<div data-role="modeltimestamptextbox" data-kendo-model-timestamp-text-box="{}"/><div data-role="modeltimestamptextbox"/>').appendTo('body');
+        });
+        afterEach(function () {
+            $('[data-role="modeltimestamptextbox"]').remove();
+        });
+        it("should create UI", function () {
+            MC.ui.modeltimestamp();
+
+            expect($.fn.kendoModelTimestampTextBox).toHaveBeenCalledTimes(1);
+        });
     });
 
     describe("MC.ui.btnGroup.getMenuPositionInfo", function () {
-
         var tests = [
             { height: 200, top: 50, bottom: 210, expectedPostion: 'bottom', expectedClass: '', expectedMarginTop: 2 },
             { height: 200, top: 210, bottom: 50, expectedPostion: 'top', expectedClass: 'revert', expectedMarginTop: 2 },
@@ -19,7 +39,6 @@
 
         $.each(tests, function (index, test) {
             it("should be placed on " + test.expectedPostion + " of clicking button if menu-height=" + test.height + ", top-space=" + test.top + ", bottom-space=" + test.bottom, function () {
-
                 var result = MC.ui.btnGroup.getMenuPositionInfo(test.height, { top: test.top, bottom: test.bottom });
 
                 expect(test.expectedClass).toEqual(result.className);
@@ -89,6 +108,25 @@
 
             // assert
             expect(MC.util.showPopupAlert).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("MC.ui.isKendoTypeSetting", function () {
+        var tests = [
+            { type: 'enum', expected: true },
+            { type: 'currency_symbol', expected: true },
+            { type: 'percentage', expected: true },
+            { type: 'double', expected: true },
+            { type: 'integer', expected: true },
+            { type: 'other', expected: false },
+        ];
+
+        $.each(tests, function (_index, test) {
+            it("should be " + test.expectedPostion + " (type=" + test.type + ")", function () {
+                var result = MC.ui.isKendoTypeSetting(test.type);
+
+                expect(result).toEqual(test.expected);
+            });
         });
     });
 });

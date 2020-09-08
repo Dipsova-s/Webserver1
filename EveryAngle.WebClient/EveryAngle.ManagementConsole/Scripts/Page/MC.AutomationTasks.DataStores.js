@@ -145,9 +145,7 @@
         };
         self.GetSettingInfo = function (input) {
             var setting = { 'id': input.attr('id'), 'value': null, 'type': input.data('setting-type') };
-            if (setting.type === 'enum'
-                || setting.type === 'currency_symbol'
-                || setting.type === 'percentage') {
+            if (MC.ui.isKendoTypeSetting(setting.type)) {
                 setting.value = input.data('handler').value();
             }
             else if (setting.type === 'boolean') {
@@ -157,12 +155,6 @@
                 var currentTime = new Date(input.val());
                 var ymd = kendo.toString(currentTime, 'yyyyMMdd');
                 setting.value = parseInt(ymd);
-            }
-            else if (setting.type === 'double') {
-                setting.value = parseFloat(input.val());
-            }
-            else if (setting.type === 'integer') {
-                setting.value = parseInt(input.val());
             }
             else if (setting.type === 'text') {
                 setting.value = input.val();

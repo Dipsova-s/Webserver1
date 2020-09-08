@@ -32,8 +32,7 @@
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -1130,7 +1129,6 @@
     <Content Include="Scripts\jQuery\jquery.mousewheel.js" />
     <Content Include="Scripts\jQuery\jquery.placeholder.min.js" />
     <Content Include="Scripts\jQuery\jquery.scrollbar.min.js" />
-    <Content Include="Scripts\KendoUICustom\kendo.percentagetextbox.js" />
     <Content Include="Scripts\KnockOut\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\KnockOut\knockout-2.2.0.js" />
     <Content Include="Scripts\KnockOut\knonkout.helper.js" />

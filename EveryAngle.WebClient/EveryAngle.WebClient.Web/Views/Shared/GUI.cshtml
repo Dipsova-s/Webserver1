@@ -358,24 +358,34 @@
     <p>
         Textbox + Legend
     </p>
-        <div class="input-fieldset">
-            <input type="text" />
-            <label class="legend">My label</label>
-        </div><br>
-        <div class="input-fieldset">
-            <input type="text" value="disabled" disabled />
-            <label class="legend">My label</label>
-        </div><br>
-        <div class="input-fieldset">
-            <input type="text" class="invalid" value="invalid" />
-            <label class="legend">My label</label>
-        </div><br>
+    <div class="input-fieldset">
+        <input type="text" />
+        <label class="legend">My label</label>
+    </div><br>
+    <div class="input-fieldset">
+        <input type="text" value="disabled" disabled />
+        <label class="legend">My label</label>
+    </div><br>
+    <div class="input-fieldset">
+        <input type="text" class="invalid" value="invalid" />
+        <label class="legend">My label</label>
+    </div><br>
     <p>
         NumericTextBox
         <input id="NumericTextBox1" />
         <input id="NumericTextBox11" placeholder="disabled" disabled />
         <input id="NumericTextBox2" class="k-numerictextbox-light" />
         <input id="NumericTextBox22" placeholder="disabled" class="k-numerictextbox-light" disabled />
+    </p>
+    <p>
+        PercentageTextBox
+        <input id="PercentageTextBox1" />
+        <input id="PercentageTextBox11" placeholder="disabled" disabled />
+    </p>
+    <p>
+        ModelTimestampTextBox
+        <input id="ModelTimestampTextBox1" />
+        <input id="ModelTimestampTextBox11" placeholder="disabled" disabled />
     </p>
     <p>
         DatePicker
@@ -486,6 +496,16 @@
                 $('#NumericTextBox11').kendoNumericTextBox();
                 $('#NumericTextBox2').kendoNumericTextBox();
                 $('#NumericTextBox22').kendoNumericTextBox();
+
+                $('#PercentageTextBox1').kendoPercentageTextBox({
+                    step: 1,
+                    decimals: 0,
+                    format: '#,##0 \\%'
+                });
+                $('#PercentageTextBox11').kendoPercentageTextBox();
+
+                $('#ModelTimestampTextBox1').kendoModelTimestampTextBox();
+                $('#ModelTimestampTextBox11').kendoModelTimestampTextBox({ value: -1 });
 
                 $('#DateTimePicker1').kendoCustomDateTimePicker();
                 $('#DateTimePicker11').kendoCustomDateTimePicker();
@@ -915,7 +935,7 @@
     <hr />
 
     <h3>Input tags</h3>
-    <input id="Tag1" class="my-tag"/>
+    <input id="Tag1" class="my-tag" />
     <script>
         $(function () {
             checkReady(function () { return window.kendo; }, function () {

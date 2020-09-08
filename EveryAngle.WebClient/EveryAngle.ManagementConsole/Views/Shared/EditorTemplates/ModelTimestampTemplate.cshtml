@@ -1,0 +1,34 @@
+﻿@model EveryAngle.Core.ViewModels.Model.Setting
+@using EveryAngle.Shared.Globalization
+
+<label data-role="tooltip">@Model.Name</label>
+<p>
+    @{
+        int? defaultValue = null;
+
+        if (Model.Value != null)
+        {
+            defaultValue = Convert.ToInt32(Model.Value);
+
+            // -1 is considered NULL, except when the minimum value is set below zero
+            if (defaultValue == -1 && Convert.ToInt32(Model.Min) >= 0)
+            {
+                defaultValue = null;
+            }
+        }
+
+        @(Html.TextBox(Model.Id, defaultValue, new {
+        @class = "modeltimestamp autosyncinput",
+        @data_role = "modeltimestamptextbox",
+        @data_type = "kendoModelTimestampTextBox",
+        @data_setting_type = "integer",
+        @data_min = Model.Min == null ? (int?)0 : Convert.ToInt32(Model.Min),
+        @data_max = Model.Max == null ? (int?)null : Convert.ToInt32(Model.Max),
+        @data_placeholder = @Captions.Label_CSV_Export_ModelDate_Placeholder,
+        @data_messages = "{\"none\": \"" + @Captions.Label_CSV_Export_ModelDate_None + "\"}"
+    }));
+
+<a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+<textarea class="alwaysHidden"><pre>@Resource.InsertCSVModelTimestamp_info</pre></textarea>
+    }
+</p>

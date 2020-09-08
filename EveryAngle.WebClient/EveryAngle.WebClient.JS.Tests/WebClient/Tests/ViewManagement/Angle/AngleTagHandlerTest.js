@@ -1,4 +1,5 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemTagHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/KendoUICustom/kendo.tagtextbox.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemTagHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 
 describe("AngleTagHandler", function () {
@@ -53,7 +54,6 @@ describe("AngleTagHandler", function () {
                 value: $.noop,
                 readonly: $.noop
             };
-            $.fn.kendoTagTextBox = $.noop;
             angleTagHandler.UI = { destroy: $.noop };
             spyOn($.fn, 'kendoTagTextBox').and.returnValue({
                 data: function () { return ui; }

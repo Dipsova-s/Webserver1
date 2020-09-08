@@ -24,7 +24,9 @@ ${btnOKExportDrilldownToCSV}      btn-popupExportDrilldownCSV1
 
 *** Keywords ***
 Wait Until Export To CSV Popup Loaded
+    Sleep  ${TIMEOUT_GENERAL}
     Wait Until Page Does Not Contain Element    ${pgbExportToCSV}
+    Wait Until Ajax Complete
 
 Get CSV File Name
     ${fileName}    Get Value    ${txtCSVFileName}

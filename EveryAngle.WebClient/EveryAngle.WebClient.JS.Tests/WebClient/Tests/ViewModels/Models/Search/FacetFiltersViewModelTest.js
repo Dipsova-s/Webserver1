@@ -1,3 +1,4 @@
+/// <chutzpah_reference path="/../../Dependencies/KendoUICustom/kendo.tagtextbox.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/User/usermodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
@@ -82,7 +83,6 @@ describe("FacetFiltersViewModel", function () {
 
     describe(".CreateTagInputUI", function () {
         it("should create UI", function () {
-            $.fn.kendoTagTextBox = $.noop;
             spyOn(facetFiltersViewModel, 'GetTagInputElement').and.returnValue($());
             spyOn(facetFiltersViewModel, 'TagInputData').and.returnValue([]);
             spyOn($.fn, 'kendoTagTextBox');

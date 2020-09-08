@@ -1610,7 +1610,7 @@ textarea.input-light {
 .popupTabPanel {
   position: relative;
   color: #333333;
-  font-size: 13px; }
+  font-size: 12px; }
 
 .popupWithTabMenu .popupTabPanel {
   border-left: 1px solid #e6e6e6;
@@ -1672,9 +1672,6 @@ textarea.input-light {
 
 .popupTabPanel .input > label {
   display: inline-block; }
-
-.popupTabPanel .input input {
-  font-size: 11px; }
 
 /* .popupNotification
 ============================================ */

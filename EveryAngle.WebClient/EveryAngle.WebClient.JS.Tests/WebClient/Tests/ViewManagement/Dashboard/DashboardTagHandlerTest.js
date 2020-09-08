@@ -1,4 +1,5 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/KendoUICustom/kendo.tagtextbox.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemTagHandler.js" />
@@ -56,7 +57,6 @@ describe("DashboardTagHandler", function () {
                 value: $.noop,
                 readonly: $.noop
             };
-            $.fn.kendoTagTextBox = $.noop;
             dashboardTagHandler.UI = { destroy: $.noop };
             spyOn($.fn, 'kendoTagTextBox').and.returnValue({
                 data: function () { return ui; }

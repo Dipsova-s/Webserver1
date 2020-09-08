@@ -133,6 +133,11 @@ Input kendo Numeric TextBox
     Execute Javascript     jQuery("#${elementId}").data('kendoNumericTextBox').value(${valueText})
     Execute Javascript     jQuery("#${elementId}").data('kendoNumericTextBox').trigger('change')
 
+Input kendo Model Timestamp TextBox
+    [Arguments]  ${elementId}    ${valueText}
+    Execute Javascript     jQuery("#${elementId}").data('kendoModelTimestampTextBox').value(${valueText})
+    Execute Javascript     jQuery("#${elementId}").data('kendoModelTimestampTextBox').trigger('change')
+
 Input kendo Date Picker
     [Arguments]  ${elementId}    ${valueText}
     Execute Javascript     jQuery("#${elementId}").data('kendoDatePicker').value('${valueText}')

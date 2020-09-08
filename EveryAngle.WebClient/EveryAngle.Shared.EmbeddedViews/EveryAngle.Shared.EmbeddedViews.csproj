@@ -122,6 +122,8 @@
     <EmbeddedResource Include="Resource\Shared\fonts\WebClient.json" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.ttf" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.woff" />
+    <EmbeddedResource Include="Resource\KendoUICustom\kendo.modeltimestamptextbox.js" />
+    <EmbeddedResource Include="Resource\KendoUICustom\kendo.percentagetextbox.js" />
     <Content Include="Views\Top\ValidationRequestHeader.cshtml" />
     <None Include="Views\User\PartialViews\UserLoginBodyPage.cshtml">
       <Generator>RazorGenerator</Generator>

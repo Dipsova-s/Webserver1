@@ -50,7 +50,6 @@
 /// <reference path="KendoUI/kendo.all.min.js" />
 /// <reference path="KendoUI/kendo.aspnetmvc.min.js" />
 /// <reference path="KendoUICustom/kendo.custom.js" />
-/// <reference path="KendoUICustom/kendo.percentagetextbox.js" />
 /// <reference path="KendoUI/kendo.timezones.min.js" />
 /// <reference path="knockout/knockout.min.js" />
 /// <reference path="modernizr/modernizr.min.js" />

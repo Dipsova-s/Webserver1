@@ -36,6 +36,7 @@ Remember Changes When Switch Display
     [Tags]  acc_wc  TC_C219259  TC_C230315
     ${angleName}  Set Variable  [ROBOT] Test Remember Changes When Switch Display
     Create Angle From Object List And Save    PD    ${angleName}
+    Click Display Tab
 
     Log  Update list Display
     Click Header by Data Field Angle Grid List Display  ID
