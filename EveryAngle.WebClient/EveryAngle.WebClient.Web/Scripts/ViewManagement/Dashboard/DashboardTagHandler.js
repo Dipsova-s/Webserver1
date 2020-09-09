@@ -24,6 +24,7 @@
         var target = container.find('input.tags-input');
         self.UI = target.kendoTagTextBox({
             autoBind: false,
+            autoClose: true,
             dataSource: self.GetDataSource(),
             placeholder: Localization.TagInputPlaceholder,
             messages: {
