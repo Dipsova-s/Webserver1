@@ -153,7 +153,7 @@ img {
 }
 
 .drop-area-cover {
-    cursor: default;
+    cursor: pointer;
     @include flex-center;
     justify-content: center;
     text-align: center;
@@ -1597,4 +1597,8 @@ $dropdown-large-item-height: 20px;
             }
         }
     }
+}
+
+.no-tooltip {
+    cursor: default;
 }

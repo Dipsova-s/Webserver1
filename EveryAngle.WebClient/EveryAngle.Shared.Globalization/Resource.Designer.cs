@@ -1258,7 +1258,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angle filters &amp; jumps.
+        ///   Looks up a localized string similar to Angle Filters &amp; Jumps.
         /// </summary>
         public static string AngleFilters {
             get {
@@ -3310,7 +3310,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display filters &amp; jumps.
+        ///   Looks up a localized string similar to Display Filters &amp; Jumps.
         /// </summary>
         public static string DisplayFilters {
             get {
@@ -17967,6 +17967,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Tooltip_ApplyAndSaveDisplay {
             get {
                 return ResourceManager.GetString("Tooltip_ApplyAndSaveDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete.
+        /// </summary>
+        public static string Tooltip_SwitchToAngleTab {
+            get {
+                return ResourceManager.GetString("Tooltip_SwitchToAngleTab", resourceCulture);
             }
         }
         

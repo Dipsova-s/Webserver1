@@ -58,4 +58,14 @@ describe("AngleSidePanelHandler", function () {
             expect(angleSidePanelHandler.InitialAccordion).toHaveBeenCalled();
         });
     });
+    describe(".OpenAngleAccordion", function () {
+        it("should call OpenAccordion function", function () {
+            //prepare
+            spyOn(angleSidePanelHandler, "OpenAccordion");
+            angleSidePanelHandler.OpenAngleAccordion(enumHandlers.ACCORDION.DEFINITION);
+
+            //assert
+            expect(angleSidePanelHandler.OpenAccordion).toHaveBeenCalled();
+        });
+    });
 });

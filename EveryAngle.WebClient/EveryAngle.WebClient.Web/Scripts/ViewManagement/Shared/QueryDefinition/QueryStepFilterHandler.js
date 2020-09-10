@@ -255,5 +255,5 @@
         mapper[WC.WidgetFilterHelper.FILTERFOR.DISPLAY] = enumHandlers.ANGLEPOPUPTYPE.DISPLAY;
         mapper[WC.WidgetFilterHelper.FILTERFOR.DASHBOARD] = enumHandlers.ANGLEPOPUPTYPE.DASHBOARD;
         return mapper[self.FilterFor];
-    };
+    };    
 }(QueryDefinitionHandler.prototype));

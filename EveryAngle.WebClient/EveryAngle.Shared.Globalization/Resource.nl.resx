@@ -4029,10 +4029,10 @@ Actions can only be executed when the Approval state is "approved".
 The "manage system" privileges is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
-    <value>Angle filters &amp; jumps</value>
+    <value>Angle Filters &amp; Jumps</value>
   </data>
   <data name="DisplayFilters" xml:space="preserve">
-    <value>Display filters &amp; jumps</value>
+    <value>Display Filters &amp; Jumps</value>
   </data>
   <data name="DisplayGroupPublic" xml:space="preserve">
     <value>Gepubliceerd ({0})</value>
@@ -4052,5 +4052,8 @@ The "manage system" privileges is required to change the Approval state of an Ac
   <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
     <value>Specificeer in welke kolom de tijdstempel van het model moet worden toegevoegd.&lt;br&gt;
 Kies '1' voor de eerste kolom. Als de tijdstempel van het model niet nodig is, kies dan 'Geen'.</value>
+  </data>
+  <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
+    <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>
   </data>
 </root>

@@ -22,7 +22,7 @@ SidePanelView.prototype.GetSectionFiltersAndJumpsTemplate = function () {
                 '<!-- ko if: $root.Parent -->',
                 '<div class="query-definition-drop-area" data-bind="css: { \'empty\': !$root.Parent().GetFiltersAndJumps().length }">',
                     '<div class="definition-body-inner" data-bind="with: $root.Parent"></div>',
-                    '<div data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete"  class="drop-area-cover" data-bind="text: Localization.Info_DropFilterToAngleDefinition, click: ClickDropArea"></div>',
+                    '<div data-role="tooltip" data-tooltip-position="bottom" class="drop-area-cover" data-bind="text: Localization.Info_DropFilterToAngleDefinition, click: ClickDropArea, css:{ \'no-tooltip\' : HasChanged(false, false)},attr :{\'data-tooltip-text\': !HasChanged(false, false)? Localization.Tooltip_SwitchToAngleTab: \'\'} "></div>',
                 '</div>',
                 '<!-- /ko -->',
                 '<div class="definition-body-inner"></div>',

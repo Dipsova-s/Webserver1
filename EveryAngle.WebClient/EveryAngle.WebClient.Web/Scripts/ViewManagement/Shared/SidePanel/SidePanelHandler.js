@@ -204,6 +204,12 @@ function SidePanelHandler() {
         var values = self.GetAccordionValues(state, mappers);
         state.Save(values);
     };
+    self.OpenAccordion = function (target) {
+        target = jQuery(target);
+        var isOpen = target.hasClass('open');
+        if (!isOpen)
+            target.trigger('click');
+    };
 }
 
 function SidePanelStateManager(name, callback) {

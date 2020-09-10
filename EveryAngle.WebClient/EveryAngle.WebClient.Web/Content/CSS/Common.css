@@ -336,7 +336,7 @@ img {
     visibility: visible !important; }
 
 .drop-area-cover {
-  cursor: default;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3934,3 +3934,6 @@ textarea.input-light {
     .model-selection-popup .form-row .form-col-body .k-dropdown {
       width: 100px;
       flex-grow: 1; }
+
+.no-tooltip {
+  cursor: default; }

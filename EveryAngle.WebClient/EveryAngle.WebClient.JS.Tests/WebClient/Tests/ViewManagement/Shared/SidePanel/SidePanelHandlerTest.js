@@ -494,6 +494,17 @@ describe("SidePanelHandler", function () {
             expect(state.Save).toHaveBeenCalledWith('my-values');
         });
     });
+    describe(".OpenAccordion", function () {
+        it("should call trigger with click parameter", function () {
+            //prepare
+            var target = '#TabContentAngle .section-definition > .accordion-header';
+            spyOn(jQuery.fn, 'trigger').and.returnValue($());
+            sidePanelHandler.OpenAccordion(target);
+
+            //assert
+            expect(jQuery.fn.trigger).toHaveBeenCalledWith('click');
+        });
+    });
 });
 
 describe("SidePanelStateManager", function () {

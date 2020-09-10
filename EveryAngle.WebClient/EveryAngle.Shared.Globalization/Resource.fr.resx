@@ -6447,10 +6447,10 @@ Actions can only be executed when the Approval state is "approved".
 The "manage system" privileges is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
-    <value>Angle filters &amp; jumps</value>
+    <value>Angle Filters &amp; Jumps</value>
   </data>
   <data name="DisplayFilters" xml:space="preserve">
-    <value>Display filters &amp; jumps</value>
+    <value>Display Filters &amp; Jumps</value>
   </data>
   <data name="DisplayGroupPublic" xml:space="preserve">
     <value>Publiée ({0})</value>
@@ -6466,5 +6466,8 @@ The "manage system" privileges is required to change the Approval state of an Ac
   </data>
   <data name="DisplayGroupClose" xml:space="preserve">
     <value>Hide group</value>
+  </data>
+  <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
+    <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>
   </data>
 </root>

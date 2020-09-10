@@ -379,7 +379,10 @@ function AnglePageHandler() {
             self.HandlerDisplay.ExecuteQueryDefinition(QueryDefinitionHandler.ExecuteAction.Saved);
         };
         self.HandlerDisplay.QueryDefinitionHandler.ClickDropArea = function () {
-            self.HandlerSidePanel.Open(0);
+            if (!self.HandlerDisplay.QueryDefinitionHandler.HasChanged(false, false)) {
+                self.HandlerSidePanel.OpenAngleAccordion(enumHandlers.ACCORDION.DEFINITION);            
+                self.HandlerSidePanel.Open(0);
+            }
         };
         self.HandlerDisplay.ExecuteQueryDefinition = function () {
             // forced to execute a new result

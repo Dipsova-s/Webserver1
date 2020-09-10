@@ -59,6 +59,10 @@
         // display accordions
         self.InitialAccordion(self.StateManager.DisplayAccordions, _self.$displayAccordions);
     };
+    self.OpenAngleAccordion = function (key) {
+        var target = _self.$angleAccordions[key];
+        self.OpenAccordion(target);
+    };
 }
 AngleSidePanelHandler.extend(SidePanelHandler);
 AngleSidePanelHandler.prototype.View = new AngleSidePanelView();
