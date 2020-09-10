@@ -8,6 +8,11 @@ function DisplayOverviewHandler(angleHandler) {
     self.ItemDescriptionHandler = new ItemDescriptionHandler();
     self.AngleHandler = angleHandler;
     self.Group = {};
+    self.Groups = ko.observableArray([
+        DisplayOverviewHandler.DisplayGroup.Public,
+        DisplayOverviewHandler.DisplayGroup.MyPrivate,
+        DisplayOverviewHandler.DisplayGroup.OtherPrivate
+    ]);
     self.Group[DisplayOverviewHandler.DisplayGroup.Public] = {
         Header: Localization.DisplayGroupPublic,
         Visible: ko.observable(false),
@@ -104,6 +109,9 @@ function DisplayOverviewHandler(angleHandler) {
             Sortable: self.Sortable(display)
         };
     };
+    self.HasGroup = function (groupId) {
+        return self.Displays().hasObject('GroupId', groupId);
+    };
     self.GetGroupInfo = function (display) {
         var name = display.GetName();
         var template = '{0}_{1}';
@@ -133,30 +141,38 @@ function DisplayOverviewHandler(angleHandler) {
     self.GetGroupOption = function (groupId) {
         return self.Group[groupId] || { Header: '', Visible: ko.observable(false), ForceClose: ko.observable(false) };
     };
-    self.IsVisible = function (display) {
-        var option = self.GetGroupOption(display.GroupId);
+    self.SetInitialTabGroupsWidth = function () {
+        jQuery('#DisplayTabs .tab-menu-group').each(function (_index, tabGroup) {
+            var groupId = tabGroup.id.split('tab-menu-group-')[1];
+            jQuery(tabGroup).css('max-width', self.GetGroupOption(groupId).Visible() ? tabGroup.scrollWidth : 0);
+        });
+    };
+    self.IsVisible = function (groupId) {
+        var option = self.GetGroupOption(groupId);
         return option.Visible() && !option.ForceClose();
     };
-    self.SetVisibility = function (display) {
-        var option = self.GetGroupOption(display.GroupId);
-        option.Visible(!option.Visible());
-        userSettingModel.SetDisplayGroupSettings(option.Key, option.Visible());
-        self.UpdateScrollButtonState();
+    self.SetVisibility = function (groupId) {
+        var option = self.GetGroupOption(groupId);
+        var tabGroup = $("#tab-menu-group-" + groupId);
+        tabGroup.stop().animate(
+            { maxWidth: !option.Visible() ? tabGroup.get(0).scrollWidth : 0 },
+            300,
+            jQuery.proxy(self.TabGroupAnimationCallback, self, option)
+        );
     };
-    self.GroupHeader = function (display) {
-        var index = self.Displays.indexOf(display);
-        var previousDisplay = self.Displays()[index - 1];
-
-        if (previousDisplay && previousDisplay.GroupId === display.GroupId)
-            return '';
-
-        var option = self.GetGroupOption(display.GroupId);
-        var count = self.Displays().findObjects('GroupId', display.GroupId).length;
+    self.GroupHeader = function (groupId) {
+        var option = self.GetGroupOption(groupId);
+        var count = self.Displays().findObjects('GroupId', groupId).length;
         return kendo.format(option.Header, count);
     };
-    self.IsGroupActive = function (display) {
+    self.IsGroupActive = function (groupId) {
         var selectedDisplay = self.Displays().findObject('IsSelected', true);
-        return selectedDisplay && selectedDisplay.GroupId === display.GroupId;
+        return selectedDisplay && selectedDisplay.GroupId === groupId;
+    };
+    self.TabGroupAnimationCallback = function (option) {
+        self.UpdateScrollButtonState();
+        option.Visible(!option.Visible());
+        userSettingModel.SetDisplayGroupSettings(option.Key, option.Visible());
     };
 
     // sortable
@@ -363,7 +379,7 @@ function DisplayOverviewHandler(angleHandler) {
         jQuery('#BtnScrollLeft').removeClass('disabled invisible');
         jQuery('#BtnScrollRight').removeClass('disabled invisible');
 
-        var allTabsWidth = container.find('.tab-menu-header,.tab-menu').map(function () {
+        var allTabsWidth = container.find('.tab-menu-header,.tab-menu-group').map(function () {
             return Math.floor(this.getBoundingClientRect().width);
         }).get().sum();
 

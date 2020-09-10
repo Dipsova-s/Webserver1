@@ -1482,7 +1482,7 @@ $dropdown-large-item-height: 20px;
 .content-wrapper {
     opacity: 0;
     transition: $animation;
-    background-color: #fafafa;
+    background-color: #f7f9fa;
     @include calc-vh(height, 48px);
     border-width: 0;
 
