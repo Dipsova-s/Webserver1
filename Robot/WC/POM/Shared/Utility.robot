@@ -66,8 +66,10 @@ Get Page Title
 
 Get JQuery Selector
     [Arguments]  ${selector}
-    ${jquerySelector}    Execute Javascript    return '${selector}'.indexOf('=') == -1 ? '#${selector}' : '${selector}'.substr('${selector}'.indexOf('=') + 1)
-    [Return]    ${jquerySelector}
+    ${selector}  Replace String  ${selector}  '  \\'
+    ${selector}  Execute Javascript    return '${selector}'.indexOf('=') == -1 ? '#${selector}' : '${selector}'.substr('${selector}'.indexOf('=') + 1)
+    ${selector}  Replace String  ${selector}  '  \\'
+    [Return]    ${selector}
 
 Get Number From Element Text
     [Arguments]    ${element}

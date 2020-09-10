@@ -1,5 +1,6 @@
 *** Settings ***
 Resource            ${EXECDIR}/WC/POM/WebHelp/WebHelp.robot
+Resource            ${EXECDIR}/WC/API/API_Items.robot
 
 *** Keywords ***
 Suite Setup MC WebHelp
@@ -94,11 +95,16 @@ Restore Model Overview Page
     ...                   $(window).trigger('resize');
 
 Crop Edit Automation Task Page
+    Create Context: Web
+    ${items}  Get Items  ids=WEBHELP_WC_Angle_details&viewmode=basic
+    ${displayUri}  Set Variable  ${items["items"][0]["displays"][0]["uri"]}
+
     Go To All Tasks Page
     Click Button To Add New Task
     Click Add Action Button
     Resize Kendo Popup height To    650
     Drag And Drop By Offset    jquery=#AddActionPopup ~ .k-resize-n    0    -40
+    Input Task Action Angle Url  ${displayUri}
     Select Dropdown Datastore    Export to CSV - Default
     Scroll Vertical To Element    jquery=#AddActionPopup .popupContent    jquery=#AddActionPopup .contentSectionInfo:eq(1)
     Input Datastore Filename    test_csv

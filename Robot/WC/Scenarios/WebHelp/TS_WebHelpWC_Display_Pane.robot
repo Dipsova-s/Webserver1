@@ -9,7 +9,8 @@ Screenshot "WC_Display_Pane" page
 
     Add Or Change Filter    ID     ID    has_value     ${TRUE}
     Create Chart From List Header Column  ObjectType  ObjectType  ${True}
-    Mouse Over  jquery=#DisplayTabs .tab-menu:eq(0)
+    Open Active Display Group
+    Show Active Display Tab Options
     Crop Delete Icon
     Crop Filter Icon
     Crop Adhoc Icon
@@ -24,13 +25,13 @@ Crop Display Pane
     Crop WebHelp Image With Dimensions  WC_Displays_Pane.png  css=body  ${tabLeft}  ${tabTop}  650  ${tabHeight}+${tabOptionHeight}+${gridHeaderHeight}+${gridRowHeight}*5
 
 Crop Delete Icon
-    Crop WebHelp Image  WC_Delete_Icon_red.png  jquery=#DisplayTabs .tab-menu:eq(0) .icon-close  ${False}
+    Crop WebHelp Image  WC_Delete_Icon_red.png  jquery=#DisplayTabs .tab-menu.active .icon-close  ${False}
 
 Crop Filter Icon
-    Crop WebHelp Image  WC_Filter_Icon.png  jquery=#DisplayTabs .tab-menu:eq(0) .icon-filter  ${False}
+    Crop WebHelp Image  WC_Filter_Icon.png  jquery=#DisplayTabs .tab-menu.active .icon-filter  ${False}
 
 Crop Adhoc Icon
-    Crop WebHelp Image  WC_Yellow_Asterisk_Icon.png  jquery=#DisplayTabs .tab-menu:eq(0) .sign-unsaved  ${False}
+    Crop WebHelp Image  WC_Yellow_Asterisk_Icon.png  jquery=#DisplayTabs .tab-menu.active .sign-unsaved  ${False}
 
 Crop Arrows Icon
     Resize WebHelp Window    1000   700
