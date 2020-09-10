@@ -16621,7 +16621,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go to definition.
+        ///   Looks up a localized string similar to Go to Display details.
         /// </summary>
         public static string PublishSettings_WidgetLinkGoToDefinition {
             get {

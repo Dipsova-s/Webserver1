@@ -6124,7 +6124,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Das Dashboard kann nicht freigegeben werden. Geben Sie zuerst alle privaten Displays frei.</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
-    <value>Zu Definition</value>
+    <value>Go to Display details</value>
   </data>
   <data name="Ascending" xml:space="preserve">
     <value>aufsteigend</value>

@@ -56,12 +56,18 @@ $delete-icon-color: #ea3d2f;
             align-items: center;
             max-height: 40px;
             white-space: nowrap;
+            overflow: hidden;
             box-sizing: border-box;
-            padding: 0 12px;
+            padding: 0 12px 0 0;
             height: 36px;
+            flex-shrink: 0;
 
             &:first-child {
                 padding-left: 0;
+            }
+
+            &.open + .tab-menu-group{
+                padding-right: 12px;
             }
 
             &.open {
@@ -71,7 +77,6 @@ $delete-icon-color: #ea3d2f;
             }
 
             &.close {
-                padding-right: 0;
 
                 .state-open {
                     display: none;
@@ -108,115 +113,123 @@ $delete-icon-color: #ea3d2f;
             }
         }
 
-        .tab-menu {
-            background-color: transparent;
-            color: #333;
-            max-height: 40px;
-            white-space: nowrap;
-            justify-content: flex-start;
+        .tab-menu-group {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: hidden;
             flex-shrink: 0;
 
-            &.active {
-                cursor: default;
-                background-color: $active-tab-color;
-                box-shadow: 0 0 3.5px 2px rgba(0, 0, 0, .08);
-                z-index: 1;
-            }
-
-            &:hover:not(.active) {
-                background-color: $hover-tab-color;
+            .tab-menu {
+                background-color: transparent;
                 color: #333;
-                text-shadow: $text-shadow-bold;
-            }
+                max-height: 40px;
+                white-space: nowrap;
+                justify-content: flex-start;
+                flex-shrink: 0;
 
-            .seperator {
-                @include flex-center;
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 1px;
-                height: 100%;
-
-                &:before {
-                    content: '';
-                    width: 100%;
-                    height: 18px;
-                    background-color: #cbcbcb;
+                &.active {
+                    cursor: default;
+                    background-color: $active-tab-color;
+                    box-shadow: 0 0 3.5px 2px rgba(0, 0, 0, .08);
+                    z-index: 1;
                 }
-            }
 
-            &:hover .seperator,
-            &:hover + .tab-menu .seperator,
-            &.active .seperator,
-            &.active + .tab-menu .seperator {
-                display: none;
-            }
+                &:hover:not(.active) {
+                    background-color: $hover-tab-color;
+                    color: #333;
+                    text-shadow: $text-shadow-bold;
+                }
 
-            .displayNameContainer {
-                min-width: 50px;
-            }
+                .seperator {
+                    @include flex-center;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 1px;
+                    height: 100%;
 
-            .front {
-                position: relative;
-            }
-
-            .name {
-                max-width: 280px;
-            }
-
-            .validWarning {
-                margin: unset;
-                box-sizing: border-box;
-            }
-
-            .displayNameContainer.small {
-                .icon {
-                    &.icon-adhoc {
-                        margin-left: -2px;
-                        margin-top: -8px;
-                    }
-
-                    &.display-icon.default {
-                        margin-right: 3px;
+                    &:before {
+                        content: '';
+                        width: 100%;
+                        height: 18px;
+                        background-color: #cbcbcb;
                     }
                 }
-            }
 
-            .icon-close {
-                visibility: hidden;
-                cursor: pointer;
-                margin-left: auto;
-                font-size: 10px;
-                color: $delete-icon-color;
-
-                &.disabled {
-                    visibility: hidden;
+                &:first-child .seperator,
+                &:hover .seperator,
+                &:hover + .tab-menu .seperator,
+                &.active .seperator,
+                &.active + .tab-menu .seperator {
+                    display: none;
                 }
-            }
 
-            &:hover .icon-close,
-            &.active:hover .icon-close {
-                visibility: visible;
-
-                &.disabled {
-                    visibility: hidden;
+                .displayNameContainer {
+                    min-width: 50px;
                 }
-            }
 
-            .btn-edit-description {
-                visibility: hidden;
-
-                &:hover {
-                    color: #3d4852;
+                .front {
+                    position: relative;
                 }
-            }
 
-            &.active:hover .btn-edit-description {
-                visibility: visible;
-                cursor: pointer;
+                .name {
+                    max-width: 280px;
+                }
 
-                &.disabled {
+                .validWarning {
+                    margin: unset;
+                    box-sizing: border-box;
+                }
+
+                .displayNameContainer.small {
+                    .icon {
+                        &.icon-adhoc {
+                            margin-left: -2px;
+                            margin-top: -8px;
+                        }
+
+                        &.display-icon.default {
+                            margin-right: 3px;
+                        }
+                    }
+                }
+
+                .icon-close {
                     visibility: hidden;
+                    cursor: pointer;
+                    margin-left: auto;
+                    font-size: 10px;
+                    color: $delete-icon-color;
+
+                    &.disabled {
+                        visibility: hidden;
+                    }
+                }
+
+                &:hover .icon-close,
+                &.active:hover .icon-close {
+                    visibility: visible;
+
+                    &.disabled {
+                        visibility: hidden;
+                    }
+                }
+
+                .btn-edit-description {
+                    visibility: hidden;
+
+                    &:hover {
+                        color: #3d4852;
+                    }
+                }
+
+                &.active:hover .btn-edit-description {
+                    visibility: visible;
+                    cursor: pointer;
+
+                    &.disabled {
+                        visibility: hidden;
+                    }
                 }
             }
         }
@@ -263,7 +276,6 @@ $delete-icon-color: #ea3d2f;
         flex-shrink: 0;
 
         .btn-chevron {
-            border: 1px solid #78909c;
             margin-right: 0;
             font-size: 10px;
             flex: 0 0 20px;

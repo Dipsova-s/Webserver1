@@ -3688,7 +3688,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Dashboard kan niet worden gepubliceerd. Publiceer eerst alle Privédisplays</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
-    <value>ga naar definitie</value>
+    <value>ga naar Displaydetails</value>
   </data>
   <data name="Ascending" xml:space="preserve">
     <value>oplopend</value>

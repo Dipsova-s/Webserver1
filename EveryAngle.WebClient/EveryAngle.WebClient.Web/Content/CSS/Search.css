@@ -1013,7 +1013,7 @@
     #LeftMenu .FilterTab.sliding + .FilterCheckBox {
       padding-top: 15px; }
     #LeftMenu .FilterTab.border-separator {
-      border-top: 1px solid #f5f5f5; }
+      border-top: 2px solid #fff; }
     #LeftMenu .FilterTab .FilterTitle {
       font-size: 13px;
       font-weight: bold;

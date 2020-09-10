@@ -8,15 +8,17 @@
             return;
 
         var that = jQuery(this);
+        var callback = that.data('callback');
         var wrapper = that.closest('.accordion');
         if (wrapper.hasClass('toggleable')) {
             wrapper.find('.accordion-header').not(that).removeClass('open').addClass('close');
         }
-        that.toggleClass('open');
-        that.toggleClass('close');
-        var callback = that.data('callback');
-        if (jQuery.isFunction(callback))
-            callback(that);
-        jQuery(window).trigger('resize');
+        that.next().stop().slideToggle(300, "swing", function () {
+            that.toggleClass('open');
+            that.toggleClass('close');
+            if (jQuery.isFunction(callback))
+                callback(that);
+            jQuery(window).trigger('resize');
+        });       
     });
 })();

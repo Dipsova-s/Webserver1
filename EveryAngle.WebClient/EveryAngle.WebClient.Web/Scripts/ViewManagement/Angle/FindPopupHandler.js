@@ -31,11 +31,7 @@ function FindPopupHandler() {
             resizable: false,
             actions: ["Close"],
             modal: false,
-            center: false,
-            position: {
-                top: 40,
-                left: (WC.Window.Width - 500) / 2
-            },
+            center: true,
             buttons: [
                 {
                     text: Captions.Button_Cancel,

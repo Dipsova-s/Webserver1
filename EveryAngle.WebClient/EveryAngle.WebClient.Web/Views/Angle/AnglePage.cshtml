@@ -110,67 +110,75 @@
                     </div>
                 </nav>
                 <div class="form-row tab display-tab" id="DisplayTabs" data-bind="css: { 'active': CanSwitchDisplay  }, visible: true" style="display: none">
-                    <div class="tab-menu-wrapper" data-bind="foreach: { data: Displays, as: 'display' }">
-                        <!-- ko if: $root.GroupHeader(display) -->
-                        <div class="tab-menu-header" data-bind="css: { open: $root.IsVisible(display), close: !$root.IsVisible(display), active: $root.IsGroupActive(display) }">
-                            <div class="tab-menu-header-inner" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: $root.SetVisibility, attr: { 'data-tooltip-text': $root.IsVisible(display) ? Localization.DisplayGroupClose : Localization.DisplayGroupOpen }">
+                    <div class="tab-menu-wrapper">
+                        <!-- ko foreach: { data: Groups, as: 'group' } -->
+                        <!-- ko if: $root.HasGroup(group) -->
+                        <div class="tab-menu-header" data-bind="css: { open: $root.IsVisible(group), close: !$root.IsVisible(group), active: $root.IsGroupActive(group) }">
+                            <div class="tab-menu-header-inner" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: $root.SetVisibility, attr: { 'data-tooltip-text': $root.IsVisible(group) ? Localization.DisplayGroupClose : Localization.DisplayGroupOpen }">
                                 <span class="icon icon-eye-open state-open"></span>
                                 <span class="icon icon-eye-close state-close"></span>
-                                <span data-bind="text: $root.GroupHeader(display)"></span>
+                                <span data-bind="text: $root.GroupHeader(group)"></span>
                             </div>
                         </div>
-                        <!-- /ko -->
-                        <div class="tab-menu" data-bind="css: { active: IsSelected, sortable: Sortable }, visible: $root.IsVisible(display), click: $root.SwitchDisplay, attr: { 'data-title': Name }">
-                            <div class="seperator"></div>
-                            <div class="displayNameContainer small">
-                                <div class="front">
-                                    <i data-bind="attr: { 'class': 'display-icon icon ' + DisplayTypeClassName + ' ' + ExtendDisplayTypeClassName }"></i>
-                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + UnSavedClassName }"></i>
-                                </div>
-                                <span class="name textEllipsis" data-bind="text: Name, attr: { 'data-tooltip-text': Name }" data-role="tooltip" data-tooltip-position="bottom" data-showwhenneed="true"></span>
-                                <div class="rear">
-                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + PublicClassName }"></i>
-                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + ValidClassName }"></i>
-                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + FilterClassName }"></i>
-                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + ParameterizedClassName }"></i>
-                                    <!-- ko if: IsSelected -->
-                                    <i class="icon icon-pencil btn-edit-description" data-bind="click: $root.ShowEditDescriptionPopup, attr: { 'data-tooltip-text': Localization.Edit }" data-role="tooltip" data-tooltip-position="bottom"></i>
-                                    <!-- /ko -->
-                                    <i class="icon icon-close" data-bind="click: $root.DeleteDisplay, clickBubble: false, css: { disabled: !IsNewAdhoc && !CanDelete }, attr: { 'data-tooltip-text': Localization.Delete }" data-role="tooltip" data-tooltip-position="bottom"></i>
+                        <div class="tab-menu-group" data-bind="attr: { 'id': 'tab-menu-group-' + group }, visible: !$root.GetGroupOption(group).ForceClose()">
+                            <!-- ko foreach: { data: $root.Displays, as: 'display' } -->
+                            <!-- ko if: display.GroupId == group -->
+                            <div class="tab-menu" data-bind="css: { active: IsSelected, sortable: Sortable }, click: $root.SwitchDisplay, attr: { 'data-title': Name }">
+                                <div class="seperator"></div>
+                                <div class="displayNameContainer small">
+                                    <div class="front">
+                                        <i data-bind="attr: { 'class': 'display-icon icon ' + DisplayTypeClassName + ' ' + ExtendDisplayTypeClassName }"></i>
+                                        <i class="icon" data-bind="attr: { 'class': 'icon ' + UnSavedClassName }"></i>
+                                    </div>
+                                    <span class="name textEllipsis" data-bind="text: Name, attr: { 'data-tooltip-text': Name }" data-role="tooltip" data-tooltip-position="bottom" data-showwhenneed="true"></span>
+                                    <div class="rear">
+                                        <i class="icon" data-bind="attr: { 'class': 'icon ' + PublicClassName }"></i>
+                                        <i class="icon" data-bind="attr: { 'class': 'icon ' + ValidClassName }"></i>
+                                        <i class="icon" data-bind="attr: { 'class': 'icon ' + FilterClassName }"></i>
+                                        <i class="icon" data-bind="attr: { 'class': 'icon ' + ParameterizedClassName }"></i>
+                                        <!-- ko if: IsSelected -->
+                                        <i class="icon icon-pencil btn-edit-description" data-bind="click: $root.ShowEditDescriptionPopup, attr: { 'data-tooltip-text': Localization.Edit }" data-role="tooltip" data-tooltip-position="bottom"></i>
+                                        <!-- /ko -->
+                                        <i class="icon icon-close" data-bind="click: $root.DeleteDisplay, clickBubble: false, css: { disabled: !IsNewAdhoc && !CanDelete }, attr: { 'data-tooltip-text': Localization.Delete }" data-role="tooltip" data-tooltip-position="bottom"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                        <!-- ko if: CanCreateNewDisplay() -->
-                        <div class="add-display-wrapper">
-                            <a id="BtnNewDisplay" class="btn btn-new-display"
-                               data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.CreateNewDisplay"
-                               data-bind="click: ShowNewDisplay">
-                                <i class="icon icon-plus"></i>
-                            </a>
-                            <div id="NewDisplay" class="new-display-popup"></div>
+                            <!-- /ko -->
+                            <!-- /ko -->
                         </div>
                         <!-- /ko -->
-                        <div class="right-btn-wrapper">
-                            <a id="BtnScrollLeft"
-                               data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.ScrollLeft"
-                               class="btn btn-chevron" data-bind="click: MoveLeft">
-                                <i class="icon icon-chevron-left"></i>
-                            </a>
-                            <a id="BtnScrollRight" class="btn btn-chevron"
-                               data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.ScrollRight"
-                               data-bind="click: MoveRight">
-                                <i class="icon icon-chevron-right"></i>
-                            </a>
-                            <a id="BtnDisplayOverview" class="btn btn-display-badge"
-                               data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.DisplayOverview"
-                               data-bind="click: Show">
-                                <i class="icon icon-displays"></i>
-                                <span class="badge" data-bind="text: Displays().length"></span>
-                            </a>
-                            <div id="DisplayOverview" class="display-overview-popup"></div>
-                        </div>
+                        <!-- /ko -->
                     </div>
+                    <!-- ko if: CanCreateNewDisplay() -->
+                    <div class="add-display-wrapper">
+                        <a id="BtnNewDisplay" class="btn btn-new-display"
+                           data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.CreateNewDisplay"
+                           data-bind="click: ShowNewDisplay">
+                            <i class="icon icon-plus"></i>
+                        </a>
+                        <div id="NewDisplay" class="new-display-popup"></div>
+                    </div>
+                    <!-- /ko -->
+                    <div class="right-btn-wrapper">
+                        <a id="BtnScrollLeft"
+                           data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.ScrollLeft"
+                           class="btn btn-chevron" data-bind="click: MoveLeft">
+                            <i class="icon icon-chevron-left"></i>
+                        </a>
+                        <a id="BtnScrollRight" class="btn btn-chevron"
+                           data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.ScrollRight"
+                           data-bind="click: MoveRight">
+                            <i class="icon icon-chevron-right"></i>
+                        </a>
+                        <a id="BtnDisplayOverview" class="btn btn-display-badge"
+                           data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.DisplayOverview"
+                           data-bind="click: Show">
+                            <i class="icon icon-displays"></i>
+                            <span class="badge" data-bind="text: Displays().length"></span>
+                        </a>
+                        <div id="DisplayOverview" class="display-overview-popup"></div>
+                    </div>
+                </div>
                 <div class="form-row display-option-wrapper" id="DisplayOption" data-bind="visible: true" style="display: none">
                     <div class="display-execution-info text-ellipsis" data-role="tooltip" data-tooltip-position="bottom" data-showwhenneed="true" data-bind="html: ExecutionInfo()"></div>
                     <div class="display-option">

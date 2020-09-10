@@ -6124,7 +6124,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>El Dashboard no se puede publicar. Publique primero todas las Displays personales.</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
-    <value>Ir a definición</value>
+    <value>Go to Display details</value>
   </data>
   <data name="Ascending" xml:space="preserve">
     <value>ascendente</value>

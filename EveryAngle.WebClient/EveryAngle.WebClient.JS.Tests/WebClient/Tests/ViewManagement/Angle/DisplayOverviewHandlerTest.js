@@ -264,12 +264,36 @@ describe("DisplayOverviewHandler", function () {
         });
     });
 
+    describe(".SetInitialTabGroupsWidth", function () {
+        beforeEach(function () {
+            $('<div id="DisplayTabs"/>')
+                .append('<div class="tab-menu-group" id="tab-menu-group-1" style="width:0px;" />')
+                .append('<div class="tab-menu-group" id="tab-menu-group-2" style="width:100px;"  />')
+                .appendTo('body');
+        });
+        afterEach(function () {
+            $('#DisplayTabs').remove();
+        });
+        it('should set maxWidth according to group visibilty', function () {
+            // prepare
+            displayOverviewHandler.Group[1].Visible(false);
+            displayOverviewHandler.Group[2].Visible(true);
+
+            // act
+            displayOverviewHandler.SetInitialTabGroupsWidth();
+
+            // assert
+            expect($('#tab-menu-group-1').css('max-width')).toEqual('0px');
+            expect($('#tab-menu-group-2').css('max-width')).toEqual('100px');
+        });
+    });
+
     describe(".IsVisible", function () {
         it('should be true', function () {
             // prepare
             displayOverviewHandler.Group[2].Visible(true);
             displayOverviewHandler.Group[2].ForceClose(false);
-            var result = displayOverviewHandler.IsVisible({ GroupId: 2 });
+            var result = displayOverviewHandler.IsVisible(2);
 
             // assert
             expect(result).toEqual(true);
@@ -278,7 +302,7 @@ describe("DisplayOverviewHandler", function () {
             // prepare
             displayOverviewHandler.Group[2].Visible(true);
             displayOverviewHandler.Group[2].ForceClose(true);
-            var result = displayOverviewHandler.IsVisible({ GroupId: 2 });
+            var result = displayOverviewHandler.IsVisible(2);
 
             // assert
             expect(result).toEqual(false);
@@ -286,32 +310,45 @@ describe("DisplayOverviewHandler", function () {
     });
 
     describe(".SetVisibility", function () {
-        it('should set visibility', function () {
+        beforeEach(function () {
+            $('<div id="DisplayTabs"/>')
+                .append('<div id="tab-menu-group-1" style="max-width:100px;" />')
+                .appendTo('body');
+        });
+        afterEach(function () {
+            $('#DisplayTabs').remove();
+        });
+        it('should trigger animation', function () {
             // prepare
-            spyOn(displayOverviewHandler, 'UpdateScrollButtonState');
-            spyOn(userSettingModel, 'SetDisplayGroupSettings');
-            displayOverviewHandler.SetVisibility({ GroupId: 1 });
+            spyOn($.fn, 'animate');
+
+            // act
+            displayOverviewHandler.SetVisibility(1);
 
             // assert
-            expect(displayOverviewHandler.Group[1].Visible()).toEqual(true);
-            expect(userSettingModel.SetDisplayGroupSettings).toHaveBeenCalled();
+            expect($.fn.animate).toHaveBeenCalled();
+        });
+    });
+
+    describe(".TabGroupAnimationCallback", function () {
+        it('should set visibility', function () {
+            // prepare
+            var option = { Header: '', Visible: ko.observable(false), ForceClose: ko.observable(false) };
+            spyOn(displayOverviewHandler, 'UpdateScrollButtonState');
+            spyOn(userSettingModel, 'SetDisplayGroupSettings');
+
+            // act
+            displayOverviewHandler.TabGroupAnimationCallback(option);
+            
+            // assert
+            expect(option.Visible()).toEqual(true);
             expect(displayOverviewHandler.UpdateScrollButtonState).toHaveBeenCalled();
+            expect(userSettingModel.SetDisplayGroupSettings).toHaveBeenCalled();
+
         });
     });
 
     describe(".GroupHeader", function () {
-        it('should get empty', function () {
-            // prepare
-            displayOverviewHandler.Displays([
-                { GroupId: 1 },
-                { GroupId: 1 },
-                { GroupId: 2 }
-            ]);
-            var result = displayOverviewHandler.GroupHeader(displayOverviewHandler.Displays()[1]);
-
-            // assert
-            expect(result).toEqual('');
-        });
         it('should get header', function () {
             // prepare
             displayOverviewHandler.Displays([
@@ -319,7 +356,7 @@ describe("DisplayOverviewHandler", function () {
                 { GroupId: 1 },
                 { GroupId: 2 }
             ]);
-            var result = displayOverviewHandler.GroupHeader(displayOverviewHandler.Displays()[0]);
+            var result = displayOverviewHandler.GroupHeader(displayOverviewHandler.Displays()[0].GroupId);
 
             // assert
             expect(result).toEqual('Published (2)');
@@ -334,7 +371,7 @@ describe("DisplayOverviewHandler", function () {
                 { GroupId: 1, IsSelected: false },
                 { GroupId: 2, IsSelected: false }
             ]);
-            var result = displayOverviewHandler.IsGroupActive(displayOverviewHandler.Displays()[1]);
+            var result = displayOverviewHandler.IsGroupActive(displayOverviewHandler.Displays()[1].GroupId);
 
             // assert
             expect(result).toBeTruthy();

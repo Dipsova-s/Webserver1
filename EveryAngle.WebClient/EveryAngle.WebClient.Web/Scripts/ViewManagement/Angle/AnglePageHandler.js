@@ -1428,6 +1428,7 @@ function AnglePageHandler() {
 
         self.HandlerDisplayOverview.CanCreateNewDisplay(self.CanCreateNewDisplay());
         self.HandlerDisplayOverview.SetData(self.HandlerAngle.Displays, self.HandlerDisplay.Data().uri);
+        self.HandlerDisplayOverview.SetInitialTabGroupsWidth();
         self.HandlerDisplayOverview.UpdateScrollButtonState();
         self.HandlerDisplayOverview.ScrollToFocusedDisplay();
 
