@@ -535,6 +535,10 @@ Click Link First Item From Search Result
     Blur Search Input
     Click Link Item From Search Result By Row Number    1
 
+Navigate to First Item link
+    ${link}     Get Element Attribute   ${lnkSearchResult}:eq(0)  href
+    Go To   ${link}
+
 Click Link Item From Search Result By Item Uri: ${itemUri}
     Click Link Item From Search Result    jquery=#${trItemInSearchResult}[data-uri="${itemUri}"] .ResultContent .name
 

@@ -93,6 +93,10 @@ Find Angle By ID Then Execute The First Angle
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
 
+Verify Execute Template With Execution Parameter
+    Navigate to First Item link
+    Wait Until Angle Execute Parameters Popup Loaded
+
 Find Dashboard By ID Then Execute The First Dashboard
     [Arguments]    ${angleId}
     Search Filter By Query String    ids=${angleId}

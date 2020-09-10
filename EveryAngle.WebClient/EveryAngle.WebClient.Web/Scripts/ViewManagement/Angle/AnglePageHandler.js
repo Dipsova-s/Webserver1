@@ -884,10 +884,7 @@ function AnglePageHandler() {
         handler.QueryDefinitionHandler.IsExecutedParameters = true;
     };
     self.CheckExecutionParameters = function () {
-        // adhoc alwaysmust not show the popup
-        if (self.HandlerAngle.IsAdhoc()) {
-            self.MarkAsExecutedParameter(self.HandlerAngle);
-        }
+        
         if (self.HandlerDisplay.IsAdhoc()) {
             self.MarkAsExecutedParameter(self.HandlerDisplay);
         }

@@ -160,4 +160,17 @@ describe("AnglePageHandler", function () {
             expect(anglePageHandler.HandlerDisplay.ShowEditDescriptionPopup).toHaveBeenCalled();
         });
     });
+
+    describe(".CheckExecutionParameters", function () {
+        it('should not call MarkAsExecutedParameter when adhoc angle', function () {
+            spyOn(anglepageHandler.HandlerAngle, 'IsAdhoc').and.returnValue(true);
+            spyOn(anglepageHandler.HandlerDisplay, 'IsAdhoc').and.returnValue(false);
+            spyOn(anglepageHandler, 'MarkAsExecutedParameter');
+            spyOn(jQuery, 'localStorage').and.returnValue(false);
+            anglepageHandler.CheckExecutionParameters();
+
+            //assert
+            expect(anglepageHandler.MarkAsExecutedParameter).not.toHaveBeenCalled();
+        });
+    });
 });

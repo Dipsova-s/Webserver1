@@ -7,6 +7,16 @@ Test Teardown       Go to Search Page
 Force Tags          acc_wc    smk_content
 
 *** Test Cases ***
+Verify Execution Parameters for a Template
+    [Documentation]     Verifies Execution parameter pop up for a Template 
+    [Tags]      TC_C230901
+    ${angleName}   Set Variable   [ROBOT] Template execution parameter
+    [Setup]  Import Angle By API  /models/1  TEMPLATE_ExecutionParameter.json  user=${Username}
+    Search By Text And Expect In Search Result    [ROBOT] Template execution parameter
+    Verify Execute Template With Execution Parameter
+
+    [Teardown]  Clean Up Items And Go To Search Page
+
 Verify Execution Parameters Behavior
     ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters Behavior
     Upload Item And Check From Search Result  ANGLE_ExecutionParametersBehavior.angle.json    EA2_800    ${angleName}
