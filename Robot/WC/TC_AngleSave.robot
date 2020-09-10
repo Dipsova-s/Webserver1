@@ -45,11 +45,12 @@ Verify Save Display As
     ${angleName}  Set Variable  [ROBOT] Verify Save Display As
     ${displayName}  Set Variable  New name
     Create Angle From Object List And Save    PD    ${angleName}
+    Click Display Tab
     Create Chart From List Header Column    ObjectType    ObjectType  ${True}
     Verify Angle: Save Display As Without Add To New Angle Option  ${displayName}
     Active Display Should Be  ${displayName}
     Prepare Template For Save Display As    ${angleName}
-    Display Count Should Be  2
+    Display Count Should Be  3
     Verify Template: Save Display As With Add To New Angle Option  ${angleName} (new)
     Angle Name Should Be  ${angleName} (new)
     Display Count Should Be  1

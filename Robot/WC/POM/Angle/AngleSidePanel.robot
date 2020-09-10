@@ -30,6 +30,7 @@ ${liDisplayFilter}                      jquery=#TabContentDisplay .query-definit
 ${liDisplayJump}                        jquery=#TabContentDisplay .query-definition-wrapper:not(.readonly) .item-jump
 ${chkExecuteOnLogin}                    css=#ExecuteOnLogin
 ${chkIsAngleDefault}                    css=#IsAngleDefault
+${chkIsUserDefault}                     css=#IsUserDefault
 
 ${spnAngleName}                         jquery=#SectionInfo .displayNameContainer .name
 
@@ -482,6 +483,12 @@ Select Checkbox Execute On Login
 
 Unselect Checkbox Execute On Login
     Unselect Checkbox      ${chkExecuteOnLogin}
+
+Select Checkbox Personal Default Display
+    Select Checkbox      ${chkIsUserDefault} 
+
+Checkbox Personal Default Display Should be Unselect
+    Checkbox Should Not Be Selected     ${chkIsUserDefault} 
 
 Click Checkbox Angle Default Display
     Select Checkbox      ${chkIsAngleDefault}
