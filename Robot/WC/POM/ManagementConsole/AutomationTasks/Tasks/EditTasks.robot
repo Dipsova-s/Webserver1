@@ -23,6 +23,7 @@ ${tdRecipientsResult}          jquery=#RecipientsGrid .columnEmailResult
 ${chkTaskActionAttachResult}   css=#email_attach_result
 ${lblTaskActionModelName}      css=#model_name
 ${txtTaskActionAngleId}        css=#angle_id
+${btnTaskActionFindAngle}      css=.btnFindAngle
 ${lblTaskActionAngleName}      css=#angle_name
 ${ddlTaskActionDisplayId}      css=#display_id
 ${ddlTaskActionApproval}       css=#approvalddl
@@ -113,6 +114,12 @@ Approval State Should be
     [Arguments]    ${state}
     Element Text Should Be    ${txtApprovalState} .k-dropdown-wrap     ${state}
 
+Input Task Action Angle Url
+    [Arguments]    ${url}
+    Input Text  ${txtTaskActionAngleId}  ${url}
+    Click Element  ${btnTaskActionFindAngle}
+    Sleep   ${TIMEOUT_DROPDOWN}
+    Wait Until Ajax Complete
 
 Close Add Action Popup
     Click Element    ${btnCloseAddActionPopup}

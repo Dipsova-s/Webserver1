@@ -2,6 +2,7 @@
 ${divDisplayTab}                        jquery=#DisplayTabs
 ${divDisplayTabMenus}                   ${divDisplayTab} .tab-menu
 ${divActiveDisplayTabMenu}              ${divDisplayTab} .tab-menu.active
+${divDisplayGroupActive}                ${divDisplayTab} .tab-menu-header.active
 ${divDisplayGroupPublic}                ${divDisplayTab} .tab-menu-header:contains(Published)
 ${divDisplayGroupPrivate}               ${divDisplayTab} .tab-menu-header:contains(Private)
 ${divDisplayGroupOther}                 ${divDisplayTab} .tab-menu-header:contains(Other)
@@ -67,6 +68,9 @@ Open All Display Groups
     Open Display Group Private
     Open Display Group Other
 
+Open Active Display Group
+    Open Display Group  ${divDisplayGroupActive}
+
 Select Display Tab By Index
     [Arguments]  ${index}
     Select Display Tab    ${divDisplayTabMenus}:eq(${index})
@@ -82,11 +86,18 @@ Select Display Tab
     Click Element    ${tabMenuElement}
     Wait Display Executed
 
+Show Display Tab Options
+    [arguments]    ${tabMenuElement}
+    Mouse Over  ${tabMenuElement}
+
+Show Active Display Tab Options
+    Show Display Tab Options  ${divActiveDisplayTabMenu}
+
 Click To Remove Display
     [arguments]    ${tabMenuElement}
     Wait Until Display Tab Is Ready
     Open All Display Groups
-    Mouse Over    ${tabMenuElement}
+    Show Display Tab Options  ${tabMenuElement}
     Click Element    ${tabMenuElement} .icon-close
 
 Click To Remove Active Display

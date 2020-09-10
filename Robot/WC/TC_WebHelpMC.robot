@@ -18,3 +18,4 @@ WebHelp MC
     Crop Action Icons
     Crop Model Overview Page
     Crop Edit Automation Task Page
+    Crop Default Datastore Icon
