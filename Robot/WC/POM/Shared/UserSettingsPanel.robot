@@ -292,12 +292,19 @@ Click Dropdown Set Notation
 #Fields accordion
 Expand All Accordion Fields
     Click Element    ${acdGeneralHeader}
+    Sleep  ${TIMEOUT_GENERAL}
     Click Element    ${acdNumberHeader}
+    Sleep  ${TIMEOUT_GENERAL}
     Click Element    ${acdCurrencyHeader}
+    Sleep  ${TIMEOUT_GENERAL}
     Click Element    ${acdPercentagesHeader}
+    Sleep  ${TIMEOUT_GENERAL}
     Click Element    ${acdDateHeader}
+    Sleep  ${TIMEOUT_GENERAL}
     Click Element    ${acdTimeHeader}
+    Sleep  ${TIMEOUT_GENERAL}
     Click Element    ${acdSetHeader}
+    Sleep  ${TIMEOUT_GENERAL}
 
 #Set Value
 Set Decimal Places 

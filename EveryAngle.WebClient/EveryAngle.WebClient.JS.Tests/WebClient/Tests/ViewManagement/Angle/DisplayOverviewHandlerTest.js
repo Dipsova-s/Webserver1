@@ -51,19 +51,36 @@ describe("DisplayOverviewHandler", function () {
         });
     });
 
+    describe(".Refresh", function () {
+        it('should update things', function () {
+            // prepare
+            spyOn(displayOverviewHandler, 'SetTabGroupsWidth');
+            spyOn(displayOverviewHandler, 'VisibleActionGroup');
+            spyOn(displayOverviewHandler, 'UpdateScrollButtonState');
+            spyOn(displayOverviewHandler, 'ScrollToFocusedDisplay');
+            spyOn(displayOverviewHandler, 'UpdateExecutionInfo');
+            displayOverviewHandler.Refresh();
+
+            // assert
+            expect(displayOverviewHandler.SetTabGroupsWidth).toHaveBeenCalled();
+            expect(displayOverviewHandler.VisibleActionGroup).toHaveBeenCalled();
+            expect(displayOverviewHandler.UpdateScrollButtonState).toHaveBeenCalled();
+            expect(displayOverviewHandler.ScrollToFocusedDisplay).toHaveBeenCalled();
+            expect(displayOverviewHandler.UpdateExecutionInfo).toHaveBeenCalled();
+        });
+    });
+
     describe(".SetData", function () {
         it('should sort and set data', function () {
             // prepare
             var displays = [{}, {}, {}];
             spyOn(Array.prototype, 'sortObject');
             spyOn(displayOverviewHandler, 'GetInfo').and.returnValue({});
-            spyOn(displayOverviewHandler, 'UpdateExecutionInfo');
             displayOverviewHandler.SetData(displays, '');
 
             // assert
             expect(displayOverviewHandler.Displays().length).toEqual(3);
             expect(Array.prototype.sortObject).toHaveBeenCalled();
-            expect(displayOverviewHandler.UpdateExecutionInfo).toHaveBeenCalled();
         });
     });
 
@@ -247,6 +264,25 @@ describe("DisplayOverviewHandler", function () {
         });
     });
 
+    describe(".HasGroup", function () {
+        it('should be true', function () {
+            // prepare
+            displayOverviewHandler.Displays([{ GroupId: 1 }]);
+            var result = displayOverviewHandler.HasGroup(1);
+
+            // assert
+            expect(result).toEqual(true);
+        });
+        it('should be false', function () {
+            // prepare
+            displayOverviewHandler.Displays([{ GroupId: 1 }]);
+            var result = displayOverviewHandler.HasGroup(2);
+
+            // assert
+            expect(result).toEqual(false);
+        });
+    });
+
     describe(".GetGroupOption", function () {
         it('should get option (1)', function () {
             // prepare
@@ -264,7 +300,7 @@ describe("DisplayOverviewHandler", function () {
         });
     });
 
-    describe(".SetInitialTabGroupsWidth", function () {
+    describe(".SetTabGroupsWidth", function () {
         beforeEach(function () {
             $('<div id="DisplayTabs"/>')
                 .append('<div class="tab-menu-group" id="tab-menu-group-1" style="width:0px;" />')
@@ -280,7 +316,7 @@ describe("DisplayOverviewHandler", function () {
             displayOverviewHandler.Group[2].Visible(true);
 
             // act
-            displayOverviewHandler.SetInitialTabGroupsWidth();
+            displayOverviewHandler.SetTabGroupsWidth();
 
             // assert
             expect($('#tab-menu-group-1').css('max-width')).toEqual('0px');
@@ -314,19 +350,28 @@ describe("DisplayOverviewHandler", function () {
             $('<div id="DisplayTabs"/>')
                 .append('<div id="tab-menu-group-1" style="max-width:100px;" />')
                 .appendTo('body');
+            spyOn(displayOverviewHandler, 'TabGroupAnimationCallback');
         });
         afterEach(function () {
             $('#DisplayTabs').remove();
         });
-        it('should trigger animation', function () {
-            // prepare
-            spyOn($.fn, 'animate');
-
+        it('should use animation', function (done) {
             // act
-            displayOverviewHandler.SetVisibility(1);
+            displayOverviewHandler.SetVisibility(1, true);
 
             // assert
-            expect($.fn.animate).toHaveBeenCalled();
+            expect(displayOverviewHandler.TabGroupAnimationCallback).not.toHaveBeenCalled();
+            setTimeout(function () {
+                expect(displayOverviewHandler.TabGroupAnimationCallback).toHaveBeenCalled();
+                done();
+            }, 500);
+        });
+        it('should not use animation', function () {
+            // act
+            displayOverviewHandler.SetVisibility(1, false);
+
+            // assert
+            expect(displayOverviewHandler.TabGroupAnimationCallback).toHaveBeenCalled();
         });
     });
 
@@ -345,6 +390,48 @@ describe("DisplayOverviewHandler", function () {
             expect(displayOverviewHandler.UpdateScrollButtonState).toHaveBeenCalled();
             expect(userSettingModel.SetDisplayGroupSettings).toHaveBeenCalled();
 
+        });
+    });
+
+    describe(".VisibleActionGroup", function () {
+        it('should not set visibility (no active Display)', function () {
+            // prepare
+            displayOverviewHandler.Displays([{ IsSelected: false, GroupId: 1 }]);
+            spyOn(displayOverviewHandler, 'GetGroupOption').and.returnValue({ Visible: ko.observable(false) });
+            spyOn(displayOverviewHandler, 'SetVisibility');
+
+            // act
+            displayOverviewHandler.VisibleActionGroup();
+
+            // assert
+            expect(displayOverviewHandler.GetGroupOption).not.toHaveBeenCalled();
+            expect(displayOverviewHandler.SetVisibility).not.toHaveBeenCalled();
+        });
+        it('should not set visibility (visible)', function () {
+            // prepare
+            displayOverviewHandler.Displays([{ IsSelected: true, GroupId: 1 }]);
+            spyOn(displayOverviewHandler, 'GetGroupOption').and.returnValue({ Visible: ko.observable(true) });
+            spyOn(displayOverviewHandler, 'SetVisibility');
+
+            // act
+            displayOverviewHandler.VisibleActionGroup();
+
+            // assert
+            expect(displayOverviewHandler.GetGroupOption).toHaveBeenCalled();
+            expect(displayOverviewHandler.SetVisibility).not.toHaveBeenCalled();
+        });
+        it('should set visibility', function () {
+            // prepare
+            displayOverviewHandler.Displays([{ IsSelected: true, GroupId: 1 }]);
+            spyOn(displayOverviewHandler, 'GetGroupOption').and.returnValue({ Visible: ko.observable(false) });
+            spyOn(displayOverviewHandler, 'SetVisibility');
+
+            // act
+            displayOverviewHandler.VisibleActionGroup();
+
+            // assert
+            expect(displayOverviewHandler.GetGroupOption).toHaveBeenCalled();
+            expect(displayOverviewHandler.SetVisibility).toHaveBeenCalledWith(1, false);
         });
     });
 
