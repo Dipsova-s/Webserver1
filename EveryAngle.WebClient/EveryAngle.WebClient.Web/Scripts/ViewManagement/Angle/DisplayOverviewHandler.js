@@ -56,6 +56,13 @@ function DisplayOverviewHandler(angleHandler) {
         WC.HtmlHelper.ApplyKnockout(self, jQuery('#DisplayTabs'));
         WC.HtmlHelper.ApplyKnockout(self, jQuery('#DisplayOption'));
     };
+    self.Refresh = function () {
+        self.SetTabGroupsWidth();
+        self.VisibleActionGroup();
+        self.UpdateScrollButtonState();
+        self.ScrollToFocusedDisplay();
+        self.UpdateExecutionInfo();
+    };
     self.SetData = function (displays, currentDisplay) {
         var data = [];
         jQuery.each(displays, function (index, display) {
@@ -63,7 +70,6 @@ function DisplayOverviewHandler(angleHandler) {
         });
         data.sortObject('Sorting', enumHandlers.SORTDIRECTION.ASC, false);
         self.Displays(data);
-        self.UpdateExecutionInfo();
     };
     self.GetInfo = function (display, currentDisplay) {
         var displayData = display.GetData();
@@ -141,7 +147,7 @@ function DisplayOverviewHandler(angleHandler) {
     self.GetGroupOption = function (groupId) {
         return self.Group[groupId] || { Header: '', Visible: ko.observable(false), ForceClose: ko.observable(false) };
     };
-    self.SetInitialTabGroupsWidth = function () {
+    self.SetTabGroupsWidth = function () {
         jQuery('#DisplayTabs .tab-menu-group').each(function (_index, tabGroup) {
             var groupId = tabGroup.id.split('tab-menu-group-')[1];
             jQuery(tabGroup).css('max-width', self.GetGroupOption(groupId).Visible() ? tabGroup.scrollWidth : 0);
@@ -151,14 +157,18 @@ function DisplayOverviewHandler(angleHandler) {
         var option = self.GetGroupOption(groupId);
         return option.Visible() && !option.ForceClose();
     };
-    self.SetVisibility = function (groupId) {
+    self.SetVisibility = function (groupId, animation) {
+        var tabGroup = jQuery("#tab-menu-group-" + groupId);
         var option = self.GetGroupOption(groupId);
-        var tabGroup = $("#tab-menu-group-" + groupId);
-        tabGroup.stop().animate(
-            { maxWidth: !option.Visible() ? tabGroup.get(0).scrollWidth : 0 },
-            300,
-            jQuery.proxy(self.TabGroupAnimationCallback, self, option)
-        );
+        var css = { maxWidth: !option.Visible() ? tabGroup.get(0).scrollWidth : 0 };
+        var callback = jQuery.proxy(self.TabGroupAnimationCallback, self, option);
+        if (animation) {
+            tabGroup.stop().animate(css, 300, callback);
+        }
+        else {
+            tabGroup.css(css);
+            callback();
+        }
     };
     self.GroupHeader = function (groupId) {
         var option = self.GetGroupOption(groupId);
@@ -173,6 +183,15 @@ function DisplayOverviewHandler(angleHandler) {
         self.UpdateScrollButtonState();
         option.Visible(!option.Visible());
         userSettingModel.SetDisplayGroupSettings(option.Key, option.Visible());
+    };
+    self.VisibleActionGroup = function () {
+        var selectedDisplay = self.Displays().findObject('IsSelected', true);
+        if (!selectedDisplay)
+            return;
+
+        var option = self.GetGroupOption(selectedDisplay.GroupId);
+        if (!option.Visible())
+            self.SetVisibility(selectedDisplay.GroupId, false);
     };
 
     // sortable

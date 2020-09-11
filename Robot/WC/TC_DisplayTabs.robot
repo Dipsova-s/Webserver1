@@ -120,6 +120,7 @@ Display Tabs Behavior
     Active Display Should Be Visible
 
     # create Private Display
+    Close Display Group Private
     Change Display By Name    No. per Creation Date
     Click First Bar In Column Chart
 
@@ -128,6 +129,7 @@ Display Tabs Behavior
     Verify Right Display Scrolling Button Is Enabled
 
     # check active Display
+    Display Group Private Should Be Opened
     Active Display Should Be Visible
     Active Display Should Mark As UnSaved
 

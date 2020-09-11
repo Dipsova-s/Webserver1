@@ -114,7 +114,7 @@
                         <!-- ko foreach: { data: Groups, as: 'group' } -->
                         <!-- ko if: $root.HasGroup(group) -->
                         <div class="tab-menu-header" data-bind="css: { open: $root.IsVisible(group), close: !$root.IsVisible(group), active: $root.IsGroupActive(group) }">
-                            <div class="tab-menu-header-inner" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: $root.SetVisibility, attr: { 'data-tooltip-text': $root.IsVisible(group) ? Localization.DisplayGroupClose : Localization.DisplayGroupOpen }">
+                            <div class="tab-menu-header-inner" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: $root.SetVisibility.bind($root, group, true), attr: { 'data-tooltip-text': $root.IsVisible(group) ? Localization.DisplayGroupClose : Localization.DisplayGroupOpen }">
                                 <span class="icon icon-eye-open state-open"></span>
                                 <span class="icon icon-eye-close state-close"></span>
                                 <span data-bind="text: $root.GroupHeader(group)"></span>

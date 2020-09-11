@@ -49,6 +49,7 @@ describe("AnglePageHandler", function () {
             anglePageHandler.CanCreateNewDisplay = $.noop;
             spyOn(anglePageHandler.HandlerDisplayOverview, 'CanCreateNewDisplay');
             spyOn(anglePageHandler.HandlerDisplayOverview, 'SetData');
+            spyOn(anglePageHandler.HandlerDisplayOverview, 'Refresh');
         });
         it('should not render', function () {
             anglePageHandler.HandlerAngle.Displays = [];
@@ -57,6 +58,7 @@ describe("AnglePageHandler", function () {
             // assert
             expect(anglePageHandler.HandlerDisplayOverview.CanCreateNewDisplay).not.toHaveBeenCalled();
             expect(anglePageHandler.HandlerDisplayOverview.SetData).not.toHaveBeenCalled();
+            expect(anglePageHandler.HandlerDisplayOverview.Refresh).not.toHaveBeenCalled();
         });
         it('should render', function () {
             anglePageHandler.HandlerAngle.Displays = [anglePageHandler.HandlerDisplay];
@@ -65,6 +67,7 @@ describe("AnglePageHandler", function () {
             // assert
             expect(anglePageHandler.HandlerDisplayOverview.CanCreateNewDisplay).toHaveBeenCalled();
             expect(anglePageHandler.HandlerDisplayOverview.SetData).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerDisplayOverview.Refresh).toHaveBeenCalled();
         });
     });
 
