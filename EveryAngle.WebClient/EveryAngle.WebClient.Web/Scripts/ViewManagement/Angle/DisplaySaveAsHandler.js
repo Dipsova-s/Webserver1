@@ -159,7 +159,19 @@
         self.ItemSaveAsHandler.ShowProgressbar();
         if (!self.NewAngle) {
             // save Display as
-            var handler = self.DisplayHandler.IsAdhoc() ? self.DisplayHandler : new DisplayHandler(data, self.AngleHandler);
+            var handler;
+            if (self.DisplayHandler.IsAdhoc()) {
+                handler = self.DisplayHandler;
+            }
+            else {
+                handler = new DisplayHandler(data, self.AngleHandler);
+                var originalData = self.DisplayHandler.GetRawData();
+                var isAngleDefaultChanged = originalData.is_angle_default !== self.DisplayHandler.Data().is_angle_default();
+                var isPersonalDefaultChanged = originalData.user_specific.is_user_default !== self.DisplayHandler.Data().user_specific.is_user_default();
+                self.DisplayHandler.ForceInitial(originalData);
+                self.SetAngleDefaultDisplay(isAngleDefaultChanged);
+                self.SetPersonalDefaultDisplay(isPersonalDefaultChanged);
+            }
             handler.CreateNew(data, self.SaveDone, self.SaveFail);
         }
         else {
@@ -168,6 +180,51 @@
             self.AngleHandler.CreateNew(angle, jQuery.proxy(self.SaveAngleDone, self, data.id), self.SaveFail);
         }
     };
+    self.GetAngleDefaultDisplay = function () {
+        var data = '';
+        jQuery.each(self.AngleHandler.Displays, function (index, display) {
+            var raw = display.GetRawData();
+            if (raw && raw.is_angle_default) {
+                data = display;
+                return false;
+            }
+        });
+        return data;
+    };
+    self.SetAngleDefaultDisplay = function (isAngleDefaultChanged) {
+        // don't revert if no changes
+        if (!isAngleDefaultChanged)
+            return;
+
+        //revert it
+        var angleDefaultDisplay = self.GetAngleDefaultDisplay();
+        if (angleDefaultDisplay) {
+            angleDefaultDisplay.Data().is_angle_default(true);
+            angleDefaultDisplay.SetAngleDefault();
+        }
+    };
+    self.GetPersonalDefaultDisplay = function () {
+        var data = '';
+        jQuery.each(self.AngleHandler.Displays, function (index, display) {
+            var raw = display.GetRawData();
+            if (raw && raw.user_specific.is_user_default) {
+                data = display;
+                return false;
+            }
+        }); 
+        return data;
+    };
+    self.SetPersonalDefaultDisplay = function (isPersonalDefaultChanged) {
+        // don't revert if no changes
+        if (!isPersonalDefaultChanged)
+            return;
+
+        var personalDisplay = self.GetPersonalDefaultDisplay();
+        if (personalDisplay) {
+            personalDisplay.Data().user_specific.is_user_default(true);
+            personalDisplay.SetUserDefault();
+        }
+    }
     self.SaveDone = function (display) {
         if (!self.AngleHandler.GetDisplay(display.uri))
             self.AngleHandler.AddDisplay(display, null, false);

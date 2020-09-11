@@ -16,7 +16,7 @@ describe("DisplaySaveAsHandler", function () {
                 multi_lang_name: [
                     { lang: 'en', text: 'name-en' },
                     { lang: 'nl', text: '' }
-                ]
+                ],
             }),
             IsAdhoc: $.noop,
             CloneData: $.noop,
@@ -25,7 +25,8 @@ describe("DisplaySaveAsHandler", function () {
             CanCreate: $.noop,
             GetDisplay: $.noop,
             AddDisplay: $.noop,
-            Validate: $.noop
+            Validate: $.noop,
+            GetRawData: $.noop
         };
         var displayHandler = {
             Data: ko.observable({
@@ -35,7 +36,12 @@ describe("DisplaySaveAsHandler", function () {
             CloneData: $.noop,
             GetValidationResult: $.noop,
             CreateNew: $.noop,
-            GetName: $.noop
+            GetName: $.noop,
+            GetRawData: $.noop,
+            ForceInitial: $.noop,
+            GetData: $.noop,
+            SetUserDefault: $.noop,
+            SetAngleDefault: $.noop
         };
         displaySaveAsHandler = new DisplaySaveAsHandler(angleHandler, displayHandler);
     });
@@ -273,6 +279,7 @@ describe("DisplaySaveAsHandler", function () {
         it("should get data", function () {
             // prepare
             spyOn(displaySaveAsHandler.DisplayHandler, "CloneData").and.returnValue({});
+            spyOn(displaySaveAsHandler.DisplayHandler, "GetData").and.returnValue({user_specific:true});
             spyOn(displaySaveAsHandler.ItemSaveAsHandler, "GetData").and.returnValue({
                 multi_lang_name: []
             });
@@ -305,6 +312,166 @@ describe("DisplaySaveAsHandler", function () {
         });
     });
 
+    describe(".GetAngleDefaultDisplay", function () {
+        it("should not get the Angle Default Display if there is not any", function () {
+            //prepare
+            var display1 =
+            {
+                id: 'display1',
+                is_angle_default: false 
+            };
+            var display2 = {
+                id: 'display2',
+                is_angle_default: false 
+            };
+            displaySaveAsHandler.AngleHandler.Displays = [{ GetRawData: function () { return display1 } }, { GetRawData: function () { return display2 } }];
+            var result = displaySaveAsHandler.GetAngleDefaultDisplay();
+
+            //assert
+            expect(result).toEqual('');
+        });
+        it("should get the Angle Default Display", function () {
+            //prepare
+            var display1 =
+            {
+                id: 'display1',
+                is_angle_default: true 
+            };
+            var display2 = {
+                id: 'display2',
+                is_angle_default: false 
+            };
+            displaySaveAsHandler.AngleHandler.Displays = [{ GetRawData: function () { return display1 }, Data: display1 }, { GetRawData: function () { return display2 } }];
+
+            var result = displaySaveAsHandler.GetAngleDefaultDisplay();
+
+            //assert
+            expect(result.Data.id).toEqual('display1');
+        });
+    });
+
+    describe(".SetAngleDefaultDisplay", function () {
+        it("should not revert if no changes", function () {
+            //prepare
+            spyOn(displaySaveAsHandler.DisplayHandler, 'SetAngleDefault').and.returnValue({});
+            displaySaveAsHandler.SetAngleDefaultDisplay(false);
+
+            //assert
+            expect(displaySaveAsHandler.DisplayHandler.SetAngleDefault).not.toHaveBeenCalled();
+        });
+
+        it("should revert if changes", function () {
+            //prepare
+            var display =
+            {
+                id: 'display',
+                is_angle_default:  true 
+            };
+            var mockData =
+            {
+                GetRawData: function () {
+                    return display
+                },
+                Data: function () {
+                    return {
+                        is_angle_default:  function() { }
+                    }
+                },
+                SetAngleDefault: function () {
+                    return;
+                }
+            };
+            spyOn(mockData, 'SetAngleDefault').and.returnValue({});
+            spyOn(displaySaveAsHandler, 'GetAngleDefaultDisplay').and.returnValue(mockData);
+            displaySaveAsHandler.SetAngleDefaultDisplay(true);
+
+            //assert
+            expect(mockData.SetAngleDefault).toHaveBeenCalled();
+        });
+    });
+
+    describe(".GetPersonalDefaultDisplay", function () {
+        it("should not get the Personal Default Display if there is not any", function () {
+            //prepare
+            var display1 =
+            {
+                id: 'display1',
+                user_specific: { is_user_default: false }
+            };
+            var display2 = {
+                id: 'display2',
+                user_specific: { is_user_default: false }
+            };
+            displaySaveAsHandler.AngleHandler.Displays = [{ GetRawData: function () { return display1 }}, { GetRawData: function () { return display2 } }];
+
+            var result = displaySaveAsHandler.GetPersonalDefaultDisplay();
+
+            //assert
+            expect(result).toEqual('');
+        });
+        it("should get the Personal Default Display", function () {
+            //prepare
+            var display1 =
+            {
+                id: 'display1',
+                user_specific: { is_user_default: true }
+            };
+            var display2 = {
+                id: 'display2',
+                user_specific: { is_user_default: false }
+            };
+            displaySaveAsHandler.AngleHandler.Displays = [{ GetRawData: function () { return display1 }, Data: display1 }, { GetRawData: function () { return display2 } }];
+
+            var result = displaySaveAsHandler.GetPersonalDefaultDisplay();
+
+            //assert
+            expect(result.Data.id).toEqual('display1');
+        });
+    });
+
+    describe(".SetPersonalDefaultDisplay", function () {
+        it("should not revert if no changes", function () {
+            //prepare
+            spyOn(displaySaveAsHandler.DisplayHandler, 'SetUserDefault').and.returnValue({});
+            displaySaveAsHandler.SetPersonalDefaultDisplay(false);
+
+            //assert
+            expect(displaySaveAsHandler.DisplayHandler.SetUserDefault).not.toHaveBeenCalled();
+        });
+        it("should revert the personal default to orignal", function () {
+            //prepare
+            var display =
+            {
+                id: 'display',
+                user_specific: { is_user_default: true }
+            };
+            var mockData =
+            {
+                GetRawData: function ()
+                {
+                    return display
+                },
+                Data: function () {
+                    return {
+                        user_specific: {
+                                is_user_default:  function () { }
+                        }
+                    }
+                },
+                SetUserDefault: function () {
+                    return;
+                }
+            };
+
+            spyOn(mockData, 'SetUserDefault').and.returnValue({});
+            spyOn(displaySaveAsHandler, 'GetPersonalDefaultDisplay').and.returnValue(mockData);
+            displaySaveAsHandler.SetPersonalDefaultDisplay(true);
+
+            //assert
+            expect(mockData.SetUserDefault).toHaveBeenCalled();
+        });
+    });
+
     describe(".Save", function () {
         it("should save Display from a current handler", function () {
             // prepare
@@ -327,6 +494,18 @@ describe("DisplaySaveAsHandler", function () {
             // prepare
             spyOn(displaySaveAsHandler.AngleHandler, 'Validate').and.returnValue(true);
             spyOn(displaySaveAsHandler, 'GetSaveData').and.returnValue({});
+            spyOn(displaySaveAsHandler, 'SetAngleDefaultDisplay').and.returnValue({});
+            spyOn(displaySaveAsHandler, 'SetPersonalDefaultDisplay').and.returnValue({});
+            spyOn(displaySaveAsHandler, 'GetPersonalDefaultDisplay').and.returnValue({});
+            spyOn(displaySaveAsHandler.DisplayHandler, 'Data').and.returnValue(
+                {
+                    is_angle_default: function () { return true; },
+                    user_specific: { is_user_default: function () { return true; }}
+                });
+            spyOn(displaySaveAsHandler.DisplayHandler, 'GetRawData').and.returnValue(
+                {
+                    user_specific: { is_user_default: true }, is_angle_default: true
+                });
             spyOn(displaySaveAsHandler, 'GetSaveAngleData').and.returnValue({});
             spyOn(displaySaveAsHandler.ItemSaveAsHandler, 'ShowProgressbar');
             spyOn(displaySaveAsHandler.DisplayHandler, 'IsAdhoc').and.returnValue(false);
@@ -339,6 +518,67 @@ describe("DisplaySaveAsHandler", function () {
             expect(displaySaveAsHandler.ItemSaveAsHandler.ShowProgressbar).toHaveBeenCalled();
             expect(displaySaveAsHandler.DisplayHandler.CreateNew).not.toHaveBeenCalled();
             expect(displaySaveAsHandler.AngleHandler.CreateNew).not.toHaveBeenCalled();
+        });
+        it("should save Display from a new handler and revert the orignal display", function () {
+            // prepare
+            var mockData = {
+                fields: [
+                    {
+                        field: 'field1',
+                        multi_lang_alias: []
+                    },
+                    {
+                        field: 'field2',
+                        multi_lang_alias: []
+                    },
+                    {
+                        field: 'field3',
+                        multi_lang_alias: []
+                    }
+                ],
+                user_specific:
+                {
+                    is_user_default: true
+                },
+                is_angle_default: true
+            }
+            spyOn(displaySaveAsHandler.AngleHandler, 'Validate').and.returnValue(true);
+            spyOn(displaySaveAsHandler, 'GetSaveData').and.returnValue({});
+            spyOn(displaySaveAsHandler, 'SetAngleDefaultDisplay').and.returnValue({});
+            spyOn(displaySaveAsHandler, 'SetPersonalDefaultDisplay').and.returnValue({});
+            spyOn(displaySaveAsHandler, 'GetPersonalDefaultDisplay').and.returnValue({});
+            spyOn(displaySaveAsHandler.DisplayHandler, 'ForceInitial').and.returnValue({});
+            spyOn(displaySaveAsHandler.DisplayHandler, 'Data').and.returnValue(
+                {
+                    fields: [
+                        {
+                            field: 'field1',
+                            multi_lang_alias: []
+                        },
+                        {
+                            field: 'field2',
+                            multi_lang_alias: []
+                        }
+                    ],
+                    is_angle_default: function () { return true; },
+                    user_specific: { is_user_default: function () { return true; } }
+                });
+            spyOn(displaySaveAsHandler.DisplayHandler, 'GetRawData').and.returnValue(mockData);
+            spyOn(displaySaveAsHandler, 'GetSaveAngleData').and.returnValue({});
+            spyOn(displaySaveAsHandler.ItemSaveAsHandler, 'ShowProgressbar');
+            spyOn(displaySaveAsHandler.DisplayHandler, 'IsAdhoc').and.returnValue(false);
+            spyOn(displaySaveAsHandler.DisplayHandler, 'CreateNew');
+            spyOn(displaySaveAsHandler.AngleHandler, 'CreateNew');
+            displaySaveAsHandler.NewAngle = false;
+            displaySaveAsHandler.DisplayHandler.ForceInitial(mockData)
+            displaySaveAsHandler.Save();
+
+            // assert
+            expect(displaySaveAsHandler.ItemSaveAsHandler.ShowProgressbar).toHaveBeenCalled();
+            expect(displaySaveAsHandler.DisplayHandler.CreateNew).not.toHaveBeenCalled();
+            expect(displaySaveAsHandler.AngleHandler.CreateNew).not.toHaveBeenCalled();
+            expect(displaySaveAsHandler.AngleHandler.CreateNew).not.toHaveBeenCalled();
+            expect(displaySaveAsHandler.DisplayHandler.ForceInitial).toHaveBeenCalled();
         });
         it("should save Angle", function () {
             // prepare

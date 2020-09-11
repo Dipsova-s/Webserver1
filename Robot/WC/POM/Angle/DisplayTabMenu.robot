@@ -106,6 +106,9 @@ Click To Remove Active Display
 Active Display Should Mark As UnSaved
     Page Should Contain Element  ${divActiveDisplayTabMenu} .sign-unsaved
 
+Active Display Should Mark As Saved
+    Page Should Not Contain Element  ${divActiveDisplayTabMenu} .sign-unsaved
+
 All Displays Should Mark As Saved
     Page Should Not Contain Element  ${divDisplayTabMenus} .sign-unsaved
     

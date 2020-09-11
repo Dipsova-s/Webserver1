@@ -57,6 +57,15 @@ Verify Angle: Save Display As Without Add To New Angle Option
     Input Name In Save Display As Popup  ${displayName}
     Save Display As
 
+    Select Checkbox Personal Default Display
+    Click Save Display As
+    Name Should Append Copy Text In Save Display As Popup
+    Save Display As
+    Checkbox Personal Default Display Should be Unselect
+    Select Display Tab By Name    ${displayName}
+    Checkbox Personal Default Display Should be Unselect
+    Active Display Should Mark As Saved
+
 Verify Template: Save Display As With Add To New Angle Option
     [Arguments]  ${angleName}
     Click Save Display As
