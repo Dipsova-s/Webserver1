@@ -435,21 +435,23 @@
             return isValid && !submitButton.attr('disabled');
         };
         self.GetExportPostData = function () {
+            var modelId;
             var form = $(self.ExportPackageFormId);
             var formData = form.serializeArray();
             var postData = self.InitExportPostData();
             var packageCreationBy = formData.findObject('name', 'packageCreationBy').value;
             var includeLabels, facetQueryString;
             var facetParameters = self.GetFacetParameters(formData);
-            var modelId = self.DropdownValuesById(self.ModelExportSelectorId);
             if (packageCreationBy === "URL") {
                 includeLabels = formData.findObject('name', 'has_Labels');
                 var urlParams = self.GetParametersFromURL();
                 facetQueryString = urlParams.fq;
+                modelId = $.deparam(facetQueryString.replace(/\sAND\s/g, "\&").replace(/:/g, "=").replace(/[()]/g, '')).facetcat_models;
             }
             else {
                 includeLabels = formData.findObject('name', 'has_label_categories_and_labels');
                 facetQueryString = self.GetFacetQueryString(facetParameters);
+                modelId = self.DropdownValuesById(self.ModelExportSelectorId);
 
             }
             // data mapping

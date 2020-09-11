@@ -174,13 +174,13 @@ describe("MC.GlobalSettings.Packages", function () {
         ];
         beforeAll(function () {
             var fqParams = {
-                fq: 'query'
+                fq: 'facetcat_models:(model id)'
             }
             spyOn(packages, 'DropdownValuesById').and.callFake(function () {
                 return 'model id';
             });
             spyOn(packages, "GetFacetParameters").and.returnValue({});
-            spyOn(packages, "GetFacetQueryString").and.returnValue('query');
+            spyOn(packages, "GetFacetQueryString").and.returnValue('facetcat_models:(model id)');
             spyOn(packages, "GetParametersFromURL").and.returnValue(fqParams);
         });
         
@@ -212,7 +212,7 @@ describe("MC.GlobalSettings.Packages", function () {
                 expect('package description').toEqual(actualResult.packageDescription);
                 expect('model id').toEqual(actualResult.modelId);
                 expect(test.labelExpected).toEqual(actualResult.includeLabels);
-                expect('query').toEqual(actualResult.facetQuery);
+                expect('facetcat_models:(model id)').toEqual(actualResult.facetQuery);
             });
 
         });
