@@ -413,6 +413,7 @@ function MassChangeModel() {
                 }
 
                 // update others
+                var numberPerSet = 5;
                 var other1Deferred = [], other2Deferred = [], other3Deferred = [];
                 var data1 = {}, data2 = {}, data3 = {};
                 angleCount = 0;
@@ -472,39 +473,39 @@ function MassChangeModel() {
                         return true;
                     };
                     self.UpdateProgressbar(reports.header);
-                    /* BOF: M4-12868: New mass change */
+                /* BOF: M4-12868: New mass change */
                     if (status[self.MASSNAME.VALIDATED].value === true || status[self.MASSNAME.VALIDATED].changed === false) {
                         if (status[self.MASSNAME.PUBLISHED].value === true || status[self.MASSNAME.PUBLISHED].changed === false) {
-                            jQuery.whenAllSet(personalDeferred, 5)
+                            jQuery.whenAllSet(personalDeferred, numberPerSet)
                                     .then(function () {
-                                        return jQuery.whenAllSet(labelDeferred,5);
+                                        return jQuery.whenAllSet(labelDeferred,numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(other1Deferred, 5);
+                                        return jQuery.whenAllSet(other1Deferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(other2Deferred, 5);
+                                        return jQuery.whenAllSet(other2Deferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(other3Deferred, 5);
+                                        return jQuery.whenAllSet(other3Deferred, numberPerSet);
                                     })
                                     .always(function () {
                                         massChangeSuccess();
                                     });
                         }
                         else if (status[self.MASSNAME.PUBLISHED].value === false) {
-                            jQuery.whenAllSet(personalDeferred, 5)
+                            jQuery.whenAllSet(personalDeferred, numberPerSet)
                                     .then(function () {
-                                        return jQuery.whenAllSet(other2Deferred, 5);
+                                        return jQuery.whenAllSet(other2Deferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(other1Deferred, 5);
+                                        return jQuery.whenAllSet(other1Deferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(labelDeferred, 5);
+                                        return jQuery.whenAllSet(labelDeferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(other3Deferred, 5);
+                                        return jQuery.whenAllSet(other3Deferred, numberPerSet);
                                     })
                                     .always(function () {
                                         massChangeSuccess();
@@ -513,36 +514,36 @@ function MassChangeModel() {
                     }
                     else if (status[self.MASSNAME.VALIDATED].value === false) {
                         if (status[self.MASSNAME.PUBLISHED].value === true || status[self.MASSNAME.PUBLISHED].changed === false) {
-                            jQuery.whenAllSet(personalDeferred, 5)
+                            jQuery.whenAllSet(personalDeferred, numberPerSet)
                                     .then(function () {
-                                        return jQuery.whenAllSet(other3Deferred, 5);
+                                        return jQuery.whenAllSet(other3Deferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(labelDeferred, 5);
+                                        return jQuery.whenAllSet(labelDeferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(other1Deferred, 5);
+                                        return jQuery.whenAllSet(other1Deferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(other2Deferred, 5);
+                                        return jQuery.whenAllSet(other2Deferred, numberPerSet);
                                     })
                                     .always(function () {
                                         massChangeSuccess();
                                     });
                         }
                         else if (status[self.MASSNAME.PUBLISHED].value === false) {
-                            jQuery.whenAllSet(personalDeferred, 5)
+                            jQuery.whenAllSet(personalDeferred, numberPerSet)
                                     .then(function () {
-                                        return jQuery.whenAllSet(other3Deferred, 5);
+                                        return jQuery.whenAllSet(other3Deferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(other2Deferred, 5);
+                                        return jQuery.whenAllSet(other2Deferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(other1Deferred, 5);
+                                        return jQuery.whenAllSet(other1Deferred, numberPerSet);
                                     })
                                     .then(function () {
-                                        return jQuery.whenAllSet(labelDeferred, 5);
+                                        return jQuery.whenAllSet(labelDeferred, numberPerSet);
                                     })
                                     .always(function () {
                                         massChangeSuccess();
