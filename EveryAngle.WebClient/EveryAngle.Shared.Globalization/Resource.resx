@@ -6505,4 +6505,10 @@ The "manage system" privileges is required to change the Approval state of an Ac
   <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
     <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>
   </data>
+  <data name="MassChangeStatusAddTag" xml:space="preserve">
+    <value>Add tag "{0}"</value>
+  </data>
+  <data name="MassChangeStatusRemoveTag" xml:space="preserve">
+    <value>Remove tag "{0}"</value>
+  </data>
 </root>

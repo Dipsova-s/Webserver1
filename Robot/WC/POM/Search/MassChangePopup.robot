@@ -5,10 +5,10 @@ ${pgbMassChangePopup}               css=#popupMassChangePopup > div.k-loading-ma
 
 ${chkMassChangePrivateNote}         AnglePrivateNoteCheckbox
 ${txtMassChangePrivateNote}         AnglePrivateNote
-${chkMassChangeIsStarred}           IsStarred-checkbox
-${chkMassChangeIsPublished}         AngleIsPublished-checkbox
-${chkMassChangeIsValidate}          AngleIsValidate-checkbox
-${chkMassChangeIsTemplate}          AngleIsTemplate-checkbox
+${chkMassChangeIsStarred}           Starred
+${chkMassChangeIsPublished}         Published
+${chkMassChangeIsValidate}          Validated
+${chkMassChangeIsTemplate}          Template
 
 ${btnSaveMassChange}                btn-popupMassChangePopup1
 ${btnCloseMassChangePopup}          btn-popupMassChangePopup0
@@ -36,36 +36,36 @@ Input Private Note Via Mass Change Popup
     Input Text    ${txtMassChangePrivateNote}    ${privateNote}
 
 Click Set Starred Via Mass Change Popup
-    Wait Until Element Exist And Visible    ${chkMassChangeIsStarred}
-    Click Element    ${chkMassChangeIsStarred}
+    Wait Mass Change Popup Document Loaded
+    Select Radio Button    ${chkMassChangeIsStarred}    true
 
 Click Set Not Starred Via Mass Change Popup
-    Click Set Starred Via Mass Change Popup
-    Click Set Starred Via Mass Change Popup
+    Wait Mass Change Popup Document Loaded
+    Select Radio Button    ${chkMassChangeIsStarred}    false
 
 Click Set Published Via Mass Change Popup
-    Wait Until Element Exist And Visible    ${chkMassChangeIsPublished}
-    Click Element    ${chkMassChangeIsPublished}
+    Wait Mass Change Popup Document Loaded
+    Select Radio Button    ${chkMassChangeIsPublished}    true
 
 Click Set Private Via Mass Change Popup
-    Click Set Published Via Mass Change Popup
-    Click Set Published Via Mass Change Popup
+    Wait Mass Change Popup Document Loaded
+    Select Radio Button    ${chkMassChangeIsPublished}    false
 
 Click Set Validated Via Mass Change Popup
-    Wait Until Element Exist And Visible    ${chkMassChangeIsValidate}
-    Click Element    ${chkMassChangeIsValidate}
+    Wait Mass Change Popup Document Loaded
+    Select Radio Button    ${chkMassChangeIsValidate}    true
 
 Click Set Not Validated Via Mass Change Popup
-    Click Set Validated Via Mass Change Popup
-    Click Set Validated Via Mass Change Popup
+    Wait Mass Change Popup Document Loaded
+    Select Radio Button    ${chkMassChangeIsValidate}    false
 
 Click Set Template Via Mass Change Popup
-    Wait Until Element Exist And Visible    ${chkMassChangeIsTemplate}
-    Click Element    ${chkMassChangeIsTemplate}
+    Wait Mass Change Popup Document Loaded
+    Select Radio Button    ${chkMassChangeIsTemplate}    true
 
 Click Set Angle Via Mass Change Popup
-    Click Set Template Via Mass Change Popup
-    Click Set Template Via Mass Change Popup
+    Wait Mass Change Popup Document Loaded
+    Select Radio Button    ${chkMassChangeIsTemplate}    false
 
 Click Save Mass Change
     Click Element    ${btnSaveMassChange}

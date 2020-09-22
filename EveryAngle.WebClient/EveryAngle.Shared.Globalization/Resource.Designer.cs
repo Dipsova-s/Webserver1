@@ -6731,6 +6731,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add tag &quot;{0}&quot;.
+        /// </summary>
+        public static string MassChangeStatusAddTag {
+            get {
+                return ResourceManager.GetString("MassChangeStatusAddTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set to &quot;Normal Angle&quot;.
         /// </summary>
         public static string MassChangeStatusAngle {
@@ -6790,6 +6799,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MassChangeStatusRemoveLabel {
             get {
                 return ResourceManager.GetString("MassChangeStatusRemoveLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove tag &quot;{0}&quot;.
+        /// </summary>
+        public static string MassChangeStatusRemoveTag {
+            get {
+                return ResourceManager.GetString("MassChangeStatusRemoveTag", resourceCulture);
             }
         }
         

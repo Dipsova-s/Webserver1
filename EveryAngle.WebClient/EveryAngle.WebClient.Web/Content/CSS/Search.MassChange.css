@@ -7,7 +7,8 @@
 .popupMassChangePopup .txtPrivateNote {
     position: relative;
     top: -2px;
-    width: 90%;
+    width: 475px !important;
+    height: 32px;
 }
 
 .popupMassChangePopup .sectionGeneral {
@@ -64,10 +65,12 @@
 }
 
 .sectionLabels .tabMenu li {
-    width: 120px;
+    width: 125px;
+    letter-spacing: 0.44px;
 }
 
 .sectionLabels #Labels {
+    margin-top: 25px;
     margin-bottom: 15px;
 }
 
@@ -86,8 +89,12 @@
 }
 
 .sectionLabels .rowLabelCategory > .field {
+    font-size: 13px;
     font-weight: bold;
     width: 100%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    letter-spacing: 0.24px;
 }
 
 /* popupMassChangeReport
@@ -118,4 +125,32 @@
 .popupMassChangeReport tbody th {
     text-align: left;
     font-weight: normal;
+}
+
+#Labels > .row > .field {
+    font-size: 12px;
+    letter-spacing: 0.25px;
+}
+
+.LabelOptions {
+    letter-spacing:0.25px;
+    font-size: 12px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    margin-right: 28px;
+}
+
+.sectionGeneral > .row {
+    margin-top: 26px;
+    margin-bottom: -6px;
+}
+
+#LabelTabWrapper .tab-menu-wrapper > div {
+    letter-spacing: 0.44px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.sectionGeneral > .row .input-fieldset > .legend {
+    font-size: 11px;
 }

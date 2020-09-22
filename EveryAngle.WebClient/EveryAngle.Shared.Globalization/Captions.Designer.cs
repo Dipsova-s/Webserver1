@@ -1393,7 +1393,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Business Process labels.
+        ///   Looks up a localized string similar to Business Process.
         /// </summary>
         public static string MassChange_BP_Tab_Title {
             get {
