@@ -4,7 +4,7 @@ Suite Setup         Initialize Download Path And Login MC With Admin User
 Test Setup          Go To ExcelTemplates Page
 Suite Teardown      Logout MC Then Close Browser
 Test Teardown       Empty Download Directory
-Force Tags          acc_mc
+Force Tags          acc_mc_s
 
 *** Variables ***
 ${fileExcelTemplate}                ${EXECDIR}/resources/RobotEaExcelTemplate.xlsx
