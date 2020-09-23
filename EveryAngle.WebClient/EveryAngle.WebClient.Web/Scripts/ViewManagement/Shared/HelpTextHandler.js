@@ -89,7 +89,8 @@ function HelpTextHandler() {
         return [
         '<div class="helpHeaderContainer"></div>',
         '<div class="helpTextContainer"></div>',
-        '<div class="helpAdditionalContainer"></div>'
+        '<div class="helpAdditionalContainer"></div>',
+        '<div class="helpObjectId"></div>'
         ].join('');
     };
     self.LoadHelpTextByUri = function (uri) {
@@ -255,8 +256,7 @@ function HelpTextHandler() {
     };
     self.SetHelpTextHtml = function (target, modelUri) {
         // M4-11239: New design: Field info pop-up
-        target.find('.helpTextContainer, .helpHeaderContainer, .helpAdditionalContainer').empty();
-
+        target.find('.helpTextContainer, .helpHeaderContainer, .helpAdditionalContainer, .helpObjectId' ).empty();
         if (self.Field.helptext || self.Field.helpid || self.HelpType === self.HELPTYPE.HELPTEXT) {
             var deferred = [];
             if (self.Field.helptext) {
@@ -302,9 +302,10 @@ function HelpTextHandler() {
                     helpHeaderText += '</p>';
 
                     target.find('.helpHeaderContainer').html(helpHeaderText);
-
+           
                     if (helpText && helpText.html_help) {
                         target.find('.helpTextContainer').html(helpText.html_help);
+                        target.find('.helpObjectId').html('<h4>' + self.Field.id + '</h4>');
                         target.find('.helpTextContainer a').each(function () {
                             self.UpdateHelpTextLink(jQuery(this), modelUri);
                         });
@@ -336,7 +337,7 @@ function HelpTextHandler() {
                 });
         }
         else {
-            target.find('.helpTextContainer, .helpHeaderContainer, .helpAdditionalContainer').empty();
+            target.find('.helpTextContainer, .helpHeaderContainer, .helpAdditionalContainer, .helpObjectId').empty();
             target.find('.helpHeaderContainer').html(self.Field.id);
             return jQuery.when(true);
         }

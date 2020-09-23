@@ -280,6 +280,10 @@
     display: none;
 }
 
+.CreateNewAngleContainer .Description .helpObjectId{
+    display:block;
+}
+
 .no-touch.safari .CreateNewAngleContainer .Description {
     padding-left: 15px;
     -webkit-margin-start: 0 !important;  /* NOSONAR: safari bug */
