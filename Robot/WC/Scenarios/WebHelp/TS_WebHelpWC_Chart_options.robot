@@ -7,8 +7,8 @@ Screenshot "WC_Chart_options" page
 
     Crop Chart Type
     Crop Chart Option Button
-    Crop Checked Checkbox Count
-    Crop Unchecked Checkbox Count
+    Crop Checkbox Blue Checked 
+    Crop Checkbox Unchecked
     Crop Sort Icons
     Crop Reference line Icon
     Crop Format Icon
@@ -29,13 +29,13 @@ Crop Chart Type
 Crop Chart Option Button
     Crop WebHelp Image  WC_Icon_ChartOptions.png  css=.section-aggregation .action-options  ${False}
 
-Crop Checked Checkbox Count 
+Crop Checkbox Blue Checked 
     Select Checkbox  jquery=.query-aggregation-data .count-field-wrapper input
-    Crop WebHelp Image With Dimensions  WC_Icon_Checked_ChkCount.png  jquery=.query-aggregation-data .count-field-wrapper  0    0   17    17  ${False}
+    Crop WebHelp Image With Dimensions  WC_checkbox_blue_checked.png  jquery=.query-aggregation-data .count-field-wrapper  0    0   17    17  ${False}
 
-Crop Unchecked Checkbox Count
+Crop Checkbox Unchecked
     Unselect Checkbox  jquery=.query-aggregation-data .count-field-wrapper input
-    Crop WebHelp Image With Dimensions  WC_Icon_Unchecked_ChkCount.png  jquery=.query-aggregation-data .count-field-wrapper  0    0   17    17  ${False}
+    Crop WebHelp Image With Dimensions  WC_checkbox_unchecked.png  jquery=.query-aggregation-data .count-field-wrapper  0    0   17    17  ${False}
 
 Crop Sort Icons
     Click Field In Data Area By Field Index  1
@@ -61,7 +61,7 @@ Crop Format Field Popup
 
 Crop Reference line Icon
     Click Field In Data Area By Field Index  1
-    Crop WebHelp Image  WC_Icon_ReferenceLine.png  jquery=.query-aggregation-data .item-aggregation:eq(1) .action-reference-line   ${False}
+    Crop WebHelp Image  WC_Icon_Reference_Line.png  jquery=.query-aggregation-data .item-aggregation:eq(1) .action-reference-line   ${False}
 
 Crop Apply Chart Button
     Crop WebHelp Image  WC_Button_Apply_Inactive.png  jquery=.section-aggregation .btn-save

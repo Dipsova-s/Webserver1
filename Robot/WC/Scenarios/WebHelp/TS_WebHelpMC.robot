@@ -120,4 +120,4 @@ Crop Edit Automation Task Page
 
 Crop Default Datastore Icon
     Go To Datastores Page
-    Crop WebHelp Image   WC_Icon_DefaultDatastore.png      jquery=#DataStoresGrid td[data-field="is_default"] img   ${False}
+    Crop WebHelp Image   MC_icon_check.png      jquery=#DataStoresGrid td[data-field="is_default"] img   ${False}

@@ -17,5 +17,5 @@ Crop Display Details
 
 Crop Innowera Template Icon
     Select Excel Template To     RobotInnoweraTestTemplate.xlsx
-    Crop WebHelp Image      WC_Icon_InnoweraTemplate.png     css=.icon-innowera    ${False}
+    Crop WebHelp Image      WC_icon_Innowera.png     css=.icon-innowera    ${False}
 

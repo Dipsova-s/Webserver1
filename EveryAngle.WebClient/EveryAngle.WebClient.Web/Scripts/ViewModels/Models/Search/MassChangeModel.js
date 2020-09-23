@@ -19,8 +19,11 @@ function MassChangeModel() {
     self.BPCategories = [];
     self.SearchCategories = [];
     self.PrivilegeCategories = [];
+    self.GeneralCategories = [];
+    self.TagCategories = [];
     self.PrivateNote = ko.observable('');
     self.IsChangePrivateNote = ko.observable(null);
+    self.TagSearchKeyword = ko.observable('');
     self.IsChangePrivateNote.subscribe(function (newValue) {
         if (newValue !== null) {
             if (newValue) {
@@ -52,7 +55,7 @@ function MassChangeModel() {
                 popup.Alert(Localization.Warning_Title, Localization.Info_DashboardItemsWillNotAffect);
             }, 500);
         }
-        
+
         var popupName = 'MassChangePopup',
             popupSettings = {
                 title: Localization.MassChangeTitle,
@@ -60,9 +63,9 @@ function MassChangeModel() {
                 html: massChangeHtmlTemplate(),
                 className: 'popup' + popupName,
                 animation: false,
-                width: 850,
-                height: 530,
-                minWidth: 500,
+                width: 665,
+                height: 477,
+                minWidth: 665,
                 open: function (e) {
                     self.ShowMassChangePopupCallback(e);
                 },
@@ -123,8 +126,11 @@ function MassChangeModel() {
                 self.BPCategories = [];
                 self.SearchCategories = [];
                 self.PrivilegeCategories = [];
+                self.GeneralCategories = [];
+                self.TagCategories = [];
+                self.TagSearchKeyword = ko.observable('');
                 if (self.CanSetLabels())
-                    return self.GenerateAddRemoveLabelView(enumHandlers.LABELVIEWTYPE.BP);
+                    return self.GenerateGeneralLabelView();
                 else
                     return jQuery.when();
             })
@@ -195,23 +201,23 @@ function MassChangeModel() {
         switch (propertyName) {
             case self.MASSNAME.NOTE:
                 data.changed = self.IsChangePrivateNote();
-                data.value = jQuery('#AnglePrivateNote').val();
+                data.value = self.PrivateNote();
                 break;
             case self.MASSNAME.VALIDATED:
-                data.changed = jQuery('#AngleIsValidate').data('state-changed') && jQuery('#AngleIsValidate').data('state') !== enumHandlers.CHECKSTATE.UNDEFINED;
-                data.value = self.IsValidated();
+                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== null;;
+                data.value = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked();
                 break;
             case self.MASSNAME.STARRED:
-                data.changed = jQuery('#IsStarred').data('state-changed') && jQuery('#IsStarred').data('state') !== enumHandlers.CHECKSTATE.UNDEFINED;
-                data.value = self.IsStarred();
+                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== null;
+                data.value = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked();
                 break;
             case self.MASSNAME.PUBLISHED:
-                data.changed = jQuery('#AngleIsPublished').data('state-changed') && jQuery('#AngleIsPublished').data('state') !== enumHandlers.CHECKSTATE.UNDEFINED;
-                data.value = self.IsPublished();
+                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== null;;
+                data.value = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked();
                 break;
             case self.MASSNAME.TEMPLATE:
-                data.changed = jQuery('#AngleIsTemplate').data('state-changed') && jQuery('#AngleIsTemplate').data('state') !== enumHandlers.CHECKSTATE.UNDEFINED;
-                data.value = self.IsTemplate();
+                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== null;;
+                data.value = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked();
                 break;
             default:
                 break;
@@ -237,6 +243,73 @@ function MassChangeModel() {
         }
         return isAllAnglesBelongToCurentUser;
     };
+    self.AddOrRemoveTag = function (reports, labelDeferred) {
+        //Add and remove tag
+        var reportAndAssignLabel = self.generateReportAndAssignLabel(self.TagCategories);
+        jQuery.extend(reports, reportAndAssignLabel.Report);
+        var assignLabels = reportAndAssignLabel.AssignLabels;
+        var addTags = jQuery.grep(assignLabels, function (assignLabel) {
+            return assignLabel.State === 'add';
+        });
+        var removesTags = jQuery.grep(assignLabels, function (assignLabel) {
+            return assignLabel.State === 'remove';
+        });
+        if (addTags.length + removesTags.length > 0) {
+            //loop angle assigns tag to generate update data
+            for (var loop = 0; loop < self.Angles.length; loop++) {
+                var reportProps = [], j;
+                var updateDatas = ko.toJS(self.Angles[loop].assigned_tags);
+                for (j = 0; j < addTags.length; j++) {
+                    updateDatas.push(addTags[j].Id);
+                    reportProps.push(addTags[j].Id);
+                }
+                for (j = 0; j < removesTags.length; j++) {
+                    var index = jQuery.inArray(removesTags[j].Id, updateDatas);
+                    if (index !== -1) {
+                        updateDatas.splice(index, 1);
+                        reportProps.push(removesTags[j].Id);
+                    }
+                    else {
+                        reports[removesTags[j].Id].done++;
+                    }
+                }
+                //tried to distinct data
+                updateDatas = updateDatas.distinct().slice();
+                reportProps = reportProps.distinct().slice();
+                //add request to defferred
+                labelDeferred.pushDeferred(self.SaveWithReport, [reports, reportProps, { uri: self.Angles[loop].uri, data: { assigned_tags: updateDatas } }]);
+                reports.header.total++;
+            }
+        }
+    };
+
+    //generate report
+    self.generateReportAndAssignLabel = function (categories) {
+        var result = { AssignLabels: [], Report: {} };
+        for (var loop = 0; loop < categories.length; loop++) {
+            for (var i = 0; i < categories[loop].Labels.length; i++) {
+                var label = ko.toJS(categories[loop].Labels[i]);
+                if (label.IsChecked === "true") {
+                    result.AssignLabels.push({ Id: label.id, State: 'add', IsRequire: categories[loop].Category.IsRequire && !categories[loop].Category.contains_businessprocesses });
+                    result.Report[label.id] = {
+                        text: kendo.format(categories[loop].Category.id === 'Tags' ? Localization.MassChangeStatusAddTag : Localization.MassChangeStatusAddLabel, label.name),
+                        done: 0,
+                        fail: 0
+                    };
+                }
+                else if (label.IsChecked === "false") {
+                    result.AssignLabels.push({ Id: label.id, State: 'remove', IsRequire: categories[loop].Category.IsRequire && !categories[loop].Category.contains_businessprocesses });
+                    result.Report[label.id] = {
+                        text: kendo.format(categories[loop].Category.id === 'Tags' ? Localization.MassChangeStatusRemoveTag : Localization.MassChangeStatusRemoveLabel, label.name),
+                        done: 0,
+                        fail: 0
+                    };
+                }
+            }
+        }
+
+        return result;
+    };
     self.Save = function () {
         var status = self.PropertyStatusAll();
         var reports = {
@@ -254,25 +327,25 @@ function MassChangeModel() {
         };
 
         reports[self.MASSNAME.STARRED] = {
-            text: status[self.MASSNAME.STARRED].value ? Localization.MassChangeStatusStarred : Localization.MassChangeStatusNotStarred,
+            text: status[self.MASSNAME.STARRED].value === 'true' ? Localization.MassChangeStatusStarred : Localization.MassChangeStatusNotStarred,
             done: 0,
             fail: 0
         };
 
         reports[self.MASSNAME.PUBLISHED] = {
-            text: status[self.MASSNAME.PUBLISHED].value ? Localization.MassChangeStatusPublished : Localization.MassChangeStatusPrivate,
+            text: status[self.MASSNAME.PUBLISHED].value === 'true' ? Localization.MassChangeStatusPublished : Localization.MassChangeStatusPrivate,
             done: 0,
             fail: 0
         };
 
         reports[self.MASSNAME.VALIDATED] = {
-            text: status[self.MASSNAME.VALIDATED].value ? Localization.MassChangeStatusValidated : Localization.MassChangeStatusNotValidated,
+            text: status[self.MASSNAME.VALIDATED].value === 'true' ? Localization.MassChangeStatusValidated : Localization.MassChangeStatusNotValidated,
             done: 0,
             fail: 0
         };
 
         reports[self.MASSNAME.TEMPLATE] = {
-            text: status[self.MASSNAME.TEMPLATE].value ? Localization.MassChangeStatusTemplate : Localization.MassChangeStatusAngle,
+            text: status[self.MASSNAME.TEMPLATE].value === 'true' ? Localization.MassChangeStatusTemplate : Localization.MassChangeStatusAngle,
             done: 0,
             fail: 0
         };
@@ -300,33 +373,7 @@ function MassChangeModel() {
             }
         };
 
-        //generate report
-        var generateReportAndAssignLabel = function (categories) {
-            var result = { AssignLabels: [], Report: {} };
-            for (var loop = 0; loop < categories.length; loop++) {
-                for (var i = 0; i < categories[loop].Labels.length; i++) {
-                    var label = ko.toJS(categories[loop].Labels[i]);
-                    if (label.IsChecked === true) {
-                        result.AssignLabels.push({ Id: label.id, State: 'add', IsRequire: categories[loop].Category.is_required && !categories[loop].Category.contains_businessprocesses });
-                        result.Report[label.id] = {
-                            text: kendo.format(Localization.MassChangeStatusAddLabel, label.name),
-                            done: 0,
-                            fail: 0
-                        };
-                    }
-                    else if (label.IsChecked === false) {
-                        result.AssignLabels.push({ Id: label.id, State: 'remove', IsRequire: categories[loop].Category.is_required && !categories[loop].Category.contains_businessprocesses });
-                        result.Report[label.id] = {
-                            text: kendo.format(Localization.MassChangeStatusRemoveLabel, label.name),
-                            done: 0,
-                            fail: 0
-                        };
-                    }
-                }
-            }
 
-            return result;
-        };
 
         /* M4-7138: get angles */
         var assignLabels = [];
@@ -334,13 +381,13 @@ function MassChangeModel() {
         self.LoadAllAngles()
             .done(function () {
                 if (self.CanSetLabels()) {
-                    var reportAndAssignLabel = generateReportAndAssignLabel(self.BPCategories);
+                    var reportAndAssignLabel = self.generateReportAndAssignLabel(self.BPCategories);
                     jQuery.extend(reports, reportAndAssignLabel.Report);
                     assignLabels = assignLabels.concat(reportAndAssignLabel.AssignLabels);
-                    reportAndAssignLabel = generateReportAndAssignLabel(self.SearchCategories);
+                    reportAndAssignLabel = self.generateReportAndAssignLabel(self.SearchCategories);
                     jQuery.extend(reports, reportAndAssignLabel.Report);
                     assignLabels = assignLabels.concat(reportAndAssignLabel.AssignLabels);
-                    reportAndAssignLabel = generateReportAndAssignLabel(self.PrivilegeCategories);
+                    reportAndAssignLabel = self.generateReportAndAssignLabel(self.PrivilegeCategories);
                     jQuery.extend(reports, reportAndAssignLabel.Report);
                     assignLabels = assignLabels.concat(reportAndAssignLabel.AssignLabels);
                     var adds = jQuery.grep(assignLabels, function (assignLabel) {
@@ -376,6 +423,9 @@ function MassChangeModel() {
                             reports.header.total++;
                         }
                     }
+
+                    //Add and remove tag
+                    self.AddOrRemoveTag(reports, labelDeferred);                           
                 }
 
                 /* EOF: M4-7138: generate update data and report */
@@ -397,7 +447,7 @@ function MassChangeModel() {
                             }
                         }
                         if (starredStatus.changed) {
-                            if (angle.user_specific[self.MASSNAME.STARRED] !== starredStatus.value) {
+                            if (String(angle.user_specific[self.MASSNAME.STARRED]) !== starredStatus.value) {
                                 data.user_specific[self.MASSNAME.STARRED] = starredStatus.value;
                                 properties.push(self.MASSNAME.STARRED);
                             }
@@ -422,7 +472,7 @@ function MassChangeModel() {
                 */
                 jQuery.each(self.Angles, function (idx, angle) {
                     if (status[self.MASSNAME.PUBLISHED].changed) {
-                        if (angle[self.MASSNAME.PUBLISHED] !== status[self.MASSNAME.PUBLISHED].value) {
+                        if (String(angle[self.MASSNAME.PUBLISHED]) !== status[self.MASSNAME.PUBLISHED].value) {
                             data1[self.MASSNAME.PUBLISHED] = status[self.MASSNAME.PUBLISHED].value;
                             if (status[self.MASSNAME.PUBLISHED].value) {
                                 other1Deferred.pushDeferred(self.SaveWithReport, [reports, [self.MASSNAME.PUBLISHED], { uri: angle.state, data: data1 }, self.SetAllDisplayPublic(angle.display_definitions, true)]);
@@ -437,7 +487,7 @@ function MassChangeModel() {
                         angleCount++;
                     }
                     if (status[self.MASSNAME.TEMPLATE].changed) {
-                        if (angle[self.MASSNAME.TEMPLATE] !== status[self.MASSNAME.TEMPLATE].value) {
+                        if (String(angle[self.MASSNAME.TEMPLATE]) !== status[self.MASSNAME.TEMPLATE].value) {
                             data2[self.MASSNAME.TEMPLATE] = status[self.MASSNAME.TEMPLATE].value;
                             other2Deferred.pushDeferred(self.SaveWithReport, [reports, [self.MASSNAME.TEMPLATE], { uri: angle.state, data: data2 }]);
                         }
@@ -447,7 +497,7 @@ function MassChangeModel() {
                         angleCount++;
                     }
                     if (status[self.MASSNAME.VALIDATED].changed) {
-                        if (angle[self.MASSNAME.VALIDATED] !== status[self.MASSNAME.VALIDATED].value) {
+                        if (String(angle[self.MASSNAME.VALIDATED]) !== status[self.MASSNAME.VALIDATED].value) {
                             data3[self.MASSNAME.VALIDATED] = status[self.MASSNAME.VALIDATED].value;
                             other3Deferred.pushDeferred(self.SaveWithReport, [reports, [self.MASSNAME.VALIDATED], { uri: angle.state, data: data3 }]);
                         }
@@ -474,8 +524,8 @@ function MassChangeModel() {
                     };
                     self.UpdateProgressbar(reports.header);
                 /* BOF: M4-12868: New mass change */
-                    if (status[self.MASSNAME.VALIDATED].value === true || status[self.MASSNAME.VALIDATED].changed === false) {
-                        if (status[self.MASSNAME.PUBLISHED].value === true || status[self.MASSNAME.PUBLISHED].changed === false) {
+                    if (status[self.MASSNAME.VALIDATED].value === "true" || status[self.MASSNAME.VALIDATED].changed === false) {
+                        if (status[self.MASSNAME.PUBLISHED].value === "true" || status[self.MASSNAME.PUBLISHED].changed === false) {
                             jQuery.whenAllSet(personalDeferred, numberPerSet)
                                     .then(function () {
                                         return jQuery.whenAllSet(labelDeferred,numberPerSet);
@@ -493,7 +543,7 @@ function MassChangeModel() {
                                         massChangeSuccess();
                                     });
                         }
-                        else if (status[self.MASSNAME.PUBLISHED].value === false) {
+                        else if (status[self.MASSNAME.PUBLISHED].value === "false") {
                             jQuery.whenAllSet(personalDeferred, numberPerSet)
                                     .then(function () {
                                         return jQuery.whenAllSet(other2Deferred, numberPerSet);
@@ -512,8 +562,8 @@ function MassChangeModel() {
                                     });
                         }
                     }
-                    else if (status[self.MASSNAME.VALIDATED].value === false) {
-                        if (status[self.MASSNAME.PUBLISHED].value === true || status[self.MASSNAME.PUBLISHED].changed === false) {
+                    else if (status[self.MASSNAME.VALIDATED].value === "false") {
+                        if (status[self.MASSNAME.PUBLISHED].value === "true" || status[self.MASSNAME.PUBLISHED].changed === false) {
                             jQuery.whenAllSet(personalDeferred, numberPerSet)
                                     .then(function () {
                                         return jQuery.whenAllSet(other3Deferred, numberPerSet);
@@ -531,7 +581,7 @@ function MassChangeModel() {
                                         massChangeSuccess();
                                     });
                         }
-                        else if (status[self.MASSNAME.PUBLISHED].value === false) {
+                        else if (status[self.MASSNAME.PUBLISHED].value === "false") {
                             jQuery.whenAllSet(personalDeferred, numberPerSet)
                                     .then(function () {
                                         return jQuery.whenAllSet(other3Deferred, numberPerSet);
@@ -724,7 +774,7 @@ function MassChangeModel() {
     };
     self.GenerateAddRemoveLabelView = function (viewType) {
         var tabId = viewType === enumHandlers.LABELVIEWTYPE.BP ? 'BPLabels' : viewType === enumHandlers.LABELVIEWTYPE.SEARCH ? 'SearchLabels' : 'PrivilegeLabels';
-        jQuery('#LabelTabWrapper .tabMenu li').removeClass('active');
+        jQuery('#LabelTabWrapper .tab-menu-wrapper div').removeClass('active');
         jQuery('#' + tabId).addClass('active');
         jQuery('#Labels-PlaceHolder').empty().html(massChangeLabelsHtmlTemplate());
 
@@ -780,8 +830,165 @@ function MassChangeModel() {
             }, 1);
         }
     };
+    self.GenerateGeneralLabelView = function () {
+        jQuery('#LabelTabWrapper .tab-menu-wrapper div').removeClass('active');
+        jQuery('#GeneralLabel').addClass('active');
+        jQuery('#Labels-PlaceHolder').empty().html(massChangeGeneralLabelsHtmlTemplate());
+        var isInitial = false;
+        var currentCategories = self.GeneralCategories;
+        var isCategoryExist = function (categoryId) {
+            return jQuery.grep(currentCategories, function (category) { return category.Category.id === categoryId; }).length;
+        };
+        if (!isCategoryExist('Status')) {
+            isInitial = true;
+            currentCategories.push({
+                Category: {
+                    name: 'Status',
+                    id: 'Status'
+                },
+                Labels: [{
+                    name: Localization.MassChangeStarred,
+                    id: self.MASSNAME.STARRED,
+                    IsChecked: ko.observable(null)
+                },
+                {
+                    name: Localization.MassChangePublished,
+                    id: self.MASSNAME.PUBLISHED,
+                    IsChecked: ko.observable(null)
+                },
+                {
+                    name: Localization.MassChangeValidated,
+                    id: self.MASSNAME.VALIDATED,
+                    IsChecked: ko.observable(null)
+                },
+                {
+                    name: Localization.MassChangeTemplate,
+                    id: self.MASSNAME.TEMPLATE,
+                    IsChecked: ko.observable(null)
+                }]
+            });
+        }
+
+        ko.applyBindings(self.GeneralCategories, jQuery('#LabelCategories').get(0));
+        if (isInitial) {
+            setTimeout(function () {
+                jQuery('#Labels-PlaceHolder').find(':checkbox')
+                    .data('state', enumHandlers.CHECKSTATE.UNDEFINED)
+                    .data('state-changed', true);
+            }, 1);
+        }
+        else {
+            setTimeout(function () {
+                jQuery.each(currentCategories, function (indexCategory, category) {
+                    jQuery.each(category.Labels, function (index, label) {
+                        var state = label.IsChecked();
+                        label.IsChecked(99);
+                        label.IsChecked(state);
+                    });
+                });
+            }, 1);
+        }
+    };
+    self.GenerateTagsLabelView = function () {
+        jQuery('#LabelTabWrapper .tab-menu-wrapper div').removeClass('active');
+        jQuery('#TagsLabels').addClass('active');
+        jQuery('#Labels-PlaceHolder').empty().html(massChangeTagLabelHtmlTemplate());
+        var currentCategories = self.TagCategories;
+        var isInitial = false;
+        var isCategoryExist = function (categoryId) {
+            return jQuery.grep(currentCategories, function (category) { return category.Category.id === categoryId; }).length;
+        };
+        if (!isCategoryExist('Tags')) {
+            jQuery('#popupMassChangePopup').busyIndicator(true);
+            isInitial = true;
+            systemTagHandler.SearchTags('')
+                .always(function () {
+                    var labels = ko.toJS(systemTagHandler.GetData());
+                    labels.sortObject('name', enumHandlers.SORTDIRECTION.ASC);
+                    jQuery.each(labels, function (index, label) {
+                        label.id = label.name,
+                        label.IsChecked = ko.observable(null);
+                        label.Show = ko.observable(true);
+                    });
+                    currentCategories.push({
+                        Category: {
+                            name: 'Tags',
+                            id: 'Tags',
+                            IsRequire: true
+                        },
+                        Labels: labels
+                    });
+                    ko.applyBindings(self.TagCategories, jQuery('#LabelCategories').get(0));
+                    jQuery('#txtFitlerTags').off('keyup').on('keyup', function () {
+                        self.FilterTags();
+                    });
+                    jQuery('#popupMassChangePopup').busyIndicator(false);
+                });
+        }
+        else {
+            ko.applyBindings(self.TagCategories, jQuery('#LabelCategories').get(0));
+            jQuery('#txtFitlerTags').off('keyup').on('keyup', function () {
+                self.FilterTags();
+            });
+            if (self.TagSearchKeyword().length)
+                jQuery('#AngleTagFilterContainer > .clearSearch').removeClass('alwaysHide');
+            else
+                jQuery('#AngleTagFilterContainer > .clearSearch').addClass('alwaysHide');
+        }
+        if (isInitial) {
+            setTimeout(function () {
+                jQuery('#Labels-PlaceHolder').find(':checkbox')
+                    .data('state', enumHandlers.CHECKSTATE.UNDEFINED)
+                    .data('state-changed', true);
+            }, 1);
+        }
+        else {
+            setTimeout(function () {
+                jQuery.each(currentCategories, function (indexCategory, category) {
+                    jQuery.each(category.Labels, function (index, label) {
+                        var state = label.IsChecked();
+                        label.IsChecked(99);
+                        label.IsChecked(state);
+                    });
+                });
+            }, 1);
+        }
+    };
+    self.FilterTags = function () {
+        var FilteredTags = [];
+        systemTagHandler.SearchTags(jQuery('#txtFitlerTags').val())
+            .always(function () {
+                FilteredTags = systemTagHandler.GetData();
+                jQuery.each(self.TagCategories[0].Labels, function (index, label) {
+                    if (!FilteredTags.hasObject('name', label.name)) {
+                        label.Show(false);
+                    }
+                    else {
+                        label.Show(true);
+                    }
+                });
+            });
+        if (jQuery('#txtFitlerTags').val().length)
+            jQuery('#AngleTagFilterContainer > .clearSearch').removeClass('alwaysHide');
+        else
+            jQuery('#AngleTagFilterContainer > .clearSearch').addClass('alwaysHide');
+    };
+    self.ClearAdvanceSearch = function () {
+        self.TagSearchKeyword('');
+
+        jQuery.each(self.TagCategories[0].Labels, function (_index, label) {
+                label.Show(true);
+        });
+        jQuery('#AngleTagFilterContainer > .clearSearch').addClass('alwaysHide');
+    };
     self.LabelTabClick = function (viewType, element) {
-        if (self.CanSetLabels() && !jQuery(element).hasClass('active')) {
+        if (viewType === enumHandlers.LABELVIEWTYPE.GENERAL && !jQuery(element).hasClass('active')) {
+            return self.GenerateGeneralLabelView();
+        }
+        else if (viewType === enumHandlers.LABELVIEWTYPE.TAGS && !jQuery(element).hasClass('active')) {
+            return self.GenerateTagsLabelView();
+        }
+        else if (self.CanSetLabels() && !jQuery(element).hasClass('active')) {
             return self.GenerateAddRemoveLabelView(viewType);
         }
     };

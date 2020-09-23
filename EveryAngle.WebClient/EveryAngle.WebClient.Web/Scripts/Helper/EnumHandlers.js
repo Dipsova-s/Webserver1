@@ -202,7 +202,7 @@ function EnumHandlers() {
         FORMAT_DATE: 'format_date',
         FORMAT_PERIOD: 'format_period',
         FORMAT_TIME: 'format_time',
-        HIDE_OTHER_USERS_PRIVATE_DISPLAY : 'hide_other_users_private_display'
+        HIDE_OTHER_USERS_PRIVATE_DISPLAY:'hide_other_users_private_display'
     };
 
     // query steps type
@@ -845,9 +845,11 @@ function EnumHandlers() {
         yyyyMd: { TEXT: 'yyyy/M/d', VALUE: 'yyyy/M/d' }
     };
     self.LABELVIEWTYPE = {
+        GENERAL: 'general_label',
         BP: 'business_process',
         SEARCH: 'search_label',
-        PRIVILEGE: 'privilege_label'
+        PRIVILEGE: 'privilege_label',
+        TAGS: 'tags_label'
     };
     self.DISPLAYTYPE_EXTRA = {
         DEFAULT: 'default'
