@@ -2,17 +2,19 @@
     "use strict";
 
     handler.CheckShowingPublishSettingsPopup = function (showPopup) {
+        var self = this;
         if (anglePageHandler.HasAnyChanged()) {
             popup.Confirm(Localization.MessageSaveQuestionPublish, function () {
-                var callback = function () {
-                    jQuery.when(anglePageHandler.SaveAll(false, true)).done(showPopup);
-                };
+                var callback = jQuery.proxy(self.ForceSaveAngle, self, showPopup);
                 anglePageHandler.HandlerAngle.ConfirmSave(null, callback);
             });
         }
         else {
             showPopup();
         }
+    };
+    handler.ForceSaveAngle = function (showPopup) {
+        return jQuery.when(anglePageHandler.SaveAll(false, true)).done(showPopup);
     };
     
     handler.ReloadPublishingSettingsData = function (hasData) {
