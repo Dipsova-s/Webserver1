@@ -2,14 +2,17 @@
     "use strict";
 
     handler.CheckShowingPublishSettingsPopup = function (showPopup) {
+        var self = this;
         if (dashboardPageHandler.HasAnyChanged()) {
-            popup.Confirm(Localization.MessageSaveQuestionPublish, function () {
-                jQuery.when(dashboardPageHandler.SaveAll()).done(showPopup);
-            });
+            var callback = jQuery.proxy(self.ForceSaveDashboard, self, showPopup);
+            popup.Confirm(Localization.MessageSaveQuestionPublish, callback);
         }
         else {
             showPopup();
         }
+    };
+    handler.ForceSaveDashboard = function (showPopup) {
+        return jQuery.when(dashboardPageHandler.DashboardSaveActionHandler.SaveAll()).done(showPopup);
     };
     
     handler.GetPublishSettingsPopupOptions = function (event) {

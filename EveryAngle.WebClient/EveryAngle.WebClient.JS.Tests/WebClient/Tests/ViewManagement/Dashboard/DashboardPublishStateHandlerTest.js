@@ -53,6 +53,19 @@ describe("DashboardStateHandler", function () {
         });
     });
 
+    describe(".ForceSaveDashboard", function () {
+        it("should save", function () {
+            var fn = { showPopup: $.noop };
+            spyOn(fn, 'showPopup');
+            spyOn(dashboardPageHandler.DashboardSaveActionHandler, 'SaveAll').and.returnValue($.when());
+            dashboardStateHandler.ForceSaveDashboard(fn.showPopup);
+
+            // assert
+            expect(dashboardPageHandler.DashboardSaveActionHandler.SaveAll).toHaveBeenCalled();
+            expect(fn.showPopup).toHaveBeenCalled();
+        });
+    });
+
     describe(".GetPublishSettingsPopupOptions", function () {
 
         it('should get a new width', function () {

@@ -22,7 +22,8 @@ describe("AngleStateHandler", function () {
                 GetData: $.noop,
                 ConfirmSave: $.noop
             },
-            HasAnyChanged: $.noop
+            HasAnyChanged: $.noop,
+            SaveAll: $.noop
         });
     });
 
@@ -50,6 +51,19 @@ describe("AngleStateHandler", function () {
             // assert
             expect($.noop).toHaveBeenCalled();
             expect(popup.Confirm).not.toHaveBeenCalled();
+        });
+    });
+
+    describe(".ForceSaveAngle", function () {
+        it("should save", function () {
+            var fn = { showPopup: $.noop };
+            spyOn(fn, 'showPopup');
+            spyOn(anglePageHandler, 'SaveAll').and.returnValue($.when());
+            angleStateHandler.ForceSaveAngle(fn.showPopup);
+
+            // assert
+            expect(anglePageHandler.SaveAll).toHaveBeenCalled();
+            expect(fn.showPopup).toHaveBeenCalled();
         });
     });
 
