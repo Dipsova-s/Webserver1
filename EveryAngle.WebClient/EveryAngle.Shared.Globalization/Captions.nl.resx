@@ -793,15 +793,15 @@
     <value>Display-informatie</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel template</value>
+    <value>Excel-template</value>
   </data>
   <data name="Label_Insert_model_timestamp" xml:space="preserve">
-    <value>Insert model timestamp</value>
+    <value>Voer tijdstempel van model in</value>
   </data>
   <data name="InsertModelTimestamp_info" xml:space="preserve">
-    <value>Use '0' to select the first column. When no model timestamp column is required, enter -1 or leave empty.</value>
+    <value>Gebruik '0' om de eerste kolom te selecteren. Als de tijdstempel van het model niet nodig is, vul dan '-1' in of laat het veld leeg.</value>
   </data>
   <data name="Label_Template_Not_Exist_Message" xml:space="preserve">
-    <value>Template does not exist</value>
+    <value>Template bestaat niet</value>
   </data>
 </root>

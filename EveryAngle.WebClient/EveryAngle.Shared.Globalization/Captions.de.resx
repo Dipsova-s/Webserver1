@@ -799,7 +799,7 @@
     <value>Program/script</value>
   </data>
   <data name="MC_Label_ScriptParameters" xml:space="preserve">
-    <value>Add arguments&lt;br/&gt;(optional)</value>
+    <value>Add arguments&lt;br /&gt;(optional)</value>
   </data>
   <data name="Pivot_Option_TotalsLocation_Far" xml:space="preserve">
     <value>Unten/rechts</value>
@@ -823,15 +823,15 @@
     <value>Display-Informationen</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel template</value>
+    <value>Excel-Vorlage</value>
   </data>
   <data name="Label_Insert_model_timestamp" xml:space="preserve">
-    <value>Insert model timestamp</value>
+    <value>Modell-Zeitstempel einfügen</value>
   </data>
   <data name="InsertModelTimestamp_info" xml:space="preserve">
-    <value>Use '0' to select the first column. When no model timestamp column is required, enter -1 or leave empty.</value>
+    <value>Verwenden Sie „0“, um die erste Spalte auszuwählen. Wenn keine Modell-Zeitstempel-Spalte erforderlich ist, -1 eingeben oder leer lassen.</value>
   </data>
   <data name="Label_Template_Not_Exist_Message" xml:space="preserve">
-    <value>Template does not exist</value>
+    <value>Vorlage ist nicht vorhanden</value>
   </data>
 </root>

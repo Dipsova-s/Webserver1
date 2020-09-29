@@ -628,13 +628,13 @@
     <value>ID de lot</value>
   </data>
   <data name="Popup_ModelParameters_Title" xml:space="preserve">
-    <value>Paramètres de l'instance</value>
+    <value>Paramètres de l'Instance</value>
   </data>
   <data name="MC_GlobalSetting_SystemLog_Title" xml:space="preserve">
-    <value>Journal système</value>
+    <value>System log</value>
   </data>
   <data name="Drop_Here_To_Remove_This_Column" xml:space="preserve">
-    <value>Déposer ici pour supprimer cette colonne</value>
+    <value>Déposez ici pour supprimer cette colonne</value>
   </data>
   <data name="Label_ChartOptions_AxisScale_Automatic" xml:space="preserve">
     <value>Automatique</value>
@@ -823,15 +823,15 @@
     <value>Informations sur le Display</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel template</value>
+    <value>Modèle Excel</value>
   </data>
   <data name="Label_Insert_model_timestamp" xml:space="preserve">
-    <value>Insert model timestamp</value>
+    <value>Insérer un horodatage d'instance</value>
   </data>
   <data name="InsertModelTimestamp_info" xml:space="preserve">
-    <value>Use '0' to select the first column. When no model timestamp column is required, enter -1 or leave empty.</value>
+    <value>Utilisez « 0 » pour choisir la 1re colonne. Si aucune colonne d'horodatage d'instance n'est requise, entrez -1 ou rien.</value>
   </data>
   <data name="Label_Template_Not_Exist_Message" xml:space="preserve">
-    <value>Template does not exist</value>
+    <value>Modèle non existant</value>
   </data>
 </root>

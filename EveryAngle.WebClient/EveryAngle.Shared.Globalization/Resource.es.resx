@@ -226,10 +226,10 @@
     <value>Nuevo Angle</value>
   </data>
   <data name="DefaultDisplay" xml:space="preserve">
-    <value>Display predeterminada</value>
+    <value>Display predeterminado</value>
   </data>
   <data name="DefaultDisplayListName" xml:space="preserve">
-    <value>Nueva Display</value>
+    <value>Nuevo Display</value>
   </data>
   <data name="Definition" xml:space="preserve">
     <value>Definición</value>
@@ -394,7 +394,7 @@
     <value>Guardar</value>
   </data>
   <data name="SaveAll" xml:space="preserve">
-    <value>Save all</value>
+    <value>Guardar todo</value>
   </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Resultados de búsqueda</value>
@@ -409,7 +409,7 @@
     <value>Mostrar todos los objetos</value>
   </data>
   <data name="ShowAllTemplates" xml:space="preserve">
-    <value>Mostrar todas las Templates</value>
+    <value>Mostrar todos los Templates</value>
   </data>
   <data name="SortBy" xml:space="preserve">
     <value>Clasificar por</value>
@@ -424,7 +424,7 @@
     <value>Sistema: </value>
   </data>
   <data name="ThisIsAPrivateDisplayNotAvailableForOtherUsers" xml:space="preserve">
-    <value>Esta es una Display personal, no está disponible para el resto de usuarios.</value>
+    <value>Este es un Display personal, no está disponible para el resto de los usuarios.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nombre de usuario</value>
@@ -490,7 +490,7 @@
     <value>Idioma</value>
   </data>
   <data name="AdvanceFilterLimitationsBlockedDisplays" xml:space="preserve">
-    <value>Displays bloqueadas</value>
+    <value>Displays bloqueados</value>
   </data>
   <data name="AdvanceFilterLimitationsBlockedDrilldown" xml:space="preserve">
     <value>Muestra de detalles bloqueada</value>
@@ -589,7 +589,7 @@
     <value>Buscar</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>Aceptar</value>
+    <value>OK</value>
   </data>
   <data name="SeeInfoAboutProperty" xml:space="preserve">
     <value>Ver información acerca de campo</value>
@@ -619,7 +619,7 @@
     <value>Definir valor cuando se ejecuta el Angle</value>
   </data>
   <data name="AskForValueWhenTheDashboardOpens" xml:space="preserve">
-    <value>Definir valor cuando se ejecuta el Dashboard</value>
+    <value>Definir valor al ejecutar el Dashboard</value>
   </data>
   <data name="Before" xml:space="preserve">
     <value>Antes</value>
@@ -739,7 +739,7 @@
     <value>está entre</value>
   </data>
   <data name="OperatorIsEqualTo" xml:space="preserve">
-    <value>es igual a</value>
+    <value>es igual que</value>
   </data>
   <data name="OperatorIsGreaterThan" xml:space="preserve">
     <value>es mayor que</value>
@@ -826,7 +826,7 @@
     <value>Descargar Launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Para usar Go to SAP, haga clic para descargar e instalar el Launcher Go to SAP en la estación de trabajo.</value>
+    <value>Para usar Go to SAP, haga clic para descargar e instalar el launcher Go to SAP en la estación de trabajo.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Mostrar barra de Proceso de negocios pequeña</value>
@@ -925,7 +925,7 @@
     <value>Descripción</value>
   </data>
   <data name="ErrorCannotSaveDisplay" xml:space="preserve">
-    <value>La Display no se puede guardar. Guarde el Angle primero.</value>
+    <value>El Display no se puede guardar. Guarde el Angle primero.</value>
   </data>
   <data name="DrilldownErrorItemNotFound" xml:space="preserve">
     <value>No se ha encontrado la posición solicitada.</value>
@@ -943,7 +943,7 @@
     <value>No implementado</value>
   </data>
   <data name="PersonalDefaultDisplay" xml:space="preserve">
-    <value>Display personal predeterminada</value>
+    <value>Display personal predeterminado</value>
   </data>
   <data name="AngleId" xml:space="preserve">
     <value>ID de Angle</value>
@@ -961,7 +961,7 @@
     <value>[None]</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel template</value>
+    <value>Plantilla Excel</value>
   </data>
   <data name="CreateNewAngleFromSchema" xml:space="preserve">
     <value>Crear Angle</value>
@@ -988,7 +988,7 @@
     <value>Detalles de Dashboard</value>
   </data>
   <data name="AppliedAngleDisplays" xml:space="preserve">
-    <value>Displays de Angle aplicadas</value>
+    <value>Displays de Angle aplicados</value>
   </data>
   <data name="SelectDashboardDisplay" xml:space="preserve">
     <value>Displays:</value>
@@ -997,16 +997,16 @@
     <value>Nombre de Dashboard</value>
   </data>
   <data name="PopupConfirmDiscardChangeFieldSetting" xml:space="preserve">
-    <value>Los cambios en la Display {0} no se han aplicado.&lt;br/&gt;¿Desea guardar sin los cambios?</value>
+    <value>Los cambios en el Display {0} no se han aplicado.&lt;br/&gt;¿Desea guardar sin los cambios?</value>
   </data>
   <data name="ErrorCommonMessage" xml:space="preserve">
     <value>Se ha producido un error durante el procesamiento. Póngase en contacto con el administrador del sistema.</value>
   </data>
   <data name="ErrorDisplayNotExistsThenGotoOtherDisplay" xml:space="preserve">
-    <value>La Display no existe. Haga clic en Aceptar para ir a una Display existente.</value>
+    <value>El Display no existe. Haga clic en Aceptar para ir a un Display existente.</value>
   </data>
   <data name="ErrorDisplayNotExistsThenGotoSearchPage" xml:space="preserve">
-    <value>La Display no existe. Haga clic en Aceptar para volver a la página de búsqueda.</value>
+    <value>El Display no existe. Haga clic en Aceptar para volver a la página de búsqueda.</value>
   </data>
   <data name="ErrorExcelFileName" xml:space="preserve">
     <value>El nombre de archivo no puede contener: \ / : * ? " &amp;lt; &amp;gt; |</value>
@@ -1174,7 +1174,7 @@
     <value>Dashboard validado</value>
   </data>
   <data name="AppliedDashboardDisplays" xml:space="preserve">
-    <value>Displays de Dashboard aplicadas</value>
+    <value>Displays de Dashboard aplicados</value>
   </data>
   <data name="DashboardId" xml:space="preserve">
     <value>ID de Dashboard</value>
@@ -1186,7 +1186,7 @@
     <value>No es el creador de este Angle. Si cancela la publicación de este Angle, ya no tendrá acceso al mismo.&lt;br/&gt;¿Está seguro de que desea cancelar la publicación de este Angle?</value>
   </data>
   <data name="MessagePublishingNote" xml:space="preserve">
-    <value>Nota: Al menos se tiene que publicar una Display para llevar a cabo esta medida.</value>
+    <value>Nota: Al menos se tiene que publicar un Display para llevar a cabo esta medida.</value>
   </data>
   <data name="NumberOfBPs" xml:space="preserve">
     <value>Número de Procesos de negocios:</value>
@@ -1201,7 +1201,7 @@
     <value>Número de etiquetas de búsqueda:</value>
   </data>
   <data name="SetDefaultDisplay" xml:space="preserve">
-    <value>Definir Display predeterminada:</value>
+    <value>Definir Display predeterminado:</value>
   </data>
   <data name="SetDefaultPublicOrPrivate" xml:space="preserve">
     <value>Definir predeterminado en Publicado o Personal:</value>
@@ -1216,7 +1216,7 @@
     <value>Sin formato</value>
   </data>
   <data name="CreateNewDisplay" xml:space="preserve">
-    <value>Crear nueva Display</value>
+    <value>Crear nuevo Display</value>
   </data>
   <data name="SystemSettingLabelDefaultOfRowOfPivot" xml:space="preserve">
     <value>Número de filas predeterminado mostradas en una tabla dinámica</value>
@@ -1228,7 +1228,7 @@
     <value>Privilegios de Dashboard</value>
   </data>
   <data name="CreateEAPackage" xml:space="preserve">
-    <value>Descargar posiciones</value>
+    <value>Descargar elementos</value>
   </data>
   <data name="FileName" xml:space="preserve">
     <value>Nombre de archivo</value>
@@ -1339,7 +1339,7 @@
     <value>Ejecutar Jump seleccionado</value>
   </data>
   <data name="FollowupsWarningAngle" xml:space="preserve">
-    <value>Se eliminarán todas las Displays</value>
+    <value>Se eliminarán todos los Displays</value>
   </data>
   <data name="FollowupsWarningDisplay" xml:space="preserve">
     <value>Se eliminarán todas las columnas</value>
@@ -1381,7 +1381,7 @@
     <value>No es el creador de este Dashboard. Si cancela la publicación de este Dashboard, ya no tendrá acceso al mismo.&lt;br/&gt;¿Está seguro de que desea cancelar la publicación de este Dashboard?</value>
   </data>
   <data name="DonotHaveWCAndMCAuthrozation" xml:space="preserve">
-    <value>No tiene permiso para utilizar el Cliente web y la IT Management Console.</value>
+    <value>No tiene permiso para utilizar el Cliente web y el IT Management Console.</value>
   </data>
   <data name="EditDashboard" xml:space="preserve">
     <value>Editar Dashboard</value>
@@ -1489,7 +1489,7 @@
     <value>Tiene cambios sin guardar. ¿Desea guardar los cambios y continuar publicando?</value>
   </data>
   <data name="MessageSaveFollowupRequiredPublishAngle" xml:space="preserve">
-    <value>La definición del Angle ha cambiado, se ha agregado o borrado un Jump. Este cambios se debe guardar antes de que se pueda publicar el Angle.</value>
+    <value>La definición del Angle ha cambiado, se ha agregado o borrado un Jump. Este cambio se debe guardar antes de que se pueda publicar el Angle.</value>
   </data>
   <data name="ErrorLanguageNotInModel" xml:space="preserve">
     <value>Su idioma preferido no se ha activado para el modelo seleccionado.</value>
@@ -1513,31 +1513,31 @@
     <value>Detalles de Display de Dashboard</value>
   </data>
   <data name="Info_AddedDisplayToDashboardSuccessfull" xml:space="preserve">
-    <value>Se ha agregado la Display al Dashboard.&lt;br/&gt;Haga clic &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;aquí&lt;/a&gt; para ver su Dashboard.</value>
+    <value>Se ha agregado el Display al Dashboard.&lt;br/&gt;Haga clic &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;aquí&lt;/a&gt; para ver su Dashboard.</value>
   </data>
   <data name="Info_CannotSetFavoriteToAdhocAngle" xml:space="preserve">
     <value>No puede hacer de un Angle ad hoc un Angle favorito. Primero tiene que guardar el Angle.</value>
   </data>
   <data name="Info_DisplayMustContainAtLeastOneValidField" xml:space="preserve">
-    <value>La Display debe contener al menos un campo válido.</value>
+    <value>El Display debe contener al menos un campo válido.</value>
   </data>
   <data name="Info_FollowUpHasNoResults" xml:space="preserve">
     <value>El Jump adicional no tiene resultados.</value>
   </data>
   <data name="Info_NoFieldsReturn" xml:space="preserve">
-    <value>La Display no ha devuelto ningún campo</value>
+    <value>El Display no ha devuelto ningún campo</value>
   </data>
   <data name="Info_NoModelsReturn" xml:space="preserve">
     <value>El Servidor de aplicaciones no ha devuelto ningún modelo</value>
   </data>
   <data name="Info_PleaseSaveAndRefresh" xml:space="preserve">
-    <value>La Display contiene solo columnas no válidas. Actualice la Display.</value>
+    <value>El Display contiene solo columnas no válidas. Actualice el Display.</value>
   </data>
   <data name="Info_TheFieldYouSelectedNotEnumeratedType" xml:space="preserve">
     <value>El campo que ha seleccionado no es el tipo de campo correcto. Seleccione un campo definido.</value>
   </data>
   <data name="Info_AddDisplayToDashboardSucceed" xml:space="preserve">
-    <value>Se ha agregado la Display al Dashboard.&lt;br/&gt;Haga clic &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;aquí&lt;/a&gt; para ver su Dashboard.</value>
+    <value>Se ha agregado el Display al Dashboard.&lt;br/&gt;Haga clic &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;aquí&lt;/a&gt; para ver su Dashboard.</value>
   </data>
   <data name="Info_CannotHandleUnknownField" xml:space="preserve">
     <value>No se puede gestionar el tipo de campo desconocido.&lt;br/&gt;Se esperaba uno definido pero el tipo de campo real es {0}.&lt;br/&gt;&lt;a href="{1}" target="_blank"&gt;{2}&lt;/a&gt;</value>
@@ -1552,10 +1552,10 @@
     <value>Alerta</value>
   </data>
   <data name="Confirm_AreYouSureToDelete" xml:space="preserve">
-    <value>¿Está seguro de que sea borrar {0}?</value>
+    <value>¿Está seguro de que desea borrar {0}?</value>
   </data>
   <data name="Confirm_CreateNewFollowUp" xml:space="preserve">
-    <value>La Display actual cambiará a una nueva Display con los campos sugeridos. &lt;br/&gt;¿Está seguro de que desea continuar?</value>
+    <value>El Display actual cambiará a un nuevo Display con los campos sugeridos. &lt;br/&gt;¿Está seguro de que desea continuar?</value>
   </data>
   <data name="Confirm_DeleteAngle" xml:space="preserve">
     <value>¿Borrar Angle:&lt;br/&gt; {0}?</value>
@@ -1579,10 +1579,10 @@
     <value>Seleccione al menos una posición</value>
   </data>
   <data name="Info_CannotPublishedDashboardBecausePrivateAngleDisplay" xml:space="preserve">
-    <value>El Dashboard no se puede publicar, porque contiene Displays personales.&lt;br/&gt;&lt;br/&gt;Haga clic en Aceptar para que le redirijan a la ficha Definición. A continuación, haga clic en Ir a Angle para acceder a la Display que desea publicar.</value>
+    <value>El Dashboard no se puede publicar, porque contiene Displays personales.&lt;br/&gt;&lt;br/&gt;Haga clic en Aceptar para que le redirijan a la ficha Definición. A continuación, haga clic en Ir a Angle para acceder al Display que desea publicar.</value>
   </data>
   <data name="Info_CannotSetPrivateDisplayToDefaultDisplay" xml:space="preserve">
-    <value>Una Display personal no se puede definir como la Display predeterminada</value>
+    <value>Un Display personal no se puede definir como el Display predeterminado</value>
   </data>
   <data name="Info_DashboardItemsWillNotAffect" xml:space="preserve">
     <value>Las posiciones del Dashboard no se verán afectadas por esta medida.</value>
@@ -1591,19 +1591,19 @@
     <value>El ID del Dashboard debe empezar por a-z, A-Z y solo debe contener a-z, A-Z, 0-9 y “_”</value>
   </data>
   <data name="Info_InvalidDisplayID" xml:space="preserve">
-    <value>El ID de la Display debe empezar por a-z, A-Z y solo debe contener a-z, A-Z, 0-9 y “_”</value>
+    <value>El ID del Display debe empezar por a-z, A-Z y solo debe contener a-z, A-Z, 0-9 y “_”</value>
   </data>
   <data name="Info_InvalidID" xml:space="preserve">
-    <value>El ID de Angle debe empezar por a-z, A-Z y solo debe contener a-z, A-Z, 0-9 y “_”</value>
+    <value>El ID del Angle debe empezar por a-z, A-Z y solo debe contener a-z, A-Z, 0-9 y “_”</value>
   </data>
   <data name="Info_MoreThanOneTemplateReturn" xml:space="preserve">
-    <value>Se ha devuelto más de una Template</value>
+    <value>Se ha devuelto más de un Template</value>
   </data>
   <data name="Info_NoActiveClassForModel" xml:space="preserve">
     <value>No hay objetos activos para el ID de modelo: {0}</value>
   </data>
   <data name="Info_NoActiveModelInstance" xml:space="preserve">
-    <value>No hay servidores de modelos activos para el modelo: {0}</value>
+    <value>No hay ningún servidor de modelos activo para el modelo: {0}</value>
   </data>
   <data name="Info_NoAvailableModel" xml:space="preserve">
     <value>Hay un modelo válido disponible</value>
@@ -1615,7 +1615,7 @@
     <value>No tiene permiso para publicar las siguientes etiquetas de privilegios del Dashboard: {0} en el modelo {1}</value>
   </data>
   <data name="Info_NoTemplateReturn" xml:space="preserve">
-    <value>No se ha devuelto ninguna Template</value>
+    <value>No se ha devuelto ningún Template</value>
   </data>
   <data name="Info_NotValidItemsToRemove" xml:space="preserve">
     <value>Las posiciones seleccionadas no se pueden borrar</value>
@@ -1639,7 +1639,7 @@
     <value>Introduzca un Filtro válido</value>
   </data>
   <data name="Info_PleaseRemoveAllInvalidFields" xml:space="preserve">
-    <value> Borre todos los campos o Filtros no válidos.</value>
+    <value>Borre todos los campos o Filtros no válidos.</value>
   </data>
   <data name="Info_PleaseRemoveAllInvalidFieldsInAggArea" xml:space="preserve">
     <value>Borre todos los campos no válidos del área de fila, columna o datos.</value>
@@ -1648,7 +1648,7 @@
     <value>Borre un campo del área de datos (eje vertical).</value>
   </data>
   <data name="Info_PleaseSelectMissingValueForFilters" xml:space="preserve">
-    <value>Seleccione un valor para este Filtro o elija “Definir valor cuando se ejecute la Display”.</value>
+    <value>Seleccione un valor para este Filtro o elija “Definir valor cuando se ejecute el Display”.</value>
   </data>
   <data name="Info_PleaseUseTextBelowToCopy" xml:space="preserve">
     <value>Utilice el texto siguiente para copiar</value>
@@ -1693,13 +1693,13 @@
     <value>necesita el campo de número o fecha para el área de categorías (eje horizontal).</value>
   </data>
   <data name="Info_RequiredOneDisplayBeforeCreateAngle" xml:space="preserve">
-    <value>No se puede crear el Angle porque no hay ninguna Display.</value>
+    <value>No se puede crear el Angle porque no hay ningún Display.</value>
   </data>
   <data name="Info_RequiredOneMoreDisplayToProcess" xml:space="preserve">
-    <value>Necesita una Display más publicada para continuar con el paso siguiente.</value>
+    <value>Necesita un Display más publicado para continuar con el paso siguiente.</value>
   </data>
   <data name="Info_RequiredPublicDisplayBeforePublishedAngle" xml:space="preserve">
-    <value>Los Angles publicados necesitan al menos una Display publicada.</value>
+    <value>Los Angles publicados necesitan al menos un Display publicado.</value>
   </data>
   <data name="Info_RequiredTemplateBeforeCreateAngle" xml:space="preserve">
     <value>Este Angle no se puede crear. Seleccione primero un Template.</value>
@@ -1708,7 +1708,7 @@
     <value>Todos los Angles necesitan validarse antes de que se pueda validar el Dashboard.</value>
   </data>
   <data name="Info_RequiredValidAtleastOneDisplays" xml:space="preserve">
-    <value>Al menos una Display necesita validarse antes de que pueda publicar.</value>
+    <value>Al menos un Display necesita validarse antes de que pueda publicar.</value>
   </data>
   <data name="Info_SelectedTextAlreadyCopied" xml:space="preserve">
     <value>El texto seleccionado se ha copiado</value>
@@ -1726,7 +1726,7 @@
     <value>No hay ninguna película disponible.</value>
   </data>
   <data name="Confirm_AreYouSureToDeleteItems" xml:space="preserve">
-    <value>¿Está seguro de que sea eliminar {0} posiciones?</value>
+    <value>¿Está seguro de que desea eliminar {0} posiciones?</value>
   </data>
   <data name="Info_RequiredBusinessProcessPrivilegeForAngle" xml:space="preserve">
     <value>La Medida no está permitida porque no tiene ningún privilegio en las etiquetas Proceso de negocios.</value>
@@ -1738,10 +1738,10 @@
     <value>Sesión modificada</value>
   </data>
   <data name="Info_SaveAsAngleWarning" xml:space="preserve">
-    <value>El Angle o algunas Displays contienen advertencias</value>
+    <value>El Angle o algunos Displays contienen advertencias</value>
   </data>
   <data name="Info_SaveAsDisplayWarning" xml:space="preserve">
-    <value>La Display contiene advertencias</value>
+    <value>El Display contiene advertencias</value>
   </data>
   <data name="Enum_CSV_Header_Full" xml:space="preserve">
     <value>Nombre de campo completo en la cabecera</value>
@@ -1780,7 +1780,7 @@
     <value>Los datos recibidos no están completos y no se pueden procesar.</value>
   </data>
   <data name="AskForValueWhenTheDisplayOpens" xml:space="preserve">
-    <value>Definir valor cuando se ejecuta la Display</value>
+    <value>Definir valor cuando se ejecuta el Display</value>
   </data>
   <data name="DashboardChangeDisplays" xml:space="preserve">
     <value>Cambiar Displays</value>
@@ -2053,7 +2053,7 @@
     <value>Predeterminado</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Predeterminado] {0}</value>
+    <value>[Use default] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
@@ -2553,6 +2553,12 @@
   <data name="Uploaded" xml:space="preserve">
     <value>Cargado</value>
   </data>
+  <data name="MC_Process" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="MC_DisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
   <data name="MC_UploadIcon" xml:space="preserve">
     <value>Upload icon</value>
   </data>
@@ -2668,7 +2674,7 @@
     <value>1 decimal</value>
   </data>
   <data name="OpenWebclient" xml:space="preserve">
-    <value>Abrir cliente web</value>
+    <value>Abrir Cliente web</value>
   </data>
   <data name="SelectRolesToAssign" xml:space="preserve">
     <value>Seleccionar funciones que asignar</value>
@@ -3364,7 +3370,7 @@
     <value>El Display predeterminado se ha borrado u ocultado. Cierre este mensaje emergente para actualizar.</value>
   </data>
   <data name="Info_ListDisplaysDeletedWhileProcess" xml:space="preserve">
-    <value>Las Displays siguientes han fallado durante el procesamiento</value>
+    <value>Los Displays siguientes han fallado durante el procesamiento</value>
   </data>
   <data name="MC_SystemLog_AppServer" xml:space="preserve">
     <value>Application Server</value>
@@ -3445,13 +3451,13 @@
     <value>El número máximo de Angles es {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Current object</value>
+    <value>Objeto actual</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Número de posiciones</value>
   </data>
   <data name="ExecutionTime" xml:space="preserve">
-    <value>Servidor del Modelo en tiempo de ejecución</value>
+    <value>Servidor de modelos en tiempo de ejecución</value>
   </data>
   <data name="PopupResultSummaryAngleInfo" xml:space="preserve">
     <value>Este Angle se ha ejecutado en el siguiente conjunto de datos:</value>
@@ -3526,7 +3532,7 @@
     <value>Actual: recuperando archivos CSV desde el Servidor de aplicaciones</value>
   </data>
   <data name="ProgressBar_CurrentRetrievingDataFromModelServer" xml:space="preserve">
-    <value>Actual: recuperando datos desde el Servidor de Modelos</value>
+    <value>Actual: recuperando datos desde el servidor de modelos</value>
   </data>
   <data name="ProgressBar_CurrentRetrievingExcelFileFromApplicationServer" xml:space="preserve">
     <value>Actual: recuperando archivo Excel desde el Servidor de aplicaciones</value>
@@ -3763,7 +3769,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Suggest none</value>
   </data>
   <data name="InfoAllowMoreDetailsPopup" xml:space="preserve">
-    <value>Restringir a los usuarios para que obtengan más detalles tendrá el siguiente efecto: &lt;br/&gt; - A los usuarios no se les permite agregar o eliminar campos en ninguna Display &lt;br/&gt; - A los usuarios no se les permite agregar, eliminar o actualizar Filtros &lt;br/&gt; - A los usuarios no se les permite agregar o eliminar Jumps &lt;br/&gt; - A los usuarios no se les permite desglosar ninguna Display</value>
+    <value>Restringir a los usuarios para que obtengan más detalles tendrá el siguiente efecto: &lt;br/&gt; - A los usuarios no se les permite agregar o eliminar campos en ningún Display &lt;br/&gt; - A los usuarios no se les permite agregar, eliminar o actualizar Filtros &lt;br/&gt; - A los usuarios no se les permite agregar o eliminar Jumps &lt;br/&gt; - A los usuarios no se les permite desglosar ningún Display</value>
   </data>
   <data name="Infomation_Title" xml:space="preserve">
     <value>Información</value>
@@ -3805,7 +3811,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Role ID</value>
   </data>
   <data name="PopupConfirmDiscardChangeFieldSettingAndContinue" xml:space="preserve">
-    <value>Los cambios en la Display {0} no se han aplicado.&lt;br/&gt;¿Desea descartar los cambios y continuar?</value>
+    <value>Los cambios en el Display {0} no se han aplicado.&lt;br/&gt;¿Desea descartar los cambios y continuar?</value>
   </data>
   <data name="MC_CheckAction" xml:space="preserve">
     <value>Check action</value>
@@ -4669,7 +4675,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Color</value>
   </data>
   <data name="Opacity" xml:space="preserve">
-    <value>Opacity</value>
+    <value>Opacidad</value>
   </data>
   <data name="NumberSelectingItems" xml:space="preserve">
     <value>{0} posición(es) seleccionada(s)</value>
@@ -4747,7 +4753,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Definir en "Angle normal"</value>
   </data>
   <data name="MassChangeStatusNotStarred" xml:space="preserve">
-    <value>Definir en “No iniciado”</value>
+    <value>Definir en “No favorito”</value>
   </data>
   <data name="MassChangeStatusNotValidated" xml:space="preserve">
     <value>Definir en “No validado”</value>
@@ -4901,7 +4907,7 @@ Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
     <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
-The option to download the required Go to SAP Launcher will then become available in the Settings menu of the Web Client.</value>
+The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
@@ -4961,16 +4967,16 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Copia del informe Angle</value>
   </data>
   <data name="CopyAngleReportHeader" xml:space="preserve">
-    <value>Creación de Angles correcta {0} de {1}</value>
+    <value>Creación de Angles correcto {0} de {1}</value>
   </data>
   <data name="CustomSortTitle" xml:space="preserve">
     <value>Clasificación personalizada</value>
   </data>
   <data name="ErrorAngleNoDisplay" xml:space="preserve">
-    <value>Angle no tiene Display</value>
+    <value>El Angle no tiene Display</value>
   </data>
   <data name="ErrorAngleNoDisplayReason" xml:space="preserve">
-    <value>Angle debe contener al menos 1 Display.</value>
+    <value>El Angle debe contener al menos 1 Display.</value>
   </data>
   <data name="NoModelAvaliable" xml:space="preserve">
     <value>El modelo no está disponible</value>
@@ -5006,7 +5012,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos base_display</value>
   </data>
   <data name="Error_FieldContainsInvalidArguments" xml:space="preserve">
-    <value>Campo {0} contiene argumento(s) no válido(s)</value>
+    <value>El campo {0} contiene argumento(s) no válido(s)</value>
   </data>
   <data name="Error_FieldNoArgument" xml:space="preserve">
     <value>El campo {0} no tiene argumento</value>
@@ -5018,10 +5024,10 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>El servidor de aplicaciones no ha devuelto datos correctos: falta el campo de propiedad de la base de datos</value>
   </data>
   <data name="Error_ObjectIsNotAvailable" xml:space="preserve">
-    <value>Objeto {0} no está disponible</value>
+    <value>El objeto {0} no está disponible</value>
   </data>
   <data name="Error_ObjectsAreNotAvailable" xml:space="preserve">
-    <value>Objetos {0} no están disponibles</value>
+    <value>Los objetos {0} no están disponibles</value>
   </data>
   <data name="Error_QueryBlockTypePropertyMissing" xml:space="preserve">
     <value>El servidor de aplicaciones no ha devuelto datos correctos: la propiedad de la base de datos queryblock_type está vacía</value>
@@ -5030,7 +5036,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos query_steps</value>
   </data>
   <data name="Error_FollowupNotAvailableInObjects" xml:space="preserve">
-    <value>Jump {0} no está disponible en objeto(s) {1}</value>
+    <value>El Jump {0} no está disponible en el(los) objeto(s) {1}</value>
   </data>
   <data name="MC_AngleWarnings" xml:space="preserve">
     <value>Angle warnings</value>
@@ -5117,7 +5123,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>{0}: All {1} items under {2}</value>
   </data>
   <data name="Info_GaugeChartIncorrectOrder" xml:space="preserve">
-    <value>Los todos los valores están por orden ascendente o descendente.</value>
+    <value>No todos los valores están por orden ascendente o descendente.</value>
   </data>
   <data name="MC_Assign" xml:space="preserve">
     <value>Assign</value>
@@ -5188,7 +5194,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>For the settings to become active, users need to clear the browser cache, or log out and log in again.</value>
   </data>
   <data name="Info_OnlyDisplayWillBeCreated" xml:space="preserve">
-    <value>Solo esta Display se agregará a su nuevo Angle.</value>
+    <value>Solo este Display se agregará a su nuevo Angle.</value>
   </data>
   <data name="MC_AddNewAuthenticationProvider" xml:space="preserve">
     <value>Add Authentication Provider</value>
@@ -5233,19 +5239,19 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Copiar Display</value>
   </data>
   <data name="Info_DisplayHasBeenCopied" xml:space="preserve">
-    <value>La Display se ha copiado.</value>
+    <value>El Display se ha copiado.</value>
   </data>
   <data name="PasteDisplay" xml:space="preserve">
     <value>Pegar Display</value>
   </data>
   <data name="Info_CannotPasteDisplayBecuaseAngleWarning" xml:space="preserve">
-    <value>La Display no se puede copiar, porque el Angle contiene advertencias.</value>
+    <value>El Display no se puede copiar, porque el Angle contiene advertencias.</value>
   </data>
   <data name="Info_DisplayCannotBeCopied" xml:space="preserve">
-    <value>La Display no se puede pegar.</value>
+    <value>El Display no se puede pegar.</value>
   </data>
   <data name="TemplateHasNoValidDisplay" xml:space="preserve">
-    <value>La Template “{0}” no se puede ejecutar porque no tiene Displays válidas</value>
+    <value>El Template “{0}” no se puede ejecutar porque no tiene Displays válidos</value>
   </data>
   <data name="Info_DropFilterToAngleDefinition" xml:space="preserve">
     <value>Colóquelo aquí para mover el filtro al Angle.</value>
@@ -5348,7 +5354,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>No volver a enviarme advertencias en esta sesión.</value>
   </data>
   <data name="AlertWarningFieldChooserSource" xml:space="preserve">
-    <value>Seleccionar campos de objetos referenciados provocará, en la mayoría de casos, que haya que contar la posiciones varias veces. Esto producirá resultados incorrectos.&lt;br/&gt;Asegúrese de seleccionar un campo correcto.</value>
+    <value>Seleccionar campos de objetos referenciados provocará, en la mayoría de casos, que haya que contar las posiciones varias veces. Esto producirá resultados incorrectos.&lt;br/&gt;Asegúrese de seleccionar un campo correcto.</value>
   </data>
   <data name="WarningExcelNotSupportedExportAsChart" xml:space="preserve">
     <value>El tipo de gráfico no es compatible para la exportación. Solo los datos se exportarán a Excel.</value>
@@ -5375,13 +5381,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>¿Está seguro de que desea descargar {0} Angles individuales?</value>
   </data>
   <data name="UploadAngles" xml:space="preserve">
-    <value>Cargar posiciones</value>
+    <value>Cargar elementos</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Cargar informe de posiciones</value>
+    <value>Cargar informe elementos</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
-    <value>Cargando posiciones</value>
+    <value>Cargando elementos</value>
   </data>
   <data name="UploadAngles_InvalideExtension" xml:space="preserve">
     <value>extensión de archivo no válida</value>
@@ -5393,16 +5399,16 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>archivo cargado no válido</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Seleccione las posiciones para cargar o arrástrelas aquí...</value>
+    <value>Seleccione elemento para cargar o arrástrelo aquí...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
-    <value>Carga de posiciones correcta {0} de {1}</value>
+    <value>Carga de elementos correcta {0} de {1}</value>
   </data>
   <data name="FormatSetting_UseDefault" xml:space="preserve">
     <value>Usar predeterminado</value>
   </data>
   <data name="ResolveAngleDisplay_UsedInAutomationTask" xml:space="preserve">
-    <value>El Angle y la Display se usan en la tarea de automatización.</value>
+    <value>El Angle y el Display se usan en la tarea de automatización.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Delete" xml:space="preserve">
     <value>El Angle/Display actual se utiliza en las siguientes tareas de automatización. Cargar el Angle/Display eliminará esta acción.&lt;br/&gt;Cuando no queden medidas, se eliminará la tarea.</value>
@@ -5411,10 +5417,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>El Angle/Display actual se utiliza en las siguientes tareas de automatización. Al actualizar el Angle/Display se modificarán las medidas de la tarea y puede hacer que deje de funcionar.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictQuestion_Delete" xml:space="preserve">
-    <value>¿Está seguro de que sea eliminar este Angle o esta Display?</value>
+    <value>¿Está seguro de que desea eliminar este Angle o este Display?</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictQuestion_Update" xml:space="preserve">
-    <value>¿Está seguro de que sea actualizar este Angle o esta Display?</value>
+    <value>¿Está seguro de que desea actualizar este Angle o este Display?</value>
   </data>
   <data name="MC_StatusAndReport" xml:space="preserve">
     <value>Status and reports</value>
@@ -5438,7 +5444,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Seleccione una tarea...</value>
   </data>
   <data name="ToOpenMC" xml:space="preserve">
-    <value>&lt;strong&gt;Nota: &lt;/strong&gt;Esta medida abrirá la IT Management Console.</value>
+    <value>&lt;strong&gt;Nota: &lt;/strong&gt;Esta medida abrirá el IT Management Console.</value>
   </data>
   <data name="MC_AllowEmptly" xml:space="preserve">
     <value>Allow empty</value>
@@ -5504,16 +5510,16 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Es antes de {0}</value>
   </data>
   <data name="WidgetFilter_Preview_Between" xml:space="preserve">
-    <value>Is on or after {0} and before {1}</value>
+    <value>Es en {0} o después y antes de {1}</value>
   </data>
   <data name="WidgetFilter_Preview_Between_EndDate" xml:space="preserve">
-    <value>Is on or after {0} and on or before {1}</value>
+    <value>Es en {0} o después y en {1} o antes</value>
   </data>
   <data name="WidgetFilter_Preview_Equal" xml:space="preserve">
     <value>Es el {0}</value>
   </data>
   <data name="WidgetFilter_Preview_NotBetween" xml:space="preserve">
-    <value>Is before {0} or after {1}</value>
+    <value>Es antes de {0} o después de {1}</value>
   </data>
   <data name="WidgetFilter_Preview_NotBetween_EndDate" xml:space="preserve">
     <value>Es antes de {0} o después o el {1}</value>
@@ -5788,7 +5794,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value> (abajo)</value>
   </data>
   <data name="ModelLabel_NoModelServer" xml:space="preserve">
-    <value>Sin Servidor de Modelos</value>
+    <value>Sin servidor de modelos</value>
   </data>
   <data name="ListHeaderPopupEditFilter" xml:space="preserve">
     <value>Editar Filtro</value>
@@ -5904,6 +5910,11 @@ For security reasons, the password must always be reentered before saving the ac
   <data name="MC_TaskAction_DescriptionScript" xml:space="preserve">
     <value>Select the program or script file for this action.&lt;br&gt;
 You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionExcelTemplate" xml:space="preserve">
+    <value>Select which Excel template to use for this export.&lt;br&gt;
+When you select "Use default", the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+You can also select a different Excel template from the list if you don't want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro's.</value>
   </data>
   <data name="MC_ScriptLocation" xml:space="preserve">
     <value>Program/scripts folder</value>
@@ -6121,7 +6132,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Displays</value>
   </data>
   <data name="PublishSettings_WidgetsInvalid" xml:space="preserve">
-    <value>El Dashboard no se puede publicar. Publique primero todas las Displays personales.</value>
+    <value>El Dashboard no se puede publicar. Publique primero todos los Displays personales.</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
     <value>Go to Display details</value>
@@ -6190,7 +6201,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>es relativo entre</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Debido a un error conocido, es posible que no funcione correctamente el desplazamiento cuando se ejecuta iOS 13. Póngase en contacto con el servicio de asistencia de Every Angle para obtener más información.</value>
+    <value>Debido a un error conocido, es posible que no funcione correctamente el desplazamiento cuando se ejecuta iOS 13. Póngase en contacto con el servicio de asistencia de Every Angle para obtener más información</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
@@ -6199,7 +6210,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Licencia y copyright</value>
   </data>
   <data name="LicenseCopyrightDescription" xml:space="preserve">
-    <value> Copyright © 1997 - 2020 Magnitude Software, Inc. Todos los derechos reservados.&lt;br/&gt; No está permitida la reproducción, ni su almacenamiento en sistemas de recuperación, ni su transmisión, de ningún modo y por ningún medio, ya sea electrónico o mecánico, de fotocopia, grabación o cualquier otro, de esta publicación sin el consentimiento previo y por escrito de Magnitude.&lt;br/&gt; La información contenida en el presente documento está sujeta a cambios sin previos aviso. Magnitude se esfuerza por mantener esta información de forma precisa, pero no garantiza que el documento esté libre de errores.&lt;br/&gt; Todos los productos de Magnitude descritos en el presente documento cuentan con una licencia sujeta exclusivamente a las condiciones establecidas en el acuerdo de licencia de Magnitude.&lt;br/&gt; Magnitude Software y Every Angle son marcas comerciales de Magnitude Software, Inc. Los logotipos de Magnitude y Every Angle, así como otras marcas de «Every Angle», son marcas comerciales de Magnitude Software, Inc.&lt;br/&gt; Todos los demás nombres de empresas y productos aquí mencionados se utilizan solo con fines de identificación y pueden ser marcas comerciales o marcas comerciales registradas de sus respectivos propietarios. </value>
+    <value> Copyright © 1997 - 2020 Magnitude Software, Inc. Todos los derechos reservados.&lt;br/&gt; No está permitida la reproducción, ni su almacenamiento en sistemas de recuperación, ni su transmisión, de ningún modo y por ningún medio, ya sea electrónico o mecánico, de fotocopia, grabación o cualquier otro, de esta publicación sin el consentimiento previo y por escrito de Magnitude.&lt;br/&gt; La información contenida en el presente documento está sujeta a cambios sin previo aviso. Magnitude se esfuerza por mantener esta información de forma precisa, pero no garantiza que el documento esté libre de errores.&lt;br/&gt; Todos los productos de Magnitude descritos en el presente documento cuentan con una licencia sujeta exclusivamente a las condiciones establecidas en el acuerdo de licencia de Magnitude.&lt;br/&gt; Magnitude Software y Every Angle son marcas comerciales de Magnitude Software, Inc. Los logotipos de Magnitude y Every Angle, así como otras marcas de «Every Angle», son marcas comerciales de Magnitude Software, Inc.&lt;br/&gt; Todos los demás nombres de empresas y productos aquí mencionados se utilizan solo con fines de identificación y pueden ser marcas comerciales o marcas comerciales registradas de sus respectivos propietarios. </value>
   </data>
   <data name="MC_SystemLog_Repository" xml:space="preserve">
     <value>Repository</value>
@@ -6211,7 +6222,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Select this option to delay the model server stop until the data extraction is finished to minimize down time. Please note that this option will consume extra system resources during the refresh, as the model server will keep running during the extraction.</value>
   </data>
   <data name="ModelDefinitionVersion" xml:space="preserve">
-    <value>Versión de la definición del modelo</value>
+    <value>Versión de la definición del modelo:</value>
   </data>
   <data name="AddLanguage" xml:space="preserve">
     <value>Agregar idioma</value>
@@ -6323,21 +6334,6 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_Validation_ExportPackageUrl" xml:space="preserve">
     <value>Invalid URL: selections from multiple models and Advanced filters are not allowed.</value>
   </data>
-  <data name="DownloadAngle" xml:space="preserve">
-    <value>Download Angle</value>
-  </data>
-  <data name="DownloadDashboard" xml:space="preserve">
-    <value>Download Dashboard</value>
-  </data>
-  <data name="Confirm_DownloadItem" xml:space="preserve">
-    <value>You have unsaved changes, which will not be included in the download.&lt;br/&gt;Do you want to continue?</value>
-  </data>
-  <data name="ActivationFailed" xml:space="preserve">
-    <value>Activation failed</value>
-  </data>
-  <data name="Support" xml:space="preserve">
-    <value>Support</value>
-  </data>
   <data name="MC_AngleExports" xml:space="preserve">
     <value>Angle exports</value>
   </data>
@@ -6349,6 +6345,21 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="MC_UploadTemplate" xml:space="preserve">
     <value>Upload template</value>
+  </data>
+  <data name="DownloadAngle" xml:space="preserve">
+    <value>Descargar Angle</value>
+  </data>
+  <data name="DownloadDashboard" xml:space="preserve">
+    <value>Descargar Dashboard</value>
+  </data>
+  <data name="Confirm_DownloadItem" xml:space="preserve">
+    <value>Hay cambios sin guardar que no se incluirán en la descarga.&lt;br/&gt;¿Desea continuar?</value>
+  </data>
+  <data name="ActivationFailed" xml:space="preserve">
+    <value>Falló la activación</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Asistencia</value>
   </data>
   <data name="MC_DeleteExcelConfirm" xml:space="preserve">
     <value>Delete Excel: {reference}?</value>
@@ -6369,22 +6380,22 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Invalid file name. Please make sure the file name doesn't contain white spaces</value>
   </data>
   <data name="TagSuggestionHeader" xml:space="preserve">
-    <value>Suggestions</value>
+    <value>Sugerencias</value>
   </data>
   <data name="TagNoSuggestion" xml:space="preserve">
-    <value>No suggestions</value>
+    <value>Sin sugerencias</value>
   </data>
   <data name="TagNew" xml:space="preserve">
-    <value>{0} (New Tag)</value>
+    <value>{0} (nueva etiqueta)</value>
   </data>
   <data name="TagLabel" xml:space="preserve">
-    <value>Tags</value>
+    <value>Etiquetas</value>
   </data>
   <data name="TagInputPlaceholder" xml:space="preserve">
-    <value>Create or find Tag</value>
+    <value>Crear/buscar etiquetas</value>
   </data>
   <data name="IncludeEndDate" xml:space="preserve">
-    <value>Include end date</value>
+    <value>Incluso fecha fin</value>
   </data>
   <data name="MC_DefaultDatastoreName" xml:space="preserve">
     <value>Default datastore</value>
@@ -6393,19 +6404,19 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Export defaults</value>
   </data>
   <data name="ProgressExecuting" xml:space="preserve">
-    <value>executing</value>
+    <value>ejecutando</value>
   </data>
   <data name="ProgressGettingReport" xml:space="preserve">
-    <value>getting report</value>
+    <value>obteniendo informe</value>
   </data>
   <data name="SingleActionExecute" xml:space="preserve">
-    <value>[Single Action]</value>
+    <value>[Single Action] </value>
   </data>
   <data name="SearchTagInputPlaceholder" xml:space="preserve">
-    <value>Search Tag</value>
+    <value>Buscar etiqueta</value>
   </data>
   <data name="SearchTagNoSuggestion" xml:space="preserve">
-    <value>No matches</value>
+    <value>Sin resultados</value>
   </data>
   <data name="MC_Items" xml:space="preserve">
     <value>Items</value>
@@ -6413,30 +6424,38 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Dashboards" xml:space="preserve">
     <value>Dashboards</value>
   </data>
+  <data name="MC_ResultExportTypeWarning" xml:space="preserve">
+    <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
+  </data>
+  <data name="MC_FallbackFieldLength" xml:space="preserve">
+    <value>Fallback export field length</value>
+  </data>
+  <data name="MC_FallbackFieldLengthDescription" xml:space="preserve">
+    <value>Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
   <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
     <value>Run as user</value>
   </data>
   <data name="Reexecute" xml:space="preserve">
-    <value>Re-execute</value>
+    <value>Volver a ejecutar</value>
   </data>
   <data name="CloseSidebar" xml:space="preserve">
-    <value>Close sidebar</value>
+    <value>Cerrar barra lateral</value>
   </data>
   <data name="OpenSidebar" xml:space="preserve">
-    <value>Open sidebar</value>
+    <value>Abrir barra lateral</value>
+  </data>
+  <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
+    <value>Especifique en qué columna se debe insertar la marca tiempo modelo.&lt;br/&gt; Use "1" para seleccionar la primera columna. Si no necesita columna con marca tiempo modelo, seleccione "Ninguna".</value>
   </data>
   <data name="MC_Approved" xml:space="preserve">
     <value>approved</value>
   </data>
-  <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
-    <value>Specify in what column the model timestamp should be inserted.&lt;br&gt;
-Use '1' to select the first column. When no model timestamp column is required, select 'None'.</value>
-  </data>
   <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
-    <value>Show only my own private Displays</value>
+    <value>Mostrar solo mis Displays privados</value>
   </data>
   <data name="AngleExport" xml:space="preserve">
-    <value>Angle Export</value>
+    <value>Exportación Angle</value>
   </data>
   <data name="MC_DefaultApprovalState" xml:space="preserve">
     <value>Default approval state Automation task actions</value>
@@ -6447,25 +6466,25 @@ Actions can only be executed when the Approval state is "approved".
 The "manage system" privileges is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
-    <value>Angle Filters &amp; Jumps</value>
+    <value>Filtros y Jumps de Angle</value>
   </data>
   <data name="DisplayFilters" xml:space="preserve">
-    <value>Display filters &amp; jumps</value>
+    <value>Filtros y Jumps de Display</value>
   </data>
   <data name="DisplayGroupPublic" xml:space="preserve">
     <value>Publicado ({0})</value>
   </data>
   <data name="DisplayGroupPrivate" xml:space="preserve">
-    <value>Personal ({0})</value>
+    <value>Privado ({0})</value>
   </data>
   <data name="DisplayGroupOther" xml:space="preserve">
     <value>Otro ({0})</value>
   </data>
   <data name="DisplayGroupOpen" xml:space="preserve">
-    <value>Show group</value>
+    <value>Mostrar grupo</value>
   </data>
   <data name="DisplayGroupClose" xml:space="preserve">
-    <value>Hide group</value>
+    <value>Ocultar grupo</value>
   </data>
   <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
     <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>

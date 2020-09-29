@@ -6479,13 +6479,13 @@ Use '1' to select the first column. When no model timestamp column is required, 
   <data name="MC_DefaultApprovalStateDescription" xml:space="preserve">
     <value>The default Approval state of newly added Actions in Automation tasks.
 Actions can only be executed when the Approval state is "approved".
-The "manage system" privileges is required to change the Approval state of an Action.</value>
+The "manage system" privilege is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
-    <value>Angle Filters &amp; Jumps</value>
+    <value>Angle filters &amp; Jumps</value>
   </data>
   <data name="DisplayFilters" xml:space="preserve">
-    <value>Display Filters &amp; Jumps</value>
+    <value>Display filters &amp; Jumps</value>
   </data>
   <data name="DisplayGroupPublic" xml:space="preserve">
     <value>Published ({0})</value>

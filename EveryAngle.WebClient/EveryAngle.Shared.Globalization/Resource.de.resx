@@ -394,7 +394,7 @@
     <value>Speichern</value>
   </data>
   <data name="SaveAll" xml:space="preserve">
-    <value>Save all</value>
+    <value>Alle speichern</value>
   </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Suchergebnisse</value>
@@ -619,7 +619,7 @@
     <value>Wert setzen, wenn der Angle ausgeführt wird</value>
   </data>
   <data name="AskForValueWhenTheDashboardOpens" xml:space="preserve">
-    <value>Wert setzen, wenn der Dashboard ausgeführt wird</value>
+    <value>Wert setzen, wenn das Dashboard ausgeführt wird</value>
   </data>
   <data name="Before" xml:space="preserve">
     <value>Vor</value>
@@ -826,7 +826,7 @@
     <value>Launcher herunterladen</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Für die Verwendung von Go to SAP klicken Sie hier, um den Go to SAP Launcher auf Ihren Arbeitsplatz herunterzuladen und zu installieren.</value>
+    <value>Für die Verwendung von Go to SAP klicken Sie hier, um den Go to SAP-Launcher auf Ihren Arbeitsplatz herunterzuladen und zu installieren.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Kurzdarstellung anzeigen</value>
@@ -961,7 +961,7 @@
     <value>[None]</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel template</value>
+    <value>Excel-Vorlage</value>
   </data>
   <data name="CreateNewAngleFromSchema" xml:space="preserve">
     <value>Angle erstellen</value>
@@ -2553,6 +2553,12 @@
   <data name="Uploaded" xml:space="preserve">
     <value>Hochgeladen</value>
   </data>
+  <data name="MC_Process" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="MC_DisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
   <data name="MC_UploadIcon" xml:space="preserve">
     <value>Upload icon</value>
   </data>
@@ -3445,7 +3451,7 @@
     <value>Die Höchstzahl ausgewählter Angles ist {0}</value>
   </data>
   <data name="BaseClassName" xml:space="preserve">
-    <value>Current object</value>
+    <value>Aktuelles Objekt</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Anzahl der Einträge</value>
@@ -4666,10 +4672,10 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Bis</value>
   </data>
   <data name="Color" xml:space="preserve">
-    <value>Color</value>
+    <value>Farbe</value>
   </data>
   <data name="Opacity" xml:space="preserve">
-    <value>Opacity</value>
+    <value>Deckkraft</value>
   </data>
   <data name="NumberSelectingItems" xml:space="preserve">
     <value>{0} Element(e) ausgewählt</value>
@@ -5381,7 +5387,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Bericht zu Elementen hochladen</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
-    <value>Elemente hochladen...</value>
+    <value>Elemente werden hochgeladen</value>
   </data>
   <data name="UploadAngles_InvalideExtension" xml:space="preserve">
     <value>ungültige Datei-Erweiterung</value>
@@ -5396,7 +5402,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Elemente zum Upload auswählen oder hier ablegen...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
-    <value>Element-Upload erfolgreich: {0} von {1}</value>
+    <value>Elemente-Upload erfolgreich: {0} von {1}</value>
   </data>
   <data name="FormatSetting_UseDefault" xml:space="preserve">
     <value>Standard verwenden</value>
@@ -5504,16 +5510,16 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Ist vor {0}</value>
   </data>
   <data name="WidgetFilter_Preview_Between" xml:space="preserve">
-    <value>Is on or after {0} and before {1}</value>
+    <value>Ist am oder nach {0} und vor {1}</value>
   </data>
   <data name="WidgetFilter_Preview_Between_EndDate" xml:space="preserve">
-    <value>Is on or after {0} and on or before {1}</value>
+    <value>Ist am oder nach {0} und am oder vor {1}</value>
   </data>
   <data name="WidgetFilter_Preview_Equal" xml:space="preserve">
     <value>Ist am {0}</value>
   </data>
   <data name="WidgetFilter_Preview_NotBetween" xml:space="preserve">
-    <value>Is before {0} or after {1}</value>
+    <value>Ist vor {0} oder nach {1}</value>
   </data>
   <data name="WidgetFilter_Preview_NotBetween_EndDate" xml:space="preserve">
     <value>Ist vor {0} oder nach oder am {1}</value>
@@ -5904,6 +5910,11 @@ For security reasons, the password must always be reentered before saving the ac
   <data name="MC_TaskAction_DescriptionScript" xml:space="preserve">
     <value>Select the program or script file for this action.&lt;br&gt;
 You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionExcelTemplate" xml:space="preserve">
+    <value>Select which Excel template to use for this export.&lt;br&gt;
+When you select "Use default", the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+You can also select a different Excel template from the list if you don't want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro's.</value>
   </data>
   <data name="MC_ScriptLocation" xml:space="preserve">
     <value>Program/scripts folder</value>
@@ -6323,21 +6334,6 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_Validation_ExportPackageUrl" xml:space="preserve">
     <value>Invalid URL: selections from multiple models and Advanced filters are not allowed.</value>
   </data>
-  <data name="DownloadAngle" xml:space="preserve">
-    <value>Download Angle</value>
-  </data>
-  <data name="DownloadDashboard" xml:space="preserve">
-    <value>Download Dashboard</value>
-  </data>
-  <data name="Confirm_DownloadItem" xml:space="preserve">
-    <value>You have unsaved changes, which will not be included in the download.&lt;br/&gt;Do you want to continue?</value>
-  </data>
-  <data name="ActivationFailed" xml:space="preserve">
-    <value>Activation failed</value>
-  </data>
-  <data name="Support" xml:space="preserve">
-    <value>Support</value>
-  </data>
   <data name="MC_AngleExports" xml:space="preserve">
     <value>Angle exports</value>
   </data>
@@ -6349,6 +6345,21 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="MC_UploadTemplate" xml:space="preserve">
     <value>Upload template</value>
+  </data>
+  <data name="DownloadAngle" xml:space="preserve">
+    <value>Angle herunterladen</value>
+  </data>
+  <data name="DownloadDashboard" xml:space="preserve">
+    <value>Dashboard herunterladen</value>
+  </data>
+  <data name="Confirm_DownloadItem" xml:space="preserve">
+    <value>Sie haben nicht gespeicherte Änderungen, die nicht im Download enthalten sein werden.&lt;br/&gt;Möchten Sie fortfahren?</value>
+  </data>
+  <data name="ActivationFailed" xml:space="preserve">
+    <value>Aktivierung fehlgeschlagen</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
   </data>
   <data name="MC_DeleteExcelConfirm" xml:space="preserve">
     <value>Delete Excel: {reference}?</value>
@@ -6369,43 +6380,43 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Invalid file name. Please make sure the file name doesn't contain white spaces</value>
   </data>
   <data name="TagSuggestionHeader" xml:space="preserve">
-    <value>Suggestions</value>
+    <value>Vorschläge</value>
   </data>
   <data name="TagNoSuggestion" xml:space="preserve">
-    <value>No suggestions</value>
+    <value>Keine Vorschläge</value>
   </data>
   <data name="TagNew" xml:space="preserve">
-    <value>{0} (New Tag)</value>
+    <value>{0} (Neues Tag)</value>
   </data>
   <data name="TagLabel" xml:space="preserve">
     <value>Tags</value>
   </data>
   <data name="TagInputPlaceholder" xml:space="preserve">
-    <value>Create or find Tag</value>
+    <value>Tag erstellen oder finden</value>
   </data>
   <data name="IncludeEndDate" xml:space="preserve">
-    <value>Include end date</value>
-  </data>
-  <data name="ProgressExecuting" xml:space="preserve">
-    <value>executing</value>
-  </data>
-  <data name="ProgressGettingReport" xml:space="preserve">
-    <value>getting report</value>
-  </data>
-  <data name="SingleActionExecute" xml:space="preserve">
-    <value>[Single Action]</value>
+    <value>Enddatum einbeziehen</value>
   </data>
   <data name="MC_DefaultDatastoreName" xml:space="preserve">
     <value>Default datastore</value>
   </data>
   <data name="MC_ExportDefaults" xml:space="preserve">
-    <value>MC_ExportDefaults</value>
+    <value>Export defaults</value>
+  </data>
+  <data name="ProgressExecuting" xml:space="preserve">
+    <value>wird ausgeführt</value>
+  </data>
+  <data name="ProgressGettingReport" xml:space="preserve">
+    <value>Bericht abrufen</value>
+  </data>
+  <data name="SingleActionExecute" xml:space="preserve">
+    <value>[Single Action] </value>
   </data>
   <data name="SearchTagInputPlaceholder" xml:space="preserve">
-    <value>Search Tag</value>
+    <value>Tag suchen</value>
   </data>
   <data name="SearchTagNoSuggestion" xml:space="preserve">
-    <value>No matches</value>
+    <value>Keine Treffer</value>
   </data>
   <data name="MC_Items" xml:space="preserve">
     <value>Items</value>
@@ -6413,30 +6424,38 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Dashboards" xml:space="preserve">
     <value>Dashboards</value>
   </data>
+  <data name="MC_ResultExportTypeWarning" xml:space="preserve">
+    <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
+  </data>
+  <data name="MC_FallbackFieldLength" xml:space="preserve">
+    <value>Fallback export field length</value>
+  </data>
+  <data name="MC_FallbackFieldLengthDescription" xml:space="preserve">
+    <value>Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
   <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
     <value>Run as user</value>
   </data>
   <data name="Reexecute" xml:space="preserve">
-    <value>Re-execute</value>
+    <value>Neu ausführen</value>
   </data>
   <data name="CloseSidebar" xml:space="preserve">
-    <value>Close sidebar</value>
+    <value>Randleiste schließen</value>
   </data>
   <data name="OpenSidebar" xml:space="preserve">
-    <value>Open sidebar</value>
+    <value>Randleiste öffnen</value>
   </data>
   <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
-    <value>Specify in what column the model timestamp should be inserted.&lt;br&gt;
-Use '1' to select the first column. When no model timestamp column is required, select 'None'.</value>
+    <value>Geben Sie an, in welche Spalte der Modell-Zeitstempel eingefügt werden soll.&lt;br/&gt; Verwenden Sie „1“, um die erste Spalte auszuwählen. Wenn keine Modell-Zeitstempel-Spalte erforderlich ist, „Keinen“ auswählen.</value>
   </data>
   <data name="MC_Approved" xml:space="preserve">
     <value>approved</value>
   </data>
   <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
-    <value>Show only my own private Displays</value>
+    <value>Nur meine eigenen persönlichen Displays anzeigen</value>
   </data>
   <data name="AngleExport" xml:space="preserve">
-    <value>Angle Export</value>
+    <value>Angle-Export</value>
   </data>
   <data name="MC_DefaultApprovalState" xml:space="preserve">
     <value>Default approval state Automation task actions</value>
@@ -6447,25 +6466,25 @@ Actions can only be executed when the Approval state is "approved".
 The "manage system" privileges is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
-    <value>Angle Filters &amp; Jumps</value>
+    <value>Angle-Filter und -Jumps</value>
   </data>
   <data name="DisplayFilters" xml:space="preserve">
-    <value>Display filters &amp; jumps</value>
+    <value>Filter und Jumps anzeigen</value>
   </data>
   <data name="DisplayGroupPublic" xml:space="preserve">
-    <value>Freigegeben ({0})</value>
+    <value>Veröffentlicht ({0})</value>
   </data>
   <data name="DisplayGroupPrivate" xml:space="preserve">
-    <value>Privat ({0})</value>
+    <value>Persönlich ({0})</value>
   </data>
   <data name="DisplayGroupOther" xml:space="preserve">
     <value>Andere ({0})</value>
   </data>
   <data name="DisplayGroupOpen" xml:space="preserve">
-    <value>Show group</value>
+    <value>Gruppe anzeigen</value>
   </data>
   <data name="DisplayGroupClose" xml:space="preserve">
-    <value>Hide group</value>
+    <value>Gruppe ausblenden</value>
   </data>
   <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
     <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>
