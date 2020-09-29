@@ -142,7 +142,7 @@
     <value>Editar</value>
   </data>
   <data name="Conflict_Header_Message" xml:space="preserve">
-    <value>No se pudo procesar la solicitud debido a un conflicto en la misma.</value>
+    <value>No se pudo procesar la solicitud debido a un conflicto en la solicitud.</value>
   </data>
   <data name="Generic_Error_Message" xml:space="preserve">
     <value>Se ha producido un error al procesar la solicitud. Póngase en contacto con el &lt;a class="mailto" href="https://magnitude.com/online-support/" target="_top"&gt;administrador&lt;/a&gt; del sistema.</value>
@@ -286,7 +286,7 @@
     <value>Displays personales</value>
   </data>
   <data name="Label_Dashboard_PublicDisplays" xml:space="preserve">
-    <value>Displays publicadas</value>
+    <value>Displays publicados</value>
   </data>
   <data name="Label_No_Information_About_AutoExecute" xml:space="preserve">
     <value>No hay posiciones disponibles para la ejecución automática.</value>
@@ -481,7 +481,7 @@
     <value>Definir en “Angle”</value>
   </data>
   <data name="MassChange_Label_SetToNotStarred" xml:space="preserve">
-    <value>Definir en “No iniciado”</value>
+    <value>Definir en “No favorito”</value>
   </data>
   <data name="MassChange_Label_SetToNotValidated" xml:space="preserve">
     <value>Definir en “No validado”</value>
@@ -628,13 +628,13 @@
     <value>ID de paquete</value>
   </data>
   <data name="Popup_ModelParameters_Title" xml:space="preserve">
-    <value>Parámetros de modelo</value>
+    <value>Parámetros de Modelo</value>
   </data>
   <data name="MC_GlobalSetting_SystemLog_Title" xml:space="preserve">
     <value>System log</value>
   </data>
   <data name="Drop_Here_To_Remove_This_Column" xml:space="preserve">
-    <value>Colocar aquí para quitar esta columna</value>
+    <value>Colóquelo aquí para eliminar esta columna</value>
   </data>
   <data name="Label_ChartOptions_AxisScale_Automatic" xml:space="preserve">
     <value>Automático</value>
@@ -799,7 +799,7 @@
     <value>Program/script</value>
   </data>
   <data name="MC_Label_ScriptParameters" xml:space="preserve">
-    <value>Add arguments&lt;br/&gt;(optional)</value>
+    <value>Add arguments&lt;br /&gt;(optional)</value>
   </data>
   <data name="Pivot_Option_TotalsLocation_Far" xml:space="preserve">
     <value>Inf./derecha</value>
@@ -823,15 +823,15 @@
     <value>Información de Display</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
-    <value>Excel template</value>
+    <value>Plantilla Excel</value>
   </data>
   <data name="Label_Insert_model_timestamp" xml:space="preserve">
-    <value>Insert model timestamp</value>
+    <value>Ins. marca tiempo modelo</value>
   </data>
   <data name="InsertModelTimestamp_info" xml:space="preserve">
-    <value>Use '0' to select the first column. When no model timestamp column is required, enter -1 or leave empty.</value>
+    <value>Use "0" para seleccionar la primera columna. Si no necesita columna con marca tiempo modelo, introduzca -1 o déjelo vacío.</value>
   </data>
   <data name="Label_Template_Not_Exist_Message" xml:space="preserve">
-    <value>Template does not exist</value>
+    <value>El Template no existe</value>
   </data>
 </root>
