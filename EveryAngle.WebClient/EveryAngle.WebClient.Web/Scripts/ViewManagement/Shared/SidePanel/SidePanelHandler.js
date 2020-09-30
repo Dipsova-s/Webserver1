@@ -67,9 +67,9 @@ function SidePanelHandler() {
             sideContent.addClass('large');
         else
             sideContent.addClass('small');
+        splitter.element.children('.k-splitbar').off('dblclick');
     };
     self.BindSplitterEvents = function (splitter) {
-        splitter.element.children('.k-splitbar').off('dblclick');
         splitter.resizing._resizable
             .bind('start', jQuery.proxy(self.SplitterResizingStart, self, splitter))
             .bind('resizeend', jQuery.proxy(self.SplitterResizingEnd, self, splitter));

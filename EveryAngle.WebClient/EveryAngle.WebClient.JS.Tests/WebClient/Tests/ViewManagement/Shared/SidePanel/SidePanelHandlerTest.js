@@ -104,8 +104,9 @@ describe("SidePanelHandler", function () {
         beforeEach(function () {
             spyOn($.fn, 'removeClass');
             spyOn($.fn, 'addClass');
+            spyOn($.fn, 'off');
         });
-        it("should add class 'large' to side content", function () {
+        it("should add class 'large' to side content and remove double click", function () {
             // prepare
             var splitter = {
                 element: $()
@@ -116,8 +117,9 @@ describe("SidePanelHandler", function () {
             // assert
             expect($.fn.removeClass).toHaveBeenCalledWith('small large');
             expect($.fn.addClass).toHaveBeenCalledWith('large');
+            expect($.fn.off).toHaveBeenCalledWith('dblclick');
         });
-        it("should add class 'small' to side content", function () {
+        it("should add class 'small' to side content and remove double click", function () {
             // prepare
             var splitter = {
                 element: $()
@@ -128,6 +130,7 @@ describe("SidePanelHandler", function () {
             // assert
             expect($.fn.removeClass).toHaveBeenCalledWith('small large');
             expect($.fn.addClass).toHaveBeenCalledWith('small');
+            expect($.fn.off).toHaveBeenCalledWith('dblclick');
         });
     });
 
@@ -142,12 +145,11 @@ describe("SidePanelHandler", function () {
                     }
                 }
             };
-            spyOn($.fn, 'off');
+
             spyOn(splitter.resizing._resizable, 'bind').and.returnValue(splitter.resizing._resizable);
             sidePanelHandler.BindSplitterEvents(splitter);
 
             // assert
-            expect($.fn.off).toHaveBeenCalledWith('dblclick');
             expect(splitter.resizing._resizable.bind).toHaveBeenCalledTimes(2);
         });
     });
