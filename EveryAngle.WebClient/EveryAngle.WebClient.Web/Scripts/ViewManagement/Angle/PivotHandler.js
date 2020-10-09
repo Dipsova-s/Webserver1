@@ -500,6 +500,7 @@ function PivotPageHandler(elementId, container) {
         if (!aggregation)
             return;
 
+        anglePageHandler.HandlerSidePanel.Open(1);
         context.AddFilterFromAggregation(aggregation);
     };
     self.ShowPivotHelpTextPopup = function (field) {

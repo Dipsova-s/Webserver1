@@ -7,7 +7,19 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleSaveActionHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleActionMenuHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleSidePanelView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleSidePanelHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleStateHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleTemplateStateHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AngleStateView.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/AnglePageHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/PivotHandler.js" />
+
 
 describe("PivotPageHandler", function () {
 
@@ -485,6 +497,110 @@ describe("PivotPageHandler", function () {
                 var result = pivotPageHandler.GetCellCaptionTitle($('<div/>').html(test.html));
                 expect(result).toEqual(test.expected);
             });
+        });
+    });
+
+    describe(".FieldOptionClick", function () {
+        var internalId = "someInternalId";
+        beforeEach(function () {
+            pivotPageHandler.FieldSettings = {
+                GetFieldByGuid: function () {
+                    return {};
+                }
+            };
+        })
+
+        it("should call the function to sort the field in ascending order", function () {
+            //prepare
+            var element = "<div class='sortAsc'></div>";
+            spyOn(pivotPageHandler, 'ApplyPivotSorting');
+            spyOn(fieldSettingsHandler, 'HideFieldOptionsMenu');
+
+            // call
+            pivotPageHandler.FieldOptionClick(element, internalId);
+
+            // assert
+            expect(pivotPageHandler.ApplyPivotSorting).toHaveBeenCalledWith(jQuery(element), {});
+            expect(fieldSettingsHandler.HideFieldOptionsMenu).toHaveBeenCalled();
+        });
+
+        it("should call the function to format the field", function () {
+            //prepare
+            var element = "<div class='fieldFormat'></div>";
+
+            spyOn(pivotPageHandler, 'ShowPivotBucketPopup');
+            spyOn(fieldSettingsHandler, 'HideFieldOptionsMenu');
+
+            // call
+            pivotPageHandler.FieldOptionClick(element, internalId);
+
+            // assert
+            expect(pivotPageHandler.ShowPivotBucketPopup).toHaveBeenCalledWith({});
+            expect(fieldSettingsHandler.HideFieldOptionsMenu).toHaveBeenCalled();
+        });
+
+        it("should call the function to add filter to the field", function () {
+            //prepare
+            var element = jQuery("<div class='addFilter'></div>");
+            spyOn(pivotPageHandler, 'ShowPivotAddFilterPopup');
+            spyOn(fieldSettingsHandler, 'HideFieldOptionsMenu');
+
+            // call
+            pivotPageHandler.FieldOptionClick(element, internalId);
+
+            // assert
+            expect(pivotPageHandler.ShowPivotAddFilterPopup).toHaveBeenCalledWith({});
+            expect(fieldSettingsHandler.HideFieldOptionsMenu).toHaveBeenCalled();
+        });
+
+        it("should call the function to add info", function () {
+            //prepare
+            var element = "<div class='fieldInfo'></div>";
+            spyOn(pivotPageHandler, 'ShowPivotHelpTextPopup');
+            spyOn(fieldSettingsHandler, 'HideFieldOptionsMenu');
+
+            // call
+            pivotPageHandler.FieldOptionClick(element, internalId);
+
+            // assert
+            expect(pivotPageHandler.ShowPivotHelpTextPopup).toHaveBeenCalledWith({});
+            expect(fieldSettingsHandler.HideFieldOptionsMenu).toHaveBeenCalled();
+        });
+
+        it("should not allow the field option functions call as being disabled", function () {
+            var element = "<div class='sortAsc disabled'></div>";
+            var fieldOptionFunctions = ["ApplyPivotSorting", "ShowPivotBucketPopup", "ShowPivotAddFilterPopup", "ShowPivotHelpTextPopup"];
+            for (var i = 0; i < fieldOptionFunctions; i++) {
+                spyOn(pivotPageHandler, fieldOptionFunctions[i]);
+            }
+            spyOn(fieldSettingsHandler, 'HideFieldOptionsMenu');
+
+            // call
+            pivotPageHandler.FieldOptionClick(element, internalId);
+
+            // assert
+            for (var i = 0; i < fieldOptionFunctions; i++) {
+                expect(pivotPageHandler[fieldOptionFunctions[i]]).not.toHaveBeenCalled();
+            }
+            expect(fieldSettingsHandler.HideFieldOptionsMenu).not.toHaveBeenCalled();
+        });
+    });
+
+    describe(".ShowPivotAddFilterPopup", function () {
+        it("should be open sidepanel by calling HandlerSidePanel.Open", function () {
+            // prepare
+            var field = {
+                FieldName: 'hh'
+            };
+            spyOn(anglePageHandler.HandlerSidePanel, 'Open');
+            spyOn(anglePageHandler.HandlerDisplay.QueryDefinitionHandler, 'GetAggregationFieldById').and.returnValue({});
+            spyOn(anglePageHandler.HandlerDisplay.QueryDefinitionHandler, 'AddFilterFromAggregation');
+
+            //call
+            pivotPageHandler.ShowPivotAddFilterPopup(field);
+
+            // assert
+            expect(anglePageHandler.HandlerSidePanel.Open).toHaveBeenCalledTimes(1);
         });
     });
 });
