@@ -125,14 +125,7 @@ Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\Microsoft.Rest.Client
 Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\Newtonsoft.Json.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
   
 ;Certificate installer
-Source: "DeploymentTools\bin\EveryAngle.CustomerCertificates.Installer.console.exe"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
-Source: "DeploymentTools\bin\EveryAngle.CustomerCertificates.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
-Source: "DeploymentTools\bin\EveryAngle.Utilities.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
-Source: "DeploymentTools\bin\EveryAngle.Security.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
-Source: "DeploymentTools\bin\Newtonsoft.Json.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
-Source: "DeploymentTools\bin\Ionic.Zip.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
-Source: "DeploymentTools\bin\BouncyCastle.Crypto.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
-Source: "DeploymentTools\bin\AMS.Profile.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
+Source: "DeploymentTools\bin\*.*"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
  
 ;OData Service
 Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
