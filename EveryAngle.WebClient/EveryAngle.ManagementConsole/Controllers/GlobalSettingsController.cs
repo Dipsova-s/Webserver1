@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -41,6 +42,7 @@ using UrlHelper = EveryAngle.Shared.Helpers.UrlHelper;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class GlobalSettingsController : BaseController
     {
         #region const variables
@@ -232,6 +234,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             updatedSystemSettings.script_location = systemSettings.script_location;
             updatedSystemSettings.fallback_field_length = systemSettings.fallback_field_length;
             updatedSystemSettings.default_approval_state = systemSettings.default_approval_state;
+            updatedSystemSettings.log_level = systemSettings.log_level;
 
             updatedSystemSettings.EmailSettings.smtp_server = systemSettings.EmailSettings.smtp_server;
             updatedSystemSettings.EmailSettings.smtp_port = systemSettings.EmailSettings.smtp_port;

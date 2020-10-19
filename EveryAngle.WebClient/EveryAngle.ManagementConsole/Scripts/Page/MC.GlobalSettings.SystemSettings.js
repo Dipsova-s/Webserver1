@@ -139,6 +139,7 @@
             var scriptLocation = $('#script_location').val();
             var fallbackFieldLength = $('#fallback_field_length').val();
             var defaultApprovalState = $('#default_approval_state').val();
+            var logLevel = $('#log_level').val();
 
             var emailSettings = {
                 "smtp_server": smtpServer,
@@ -173,7 +174,8 @@
                 'default_max_export_page_size': defaultMaxExportPageSize,
                 'script_location': scriptLocation,
                 'fallback_field_length': fallbackFieldLength,
-                'default_approval_state': defaultApprovalState
+                'default_approval_state': defaultApprovalState,
+                'log_level': logLevel
             };
 
             return {

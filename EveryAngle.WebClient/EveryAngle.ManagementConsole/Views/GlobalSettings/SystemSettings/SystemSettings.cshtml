@@ -213,6 +213,28 @@
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.Logging</h2>
             <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.log_level)
+                <p>
+                    @(Html.Kendo()
+                        .DropDownList()
+                        .Name("log_level")
+                        .Value(Model.log_level)
+                        .DataTextField("Text")
+                        .DataValueField("Text")
+                        .BindTo(
+                            new List<SelectListItem> 
+                            { 
+                                new SelectListItem { Text = "INFO" }, 
+                                new SelectListItem { Text = "WARNING" },
+                                new SelectListItem { Text = "ERROR" },
+                                new SelectListItem { Text = "DEBUG" },
+                            })
+                        )
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_LogLevelDescription</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.max_general_history)
                 <p>
                     @Html.Kendo().NumericTextBoxFor(model => model.max_general_history).Decimals(0).Format("0").Step(1).Min(0).Max(120).HtmlAttributes(new { @class = "required" })

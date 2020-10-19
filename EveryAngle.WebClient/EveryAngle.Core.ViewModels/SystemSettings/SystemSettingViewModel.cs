@@ -106,6 +106,10 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("MC_DefaultApprovalState")]
         public string default_approval_state { get; set; }
 
+        [JsonProperty(PropertyName = "log_level")]
+        [LocalizedDisplayName("MC_LogLevel")]
+        public string log_level { get; set; }
+
         public string ReFormatTrustedWebservers
         {
             get

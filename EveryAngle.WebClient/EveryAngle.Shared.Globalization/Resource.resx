@@ -6511,4 +6511,10 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MassChangeStatusRemoveTag" xml:space="preserve">
     <value>Remove tag "{0}"</value>
   </data>
+  <data name="MC_LogLevel" xml:space="preserve">
+    <value>Log level (Application Server)</value>
+  </data>
+  <data name="MC_LogLevelDescription" xml:space="preserve">
+    <value>Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
+  </data>
 </root>

@@ -10760,6 +10760,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log level (Application Server).
+        /// </summary>
+        public static string MC_LogLevel {
+            get {
+                return ResourceManager.GetString("MC_LogLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;.
+        /// </summary>
+        public static string MC_LogLevelDescription {
+            get {
+                return ResourceManager.GetString("MC_LogLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Size.
         /// </summary>
         public static string MC_LogSize {
