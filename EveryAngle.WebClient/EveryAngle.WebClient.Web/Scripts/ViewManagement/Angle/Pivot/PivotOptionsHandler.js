@@ -153,6 +153,14 @@ function PivotOptionsHandler(displayHandler) {
 
         return hasChanged;
     };
+    self.CanApplyAggregation = function () {
+        return self.DisplayHandler.QueryDefinitionHandler.CanApplyAggregation();
+    }
+    self.ApplyAggregation = function () {
+        if (!self.HasChanged()) return;
+        self.SetOptions();
+        self.DisplayHandler.QueryDefinitionHandler.ApplyAggregation();
+    }
 
     // popup
     self.ShowPopup = function () {
@@ -161,7 +169,7 @@ function PivotOptionsHandler(displayHandler) {
 
         var options = self.GetPopupOptions();
         popup.Show(options);
-        jQuery.clickOutside('.aggregation-options-popup', self.CheckClickOutside);
+       jQuery.clickOutside('.aggregation-options-popup', self.CheckClickOutside);
     };
     self.CheckClickOutside = function (e) {
         var excepts = '.section-aggregation .action-options, .aggregation-options-popup, .aggregation-option-dropdown';
@@ -174,10 +182,6 @@ function PivotOptionsHandler(displayHandler) {
         popup.Close('#PopupAggregationOptions');
     };
     self.OnPopupClose = function (e) {
-        if (self.HasChanged()) {
-            self.DisplayHandler.QueryDefinitionHandler.OpenAggregationPanel();
-            self.SetOptions();
-        }
         popup.Destroy(e);
     };
     self.GetPopupOptions = function () {

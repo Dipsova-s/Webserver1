@@ -33,15 +33,15 @@
 }
 
 .pivotAreaContainer .dxPivotGrid_pgSortUpButton {
-    background: transparent url('../../images/icons/icon_sort_asc_white.png') left top no-repeat;
-    width: 10px;
-    height: 13px;
+    background: transparent url('../../images/icons/icon_sort_asc.svg') left top no-repeat;
+    width: 15px;
+    height: 23px;
 }
 
 .pivotAreaContainer .dxPivotGrid_pgSortDownButton {
-    background: transparent url('../../images/icons/icon_sort_desc_white.png') left top no-repeat;
-    width: 10px;
-    height: 13px;
+    background: transparent url('../../images/icons/icon_sort_desc.svg') left top no-repeat;
+    width: 15px;
+    height: 23px;
 }
 
 .pivotAreaContainer .dxpgCollapsedButton {
@@ -57,23 +57,52 @@
     cursor: default;
 }
 
+.pivotAreaContainer .dxpgColumnFieldValue.lastHorzCell, .pivotAreaContainer .dxpgCell.lastHorzCell {
+    border-right: 1px solid #e5e5e5;
+}
+
+.pivotAreaContainer .dxpgColumnFieldValue.lastVertCell, .pivotAreaContainer .dxpgCell.lastVertCell {
+    border-bottom: 1px solid #e5e5e5;
+}
+.pivotAreaContainer .pivot-column-active {
+    border-left: 2px solid #358ed7;
+}
+
 .pivotAreaContainer .dxpgColumnFieldValue.pivot-column-active {
-    border-top: 1px solid #006f9b;
-    border-left: 1px solid #006f9b;
-    border-right: 1px solid #006f9b;
-    background-color: #bbb;
+    font-weight: bold;
+    border-top: 1px solid #358ed7;
+}
+
+.pivotAreaContainer table.dxpgColumnSCContentTable > tbody tr:first-child td.dxpgColumnTotalFieldValue.pivot-column-active {
+    border-top: 3px solid #358ed7;
+}
+
+.pivotAreaContainer .dxpgColumnTotalFieldValue.pivot-column-active {
+    border-top: 1px solid #358ed7;
+}
+.pivotAreaContainer .dxpgColumnFieldValue.lastVertCell.pivot-column-active, .pivotAreaContainer .dxpgCell.lastVertCell.pivot-column-active {
+    border-bottom: 1px solid #358ed7;
 }
 
 .pivotAreaContainer .pivot-column-active {
-    border-left: 1px solid #006f9b;
+    border-left: 1px solid #358ed7;
+    border-right: 1px solid #358ed7 !important;
 }
 
-.pivotAreaContainer .pivot-column-active + .dxpgCell {
-    border-left: 1px solid #006f9b;
+.pivotAreaContainer tr td.dxpgColumnFieldValue.pivot-column-active:first-child, .pivotAreaContainer tr td.dxpgCell.pivot-column-active:first-child {
+    border-left: 2px solid #358ed7;
+}
+
+.pivotAreaContainer .lastVertCell.dxpgGrandTotalCell.pivot-column-active {
+    border-bottom: 1px solid #358ed7;
+}
+
+.pivotAreaContainer .dxpgCellsArea > div {
+    border-color: rgb(227, 227, 227) transparent !important;
 }
 
 .resizeHeader .dxpgMainTable + .k-resize-handle {
-    display: none !important;   /* NOSONAR: override runtime css */
+    display: none !important; /* NOSONAR: override runtime css */
 }
 
 .displayArea .dxpgControl {
@@ -185,7 +214,7 @@
 }
 
 .dxpgHeaderSort {
-    width: 12px !important; /* NOSONAR: override runtime css */
+    width: 18px !important; /* NOSONAR: override runtime css */
 }
 
 .dxpgHeaderText.column,
@@ -274,7 +303,16 @@
 }
 
 .dxpgCell:hover {
-    background-color: #f15e34;
+    background-color: #358ed7;
     color: #fff;
     border-color: transparent;
+}
+
+.dxpgRowFieldValuesArea {
+    background-color: #ffffff;
+    margin-right: -1px;
+}
+
+.dxpgRowFieldValuesArea > div {
+    border: 0;
 }

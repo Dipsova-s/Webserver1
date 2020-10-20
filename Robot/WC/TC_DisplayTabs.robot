@@ -47,8 +47,7 @@ Remember Changes When Switch Display
     Create New Pivot Display on Angle Page
     Click Show Display Option
     Select Checkbox Include Subtotal
-    Click Hide Display Option
-    Click Apply Field Setting
+    Click Apply Field Setting Inside Pivot Options Popup
     Active Display Should Mark As UnSaved
 
     Log  Update chart Display

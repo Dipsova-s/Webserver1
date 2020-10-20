@@ -1,4 +1,9 @@
 .pivotAreaContainer {
+    * {
+        font-family: Roboto;
+        letter-spacing: .24px;
+    }
+
     .dxPivotGrid_CTNAttribute,
     .dxPivotGrid_CTNCalculatedMeasure,
     .dxPivotGrid_CTNDimension,
@@ -152,6 +157,10 @@
         background-position: -99px 0;
         width: 32px;
         height: 32px;
+    }
+
+    .dxpgColumnFieldValuesArea {
+        background: #ffffff;
     }
 
     .dxPivotGrid_pgCollapsedButton {
@@ -774,12 +783,12 @@
     }
 
     .dxpgHeader {
-        color: #FFFFFF;
-        background-color: #969696;
+        color: #358ed7;
+        background-color: #f7f9fa;
         cursor: pointer;
         white-space: nowrap;
         text-align: left;
-        border: dotted 0 #5C5C5C;
+        border: solid 0 #b5becc;
         background-repeat: repeat-x;
         background-position: left top;
     }
@@ -819,8 +828,8 @@
     }
 
     .dxpgArea {
-        border: dotted 1px #E6E6E6;
-        background-color: #E6E6E6;
+        border: solid 1px #f7f9fa;
+        background-color: #ffffff;
         border-left-style: none;
         border-top-style: none;
         border-bottom-style: none;
@@ -829,13 +838,13 @@
     }
 
     .dxpgColumnArea {
-        border-bottom-style: dotted;
+        border-bottom-style: solid;
     }
 
     .dxpgFilterArea {
         background-color: #FCFCFC;
         color: Black;
-        border-bottom: dotted 1px #5C5C5C;
+        border-bottom: solid 1px #5C5C5C;
         background-image: none;
         background-repeat: repeat-x;
         background-position: left bottom;
@@ -847,13 +856,13 @@
     }
 
     .dxpgColumnFieldValue {
-        color: #FFFFFF;
-        background-color: #969696;
-        border: dotted 1px #5C5C5C;
-        border-left-style: dotted;
+        color: #333333;
+        background-color: #f7f9fa;
+        border: solid 1px #E3E5E5;
+        border-left-style: solid;
         border-bottom-style: none;
         border-right-style: none;
-        border-top-style: dotted;
+        border-top-style: solid;
         padding: 4px 6px;
         padding-bottom: 5px;
         font-weight: normal;
@@ -861,29 +870,31 @@
     }
 
     .dxpgColumnTotalFieldValue {
-        background-color: #838383;
-        border-left-style: dotted;
+        background-color: #e3e5e58c;
+        border-left-style: solid;
         border-bottom-style: none;
         border-right-style: none;
-        border-top-style: dotted;
+        border-top-style: solid;
     }
 
     .dxpgColumnGrandTotalFieldValue {
-        background-color: #656565;
-        border-left-style: dotted;
+        background-color: #b9bcc0a1;
+        color: #000000;
+        border-left-style: solid;
         border-bottom-style: none;
         border-right-style: none;
-        border-top-style: dotted;
+        border-top-style: solid;
+        font-weight: bold;
     }
 
     .dxpgRowFieldValue {
-        color: #FFFFFF;
-        background-color: #979797;
-        border: dotted 1px #5C5C5C;
+        color: #333333;
+        background-color: #f7f9fa;
+        border: solid 1px #E3E5E5;
         border-left-style: none;
         border-bottom-style: none;
-        border-right-style: dotted;
-        border-top-style: dotted;
+        border-right-style: solid;
+        border-top-style: solid;
         padding: 4px 6px 5px 6px;
         font-weight: normal;
         text-align: left;
@@ -891,11 +902,11 @@
     }
 
     .dxpgRowTotalFieldValue {
-        background-color: #838383;
+        background-color: #e3e5e58c;
         border-left-style: none;
         border-bottom-style: none;
-        border-right-style: dotted;
-        border-top-style: dotted;
+        border-right-style: solid;
+        border-top-style: solid;
     }
 
     .dxpgRowTreeFieldValue {
@@ -904,12 +915,14 @@
     }
 
     .dxpgRowGrandTotalFieldValue {
-        background-color: #656565;
+        background-color: #b9bcc0a1;
+        color: #333333;
         border-left-style: none;
         border-bottom-style: none;
-        border-right-style: dotted;
-        border-top-style: dotted;
+        border-right-style: solid;
+        border-top-style: solid;
         padding: 6px 6px 7px 6px;
+        font-weight: bold;
     }
 
     .dxpgCollapsedButton {
@@ -927,14 +940,13 @@
     .dxpgCell {
         text-align: right;
         background-color: #ffffff;
-        border-color: #e3e3e3;
+        border-color: #E5E5E5;
         border-width: 1px;
         border-top-style: Solid;
         border-left-style: Solid;
         border-bottom-style: none;
         border-right-style: none;
-        padding: 4px;
-        padding-bottom: 5px;
+        padding: 3px 4px;
         white-space: nowrap;
     }
 
@@ -944,11 +956,12 @@
     }
 
     .dxpgTotalCell {
-        background-color: #f8f8f8;
+        background-color: #e3e5e58c;
     }
 
     .dxpgGrandTotalCell {
-        background-color: #eeeeee;
+        background-color: #b9bcc0a1;
+        font-weight: bold;
     }
 
     .dxpgFilterItem {
@@ -968,11 +981,11 @@
         border-top: none;
         border-right: none;
         border-left: none;
-        border-bottom: dotted 1px #5C5C5C;
+        border-bottom: solid 1px #5C5C5C;
     }
 
     .dxpgBottomPager {
-        border-top: dotted 1px #5C5C5C;
+        border-top: solid 1px #5C5C5C;
         border-bottom: none;
         border-right: none;
         border-left: none;
@@ -1169,12 +1182,12 @@
     }
 
     .dxpgFLButtonDiv .dxbButton div.dxb {
-        border: dotted 1px transparent;
+        border: solid 1px transparent;
         padding: 1px 7px 0;
     }
 
     .dxpgFLButtonDiv .dxbButton div.dxbf {
-        border: dotted 1px black;
+        border: solid 1px black;
     }
 
     .dxpgFLTextDiv {
@@ -1236,11 +1249,11 @@
 
     .dxpgFLDefereDiv .dxbButton div.dxb {
         padding: 1px 13px 1px 13px;
-        border: dotted 1px transparent;
+        border: solid 1px transparent;
     }
 
     .dxpgFLDefereDiv .dxbButton div.dxbf {
-        border: dotted 1px black;
+        border: solid 1px black;
     }
 
     .dxpgFLListDiv table {
@@ -1311,11 +1324,11 @@
 
     .dxbButton div.dxb {
         padding: 2px 12px 3px;
-        border: 1px dotted transparent;
+        border: 1px solid transparent;
     }
 
     .dxbButton div.dxbf {
-        border: 1px dotted #FFFFFF;
+        border: 1px solid #FFFFFF;
     }
     /* Button Link */
     a.dxbButton {
@@ -2562,8 +2575,8 @@
     .dxdvContent {
         padding-top: 20px;
         padding-bottom: 20px;
-        border-top: 1px dotted #5c5c5c;
-        border-bottom: 1px dotted #5c5c5c;
+        border-top: 1px solid #5c5c5c;
+        border-bottom: 1px solid #5c5c5c;
     }
 
     .dxdvItem {
@@ -2781,7 +2794,7 @@
     .dxmLite .dxm-dropDownMode.dxm-selected .dxm-popOut,
     .dxmLite .dxm-dropDownMode.dxm-checked .dxm-popOut {
         background: #DFDFDF none repeat-x left top;
-        border-style: dotted;
+        border-style: solid;
         border-color: #5c5c5c;
     }
 
@@ -2794,8 +2807,8 @@
     }
 
     .dxmLite .dxm-popup .dxm-hovered {
-        background: #F15E34;
-        border-color: #F15E34;
+        background: #358ed7;
+        border-color: #358ed7;
     }
 
     .dxmLite .dxm-popup .dxm-hovered,
@@ -3352,7 +3365,7 @@
         border-top-style: none;
         border-right-style: none;
         border-left-style: none;
-        border-bottom: 1px dotted #5C5C5C;
+        border-bottom: 1px solid #5C5C5C;
         overflow: hidden;
         margin: 0;
         padding: 4px 4px 4px 6px;
@@ -3375,7 +3388,7 @@
 
     .dxnbLite .dxnb-content {
         color: #959595;
-        border-bottom: 1px dotted #5C5C5C;
+        border-bottom: 1px solid #5C5C5C;
         list-style: none none outside;
         margin: 0;
         padding: 2px 1px;
@@ -3437,7 +3450,7 @@
     .dxnbLite .dxnb-itemHover,
     .dxnbLite .dxnb-largeHover {
         background-color: #EFEFEF;
-        border: 1px solid #E3E3E3;
+        border: 1px solid #E5E5E5;
         color: #959595;
     }
 
@@ -3583,7 +3596,7 @@
 
     .dxncItem {
         vertical-align: top;
-        border-bottom: 1px dotted #5c5c5c;
+        border-bottom: 1px solid #5c5c5c;
         padding: 28px 8px 30px;
     }
 
@@ -3897,7 +3910,7 @@
     .dxdpLite .dxpc-header {
         color: #5c5c5c;
         background: #f4f4f4 none repeat-x left top;
-        border-bottom: 1px dotted #5c5c5c;
+        border-bottom: 1px solid #5c5c5c;
         padding: 2px 2px 2px 12px;
     }
 
@@ -4006,7 +4019,7 @@
     }
 
     .PercentageSummaryCell {
-        color: #999;
+        color: #777;
     }
 
     .k-loading-mask {

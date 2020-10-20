@@ -668,6 +668,8 @@
     <Content Include="Images\Angle\Followups\followups_relation.svg" />
     <Content Include="Images\Angle\Followups\followups_relation_indicator.svg" />
     <Content Include="Images\Angle\pivotchart.png" />
+    <Content Include="Images\Icons\icon_sort_desc.svg" />
+    <Content Include="Images\Icons\icon_sort_asc.svg" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType0PO.png" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType1NoPO.png" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType2Material.png" />

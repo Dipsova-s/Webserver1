@@ -47,6 +47,9 @@
   /* -- ASPxPager Lite -- */
   /* -- ASPxPopupControl Lite -- */
   /* Loading panel */ }
+  .pivotAreaContainer * {
+    font-family: Roboto;
+    letter-spacing: .24px; }
   .pivotAreaContainer .dxPivotGrid_CTNAttribute,
   .pivotAreaContainer .dxPivotGrid_CTNCalculatedMeasure,
   .pivotAreaContainer .dxPivotGrid_CTNDimension,
@@ -162,6 +165,8 @@
     background-position: -99px 0;
     width: 32px;
     height: 32px; }
+  .pivotAreaContainer .dxpgColumnFieldValuesArea {
+    background: #ffffff; }
   .pivotAreaContainer .dxPivotGrid_pgCollapsedButton {
     background-position: -259px -19px;
     width: 13px;
@@ -562,12 +567,12 @@
     font-size: 15px;
     font-weight: normal; }
   .pivotAreaContainer .dxpgHeader {
-    color: #FFFFFF;
-    background-color: #969696;
+    color: #358ed7;
+    background-color: #f7f9fa;
     cursor: pointer;
     white-space: nowrap;
     text-align: left;
-    border: dotted 0 #5C5C5C;
+    border: solid 0 #b5becc;
     background-repeat: repeat-x;
     background-position: left top; }
   .pivotAreaContainer .dxpgHeaderTable {
@@ -591,19 +596,19 @@
   .pivotAreaContainer .dxpgArea, .pivotAreaContainer .dxpgArea table {
     color: Black; }
   .pivotAreaContainer .dxpgArea {
-    border: dotted 1px #E6E6E6;
-    background-color: #E6E6E6;
+    border: solid 1px #f7f9fa;
+    background-color: #ffffff;
     border-left-style: none;
     border-top-style: none;
     border-bottom-style: none;
     border-right-style: none;
     padding: 0 3px 0 3px; }
   .pivotAreaContainer .dxpgColumnArea {
-    border-bottom-style: dotted; }
+    border-bottom-style: solid; }
   .pivotAreaContainer .dxpgFilterArea {
     background-color: #FCFCFC;
     color: Black;
-    border-bottom: dotted 1px #5C5C5C;
+    border-bottom: solid 1px #5C5C5C;
     background-image: none;
     background-repeat: repeat-x;
     background-position: left bottom; }
@@ -611,57 +616,61 @@
     cursor: default;
     padding: 6px 6px 7px 6px; }
   .pivotAreaContainer .dxpgColumnFieldValue {
-    color: #FFFFFF;
-    background-color: #969696;
-    border: dotted 1px #5C5C5C;
-    border-left-style: dotted;
+    color: #333333;
+    background-color: #f7f9fa;
+    border: solid 1px #E3E5E5;
+    border-left-style: solid;
     border-bottom-style: none;
     border-right-style: none;
-    border-top-style: dotted;
+    border-top-style: solid;
     padding: 4px 6px;
     padding-bottom: 5px;
     font-weight: normal;
     text-align: left; }
   .pivotAreaContainer .dxpgColumnTotalFieldValue {
-    background-color: #838383;
-    border-left-style: dotted;
+    background-color: #e3e5e58c;
+    border-left-style: solid;
     border-bottom-style: none;
     border-right-style: none;
-    border-top-style: dotted; }
+    border-top-style: solid; }
   .pivotAreaContainer .dxpgColumnGrandTotalFieldValue {
-    background-color: #656565;
-    border-left-style: dotted;
+    background-color: #b9bcc0a1;
+    color: #000000;
+    border-left-style: solid;
     border-bottom-style: none;
     border-right-style: none;
-    border-top-style: dotted; }
+    border-top-style: solid;
+    font-weight: bold; }
   .pivotAreaContainer .dxpgRowFieldValue {
-    color: #FFFFFF;
-    background-color: #979797;
-    border: dotted 1px #5C5C5C;
+    color: #333333;
+    background-color: #f7f9fa;
+    border: solid 1px #E3E5E5;
     border-left-style: none;
     border-bottom-style: none;
-    border-right-style: dotted;
-    border-top-style: dotted;
+    border-right-style: solid;
+    border-top-style: solid;
     padding: 4px 6px 5px 6px;
     font-weight: normal;
     text-align: left;
     vertical-align: top; }
   .pivotAreaContainer .dxpgRowTotalFieldValue {
-    background-color: #838383;
+    background-color: #e3e5e58c;
     border-left-style: none;
     border-bottom-style: none;
-    border-right-style: dotted;
-    border-top-style: dotted; }
+    border-right-style: solid;
+    border-top-style: solid; }
   .pivotAreaContainer .dxpgRowTreeFieldValue {
     padding: 0;
     font: 0; }
   .pivotAreaContainer .dxpgRowGrandTotalFieldValue {
-    background-color: #656565;
+    background-color: #b9bcc0a1;
+    color: #333333;
     border-left-style: none;
     border-bottom-style: none;
-    border-right-style: dotted;
-    border-top-style: dotted;
-    padding: 6px 6px 7px 6px; }
+    border-right-style: solid;
+    border-top-style: solid;
+    padding: 6px 6px 7px 6px;
+    font-weight: bold; }
   .pivotAreaContainer .dxpgCollapsedButton {
     vertical-align: -3px;
     border: 0;
@@ -673,22 +682,22 @@
   .pivotAreaContainer .dxpgCell {
     text-align: right;
     background-color: #ffffff;
-    border-color: #e3e3e3;
+    border-color: #E5E5E5;
     border-width: 1px;
     border-top-style: Solid;
     border-left-style: Solid;
     border-bottom-style: none;
     border-right-style: none;
-    padding: 4px;
-    padding-bottom: 5px;
+    padding: 3px 4px;
     white-space: nowrap; }
   .pivotAreaContainer .dxpgKPICell {
     text-align: center;
     vertical-align: middle; }
   .pivotAreaContainer .dxpgTotalCell {
-    background-color: #f8f8f8; }
+    background-color: #e3e5e58c; }
   .pivotAreaContainer .dxpgGrandTotalCell {
-    background-color: #eeeeee; }
+    background-color: #b9bcc0a1;
+    font-weight: bold; }
   .pivotAreaContainer .dxpgFilterItem {
     white-space: nowrap; }
   .pivotAreaContainer .dxpgFilterButton {
@@ -700,9 +709,9 @@
     border-top: none;
     border-right: none;
     border-left: none;
-    border-bottom: dotted 1px #5C5C5C; }
+    border-bottom: solid 1px #5C5C5C; }
   .pivotAreaContainer .dxpgBottomPager {
-    border-top: dotted 1px #5C5C5C;
+    border-top: solid 1px #5C5C5C;
     border-bottom: none;
     border-right: none;
     border-left: none; }
@@ -831,10 +840,10 @@
   .pivotAreaContainer .dxpgFLListDiv {
     padding: 0 3px 0 3px; }
   .pivotAreaContainer .dxpgFLButtonDiv .dxbButton div.dxb {
-    border: dotted 1px transparent;
+    border: solid 1px transparent;
     padding: 1px 7px 0; }
   .pivotAreaContainer .dxpgFLButtonDiv .dxbButton div.dxbf {
-    border: dotted 1px black; }
+    border: solid 1px black; }
   .pivotAreaContainer .dxpgFLTextDiv {
     height: 28px; }
   .pivotAreaContainer .dxpgFLTextDiv div {
@@ -876,9 +885,9 @@
     margin: 16px 12px 0 0; }
   .pivotAreaContainer .dxpgFLDefereDiv .dxbButton div.dxb {
     padding: 1px 13px 1px 13px;
-    border: dotted 1px transparent; }
+    border: solid 1px transparent; }
   .pivotAreaContainer .dxpgFLDefereDiv .dxbButton div.dxbf {
-    border: dotted 1px black; }
+    border: solid 1px black; }
   .pivotAreaContainer .dxpgFLListDiv table {
     width: 100%;
     table-layout: fixed;
@@ -922,9 +931,9 @@
     border: 1px solid #ba2000; }
   .pivotAreaContainer .dxbButton div.dxb {
     padding: 2px 12px 3px;
-    border: 1px dotted transparent; }
+    border: 1px solid transparent; }
   .pivotAreaContainer .dxbButton div.dxbf {
-    border: 1px dotted #FFFFFF; }
+    border: 1px solid #FFFFFF; }
   .pivotAreaContainer a.dxbButton {
     color: #bc3f26;
     text-decoration: underline; }
@@ -1833,8 +1842,8 @@
   .pivotAreaContainer .dxdvContent {
     padding-top: 20px;
     padding-bottom: 20px;
-    border-top: 1px dotted #5c5c5c;
-    border-bottom: 1px dotted #5c5c5c; }
+    border-top: 1px solid #5c5c5c;
+    border-bottom: 1px solid #5c5c5c; }
   .pivotAreaContainer .dxdvItem {
     font-size: 14px;
     background-color: #F9F9F9;
@@ -1968,7 +1977,7 @@
   .pivotAreaContainer .dxmLite .dxm-dropDownMode.dxm-selected .dxm-popOut,
   .pivotAreaContainer .dxmLite .dxm-dropDownMode.dxm-checked .dxm-popOut {
     background: #DFDFDF none repeat-x left top;
-    border-style: dotted;
+    border-style: solid;
     border-color: #5c5c5c; }
   .pivotAreaContainer .dxmLite .dxm-hovered,
   .pivotAreaContainer .dxmLite .dxm-main .dxm-item.dxm-hovered,
@@ -1977,8 +1986,8 @@
     border-style: solid;
     border-color: #A8A8A8; }
   .pivotAreaContainer .dxmLite .dxm-popup .dxm-hovered {
-    background: #F15E34;
-    border-color: #F15E34; }
+    background: #358ed7;
+    border-color: #358ed7; }
   .pivotAreaContainer .dxmLite .dxm-popup .dxm-hovered,
   .pivotAreaContainer .dxmLite .dxm-popup .dxm-hovered a.dx {
     color: White; }
@@ -2317,7 +2326,7 @@
     border-top-style: none;
     border-right-style: none;
     border-left-style: none;
-    border-bottom: 1px dotted #5C5C5C;
+    border-bottom: 1px solid #5C5C5C;
     overflow: hidden;
     margin: 0;
     padding: 4px 4px 4px 6px;
@@ -2334,7 +2343,7 @@
     text-decoration: underline; }
   .pivotAreaContainer .dxnbLite .dxnb-content {
     color: #959595;
-    border-bottom: 1px dotted #5C5C5C;
+    border-bottom: 1px solid #5C5C5C;
     list-style: none none outside;
     margin: 0;
     padding: 2px 1px;
@@ -2378,7 +2387,7 @@
   .pivotAreaContainer .dxnbLite .dxnb-itemHover,
   .pivotAreaContainer .dxnbLite .dxnb-largeHover {
     background-color: #EFEFEF;
-    border: 1px solid #E3E3E3;
+    border: 1px solid #E5E5E5;
     color: #959595; }
   .pivotAreaContainer .dxnbLite .dxnb-itemHover a,
   .pivotAreaContainer .dxnbLite .dxnb-largeHover a {
@@ -2470,7 +2479,7 @@
     padding: 0 3px; }
   .pivotAreaContainer .dxncItem {
     vertical-align: top;
-    border-bottom: 1px dotted #5c5c5c;
+    border-bottom: 1px solid #5c5c5c;
     padding: 28px 8px 30px; }
   .pivotAreaContainer .dxncEmptyItem {
     vertical-align: top;
@@ -2688,7 +2697,7 @@
   .pivotAreaContainer .dxdpLite .dxpc-header {
     color: #5c5c5c;
     background: #f4f4f4 none repeat-x left top;
-    border-bottom: 1px dotted #5c5c5c;
+    border-bottom: 1px solid #5c5c5c;
     padding: 2px 2px 2px 12px; }
   .pivotAreaContainer .dxpcLite.dxRtl .dxpc-header,
   .pivotAreaContainer .dxdpLite.dxRtl .dxpc-header {
@@ -2759,6 +2768,6 @@
     background-color: gray;
     opacity: .01; }
   .pivotAreaContainer .PercentageSummaryCell {
-    color: #999; }
+    color: #777; }
   .pivotAreaContainer .k-loading-mask {
     background-color: #fff; }

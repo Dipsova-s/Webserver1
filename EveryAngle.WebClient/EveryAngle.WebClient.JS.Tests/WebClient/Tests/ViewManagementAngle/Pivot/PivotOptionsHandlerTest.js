@@ -170,6 +170,43 @@ describe("PivotOptionsHandler", function () {
         });
     });
 
+    describe(".CanApplyAggregation", function () {
+        it("Should check if Aggregation can be applied", function () {
+            // prepare
+            spyOn(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler, 'CanApplyAggregation');
+            pivotOptionsHandler.CanApplyAggregation();
+
+            // assert
+            expect(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler.CanApplyAggregation).toHaveBeenCalled();
+        })
+    });
+
+    describe(".ApplyAggregation", function () {
+        it("should apply the aggregation changes", function () {
+            // Prepare
+            spyOn(pivotOptionsHandler, 'HasChanged').and.returnValue(true);
+            spyOn(pivotOptionsHandler, 'SetOptions');
+            spyOn(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler, 'ApplyAggregation');
+            pivotOptionsHandler.ApplyAggregation();
+
+            // assert
+            expect(pivotOptionsHandler.SetOptions).toHaveBeenCalled();
+            expect(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler.ApplyAggregation).toHaveBeenCalled();
+        })
+
+        it("should not apply the aggregation changes", function() {
+            spyOn(pivotOptionsHandler, 'HasChanged').and.returnValue(false);
+            spyOn(pivotOptionsHandler, 'SetOptions');
+            spyOn(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler, 'ApplyAggregation');
+            pivotOptionsHandler.ApplyAggregation();
+
+             // assert
+            expect(pivotOptionsHandler.SetOptions).not.toHaveBeenCalled();
+            expect(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler.ApplyAggregation).not.toHaveBeenCalled();
+
+        })
+    });
+
     describe(".HasChanged", function () {
         it('should be false', function () {
             // prepare
@@ -277,30 +314,12 @@ describe("PivotOptionsHandler", function () {
     });
 
     describe(".OnPopupClose", function () {
-        it('should not set options but destroy popup', function () {
+        it('should destroy popup', function () {
             // prepare
-            spyOn(pivotOptionsHandler, 'HasChanged').and.returnValue(false);
-            spyOn(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler, 'OpenAggregationPanel');
-            spyOn(pivotOptionsHandler, 'SetOptions');
             spyOn(popup, 'Destroy');
             pivotOptionsHandler.OnPopupClose({});
 
             // assert
-            expect(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler.OpenAggregationPanel).not.toHaveBeenCalled();
-            expect(pivotOptionsHandler.SetOptions).not.toHaveBeenCalled();
-            expect(popup.Destroy).toHaveBeenCalled();
-        });
-        it('should set options and destroy popup', function () {
-            // prepare
-            spyOn(pivotOptionsHandler, 'HasChanged').and.returnValue(true);
-            spyOn(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler, 'OpenAggregationPanel');
-            spyOn(pivotOptionsHandler, 'SetOptions');
-            spyOn(popup, 'Destroy');
-            pivotOptionsHandler.OnPopupClose({});
-
-            // assert
-            expect(pivotOptionsHandler.DisplayHandler.QueryDefinitionHandler.OpenAggregationPanel).toHaveBeenCalled();
-            expect(pivotOptionsHandler.SetOptions).toHaveBeenCalled();
             expect(popup.Destroy).toHaveBeenCalled();
         });
     });

@@ -6,22 +6,22 @@ Resource            ${EXECDIR}/WC/POM/Angle/FieldSettings.FieldFormatsPopup.Robo
 
 *** Variables ***
 #General
-${pgbFieldSettings}             css=.section-aggregation .k-loading-mask
-${btnFieldSettingUndo}          css=.section-aggregation .action-cancel
-${btnFieldSettingOptions}       css=.section-aggregation .action-options
-${btnCloseFieldSettingOptions}  css=.k-overlay
-${btnAddRowAreaField}           jquery=.query-aggregation-row .action-add-aggregation
-${divFieldRowArea}              jquery=.query-aggregation-row ul
-${divFieldListRowArea}          jquery=.query-aggregation-row li
-${btnAddColumnAreaField}        jquery=.query-aggregation-column .action-add-aggregation
-${divFieldColumnArea}           jquery=.query-aggregation-column ul
-${divFieldListColumnArea}       jquery=.query-aggregation-column li
-${btnAddDataAreaField}          jquery=.query-aggregation-data .action-add-aggregation
-${divFieldDataArea}             jquery=.query-aggregation-data ul
-${divFieldListDataArea}         jquery=.query-aggregation-data li
-${chkFieldCount}                css=.count-field-wrapper input
-${btnFieldSettingApply}         css=.query-aggregation-buttons .btn-save
-
+${btnFieldSettingUndo}                                 css=.section-aggregation .action-cancel
+${pgbFieldSettings}                                    css=.section-aggregation .k-loading-mask
+${btnFieldSettingOptions}                              css=.section-aggregation .action-options
+${btnCloseFieldSettingOptions}                         css=.k-overlay
+${btnAddRowAreaField}                                  jquery=.query-aggregation-row .action-add-aggregation
+${divFieldRowArea}                                     jquery=.query-aggregation-row ul
+${divFieldListRowArea}                                 jquery=.query-aggregation-row li
+${btnAddColumnAreaField}                               jquery=.query-aggregation-column .action-add-aggregation
+${divFieldColumnArea}                                  jquery=.query-aggregation-column ul
+${divFieldListColumnArea}                              jquery=.query-aggregation-column li
+${btnAddDataAreaField}                                 jquery=.query-aggregation-data .action-add-aggregation
+${divFieldDataArea}                                    jquery=.query-aggregation-data ul
+${divFieldListDataArea}                                jquery=.query-aggregation-data li
+${chkFieldCount}                                       css=.count-field-wrapper input
+${btnFieldSettingApply}                                css=.query-aggregation-buttons .btn-save
+${btnFieldSettingApplyInsidePivotOptionsPopup}         css=#PopupAggregationOptions .query-aggregation-buttons.btn-wrapper .btn-save
 #Field options
 ${btnFieldSettingsSort}             jquery=.action-sorting:visible
 ${btnFieldSettingsSortAscending}    jquery=.action-sorting.icon-sort-asc:visible
@@ -53,6 +53,12 @@ Click Hide Display Option
 Click Apply Field Setting
     Sleep    ${TIMEOUT_GENERAL}    Wait for rendering
     Click Element    ${btnFieldSettingApply}
+    Wait Display Executed
+    Sleep    ${TIMEOUT_LARGEST}    Wait for rendering, a bit delay
+
+Click Apply Field Setting Inside Pivot Options Popup
+    Sleep    ${TIMEOUT_GENERAL}    Wait for rendering
+    Click Element    ${btnFieldSettingApplyInsidePivotOptionsPopup}
     Wait Display Executed
     Sleep    ${TIMEOUT_LARGEST}    Wait for rendering, a bit delay
 

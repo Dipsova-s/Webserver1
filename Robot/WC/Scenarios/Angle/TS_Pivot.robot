@@ -14,8 +14,9 @@ Pivot Settings Subtotal / Percentages Column / Alias Name / Field Icons / Collap
     Pivot Should Have Field Icons
     Change Pivot First Row Field Alias Name
     Change Pivot Second Row Date Bucket
-    Change Pivot Settings For Percentages Display
     Click Apply Field Setting
+    Change Pivot Settings For Percentages Display
+    Click Apply Field Setting Inside Pivot Options Popup
 
     # Subtotal
     Subtotal Should Be Displayed In Pivot
@@ -71,8 +72,7 @@ Pivot Percentages
     Select Show Total Option    Show for rows and columns
     Select Checkbox Include Subtotal
     Select Show Percentage Option    Row
-    Click Hide Display Option
-    Click Apply Field Setting
+    Click Apply Field Setting Inside Pivot Options Popup
     ${rowData}    Get Pivot Cell Value By Column Index And Row Index    0    0
     ${rowDataTotal}    Get Pivot Total Cell Value By Row Index    0
     ${rowDataPercentage}     Get Pivot Percentages Summary Cell Value By Row Index And Column Index    0    0
@@ -82,8 +82,7 @@ Pivot Percentages
     #Column
     Click Show Display Option
     Select Show Percentage Option    Column
-    Click Hide Display Option
-    Click Apply Field Setting
+    Click Apply Field Setting Inside Pivot Options Popup
     ${columnData}    Get Pivot Cell Value By Column Index And Row Index    0    0
     ${columnDataTotal}    Get Pivot Total Cell Value By Column Index    0
     ${columnDataPercentage}     Get Pivot Percentages Summary Cell Value By Row Index And Column Index    0    0
@@ -93,8 +92,8 @@ Pivot Percentages
     #Total
     Click Show Display Option
     Select Show Percentage Option    Total
-    Click Hide Display Option
-    Click Apply Field Setting
+    Click Apply Field Setting Inside Pivot Options Popup
+
     ${data}    Get Pivot Cell Value By Column Index And Row Index    0    0
     ${countGrandTotal}    Get Pivot Count Grand Total Cell Value
     ${dataPercentage}     Get Pivot Percentages Summary Cell Value By Row Index And Column Index    0    0
@@ -143,7 +142,6 @@ Change Pivot Settings For Percentages Display
     Select Show Total Option    Show for columns
     Select Checkbox Include Subtotal
     Select Show Percentage Option    Column
-    Click Hide Display Option
 
 Restore Pivot Settings For Percentages Display
     Click Show Display Option

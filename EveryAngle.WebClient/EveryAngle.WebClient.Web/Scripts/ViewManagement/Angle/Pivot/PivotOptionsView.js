@@ -2,6 +2,7 @@ function PivotOptionsView() {
     "use strict";
 
     var self = this;
+
     self.GetTemplate = function (models) {
         var templates = ['<div class="aggreagtion-options">'];
         var templateDropdown = [
@@ -43,6 +44,14 @@ function PivotOptionsView() {
             var html = mappers[model.ui];
             templates.push(kendo.template(html)(model));
         });
+        templates.push('<!-- ko if: CanApplyAggregation() -->',
+            '<div class="query-aggregation-buttons btn-wrapper">',
+            '<a class="float-right invisible"></a>',
+            '<a class="btn btn-secondary btn-small btn-save" data-bind="click: ApplyAggregation , css: { disabled: !HasChanged() }">',
+            '<span data-bind="text: Localization.Apply"></span>',
+            '</a>',
+            '</div>',
+            '<!-- /ko -->');
         templates.push('</div>');
         return templates.join('');
     };
