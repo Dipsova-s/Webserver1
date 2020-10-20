@@ -134,7 +134,7 @@ namespace EveryAngle.WebClient.Service.LogHandlers
                 }
             }
 
-            return ParseBodyContentLogging(request.Resource, body, request.Method);
+            return ParseBodyContentLogging(request.Resource, body, request.Method, true);
         }
 
         public static void WriteExceptionLog(Exception ex)
@@ -174,7 +174,7 @@ namespace EveryAngle.WebClient.Service.LogHandlers
             return targetFolder;
         }
 
-        public static string ParseBodyContentLogging(string url, string body, Method method)
+        public static string ParseBodyContentLogging(string url, string body, Method method, bool indented)
         {
             string loggingBody = body;
 
@@ -187,21 +187,21 @@ namespace EveryAngle.WebClient.Service.LogHandlers
             // Some json documents are structured in an key/values structure, these will be handled differently.
             if (LoggerHelper.UrlsHavingSettingsList().Any(url.Contains))
             {
-                if (LoggerHelper.TryGetMaskedSettingsJson(body, "setting_list", "id", out loggingBody, false, LoggerHelper.GetPasswordIdsInSettings()))
+                if (LoggerHelper.TryGetMaskedSettingsJson(body, "setting_list", "id", out loggingBody, indented, LoggerHelper.GetPasswordIdsInSettings()))
                 {
                     return loggingBody;
                 }
             }
             else if (LoggerHelper.UrlsHavingArgumentsList().Any(url.Contains))
             {
-                if (LoggerHelper.TryGetMaskedSettingsJson(body, "arguments", "name",out loggingBody, false, LoggerHelper.GetPasswordNamesInArguments()))
+                if (LoggerHelper.TryGetMaskedSettingsJson(body, "arguments", "name",out loggingBody, indented, LoggerHelper.GetPasswordNamesInArguments()))
                 {
                     return loggingBody;
                 }
             }
             else
             {
-                if (LoggerHelper.TryGetMaskedJson(body, out loggingBody, false, LoggerHelper.GetKnownPasswordPropertyNames()))
+                if (LoggerHelper.TryGetMaskedJson(body, out loggingBody, indented, LoggerHelper.GetKnownPasswordPropertyNames()))
                 {
                     return loggingBody;
                 }
@@ -217,7 +217,7 @@ namespace EveryAngle.WebClient.Service.LogHandlers
 
             public static string[] GetPasswordIdsInSettings()
             {
-                return new string[] { "sap_password", "copy_smb_password", "copy_ftp_password", "sap_ddb_password", "connection_password", "database_manager_connection_string" };
+                return new string[] { "sap_password", "copy_smb_password", "copy_ftp_password", "sap_ddb_password", "connection_password", "database_manager_connection_string", "odbc_connection_string" };
             }
 
             public static string[] GetKnownPasswordPropertyNames()
@@ -232,7 +232,7 @@ namespace EveryAngle.WebClient.Service.LogHandlers
 
             public static string[] UrlsHavingSettingsList()
             {
-                return new string[] { "/agent/download_settings", "/agent/modelserver_settings", "/system/datastores" };
+                return new string[] { "/agent/download_settings", "/agent/modelserver_settings", "/system/datastores", "/check_connection" };
             }
 
             public static string[] UrlsHavingArgumentsList()
@@ -285,7 +285,8 @@ namespace EveryAngle.WebClient.Service.LogHandlers
                 // settingId: FindExpression, ReplaceExpression
                 return new Dictionary<string, string[]>
                 {
-                    { "database_manager_connection_string", new string[] { "(Password=)[^>]*(;)", "$1" + MASKING_CHARACTERS + "$2" } }
+                    { "database_manager_connection_string", new string[] { "Password=[^;>]*", "Password=" + MASKING_CHARACTERS } },
+                    { "odbc_connection_string", new string[] { "Pwd=[^;>]*", "Pwd=" + MASKING_CHARACTERS } }
                 };
             }
 
