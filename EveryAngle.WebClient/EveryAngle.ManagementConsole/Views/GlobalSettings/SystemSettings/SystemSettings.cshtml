@@ -48,7 +48,7 @@
             <div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.default_pagesize)
                 <p>
-                    @Html.Kendo().NumericTextBoxFor(model => model.default_pagesize).Decimals(0).Format("0").Step(1).Min(20).Max(200).HtmlAttributes(new { @class = "required digits valid_default_pagesize" })
+                    @Html.Kendo().NumericTextBoxFor(model => model.default_pagesize).Decimals(0).Format("0").Step(1).Min(20).Max(5000).HtmlAttributes(new { @class = "required digits valid_default_pagesize" })
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultPageSize</textarea>
                 </p>
