@@ -293,7 +293,18 @@ function ResultViewModel() {
             anglePageHandler.HandlerDisplay.ClearPostResultData();
             anglePageHandler.ExecuteAngle();
         };
+
+        var callbackRemoveSorting = function () {
+            anglePageHandler.HandlerDisplay.QueryDefinitionHandler.RemoveSorting();
+            anglePageHandler.HandlerAngle.ClearAllPostResultsData();
+            anglePageHandler.ExecuteAngle();
+        };
+
         var callback = xhr.status === 404 || xhr.status === 503 ? callbackModelServer : callbackCommon;
+        var sortErrorMessage = Localization.Info_DisplaySortingReachedLimitation.slice(0, -3);
+        if (message.indexOf(sortErrorMessage) === 0) {
+            callback = callbackRemoveSorting;
+        }
         errorHandlerModel.ShowAreaError(element, message, callback);
     };
     self.LoadSuccess = function (data) {

@@ -16700,7 +16700,18 @@ namespace EveryAngle.Shared.Globalization {
                 return ResourceManager.GetString("Reexecute", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Re-execute without sorting.
+        /// </summary>
+        public static string ReexecuteWithoutSorting
+        {
+            get
+            {
+                return ResourceManager.GetString("ReexecuteWithoutSorting", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Referenced object.
         /// </summary>
