@@ -344,7 +344,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         public string GetFileDownloadName(string contentDisposition)
         {
-            string[] wordList = new string[] { "filename*=UTF-8''", "filename=" };
+            string[] wordList = new string[] { "filename*=UTF-8''", "filename=","\"" };
             string fileDownloadName = contentDisposition.Split(';').FirstOrDefault(x => x.ToLower().Contains("filename"));
             foreach (string word in wordList)
             {
