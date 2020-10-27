@@ -14,7 +14,7 @@ describe("AngleStateHandler", function () {
             ExecuteAngle: $.noop,
             HandlerAngle: {
                 ClearData: $.noop,
-                ConfirmSaveWithUsedInTask: $.noop
+                ConfirmValidationSaveUsedInTask: $.noop
             }
         });
     });
@@ -24,13 +24,13 @@ describe("AngleStateHandler", function () {
 
     describe(".ValidateItem", function () {
         it('should set all functions and call confirm save', function () {
-            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSaveWithUsedInTask');
+            spyOn(anglePageHandler.HandlerAngle, 'ConfirmValidationSaveUsedInTask');
 
             // act
             angleStateHandler.ValidateItem();
 
             // assert
-            expect(anglePageHandler.HandlerAngle.ConfirmSaveWithUsedInTask).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerAngle.ConfirmValidationSaveUsedInTask).toHaveBeenCalled();
         });
     });
 

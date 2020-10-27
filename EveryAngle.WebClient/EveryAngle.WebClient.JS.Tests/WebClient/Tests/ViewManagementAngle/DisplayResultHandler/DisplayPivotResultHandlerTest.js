@@ -1,5 +1,6 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Pivot/PivotHelper.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Pivot/PivotOptionsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SaveDisplaysUsedInAutomationTasksHandler.js" />
 
 describe("DisplayPivotResultHandler", function () {
     var displayPivotResultHandler;

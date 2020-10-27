@@ -571,6 +571,10 @@
     <None Include="Content\CSS\components\_toastnotification.scss" />
     <None Include="Content\CSS\components\_item-name.scss" />
     <None Include="Content\CSS\dashboard.scss" />
+    <Content Include="Content\CSS\displayUsedInAutomationTasks.css">
+      <DependentUpon>displayUsedInAutomationTasks.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\CSS\displayUsedInAutomationTasks.scss" />
     <None Include="Content\CSS\itemstate.scss" />
     <Content Include="Content\CSS\Base.css" />
     <None Include="Content\CSS\components\_breadcrumb.scss" />
@@ -683,6 +687,7 @@
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls3delivering.png" />
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls5transferwithinplant.png" />
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls4transferbetweenplants.png" />
+    <Content Include="Images\Icons\icon_hyperlink_arrow.svg" />
     <Content Include="Images\Icons\icon_add_filter.svg" />
     <Content Include="Images\Icons\icon_add_filter_before_jump.png" />
     <Content Include="Images\Icons\icon_adv_filter.svg" />
@@ -857,6 +862,7 @@
     <Content Include="Scripts\HtmlTemplate\MassChange\masschangelabelshtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\MassChange\masschangehtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\Menu\aboutHtmlTemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\SaveDisplaysUsedInAutomationTasks\savedisplaysusedinautomationtaskshtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\ScheduleAngle\scheduleanglehtmltemplate.js" />
     <Content Include="Content\fonts\roboto-v19-latin-regular.eot" />
     <Content Include="Content\fonts\roboto-v19-latin-regular.ttf" />
@@ -1032,6 +1038,7 @@
     <Content Include="Scripts\ViewManagement\Shared\QueryDefinition\QueryStepFilterHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\QueryDefinition\QueryStepViewModel.js" />
     <Content Include="Scripts\ViewManagement\Shared\QueryDefinition\QueryStepView.js" />
+    <Content Include="Scripts\ViewManagement\Shared\SaveDisplaysUsedInAutomationTasksHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SidePanel\SidePanelView.js" />
     <Content Include="Scripts\ViewManagement\Shared\SidePanel\SidePanelHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleHandler.js" />

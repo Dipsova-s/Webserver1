@@ -1,4 +1,6 @@
-﻿describe("DisplayListResultHandlerTest", function () {
+﻿/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SaveDisplaysUsedInAutomationTasksHandler.js" />
+
+describe("DisplayListResultHandlerTest", function () {
     var displayListResultHandler;
     beforeEach(function () {
         var displayHandler = new DisplayHandler({ display_type: 'list' }, new AngleHandler());

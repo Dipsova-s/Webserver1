@@ -4065,4 +4065,13 @@ Kies '1' voor de eerste kolom. Als de tijdstempel van het model niet nodig is, k
   <data name="MassChangeStatusRemoveTag" xml:space="preserve">
     <value>Remove tag "{0}"</value>
   </data>
+  <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
+    <value>Confirmation required</value>
+  </data>
+  <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
+    <value>Updating Displays used in Automation Task(s) will modify the action and might cause it to fail.</value>
+  </data>
+  <data name="GoToScheduledTask" xml:space="preserve">
+    <value>Go to scheduled task</value>
+  </data>
 </root>

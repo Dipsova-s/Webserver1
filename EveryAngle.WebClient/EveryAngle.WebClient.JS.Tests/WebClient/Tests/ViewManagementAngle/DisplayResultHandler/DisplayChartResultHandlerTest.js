@@ -8,6 +8,7 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/TargetLineHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SaveDisplaysUsedInAutomationTasksHandler.js" />
 
 describe("DisplayChartResultHandler", function () {
     var displayChartResultHandler;

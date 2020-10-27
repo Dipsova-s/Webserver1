@@ -1258,7 +1258,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angle Filters &amp; Jumps.
+        ///   Looks up a localized string similar to Angle filters &amp; Jumps.
         /// </summary>
         public static string AngleFilters {
             get {
@@ -2446,6 +2446,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation required.
+        /// </summary>
+        public static string ConfirmSaveDisplaysUsedInAutomationTask {
+            get {
+                return ResourceManager.GetString("ConfirmSaveDisplaysUsedInAutomationTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continuous.
         /// </summary>
         public static string Continuous {
@@ -3310,7 +3319,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Filters &amp; Jumps.
+        ///   Looks up a localized string similar to Display filters &amp; Jumps.
         /// </summary>
         public static string DisplayFilters {
             get {
@@ -3396,6 +3405,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string DisplayOverview {
             get {
                 return ResourceManager.GetString("DisplayOverview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Displays used in Automation Task(s) will modify the action and might cause it to fail..
+        /// </summary>
+        public static string DisplaysUsedInAutomationTextWarning {
+            get {
+                return ResourceManager.GetString("DisplaysUsedInAutomationTextWarning", resourceCulture);
             }
         }
         
@@ -4863,6 +4881,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string GoToSapNotAvailable {
             get {
                 return ResourceManager.GetString("GoToSapNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to scheduled task.
+        /// </summary>
+        public static string GoToScheduledTask {
+            get {
+                return ResourceManager.GetString("GoToScheduledTask", resourceCulture);
             }
         }
         
@@ -8907,7 +8934,7 @@ namespace EveryAngle.Shared.Globalization {
         /// <summary>
         ///   Looks up a localized string similar to The default Approval state of newly added Actions in Automation tasks.
         ///Actions can only be executed when the Approval state is &quot;approved&quot;.
-        ///The &quot;manage system&quot; privileges is required to change the Approval state of an Action..
+        ///The &quot;manage system&quot; privilege is required to change the Approval state of an Action..
         /// </summary>
         public static string MC_DefaultApprovalStateDescription {
             get {

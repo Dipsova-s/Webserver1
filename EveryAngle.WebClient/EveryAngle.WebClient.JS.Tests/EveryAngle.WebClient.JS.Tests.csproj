@@ -218,6 +218,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Shared\QueryDefinition\QueryStepJumpHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\QueryDefinition\QueryStepSortableHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\QueryDefinition\QueryStepViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\SaveDisplayUsedInAutomationTasksHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\SearchStorageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelFieldDomainHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelLabelCategoryHandlerTest.js" />

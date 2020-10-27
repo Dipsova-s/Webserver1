@@ -1,0 +1,108 @@
+﻿#SaveDisplaysUsedInAutomationTasks {
+    font-family: "Roboto";
+    letter-spacing: 0.24px;
+    font-size: 12px;
+
+    .displayFlexVerCenter {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+    }
+
+    .displayUsedInAutomationWarning {
+        background-color: #fcf3d7;
+        padding: 7px 8px;
+
+        .iconWarning {
+            width: 14px;
+            height: 14px;
+            padding: 1px;
+            display: inline-block;
+            text-align: center;
+            font-weight: bold;
+            color: #ffffff;
+            border-radius: 100%;
+            background-color: #f3aa18;
+        }
+
+        .textWarning {
+            color: #3e4345;
+            margin-left: 8px;
+        }
+    }
+
+    .displaysUsedInAutomationList {
+        margin-top: 17px;
+        height: 305px;
+        overflow: auto;
+
+        .displayListItem {
+            padding: 8px 8px 16px 8px;
+
+            input[type="checkbox"]:disabled + span.label {
+                opacity: 1!important;
+            }
+
+            .displayNameInTask {
+                padding: 4px;
+            }
+
+            .display-icon {
+                width: 16px;
+                height: 14.4px;
+                color: #78909c;
+            }
+
+            .tasksList {
+                line-height: 1.33;
+                margin-left: 31px;
+                margin-top: 16px;
+
+                .threeRowsWrapper {
+                    span:first-child {
+                        flex: 4;
+                        padding-right: 8px;
+                    }
+
+                    span:nth-child(2) {
+                        flex: 4;
+                        text-align: right;
+                        padding-left: 8px;
+                    }
+
+                    span:last-child, a {
+                        flex: 1;
+
+                        &.iconHyperlink {
+                            background: transparent url('../../images/icons/icon_hyperlink_arrow.svg') right top no-repeat;
+                            width: 18px;
+                            height: 18px;
+                        }
+
+                        &.hide {
+                            opacity: 0;
+                            cursor: auto;
+                            pointer-events: none;
+                            text-decoration: none;
+                        }
+                    }
+                }
+
+                .taskHeading {
+                    letter-spacing: 0.4px;
+                    color: #333333;
+                    font-weight: bold;
+                    padding-bottom: 7px;
+                    border-bottom: 2px solid #e3e5e5;
+                }
+
+                .taskListItem {
+                    letter-spacing: 0.24px;
+                    color: rgba(0, 0, 0, 0.87);
+                    padding: 6px 0;
+                    border-bottom: 1px solid #e3e5e5;
+                }
+            }
+        }
+    }
+}

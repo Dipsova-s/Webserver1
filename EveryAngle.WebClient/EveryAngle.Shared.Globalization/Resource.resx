@@ -6520,4 +6520,13 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_LogLevelDescription" xml:space="preserve">
     <value>Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
   </data>
+  <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
+    <value>Confirmation required</value>
+  </data>
+  <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
+    <value>Updating Displays used in Automation Task(s) will modify the action and might cause it to fail.</value>
+  </data>
+  <data name="GoToScheduledTask" xml:space="preserve">
+    <value>Go to scheduled task</value>
+  </data>
 </root>

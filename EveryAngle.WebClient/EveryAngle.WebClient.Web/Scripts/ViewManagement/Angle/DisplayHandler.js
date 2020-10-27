@@ -488,14 +488,19 @@ function DisplayHandler(model, parent) {
     self.GetResultExecution = function () {
         return self.ResultHandler.GetExecutionText();
     };
-
+    self.GetDisplayDetailsUsedInTask = function () {
+        return {
+            DispalyTotal: 1,
+            Display: [{ Name: self.GetName(), Details: self.GetData() }]
+        };
+    };
     // save utilities
     self.ConfirmSave = function (checker, callback, cancel) {
         if (!jQuery.isFunction(checker))
             checker = self.IsUsedInTask;
 
         if (checker())
-            popup.Confirm(Localization.MessageSaveQuestionAngleUsedInTask, callback, cancel);
+            self.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup(self.GetDisplayDetailsUsedInTask(), callback, cancel);
         else
             callback();
     };

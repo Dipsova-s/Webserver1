@@ -66,16 +66,21 @@ describe("ScheduleAngleHandler", function () {
 
     describe("get task url", function () {
         it("should be in correct format", function () {
-
             var taskUri = 'tasks/1';
-
+            var uri = '/models/1/angles/1/displays/1';
+            var taskUrl = scheduleAngleHandler.GetTaskUrlForDisplay(taskUri, uri);
+            var taskUrlFormat = "{0}admin/home/index#/Angle exports/Automation tasks/Edit task/?parameters={\"tasksUri\":\"{1}{2}\",\"angleUri\":\"{3}\"}";
+            var expectedUrl = kendo.format(taskUrlFormat, rootWebsitePath, webAPIUrl, taskUri, uri);
+            expect(taskUrl).toEqual(expectedUrl);
+        });
+        it("should call function GetTaskUrlForDisplay to get correct url format", function () {
+            var taskUri = 'tasks/1';
             spyOn(displayModel, 'Data').and.returnValue({
                 uri: '/models/1/angles/1/displays/1'
             });
-            var taskUrl = scheduleAngleHandler.GetTaskUrl(taskUri);
-            var taskUrlFormat = "{0}admin/home/index#/Angle exports/Automation tasks/Edit task/?parameters={\"tasksUri\":\"{1}{2}\",\"angleUri\":\"{3}\"}";
-            var expecxtedUrl = kendo.format(taskUrlFormat, rootWebsitePath, webAPIUrl, taskUri, displayModel.Data().uri);
-            expect(taskUrl).toEqual(expecxtedUrl);
+            spyOn(scheduleAngleHandler, 'GetTaskUrlForDisplay');
+            scheduleAngleHandler.GetTaskUrl(taskUri);
+            expect(scheduleAngleHandler.GetTaskUrlForDisplay).toHaveBeenCalled();
         });
     });
 
