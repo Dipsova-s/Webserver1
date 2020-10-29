@@ -424,7 +424,7 @@
     <value>System: </value>
   </data>
   <data name="ThisIsAPrivateDisplayNotAvailableForOtherUsers" xml:space="preserve">
-    <value>This is a private Display, not available to other users.</value>
+    <value>This is a Private Display, not available to other users.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
@@ -859,7 +859,7 @@
     <value>Save as...</value>
   </data>
   <data name="SaveAsPrivate" xml:space="preserve">
-    <value>Save as private Angle</value>
+    <value>Save as Private Angle</value>
   </data>
   <data name="ListFormatEnumLongName" xml:space="preserve">
     <value>Long name</value>
@@ -943,7 +943,7 @@
     <value>Not implemented</value>
   </data>
   <data name="PersonalDefaultDisplay" xml:space="preserve">
-    <value>Personal default Display</value>
+    <value>Personal Default Display</value>
   </data>
   <data name="AngleId" xml:space="preserve">
     <value>Angle ID</value>
@@ -1201,7 +1201,7 @@
     <value>Number of search labels:</value>
   </data>
   <data name="SetDefaultDisplay" xml:space="preserve">
-    <value>Set default Display:</value>
+    <value>Set Default Display:</value>
   </data>
   <data name="SetDefaultPublicOrPrivate" xml:space="preserve">
     <value>Set default to Published or Private:</value>
@@ -1579,10 +1579,10 @@
     <value>Please select at least one item</value>
   </data>
   <data name="Info_CannotPublishedDashboardBecausePrivateAngleDisplay" xml:space="preserve">
-    <value>The Dashboard cannot be published, because it contains private Displays.&lt;br&gt;&lt;br&gt;Click OK to be redirected to the Definition tab. Then click on Go to Angle to access the Display you wish to publish.</value>
+    <value>The Dashboard cannot be published, because it contains Private Displays.&lt;br&gt;&lt;br&gt;Click OK to be redirected to the Definition tab. Then click on Go to Angle to access the Display you wish to publish.</value>
   </data>
   <data name="Info_CannotSetPrivateDisplayToDefaultDisplay" xml:space="preserve">
-    <value>A private Display cannot be set as default Display</value>
+    <value>A Private Display cannot be set as Default Display</value>
   </data>
   <data name="Info_DashboardItemsWillNotAffect" xml:space="preserve">
     <value>Dashboard items will not be affected by this action.</value>
@@ -3367,7 +3367,7 @@
     <value>Angle was deleted or hidden. Click OK to go back to the search page.</value>
   </data>
   <data name="ErrorAngleNoDefaultDisplay" xml:space="preserve">
-    <value>The default Display was deleted or hidden. Close this pop-up to update.</value>
+    <value>The Default Display was deleted or hidden. Close this pop-up to update.</value>
   </data>
   <data name="Info_ListDisplaysDeletedWhileProcess" xml:space="preserve">
     <value>The following Displays failed during processing</value>
@@ -3653,7 +3653,7 @@ Are you sure you want to delete this model?</value>
     <value>Set all default Template fields to suggested {0}</value>
   </data>
   <data name="MC_SetAllDefaultTemplateFieldsToSuggested_Description" xml:space="preserve">
-    <value>Templates that are connected to an object in the object list, always have a default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these default Displays and Filters of that Template.</value>
+    <value>Templates that are connected to an object in the object list, always have a Default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these Default Displays and Filters of that Template.</value>
   </data>
   <data name="MC_SetDefaultBasicListFieldsToSuggested" xml:space="preserve">
     <value>Set default Basic List fields to suggested {0}</value>
@@ -4061,7 +4061,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Send notification on success</value>
   </data>
   <data name="MC_UseNonDefaultDisplaysAngles" xml:space="preserve">
-    <value>Use non-default displays on angles</value>
+    <value>Use non-default Displays on Angles</value>
   </data>
   <data name="MC_ActiveDirectorySizeLimit" xml:space="preserve">
     <value>Active directory size limit</value>
@@ -4484,7 +4484,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Allowed fields</value>
   </data>
   <data name="MC_AllowPrivateAngles" xml:space="preserve">
-    <value>Allow private angles</value>
+    <value>Allow Private Angles</value>
   </data>
   <data name="MC_Authorizations" xml:space="preserve">
     <value>Authorizations</value>
@@ -6051,7 +6051,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Download type</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Private" xml:space="preserve">
-    <value>Download is not available, because the selection contains private dashboard(s).</value>
+    <value>Download is not available, because the selection contains Private Dashboard(s).</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Cannot_Individually" xml:space="preserve">
     <value>Dashboards cannot be downloaded individually.</value>
@@ -6060,7 +6060,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Download is not available, because user is not allowed to manage this model.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_MultipleModel" xml:space="preserve">
-    <value>Download is not available, because the selection contains dashboards from multiple models.</value>
+    <value>Download is not available, because the selection contains Dashboards from multiple models.</value>
   </data>
   <data name="AngleExport_TypePackage_Download_Angle_Individually" xml:space="preserve">
     <value>Click OK to download the selected Angles/Templates individually.</value>
@@ -6156,7 +6156,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Displays</value>
   </data>
   <data name="PublishSettings_WidgetsInvalid" xml:space="preserve">
-    <value>Cannot publish Dashboard. Publish all private Displays first.</value>
+    <value>Cannot publish Dashboard. Publish all Private Displays first.</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
     <value>Go to Display details</value>
@@ -6489,7 +6489,7 @@ Use '1' to select the first column. When no model timestamp column is required, 
     <value>approved</value>
   </data>
   <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
-    <value>Show only my own private Displays</value>
+    <value>Show only my own Private Displays</value>
   </data>
   <data name="AngleExport" xml:space="preserve">
     <value>Angle Export</value>
