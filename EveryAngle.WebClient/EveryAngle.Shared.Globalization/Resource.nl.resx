@@ -4057,21 +4057,21 @@ The "manage system" privileges is required to change the Approval state of an Ac
 Kies '1' voor de eerste kolom. Als de tijdstempel van het model niet nodig is, kies dan 'Geen'.</value>
   </data>
   <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
-    <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>
+    <value>Deze Filter/Jump wordt toegepast op Angleniveau. Klik om naar de tab Angle te gaan om hem te bewerken of te verwijderen</value>
   </data>
   <data name="MassChangeStatusAddTag" xml:space="preserve">
-    <value>Add tag "{0}"</value>
+    <value>Voeg tag toe "{0}"</value>
   </data>
   <data name="MassChangeStatusRemoveTag" xml:space="preserve">
-    <value>Remove tag "{0}"</value>
+    <value>Verwijder tag "{0}"</value>
   </data>
   <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
-    <value>Confirmation required</value>
+    <value>Bevestiging vereist</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Updating Displays used in Automation Task(s) will modify the action and might cause it to fail.</value>
+    <value>Als u Displays bewerkt die in geautomatiseerde taken gebruikt worden kan dit invloed hebben op de actie, en kan deze falen.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
-    <value>Go to scheduled task</value>
+    <value>Ga naar de geplande taak</value>
   </data>
 </root>
