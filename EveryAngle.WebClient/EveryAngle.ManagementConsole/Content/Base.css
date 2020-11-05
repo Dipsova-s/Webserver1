@@ -2196,40 +2196,48 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
 }
 .RefreshLog {
     background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(../images/icons/Refresh.svg);
-    background-repeat: no-repeat;
 }
-.RefreshLog:hover{
+
+.RefreshLog:hover {
     background-image: url(../images/icons/Refresh_hover.svg);
-    background-repeat: no-repeat;
 }
+
 .ScrollToBottom {
     background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(../images/icons/ScrollToBottom.svg);
-    background-repeat: no-repeat;
 }
+
 .ScrollToBottom:hover {
     background-image: url(../images/icons/ScrollToBottom_hover.svg);
-    background-repeat: no-repeat;
 }
+
 .ScrollToTop {
     background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(../images/icons/ScrollToTop.svg);
-    background-repeat: no-repeat;
 }
+
 .ScrollToTop:hover {
     background-image: url(../images/icons/ScrollToTop_hover.svg);
-    background-repeat: no-repeat;
 }
+
+.ScrollToBottom:hover, .ScrollToTop:hover, .RefreshLog:hover {
+    background-repeat: no-repeat;
+    top: -5px;
+    transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
 .ScrollToBottom, .ScrollToTop, .RefreshLog {
     width: 16px;
     height: 16px;
     display: inline-block;
-    text-align:right;
-    margin:3px 7px 5px 7px;
+    text-align: right;
+    margin: 3px 7px 5px 7px;
+    position: relative;
+    background-repeat: no-repeat;
 }
 
 .gridToolbar .gridToolbarTop{
     width:396px;
 }
-.gridToolbar.gridToolbarTop .RefreshButton{
+.gridToolbar.gridToolbarTop .LogViewActionButtons {
     float:left;
 }
 #LogFileDetails .logDetails {
@@ -2240,7 +2248,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     padding-left: 0px;
     padding-top: 32px;
 }
-.NavigationButton {
+.LogViewNavigationButtons{
     margin: 5px 15px 3px 5px;
     text-align: right;
 }
