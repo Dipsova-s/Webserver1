@@ -2194,13 +2194,12 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     color: #c33;
     font-size: 11px;
 }
-
 .RefreshLog {
     background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(../images/icons/Refresh.svg);
     background-repeat: no-repeat;
 }
-.RefreshLog{
-    background-image: url(../Images/Icons/Refresh_hover.svg);
+.RefreshLog:hover{
+    background-image: url(../images/icons/Refresh_hover.svg);
     background-repeat: no-repeat;
 }
 .ScrollToBottom {
@@ -2215,7 +2214,6 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(../images/icons/ScrollToTop.svg);
     background-repeat: no-repeat;
 }
-
 .ScrollToTop:hover {
     background-image: url(../images/icons/ScrollToTop_hover.svg);
     background-repeat: no-repeat;
