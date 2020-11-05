@@ -149,7 +149,13 @@
     <div class="popupContent">
         <div class="contentSection contentSectionGrid">
             <div class="gridToolbar gridToolbarTop">
-                <div class="gridToolbarFilter">
+                <div class="RefreshButton">
+                    <a class="RefreshLog" onclick="MC.ui.logpopup.RefreshCsl()" title="Refresh Log"></a>
+                    <a class="ScrollToBottom" onclick="MC.ui.logpopup.ScrollToBottomCsl()" title="Scroll To Bottom"></a>
+                    <a class="ScrollToTop" onclick="MC.ui.logpopup.ScrollToTopCsl()" title="Scroll To Top"></a>
+                    <input type="hidden" id="RefreshLogPath" value="" />
+                </div>
+                <div class="gridToolbarFilterCsl">
                     <select id="FilterLogTableType"></select>
                     <input type="text" id="FilterLogTableTextbox" placeholder="@Resource.MC_Filter" data-method="remote" data-role="gridfilter" data-target="#SystemLogGrid" data-callback="MC.ui.logpopup.LogTableFilterCallback" />
                     <span class="icon icon-filter"></span>
@@ -163,9 +169,19 @@
             </div>
         </div>
         <div class="contentSection contentSectionLog">
-            <div id="LogFileDetails">
-                <div class="logDetails"></div>
+            <div class="NavigationButton">
+               <div class="RefreshButton">
+                     <a class="RefreshLog" onclick="MC.ui.logpopup.RefreshLog()" title="Refresh Log"></a>
+                     <a class="ScrollToBottom" onclick="MC.ui.logpopup.ScrollToBottomLog()" title="Scroll To Bottom"></a>
+                     <a class="ScrollToTop" onclick="MC.ui.logpopup.ScrollToTopLog()" title="Scroll To Top"></a>
+                     <input type="hidden" id="RefreshLogPath" value="" />
+               </div>
+            </div>  
+    
+                <div id="LogFileDetails">
+                    <div class="logDetails">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 </div>

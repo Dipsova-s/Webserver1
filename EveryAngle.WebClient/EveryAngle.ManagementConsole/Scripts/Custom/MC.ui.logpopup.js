@@ -123,6 +123,7 @@
         $('#SystemLogDetails .logDetails').removeClass('fail').empty();
         $('#LogFileDetails .logDetails').removeClass('fail').empty();
         var fullPath = typeof correlation_id === 'undefined' ? $(sender).parent("div").parent("div").prev('input').val() : MC.ui.logpopup.TaskHistoryUri + '?correlation_id=' + correlation_id;
+        $("#RefreshLogPath").val(fullPath);
         var win = $(sender.data('target')).data('kendoWindow');
         _self.isLogFile = MC.ui.logpopup.LogFileCheck(fullPath);
 
@@ -349,6 +350,45 @@
             grid.setDataSource(dataSource);
             win.trigger('resize');
         }, 100);
+    };
+    logpopup.RefreshCsl = function () {
+        $('#SystemLogGrid').data('kendoGrid').dataSource.read();
+        $('#SystemLogGrid').data('kendoGrid').refresh();
+    };
+    logpopup.RefreshLog = function () {
+        var fullPath = $("#RefreshLogPath").val();
+        var query = {
+            fullPath: fullPath,
+            target: MC.ui.logpopup.Target
+        };
+        MC.ajax.request({
+            url: MC.ui.logpopup.GetLogUri,
+            parameters: query,
+            timeout: 300000
+        }).done(function (response) {
+                response = '<pre>' + response + '</pre>' + '<hr/>';
+                $('#LogFileDetails .logDetails').html(response);
+        });
+    };
+    logpopup.ScrollToTopLog = function () {
+        var div = $("#LogFileDetails .logDetails");
+        div.animate({ scrollTop: 0 }, 500);
+    };
+    logpopup.ScrollToBottomLog = function () {
+        var div = $("#LogFileDetails .logDetails");
+        divHeight = div.prop("scrollHeight");
+        div.animate({ scrollTop: divHeight }, 500);
+    };
+    logpopup.ScrollToTopCsl = function () {
+        var grid = $('#SystemLogGrid').data('kendoGrid');
+        var scrollbar = (grid.element).find(".k-scrollbar").get(0);
+        $(scrollbar).animate({ scrollTop: 0 }, 500);
+
+    };
+    logpopup.ScrollToBottomCsl = function () {
+        var grid = $('#SystemLogGrid').data('kendoGrid');
+        var scrollbar = (grid.element).find(".k-scrollbar").get(0);
+        $(scrollbar).animate({ scrollTop: scrollbar.scrollHeight }, 500);
     };
     logpopup.InitialLogGrid = function () {
         var grid = $('#SystemLogGrid').data('kendoGrid');
