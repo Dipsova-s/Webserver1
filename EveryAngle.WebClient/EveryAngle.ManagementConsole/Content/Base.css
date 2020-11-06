@@ -2195,7 +2195,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     font-size: 11px;
 }
 .RefreshLog {
-    background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(../images/icons/Refresh.svg);
+    background-image: url(../images/icons/Refresh.svg);
 }
 
 .RefreshLog:hover {
@@ -2203,7 +2203,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
 }
 
 .ScrollToBottom {
-    background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(../images/icons/ScrollToBottom.svg);
+    background-image: url(../images/icons/ScrollToBottom.svg);
 }
 
 .ScrollToBottom:hover {
@@ -2211,19 +2211,23 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
 }
 
 .ScrollToTop {
-    background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(../images/icons/ScrollToTop.svg);
+    background-image: url(../images/icons/ScrollToTop.svg);
 }
 
 .ScrollToTop:hover {
     background-image: url(../images/icons/ScrollToTop_hover.svg);
 }
 
-.ScrollToBottom:hover, .ScrollToTop:hover, .RefreshLog:hover {
+.ScrollToBottom:not(.disabled):hover, .ScrollToTop:not(.disabled):hover, .RefreshLog:hover {
     background-repeat: no-repeat;
     top: -5px;
     transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity:1;
 }
-
+.ScrollToBottom.disabled , .ScrollToTop.disabled{
+    pointer-events:none;
+    opacity:0.5;
+}
 .ScrollToBottom, .ScrollToTop, .RefreshLog {
     width: 16px;
     height: 16px;
@@ -2232,6 +2236,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     margin: 3px 7px 5px 7px;
     position: relative;
     background-repeat: no-repeat;
+    opacity:.85;
 }
 
 .gridToolbar .gridToolbarTop{

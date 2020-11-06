@@ -93,7 +93,8 @@
         GetLogDetailUri: '',
         TaskHistoryUri: '',
         Target: '',
-        LogType: ''
+        LogType: '',
+        LogFullPath:''
     };
     logpopup.LogFileCheck = function (fullPath) {
         return fullPath.match('log$');
@@ -113,6 +114,9 @@
         if (isLogFile) {
             var padding = parseInt($('#LogFileDetails').css("padding-top"));
             var height = $('#popupLogTable .popupContent').height() - padding;
+            var div = $('.LogViewNavigationButtons');
+            var logViewButtonsHeight = div.height() + parseInt(div.css("margin-top")) + parseInt(div.css("margin-bottom"))+1;
+            height = height - logViewButtonsHeight;
             $('#LogFileDetails .logDetails').css({ overflow: 'auto', height: height });
         }
     };
@@ -123,7 +127,7 @@
         $('#SystemLogDetails .logDetails').removeClass('fail').empty();
         $('#LogFileDetails .logDetails').removeClass('fail').empty();
         var fullPath = typeof correlation_id === 'undefined' ? $(sender).parent("div").parent("div").prev('input').val() : MC.ui.logpopup.TaskHistoryUri + '?correlation_id=' + correlation_id;
-        $("#RefreshLogPath").val(fullPath);
+        MC.ui.logpopup.LogFullPath = fullPath;
         var win = $(sender.data('target')).data('kendoWindow');
         _self.isLogFile = MC.ui.logpopup.LogFileCheck(fullPath);
 
@@ -199,6 +203,43 @@
         // initial grid
         var grid = MC.ui.logpopup.InitialLogGrid();
         MC.ui.logpopup.ShowLogHideGrid(_self.isLogFile);
+
+        // log view scroll 
+        $(".ScrollToBottom").addClass("disabled");
+        $("#LogFileDetails, .logDetails").scroll(function () {
+            var maxScrollHeight = $("#LogFileDetails .logDetails").prop("scrollHeight") - 630;
+            var heightFromTop = $("#LogFileDetails .logDetails").scrollTop();
+            if (heightFromTop < 25) {
+                $(".ScrollToBottom").addClass("disabled");
+            }
+            else {
+                $(".ScrollToBottom").removeClass("disabled");
+            }
+            if (heightFromTop < maxScrollHeight) {
+                $(".ScrollToTop").removeClass("disabled");
+            }
+            else {
+                $(".ScrollToTop").addClass("disabled");
+            }
+        });
+
+        // Csl view scroll
+        $("#SystemLogGrid .k-scrollbar").scroll(function () {
+            var maxScrollHeight = $('#SystemLogGrid .k-scrollbar').prop("scrollHeight") - 244;
+            var heightFromTop = $('#SystemLogGrid .k-scrollbar').scrollTop();
+            if (heightFromTop < 20) {
+                $(".ScrollToBottom").addClass("disabled");
+            }
+            else {
+                $(".ScrollToBottom").removeClass("disabled");
+            }
+            if (heightFromTop < maxScrollHeight) {
+                $(".ScrollToTop").removeClass("disabled");
+            }
+            else {
+                $(".ScrollToTop").addClass("disabled");
+            }
+        });
 
         var setEnableLogPopup = function (enable) {
             if (enable) {
@@ -356,7 +397,7 @@
         $('#SystemLogGrid').data('kendoGrid').refresh();
     };
     logpopup.RefreshLog = function () {
-        var fullPath = $("#RefreshLogPath").val();
+        var fullPath = MC.ui.logpopup.LogFullPath;
         var query = {
             fullPath: fullPath,
             target: MC.ui.logpopup.Target
@@ -372,23 +413,23 @@
     };
     logpopup.ScrollToTopLog = function () {
         var div = $("#LogFileDetails .logDetails");
-        div.animate({ scrollTop: 0 }, 500);
+        div.stop().animate({ scrollTop: 0 }, 500);
     };
     logpopup.ScrollToBottomLog = function () {
         var div = $("#LogFileDetails .logDetails");
         divHeight = div.prop("scrollHeight");
-        div.animate({ scrollTop: divHeight }, 500);
+        div.stop().animate({ scrollTop: divHeight }, 500);
     };
     logpopup.ScrollToTopCsl = function () {
         var grid = $('#SystemLogGrid').data('kendoGrid');
         var scrollbar = (grid.element).find(".k-scrollbar").get(0);
-        $(scrollbar).animate({ scrollTop: 0 }, 500);
+        $(scrollbar).stop().animate({ scrollTop: 0 }, 500);
 
     };
     logpopup.ScrollToBottomCsl = function () {
         var grid = $('#SystemLogGrid').data('kendoGrid');
         var scrollbar = (grid.element).find(".k-scrollbar").get(0);
-        $(scrollbar).animate({ scrollTop: scrollbar.scrollHeight }, 500);
+        $(scrollbar).stop().animate({ scrollTop: scrollbar.scrollHeight }, 500);
     };
     logpopup.InitialLogGrid = function () {
         var grid = $('#SystemLogGrid').data('kendoGrid');
