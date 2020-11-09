@@ -2198,41 +2198,41 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     color: #c33;
     font-size: 11px;
 }
-.RefreshLog {
+.refreshLog {
     background-image: url(../images/icons/icon_refresh.svg);
 }
 
-.RefreshLog:hover {
+.refreshLog:hover {
     background-image: url(../images/icons/icon_refresh_hover.svg);
 }
 
-.ScrollToBottom {
+.scrollToBottom {
     background-image: url(../images/icons/icon_scroll_to_bottom.svg);
 }
 
-.ScrollToBottom:hover {
+.scrollToBottom:hover {
     background-image: url(../images/icons/icon_scroll_to_bottom_hover.svg);
 }
 
-.ScrollToTop {
+.scrollToTop {
     background-image: url(../images/icons/icon_scroll_to_top.svg);
 }
 
-.ScrollToTop:hover {
+.scrollToTop:hover {
     background-image: url(../images/icons/icon_scroll_to_top_hover.svg);
 }
 
-.ScrollToBottom:not(.disabled):hover, .ScrollToTop:not(.disabled):hover, .RefreshLog:hover {
+.scrollToBottom:not(.disabled):hover, .scrollToTop:not(.disabled):hover, .refreshLog:hover {
     background-repeat: no-repeat;
     top: -5px;
     transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     opacity:1;
 }
-.ScrollToBottom.disabled , .ScrollToTop.disabled{
+.scrollToBottom.disabled , .scrollToTop.disabled{
     pointer-events:none;
     opacity:0.5;
 }
-.ScrollToBottom, .ScrollToTop, .RefreshLog {
+.logViewActionButtons > a{
     width: 16px;
     height: 16px;
     display: inline-block;
@@ -2243,10 +2243,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     opacity:.85;
 }
 
-.gridToolbar .gridToolbarTop{
-    width:396px;
-}
-.gridToolbar.gridToolbarTop .LogViewActionButtons {
+.gridToolbar.gridToolbarTop .logViewActionButtons {
     float:left;
 }
 #LogFileDetails .logDetails {
@@ -2257,7 +2254,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     padding-left: 0px;
     padding-top: 32px;
 }
-.LogViewNavigationButtons{
+.logViewNavigationButtons{
     margin: 5px 15px 3px 5px;
     text-align: right;
 }
