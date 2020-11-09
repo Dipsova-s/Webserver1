@@ -26,6 +26,7 @@
     string authenticationProviderTypesId = ((EveryAngle.Core.ViewModels.Users.AuthenticationProviderTypesViewModel)ViewBag.AuthenticationProviderTypes).Id;
     string showAD = authenticationProviderTypesId == "AD" ? "block" : "none";
     string showADFS = authenticationProviderTypesId == "ADFS" ? "block" : "none";
+    string showSAML = authenticationProviderTypesId == "SAML" ? "block" : "none";
 }
 
 <div class="content pageAuthenticationProviderEdit">
@@ -96,7 +97,7 @@
                 <label>@Resource.MC_AutocreateUsers:*</label>
                 <p>
                     <label>
-                        <input id="auto_create_users" @(authenticationProviderTypesId == "ADFS" ? "disabled=\"disabled\"" : "") name="auto_create_users" type="checkbox" @(Model.autoCreateUsers ? "checked=\"checked\"" : "") /><span class="label"></span>
+                        <input id="auto_create_users" @((authenticationProviderTypesId == "ADFS" || authenticationProviderTypesId == "SAML") ? "disabled=\"disabled\"" : "") name="auto_create_users" type="checkbox" @(Model.autoCreateUsers ? "checked=\"checked\"" : "") /><span class="label"></span>
                     </label>
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
                     <textarea class="alwaysHidden">@Resource.MC_AuthenticationProvidersHelpAutoCreateUsers</textarea>
@@ -166,6 +167,36 @@
                     @Html.TextBoxFor(model => model.identity, new { @class = "required txtLarge", @name = "identity", maxlength = 200 })
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
                     <textarea class="alwaysHidden">@Resource.MC_AuthenticationProvidersHelpIdentity</textarea>
+                </p>
+
+            </div>
+
+            <div class="contentSectionInfoItem" style="display:@showSAML">
+                <label>@Resource.MC_IdentityProviderIssuer:</label>
+                <p>
+                    @Html.TextBoxFor(model => model.identityProviderIssuer, new { @class = "required txtLarge", @name = "identity_provider_issuer", maxlength = 200 })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_AuthenticationProvidersHelpIdentityProviderIssuer</textarea>
+                </p>
+
+            </div>
+
+            <div class="contentSectionInfoItem" style="display:@showSAML">
+                <label>@Resource.MC_IdentityProviderSingleSignOnUrl:</label>
+                <p>
+                    @Html.TextBoxFor(model => model.identityProviderSingleSignOnUrl, new { @class = "required txtLarge", @name = "identity_provider_single_sign_on_url", maxlength = 200 })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_AuthenticationProvidersHelpIdentityProviderSingleSignOnUrl</textarea>
+                </p>
+
+            </div>
+
+            <div class="contentSectionInfoItem" style="display:@showSAML">
+                <label>@Resource.MC_IdentityProviderCertificateString:</label>
+                <p>
+                    @Html.TextBoxFor(model => model.identityProviderCertificateString, new { @class = "required txtLarge", @name = "identity_provider_certificate_string", maxlength = 2000 })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_AuthenticationProvidersHelpIdentityProviderCertificateString</textarea>
                 </p>
 
             </div>
