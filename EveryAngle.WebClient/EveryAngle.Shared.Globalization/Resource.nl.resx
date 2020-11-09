@@ -3311,7 +3311,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>unlimited</value>
   </data>
   <data name="MC_ODataLogin" xml:space="preserve">
-    <value>Connect to OData</value>
+    <value>Connect to ODATA/ODBC/JDBC (Pull)</value>
   </data>
   <data name="WeekFormat" xml:space="preserve">
     <value>Wk {0} van {1}</value>

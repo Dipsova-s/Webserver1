@@ -775,7 +775,7 @@
     <value>Angle automation</value>
   </data>
   <data name="MC_Label_ODataService" xml:space="preserve">
-    <value>OData service</value>
+    <value>ODATA/ODBC/JDBC (Pull) service</value>
   </data>
   <data name="Label_Angle_Export_HeaderFormat" xml:space="preserve">
     <value>Format d'en-tête</value>
