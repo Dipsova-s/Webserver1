@@ -393,8 +393,22 @@
         }, 100);
     };
     logpopup.RefreshCsl = function () {
-        $('#SystemLogGrid').data('kendoGrid').dataSource.read();
-        $('#SystemLogGrid').data('kendoGrid').refresh();
+        $('#SystemLogGrid').data('kendoGrid').dataSource.read().fail(function (xhr, status, error) {
+            if (error !== 'abort') {
+                setEnableLogPopup(false);
+                var msg = $(MC.ajax.getErrorMessage(xhr, null, error));
+                    msg.filter('p').append(
+                        $('<a class="btnRetry" />')
+                            .text(Localization.Retry)
+                            .on('click', function () {
+                                grid.dataSource._requestInProgress = false;
+                                grid.dataSource.read();
+                            })
+                    );
+                grid.content.prepend($('<div class="k-grid-error" />').html(msg));
+                MC.ajax.setErrorDisable(xhr, status, error, null);
+            }
+        });
     };
     logpopup.RefreshLog = function () {
         var fullPath = MC.ui.logpopup.LogFullPath;
@@ -406,9 +420,18 @@
             url: MC.ui.logpopup.GetLogUri,
             parameters: query,
             timeout: 300000
-        }).done(function (response) {
-                response = '<pre>' + response + '</pre>' + '<hr/>';
-                $('#LogFileDetails .logDetails').html(response);
+        })
+        .fail(function (xhr, status, error) {
+            if (error !== 'abort') {
+                setEnableLogPopup(false);
+                var msg = $(MC.ajax.getErrorMessage(xhr, null, error));
+                $('#LogFileDetails .logDetails').addClass('fail').html(msg);
+                MC.ajax.setErrorDisable(xhr, status, error, null);
+            }
+        })
+        .done(function (response) {
+            response = '<pre>' + response + '</pre>' + '<hr/>';
+            $('#LogFileDetails .logDetails').html(response);
         });
     };
     logpopup.ScrollToTopLog = function () {

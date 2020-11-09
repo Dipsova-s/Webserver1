@@ -2195,27 +2195,27 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     font-size: 11px;
 }
 .RefreshLog {
-    background-image: url(../images/icons/Refresh.svg);
+    background-image: url(../images/icons/icon_refresh.svg);
 }
 
 .RefreshLog:hover {
-    background-image: url(../images/icons/Refresh_hover.svg);
+    background-image: url(../images/icons/icon_refresh_hover.svg);
 }
 
 .ScrollToBottom {
-    background-image: url(../images/icons/ScrollToBottom.svg);
+    background-image: url(../images/icons/icon_scroll_to_bottom.svg);
 }
 
 .ScrollToBottom:hover {
-    background-image: url(../images/icons/ScrollToBottom_hover.svg);
+    background-image: url(../images/icons/icon_scroll_to_bottom_hover.svg);
 }
 
 .ScrollToTop {
-    background-image: url(../images/icons/ScrollToTop.svg);
+    background-image: url(../images/icons/icon_scroll_to_top.svg);
 }
 
 .ScrollToTop:hover {
-    background-image: url(../images/icons/ScrollToTop_hover.svg);
+    background-image: url(../images/icons/icon_scroll_to_top_hover.svg);
 }
 
 .ScrollToBottom:not(.disabled):hover, .ScrollToTop:not(.disabled):hover, .RefreshLog:hover {
