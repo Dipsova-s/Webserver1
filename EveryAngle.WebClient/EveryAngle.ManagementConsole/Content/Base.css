@@ -1603,7 +1603,7 @@ table.grid tbody td:first-child {
     position: relative;
 }
 
-.gridToolbarFilter input, .gridToolbarFilterCsl input {
+.gridToolbarFilter input{
     padding-right: 25px;
     width: 165px;
     padding-top: 0;
@@ -1611,7 +1611,7 @@ table.grid tbody td:first-child {
     min-height: 24px;
 }
 
-.gridToolbarFilter .icon-filter, .gridToolbarFilterCsl .icon-filter {
+.gridToolbarFilter .icon-filter {
     position: absolute;
     right: 6px;
     top: 6px;
@@ -1620,17 +1620,21 @@ table.grid tbody td:first-child {
     line-height: 1;
 }
 
-.gridToolbarFilter .icon-filter:before, .gridToolbarFilterCsl .icon-filter:before {
+.gridToolbarFilter .icon-filter:before {
     font-family: 'WebClientIco';
     content: "\e90b";
 }
 
-.gridToolbarFilterCsl .icon-filter {
+.gridToolbarFilter.codeSiteLog{
+    position:static;
+}
+
+.codeSiteLog .icon-filter {
     right: 14px;
     top: 16px;
 }
 
-.gridToolbarFilter .loader-spinner-inline, .gridToolbarFilterCsl .loader-spinner-inline {
+.gridToolbarFilter .loader-spinner-inline {
     position: absolute;
     right: 4px;
     top: 4px;
