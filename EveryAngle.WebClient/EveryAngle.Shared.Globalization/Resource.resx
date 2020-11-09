@@ -5218,6 +5218,15 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
   <data name="MC_Identity" xml:space="preserve">
     <value>Identity</value>
   </data>
+  <data name="MC_IdentityProviderIssuer" xml:space="preserve">
+    <value>Identity provider issuer</value>
+  </data>
+  <data name="MC_IdentityProviderSingleSignOnUrl" xml:space="preserve">
+    <value>Identity provider single sign on URL</value>
+  </data>
+  <data name="MC_IdentityProviderCertificateString" xml:space="preserve">
+    <value>Identity provider certificate string</value>
+  </data>
   <data name="MC_SyncRolesToGroups" xml:space="preserve">
     <value>Sync roles to groups</value>
   </data>
@@ -5261,7 +5270,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Drop here to move filter to Angle.</value>
   </data>
   <data name="MC_ADFSRequires" xml:space="preserve">
-    <value>ADFS requires the automatic creation of users</value>
+    <value>ADFS and SAML require the automatic creation of users</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
     <value>Move filter to Angle?&lt;br/&gt;
@@ -6006,6 +6015,15 @@ An Active Directory browsing tool can help you find the correct DN syntax for th
     <value>Enter the identity of the ADFS.&lt;br&gt;
 The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;address of service&amp;gt;, for example: https://ea2auth.&amp;lt;client-domain name&amp;gt;.</value>
   </data>
+  <data name="MC_AuthenticationProvidersHelpIdentityProviderIssuer" xml:space="preserve">
+    <value>Enter the SAML identity provider issuer.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentityProviderSingleSignOnUrl" xml:space="preserve">
+    <value>Enter the SAML identity provider single sign on URL.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentityProviderCertificateString" xml:space="preserve">
+    <value>Enter the SAML identity provider certificate string.</value>
+  </data>
   <data name="MC_AuthenticationProvidersHelpProvider" xml:space="preserve">
     <value>This setting indicates whether the authentication provider is an active provider or not.</value>
   </data>
@@ -6018,7 +6036,7 @@ During a login challenge resulting from a URL link into the instance that requir
   </data>
   <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
     <value>The type of the authentication provider.&lt;br&gt;
-Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
+The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML).</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
     <value>Notifications</value>

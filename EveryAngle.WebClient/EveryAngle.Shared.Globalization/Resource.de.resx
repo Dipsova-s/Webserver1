@@ -5257,7 +5257,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Hier ablegen, um Filter zum Angle zu verschieben.</value>
   </data>
   <data name="MC_ADFSRequires" xml:space="preserve">
-    <value>ADFS requires the automatic creation of users</value>
+    <value>ADFS and SAML require the automatic creation of users</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
     <value>Filter zum Angle verschieben?&lt;br/&gt; Dadurch werden alle Änderungen am Angle umgehend gespeichert.&lt;br/&gt; Möchten Sie fortfahren?</value>
@@ -6012,7 +6012,7 @@ During a login challenge resulting from a URL link into the instance that requir
   </data>
   <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
     <value>The type of the authentication provider.&lt;br&gt;
-Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
+The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML).</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
     <value>Benachrichtigungen</value>
