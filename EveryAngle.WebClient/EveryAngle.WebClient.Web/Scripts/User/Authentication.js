@@ -107,17 +107,6 @@ function Authentication() {
 
                 window.UserLogin(usernameElement.val(), passwordElement.val());
             });
-
-        jQuery('#oldPassword, #newPassword, #ComparedPassword')
-            .off('keypress')
-            .on('keypress', function (event) {
-                if (event.which === 13)
-                    self.SubmitChangePassword();
-            });
-
-        jQuery('#ChangePasswordButton')
-            .off('click')
-            .on('click', self.SubmitChangePassword);
     };
     _self.CleanupAuthorizedData = function () {
         // cleanup old cookies
@@ -162,12 +151,7 @@ function Authentication() {
         if (username && password) {
             var loginDeferred = jQuery.Deferred();
             loginDeferred.fail(function (xhr, status, error) {
-                if (xhr.responseJSON && xhr.responseJSON.password_expired) {
-                    _self.HandlePasswordExpired(true, xhr.responseJSON.message);
-                }
-                else {
-                    _self.ShowErrorMessage(xhr, status, error);
-                }
+                _self.ShowErrorMessage(xhr, status, error);
             });
             loginDeferred.done(function (redirectUrl) {
                 if (redirectUrl) {
@@ -538,54 +522,6 @@ function Authentication() {
         _self.SetControlFocus();
     };
 
-    self.ChangePassword = function (username, oldpassword, newpassword) {
-
-        username = jQuery.trim(username);
-        oldpassword = jQuery.trim(oldpassword);
-
-        if (username && oldpassword && newpassword) {
-            var changePasswordDeferred = jQuery.Deferred();
-            changePasswordDeferred.fail(function (xhr, status, error) {
-                _self.ShowErrorMessage(xhr, status, error);
-                jQuery('#UserName').attr('disabled', true);
-            });
-
-            changePasswordDeferred.done(function () {
-                jQuery('#ErrorMessage').removeClass('info').addClass('success').text(changePasswordSuccessful);
-                setTimeout(function () {
-                    _self.HandlePasswordExpired(false);
-                }, 1000);
-
-
-            });
-            changePasswordDeferred.progress(function (status) {
-                jQuery('#ErrorMessage').text(status);
-            });
-            changePasswordDeferred.promise();
-
-            errorHandlerModel.Enable(false);
-
-            var newPasswordContent = { 'user': username, 'oldpassword': oldpassword, 'newpassword': newpassword };
-            var changePasswordUrl = 'password/changepassword';
-
-            jQuery('#ErrorMessage').text('');
-            changePasswordDeferred.notify(changingPassword);
-
-            UpdateDataToWebService(changePasswordUrl, newPasswordContent)
-                .fail(changePasswordDeferred.reject)
-                .done(function () {
-                    changePasswordDeferred.resolve();
-                });
-
-            jQuery('#ErrorMessage').addClass('info').show();
-            jQuery('#UserName, #Password, #LoginButton').prop('disabled', true);
-
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
     _self.CheckSessionPrivileges = function () {
         var privilegeDeferred = jQuery.Deferred();
         jQuery.when(privilegesViewModel.Load(true))
@@ -616,55 +552,6 @@ function Authentication() {
     };
     _self.GetNoAccessToSystemMessage = function () {
         return Localization.DonotHaveWCAndMCAuthrozation || window.userCannotAccess;
-    };
-
-    self.SubmitChangePassword = function () {
-        var usernameElement = jQuery('#UserName');
-        var oldPasswordElement = jQuery('#oldPassword');
-        var newPasswordElement = jQuery('#newPassword');
-        var comparedPasswordElement = jQuery('#ComparedPassword');
-        if (jQuery.trim(usernameElement.val()) === '' || jQuery.trim(oldPasswordElement.val()) === '' || jQuery.trim(newPasswordElement.val()) === '' || jQuery.trim(comparedPasswordElement.val()) === '') {
-            jQuery('#ErrorMessage').show().removeClass('info').text(pleaseEnterYourPasswords);
-        }
-        else if (jQuery.trim(newPasswordElement.val()) !== jQuery.trim(comparedPasswordElement.val())) {
-            jQuery('#ErrorMessage').show().removeClass('info').text(passwordDoesNotMatch);
-        }
-        else {
-            self.ChangePassword(usernameElement.val(), oldPasswordElement.val(), newPasswordElement.val());
-        }
-    };
-
-    _self.HandlePasswordExpired = function (isChangePassword, errorMessage) {
-        jQuery('#ErrorMessage').removeClass('info success').text('');
-        if (isChangePassword) {
-            jQuery('#UserName,#LoginButton').attr('disabled', true);
-            jQuery('#ErrorMessage').hide().removeClass('info').text(errorMessage);
-            jQuery('#oldPassword,#newPassword,#ComparedPassword').val('');
-
-            jQuery('#CancelButtonPassword').off('click').on('click', function () {
-                _self.HandlePasswordExpired(false);
-            });
-            jQuery('#LoginContainer').addClass('scene scene1');
-            setTimeout(function () {
-                jQuery('#LoginContainer').addClass('scene2');
-                jQuery('#ErrorMessage').show();
-            }, 100);
-            setTimeout(function () {
-                jQuery('#LoginContainer').addClass('ChangePasswordContainer').removeClass('scene scene1 scene2');
-            }, 200);
-        }
-        else {
-            jQuery('#UserName,#Password,#LoginButton').attr('disabled', false);
-            jQuery('#LoginContainer').addClass('scene scene3');
-            jQuery('#Password').val('');
-
-            setTimeout(function () {
-                jQuery('#LoginContainer').addClass('scene4').removeClass('ChangePasswordContainer');
-            }, 100);
-            setTimeout(function () {
-                jQuery('#LoginContainer').removeClass('scene scene3 scene4');
-            }, 200);
-        }
     };
 };
 

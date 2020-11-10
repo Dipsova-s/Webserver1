@@ -116,111 +116,6 @@ WriteAttribute("placeholder", Tuple.Create(" placeholder=\"", 433), Tuple.Create
 
 WriteLiteral(" />\r\n        \r\n        <div");
 
-WriteLiteral(" class=\"ChangePaswordSection ChangePassword\"");
-
-WriteLiteral(">\r\n            <input");
-
-WriteLiteral(" id=\"oldPassword\"");
-
-WriteLiteral(" name=\"wc_oldPassword\"");
-
-WriteLiteral(" class=\"Password oldPassword\"");
-
-WriteLiteral(" type=\"password\"");
-
-WriteLiteral(" tabindex=\"2\"");
-
-WriteAttribute("placeholder", Tuple.Create(" placeholder=\"", 687), Tuple.Create("\"", 754)
-            
-            #line 8 "..\..\Views\User\LoginPage.cshtml"
-                                                  , Tuple.Create(Tuple.Create("", 701), Tuple.Create<System.Object, System.Int32>(EveryAngle.Shared.Globalization.Resource.OldPassword
-            
-            #line default
-            #line hidden
-, 701), false)
-);
-
-WriteLiteral(" />\r\n            <input");
-
-WriteLiteral(" id=\"newPassword\"");
-
-WriteLiteral(" name=\"wc_newPassword\"");
-
-WriteLiteral(" class=\"Password newPassword\"");
-
-WriteLiteral(" type=\"password\"");
-
-WriteLiteral(" tabindex=\"3\"");
-
-WriteAttribute("placeholder", Tuple.Create(" placeholder=\"", 875), Tuple.Create("\"", 942)
-            
-            #line 9 "..\..\Views\User\LoginPage.cshtml"
-                                                  , Tuple.Create(Tuple.Create("", 889), Tuple.Create<System.Object, System.Int32>(EveryAngle.Shared.Globalization.Resource.NewPassword
-            
-            #line default
-            #line hidden
-, 889), false)
-);
-
-WriteLiteral(" />\r\n            <input");
-
-WriteLiteral(" id=\"ComparedPassword\"");
-
-WriteLiteral(" name=\"wc_newComparedPassword\"");
-
-WriteLiteral(" class=\"Password ComparedPassword\"");
-
-WriteLiteral(" type=\"password\"");
-
-WriteLiteral(" tabindex=\"4\"");
-
-WriteAttribute("placeholder", Tuple.Create(" placeholder=\"", 1081), Tuple.Create("\"", 1152)
-            
-            #line 10 "..\..\Views\User\LoginPage.cshtml"
-                                                                   , Tuple.Create(Tuple.Create("", 1095), Tuple.Create<System.Object, System.Int32>(EveryAngle.Shared.Globalization.Resource.ConfirmPassword
-            
-            #line default
-            #line hidden
-, 1095), false)
-);
-
-WriteLiteral(" />\r\n            <input");
-
-WriteLiteral(" id=\"ChangePasswordButton\"");
-
-WriteLiteral(" class=\"btn btn-primary\"");
-
-WriteLiteral(" type=\"button\"");
-
-WriteAttribute("value", Tuple.Create(" value=\"", 1239), Tuple.Create("\"", 1303)
-            
-            #line 11 "..\..\Views\User\LoginPage.cshtml"
-         , Tuple.Create(Tuple.Create("", 1247), Tuple.Create<System.Object, System.Int32>(EveryAngle.Shared.Globalization.Resource.ChangePassword
-            
-            #line default
-            #line hidden
-, 1247), false)
-);
-
-WriteLiteral("  tabindex=\"5\"");
-
-WriteLiteral(" />\r\n            <a");
-
-WriteLiteral(" id=\"CancelButtonPassword\"");
-
-WriteLiteral(">");
-
-            
-            #line 12 "..\..\Views\User\LoginPage.cshtml"
-                                    Write(EveryAngle.Shared.Globalization.Resource.Cancel);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</a>\r\n        </div>\r\n\r\n");
-
-WriteLiteral("<div");
-
 WriteLiteral(" class=\"LogoContainer\"");
 
 WriteLiteral(">\r\n            <div");
@@ -235,14 +130,14 @@ WriteLiteral(" class=\"btn btn-primary\"");
 
 WriteLiteral(" type=\"button\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1724), Tuple.Create("\"", 1779)
+WriteAttribute("value", Tuple.Create(" value=\"", 683), Tuple.Create("\"", 738)
             
-            #line 19 "..\..\Views\User\LoginPage.cshtml"
-, Tuple.Create(Tuple.Create("", 1732), Tuple.Create<System.Object, System.Int32>(EveryAngle.Shared.Globalization.Resource.Login
+            #line 10 "..\..\Views\User\LoginPage.cshtml"
+, Tuple.Create(Tuple.Create("", 691), Tuple.Create<System.Object, System.Int32>(EveryAngle.Shared.Globalization.Resource.Login
             
             #line default
             #line hidden
-, 1732), false)
+, 691), false)
 );
 
 WriteLiteral(" tabindex=\"3\"");
@@ -256,7 +151,7 @@ WriteLiteral(" style=\"display: none;\"");
 WriteLiteral(">");
 
             
-            #line 21 "..\..\Views\User\LoginPage.cshtml"
+            #line 12 "..\..\Views\User\LoginPage.cshtml"
                                                Write(EveryAngle.Shared.Globalization.Resource.Cancel);
 
             

@@ -106,14 +106,6 @@
     background: transparent url('../../images/login/login_logo.svg') center center no-repeat;
 }
 
-#LoginContainer.ChangePasswordContainer h1 {
-    margin-top: 20px;
-}
-
-#LoginContainer.ChangePasswordContainer .UserName {
-    margin-top: 13px;
-}
-
 .LogoContainer {
     position: absolute;
     width: 221px;
@@ -150,18 +142,7 @@
     margin-top: 50px;
 }
 
-#LoginContainer .ChangePassword,
-#LoginContainer.ChangePasswordContainer #Password,
-#LoginContainer.ChangePasswordContainer .LoginButton {
-    display: none;
-}
-
-#LoginContainer.ChangePasswordContainer .ChangePassword {
-    display: block;
-}
-
-#LoginContainer #LoginButton,
-#LoginContainer #ChangePasswordButton {
+#LoginContainer #LoginButton {
     display: inline-block;
     margin-top: 26px;
     font-size: 20px;
@@ -171,17 +152,8 @@
     border-radius: 4px;
 }
 
-#LoginContainer #LoginButton:disabled,
-#LoginContainer #ChangePasswordButton:disabled {
+#LoginContainer #LoginButton:disabled {
     opacity: .6;
-}
-
-#LoginContainer #ChangePasswordButton {
-    width: 300px;
-}
-
-#LoginContainer.ChangePasswordContainer #LoginButton {
-    display: none;
 }
 
 #CancelButton,
@@ -196,8 +168,7 @@
     text-align: center;
 }
 
-#LoginContainer.scene input,
-#LoginContainer.scene .ChangePassword {
+#LoginContainer.scene input {
     left: 0;
     transition: left .1s ease-in-out;
 }
@@ -206,23 +177,12 @@
     left: -500px;
 }
 
-#LoginContainer.scene2 input,
-#LoginContainer.scene2 .ChangePassword {
+#LoginContainer.scene2 input {
     left: 500px;
     transition: none;
 }
 
-#LoginContainer.scene2 .ChangePassword {
-    display: block;
-}
-
-#LoginContainer.ChangePasswordContainer input,
-#LoginContainer.ChangePasswordContainer .ChangePassword {
-    left: 0;
-}
-
-#LoginContainer.scene3 input,
-#LoginContainer.scene3 .ChangePassword {
+#LoginContainer.scene3 input {
     left: 500px;
 }
 
