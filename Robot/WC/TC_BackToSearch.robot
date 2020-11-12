@@ -6,7 +6,8 @@ Force Tags          acc_wc_s
 
 *** Test Cases ***
 Verify Back To Search
-    [Tags]  acc_wc_aci_s
+    [Documentation]     This test verifies whether search text is remembered in search box of search page
+    [Tags]  acc_wc_aci_s    TC_C231294
     Search By Text And Expect In Search Result    Angle For General Test
     Open New Seach Page
     Switch Window    MAIN
