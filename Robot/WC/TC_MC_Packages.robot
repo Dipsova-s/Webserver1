@@ -36,7 +36,7 @@ Create new package and verify the package is created successfully
     Edit the GUI Export Package options     ${packageName}
     Click on OK button in Create Package popup
     Verify Uploaded Package And Filter The Package  ${packageName}
-    Verify the package data in packages grid    model   ${packageName}
+    Verify the package data in packages grid    model   ${packageName}      angles, dashboards, labels, model_authorizations
     Delete Uploaded Package     ${packageName}
 
 Activate and Deactivate the uploaded package in models
@@ -51,7 +51,7 @@ Activate and Deactivate the uploaded package in models
     Verify the Model Package data in Model Packages grid    Active      ${packageName}
     Go To Package Page
     Verify Filtering The Package    ${packageName}
-    Verify the package data in packages grid    EA2_800     ${packageName}
+    Verify the package data in packages grid    EA2_800     ${packageName}      angles, labels, model_authorizations
     Go To Models Package Page  EA2_800
     Deactivate Package in Model package grid    ${packageName}
     Click Inactive Radio Button
