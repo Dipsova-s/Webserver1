@@ -82,8 +82,8 @@ Verify Filtering The Package
     Element Should Contain    ${tbGridPackage}    ${filteredPackageName}
 
 Verify the package data in packages grid
-    [Arguments]     ${packageModelName}     ${packageName}
-    Verify Package data in Packages grid  ${packageName}  ${packageName}  2.0  model  angles, labels, model_authorizations
+    [Arguments]     ${packageModelName}     ${packageName}      ${packageGridContent}
+    Verify Package data in Packages grid  ${packageName}  ${packageName}  2.0  model  ${packageGridContent}
 
 Verify Uploaded Package And Filter The Package
     [Arguments]     ${packageName}
