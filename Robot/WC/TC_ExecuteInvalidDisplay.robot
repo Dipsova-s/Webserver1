@@ -8,7 +8,8 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Execute Invalid Angle
-    [Tags]  acc_wc_aci
+    [Documentation]     This test verifies Invalid Angle Settings and options.
+    [Tags]  acc_wc_aci  TC_C231293
     [Setup]  Import Angle By API  /models/1  ANGLE_Execute_Invalid.json  user=${Username}
 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_EXECUTE_INVALID
