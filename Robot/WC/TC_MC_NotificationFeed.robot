@@ -7,5 +7,7 @@ Force Tags          MC    acc_mc
 
 *** Test Cases ***
 Verify Notification Feed
+    [Documentation]   Verifying EA notifications
+    [Tags]  acc_wc_aci   C93619
     Wait Notification Feed Loaded
     Check Notification Feed On Topbar

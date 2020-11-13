@@ -7,7 +7,8 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Notification Feed
-    [Tags]  acc_wc_aci
+    [Documentation]   Verifying EA Notifications in WC Welcome page 
+    [Tags]  acc_wc_aci    C93619
     Wait Notification Feed Loaded
     Check Notification Feed On Welcome Page
     Search By Text And Expect In Search Result    Angle For General Test
