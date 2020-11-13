@@ -7,7 +7,8 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Field Setting All Field Types
-    [Tags]  acc_wc_aci
+    [Documentation]     This test verifies editing and saving already present fields under Pivot options
+    [Tags]  acc_wc_aci  TC_C231309
     Search By Text And Expect In Search Result    Angle For General Test
     Execute First Search Item In Edit Mode
     Change Display By Name    Test Pivot All Fields
