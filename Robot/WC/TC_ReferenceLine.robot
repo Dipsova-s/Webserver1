@@ -8,7 +8,7 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Validate 'Clear All' Functionality of Reference line 
-    [Tags]   TC_C229035
+    [Tags]   TC_C231428
     [Documentation]     Validate 'Clear All' Functionality of Reference line
       
     Search By Text And Expect In Search Result    Angle For General Test
@@ -27,7 +27,7 @@ Validate 'Clear All' Functionality of Reference line
     Validate Clear All button is disabled
 
 Validate color and opacity of the reference line and band  
-    [Tags]   TC_C229559
+    [Tags]   TC_C231428
     [Documentation]     Validate color and opacity of the reference line and band 
 
     Search By Text And Expect In Search Result    Angle For General Test
