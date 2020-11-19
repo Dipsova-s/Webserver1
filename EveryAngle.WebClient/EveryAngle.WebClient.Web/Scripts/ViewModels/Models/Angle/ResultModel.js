@@ -282,7 +282,10 @@ function ResultViewModel() {
         xhr = xhr || {};
         errorHandlerModel.IgnoreAjaxError(xhr);
 
-        var message = xhr.status === 404
+        var regExpForAngleNeedsToBeReExecuted = /Result [0-9]+ not found at Model server \(ID: [a-zA-z0-9_]+, URI: https:\/\/[a-zA-z0-9\.]+:[0-9]+ \); Status: Down\./;
+        var ifAngleNeedsToBeReExecuted = regExpForAngleNeedsToBeReExecuted.test(xhr.responseJSON.message);
+
+        var message = (xhr.status === 404 && ifAngleNeedsToBeReExecuted)
             ? Localization.MessageAngleNeedsToBeReExecuted
             : errorHandlerModel.GetAreaErrorMessage(xhr.responseText);
         var callbackModelServer = function () {
