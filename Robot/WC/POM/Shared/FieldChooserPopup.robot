@@ -14,6 +14,9 @@ ${divFieldChooserDetail}         css=.fieldChooserGridContainer .detail
 ${divFieldSource}                jquery=#NewColumnFilter .FilterTab-metadata:eq(0) 
 ${chkSourceSelf}                 jquery=#source_Checkbox input:eq(0)
 
+${fieldTypeSectionInChooseFieldPopUp}     xpath=//div[@id='fieldtype']/i[2]
+${percentageChkInFieldType}               xpath=//input[@id='percentage']/parent::label/span
+
 *** Keywords ***
 Wait Until Field Chooser Loaded
     Sleep    ${TIMEOUT_GENERAL}
