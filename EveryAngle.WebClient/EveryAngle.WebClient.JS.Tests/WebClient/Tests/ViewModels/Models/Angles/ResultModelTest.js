@@ -25,20 +25,20 @@ describe("ResultModel", function () {
             spyOn(errorHandlerModel, 'ShowAreaError');
         });
         it('should set error for 404 status code', function () {
-            resultModel.SetRetryPostResult({ status: 404, responseJSON: { message: "Result 3 not found at Model server (ID: EA2_800_SERVER1, URI: https://aa.aa.aa:60010 ); Status: Down."} });
+            resultModel.SetRetryPostResult({ status: 404 });
             expect(errorHandlerModel.IgnoreAjaxError).toHaveBeenCalled();
             expect(errorHandlerModel.GetAreaErrorMessage).not.toHaveBeenCalled();
             expect(errorHandlerModel.ShowAreaError).toHaveBeenCalled();
         });
         it('should set error for other status code', function () {
-            resultModel.SetRetryPostResult({ responseJSON: {message: "some other error message"} });
+            resultModel.SetRetryPostResult();
             expect(errorHandlerModel.IgnoreAjaxError).toHaveBeenCalled();
             expect(errorHandlerModel.GetAreaErrorMessage).toHaveBeenCalled();
             expect(errorHandlerModel.ShowAreaError).toHaveBeenCalled();
         });
         it('should set error for 200 status code and sorting limit exceeded', function () {
             var sortErrorMessage = "This Angle cannot be sorted. The maximum number of objects to sort is 1000";
-            resultModel.SetRetryPostResult({ status: 200, responseText: sortErrorMessage, responseJSON: {message: "Some error message"} });
+            resultModel.SetRetryPostResult({ status: 200, responseText: sortErrorMessage });
             expect(errorHandlerModel.IgnoreAjaxError).toHaveBeenCalled();
             expect(errorHandlerModel.GetAreaErrorMessage).toHaveBeenCalled();
             expect(errorHandlerModel.ShowAreaError).toHaveBeenCalled();
