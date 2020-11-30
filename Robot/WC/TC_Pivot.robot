@@ -19,6 +19,6 @@ Verify Pivot Display Drilldown Test
 
 Verify Pivot Percentages
     [Documentation]  This test case is to verify pivot percentage in pivot display
-    [Tags] TC_C231391
+    [Tags]  TC_C231391
     Pivot Percentages
     [Teardown]    Go to Search Page

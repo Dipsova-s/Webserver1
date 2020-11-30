@@ -6,6 +6,8 @@ Force Tags          acc_wc_s
 
 *** Test Cases ***
 Verify Search SidePanel
+    [Documentation]     This test case is to verify the previous state of side panel (opened/closed) after re-login
+    [Tags]  TC_C231431
     Open Side Panel
     Click Toggle Side Panel
     Logout
