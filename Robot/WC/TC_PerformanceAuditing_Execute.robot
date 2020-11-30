@@ -8,6 +8,8 @@ Force Tags          performance_s    audit_s
 
 *** Test Cases ***
 Verify Audit: Execute Angle action performance
+    [Documentation]     This test audits "Execute Angle action" performance
+    [Tags]      TC_C231824
     @{itemList1}    Execute Angle action performance    Current Server
     @{itemList2}    Execute Angle action performance    Base Server
 

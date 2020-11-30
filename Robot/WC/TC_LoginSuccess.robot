@@ -8,6 +8,8 @@ Force Tags          smk_wc_s
 
 *** Test Cases ***
 Verify Login Success And Currect Session
+    [Documentation]   Checking user can login to WC and ITMC with valid credentials.
+    [Tags]     TC_C1
     Login To WC By Admin User
     ${cookieValueWC}    Get Cookie    EASECTOKEN
     Click User Menu
