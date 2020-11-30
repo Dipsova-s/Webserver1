@@ -424,7 +424,7 @@
     <value>System: </value>
   </data>
   <data name="ThisIsAPrivateDisplayNotAvailableForOtherUsers" xml:space="preserve">
-    <value>This is a Private Display, not available to other users.</value>
+    <value>This is a private Display, not available to other users.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>

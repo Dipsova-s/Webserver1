@@ -859,7 +859,7 @@
     <value>Enregistrer sous...</value>
   </data>
   <data name="SaveAsPrivate" xml:space="preserve">
-    <value>Enregistrer comme Angle Privé</value>
+    <value>Enregistrer comme Angle privé</value>
   </data>
   <data name="ListFormatEnumLongName" xml:space="preserve">
     <value>Long nom</value>
