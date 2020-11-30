@@ -424,7 +424,7 @@
     <value>Sistema: </value>
   </data>
   <data name="ThisIsAPrivateDisplayNotAvailableForOtherUsers" xml:space="preserve">
-    <value>Este es un Display personal, no está disponible para el resto de los usuarios.</value>
+    <value>Este es un Display Personal, no está disponible para el resto de los usuarios.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nombre de usuario</value>
@@ -859,7 +859,7 @@
     <value>Guardar como...</value>
   </data>
   <data name="SaveAsPrivate" xml:space="preserve">
-    <value>Guardar como Angle personal</value>
+    <value>Guardar como Angle Personal</value>
   </data>
   <data name="ListFormatEnumLongName" xml:space="preserve">
     <value>Nombre completo</value>
@@ -943,7 +943,7 @@
     <value>No implementado</value>
   </data>
   <data name="PersonalDefaultDisplay" xml:space="preserve">
-    <value>Display personal predeterminado</value>
+    <value>Display Personal Predeterminado</value>
   </data>
   <data name="AngleId" xml:space="preserve">
     <value>ID de Angle</value>
@@ -1201,7 +1201,7 @@
     <value>Número de etiquetas de búsqueda:</value>
   </data>
   <data name="SetDefaultDisplay" xml:space="preserve">
-    <value>Definir Display predeterminado:</value>
+    <value>Definir Display Predeterminado:</value>
   </data>
   <data name="SetDefaultPublicOrPrivate" xml:space="preserve">
     <value>Definir predeterminado en Publicado o Personal:</value>
@@ -1228,7 +1228,7 @@
     <value>Privilegios de Dashboard</value>
   </data>
   <data name="CreateEAPackage" xml:space="preserve">
-    <value>Descargar elementos</value>
+    <value>Descargar posiciones</value>
   </data>
   <data name="FileName" xml:space="preserve">
     <value>Nombre de archivo</value>
@@ -1579,10 +1579,10 @@
     <value>Seleccione al menos una posición</value>
   </data>
   <data name="Info_CannotPublishedDashboardBecausePrivateAngleDisplay" xml:space="preserve">
-    <value>El Dashboard no se puede publicar, porque contiene Displays personales.&lt;br/&gt;&lt;br/&gt;Haga clic en Aceptar para que le redirijan a la ficha Definición. A continuación, haga clic en Ir a Angle para acceder al Display que desea publicar.</value>
+    <value>El Dashboard no se puede publicar porque contiene Displays Personales.&lt;br/&gt;&lt;br/&gt;Haga clic en Aceptar para que le redirijan a la ficha Definición. A continuación, haga clic en Ir a Angle para acceder al Display que desea publicar.</value>
   </data>
   <data name="Info_CannotSetPrivateDisplayToDefaultDisplay" xml:space="preserve">
-    <value>Un Display personal no se puede definir como el Display predeterminado</value>
+    <value>Un Display Personal no se puede definir como el Display Predeterminado</value>
   </data>
   <data name="Info_DashboardItemsWillNotAffect" xml:space="preserve">
     <value>Las posiciones del Dashboard no se verán afectadas por esta medida.</value>
@@ -3367,7 +3367,7 @@
     <value>El Angle se ha borrado o se ha ocultado. Haga clic en Aceptar para volver a la página de búsqueda.</value>
   </data>
   <data name="ErrorAngleNoDefaultDisplay" xml:space="preserve">
-    <value>El Display predeterminado se ha borrado u ocultado. Cierre este mensaje emergente para actualizar.</value>
+    <value>El Display Predeterminado se ha borrado u ocultado. Cierre este mensaje emergente para actualizar.</value>
   </data>
   <data name="Info_ListDisplaysDeletedWhileProcess" xml:space="preserve">
     <value>Los Displays siguientes han fallado durante el procesamiento</value>
@@ -3653,7 +3653,7 @@ Are you sure you want to delete this model?</value>
     <value>Set all default Template fields to suggested {0}</value>
   </data>
   <data name="MC_SetAllDefaultTemplateFieldsToSuggested_Description" xml:space="preserve">
-    <value>Templates that are connected to an object in the object list, always have a default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these default Displays and Filters of that Template.</value>
+    <value>Templates that are connected to an object in the object list, always have a Default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these Default Displays and Filters of that Template.</value>
   </data>
   <data name="MC_SetDefaultBasicListFieldsToSuggested" xml:space="preserve">
     <value>Set default Basic List fields to suggested {0}</value>
@@ -4057,7 +4057,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Send notification on success</value>
   </data>
   <data name="MC_UseNonDefaultDisplaysAngles" xml:space="preserve">
-    <value>Use non-default displays on angles</value>
+    <value>Use non-default Displays on Angles</value>
   </data>
   <data name="MC_ActiveDirectorySizeLimit" xml:space="preserve">
     <value>Active directory size limit</value>
@@ -4480,7 +4480,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Allowed fields</value>
   </data>
   <data name="MC_AllowPrivateAngles" xml:space="preserve">
-    <value>Allow private angles</value>
+    <value>Allow Private Angles</value>
   </data>
   <data name="MC_Authorizations" xml:space="preserve">
     <value>Authorizations</value>
@@ -5257,7 +5257,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Colóquelo aquí para mover el filtro al Angle.</value>
   </data>
   <data name="MC_ADFSRequires" xml:space="preserve">
-    <value>ADFS and SAML require the automatic creation of users</value>
+    <value>ADFS requires the automatic creation of users</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
     <value>¿Mover el filtro al Angle?&lt;br/&gt; Esta acción guardará todos los cambios en el Angle inmediatamente.&lt;br/&gt; ¿Desea continuar?</value>
@@ -5381,13 +5381,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>¿Está seguro de que desea descargar {0} Angles individuales?</value>
   </data>
   <data name="UploadAngles" xml:space="preserve">
-    <value>Cargar elementos</value>
+    <value>Cargar posiciones</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Cargar informe elementos</value>
+    <value>Cargar informe posiciones</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
-    <value>Cargando elementos</value>
+    <value>Cargando posiciones</value>
   </data>
   <data name="UploadAngles_InvalideExtension" xml:space="preserve">
     <value>extensión de archivo no válida</value>
@@ -5399,10 +5399,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>archivo cargado no válido</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Seleccione elemento para cargar o arrástrelo aquí...</value>
+    <value>Seleccione posiciones para cargar o arrástrelo aquí...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
-    <value>Carga de elementos correcta {0} de {1}</value>
+    <value>Carga de posiciones correcta {0} de {1}</value>
   </data>
   <data name="FormatSetting_UseDefault" xml:space="preserve">
     <value>Usar predeterminado</value>
@@ -5588,7 +5588,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>unlimited</value>
   </data>
   <data name="MC_ODataLogin" xml:space="preserve">
-    <value>Connect to ODATA/ODBC/JDBC (Pull)</value>
+    <value>Connect to OData</value>
   </data>
   <data name="WeekFormat" xml:space="preserve">
     <value>Semana {0} de {1}</value>
@@ -6012,7 +6012,7 @@ During a login challenge resulting from a URL link into the instance that requir
   </data>
   <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
     <value>The type of the authentication provider.&lt;br&gt;
-The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML).</value>
+Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
     <value>Notificaciones</value>
@@ -6027,7 +6027,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Tipo de descarga</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Private" xml:space="preserve">
-    <value>La opción de descargar no está disponible porque la selección contiene Dashboards privados.</value>
+    <value>La opción de descargar no está disponible porque la selección contiene Dashboards Personales.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Cannot_Individually" xml:space="preserve">
     <value>Los Dashboards no se pueden descargar individualmente.</value>
@@ -6036,7 +6036,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>La opción de descargar no está disponible porque el usuario no está autorizado a gestionar este modelo.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_MultipleModel" xml:space="preserve">
-    <value>La opción de descargar no está disponible porque la selección contiene Dashboards de múltiples modelos.</value>
+    <value>La opción de descargar no está disponible porque la selección contiene Dashboards de varios modelos.</value>
   </data>
   <data name="AngleExport_TypePackage_Download_Angle_Individually" xml:space="preserve">
     <value>Haga clic en Aceptar para descargar individualmente los Angles/Templates seleccionados.</value>
@@ -6132,10 +6132,10 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Displays</value>
   </data>
   <data name="PublishSettings_WidgetsInvalid" xml:space="preserve">
-    <value>El Dashboard no se puede publicar. Publique primero todos los Displays personales.</value>
+    <value>El Dashboard no se puede publicar. Publique primero todos los Displays Personales.</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
-    <value>Go to Display details</value>
+    <value>Ir a Detalles de Display</value>
   </data>
   <data name="Ascending" xml:space="preserve">
     <value>ascendente</value>
@@ -6440,7 +6440,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Volver a ejecutar</value>
   </data>
   <data name="ReexecuteWithoutSorting" xml:space="preserve">
-    <value>Re-execute without sorting</value>
+    <value>Volver a ejecutar sin clasificación</value>
   </data>
   <data name="CloseSidebar" xml:space="preserve">
     <value>Cerrar barra lateral</value>
@@ -6455,7 +6455,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>approved</value>
   </data>
   <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
-    <value>Mostrar solo mis Displays privados</value>
+    <value>Mostrar solo mis Displays Personales</value>
   </data>
   <data name="AngleExport" xml:space="preserve">
     <value>Exportación Angle</value>
@@ -6466,7 +6466,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_DefaultApprovalStateDescription" xml:space="preserve">
     <value>The default Approval state of newly added Actions in Automation tasks.
 Actions can only be executed when the Approval state is "approved".
-The "manage system" privileges is required to change the Approval state of an Action.</value>
+The "manage system" privilege is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
     <value>Filtros y Jumps de Angle</value>
@@ -6490,21 +6490,27 @@ The "manage system" privileges is required to change the Approval state of an Ac
     <value>Ocultar grupo</value>
   </data>
   <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
-    <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>
+    <value>Este Filtro o Jump está en el nivel de Angle. Haga clic para cambiar a la ficha Angle para editar o eliminar</value>
   </data>
   <data name="MassChangeStatusAddTag" xml:space="preserve">
-    <value>Add tag "{0}"</value>
+    <value>Agregar etiqueta de usuario "{0}"</value>
   </data>
   <data name="MassChangeStatusRemoveTag" xml:space="preserve">
-    <value>Remove tag "{0}"</value>
+    <value>Eliminar etiqueta de usuario "{0}"</value>
+  </data>
+  <data name="MC_LogLevel" xml:space="preserve">
+    <value>Log level (Application Server)</value>
+  </data>
+  <data name="MC_LogLevelDescription" xml:space="preserve">
+    <value>Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
   </data>
   <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
-    <value>Confirmation required</value>
+    <value>Sujeto a confirmación</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Updating Displays used in Automation Task(s) will modify the action and might cause it to fail.</value>
+    <value>Al actualizar Displays utilizados en las Tareas de Automatización se modificará la acción y puede hacer que deje de funcionar.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
-    <value>Go to scheduled task</value>
+    <value>Ir a Tarea Programada</value>
   </data>
 </root>

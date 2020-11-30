@@ -424,7 +424,7 @@
     <value>Système : </value>
   </data>
   <data name="ThisIsAPrivateDisplayNotAvailableForOtherUsers" xml:space="preserve">
-    <value>Ceci est un Display Privé, non disponible pour les autres utilisateurs.</value>
+    <value>Ceci est un Display privé, non disponible pour les autres utilisateurs.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nom d'utilisateur</value>
@@ -826,7 +826,7 @@
     <value>Télécharger Launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Pour utiliser Go to SAP, cliquez pour télécharger et installer le Launcher Go to SAP sur votre poste de travail.</value>
+    <value>Pour utiliser Go to SAP, cliquez pour télécharger et installer le lanceur Go to SAP sur votre poste de travail.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Afficher petite barre des Processus Métier</value>
@@ -1582,7 +1582,7 @@
     <value>Le Dashboard ne peut pas être publié car il contient des Displays privés.&lt;br/&gt;&lt;br/&gt;Cliquez sur OK pour être redirigé vers l'onglet Définition. Cliquez ensuite sur Aller à Angle pour accéder au Display que vous souhaitez publier.</value>
   </data>
   <data name="Info_CannotSetPrivateDisplayToDefaultDisplay" xml:space="preserve">
-    <value>Un Display privé ne peut pas être défini comme Display par défaut.</value>
+    <value>Un Display privé ne peut pas être défini comme Display par défaut</value>
   </data>
   <data name="Info_DashboardItemsWillNotAffect" xml:space="preserve">
     <value>Les articles de Dashboard ne seront pas affectés par cette action.</value>
@@ -2053,7 +2053,7 @@
     <value>Par défaut</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Par défaut] {0}</value>
+    <value>[Use default] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
@@ -3653,7 +3653,7 @@ Are you sure you want to delete this model?</value>
     <value>Set all default Template fields to suggested {0}</value>
   </data>
   <data name="MC_SetAllDefaultTemplateFieldsToSuggested_Description" xml:space="preserve">
-    <value>Templates that are connected to an object in the object list, always have a default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these default Displays and Filters of that Template.</value>
+    <value>Templates that are connected to an object in the object list, always have a Default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these Default Displays and Filters of that Template.</value>
   </data>
   <data name="MC_SetDefaultBasicListFieldsToSuggested" xml:space="preserve">
     <value>Set default Basic List fields to suggested {0}</value>
@@ -4057,7 +4057,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Send notification on success</value>
   </data>
   <data name="MC_UseNonDefaultDisplaysAngles" xml:space="preserve">
-    <value>Use non-default displays on angles</value>
+    <value>Use non-default Displays on Angles</value>
   </data>
   <data name="MC_ActiveDirectorySizeLimit" xml:space="preserve">
     <value>Active directory size limit</value>
@@ -4480,7 +4480,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Allowed fields</value>
   </data>
   <data name="MC_AllowPrivateAngles" xml:space="preserve">
-    <value>Allow private angles</value>
+    <value>Allow Private Angles</value>
   </data>
   <data name="MC_Authorizations" xml:space="preserve">
     <value>Authorizations</value>
@@ -4907,7 +4907,7 @@ Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
     <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
-The option to download the required Go to SAP Launcher will then become available in the Settings menu of the Web Client.</value>
+The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
@@ -5257,7 +5257,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Déposez ici pour déplacer le filtre vers l'Angle.</value>
   </data>
   <data name="MC_ADFSRequires" xml:space="preserve">
-    <value>ADFS and SAML require the automatic creation of users</value>
+    <value>ADFS requires the automatic creation of users</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
     <value>Déplacer le filtre vers l'Angle ?&lt;br/&gt; Cela enregistrera immédiatement toutes les modifications apportées à l'Angle.&lt;br/&gt; Souhaitez-vous continuer ?</value>
@@ -5588,7 +5588,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>unlimited</value>
   </data>
   <data name="MC_ODataLogin" xml:space="preserve">
-    <value>Connect to ODATA/ODBC/JDBC (Pull)</value>
+    <value>Connect to OData</value>
   </data>
   <data name="WeekFormat" xml:space="preserve">
     <value>Sem. {0} sur {1}</value>
@@ -6012,7 +6012,7 @@ During a login challenge resulting from a URL link into the instance that requir
   </data>
   <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
     <value>The type of the authentication provider.&lt;br&gt;
-The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML).</value>
+Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
     <value>Avis qualité</value>
@@ -6036,7 +6036,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Le téléchargement n'est pas disponible car l'utilisateur n'est pas autorisé à gérer ce modèle.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_MultipleModel" xml:space="preserve">
-    <value>Le téléchargement n'est pas disponible car la sélection contient des Dashboards issus de multiples modèles.</value>
+    <value>Le téléchargement n'est pas disponible car la sélection contient des Dashboards issus de plusieurs instances.</value>
   </data>
   <data name="AngleExport_TypePackage_Download_Angle_Individually" xml:space="preserve">
     <value>Cliquez sur OK pour télécharger les Angles / Templates sélectionnés individuellement.</value>
@@ -6135,7 +6135,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Impossible de publier le Dashboard. Publiez d'abord tous les Displays privés.</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
-    <value>Go to Display details</value>
+    <value>Aller aux détails du Display</value>
   </data>
   <data name="Ascending" xml:space="preserve">
     <value>croissant</value>
@@ -6440,7 +6440,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Réexécuter</value>
   </data>
   <data name="ReexecuteWithoutSorting" xml:space="preserve">
-    <value>Re-execute without sorting</value>
+    <value>Réexécuter sans trier</value>
   </data>
   <data name="CloseSidebar" xml:space="preserve">
     <value>Fermer barre latérale</value>
@@ -6466,7 +6466,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_DefaultApprovalStateDescription" xml:space="preserve">
     <value>The default Approval state of newly added Actions in Automation tasks.
 Actions can only be executed when the Approval state is "approved".
-The "manage system" privileges is required to change the Approval state of an Action.</value>
+The "manage system" privilege is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
     <value>Filtres et Jumps de l'Angle</value>
@@ -6490,21 +6490,27 @@ The "manage system" privileges is required to change the Approval state of an Ac
     <value>Masquer groupe</value>
   </data>
   <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
-    <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>
+    <value>Ce filtre / Jump est au niveau de l'Angle. Cliquez pour passer à l'onglet Angle pour modifier ou supprimer</value>
   </data>
   <data name="MassChangeStatusAddTag" xml:space="preserve">
-    <value>Add tag "{0}"</value>
+    <value>Ajouter la balise « {0} »</value>
   </data>
   <data name="MassChangeStatusRemoveTag" xml:space="preserve">
-    <value>Remove tag "{0}"</value>
+    <value>Supprimer la balise « {0} »</value>
+  </data>
+  <data name="MC_LogLevel" xml:space="preserve">
+    <value>Log level (Application Server)</value>
+  </data>
+  <data name="MC_LogLevelDescription" xml:space="preserve">
+    <value>Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
   </data>
   <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
-    <value>Confirmation required</value>
+    <value>Confirmation requise</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Updating Displays used in Automation Task(s) will modify the action and might cause it to fail.</value>
+    <value>La mise à jour de Displays utilisés dans des tâches d'automatisation modifiera l'action et risque de causer son échec.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
-    <value>Go to scheduled task</value>
+    <value>Aller à la tâche programmée</value>
   </data>
 </root>
