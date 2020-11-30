@@ -7,6 +7,8 @@ Force Tags          performance_s    audit_s
 
 *** Test Cases ***
 Verify Audit: Update Angle action performance
+    [Documentation]     This test audits "Update Angle action" performance
+    [Tags]      TC_C231826
     @{itemList1}    Update Angle action performance    Current Server
     @{itemList2}    Update Angle action performance    Base Server
 
@@ -16,6 +18,8 @@ Verify Audit: Update Angle action performance
     ...         AND           Clean Up Items     Base Server    ${itemList2}
 
 Verify Audit: Update Display action performance
+    [Documentation]     This test audits "Update Display action" performance
+    [Tags]      TC_C231826
     @{itemList1}    Update Display action performance    Current Server
     @{itemList2}    Update Display action performance    Base Server
 

@@ -6,7 +6,7 @@ Test Teardown       Go to Search Page
 
 *** Test Cases ***
 Verify Schedule Angle To Export Angle To Excel
-    [Tags]      TC_C230198   TC_C434284   TC_C230851   acc_wc_s
+    [Tags]      TC_C230198    acc_wc_s
     [Documentation]     Scheduling angle using existing task from webclient should redirect to Edit Action popup in ITMC.
     [Setup]   Preparing Schedule Angle
 

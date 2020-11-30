@@ -7,6 +7,8 @@ Force Tags          performance_s    audit_s
 
 *** Test Cases ***
 Verify Audit: Create Angle action performance
+    [Documentation]     This test audits "Creates Angle action" performance
+    [Tags]      TC_C10328
     @{itemList1}    Create Angle action performance    Current Server
     @{itemList2}    Create Angle action performance    Base Server
 
@@ -16,6 +18,8 @@ Verify Audit: Create Angle action performance
     ...         AND           Clean Up Items     Base Server    ${itemList2}
 
 Verify Audit: Create Display action performance
+    [Documentation]  This test audits "Create Display action" performance
+    [Tags]   TC_C10328
     @{itemList1}    Create Display action performance    Current Server
     @{itemList2}    Create Display action performance    Base Server
 

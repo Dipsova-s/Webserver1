@@ -7,12 +7,16 @@ Force Tags          performance_s    audit_s
 
 *** Test Cases ***
 Verify Audit: Delete Angle action performance
+    [Documentation]     This test audits "Delete Angle action" performance
+    [Tags]      TC_C231825
     @{itemList1}    Delete Angle action performance    Current Server
     @{itemList2}    Delete Angle action performance    Base Server
 
     Performance Should Acceptable    5
 
 Verify Audit: Delete Display action performance
+    [Documentation]     This test audits "Delete Display action" performance
+    [Tags]      TC_C231825
     @{itemList1}    Delete Display action performance    Current Server
     @{itemList2}    Delete Display action performance    Base Server
 
