@@ -142,7 +142,8 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel) {
     };
     self.SetRetryPostResult = function (xhr, element) {
         xhr = xhr || {};
-        var message = xhr.status === 404
+
+        var message = (xhr.status === 404)
             ? Localization.MessageAngleNeedsToBeReExecuted
             : errorHandlerModel.GetAreaErrorMessage(xhr.responseText);
         self.HideBusyIndicator();

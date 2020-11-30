@@ -282,7 +282,7 @@ function ResultViewModel() {
         xhr = xhr || {};
         errorHandlerModel.IgnoreAjaxError(xhr);
 
-        var message = xhr.status === 404
+        var message = (xhr.status === 404)
             ? Localization.MessageAngleNeedsToBeReExecuted
             : errorHandlerModel.GetAreaErrorMessage(xhr.responseText);
         var callbackModelServer = function () {
