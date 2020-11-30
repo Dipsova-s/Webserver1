@@ -204,19 +204,19 @@ function MassChangeModel() {
                 data.value = self.PrivateNote();
                 break;
             case self.MASSNAME.VALIDATED:
-                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== null;;
+                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== 'undefined';
                 data.value = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked();
                 break;
             case self.MASSNAME.STARRED:
-                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== null;
+                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== 'undefined';
                 data.value = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked();
                 break;
             case self.MASSNAME.PUBLISHED:
-                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== null;;
+                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== 'undefined';
                 data.value = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked();
                 break;
             case self.MASSNAME.TEMPLATE:
-                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== null;;
+                data.changed = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked() !== 'undefined';
                 data.value = self.GeneralCategories[0].Labels.findObject('id', propertyName).IsChecked();
                 break;
             default:
@@ -790,7 +790,7 @@ function MassChangeModel() {
 
                 var labels = ko.toJS(modelLabelCategoryHandler.GetLabelsByCategoryUri(category.uri));
                 jQuery.each(labels, function (index, label) {
-                    label.IsChecked = ko.observable(null);
+                    label.IsChecked = ko.observable('undefined');
                     label.IndeterminatableCallback = massChangeModel.IndeterminatableCallback;
                 });
 
@@ -849,22 +849,22 @@ function MassChangeModel() {
                 Labels: [{
                     name: Localization.MassChangeStarred,
                     id: self.MASSNAME.STARRED,
-                    IsChecked: ko.observable(null)
+                    IsChecked: ko.observable('undefined')
                 },
                 {
                     name: Localization.MassChangePublished,
                     id: self.MASSNAME.PUBLISHED,
-                    IsChecked: ko.observable(null)
+                    IsChecked: ko.observable('undefined')
                 },
                 {
                     name: Localization.MassChangeValidated,
                     id: self.MASSNAME.VALIDATED,
-                    IsChecked: ko.observable(null)
+                    IsChecked: ko.observable('undefined')
                 },
                 {
                     name: Localization.MassChangeTemplate,
                     id: self.MASSNAME.TEMPLATE,
-                    IsChecked: ko.observable(null)
+                    IsChecked: ko.observable('undefined')
                 }]
             });
         }
@@ -906,8 +906,8 @@ function MassChangeModel() {
                     var labels = ko.toJS(systemTagHandler.GetData());
                     labels.sortObject('name', enumHandlers.SORTDIRECTION.ASC);
                     jQuery.each(labels, function (index, label) {
-                        label.id = label.name,
-                        label.IsChecked = ko.observable(null);
+                        label.id = label.name;
+                        label.IsChecked = ko.observable('undefined');
                         label.Show = ko.observable(true);
                     });
                     currentCategories.push({
