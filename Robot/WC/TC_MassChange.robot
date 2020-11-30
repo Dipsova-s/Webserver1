@@ -14,19 +14,26 @@ ${TEST_VERIFY_VALIDATE_TO_ANGLE_BY_SEARCH_PAGE}         [ROBOT] Test Verify Vali
 
 *** Test Cases ***
 Verify Personal Note To Angle Via Search Page
+    [Documentation]     This test verifies Personal note added to angle via Masschange
+    [Tags]  acc_wc_aci  TC_C231392
     Set Personal Note To Angle Via Search Page    ${TEST_VERIFY_PERSONAL_NOTE_TO_ANGLE_BY_SEARCH_PAGE}
 
 Verify Starred To Angle Via Search Page
-    [Tags]  acc_wc_aci
+    [Documentation]     This test verifies Angle set to starred via masschange
+    [Tags]  acc_wc_aci  TC_C231392
     Set Starred To Angle Via Search Page    ${TEST_VERIFY_STARRED_TO_ANGLE_BY_SEARCH_PAGE}
 
 Verify Template To Angle Via Search Page
-    [Tags]  acc_wc_aci
+    [Documentation]     This test verifies Angle set to template via masschange
+    [Tags]  acc_wc_aci  TC_C231392
     Set Template To Angle Via Search Page    PD    ${TEST_VERIFY_TEMPLATE_TO_ANGLE_BY_SEARCH_PAGE}
 
 Verify Publish To Angle Via Search Page
-    [Tags]  acc_wc_aci
+    [Documentation]     This test verifies Angle set to public via masschange
+    [Tags]  acc_wc_aci  TC_C231392
     Set Publish To Angle Via Search Page    PD    ${TEST_VERIFY_PUBLISH_TO_ANGLE_BY_SEARCH_PAGE}
 
 Verify Validate To Angle Via Search
+    [Documentation]     This test verifies Angle validated via masschange
+    [Tags]  TC_C231392
     Set Validate To Angle Via Search Page    PD    ${TEST_VERIFY_VALIDATE_TO_ANGLE_BY_SEARCH_PAGE}
