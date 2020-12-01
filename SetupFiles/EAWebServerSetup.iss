@@ -1049,10 +1049,14 @@ end;
 procedure ExecuteODataServiceDeploy(ModelId: string);
 var
   IIS_Web_Application_Name : string;
+  ExitCode: Integer;
 begin
   IIS_Web_Application_Name := IISPathWC + '/odata/' + ModelId;
 
   DeployWebSite('EveryAngle.OData.Service.deploy.cmd', '"-setParam:name=''IIS Web Application Name'',value=''"' + IIS_Web_Application_Name + '''');
+
+  ExitCode := ExecuteAndLogEx('{sys}', 'inetsrv\appcmd.exe', 'set config "' + IIS_Web_Application_Name + '" /section:windowsAuthentication /enabled:false', none);
+  Log('Set Windows Authentication to false for ' + IIS_Web_Application_Name + ' executed with the code ' + IntToStr(ExitCode));
 end;
 
 procedure ExecuteWebsiteUndeploy(aSite: string);
@@ -1526,7 +1530,7 @@ var
   ODataModels : TArrayOfString;
   ODataWebConfig,
   NewODataWebConfig: variant;
-
+  ExitCode: Integer;
   i: integer;
 begin
   msg1 := 'Installing / Updating Web OData Service(s) in IIS';
@@ -1546,7 +1550,8 @@ begin
   AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], false));
   WebServerUrl := AddProtocolUrl(WebSite_FQDN + IISVirtualPath.Text);
   
-
+  ExitCode := ExecuteAndLogEx('{sys}', 'inetsrv\appcmd.exe', 'unlock config -section:windowsAuthentication', none);
+  Log('Unlock Windows Authentication config executed with the code ' + IntToStr(ExitCode));
 
 // TODO: Progress updates
 
@@ -1591,7 +1596,7 @@ begin
 
   // Deploy the Web Client package
   ShowProgressAndText(30, msg1, 'Running MSDeploy for Web Client');
-  ExecuteWebClientDeploy(); 
+  ExecuteWebClientDeploy();
   
   // Deploy the Management Console package 
   ShowProgressAndText(50, msg1, 'Running MSDeploy for Management Console');
