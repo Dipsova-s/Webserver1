@@ -844,7 +844,7 @@
     <value>Soort gebruiker:</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Opslaan als...</value>
+    <value>Display opslaan als...</value>
   </data>
   <data name="SaveAsTitle" xml:space="preserve">
     <value>Opslaan als...</value>
@@ -1321,7 +1321,7 @@
     <value>Wijzig Display</value>
   </data>
   <data name="ShowFacetForAngleWarnings" xml:space="preserve">
-    <value>Toon symbool voor &lt;i class="iconWarning"&gt;&lt;/i&gt; Anglewaarschuwingen</value>
+    <value>Toon filter voor &lt;i class="iconWarning"&gt;&lt;/i&gt; Anglewaarschuwingen</value>
   </data>
   <data name="WelcomeAllMoviesLink" xml:space="preserve">
     <value>Bekijk alle gerelateerde video's (via help)</value>

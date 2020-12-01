@@ -784,7 +784,7 @@
     <value>Borrar todo</value>
   </data>
   <data name="ActionSettingExecuteAtLogin" xml:space="preserve">
-    <value>Ejecutar Angles y Dashboards automáticamente cuando inicie sesión en:</value>
+    <value>Ejecutar Angles y Dashboards automáticamente cuando inicie sesión:</value>
   </data>
   <data name="ActionSettingExecuteLastSearch" xml:space="preserve">
     <value>Repetir última búsqueda ejecutada cuando inicie sesión.</value>
@@ -1321,7 +1321,7 @@
     <value>Editar Display</value>
   </data>
   <data name="ShowFacetForAngleWarnings" xml:space="preserve">
-    <value>Mostrar etiqueta para &lt;i class="iconWarning"&gt;&lt;/i&gt; advertencias de Angle</value>
+    <value>Mostrar filtro para &lt;i class="iconWarning"&gt;&lt;/i&gt; advertencias de Angle</value>
   </data>
   <data name="FollowupsHelpManyToOneRelation" xml:space="preserve">
     <value>Relación muchos a uno</value>
@@ -4705,7 +4705,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Valor {0}:</value>
   </data>
   <data name="ChartGaugeLabel" xml:space="preserve">
-    <value>Estimar</value>
+    <value>Medidor</value>
   </data>
   <data name="ChartLineLabel" xml:space="preserve">
     <value>Línea</value>
@@ -4723,7 +4723,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Tipo de gráfico:</value>
   </data>
   <data name="Chart_gauge1" xml:space="preserve">
-    <value>Estimar</value>
+    <value>Medidor</value>
   </data>
   <data name="DateOrderTemplateDay" xml:space="preserve">
     <value>Día</value>
@@ -6386,13 +6386,13 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Sin sugerencias</value>
   </data>
   <data name="TagNew" xml:space="preserve">
-    <value>{0} (nueva etiqueta)</value>
+    <value>{0} (nueva etiqueta usuario)</value>
   </data>
   <data name="TagLabel" xml:space="preserve">
-    <value>Etiquetas</value>
+    <value>Etiquetas de usuario</value>
   </data>
   <data name="TagInputPlaceholder" xml:space="preserve">
-    <value>Crear/buscar etiquetas</value>
+    <value>Crear/buscar etiqueta</value>
   </data>
   <data name="IncludeEndDate" xml:space="preserve">
     <value>Incluso fecha fin</value>

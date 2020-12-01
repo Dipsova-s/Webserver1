@@ -1321,7 +1321,7 @@
     <value>Edit Display</value>
   </data>
   <data name="ShowFacetForAngleWarnings" xml:space="preserve">
-    <value>Show tag for &lt;i class="iconWarning"&gt;&lt;/i&gt; Angle warnings</value>
+    <value>Show filter for &lt;i class="iconWarning"&gt;&lt;/i&gt; Angle warnings</value>
   </data>
   <data name="FollowupsHelpManyToOneRelation" xml:space="preserve">
     <value>Many-to-one relation</value>
@@ -6072,7 +6072,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Package download is not available, because the user is not allowed to manage this model.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_MultipleModel" xml:space="preserve">
-    <value>Package download is not available, because the selection contains Angle/Templates from multiple models.</value>
+    <value>Package download is not available, because the selection contains Angles/Templates from multiple models.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_Private" xml:space="preserve">
     <value>Package download is not available, because the selection contains private Angles/Templates.</value>
