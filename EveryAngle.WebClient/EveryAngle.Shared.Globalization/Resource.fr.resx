@@ -631,7 +631,7 @@
     <value>Copier</value>
   </data>
   <data name="CellPopupMenuDrillDownTo" xml:space="preserve">
-    <value>Détail article</value>
+    <value>Détail élément</value>
   </data>
   <data name="CellPopupMenuFilterThisColumn" xml:space="preserve">
     <value>Filtre rapide</value>
@@ -928,10 +928,10 @@
     <value>Le Display ne peut pas être enregistré. Veuillez d'abord enregistrer l'Angle.</value>
   </data>
   <data name="DrilldownErrorItemNotFound" xml:space="preserve">
-    <value>L'article demandé est introuvable.</value>
+    <value>L'élément demandé est introuvable.</value>
   </data>
   <data name="DrilldownErrorNoIDField" xml:space="preserve">
-    <value>L'article demandé ne dispose pas de champ d'ID.</value>
+    <value>L'élement demandé ne dispose pas de champ d'ID.</value>
   </data>
   <data name="DrilldownErrorPrimaryDataNotFound" xml:space="preserve">
     <value>L'ID {ID} du type d'objet {ObjectType} n'existe pas.</value>
@@ -1321,7 +1321,7 @@
     <value>Modifier le Display</value>
   </data>
   <data name="ShowFacetForAngleWarnings" xml:space="preserve">
-    <value>Afficher balise pour les &lt;i class="iconWarning"&gt;&lt;/i&gt; messages d’avertissement de l'Angle</value>
+    <value>Afficher filtre pour les &lt;i class="iconWarning"&gt;&lt;/i&gt; messages d’avertissement de l'Angle</value>
   </data>
   <data name="FollowupsHelpManyToOneRelation" xml:space="preserve">
     <value>Relation multivoque</value>
@@ -1576,7 +1576,7 @@
     <value>Action non autorisée</value>
   </data>
   <data name="Info_AtLeastOneItemBeforeDelete" xml:space="preserve">
-    <value>Veuillez sélectionner au moins un article</value>
+    <value>Veuillez sélectionner au moins un élément</value>
   </data>
   <data name="Info_CannotPublishedDashboardBecausePrivateAngleDisplay" xml:space="preserve">
     <value>Le Dashboard ne peut pas être publié car il contient des Displays privés.&lt;br/&gt;&lt;br/&gt;Cliquez sur OK pour être redirigé vers l'onglet Définition. Cliquez ensuite sur Aller à Angle pour accéder au Display que vous souhaitez publier.</value>
@@ -1726,7 +1726,7 @@
     <value>Pas de film disponible</value>
   </data>
   <data name="Confirm_AreYouSureToDeleteItems" xml:space="preserve">
-    <value>Êtes-vous sûr de souhaiter supprimer {0} article(s) ?</value>
+    <value>Êtes-vous sûr de souhaiter supprimer {0} élément(s) ?</value>
   </data>
   <data name="Info_RequiredBusinessProcessPrivilegeForAngle" xml:space="preserve">
     <value>L'Action n'est pas autorisée car vous ne disposez pas de privilèges suffisants sur les étiquettes Processus Métier.</value>
@@ -2854,7 +2854,7 @@
     <value>Please enter a value with a valid extension.</value>
   </data>
   <data name="Info_MissingValueFilterIndex" xml:space="preserve">
-    <value>Article {0} :</value>
+    <value>Élément {0} :</value>
   </data>
   <data name="MC_AbortedVideoPlayback" xml:space="preserve">
     <value>[x]you aborted the video playback.</value>
@@ -4678,7 +4678,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Opacité</value>
   </data>
   <data name="NumberSelectingItems" xml:space="preserve">
-    <value>{0} article(s) sélectionné(s)</value>
+    <value>{0} élément(s) sélectionné(s)</value>
   </data>
   <data name="AllDecimals" xml:space="preserve">
     <value>Toutes les décimales</value>

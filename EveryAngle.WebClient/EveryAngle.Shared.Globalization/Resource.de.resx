@@ -853,7 +853,7 @@
     <value>Benutzer-Art:</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Speichern als...</value>
+    <value>Display speichern als...</value>
   </data>
   <data name="SaveAsTitle" xml:space="preserve">
     <value>Speichern als...</value>
@@ -1321,7 +1321,7 @@
     <value>Display bearbeiten</value>
   </data>
   <data name="ShowFacetForAngleWarnings" xml:space="preserve">
-    <value>Symbol für &lt;i class="iconWarning"&gt;&lt;/i&gt; Angle-Warnmeldungen anzeigen</value>
+    <value>Filter für &lt;i class="iconWarning"&gt;&lt;/i&gt; Angle-Warnmeldungen anzeigen</value>
   </data>
   <data name="FollowupsHelpManyToOneRelation" xml:space="preserve">
     <value>Viele-zu-Einer-Relation</value>
