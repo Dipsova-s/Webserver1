@@ -424,7 +424,7 @@
     <value>System: </value>
   </data>
   <data name="ThisIsAPrivateDisplayNotAvailableForOtherUsers" xml:space="preserve">
-    <value>Dies ist ein privates Display, es steht anderen Benutzern nicht zur Verfügung.</value>
+    <value>Dies ist ein Privates Display, anderen Benutzern steht es nicht zur Verfügung.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Benutzername</value>
@@ -853,13 +853,13 @@
     <value>Benutzer-Art:</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Speichern als...</value>
+    <value>Display speichern als...</value>
   </data>
   <data name="SaveAsTitle" xml:space="preserve">
     <value>Speichern als...</value>
   </data>
   <data name="SaveAsPrivate" xml:space="preserve">
-    <value>Als privaten Angle speichern</value>
+    <value>Als Privaten Angle speichern</value>
   </data>
   <data name="ListFormatEnumLongName" xml:space="preserve">
     <value>Langname</value>
@@ -943,7 +943,7 @@
     <value>Nicht implementiert</value>
   </data>
   <data name="PersonalDefaultDisplay" xml:space="preserve">
-    <value>Privates Standard-Display</value>
+    <value>Persönliches Standard-Display</value>
   </data>
   <data name="AngleId" xml:space="preserve">
     <value>Angle-ID</value>
@@ -1321,7 +1321,7 @@
     <value>Display bearbeiten</value>
   </data>
   <data name="ShowFacetForAngleWarnings" xml:space="preserve">
-    <value>Symbol für &lt;i class="iconWarning"&gt;&lt;/i&gt; Angle-Warnmeldungen anzeigen</value>
+    <value>Filter für &lt;i class="iconWarning"&gt;&lt;/i&gt; Angle-Warnmeldungen anzeigen</value>
   </data>
   <data name="FollowupsHelpManyToOneRelation" xml:space="preserve">
     <value>Viele-zu-Einer-Relation</value>
@@ -1579,10 +1579,10 @@
     <value>Wählen Sie mindestens ein Element aus</value>
   </data>
   <data name="Info_CannotPublishedDashboardBecausePrivateAngleDisplay" xml:space="preserve">
-    <value>Das Dashboard kann nicht freigegeben werden, da es private Displays enthält.&lt;br/&gt;&lt;br/&gt;Klicken Sie auf „OK“, um zur Registerkarte „Definition“ zu wechseln. Klicken Sie dann auf „Zum Angle“, um auf das Display zuzugreifen, das Sie freigeben möchten.</value>
+    <value>Das Dashboard kann nicht veröffentlicht werden, da es Private Displays enthält.&lt;br/&gt;&lt;br/&gt;Klicken Sie auf OK, um zur Registerkarte Definition umgeleitet zu werden. Klicken Sie dann auf „Zum Angle“, um auf das Display zuzugreifen, das Sie freigeben möchten.</value>
   </data>
   <data name="Info_CannotSetPrivateDisplayToDefaultDisplay" xml:space="preserve">
-    <value>Ein privates Display kann nicht als Standard-Display eingerichtet werden.</value>
+    <value>Ein Privates Display kann nicht als Standard-Display eingerichtet werden.</value>
   </data>
   <data name="Info_DashboardItemsWillNotAffect" xml:space="preserve">
     <value>Dashboard-Elemente sind von dieser Aktion nicht betroffen.</value>
@@ -2053,7 +2053,7 @@
     <value>Standard</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Standard] {0}</value>
+    <value>[Use default] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
@@ -3367,7 +3367,7 @@
     <value>Der Angle wurde gelöscht oder ausgeblendet. Klicken Sie auf OK, um zur Suchseite zurückzukehren.</value>
   </data>
   <data name="ErrorAngleNoDefaultDisplay" xml:space="preserve">
-    <value>Das Standard-Display wurde gelöscht oder ausgeblendet. Schließen Sie dieses Popup zum Aktualisieren.</value>
+    <value>Das Standard-Display wurde entfernt oder ausgeblendet. Schließen Sie dieses Popup zum Aktualisieren.</value>
   </data>
   <data name="Info_ListDisplaysDeletedWhileProcess" xml:space="preserve">
     <value>Die folgenden Displays sind während der Verarbeitung fehlgeschlagen</value>
@@ -3653,7 +3653,7 @@ Are you sure you want to delete this model?</value>
     <value>Set all default Template fields to suggested {0}</value>
   </data>
   <data name="MC_SetAllDefaultTemplateFieldsToSuggested_Description" xml:space="preserve">
-    <value>Templates that are connected to an object in the object list, always have a default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these default Displays and Filters of that Template.</value>
+    <value>Templates that are connected to an object in the object list, always have a Default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these Default Displays and Filters of that Template.</value>
   </data>
   <data name="MC_SetDefaultBasicListFieldsToSuggested" xml:space="preserve">
     <value>Set default Basic List fields to suggested {0}</value>
@@ -4057,7 +4057,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Send notification on success</value>
   </data>
   <data name="MC_UseNonDefaultDisplaysAngles" xml:space="preserve">
-    <value>Use non-default displays on angles</value>
+    <value>Use non-default Displays on Angles</value>
   </data>
   <data name="MC_ActiveDirectorySizeLimit" xml:space="preserve">
     <value>Active directory size limit</value>
@@ -4480,7 +4480,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Allowed fields</value>
   </data>
   <data name="MC_AllowPrivateAngles" xml:space="preserve">
-    <value>Allow private angles</value>
+    <value>Allow Private Angles</value>
   </data>
   <data name="MC_Authorizations" xml:space="preserve">
     <value>Authorizations</value>
@@ -4907,7 +4907,7 @@ Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
     <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
-The option to download the required Go to SAP Launcher will then become available in the Settings menu of the Web Client.</value>
+The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
@@ -5257,7 +5257,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Hier ablegen, um Filter zum Angle zu verschieben.</value>
   </data>
   <data name="MC_ADFSRequires" xml:space="preserve">
-    <value>ADFS and SAML require the automatic creation of users</value>
+    <value>ADFS requires the automatic creation of users</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
     <value>Filter zum Angle verschieben?&lt;br/&gt; Dadurch werden alle Änderungen am Angle umgehend gespeichert.&lt;br/&gt; Möchten Sie fortfahren?</value>
@@ -5588,7 +5588,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>unlimited</value>
   </data>
   <data name="MC_ODataLogin" xml:space="preserve">
-    <value>Connect to ODATA/ODBC/JDBC (Pull)</value>
+    <value>Connect to OData</value>
   </data>
   <data name="WeekFormat" xml:space="preserve">
     <value>Wch {0} von {1}</value>
@@ -6012,7 +6012,7 @@ During a login challenge resulting from a URL link into the instance that requir
   </data>
   <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
     <value>The type of the authentication provider.&lt;br&gt;
-The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML).</value>
+Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
     <value>Benachrichtigungen</value>
@@ -6027,7 +6027,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Download-Art</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Private" xml:space="preserve">
-    <value>Download ist nicht verfügbar, da die Auswahl mindestens ein privates Dashboard enthält.</value>
+    <value>Download ist nicht verfügbar, da die Auswahl (ein) Private(s) Dashboard(s) enthält.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Cannot_Individually" xml:space="preserve">
     <value>Dashboards können nicht einzeln heruntergeladen werden.</value>
@@ -6036,7 +6036,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Download ist nicht verfügbar, da der Benutzer nicht zur Verwaltung dieses Modells berechtigt ist.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_MultipleModel" xml:space="preserve">
-    <value>Download ist nicht verfügbar, da die Auswahl Dashboards von mehreren Modellen enthält.</value>
+    <value>Download ist nicht verfügbar, da die Auswahl Dashboards aus mehreren Modellen enthält.</value>
   </data>
   <data name="AngleExport_TypePackage_Download_Angle_Individually" xml:space="preserve">
     <value>Klicken Sie auf OK, um die ausgewählten Angles/Templates einzeln herunterzuladen.</value>
@@ -6132,10 +6132,10 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Displays</value>
   </data>
   <data name="PublishSettings_WidgetsInvalid" xml:space="preserve">
-    <value>Das Dashboard kann nicht freigegeben werden. Geben Sie zuerst alle privaten Displays frei.</value>
+    <value>Das Dashboard kann nicht freigegeben werden. Alle Privaten Displays zuerst veröffentlichen.</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
-    <value>Go to Display details</value>
+    <value>Wechseln Sie zu Display-Details</value>
   </data>
   <data name="Ascending" xml:space="preserve">
     <value>aufsteigend</value>
@@ -6440,7 +6440,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Neu ausführen</value>
   </data>
   <data name="ReexecuteWithoutSorting" xml:space="preserve">
-    <value>Re-execute without sorting</value>
+    <value>Neu ausführen ohne Sortieren</value>
   </data>
   <data name="CloseSidebar" xml:space="preserve">
     <value>Randleiste schließen</value>
@@ -6455,7 +6455,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>approved</value>
   </data>
   <data name="ShowOnlyOwnPrivateDisplays" xml:space="preserve">
-    <value>Nur meine eigenen persönlichen Displays anzeigen</value>
+    <value>Nur meine eigenen Privaten Displays anzeigen</value>
   </data>
   <data name="AngleExport" xml:space="preserve">
     <value>Angle-Export</value>
@@ -6466,13 +6466,13 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_DefaultApprovalStateDescription" xml:space="preserve">
     <value>The default Approval state of newly added Actions in Automation tasks.
 Actions can only be executed when the Approval state is "approved".
-The "manage system" privileges is required to change the Approval state of an Action.</value>
+The "manage system" privilege is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
-    <value>Angle-Filter und -Jumps</value>
+    <value>Angle-Filter &amp;amp; Jumps</value>
   </data>
   <data name="DisplayFilters" xml:space="preserve">
-    <value>Filter und Jumps anzeigen</value>
+    <value>Display-Filter &amp;amp; Jumps</value>
   </data>
   <data name="DisplayGroupPublic" xml:space="preserve">
     <value>Veröffentlicht ({0})</value>
@@ -6490,21 +6490,27 @@ The "manage system" privileges is required to change the Approval state of an Ac
     <value>Gruppe ausblenden</value>
   </data>
   <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
-    <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>
+    <value>Dieser Filter/Jump befindet sich auf Angle-Ebene. Darauf klicken, um zur Bearbeitung oder Entfernung zur Angle-Registerkarte zu wechseln</value>
   </data>
   <data name="MassChangeStatusAddTag" xml:space="preserve">
-    <value>Add tag "{0}"</value>
+    <value>Tag „{0}“ hinzufügen</value>
   </data>
   <data name="MassChangeStatusRemoveTag" xml:space="preserve">
-    <value>Remove tag "{0}"</value>
+    <value>Tag „{0}“ entfernen</value>
+  </data>
+  <data name="MC_LogLevel" xml:space="preserve">
+    <value>Log level (Application Server)</value>
+  </data>
+  <data name="MC_LogLevelDescription" xml:space="preserve">
+    <value>Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
   </data>
   <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
-    <value>Confirmation required</value>
+    <value>Bestätigung erforderlich</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Updating Displays used in Automation Task(s) will modify the action and might cause it to fail.</value>
+    <value>Die Aktualisierung von Displays, die in (einer) Automatisierungsaufgabe(n) verwendet werden, verändert die Aktion und kann dazu führen, dass sie fehlschlägt.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
-    <value>Go to scheduled task</value>
+    <value>Zur geplanten Aufgabe wechseln</value>
   </data>
 </root>

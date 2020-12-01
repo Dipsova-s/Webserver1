@@ -514,7 +514,7 @@
     <value>In Jumps</value>
   </data>
   <data name="AdvanceFilterTextInPrivateLabels" xml:space="preserve">
-    <value>In privé labels</value>
+    <value>In privélabels</value>
   </data>
   <data name="AdvanceFilterTextInPublicLabels" xml:space="preserve">
     <value>In gepubliceerde labels</value>
@@ -844,13 +844,13 @@
     <value>Soort gebruiker:</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Opslaan als...</value>
+    <value>Display opslaan als...</value>
   </data>
   <data name="SaveAsTitle" xml:space="preserve">
     <value>Opslaan als...</value>
   </data>
   <data name="SaveAsPrivate" xml:space="preserve">
-    <value>Opslaan als privé Angle</value>
+    <value>Opslaan als Privéangle</value>
   </data>
   <data name="ListFormatEnumLongName" xml:space="preserve">
     <value>Lange naam</value>
@@ -946,7 +946,7 @@
     <value>Bewaar actieve Displayfilters</value>
   </data>
   <data name="DisplayDrilldownDefault" xml:space="preserve">
-    <value>Standaard-drilldown</value>
+    <value>Standaarddrilldown</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>[Geen]</value>
@@ -1321,7 +1321,7 @@
     <value>Wijzig Display</value>
   </data>
   <data name="ShowFacetForAngleWarnings" xml:space="preserve">
-    <value>Toon symbool voor &lt;i class="iconWarning"&gt;&lt;/i&gt; Anglewaarschuwingen</value>
+    <value>Toon filter voor &lt;i class="iconWarning"&gt;&lt;/i&gt; Anglewaarschuwingen</value>
   </data>
   <data name="WelcomeAllMoviesLink" xml:space="preserve">
     <value>Bekijk alle gerelateerde video's (via help)</value>
@@ -1402,7 +1402,7 @@
     <value>Gedetailleerde modus</value>
   </data>
   <data name="ExportWarningPrivateAngles" xml:space="preserve">
-    <value>Privé Angle(s) worden niet in het package opgenomen</value>
+    <value>Privéangle(s) worden niet in het package opgenomen</value>
   </data>
   <data name="SaveAngleAs" xml:space="preserve">
     <value>Angle opslaan als...</value>
@@ -1819,7 +1819,7 @@
     <value>E-mail</value>
   </data>
   <data name="TheDefaultValueIsUsed" xml:space="preserve">
-    <value>De standaard waarde wordt gebruikt.</value>
+    <value>De standaardwaarde wordt gebruikt.</value>
   </data>
   <data name="TroubleShooting" xml:space="preserve">
     <value>Probleemoplossing</value>
@@ -3101,7 +3101,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>- Angles en/of Templates van andere modellen.</value>
   </data>
   <data name="AngleExport_TypePackage_WarningPrivate" xml:space="preserve">
-    <value>- Privé Angles en/of Templates.</value>
+    <value>- Privéangles en/of -templates.</value>
   </data>
   <data name="AngleExport_WarningNoExportItem" xml:space="preserve">
     <value>Dashboards kunnen niet worden gedownload. Selecteer alleen Angles en/of Templates.</value>
@@ -3583,7 +3583,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Download type</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Private" xml:space="preserve">
-    <value>Downloaden niet beschikbaar omdat de selectie privé Dashboard(s) bevat.</value>
+    <value>Downloaden niet beschikbaar omdat de selectie Privédashboard(s) bevat.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Cannot_Individually" xml:space="preserve">
     <value>Dashboards kunnen niet individueel worden gedownload.</value>
@@ -3598,7 +3598,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Klik op OK om de geselecteerde Angles/Templates individueel te downloaden.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_WarningTitle" xml:space="preserve">
-    <value>Package download is niet beschikbaar omdat de selectie privé item(s) bevat.</value>
+    <value>Package download is niet beschikbaar omdat de selectie privé-item(s) bevat.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_ManageRequired" xml:space="preserve">
     <value>Package download is niet beschikbaar omdat de gebruiker niet is geautoriseerd om dit model te beheren.</value>
@@ -3607,10 +3607,10 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Package download is niet beschikbaar omdat de selectie Angles/Templates uit meerdere modellen bevat.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_Private" xml:space="preserve">
-    <value>Package download is niet beschikbaar omdat de selectie privé Angles/Templates bevat.</value>
+    <value>Package download is niet beschikbaar omdat de selectie Privéangles/-templates bevat.</value>
   </data>
   <data name="AngleExport_TypePackage_Both_Private" xml:space="preserve">
-    <value>Package download is niet beschikbaar omdat de selectie privé items bevat.</value>
+    <value>Package download is niet beschikbaar omdat de selectie privé-items bevat.</value>
   </data>
   <data name="UploadAngles_ItemPackageReportTitle" xml:space="preserve">
     <value>{0} (Angles: {1}/{2}, Dashboards: {3}/{4})</value>
@@ -4057,21 +4057,21 @@ The "manage system" privileges is required to change the Approval state of an Ac
 Kies '1' voor de eerste kolom. Als de tijdstempel van het model niet nodig is, kies dan 'Geen'.</value>
   </data>
   <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
-    <value>This Filter/Jump is on Angle level. Click to switch to the Angle Tab to edit or delete</value>
+    <value>Deze Filter/Jump wordt toegepast op Angleniveau. Klik om naar de tab Angle te gaan om hem te bewerken of te verwijderen</value>
   </data>
   <data name="MassChangeStatusAddTag" xml:space="preserve">
-    <value>Add tag "{0}"</value>
+    <value>Voeg tag toe "{0}"</value>
   </data>
   <data name="MassChangeStatusRemoveTag" xml:space="preserve">
-    <value>Remove tag "{0}"</value>
+    <value>Verwijder tag "{0}"</value>
   </data>
   <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
-    <value>Confirmation required</value>
+    <value>Bevestiging vereist</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Updating Displays used in Automation Task(s) will modify the action and might cause it to fail.</value>
+    <value>Als u Displays bewerkt die in geautomatiseerde taken gebruikt worden kan dit invloed hebben op de actie, en kan deze falen.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
-    <value>Go to scheduled task</value>
+    <value>Ga naar de geplande taak</value>
   </data>
 </root>
