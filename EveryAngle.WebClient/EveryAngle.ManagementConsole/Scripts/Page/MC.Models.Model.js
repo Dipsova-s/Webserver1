@@ -109,6 +109,7 @@
         self.SaveUpdateMode = function (data) {
             var logoutToOverviewPage = function () {
                 MC.form.page.clear();
+                MC.storage.clean();
                 document.location = document.location.pathname;
             };
 

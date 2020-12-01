@@ -2,7 +2,7 @@
 Resource                    ${EXECDIR}/resources/WCSettings.robot
 Suite Setup                 Go to MC Then Login With Admin User
 Test Setup                  Go To EA2_800 Model Communications Settings Page
-Suite Teardown              Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Force Tags                  acc_mc
 
 *** Variables ***

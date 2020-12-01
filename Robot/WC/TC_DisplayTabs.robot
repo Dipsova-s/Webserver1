@@ -4,7 +4,7 @@ Resource            ${EXECDIR}/WC/POM/Angle/DisplayScrollingButtons.robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayChart.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Pivot.robot
 Suite Setup         Go to WC Then Login With EAPower User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go to Search Page
 
 *** Test Cases ***

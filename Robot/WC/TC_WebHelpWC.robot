@@ -35,7 +35,7 @@ Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpWC_User_settings.r
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpWC_Warnings_and_errors.robot
 Suite Setup         Suite Setup WC WebHelp
 Test Teardown       Test Teardown WC WebHelp
-Force Tags          webhelp  webhelp_wc
+Force Tags          webhelp_s  webhelp_wc_s
 
 *** Test Cases ***
 # Prerequisite

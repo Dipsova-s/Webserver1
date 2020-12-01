@@ -1,4 +1,10 @@
-﻿using EveryAngle.Core.ViewModels.Directory;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+using EveryAngle.Core.ViewModels.Directory;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
 using EveryAngle.Core.ViewModels.SystemInformation;
@@ -6,11 +12,9 @@ using EveryAngle.Core.ViewModels.SystemSettings;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.Logging;
 using EveryAngle.WebClient.Service.ApiServices;
+using EveryAngle.WebClient.Service.Extensions;
 using EveryAngle.WebClient.Service.HttpHandlers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Microsoft.Owin.Security;
 
 namespace EveryAngle.WebClient.Service.Security
 {
@@ -29,18 +33,22 @@ namespace EveryAngle.WebClient.Service.Security
 
         #region constructor
 
+        [ExcludeFromCodeCoverage]
         protected SessionHelper()
         {
-            CheckSession();
         }
 
         #endregion
 
         #region public functions
 
+        [ExcludeFromCodeCoverage]
         public static SessionHelper Initialize()
         {
-            return new SessionHelper();
+            var helper = new SessionHelper();
+            helper.DestroyAllSession();
+            helper.CheckSession();
+            return helper;
         }
 
         public virtual VersionViewModel Version
@@ -64,7 +72,6 @@ namespace EveryAngle.WebClient.Service.Security
                     SessionService sessionService = new SessionService();
                     HttpContext.Current.Session["MCSession_Session"] = sessionService.GetSession(this.Version.SessionUri.ToString());
                 }
-
                 return HttpContext.Current.Session["MCSession_Session"] as SessionViewModel;
             }
         }
@@ -93,7 +100,6 @@ namespace EveryAngle.WebClient.Service.Security
         {
             get
             {
-
                 if (HttpContext.Current.Session["SystemSettingViewModel"] == null)
                 {
                     string systemSettingsUri = Version.GetEntryByName("system_settings").Uri.ToString();
@@ -106,7 +112,7 @@ namespace EveryAngle.WebClient.Service.Security
 
         public virtual ModelViewModel GetModel(string modelUri)
         {
-            return this.Models.FirstOrDefault(x => x.Uri.ToString().Equals(modelUri.ToLower(), StringComparison.OrdinalIgnoreCase));
+            return Models.FirstOrDefault(x => x.Uri.ToString().Equals(modelUri.ToLower(CultureInfo.InvariantCulture), StringComparison.OrdinalIgnoreCase));
         }
 
         public virtual ModelViewModel GetModelFromSession(string modelUri)
@@ -140,10 +146,16 @@ namespace EveryAngle.WebClient.Service.Security
             }
         }
 
+        [ExcludeFromCodeCoverage] // Cannot unit tests because user service makes a request to AppServer and can't be injected
         public virtual UserSettingsViewModel GetUserSettings()
         {
             UserService userService = new UserService();
-            return userService.GetUserSetting(this.CurrentUser.UserSettings.ToString());
+            if (CurrentUser != null)
+            {
+                return userService.GetUserSetting(CurrentUser.UserSettings.ToString());
+            }
+
+            return null;
         }
 
         public virtual UserViewModel RefreshUserInfo()
@@ -253,26 +265,39 @@ namespace EveryAngle.WebClient.Service.Security
 
         public virtual void DestroyAllSession()
         {
-            HttpContext.Current.Session.Clear();
+            HttpContext.Current.Session?.Clear();
         }
 
-        public virtual void SetCookieToExpired()
-        {
-            HttpCookie authCookie =
-                 HttpContext.Current.Request.Cookies["EASECTOKEN"];
-            if (authCookie != null)
-            {
-                HttpContext.Current.Response.Cookies["EASECTOKEN"].Expires = DateTime.Now.AddYears(-1);
-            }
-        }
 
+        [ExcludeFromCodeCoverage]
         public virtual void Logout()
+        {
+            Logout(false);
+        }
+
+        [ExcludeFromCodeCoverage]
+        public virtual void Logout(bool causedByUnauthorized)
         {
             DestroyAllSession();
             try
             {
-                var jsonResult = RequestManager.Initialize("/session").Run();
-                RequestManager.Initialize(jsonResult.SelectToken("uri").ToString()).Run(RestSharp.Method.DELETE);
+                // Session is likely already deleted so do not need to clean up session in this case
+                if (!causedByUnauthorized)
+                {
+                    var jsonResult = RequestManager.Initialize("/session").Run();
+                    RequestManager.Initialize(jsonResult.SelectToken("uri").ToString()).Run(RestSharp.Method.DELETE);
+                }
+
+                var result = HttpContext.Current.Request.GetOwinContext().AuthenticateAsyncFromCookies();
+                var token = result.Result?.GetAccessToken();
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    var authTypes = HttpContext.Current.Request.GetOwinContext()
+                        .Authentication.GetAuthenticationTypes()
+                        .Select(o => o.AuthenticationType).ToArray();
+
+                    HttpContext.Current.Request.GetOwinContext().Authentication.SignOut(new AuthenticationProperties(), authTypes);
+                }
             }
             catch (Exception ex)
             {
@@ -285,58 +310,33 @@ namespace EveryAngle.WebClient.Service.Security
         #region private functions
 
         /// <summary>
-        /// Check EASECTOKEN
+        /// Check Auth access token
         /// </summary>
+
+        [ExcludeFromCodeCoverage]
         private void CheckSession()
         {
-            hasCookie = true;
-            HttpCookie eaTokenCookie = GetEATokenCookie();
-            string currentToken = Convert.ToString(HttpContext.Current.Session["EASECTOKEN"]);
-            if (eaTokenCookie == null)
+            var result = HttpContext.Current.Request.GetOwinContext().AuthenticateAsyncFromCookies();
+            var token = result.Result?.GetAccessToken();
+
+            if (string.IsNullOrWhiteSpace(token))
             {
-                Log.SendInfo("Session cleared: EASECTOKEN cookie does not exists.");
                 hasCookie = false;
                 DestroyAllSession();
+                HttpContext.Current.Session["STSEASECTOKEN"] = null;
             }
-            else if (string.IsNullOrEmpty(currentToken))
+            else
             {
-                Log.SendInfo("Session cleared: EASECTOKEN session does not exists.");
-                DestroyAllSession();
+                if (HttpContext.Current.Session != null)
+                {
+                    HttpContext.Current.Session["STSEASECTOKEN"] = token;
+                    hasCookie = true;
+                }
+                else
+                {
+                    hasCookie = false;
+                }
             }
-            else if (eaTokenCookie.Value != currentToken)
-            {
-                Log.SendInfo("Session cleared: {0} != {1}", eaTokenCookie.Value, currentToken);
-                DestroyAllSession();
-            }
-
-            // set EASECTOKEN to session
-            HttpContext.Current.Session["EASECTOKEN"] = eaTokenCookie == null ? null : eaTokenCookie.Value;
-        }
-
-        /// <summary>
-        /// Get EASECOTKEN cookie
-        /// </summary>
-        /// <returns></returns>
-        private HttpCookie GetEATokenCookie()
-        {
-            List<HttpCookie> eaTokenCookies = new List<HttpCookie>();
-            HttpCookieCollection allCookies = HttpContext.Current.Request.Cookies;
-            for (int i = 0; i < allCookies.Count; i++)
-            {
-                if (allCookies[i].Name.Equals("EASECTOKEN", StringComparison.InvariantCulture))
-                    eaTokenCookies.Add(allCookies[i]);
-            }
-
-            // send warning if many cookies
-            if (eaTokenCookies.Count > 1)
-            {
-                string cookiesInfo = string.Join(Environment.NewLine, eaTokenCookies.Select(s =>
-                    string.Format("  {0}, Expires:{1:yyyy-MM-dd HH:mm:ss}, Path:{2}", s.Value, s.Expires, s.Path)));
-                Log.SendWarning("There are {0} EASECTOKEN in system:{1}{2}", eaTokenCookies.Count, Environment.NewLine, cookiesInfo);
-            }
-
-            // use the lastest one
-            return eaTokenCookies.LastOrDefault();
         }
 
         #endregion

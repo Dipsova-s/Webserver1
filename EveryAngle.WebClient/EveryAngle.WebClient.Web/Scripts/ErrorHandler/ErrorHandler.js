@@ -38,7 +38,10 @@ function ErrorHandlerViewModel() {
 
     self.IsRequiredToRedirectToLoginPage = function (xhr) {
         if (self.IsNeedToRedirectToLoginPage)
-            return xhr.status === 401 || xhr.status === 440;
+            return xhr.status === 401 ||
+                xhr.status === 440 ||
+                // Missing the token means the user needs to authorize again
+                (xhr.status === 403 && self.GetErrorFromResponseText(xhr.responseText) === "Forbidden, Missing CSRF token"); 
         else
             return false;
     };

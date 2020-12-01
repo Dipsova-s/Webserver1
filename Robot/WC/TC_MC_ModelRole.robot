@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to MC Then Login With Admin User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Setup          Go To Role Tab Under Model EA2_800
 Force Tags          MC    acc_mc
 

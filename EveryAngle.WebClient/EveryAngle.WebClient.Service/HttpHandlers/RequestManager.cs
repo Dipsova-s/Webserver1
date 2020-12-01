@@ -1,13 +1,7 @@
-﻿using EveryAngle.Logging;
-using EveryAngle.Security.Certificates;
-using EveryAngle.Shared.Globalization.Helpers;
-using EveryAngle.WebClient.Service.LogHandlers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RestSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,9 +13,19 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Script.Serialization;
+using EveryAngle.Logging;
+using EveryAngle.Security.Certificates;
+using EveryAngle.Shared.Globalization.Helpers;
+using EveryAngle.WebClient.Service.Extensions;
+using EveryAngle.WebClient.Service.LogHandlers;
+using EveryAngle.WebClient.Service.Security;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace EveryAngle.WebClient.Service.HttpHandlers
 {
+    [ExcludeFromCodeCoverage]
     public class RequestManager
     {
         private const string CSM_URI = "csm/componentservices";
@@ -68,7 +72,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
         private string GetASPort(string uri, bool isHttps)
         {
             string port = WebConfigurationManager.AppSettings["WebServiceBackendNOAPort"];
-         
+
             if (IsCSMUri(uri) && isHttps)
             {
                 //when websites are running on the ssl, all of the csm uri has to be comunicate over NOA+(csmPort) 
@@ -101,7 +105,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
         {
             client = restClient;
         }
-        
+
         public static RequestManager Initialize(string requestUrl)
         {
             return new RequestManager(requestUrl);
@@ -412,15 +416,15 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
                 {
                     throw new HttpException(503, "Unable to connect to the remote server");
                 }
-                else
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    throw new HttpException(response.StatusCode.GetHashCode(), response.Content);
+                    SessionHelper.Initialize().Logout(true);
                 }
+
+                throw new HttpException(response.StatusCode.GetHashCode(), response.Content);
             }
-            else
-            {
-                CloneResponseHeader(response);
-            }
+            CloneResponseHeader(response);
         }
 
         private void CloneRequestHeader(RestRequest request, HttpRequest requestContext)
@@ -437,7 +441,20 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             for (int i = 0; i < allCookies.Count; i++)
             {
                 System.Web.HttpCookie newCookie = allCookies[i];
-                request.AddCookie(newCookie.Name, newCookie.Value);
+                if (newCookie.Name.Equals("STSEASECTOKEN"))
+                {
+                    // Cookie is encrypted so we need to get the correct value if we want to have the AppServer read it
+                    var authenticateCookies = requestContext.GetOwinContext().AuthenticateAsyncFromCookies();
+                    string token = authenticateCookies?.Result?.GetAccessToken();
+                    request.AddCookie(newCookie.Name, token);
+                }
+                else
+                {
+                    if (!newCookie.Name.Equals("EASECTOKEN")) // Do not add the old EASECTOKEN
+                    {
+                        request.AddCookie(newCookie.Name, newCookie.Value);
+                    }
+                }
             }
         }
 
@@ -497,17 +514,17 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             }
 
 
-            /* M4-32522: clean EASECTOKEN
-             * - EASECTOKEN will be duplicated in request
+            /* M4-32522: clean STSEASECTOKEN
+             * - STSEASECTOKEN will be duplicated in request
              * After you add a cookie by using the HttpResponse.Cookies collection,
              * the cookie is immediately available in the HttpRequest.Cookies collection,
              * even if the response has not been sent to the client.
              * ref: https://msdn.microsoft.com/en-us/library/system.web.httprequest.cookies(v=vs.110).aspx
             */
-            string tokenName = "EASECTOKEN";
+            string tokenName = "STSEASECTOKEN";
             if (HttpContext.Current != null && HttpContext.Current.Request.Cookies[tokenName] != null)
             {
-                // use the last EASECTOKEN
+                // use the last STSEASECTOKEN
                 for (int i = HttpContext.Current.Request.Cookies.Count - 1; i >= 0; i--)
                 {
                     if (HttpContext.Current.Request.Cookies[i].Name == tokenName)

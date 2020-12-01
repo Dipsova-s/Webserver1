@@ -1,14 +1,14 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go to Search Page
 Force Tags          acc_wc    smk_content
 
 *** Test Cases ***
 Verify Dashboard Statistics
     [Documentation]     Dashboard statistics
-    [Tags]              smk_wc  TC_C229134
+    [Tags]              smk_wc_s  TC_C229134
     ${searchText}  Set Variable  Angle For General Test
     ${dashboardName}  Set variable  [ROBOT] Test Verify Dashboard Statistics
     Create Adhoc Dashboard    ${searchText}  ${dashboardName}

@@ -41,20 +41,7 @@
             }
         },
         clean: function () {
-            jQuery.localStorage.removeItem('business_processes');
-            jQuery.localStorage.removeItem('model_privileges');
-            jQuery.localStorage.removeItem('models');
-
-            jQuery.localStorage.removeItem('search_facet_cache');
-            jQuery.localStorage.removeItem('search_facet_open_panels');
-            jQuery.localStorage.removeItem('session');
-            jQuery.localStorage.removeItem('session_uri');
-
-            jQuery.localStorage.removeItem('settings');
-            jQuery.localStorage.removeItem('system_information');
-            jQuery.localStorage.removeItem('system_settings');
-            jQuery.localStorage.removeItem('user');
-            jQuery.localStorage.removeItem('user_privileges');
+            jQuery.localStorage.removeAll();
         }
     };
     MC.storage = storage;

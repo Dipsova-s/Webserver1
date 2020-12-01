@@ -1,20 +1,25 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Web;
+using System.Web.Configuration;
+using System.Web.Mvc;
 using EveryAngle.Core.ViewModels.Users;
+using EveryAngle.WebClient.Service;
 using EveryAngle.WebClient.Service.ErrorHandlers;
+using EveryAngle.WebClient.Service.Extensions;
 using EveryAngle.WebClient.Service.LogHandlers;
 using EveryAngle.WebClient.Service.Security;
 using EveryAngle.WebClient.Web.Helpers;
-using System.Globalization;
-using System.Net;
-using System.Threading;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using System.Linq;
-using System;
 
 namespace EveryAngle.WebClient.Web.Controllers
 {
     [LogExceptionHandler(Order = 2)]
     [CustomHandleError(Order = 1)]
+    [ExcludeFromCodeCoverage] // Use of static classes prohibits the creation of unit tests for these overrides
     public class BaseController : Controller
     {
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
@@ -37,31 +42,34 @@ namespace EveryAngle.WebClient.Web.Controllers
         {
             string webLanguage = string.Empty;
 
-            UserViewModel user = null;
             UserSettingsViewModel settings = null;
 
             try
             {
-                if (Session["UserSettingsViewModel"] == null || Session["UserViewModel"] == null)
+                if (IsAuthenticated(filterContext))
                 {
-                    // refresh user info if no session
-                    user = SessionHelper.Initialize().RefreshUserInfo();
-                    settings = user.Settings;
-                }
-                else
-                {
-                    user = Session["UserViewModel"] as UserViewModel;
-                    settings = Session["UserSettingsViewModel"] as UserSettingsViewModel;
-
-                    if (IsLanguageChanged(Request.Url, settings.default_language))
+                    UserViewModel user;
+                    if (Session["UserSettingsViewModel"] == null || Session["UserViewModel"] == null)
                     {
-                        // refresh user info if langauge changed
-                        SessionHelper.Initialize().RefreshUserInfo();
+                        // refresh user info if no session
+                        user = SessionHelper.Initialize().RefreshUserInfo();
                         settings = user.Settings;
                     }
-                }
+                    else
+                    {
+                        user = Session["UserViewModel"] as UserViewModel;
+                        settings = Session["UserSettingsViewModel"] as UserSettingsViewModel;
 
-                CheckAuthorization(user, filterContext);
+                        if (IsLanguageChanged(Request.Url, settings.default_language))
+                        {
+                            // refresh user info if language changed
+                            SessionHelper.Initialize().RefreshUserInfo();
+                            settings = user.Settings;
+                        }
+                    }
+
+                    CheckAuthorization(user, filterContext);
+                }
 
                 if (settings != null && !string.IsNullOrEmpty(settings.default_language))
                 {
@@ -97,33 +105,49 @@ namespace EveryAngle.WebClient.Web.Controllers
             base.OnActionExecuting(filterContext);
         }
 
+        private static bool IsAuthenticated(ActionExecutingContext filterContext)
+        {
+            var result = filterContext.HttpContext.Request.GetOwinContext().AuthenticateAsyncFromCookies();
+            var token = result.Result?.GetAccessToken();
+
+            if (!string.IsNullOrWhiteSpace(token) && SessionHelper.Initialize().CurrentUser != null)
+            {
+                return true;
+            }
+
+            SessionHelper.Initialize().DestroyAllSession();
+            filterContext.Result = new RedirectResult(EveryAngle.Shared.Helpers.UrlHelper.GetLoginPath());
+
+            return false;
+        }
+
         private void CheckAuthorization(UserViewModel user, ActionExecutingContext filterContext)
         {
             bool canAccessWC = user.ModelPrivileges.Any(f => f.Privileges.access_data_via_webclient == true);
             bool canAccessMC = user.SystemPrivileges.has_management_access == true;
 
             if (!canAccessWC && !filterContext.HttpContext.Request.IsAjaxRequest()
-                && !filterContext.IsChildAction)
+                             && !filterContext.IsChildAction)
             {
                 if (canAccessMC)
                 {
-                    string mcUrl = Url.Content("~/").ToLower() + EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("ManagementConsoleUrl").ToLower();
+                    string mcUrl = Url.Content("~/").ToLower(CultureInfo.InvariantCulture) + EveryAngle.Shared.Helpers.WebConfigHelper
+                        .GetAppSettingByKey("ManagementConsoleUrl").ToLower(CultureInfo.InvariantCulture);
                     filterContext.Result = new RedirectResult(mcUrl);
                 }
                 else
                 {
-                    SessionHelper.Initialize().Logout();
-                    filterContext.Result = new RedirectResult(EveryAngle.Shared.Helpers.UrlHelper.GetLoginPath());
+                    filterContext.Result = RedirectToAction("Forbidden", "User");
                 }
             }
         }
 
-        /// <summary>
-        /// Check changing langauge with url
-        /// </summary>
-        /// <param name="uri"></param>
-        /// <param name="language"></param>
-        /// <returns></returns>
+        /// <summary>Determines whether language changed is changed.</summary>
+        /// <param name="uri">The URI.</param>
+        /// <param name="language">The language.</param>
+        /// <returns>
+        ///   <c>true</c> if [is language changed]; otherwise, <c>false</c>.
+        /// </returns>
         private bool IsLanguageChanged(Uri uri, string language)
         {
             // if query contains "lang=", e.g. /resources/index?lang=en

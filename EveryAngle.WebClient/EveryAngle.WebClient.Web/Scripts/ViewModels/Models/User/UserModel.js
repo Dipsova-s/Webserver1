@@ -37,7 +37,9 @@ function UserViewModel() {
         return GetDataFromWebService(uri)
             .done(function (data, status, xhr) {
                 /* M4-11442: Use privileges in session */
-                self.Privileges.SystemPrivileges = jQuery.extend({}, sessionModel.Data().system_privileges);
+                if (sessionModel.Data()) {
+                    self.Privileges.SystemPrivileges = jQuery.extend({}, sessionModel.Data().system_privileges);
+                }
                 self.LoadSuccess(data, status, xhr);
                 setting.callback();
             });

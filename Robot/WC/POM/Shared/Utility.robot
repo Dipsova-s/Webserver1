@@ -2,6 +2,7 @@
 Resource            ${EXECDIR}/WC/POM/Shared/Breadcrumb.robot
 Resource            ${EXECDIR}/WC/POM/Shared/ToastNotification.robot
 Resource            ${EXECDIR}/WC/POM/Shared/HelpText.robot
+Resource            ${EXECDIR}/resources/WCSettings.robot
 
 *** Variables ***
 ${pgbMain}              css=#LoaderContainer
@@ -433,3 +434,11 @@ Get Pseudo Element CSS Attribute Value without passing psuedo
     ${attribute_value}=    Execute Javascript    return window.getComputedStyle(${element}).getPropertyValue('${attribute}');
     Log   ${attribute_value}
     [Return]    ${attribute_value}
+
+Is OKTA login required for login to application
+    ${filePath}=    set variable    ${EXECDIR}/python/TagsFromServer.txt
+    Log   ${filePath}
+    ${TextFileContent}=    Get File    ${filePath}
+    ${match}    ${value}    Run Keyword And Ignore Error    Should Contain  ${TextFileContent}  login:okta
+    ${RETURNVALUE}      Set Variable If     '${match}'=='PASS'    ${True}     ${False}
+    [Return]    ${RETURNVALUE}

@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/API/API_User.robot
 Suite Setup         Go to MC Then Login With Admin User
-Suite Teardown      Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Test Setup          Go To System Settings Page
 
 *** Variables ***

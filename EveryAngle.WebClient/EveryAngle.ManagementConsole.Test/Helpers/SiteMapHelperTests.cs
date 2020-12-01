@@ -1,8 +1,9 @@
-﻿using EveryAngle.ManagementConsole.Helpers;
+﻿using System.Collections.Generic;
+using System.Web;
+using System.Web.Mvc;
+using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.ManagementConsole.Models;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Test.Helpers
 {
@@ -32,6 +33,8 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
         [TestCase]
         public void Can_GetSiteMap()
         {
+            HttpContext.Current.Session["Sitemaps"] = new List<SiteMapModel.SiteMap>();
+
             List<SiteMapModel.SiteMap> sitemaps = SiteMapHelper.GetSiteMap(true);
 
             // assert
@@ -41,6 +44,7 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
         [TestCase]
         public void Can_GetSiteMapByHashPath()
         {
+            HttpContext.Current.Session["Sitemaps"] = new List<SiteMapModel.SiteMap>();
             SiteMapModel.SiteMap sitemap = SiteMapHelper.GetSiteMapByHashPath("//");
 
             // assert

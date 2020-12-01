@@ -155,7 +155,7 @@
                     xhrFields: typeof metadata.xhrFields === 'undefined' ? {} : metadata.xhrFields,
                     timeout: metadata.timeout,
                     success: function (data, status, xhr) {
-                        if (typeof data === 'string' && data.indexOf('id="LoginForm"') !== -1) {
+                        if (typeof data === 'string' && (data.indexOf('id="LoginForm"') !== -1 || data.indexOf('class="login-page"') !== -1)) {
                             location.reload();
                             return;
                         }

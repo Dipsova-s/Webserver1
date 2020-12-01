@@ -1,14 +1,44 @@
 *** Settings ***
+Resource            ${EXECDIR}/WC/POM/Shared/Utility.robot
 Resource            ${EXECDIR}/WC/POM/Shared/LoginPage.robot
 
 *** Keywords ***
 Login
+    [Arguments]   ${username}  ${password}
+    ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    Run Keyword Unless  ${Is_OKTA_Login_Required}   Login with EA credentials   ${username}  ${password}
+    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login with OKTA credentials   ${username}  ${password}
+
+Login with EA credentials
     [Arguments]   ${username}  ${password}
     Maximize Browser window
     Wait Login Page Document Loaded
     Fill in Username    ${username}
     Fill in Password    ${password}
     Click Login Button
+
+Login with OKTA credentials
+    [Arguments]   ${username}  ${password}
+    Wait Login Page Document Loaded
+    Maximize Browser window
+    ${Is_Login_Required}=   Check if Login required
+    Run Keyword If  ${Is_Login_Required} == ${true}   Click OKTA button in login page
+    Run Keyword If  ${Is_Login_Required} == ${true}   Login using OKTA username and Password in OKTA login page   ${username}  ${password}
+
+Login using OKTA username and Password in OKTA login page
+    [Arguments]   ${username}  ${password}
+    Wait Login Page Document Loaded
+    Fill in Username in OKTA page   ${username}
+    Fill in Password in OKTA page   ${password}
+    Click Login Button in OKTA page
+    Wait Search Page Document Loaded
+
+Login via OKTA page
+    Open Browser in Sandbox Mode
+    Maximize Browser window
+    Go To    ${URL_WC}
+    ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    Run Keyword If  ${Is_OKTA_Login_Required}   Login with OKTA credentials
 
 Retry Login
     [Arguments]   ${username}  ${password}
@@ -23,22 +53,31 @@ Login And Expected Result
 
 Login To WC
     [Arguments]   ${username}  ${password}
-    Login    ${username}    ${password}
+    ${userIsLoggedIn}=  Check If User Is Logged In   ${username}
+    Run Keyword If   ${userIsLoggedIn} == ${False}   Login    ${username}    ${password}
     ${result}   Run Keyword And Return Status    Check Login Successful
     Run Keyword If   ${result} == ${False}   Retry Login    ${username}    ${password}
     Wait Search Page Document Loaded
 
 Login To WC By Power User
-    Login To WC    ${Username}    ${Password}
+    ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    Run Keyword Unless  ${Is_OKTA_Login_Required}   Login To WC    ${Username}    ${Password}
+    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To WC    ${OKTAPowerUsername}    ${OKTAPowerPassword}
 
 Login To WC By Viewer User
-    Login To WC    ${ViewerUsername}    ${Password}
+    ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    Run Keyword Unless  ${Is_OKTA_Login_Required}   Login To WC    ${ViewerUsername}    ${Password}
+    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To WC    ${OKTAViewerUsername}    ${OKTAViewerPassword}
 
 Login To WC By Basic User
-    Login To WC    ${BasicUsername}    ${Password}
+    ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    Run Keyword Unless  ${Is_OKTA_Login_Required}   Login To WC    ${BasicUsername}    ${Password}
+    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To WC    ${OKTAViewerUsername}    ${OKTAViewerPassword}
 
 Login To WC By Admin User
-    Login To WC    ${AdminUsername}    ${Password}
+    ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    Run Keyword Unless  ${Is_OKTA_Login_Required}   Login To WC    ${AdminUsername}    ${Password}
+    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To WC    ${OKTAUsername}    ${OKTAPassword}
 
 Login To WC By Test Role User
     Login To WC    ${TestPrivilegesUser}    ${Password}
@@ -51,7 +90,9 @@ Login To MC
     Wait Side Menu Ready
 
 Login To MC By Admin User
-    Login To MC    ${AdminUsername}    ${Password}
+    ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    Run Keyword Unless  ${Is_OKTA_Login_Required}   Login To MC    ${AdminUsername}    ${Password}
+    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To MC    ${OKTAUsername}    ${OKTAPassword}
 
 Login To MC By Test Role User
     Login To MC    ${TestPrivilegesUser}    ${Password}

@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to MC Then Login With Admin User
 Test Setup          Go to Web Help Page of IT MC
 Test Teardown       Switch Window      IT Management Console
-Suite Teardown      Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Force Tags          acc_mc
 
 *** Variables ***
