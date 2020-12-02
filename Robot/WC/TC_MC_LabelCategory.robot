@@ -14,7 +14,7 @@ ${INVALID_LABEL_NAME}        Invalid Label
 *** Test Cases ***
 Test Label Category
     [Documentation]     This test case deals with creating a Label category which includes Labels and verifying the same by editing/filtering.
-    [Tags]      TC_C571      TC_C572      TC_C573      TC_C575
+    [Tags]      TC_C571      TC_C572      TC_C573      TC_C575      TC_C681
     Login To MC By Admin User
     Wait Until Overview Page Loaded    
     Go To Label Category Setting Page

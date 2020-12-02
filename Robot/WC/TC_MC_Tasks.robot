@@ -8,6 +8,7 @@ Force Tags                MC    acc_mc
 
 *** Test Cases ***
 Test Verify Task UI
+    [Documentation]    This test is to verify the automation task UI after clicking on Add new Task button
     Click Button To Add New Task
     Verify Edit Task Page
     Verify Add Task Action Popup
