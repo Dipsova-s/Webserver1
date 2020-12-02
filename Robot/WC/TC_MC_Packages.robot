@@ -9,7 +9,7 @@ Force Tags          acc_mc_s
 *** Test Cases ***
 Test Global Packages
     [Documentation]     Verify the user is able to upload package in global packages page. High Criticality
-    [Tags]  TC_C586  
+    [Tags]  TC_C586      TC_C587      TC_C588
     Verify Package Page Is Ready
     Verify Filter Not Found
     Verify Upload Package And Filter The Package    Robot_Test_1    ${EXECDIR}\\resources\\Robot-Test-1.eapackage
