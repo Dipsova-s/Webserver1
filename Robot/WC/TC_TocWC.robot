@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With Admin User
 Test Setup          Go to Web Help Page of WC
 Test Teardown       Switch Window      Every Angle - Search page
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Force Tags          acc_wc
 
 *** Variables ***

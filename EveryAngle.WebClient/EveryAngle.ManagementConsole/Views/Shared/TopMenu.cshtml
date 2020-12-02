@@ -51,7 +51,7 @@
                     </a>
                 }
                 <form id="logoutForm" action="@Url.Content("~/Security/Logout")">
-                    <a class="actionDropdownItem btnLogout" onclick="jQuery('#logoutForm').submit();"><span>@Resource.Logout</span></a>
+                    <a class="actionDropdownItem btnLogout" onclick="(function(){jQuery.localStorage.removeAll();jQuery('#logoutForm').submit();})()"><span>@Resource.Logout</span></a>
                 </form>
             </div>
         </div>

@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With Admin User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go To Search Page       
 Force Tags          acc_wc
 

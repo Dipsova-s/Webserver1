@@ -1,11 +1,6 @@
-using DevExpress.Web.Mvc;
-using EveryAngle.WebClient.Service.EmbededResource;
-using EveryAngle.WebClient.Service.ErrorHandlers;
-using EveryAngle.WebClient.Web.App_Start;
-using EveryAngle.WebClient.Web.Controllers;
-using EveryAngle.WebClient.Web.Helpers;
 using System;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -14,9 +9,16 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using DevExpress.Web.Mvc;
+using EveryAngle.WebClient.Service.EmbededResource;
+using EveryAngle.WebClient.Service.ErrorHandlers;
+using EveryAngle.WebClient.Web.App_Start;
+using EveryAngle.WebClient.Web.Controllers;
+using EveryAngle.WebClient.Web.Helpers;
 
 namespace EveryAngle.WebClient.Web
 {
+    [ExcludeFromCodeCoverage]
     public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
@@ -127,7 +129,10 @@ namespace EveryAngle.WebClient.Web
             }
         }
 
-
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            // place holder to solve endless loop issue
+        }
 
         protected void Application_PreSendRequestHeaders()
         {

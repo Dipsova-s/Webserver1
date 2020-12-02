@@ -37,6 +37,16 @@ function Authentication() {
         window.location = loginPageUrl;
     };
 
+    // handle new logins from STS
+    self.CheckForNewLogin = function() {
+        if (window.GetCookie('NewLogin', false) === 'true') {
+            window.DeleteCookie('NewLogin', '/');
+
+            var mainDeferred = jQuery.Deferred();
+            self.LoadAllResources(mainDeferred);
+        }
+    }
+
     self.InitialLoginPage = function () {
         // Set focus to username textbox after page load
         if (jQuery('#UserName').length) {
@@ -110,8 +120,8 @@ function Authentication() {
     };
     _self.CleanupAuthorizedData = function () {
         // cleanup old cookies
-        DeleteCookie('EASECTOKEN', '/');
-        DeleteCookie('EASECTOKEN', rootWebsitePath);
+        DeleteCookie('STSEASECTOKEN', '/');
+        DeleteCookie('STSEASECTOKEN', rootWebsitePath);
 
         return jQuery.when(
             !_self.isSessionCleared && window.mcClearSessionUrl ? GetAjaxHtmlResult(window.mcClearSessionUrl) : null,
@@ -239,8 +249,8 @@ function Authentication() {
                 checkCredential(mainDeferred)
 
                     // load all resources
-                    .then(function (data) {
-                        return self.LoadAllResources(mainDeferred, data);
+                    .then(function () {
+                        return self.LoadAllResources(mainDeferred);
                     })
 
                     // check redirect url
@@ -276,13 +286,20 @@ function Authentication() {
             return false;
         }
     };
-    self.LoadAllResources = function (mainDeferred, data) {
+    self.LoadAllResources = function (mainDeferred) {
+        // clear data from previous session
+        self.ClearUserStorage();
+        jQuery.localStorage('loginfailcount', 0);
+        jQuery.localStorage.removeItem(sessionModel.DirectoryName);
+        sessionModel.SetData(null);
+        sessionModel.IsLoaded(false);
+
         // login success then get versions
-        return _self.LoadPart1(mainDeferred, data)
+        return _self.LoadPart1(mainDeferred)
 
             // load user
-            .then(function (data) {
-                return _self.LoadPart2(mainDeferred, data);
+            .then(function () {
+                return _self.LoadPart2(mainDeferred);
             })
 
             // load others
@@ -297,11 +314,8 @@ function Authentication() {
         mainDeferred.notify('Loading system information');
         return directoryHandler.LoadDirectory();
     };
-    _self.LoadPart2 = function (mainDeferred, data) {
+    _self.LoadPart2 = function (mainDeferred) {
         mainDeferred.notify('Loading user information');
-
-        // keep session uri in localStorage
-        jQuery.localStorage('session_uri', data.session);
 
         return jQuery.when(userModel.Load(), systemSettingHandler.LoadSystemSettings());
     };
@@ -419,6 +433,7 @@ function Authentication() {
             jQuery('html').addClass('noPopup');
 
             WC.Ajax.EnableBeforeExit = false;
+            self.ClearAuthorizedData(false);
             window.location = logoutPageUrl;
         }, 500);
     };

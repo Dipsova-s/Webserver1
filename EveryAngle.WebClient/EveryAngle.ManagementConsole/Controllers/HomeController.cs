@@ -5,11 +5,13 @@ using EveryAngle.ManagementConsole.Models;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.ManagementConsole.Helpers;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using EveryAngle.WebClient.Web.Filters.ActionFilters;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
     [ValidationRequest(true)]
+    [ExcludeFromCodeCoverage]
     public class HomeController : BaseController
     {
         private readonly IDirectoryService _directoryService;
@@ -21,7 +23,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.EASECTOKEN = string.Empty;
+            ViewBag.STSEASECTOKEN = string.Empty;
             return PartialView("~/Views/Shared/Index.cshtml");
         }
 

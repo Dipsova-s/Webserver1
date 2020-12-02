@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Initialize Download Path And Login With Power User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Force Tags          acc_wc
 
 *** Test Cases ***

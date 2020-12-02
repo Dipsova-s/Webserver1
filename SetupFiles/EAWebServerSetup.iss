@@ -151,6 +151,7 @@ Source: "Resources\EveryAngle.EncryptionDecryption32-2.3\EveryAngle.EncryptionDe
 
 ; PowerShell Scripts
 Source: "SetupFiles\PowerShellScripts\SetCertificatePermissions.ps1"; Flags: dontcopy noencryption
+Source: "SetupFiles\PowerShellScripts\SetUrlRedirectsAndAuhtority.ps1"; Flags: dontcopy noencryption
 
 [Dirs]
 Name: "{code:DataPath|log}";
@@ -1239,6 +1240,49 @@ begin
 end;
 
 
+procedure UpdateWebConfigWithSSODetails(baseIISPhysicalPath: string);
+var
+
+  scriptName: string;
+  scriptPath: string;
+  thumbprint: string;
+  appServerUrl: string;
+  appServerPort: string;
+  webServerPhysicalPath: string;
+  managementConsolePhysicalPath: string;
+  parameters : string;
+  settings: string;
+  resultCode: integer;
+  WebConfig : variant;
+
+begin
+  scriptName := 'SetUrlRedirectsAndAuhtority.ps1';
+  scriptPath := ExpandConstant('{tmp}') + '\' + scriptName;
+
+  ExtractTemporaryFile(scriptName);
+  LoadXMLConfigFileEx(baseIISPhysicalPath, 'web.config', false, {out}WebConfig);
+
+  thumbprint :=  GetAppSetting(WebConfig,'WebServiceCertificateThumbPrint');
+  appServerUrl := WebClientConfigPage.Values[1];
+  appServerPort := WebClientConfigPage.Values[2];
+  webServerPhysicalPath := baseIISPhysicalPath;
+  managementConsolePhysicalPath := baseIISPhysicalPath + '/admin';
+
+  parameters := ' -CertificateThumbprint "'  + thumbprint + '" -AppServerUrl "' + appServerUrl + '" -AppServerPort "' + appServerPort + '" -WebServerPhysicalPath "' + webServerPhysicalPath + '" -ManagementConsolePhysicalPath "' + managementConsolePhysicalPath + '"';
+
+  settings := '-ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden ';
+
+  Log(Format('[i] Setting redirect uri and authority uri for Web Client and IT Management Console: %s, %s, %s, %s, %s', [thumbprint, appServerUrl, appServerPort, webServerPhysicalPath, managementConsolePhysicalPath]));
+  resultCode := ExecuteAndLogPSFile(settings, scriptPath, parameters);
+
+  if resultCode <> 0 then
+   begin
+     ShowError('Deployment of the WebServer failed. The setup cannot continue!'#13
+     'More information can be found in ''powershell.exe.log'' in the log directory.', mbError, MB_OK);
+     DoAbort();
+   end;
+end;
+
 function RegisterComponents(baseIISPhysicalPath:string): boolean;
 var  
   ODataIds : string;
@@ -1631,7 +1675,6 @@ begin
   //Upgrade environment
   ShowProgressAndText(88, msg1, 'Updating Environment');
   UpgradeEnvironment(IISPhysicalPath);
-    
 
   if IsComponentSelected('OData') then
   begin
@@ -1648,6 +1691,9 @@ begin
   // Upgrade environment
   ShowProgressAndText(90, msg1, 'Granting access to appPoolIdentity');
   GrantAppPoolIdentity();
+
+  ShowProgressAndText(95, msg1, 'Setting redirect uri and authority');
+  UpdateWebConfigWithSSODetails(IISPhysicalPath);
 
   HideProgress();
 

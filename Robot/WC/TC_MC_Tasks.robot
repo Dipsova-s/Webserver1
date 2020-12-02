@@ -3,7 +3,7 @@ Resource                  ${EXECDIR}/resources/WCSettings.robot
 Resource                  ${EXECDIR}/WC/API/API_Angle.robot
 Resource                  ${EXECDIR}/WC/API/API_Task.robot
 Suite Setup               Go To Tasks Page With Admin User
-Suite Teardown            Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Force Tags                MC    acc_mc
 
 *** Test Cases ***

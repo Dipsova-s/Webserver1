@@ -1,9 +1,9 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go to Search Page
-Force Tags          smk_wc
+Force Tags          smk_wc_s
 
 *** Test Cases ***
 Add Display To Angle Test

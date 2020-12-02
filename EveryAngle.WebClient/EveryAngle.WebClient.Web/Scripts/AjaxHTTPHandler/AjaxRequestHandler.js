@@ -163,12 +163,23 @@
 (function (window) {
     "use strict";
 
+    function handleStsResponse(result) {
+        // Intercept html docs as this is a STS response - redirect to root
+        if (typeof result === "string" && result.startsWith("<!DOCTYPE ")) {
+            window.location = rootWebsitePath + '?redirect=' + location.pathname + location.hash;
+        }
+        if (typeof result === "string" && result.startsWith("<html") && result.lastIndexOf("auth/verify") > -1 && result.lastIndexOf("<form") > -1 && result.lastIndexOf("window.addEventListener('load', function(){document.forms[0].submit();});") > -1) {
+            WC.Authentication.Logout();
+        }
+        return result;
+    }
+
     window.GetDataFromWebService = function (originalUrl, data, isLocalApi, async, timeout) {
         var url = WC.Ajax.BuildRequestUrl(originalUrl, isLocalApi);
         return WC.Ajax.Request(url, 'GET', data, {
             async: async,
             timeout: timeout
-        });
+        }).done(handleStsResponse);
     };
 
     window.UpdateDataToWebService = function (originalUrl, data, isLocalApi, async, timeout) {
@@ -176,7 +187,7 @@
         return WC.Ajax.Request(url, 'PUT', data, {
             async: async,
             timeout: timeout
-        });
+        }).done(handleStsResponse);
     };
 
     window.CreateDataToWebService = function (originalUrl, data, isLocalApi, async, timeout) {
@@ -184,7 +195,7 @@
         return WC.Ajax.Request(url, 'POST', data, {
             async: async,
             timeout: timeout
-        });
+        }).done(handleStsResponse);
     };
 
     window.DeleteDataToWebService = function (originalUrl, data, isLocalApi, async, timeout) {
@@ -192,7 +203,7 @@
         return WC.Ajax.Request(url, 'DELETE', data, {
             async: async,
             timeout: timeout
-        });
+        }).done(handleStsResponse);
     };
 
     window.PostAjaxHtmlResult = function (originalUrl, data, async, timeout) {

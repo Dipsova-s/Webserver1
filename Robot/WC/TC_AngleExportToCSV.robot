@@ -1,7 +1,7 @@
 *** Settings ***
 Resource    		${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Initialize Download Path And Login With Admin User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Run Keywords  Empty Download Directory  AND  Go to Search Page
 Force Tags        	acc_wc
 

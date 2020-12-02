@@ -8,7 +8,7 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
     {
         [JsonProperty(PropertyName = "default_pagesize")]
         [LocalizedDisplayName("MC_DefaultPageSize")]
-        public int default_pagesize { get; set; }
+        public virtual int default_pagesize { get; set; }
 
         [JsonProperty(PropertyName = "max_pagesize")]
         [LocalizedDisplayName("MC_MaxPageSize")]

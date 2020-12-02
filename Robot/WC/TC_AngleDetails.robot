@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go to Search Page
 
 *** Variables ***
@@ -12,7 +12,7 @@ Test Teardown       Go to Search Page
 *** Test Cases ***
 Verify Angle & Display Statistics
     [Documentation]     Angle statistics
-    [Tags]              smk_wc  TC_C229139  TC_C229140
+    [Tags]              smk_wc_s  TC_C229139  TC_C229140
     ${angleName}  Set Variable  [ROBOT] Test Verify Angle Statistics
     Create Adhoc Angle From Object List    PD    ${angleName}
 
@@ -36,7 +36,7 @@ Verify Angle & Display Statistics
 
 Verify Last Angle Execute Time
     [Documentation]     Angle statistics
-    [Tags]    smk_wc        TC_C229139
+    [Tags]    smk_wc_s        TC_C229139
     Verify Last Execute Time Angle     Angle For General Test
 
 Verify Angle Descriptions

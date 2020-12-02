@@ -20,29 +20,34 @@ namespace EveryAngle.ManagementConsole.Controllers
             this.globalSettingService = globalSettingService;
         }
 
+        internal SuggestedFieldsController(IModelService service, IGlobalSettingService globalSettingService, SessionHelper sessionHelper)
+            : this(service, globalSettingService)
+        {
+            SessionHelper = sessionHelper;
+        }
+
         #region "Public"
 
         public ActionResult SuggestedFields(string modelUri)
         {
-            var sessionHelper = SessionHelper.Initialize();
-            var model = sessionHelper.GetModel(modelUri);
+            var model = SessionHelper.GetModel(modelUri);
 
             ViewBag.ModelUri = modelUri;
             ViewBag.ModelId = model.id;
             ViewBag.FieldsUri = model.FieldsUri.ToString();
             ViewBag.DefaultPagesize = DefaultPageSize;
             ViewBag.MaxPageSize = MaxPageSize;
-            ViewBag.MaxDomainElementsForSearch = sessionHelper.SystemSettings.max_domainelements_for_search;
-            ViewBag.ClientSettings = sessionHelper.CurrentUser.Settings.client_settings;
+            ViewBag.MaxDomainElementsForSearch = SessionHelper.SystemSettings.max_domainelements_for_search;
+            ViewBag.ClientSettings = SessionHelper.CurrentUser.Settings.client_settings;
 
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
 
             var fieldCategory =
-                globalSettingService.GetFieldCategories(sessionHelper.Version.GetEntryByName("field_categories").Uri +
+                globalSettingService.GetFieldCategories(SessionHelper.Version.GetEntryByName("field_categories").Uri +
                                                         "?" + offsetLimitQuery);
+
             var eventlog =
-                globalSettingService.GetEventLogs(sessionHelper.Version.GetEntryByName("eventlog").Uri +
-                                                  "?type=mass_change_suggested").Data.FirstOrDefault();
+                globalSettingService.GetEventLogs(SessionHelper.Version.GetEntryByName("eventlog").Uri + "?type=mass_change_suggested").Data.FirstOrDefault();
             var summary = modelService.GetSuggestedFieldsSummary(model.suggested_fields_summary.ToString());
             summary.suggested_fields_timestamp = eventlog != null ? eventlog.timestamp : (long?) null;
             summary.suggested_fields_last_change = eventlog != null
@@ -54,7 +59,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewData["fieldCategories"] = JsonConvert.SerializeObject(fieldCategory.Data);
             ViewData["BusinessProcesses"] =
                 globalSettingService.GetBusinessProcesses(
-                    sessionHelper.Version.GetEntryByName("business_processes").Uri + "?" + offsetLimitQuery);
+                    SessionHelper.Version.GetEntryByName("business_processes").Uri + "?" + offsetLimitQuery);
             ViewData["ModelData"] = model;
             ViewData["SuggestedFieldsSummaryData"] = summary;
 

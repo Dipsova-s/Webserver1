@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go To System Roles Page With Admin User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go To System Roles Page
 Force Tags          MC    acc_mc
 

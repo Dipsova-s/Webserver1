@@ -1,7 +1,7 @@
 *** Settings ***
 Resource                  ${EXECDIR}/resources/WCSettings.robot
 Suite Setup               Go to MC Then Login With Admin User
-Suite Teardown            Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Test Setup                Go To EA2_800 Suggested Fields Page
 
 *** Variables ***
@@ -10,7 +10,7 @@ ${BusinessProcess}        S2D
 
 *** Test Cases ***
 Test Suggested Fields For Single Object
-    [Tags]   acc_mc
+    [Tags]   exclude
     Set Suggested Fields For Single Object    ${PDItemObject}    ${BusinessProcess}
     Verify Suggested Fields After Set    ${PDItemObject}    ${BusinessProcess}
     Click Clear All Suggested Fields

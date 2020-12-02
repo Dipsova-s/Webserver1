@@ -22,7 +22,7 @@ namespace EveryAngle.Core.ViewModels.SystemInformation
         /// <summary>
         /// Can use Angle automation or not?
         /// </summary>
-        public bool AngleAutomation
+        public virtual bool AngleAutomation
         {
             get
             {
@@ -33,7 +33,7 @@ namespace EveryAngle.Core.ViewModels.SystemInformation
         /// <summary>
         /// Can use OData service or not?
         /// </summary>
-        public bool ODataService
+        public virtual bool ODataService
         {
             get
             {

@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With Admin User
 Suite Teardown      Run Keywords   Roll back to WC page  AND   Logout WC Then Close Browser       
-Force Tags          acc_wc
+Force Tags          acc_wc_s
 
 
 *** Test Cases ***

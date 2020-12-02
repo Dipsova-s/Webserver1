@@ -18,20 +18,22 @@ namespace EveryAngle.ManagementConsole.Controllers
     public class BaseController : Controller
     {
         protected SessionHelper SessionHelper;
+        internal delegate string GetLoginPathDelegate(bool forceToWc);
+        internal GetLoginPathDelegate GetLoginPath;
 
         public BaseController()
         {
             if (SessionHelper == null)
                 SessionHelper = SessionHelper.Initialize();
+            GetLoginPath = Shared.Helpers.UrlHelper.GetLoginPath;
         }
 
-        public int DefaultPageSize
+        internal BaseController(SessionHelper sessionHelper)
         {
-            get
-            {
-                return SessionHelper.SystemSettings.default_pagesize;
-            }
+            SessionHelper = sessionHelper;
         }
+
+        public int DefaultPageSize => SessionHelper.SystemSettings.default_pagesize;
 
         public int MaxPageSize
         {
@@ -64,28 +66,31 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            SessionHelper session = SessionHelper.Initialize();
-            if (!session.HasCookie || !CanAccessSystem(session))
+            HandleActionExecution(filterContext);
+            base.OnActionExecuting(filterContext);
+        }
+
+        internal void HandleActionExecution(ActionExecutingContext filterContext)
+        {
+            if ((!SessionHelper.HasCookie || !CanAccessSystem(SessionHelper)) && GetLoginPath != null)
             {
 #if DEVMODE
-                session.DestroyAllSession();
-                session.SetCookieToExpired();
+                SessionHelper.DestroyAllSession();
                 filterContext.Result = new RedirectResult("~/security/index?redirect=/home/index");
 #else
-                bool forceToWC = !CanAccessSystem(session);
-                string loginUrl = EveryAngle.Shared.Helpers.UrlHelper.GetLoginPath(forceToWC);
+                bool forceToWc = !CanAccessSystem(SessionHelper);
+                string loginUrl = GetLoginPath(forceToWc);
                 filterContext.Result = new RedirectResult(loginUrl);
 #endif
                 return;
             }
 
-            if (session.CurrentUser.Settings == null)
+            if (SessionHelper.CurrentUser.Settings == null)
             {
-                session.RefreshUserSettings();
+                SessionHelper.RefreshUserSettings();
             }
 
             SetCurrentLanguage();
-            base.OnActionExecuting(filterContext);
         }
 
         private void SetCurrentLanguage()

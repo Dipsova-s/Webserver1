@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to MC Then Login With Admin User
-Suite Teardown      Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Test Setup          Go To EA2_800 Model Language Page
 Force Tags          acc_mc
 

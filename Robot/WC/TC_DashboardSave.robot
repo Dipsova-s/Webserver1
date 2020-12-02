@@ -3,8 +3,8 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_DashboardState.robot
 Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_DashboardSave.robot
 Suite Setup         Go to WC Then Login With EAPower User
-Suite Teardown      Logout WC Then Close Browser
-Force Tags          acc_wc
+Suite Teardown      Close Browser
+Force Tags          acc_wc_s
 
 *** Test Cases ***
 Verify Dashboard Saving Privilege

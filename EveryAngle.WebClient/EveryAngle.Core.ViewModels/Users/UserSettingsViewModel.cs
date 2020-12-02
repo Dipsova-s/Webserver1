@@ -6,7 +6,7 @@ namespace EveryAngle.Core.ViewModels.Users
 {
     public class UserSettingsViewModel
     {
-        public string client_settings { get; set; }
+        public virtual string client_settings { get; set; }
 
         [LocalizedDisplayName("MC_DecimalSeparator")]
         public string general_decimal_seperator { get; set; }

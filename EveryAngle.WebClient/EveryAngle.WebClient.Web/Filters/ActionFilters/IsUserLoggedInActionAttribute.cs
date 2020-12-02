@@ -1,13 +1,15 @@
-using EveryAngle.Core.ViewModels.Users;
-using EveryAngle.WebClient.Service.Security;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using EveryAngle.Core.ViewModels.Users;
+using EveryAngle.WebClient.Service.Security;
 
 namespace EveryAngle.WebClient.Web.Filters.ActionFilters
 {
-    public class IsUserLogedInAction : ActionFilterAttribute
+    [ExcludeFromCodeCoverage]
+    public class IsUserLoggedInActionAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -41,7 +43,7 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
                     Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en");
                 }
             }
-            catch 
+            catch
             {
                 //do nothing
             }

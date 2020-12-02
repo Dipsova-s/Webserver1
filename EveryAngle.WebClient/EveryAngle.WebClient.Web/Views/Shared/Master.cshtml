@@ -116,6 +116,7 @@
             <script type="text/javascript">
                 InitialKendo();
                 SetUICuture(userCulture);
+                window.WC.Authentication.CheckForNewLogin();
             </script>
         }
         else
@@ -138,6 +139,7 @@
                     function () {
                         InitialKendo();
                         SetUICuture(userCulture);
+                        window.WC.Authentication.CheckForNewLogin();
                     }
                 );
             </script>

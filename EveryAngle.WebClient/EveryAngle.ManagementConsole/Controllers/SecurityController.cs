@@ -21,7 +21,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             userService = service;
         }
 
-        [IsUserLogedInAction]
+        [IsUserLoggedInAction]
         public ActionResult Index()
         {
             return View();

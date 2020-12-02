@@ -1,4 +1,10 @@
-﻿using EveryAngle.Core.Interfaces.Services;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Web;
+using System.Web.SessionState;
+using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels.Directory;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.SystemSettings;
@@ -10,11 +16,6 @@ using EveryAngle.WebClient.Service.Security;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Web;
-using System.Web.SessionState;
 
 namespace EveryAngle.ManagementConsole.Test
 {
@@ -80,6 +81,28 @@ namespace EveryAngle.ManagementConsole.Test
 
             // setup context
             InitiateTestingContext();
+
+            // Setup fake HttpContext
+            var data = new Dictionary<string, object>
+            {
+                {"Authentication", "ajhfkds jhsfhsdf"}
+            };
+
+            HttpContext.Current = new HttpContext(new HttpRequest(null, "http://test.com", null), new HttpResponse(null));
+            HttpContext.Current.Items["owin.Environment"] = data;
+
+            var sessionContainer = new HttpSessionStateContainer("id", new SessionStateItemCollection(),
+                new HttpStaticObjectsCollection(), 10, true,
+                HttpCookieMode.AutoDetect,
+                SessionStateMode.InProc, false);
+
+            HttpContext.Current.Items["AspSession"] =
+                typeof(HttpSessionState).GetConstructor(
+                        BindingFlags.NonPublic | BindingFlags.Instance,
+                        null, CallingConventions.Standard,
+                        new[] { typeof(HttpSessionStateContainer) },
+                        null)
+                    .Invoke(new object[] { sessionContainer });
         }
 
         [TearDown]

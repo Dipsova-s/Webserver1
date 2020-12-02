@@ -80,6 +80,7 @@ ${TIMEOUT_AJAX_COMPLETE}    1000
 ${TIMEOUT_DROPDOWN}    0.7s
 ${TIMEOUT_GENERAL}    0.5s
 ${TIMEOUT_LARGEST}    1s
+${TIMEOUT_LARGEST_EXTRA}    15s
 ${TIMEOUT_MC_OVERVIEW}    150s
 ${TIMEOUT_MC_LOAD}    60s
 ${TIMEOUT_MC_PROGRESS_BAR}    210s
@@ -91,7 +92,12 @@ ${AdminUsername}            \\eaadmin
 ${TestPrivilegesUser}       \\EATestUserRole
 ${ViewerUsername}           \\eaviewer
 ${BasicUsername}            \\eabasic
-
+${OKTAUsername}             eaadmin_okta@magnitude.com
+${OKTAPassword}             Welcome1
+${OKTAPowerUsername}             eapower_okta@magnitude.com
+${OKTAPowerPassword}             Welcome1
+${OKTAViewerUsername}             eaviewer_okta@magnitude.com
+${OKTAViewerPassword}             Welcome1
 # Performance
 ${API_SLA}     0.5      # SLA time
 ${API_SEED}    50       # Number of item to test per case
