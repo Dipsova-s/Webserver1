@@ -12,6 +12,7 @@ ${TEST_USER}                EAPower
 
 *** Test Cases ***
 Create Business Process and Delete
+    [Tags]      TC_C17      TC_C18
     [Documentation]     This test creates business process and delete the business process
     ...                 Risk Covered-This test covers failures while creating business process and deleting the process
     Go to Business Process

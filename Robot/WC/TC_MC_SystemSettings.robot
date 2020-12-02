@@ -13,7 +13,7 @@ ${Program/ScriptFolderPath}     c:/random/path
 *** Test Cases ***
 Test System Settings
     [Documentation]     This test case verifies the system settings
-    [Tags]  smk_mc  TC_C230851
+    [Tags]  smk_mc  TC_C230851      TC_C603
     Verify Instance To Keep Per Model
     Verify SSL Email Settings
     Verify Default Maximum Export Page Size Is Exist
