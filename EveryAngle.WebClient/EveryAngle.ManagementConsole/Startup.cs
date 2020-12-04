@@ -18,7 +18,7 @@ namespace EveryAngle.ManagementConsole
         public void ConfigureAuth(IAppBuilder app)
         {
             var redirectBaseUri = ConfigurationManager.AppSettings["RedirectBaseUri"];
-            app.SetupAuthenticationProviders(ClientId, redirectBaseUri, $"{redirectBaseUri}/admin");
+            app.SetupAuthenticationProviders(ClientId, redirectBaseUri, "/admin");
         }
     }
 }

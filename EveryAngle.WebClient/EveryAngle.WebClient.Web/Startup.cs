@@ -18,7 +18,7 @@ namespace EveryAngle.WebClient.Web
         public void ConfigureAuth(IAppBuilder app)
         {
             var redirectBaseUri = ConfigurationManager.AppSettings["RedirectBaseUri"];
-            app.SetupAuthenticationProviders(ClientId, redirectBaseUri, redirectBaseUri);
+            app.SetupAuthenticationProviders(ClientId, redirectBaseUri, "");
         }
     }
 }

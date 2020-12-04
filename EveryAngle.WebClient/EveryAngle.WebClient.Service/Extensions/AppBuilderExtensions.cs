@@ -25,8 +25,15 @@ namespace EveryAngle.WebClient.Service.Extensions
         private const string NameClaimType = "full_name";
         private const string AuthoritySettingName = "Authority";
 
-        public static void SetupAuthenticationProviders(this IAppBuilder app, string clientId, string redirectUri, string postLogoutRedirectUri)
+        public static void SetupAuthenticationProviders(this IAppBuilder app, string clientId, string redirectUri, string postLogoutRedirectUriPath)
         {
+            // Remove trailing slash (if any)
+            if (redirectUri.EndsWith("/"))
+            {
+                redirectUri = redirectUri.Substring(0, redirectUri.Length - 1);
+            }
+
+            var postLogoutRedirectUri = $"{redirectUri}{postLogoutRedirectUriPath}";
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
