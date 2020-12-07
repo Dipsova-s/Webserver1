@@ -439,6 +439,6 @@ Is OKTA login required for login to application
     ${filePath}=    set variable    ${EXECDIR}/python/TagsFromServer.txt
     Log   ${filePath}
     ${TextFileContent}=    Get File    ${filePath}
-    ${match}    ${value}    Run Keyword And Ignore Error    Should Contain  ${TextFileContent}  login:okta
+    ${match}    ${value}    Run Keyword And Ignore Error    Should Contain  ${TextFileContent}  okta
     ${RETURNVALUE}      Set Variable If     '${match}'=='PASS'    ${True}     ${False}
     [Return]    ${RETURNVALUE}
