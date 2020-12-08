@@ -38,7 +38,7 @@ Login via OKTA page
     Maximize Browser window
     Go To    ${URL_WC}
     ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
-    Run Keyword If  ${Is_OKTA_Login_Required}   Login with OKTA credentials     ${BasicUsername}    ${Password}
+    Run Keyword If  ${Is_OKTA_Login_Required}   Login with OKTA credentials     ${OKTAUsername}    ${OKTAPassword}
 
 Retry Login
     [Arguments]   ${username}  ${password}
