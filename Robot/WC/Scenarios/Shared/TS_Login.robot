@@ -31,7 +31,6 @@ Login using OKTA username and Password in OKTA login page
     Fill in Username in OKTA page   ${username}
     Fill in Password in OKTA page   ${password}
     Click Login Button in OKTA page
-    Wait Search Page Document Loaded
 
 Login via OKTA page
     Open Browser in Sandbox Mode
