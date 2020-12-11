@@ -38,6 +38,7 @@ Login via OKTA page
     Go To    ${URL_WC}
     ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
     Run Keyword If  ${Is_OKTA_Login_Required}   Login with OKTA credentials     ${OKTAUsername}    ${OKTAPassword}
+    Wait Search Page Document Loaded
 
 Retry Login
     [Arguments]   ${username}  ${password}
@@ -71,7 +72,7 @@ Login To WC By Viewer User
 Login To WC By Basic User
     ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
     Run Keyword Unless  ${Is_OKTA_Login_Required}   Login To WC    ${BasicUsername}    ${Password}
-    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To WC    ${OKTAViewerUsername}    ${OKTAViewerPassword}
+    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To WC    ${OKTABasicUsername}    ${OKTABasicPassword}
 
 Login To WC By Admin User
     ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
@@ -94,7 +95,9 @@ Login To MC By Admin User
     Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To MC    ${OKTAUsername}    ${OKTAPassword}
 
 Login To MC By Test Role User
-    Login To MC    ${TestPrivilegesUser}    ${Password}
+    ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    Run Keyword Unless  ${Is_OKTA_Login_Required}   Login To MC    ${TestPrivilegesUser}    ${Password}
+    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To MC    ${OKTAUsername}    ${OKTAPassword}
 
 Logout
     [Arguments]
