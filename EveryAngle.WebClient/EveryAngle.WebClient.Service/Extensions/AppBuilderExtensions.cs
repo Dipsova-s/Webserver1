@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -65,6 +66,8 @@ namespace EveryAngle.WebClient.Service.Extensions
                 RedeemCode = true,
                 ClientSecret = ClientSecret,
 
+                ProtocolValidator = new CustomOpenIdConnectProtocolValidator(),
+
                 ResponseType = OpenIdConnectResponseType.Code,
                 Notifications = new OpenIdConnectAuthenticationNotifications
                 {
@@ -101,6 +104,32 @@ namespace EveryAngle.WebClient.Service.Extensions
                     }
                 }
             });
+        }
+
+        private class CustomOpenIdConnectProtocolValidator : OpenIdConnectProtocolValidator
+        {
+            public CustomOpenIdConnectProtocolValidator()
+            {
+                NonceLifetime = new TimeSpan(0, 0, 0, 15, 0);
+                RequireAcr = false;
+                RequireAmr = false;
+                RequireAuthTime = false;
+                RequireAzp = false;
+                RequireNonce = true;
+                RequireState = true;
+                RequireStateValidation = false;
+                RequireSub = true;
+                RequireTimeStampInNonce = true;
+            }
+
+            protected override void ValidateNonce(OpenIdConnectProtocolValidationContext validationContext)
+            {
+                // Validate nonce if it is not null
+                if (validationContext.Nonce != null)
+                {
+                    base.ValidateNonce(validationContext);
+                }
+            }
         }
     }
 }
