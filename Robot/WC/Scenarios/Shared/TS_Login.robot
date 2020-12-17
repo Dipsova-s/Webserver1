@@ -21,8 +21,8 @@ Login with OKTA credentials
     [Arguments]   ${username}  ${password}
     Wait Login Page Document Loaded
     Maximize Browser window
+    Click OKTA button in login page
     ${Is_Login_Required}=   Check if Login required
-    Run Keyword If  ${Is_Login_Required} == ${true}   Click OKTA button in login page
     Run Keyword If  ${Is_Login_Required} == ${true}   Login using OKTA username and Password in OKTA login page   ${username}  ${password}
 
 Login using OKTA username and Password in OKTA login page
