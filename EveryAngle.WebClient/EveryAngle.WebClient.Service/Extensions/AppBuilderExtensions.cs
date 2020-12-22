@@ -110,7 +110,7 @@ namespace EveryAngle.WebClient.Service.Extensions
         {
             public CustomOpenIdConnectProtocolValidator()
             {
-                NonceLifetime = new TimeSpan(0, 0, 0, 15, 0);
+                NonceLifetime = new TimeSpan(0, 0, 0, 30, 0);
                 RequireAcr = false;
                 RequireAmr = false;
                 RequireAuthTime = false;
