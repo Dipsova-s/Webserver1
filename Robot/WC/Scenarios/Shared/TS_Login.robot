@@ -80,7 +80,9 @@ Login To WC By Admin User
     Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To WC    ${OKTAUsername}    ${OKTAPassword}
 
 Login To WC By Test Role User
-    Login To WC    ${TestPrivilegesUser}    ${Password}
+    ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    Run Keyword Unless  ${Is_OKTA_Login_Required}   Login To WC    ${TestPrivilegesUser}    ${Password}
+    Run Keyword If  ${Is_OKTA_Login_Required}==True    Login To WC    ${OKTABasicUsername}    ${OKTABasicPassword}
 
 Login To MC
     [Arguments]   ${username}  ${password}
