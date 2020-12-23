@@ -71,6 +71,8 @@
         var requireUserNameAndPasword = Localization.PleaseEnterYourUsernameAndPassword;
         var editorStyleSheet = '@Styles.Url("~/content/css/main.css")';
         var copyRightUrl = '@Url.Action("Copyright", "SharedComponent").ToLower()';
+        var wcClearSessionUrl = '@Url.Action("DestroyAllSession", "User").ToLower()';
+        var mcClearSessionUrl = rootWebsitePath + '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("ManagementConsoleUrl")' + 'Security/DestroyAllSession';
     </script>
 
     <!--[if lt IE 10]>
