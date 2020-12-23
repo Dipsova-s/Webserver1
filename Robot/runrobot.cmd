@@ -41,6 +41,8 @@ set updateRequestsModule=yes
 set updateRequestsModuleVersion="requests==2.23.0"
 set updatelxml=yes
 set updatelxmlVersion="lxml==4.5.0"
+set updateShield34=yes
+set updateShield34Version="shield34==1.0.336"
 for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateRobotVersion% set updateRobot=no
 	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
@@ -51,6 +53,7 @@ for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateExcelLibraryVersion% set updateExcelLibrary=no
 	if "%%i"==%updateRequestsModuleVersion% set updateRequestsModule=no 
 	if "%%i"==%updatelxmlVersion% set updatelxml=no
+	if "%%i"==%updateShield34Version% set updateShield34=no
 )
 if "%updateRobot%"=="yes" pip install %updateRobotVersion%
 if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
@@ -61,6 +64,7 @@ if "%updatePillow%"=="yes" pip install %updatePillowVersion%
 if "%updateExcelLibrary%"=="yes" pip install %updateExcelLibraryVersion%
 if "%updateRequestsModule%"=="yes"  pip install %updateRequestsModuleVersion%
 if "%updatelxml%"=="yes" pip install %updatelxmlVersion%
+if "%updateShield34%"=="yes" pip install %updateShield34Version%
 
 ECHO ###### Checking Chrome Driver  ######
 call :downloadChromeDriver
@@ -147,27 +151,33 @@ exit /b 0
 					--variable BROWSER:%BROWSER% ^
 					--variable QueryString:%QueryString% ^
 					--variable CompareBranch:%CompareBranch% ^
-					--variable DevMode:%DevMode%
-
+					--variable DevMode:%DevMode%			
+					
 	:: **************** Run setup ***********************				
 	ECHO Executing "%TestCategory%_i" tests
 	call pabot --processes 1 ^
+		--pabotlib ^
+		--listener shield34_reporter.RobotListener ^
 		-i %TestCategory%_i ^
 		-d %ReportFolderSetup% ^
 		%parameters% ^
-		%TestPath%
+		 %TestPath%
 
 	:: **************** Run parallel ***********************
 	ECHO Executing "%TestCategory%" tests
 	call pabot --processes 4 ^
+		--pabotlib ^
+		--listener shield34_reporter.RobotListener ^
 		-i %TestCategory% ^
 		-d %ReportFolderParallel% ^
 		%parameters% ^
 		--randomize test %TestPath%
 
 	:: **************** Run single ***********************
-	ECHO Executing "%TestCategory%_s" tests
-	call pabot --processes 1 ^
+	ECHO Executing "%TestCategory%_s" tests	
+    call pabot --processes 1 ^
+		--pabotlib ^
+		--listener shield34_reporter.RobotListener ^
 	    -i %TestCategory%_s ^
 	    -d %ReportFolderSingle% ^
 		%parameters% ^
