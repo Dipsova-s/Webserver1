@@ -21,13 +21,7 @@
         },
         check: function (e) {
             clearTimeout(MC.storage.checker);
-            if (!e.originalEvent.oldValue) {
-                jQuery('#LoginButton').attr('disabled', 'disabled');
-
-                // reload page to get a new info from AS
-                document.location.reload();
-            }
-            else {
+            if (e.originalEvent.oldValue) {
                 MC.ui.loading.show();
                 MC.ui.loading.setError([
                     '<h1>' + Localization.Title_SessionChanged + '</h1>',

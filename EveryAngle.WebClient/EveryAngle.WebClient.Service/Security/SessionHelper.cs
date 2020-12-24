@@ -46,7 +46,6 @@ namespace EveryAngle.WebClient.Service.Security
         public static SessionHelper Initialize()
         {
             var helper = new SessionHelper();
-            helper.DestroyAllSession();
             helper.CheckSession();
             return helper;
         }
