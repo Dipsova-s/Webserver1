@@ -156,10 +156,8 @@ exit /b 0
 	:: **************** Run setup ***********************				
 	ECHO Executing "%TestCategory%_i" tests
 	call pabot --processes 1 ^
-		--verbose ^
 		--pabotlib ^
 		--listener shield34_reporter.RobotListener ^
-		--loglevel DEBUG ^
 		-i %TestCategory%_i ^
 		-d %ReportFolderSetup% ^
 		%parameters% ^
@@ -168,10 +166,9 @@ exit /b 0
 	:: **************** Run parallel ***********************
 	ECHO Executing "%TestCategory%" tests
 	call pabot --processes 4 ^
-		--verbose ^
+		--verbose
 		--pabotlib ^
 		--listener shield34_reporter.RobotListener ^
-		--loglevel DEBUG ^
 		-i %TestCategory% ^
 		-d %ReportFolderParallel% ^
 		%parameters% ^
@@ -180,7 +177,6 @@ exit /b 0
 	:: **************** Run single ***********************
 	ECHO Executing "%TestCategory%_s" tests	
     call pabot --processes 1 ^
-		--verbose ^
 		--pabotlib ^
 		--listener shield34_reporter.RobotListener ^
 	    -i %TestCategory%_s ^
