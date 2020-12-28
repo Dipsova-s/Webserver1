@@ -166,7 +166,6 @@ exit /b 0
 	:: **************** Run parallel ***********************
 	ECHO Executing "%TestCategory%" tests
 	call pabot --processes 4 ^
-		--verbose
 		--pabotlib ^
 		--listener shield34_reporter.RobotListener ^
 		-i %TestCategory% ^
