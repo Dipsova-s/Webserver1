@@ -42,7 +42,7 @@ set updateRequestsModuleVersion="requests==2.23.0"
 set updatelxml=yes
 set updatelxmlVersion="lxml==4.5.0"
 set updateShield34=yes
-set updateShield34Version="shield34==1.0.336"
+set updateShield34Version="shield34==1.0.342"
 for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateRobotVersion% set updateRobot=no
 	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
@@ -156,8 +156,10 @@ exit /b 0
 	:: **************** Run setup ***********************				
 	ECHO Executing "%TestCategory%_i" tests
 	call pabot --processes 1 ^
+		--verbose ^
 		--pabotlib ^
 		--listener shield34_reporter.RobotListener ^
+		--loglevel DEBUG ^
 		-i %TestCategory%_i ^
 		-d %ReportFolderSetup% ^
 		%parameters% ^
@@ -166,8 +168,10 @@ exit /b 0
 	:: **************** Run parallel ***********************
 	ECHO Executing "%TestCategory%" tests
 	call pabot --processes 4 ^
+		--verbose ^
 		--pabotlib ^
 		--listener shield34_reporter.RobotListener ^
+		--loglevel DEBUG ^
 		-i %TestCategory% ^
 		-d %ReportFolderParallel% ^
 		%parameters% ^
@@ -176,6 +180,7 @@ exit /b 0
 	:: **************** Run single ***********************
 	ECHO Executing "%TestCategory%_s" tests	
     call pabot --processes 1 ^
+		--verbose ^
 		--pabotlib ^
 		--listener shield34_reporter.RobotListener ^
 	    -i %TestCategory%_s ^
