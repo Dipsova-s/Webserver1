@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
@@ -35,6 +36,8 @@ namespace EveryAngle.WebClient.Service.Extensions
             }
 
             var postLogoutRedirectUri = $"{redirectUri}{postLogoutRedirectUriPath}";
+
+            app.UseCors(CorsOptions.AllowAll);
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
