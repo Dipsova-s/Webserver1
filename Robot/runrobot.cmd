@@ -42,7 +42,7 @@ set updateRequestsModuleVersion="requests==2.23.0"
 set updatelxml=yes
 set updatelxmlVersion="lxml==4.5.0"
 set updateShield34=yes
-set updateShield34Version="shield34==1.0.345"
+set updateShield34Version="shield34==1.0.349"
 for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateRobotVersion% set updateRobot=no
 	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
