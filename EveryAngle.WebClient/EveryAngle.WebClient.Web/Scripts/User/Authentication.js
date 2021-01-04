@@ -288,6 +288,7 @@ function Authentication() {
     };
     self.LoadAllResources = function (mainDeferred) {
         // clear data from previous session
+        _self.CleanupAuthorizedData();
         self.ClearUserStorage();
         jQuery.localStorage('loginfailcount', 0);
         jQuery.localStorage.removeItem(sessionModel.DirectoryName);
@@ -298,8 +299,8 @@ function Authentication() {
         return _self.LoadPart1(mainDeferred)
 
             // load user
-            .then(function () {
-                return _self.LoadPart2(mainDeferred);
+            .then(function (data) {
+                return _self.LoadPart2(mainDeferred, data);
             })
 
             // load others
@@ -314,9 +315,9 @@ function Authentication() {
         mainDeferred.notify('Loading system information');
         return directoryHandler.LoadDirectory();
     };
-    _self.LoadPart2 = function (mainDeferred) {
+    _self.LoadPart2 = function (mainDeferred, data) {
         mainDeferred.notify('Loading user information');
-
+        jQuery.localStorage('session_uri', data.session);
         return jQuery.when(userModel.Load(), systemSettingHandler.LoadSystemSettings());
     };
     _self.LoadPart3 = function (mainDeferred) {
