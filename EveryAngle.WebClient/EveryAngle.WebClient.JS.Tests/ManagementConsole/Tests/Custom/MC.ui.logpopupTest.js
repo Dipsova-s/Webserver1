@@ -48,24 +48,24 @@
         });
     });
     
-    describe(".UpdateLogFileDetailsLayout", function () {
-        beforeEach(function () {
-            $("<div id='popupLogTable'><div class='popupContent'><div class='contentSectionGrid'></div><div class='contentSectionLog'><div id='LogFileDetails'><div class='logDetails'></div></div></div></div>></div>").appendTo('body');
-        });
+    //describe(".UpdateLogFileDetailsLayout", function () {
+    //    beforeEach(function () {
+    //        $("<div id='popupLogTable'><div class='popupContent'><div class='contentSectionGrid'></div><div class='contentSectionLog'><div id='LogFileDetails'><div class='logDetails'></div></div></div></div>></div>").appendTo('body');
+    //    });
 
-        afterEach(function () {
-            $('#popupLogTable').remove();
-        });
-        it("should update the layout of log file section", function () {
-            $('#popupLogTable .popupContent').height(25);
-            $('#LogFileDetails').css({ 'padding-top': 15});
-            MC.ui.logpopup.UpdateLogFileDetailsLayout(true);
-            var newHeight = $('#LogFileDetails .logDetails').height();
-            var newOverflow = $('#LogFileDetails .logDetails').css("overflow");
-            expect(newHeight).toBe(10);
-            expect(newOverflow).toEqual("auto");
-        });
-    });
+    //    afterEach(function () {
+    //        $('#popupLogTable').remove();
+    //    });
+    //    it("should update the layout of log file section", function () {
+    //        $('#popupLogTable .popupContent').height(25);
+    //        $('#LogFileDetails').css({ 'padding-top': 15});
+    //        MC.ui.logpopup.UpdateLogFileDetailsLayout(true);
+    //        var newHeight = $('#LogFileDetails .logDetails').height();
+    //        var newOverflow = $('#LogFileDetails .logDetails').css("overflow");
+    //        expect(newHeight).toBe(10);
+    //        expect(newOverflow).toEqual("auto");
+    //    });
+    //});
 
     describe(".UpdateLogDetailsLayout", function () {
 
