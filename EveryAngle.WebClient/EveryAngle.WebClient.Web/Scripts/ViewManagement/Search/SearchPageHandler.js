@@ -7,9 +7,7 @@ window.SearchPageHandler = function () {
         COMPACT: 'compact',
         DISPLAYS: 'displays'
     };
-    var lastSearch = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-    var viewMode = WC.Utility.GetParameterByName(enumHandlers.SEARCHPARAMETER.VIEWMODE, lastSearch);
-    self.DisplayType = ko.observable(viewMode || self.DISPLAY_TYPE.DISPLAYS);
+    self.DisplayType = ko.observable(self.DISPLAY_TYPE.DISPLAYS);
     self.SEARCHMODE = {
         AUTO: 1,
         MANUAL: 2
@@ -75,6 +73,11 @@ window.SearchPageHandler = function () {
             self.RenderActionDropdownList();
             self.BindSortingDropdown();
             self.SearchTerms = userSettingModel.GetSearchTerms();
+
+            // display type
+            var lastSearch = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
+            var viewMode = WC.Utility.GetParameterByName(enumHandlers.SEARCHPARAMETER.VIEWMODE, lastSearch);
+            self.DisplayType = ko.observable(viewMode || self.DISPLAY_TYPE.DISPLAYS);
 
             // tooltip
             WC.HtmlHelper.Tooltip.Create('searchfacet', '#LeftMenu .name', true);
@@ -751,23 +754,29 @@ window.SearchPageHandler = function () {
                             })
                             .done(function (result) {
                                 var newdataRows = result.items;
-                                jQuery.each(newdataRows, function (index, item) {
-                                    WC.ModelHelper.ExtendAuthorization(item);
-                                });
+                                if (newdataRows) {
+                                    jQuery.each(newdataRows, function (index, item) {
+                                        WC.ModelHelper.ExtendAuthorization(item);
+                                    });
 
-                                if (result.header.total && WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.SORT) === "executed") {
-                                    var amountPage = Math.ceil(result.header.total / 30);
-                                    if (options.data.page === amountPage)
-                                        newdataRows.push({});
+                                    if (result.header.total && WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.SORT) === "executed") {
+                                        var amountPage = Math.ceil(result.header.total / 30);
+                                        if (options.data.page === amountPage)
+                                            newdataRows.push({});
+                                    }
+
+                                    searchModel.Items.push.apply(searchModel.Items, newdataRows);
+
+                                    self.SearchItemSuccess(result);
+
+                                    dataSourceTmp[options.data.page] = newdataRows;
+
+                                    options.success(newdataRows);
+                                } else {
+                                    if (options.error) {
+                                        options.error(result);
+                                    }
                                 }
-
-                                searchModel.Items.push.apply(searchModel.Items, newdataRows);
-
-                                self.SearchItemSuccess(result);
-
-                                dataSourceTmp[options.data.page] = newdataRows;
-
-                                options.success(newdataRows);
                             });
                     };
 

@@ -1,9 +1,9 @@
 *** Settings ***
 Resource    		${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Initialize Download Path And Login With Power User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Run Keywords  Empty Download Directory  AND  Go to Search Page
-Force Tags        	acc_wc
+Force Tags        	acc_wc_s
 
 *** Variables ***
 ${excelTemplateName}                RobotEaExcelTemplate.xlsx
@@ -14,7 +14,7 @@ ${defaultExcelTemplateName}         EveryAngle-Standard.xlsx
 Verify Export To Excel From Action Menu
     [Documentation]     This Test Verify Export Angle To Excel, Add Definitions Sheet Checkbox and Option for selecting 
     ...                 Default Excel Template as well as Option for overruling  Default Excel Template on fly for a Display.
-    [Tags]  acc_wc_aci   TC_C229226     TC_C229326     TC_C230144
+    [Tags]  acc_wc_aci_s   TC_C229226     TC_C229326     TC_C230144
     ${angleName}  Set Variable  Angle For General Test
     ${timeStamp}  Get Time    epoch
     ${newExcelTemplateName1}  Set Variable  RobotEaTestExcelTemplate1_${timeStamp}.xlsx
@@ -93,7 +93,7 @@ Verify Error Message If A Filename Is Too Long
 Verify Export Field Names Contain Special Charactor
     [Documentation]     This Test Verifies Export Field Names Contain Special Charactor
     ...                 and Default Excel Datastores Values in Export to Excel Pop Up.
-    [Tags]  acc_wc_aci
+    [Tags]  acc_wc_aci_s
     ${angleName}  Set Variable  ANGLE_Pivot_fields_contain_special_characters
     Search Angle From Search Page And Execute Angle    ${angleName}
     Check If Angle Or Display Has A Warning Then Close The Popup

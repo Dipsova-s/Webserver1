@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go To Export Defaults Link With Admin User
-Suite Teardown      Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Force Tags          acc_mc
 
 *** Test Cases ***

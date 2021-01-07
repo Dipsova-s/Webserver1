@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/API/API_User.robot
 Suite Setup         Go to MC Then Login With Admin User
-Suite Teardown      Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Test Setup          Go To System Settings Page
 
 *** Variables ***
@@ -13,7 +13,7 @@ ${Program/ScriptFolderPath}     c:/random/path
 *** Test Cases ***
 Test System Settings
     [Documentation]     This test case verifies the system settings
-    [Tags]  smk_mc  TC_C230851
+    [Tags]  smk_mc  TC_C230851      TC_C603
     Verify Instance To Keep Per Model
     Verify SSL Email Settings
     Verify Default Maximum Export Page Size Is Exist

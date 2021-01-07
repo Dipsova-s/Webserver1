@@ -1,18 +1,18 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go to Search Page
 
 *** Test Cases ***
 Verify Create Template From Angle
     [Documentation]  Verify Set Angle to Template and EA icon changes to Template icon     
     ...              Risk/Cover area: Set To Template     
-    [Tags]    smk_wc    TC_C229010
+    [Tags]    smk_wc_s    TC_C229010
     Create Template From Angle    PD    [ROBOT] Test Create Template from Angle
 
 Verify Create New Angle From Full Object List Test
-    [Tags]    smk_wc
+    [Tags]    smk_wc_s
     ${angleName}    Set Variable    [ROBOT] Test Create New Angle From Full Object List
     ${objectName}    Set Variable    PD
     Create Angle From Object List And Save    ${objectName}    ${angleName}
@@ -111,7 +111,7 @@ Verify Click Select Object Row On Create Angle From Object List
     Should Not Be True    ${ObjectIsChecked}
 
 Verify Other Tab In Business Process
-    [Tags]    acc_wc    acc_wc_aci
+    [Tags]    acc_wc_s    acc_wc_aci_s
     Open User Settings Panel
     Click System Tab
     Read All Business Process Checkbox Values

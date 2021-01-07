@@ -119,7 +119,10 @@
                 'identity': formAuthenticationProvider.find('[name="identity"]').val(),
                 'type': formAuthenticationProvider.find('[name="authenticationProviderTypes"]').val(),
                 'default_roles': default_roles_data,
-                'container': formAuthenticationProvider.find('[name="container"]').val()
+                'container': formAuthenticationProvider.find('[name="container"]').val(),
+                'identity_provider_issuer': formAuthenticationProvider.find('[name="identityProviderIssuer"]').val(),
+                'identity_provider_single_sign_on_url': formAuthenticationProvider.find('[name="identityProviderSingleSignOnUrl"]').val(),
+                'identity_provider_certificate_string': formAuthenticationProvider.find('[name="identityProviderCertificateString"]').val()
             };
 
             var isNew = $('input[name=Id]').is('[readonly]') === false ? true : false;

@@ -1258,7 +1258,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angle Filters &amp; Jumps.
+        ///   Looks up a localized string similar to Angle filters &amp; Jumps.
         /// </summary>
         public static string AngleFilters {
             get {
@@ -2446,6 +2446,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation required.
+        /// </summary>
+        public static string ConfirmSaveDisplaysUsedInAutomationTask {
+            get {
+                return ResourceManager.GetString("ConfirmSaveDisplaysUsedInAutomationTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continuous.
         /// </summary>
         public static string Continuous {
@@ -3310,7 +3319,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Filters &amp; Jumps.
+        ///   Looks up a localized string similar to Display filters &amp; Jumps.
         /// </summary>
         public static string DisplayFilters {
             get {
@@ -3396,6 +3405,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string DisplayOverview {
             get {
                 return ResourceManager.GetString("DisplayOverview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Displays used in Automation Task(s) will modify the action and might cause it to fail..
+        /// </summary>
+        public static string DisplaysUsedInAutomationTextWarning {
+            get {
+                return ResourceManager.GetString("DisplaysUsedInAutomationTextWarning", resourceCulture);
             }
         }
         
@@ -4863,6 +4881,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string GoToSapNotAvailable {
             get {
                 return ResourceManager.GetString("GoToSapNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to scheduled task.
+        /// </summary>
+        public static string GoToScheduledTask {
+            get {
+                return ResourceManager.GetString("GoToScheduledTask", resourceCulture);
             }
         }
         
@@ -7289,7 +7316,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ADFS requires the automatic creation of users.
+        ///   Looks up a localized string similar to ADFS and SAML require the automatic creation of users.
         /// </summary>
         public static string MC_ADFSRequires {
             get {
@@ -7949,6 +7976,33 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the SAML identity provider certificate string..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpIdentityProviderCertificateString {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpIdentityProviderCertificateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the SAML identity provider issuer..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpIdentityProviderIssuer {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpIdentityProviderIssuer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the SAML identity provider single sign on URL..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpIdentityProviderSingleSignOnUrl {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpIdentityProviderSingleSignOnUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This setting indicates whether the authentication provider is an active provider or not..
         /// </summary>
         public static string MC_AuthenticationProvidersHelpProvider {
@@ -7978,7 +8032,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The type of the authentication provider.&lt;br&gt;
-        ///Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported..
+        ///The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML)..
         /// </summary>
         public static string MC_AuthenticationProvidersHelpType {
             get {
@@ -8907,7 +8961,7 @@ namespace EveryAngle.Shared.Globalization {
         /// <summary>
         ///   Looks up a localized string similar to The default Approval state of newly added Actions in Automation tasks.
         ///Actions can only be executed when the Approval state is &quot;approved&quot;.
-        ///The &quot;manage system&quot; privileges is required to change the Approval state of an Action..
+        ///The &quot;manage system&quot; privilege is required to change the Approval state of an Action..
         /// </summary>
         public static string MC_DefaultApprovalStateDescription {
             get {
@@ -10297,6 +10351,33 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_Identity {
             get {
                 return ResourceManager.GetString("MC_Identity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identity provider certificate string.
+        /// </summary>
+        public static string MC_IdentityProviderCertificateString {
+            get {
+                return ResourceManager.GetString("MC_IdentityProviderCertificateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identity provider issuer.
+        /// </summary>
+        public static string MC_IdentityProviderIssuer {
+            get {
+                return ResourceManager.GetString("MC_IdentityProviderIssuer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identity provider single sign on URL.
+        /// </summary>
+        public static string MC_IdentityProviderSingleSignOnUrl {
+            get {
+                return ResourceManager.GetString("MC_IdentityProviderSingleSignOnUrl", resourceCulture);
             }
         }
         
@@ -16700,18 +16781,16 @@ namespace EveryAngle.Shared.Globalization {
                 return ResourceManager.GetString("Reexecute", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Re-execute without sorting.
         /// </summary>
-        public static string ReexecuteWithoutSorting
-        {
-            get
-            {
+        public static string ReexecuteWithoutSorting {
+            get {
                 return ResourceManager.GetString("ReexecuteWithoutSorting", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Referenced object.
         /// </summary>

@@ -110,14 +110,14 @@ WriteLiteral(" class=\"btn btn-primary\"");
 
 WriteLiteral(" type=\"button\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 558), Tuple.Create("\"", 613)
+WriteAttribute("value", Tuple.Create(" value=\"", 559), Tuple.Create("\"", 614)
             
             #line 9 "..\..\Views\User\PartialViews\UserLoginBodyPage.cshtml"
-, Tuple.Create(Tuple.Create("", 566), Tuple.Create<System.Object, System.Int32>(EveryAngle.Shared.Globalization.Resource.Login
+, Tuple.Create(Tuple.Create("", 567), Tuple.Create<System.Object, System.Int32>(EveryAngle.Shared.Globalization.Resource.Login
             
             #line default
             #line hidden
-, 566), false)
+, 567), false)
 );
 
 WriteLiteral(" tabindex=\"3\"");

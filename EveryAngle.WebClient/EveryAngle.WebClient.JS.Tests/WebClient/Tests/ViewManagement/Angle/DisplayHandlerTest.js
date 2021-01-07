@@ -1517,7 +1517,7 @@ describe("DisplayHandler", function () {
         beforeEach(function () {
             spyOn(fn, 'callback');
             spyOn(displayHandler, 'IsUsedInTask').and.returnValue(true);
-            spyOn(popup, 'Confirm');
+            spyOn(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler, 'ShowSavePopup');
         });
         it("should show confirmation popup with a default logic", function () {
             // prepare
@@ -1526,7 +1526,7 @@ describe("DisplayHandler", function () {
 
             // assert
             expect(displayHandler.IsUsedInTask).toHaveBeenCalled();
-            expect(popup.Confirm).toHaveBeenCalled();
+            expect(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).toHaveBeenCalled();
             expect(fn.callback).not.toHaveBeenCalled();
         });
         it("should show confirmation popup with a custom logic", function () {
@@ -1537,7 +1537,7 @@ describe("DisplayHandler", function () {
 
             // assert
             expect(displayHandler.IsUsedInTask).not.toHaveBeenCalled();
-            expect(popup.Confirm).toHaveBeenCalled();
+            expect(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).toHaveBeenCalled();
             expect(fn.checker).toHaveBeenCalled();
             expect(fn.callback).not.toHaveBeenCalled();
         });
@@ -1549,7 +1549,7 @@ describe("DisplayHandler", function () {
 
             // assert
             expect(displayHandler.IsUsedInTask).not.toHaveBeenCalled();
-            expect(popup.Confirm).not.toHaveBeenCalled();
+            expect(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).not.toHaveBeenCalled();
             expect(fn.checker).toHaveBeenCalled();
             expect(fn.callback).toHaveBeenCalled();
         });
@@ -1830,6 +1830,20 @@ describe("DisplayHandler", function () {
 
             // assert
             expect(result).toEqual(false);
+        });
+    });
+
+    describe(".GetDisplayDetailsUsedInTask", function () {
+        it('should return details of display used in task', function () {
+            // call
+            var result = displayHandler.GetDisplayDetailsUsedInTask();
+
+            // assert
+            expect(result).toBeTruthy();
+            expect(result).toEqual(jasmine.objectContaining({
+                DispalyTotal: 1
+            }));
+            expect(result.hasOwnProperty('Display')).toBeTruthy();
         });
     });
 });

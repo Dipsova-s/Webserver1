@@ -151,6 +151,7 @@ Source: "Resources\EveryAngle.EncryptionDecryption32-2.3\EveryAngle.EncryptionDe
 
 ; PowerShell Scripts
 Source: "SetupFiles\PowerShellScripts\SetCertificatePermissions.ps1"; Flags: dontcopy noencryption
+Source: "SetupFiles\PowerShellScripts\SetUrlRedirectsAndAuhtority.ps1"; Flags: dontcopy noencryption
 
 [Dirs]
 Name: "{code:DataPath|log}";
@@ -1049,10 +1050,14 @@ end;
 procedure ExecuteODataServiceDeploy(ModelId: string);
 var
   IIS_Web_Application_Name : string;
+  ExitCode: Integer;
 begin
   IIS_Web_Application_Name := IISPathWC + '/odata/' + ModelId;
 
   DeployWebSite('EveryAngle.OData.Service.deploy.cmd', '"-setParam:name=''IIS Web Application Name'',value=''"' + IIS_Web_Application_Name + '''');
+
+  ExitCode := ExecuteAndLogEx('{sys}', 'inetsrv\appcmd.exe', 'set config "' + IIS_Web_Application_Name + '" /section:windowsAuthentication /enabled:false', none);
+  Log('Set Windows Authentication to false for ' + IIS_Web_Application_Name + ' executed with the code ' + IntToStr(ExitCode));
 end;
 
 procedure ExecuteWebsiteUndeploy(aSite: string);
@@ -1234,6 +1239,49 @@ begin
     Result := ExecuteAndLogEx(executePath, 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0;    
 end;
 
+
+procedure UpdateWebConfigWithSSODetails(baseIISPhysicalPath: string);
+var
+
+  scriptName: string;
+  scriptPath: string;
+  thumbprint: string;
+  appServerUrl: string;
+  appServerPort: string;
+  webServerPhysicalPath: string;
+  managementConsolePhysicalPath: string;
+  parameters : string;
+  settings: string;
+  resultCode: integer;
+  WebConfig : variant;
+
+begin
+  scriptName := 'SetUrlRedirectsAndAuhtority.ps1';
+  scriptPath := ExpandConstant('{tmp}') + '\' + scriptName;
+
+  ExtractTemporaryFile(scriptName);
+  LoadXMLConfigFileEx(baseIISPhysicalPath, 'web.config', false, {out}WebConfig);
+
+  thumbprint :=  GetAppSetting(WebConfig,'WebServiceCertificateThumbPrint');
+  appServerUrl := WebClientConfigPage.Values[1];
+  appServerPort := WebClientConfigPage.Values[2];
+  webServerPhysicalPath := baseIISPhysicalPath;
+  managementConsolePhysicalPath := baseIISPhysicalPath + '/admin';
+
+  parameters := ' -CertificateThumbprint "'  + thumbprint + '" -AppServerUrl "' + appServerUrl + '" -AppServerPort "' + appServerPort + '" -WebServerPhysicalPath "' + webServerPhysicalPath + '" -ManagementConsolePhysicalPath "' + managementConsolePhysicalPath + '"';
+
+  settings := '-ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden ';
+
+  Log(Format('[i] Setting redirect uri and authority uri for Web Client and IT Management Console: %s, %s, %s, %s, %s', [thumbprint, appServerUrl, appServerPort, webServerPhysicalPath, managementConsolePhysicalPath]));
+  resultCode := ExecuteAndLogPSFile(settings, scriptPath, parameters);
+
+  if resultCode <> 0 then
+   begin
+     ShowError('Deployment of the WebServer failed. The setup cannot continue!'#13
+     'More information can be found in ''powershell.exe.log'' in the log directory.', mbError, MB_OK);
+     DoAbort();
+   end;
+end;
 
 function RegisterComponents(baseIISPhysicalPath:string): boolean;
 var  
@@ -1526,7 +1574,7 @@ var
   ODataModels : TArrayOfString;
   ODataWebConfig,
   NewODataWebConfig: variant;
-
+  ExitCode: Integer;
   i: integer;
 begin
   msg1 := 'Installing / Updating Web OData Service(s) in IIS';
@@ -1546,7 +1594,8 @@ begin
   AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], false));
   WebServerUrl := AddProtocolUrl(WebSite_FQDN + IISVirtualPath.Text);
   
-
+  ExitCode := ExecuteAndLogEx('{sys}', 'inetsrv\appcmd.exe', 'unlock config -section:windowsAuthentication', none);
+  Log('Unlock Windows Authentication config executed with the code ' + IntToStr(ExitCode));
 
 // TODO: Progress updates
 
@@ -1591,7 +1640,7 @@ begin
 
   // Deploy the Web Client package
   ShowProgressAndText(30, msg1, 'Running MSDeploy for Web Client');
-  ExecuteWebClientDeploy(); 
+  ExecuteWebClientDeploy();
   
   // Deploy the Management Console package 
   ShowProgressAndText(50, msg1, 'Running MSDeploy for Management Console');
@@ -1626,7 +1675,6 @@ begin
   //Upgrade environment
   ShowProgressAndText(88, msg1, 'Updating Environment');
   UpgradeEnvironment(IISPhysicalPath);
-    
 
   if IsComponentSelected('OData') then
   begin
@@ -1643,6 +1691,9 @@ begin
   // Upgrade environment
   ShowProgressAndText(90, msg1, 'Granting access to appPoolIdentity');
   GrantAppPoolIdentity();
+
+  ShowProgressAndText(95, msg1, 'Setting redirect uri and authority');
+  UpdateWebConfigWithSSODetails(IISPhysicalPath);
 
   HideProgress();
 

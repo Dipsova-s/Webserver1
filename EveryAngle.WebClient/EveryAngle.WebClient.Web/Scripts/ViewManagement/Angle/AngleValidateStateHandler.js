@@ -7,7 +7,7 @@
         var checker = jQuery.proxy(anglePageHandler.HandlerAngle.IsDisplaysUsedInTask, anglePageHandler.HandlerAngle);
         var save = jQuery.proxy(self.CallbackValidateItem, self);
         var cancel = jQuery.proxy(self.CancelValidateItem, self, element, isValidate);
-        anglePageHandler.HandlerAngle.ConfirmSaveWithUsedInTask(checker, save, cancel);
+        anglePageHandler.HandlerAngle.ConfirmValidationSaveUsedInTask(checker, save, cancel);
     };
     handler.CancelValidateItem = function (element, isValidate) {
         element.prop('checked', isValidate);

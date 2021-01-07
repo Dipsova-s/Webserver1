@@ -1,13 +1,13 @@
-﻿using EveryAngle.Core.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.SystemLanguages;
 using EveryAngle.ManagementConsole.Controllers;
 using Kendo.Mvc.UI;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {

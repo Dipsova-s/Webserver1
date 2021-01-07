@@ -1,6 +1,7 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/masschangemodel.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelLabelCategoryHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/HtmlTemplate/MassChange/masschangelabelshtmltemplate.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SystemTagHandler.js" />
 
@@ -74,6 +75,16 @@ describe("MassChangeModel", function () {
         afterEach(function () {
             element.remove();
         });
+        it("General tab selected value by default should be undefined", function () {
+            //call
+            massChangeModel.GenerateGeneralLabelView();
+
+            //assert
+            expect(massChangeModel.GeneralCategories[0].Category.name).toBe('Status');
+            $.each(massChangeModel.GeneralCategories[0].Labels, function (_index, value) {
+                expect($("input[name='" + value.name + "']:checked").val()).toBe('undefined');
+            });
+        });
         it("General tab selected value should be equal to expected", function () {
             var data = {
                 Category: {
@@ -108,9 +119,39 @@ describe("MassChangeModel", function () {
                 expect($("input[name='" + value.name + "']:checked").val()).toBe(value.IsChecked());
             });
         });
+        it("IsChecked value should updated properly when switch between Yes and Leave unchanged radio button", function () {
+            //call
+            massChangeModel.GenerateGeneralLabelView();
+            $("input[name=Starred][value='true']").prop("checked", true);
+            $("input[name=Starred][value='undefined']").prop("checked", true);
+
+            //assert
+            expect(massChangeModel.GeneralCategories[0].Category.name).toBe('Status');
+            $.each(massChangeModel.GeneralCategories[0].Labels, function (_index, value) {
+                expect($("input[name='" + value.name + "']:checked").val()).toBe(value.IsChecked());
+            });
+        });
     });
 
     describe(".GenerateTagsLabelView", function () {
+        var data = {
+            Category: {
+                name: 'Tags',
+                id: 'Tags'
+            },
+            Labels: [{
+                name: 'Demo',
+                id: 'Demo',
+                IsChecked: ko.observable('true'),
+                Show: ko.observable(true)
+            },
+            {
+                name: 'Test',
+                id: 'Test',
+                IsChecked: ko.observable('false'),
+                Show: ko.observable(true)
+            }]
+        };
         beforeEach(function () {
             element = $('<div id="Labels-PlaceHolder"></div>').appendTo('body');
         });
@@ -118,24 +159,6 @@ describe("MassChangeModel", function () {
             element.remove();
         });
         it("Angle Tag tab selected value should be equal to expected", function () {
-            var data = {
-                Category: {
-                    name: 'Tags',
-                    id: 'Tags'
-                },
-                Labels: [{
-                    name: 'Demo',
-                    id: 'Demo',
-                    IsChecked: ko.observable('true'),
-                    Show: ko.observable(true)
-                },
-                {
-                    name: 'Test',
-                    id: 'Test',
-                    IsChecked: ko.observable('false'),
-                    Show: ko.observable(true)
-                }]
-            };
             massChangeModel.TagCategories.push(data);
             massChangeModel.GenerateTagsLabelView();
             $.each(data.Labels, function (_index, value) {
@@ -215,5 +238,105 @@ describe("MassChangeModel", function () {
             expect(reports['Demo'].text).toBe('Add tag "Demo"');
             expect(reports['Test'].text).toBe('Remove tag "Test"');
         });
+    });
+
+    describe(".PropertyStatus", function () {
+        it("should return status and value of the property", function () {
+            //prepare
+            var data = {
+                Category: {
+                    name: 'Status',
+                    id: 'Status'
+                },
+                Labels: [{
+                    name: Localization.MassChangeStarred,
+                    id: massChangeModel.MASSNAME.STARRED,
+                    IsChecked: ko.observable('true')
+                },
+                {
+                    name: Localization.MassChangePublished,
+                    id: massChangeModel.MASSNAME.PUBLISHED,
+                    IsChecked: ko.observable('false')
+                },
+                {
+                    name: Localization.MassChangeValidated,
+                    id: massChangeModel.MASSNAME.VALIDATED,
+                    IsChecked: ko.observable('true')
+                },
+                {
+                    name: Localization.MassChangeTemplate,
+                    id: massChangeModel.MASSNAME.TEMPLATE,
+                    IsChecked: ko.observable('undefined')
+                }]
+            };
+            massChangeModel.GeneralCategories.push(data);
+
+            $.each(data.Labels, function (_index, label) {
+                //call
+                var result = massChangeModel.PropertyStatus(label.id);
+
+                //assert
+                expect(result.changed).toBe(label.IsChecked() !== 'undefined');
+                expect(result.value).toBe(label.IsChecked());
+            });            
+        });
+    });
+
+    describe(".GenerateAddRemoveLabelView", function () {
+        var data = {
+            Category: {
+                name: 'Business Process',
+                id: 'BP',
+                uri: '/test/'
+            },
+            Labels: [{
+                name: "Supply to Demand",
+                id: "S2D",
+                IsChecked: ko.observable('true')
+            },
+            {
+                name: "Purchase to Pay",
+                id: "P2P",
+                IsChecked: ko.observable('false')
+            }]
+        };
+        beforeEach(function () {
+            element = $('<div id="Labels-PlaceHolder"></div>').appendTo('body');
+        });
+        afterEach(function () {
+            element.remove();
+        });
+        it("Label View selected value should be equal to expected", function () {
+            //prepare
+            spyOn(modelLabelCategoryHandler, 'GetLabelsByCategoryUri').and.returnValue(data.Labels);
+            massChangeModel.modelData = { uri: '//' }
+            spyOn(modelLabelCategoryHandler, "GetLabelCategoriesByModelAndViewType").and.returnValue(data.Category);;
+
+            //call
+            massChangeModel.GenerateAddRemoveLabelView('business_process');
+
+            //assert
+            $.each(massChangeModel.BPCategories[0].Labels, function (_index, value) {
+                expect($("input[name='" + value.name + "']:checked").val()).toBe(value.IsChecked());
+            });
+        });
+
+        it("IsChecked value should updated properly when switch between Yes and Leave unchanged radio button", function () {
+            //prepare
+            spyOn(modelLabelCategoryHandler, 'GetLabelsByCategoryUri').and.returnValue(data.Labels);
+            massChangeModel.modelData = { uri: '//' }
+            spyOn(modelLabelCategoryHandler, "GetLabelCategoriesByModelAndViewType").and.returnValue(data.Category);
+
+            //call
+            massChangeModel.GenerateAddRemoveLabelView('business_process');
+            $("input[name='Supply to Demand'][value='true']").prop("checked", true);
+            $("input[name='Supply to Demand'][value='undefined']").prop("checked", true);
+
+            //assert
+            $.each(massChangeModel.BPCategories[0].Labels, function (_index, value) {
+                expect($("input[name='" + value.name + "']:checked").val()).toBe(value.IsChecked());
+            });
+        });
+
     });
 });

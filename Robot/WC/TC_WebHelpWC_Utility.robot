@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/WC/API/API_User.robot
 Resource            ${EXECDIR}/WC/API/API_Model.robot
 Resource            ${EXECDIR}/WC/API/API_Package.robot
 Suite Setup         Go to WC Then Login With Admin User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 
 *** Variables ***
 ${InnoweraTemplate}                ${EXECDIR}/resources/RobotInnoweraTestTemplate.xlsx

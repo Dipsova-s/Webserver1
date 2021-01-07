@@ -1,11 +1,19 @@
-﻿using NUnit.Framework;
-using EveryAngle.WebClient.Service.Security;
-using Moq;
-using System.Net.Http;
-using System;
-using System.Web;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using EveryAngle.WebClient.Service.Security;
 using EveryAngle.WebClient.Service.Security.Interfaces;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Moq;
+using NUnit.Framework;
 
 namespace EveryAngle.WebClient.Web.CS.Tests.SecurityTests
 {
@@ -13,81 +21,102 @@ namespace EveryAngle.WebClient.Web.CS.Tests.SecurityTests
     public class ValidationRequestServiceTests
     {
         private IValidationRequestService _service;
-        private string cookieToken = "cookieToken", formToken = "formToken";
         private Mock<IValidationRequestContext> _validatorHelperMock;
+        private Mock<IOwinContext> _owinContextMock;
+
         [SetUp]
         public void Initialize()
         {
+            _owinContextMock = new Mock<IOwinContext>(MockBehavior.Strict);
+            Mock<IAuthenticationManager> authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
+            var handler = new JwtSecurityTokenHandler();
+            var descriptor = new SecurityTokenDescriptor
+            {
+                Audience = "Everyone",
+                Expires = DateTime.Now.AddHours(2),
+                IssuedAt = DateTime.Now,
+                Issuer = "https://sts.everyangle.com",
+                Subject = new ClaimsIdentity()
+            };
+            var token = handler.CreateEncodedJwt(descriptor);
+            AuthenticateResult r = new AuthenticateResult(null, new AuthenticationProperties(new Dictionary<string, string> { { "access_token", token } }), new AuthenticationDescription());
+            authenticationManager.Setup(x => x.AuthenticateAsync("Cookies")).Returns(() => Task.FromResult(r));
+            _owinContextMock.Setup(x => x.Authentication).Returns(authenticationManager.Object);
             _service = ValidationRequestService.Instance();
 
             _validatorHelperMock = new Mock<IValidationRequestContext>();
-            _validatorHelperMock.Setup(x => x.GetTokens(It.IsAny<string>(), out cookieToken, out formToken));
-            _validatorHelperMock.Setup(x => x.Validate(It.IsAny<string>(), It.IsAny<string>()));
+            _validatorHelperMock.Setup(x => x.Validate(It.IsAny<JwtSecurityToken>(), token));
             _service.ValidatorFunction = () => _validatorHelperMock.Object;
-        }
-
-        [Test]
-        public void Should_GetToken_When_Called()
-        {
-            string token = _service.GetToken();
-            Assert.IsNotNull($"{cookieToken}:${formToken}");
-        }
-
-        [Test]
-        public void Should_ValidateTokenFromHeaderWithHttpRequestMessage_When_Called()
-        {
-            var req = new HttpRequestMessage();
-            req.Headers.TryAddWithoutValidation(ValidationRequestService.TokenHeaderId, $"{cookieToken}:{formToken}");
-            _service.ValidateToken(req);
-            _validatorHelperMock.Verify(x => x.Validate(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-        }
-
-        [Test]
-        public void Should_ValidateTokenFromQueryStringWithHttpRequestMessage_When_Called()
-        {
-            var req = new HttpRequestMessage();
-            req.RequestUri = new Uri($"http://www.everyangle.org/api/proxy/items_export/1/file?request_verification_token={cookieToken}:{formToken}");
-            _service.ValidateToken(req);
-            _validatorHelperMock.Verify(x => x.Validate(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
         public void Should_ThrowHttpExceptionWithHttpRequestMessage_When_HasNoValidationToken()
         {
+            var localOwinContextMock = new Mock<IOwinContext>(MockBehavior.Strict);
+            Mock<IAuthenticationManager> authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
+            AuthenticateResult r = new AuthenticateResult(null, new AuthenticationProperties(new Dictionary<string, string> { { "access_token", null } }), new AuthenticationDescription());
+            authenticationManager.Setup(x => x.AuthenticateAsync("Cookies")).Returns(() => Task.FromResult(r));
+            localOwinContextMock.Setup(x => x.Authentication).Returns(authenticationManager.Object);
             var req = new HttpRequestMessage();
+            req.SetOwinContext(localOwinContextMock.Object);
             Assert.Throws<HttpException>(() => _service.ValidateToken(req));
-        }
 
-        #region ValidateToken (HttpRequestBase)
-
-        [Test]
-        public void ValidateToken_Should_ThrowHttpException_When_RequestTokenIsMissing()
-        {
-            Mock<HttpRequestBase> request = new Mock<HttpRequestBase>();
-            request.SetupGet(x => x.Headers).Returns(new NameValueCollection());
-
-            HttpException exception = Assert.Throws<HttpException>(() => _service.ValidateToken(request.Object));
-            Assert.AreEqual("Missing CSRF token", exception.Message);
+            localOwinContextMock.VerifyAll();
         }
 
         [Test]
-        public void ValidateToken_Should_ValidateRequestToken_When_RequestTokenIsProvided()
+        public void Should_ThrowHttpExceptionWithHttpRequestMessage_When_ValidationMethodThrowsHttpAntiForgeryException()
         {
-            Mock<HttpRequestBase> request = new Mock<HttpRequestBase>();
-            request.SetupGet(x => x.Headers).Returns(() =>
+            var localOwinContextMock = new Mock<IOwinContext>(MockBehavior.Strict);
+            Mock<IAuthenticationManager> authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
+            var handler = new JwtSecurityTokenHandler();
+            var descriptor = new SecurityTokenDescriptor
             {
-                Mock<NameValueCollection> headers = new Mock<NameValueCollection>();
-                headers
-                    .Setup(x => x.GetValues("Request-Verification-Token"))
-                    .Returns(new string[] { "token:token" });
-                return headers.Object;
-            });
+                Audience = "Everyone",
+                Expires = DateTime.Now.AddHours(2),
+                IssuedAt = DateTime.Now,
+                Issuer = "https://sts2.everyangle.com",
+                Subject = new ClaimsIdentity()
+            };
+            var token = handler.CreateEncodedJwt(descriptor);
+            AuthenticateResult r = new AuthenticateResult(null, new AuthenticationProperties(new Dictionary<string, string> { { "access_token", token } }), new AuthenticationDescription());
+            authenticationManager.Setup(x => x.AuthenticateAsync("Cookies")).Returns(() => Task.FromResult(r));
+            localOwinContextMock.Setup(x => x.Authentication).Returns(authenticationManager.Object);
+            var req = new HttpRequestMessage();
+            req.SetOwinContext(localOwinContextMock.Object);
+            _validatorHelperMock.Setup(x => x.Validate(It.IsAny<JwtSecurityToken>(), token))
+                .Throws(new HttpAntiForgeryException("Issuer is incorrect"));
+            Assert.Throws<HttpException>(() => _service.ValidateToken(req));
 
-            _service.ValidateToken(request.Object);
-
+            localOwinContextMock.VerifyAll();
         }
 
-        #endregion
+        [Test]
+        public void Should_ThrowHttpExceptionWithHttpRequestMessage_When_ValidationMethodThrowsException()
+        {
+            var localOwinContextMock = new Mock<IOwinContext>(MockBehavior.Strict);
+            Mock<IAuthenticationManager> authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
+            var handler = new JwtSecurityTokenHandler();
+            var descriptor = new SecurityTokenDescriptor
+            {
+                Audience = "Everyone",
+                Expires = DateTime.Now.AddHours(2),
+                IssuedAt = DateTime.Now,
+                Issuer = "https://sts2.everyangle.com",
+                Subject = new ClaimsIdentity()
+            };
+            var token = handler.CreateEncodedJwt(descriptor);
+            AuthenticateResult r = new AuthenticateResult(null, new AuthenticationProperties(new Dictionary<string, string> { { "access_token", token } }), new AuthenticationDescription());
+            authenticationManager.Setup(x => x.AuthenticateAsync("Cookies")).Returns(() => Task.FromResult(r));
+            localOwinContextMock.Setup(x => x.Authentication).Returns(authenticationManager.Object);
+            var req = new HttpRequestMessage();
+            req.SetOwinContext(localOwinContextMock.Object);
+            _validatorHelperMock.Setup(x => x.Validate(It.IsAny<JwtSecurityToken>(), token))
+                .Throws(new Exception("Issuer is incorrect"));
+            Assert.Throws<HttpException>(() => _service.ValidateToken(req));
+
+            localOwinContextMock.VerifyAll();
+        }
     }
 
 }

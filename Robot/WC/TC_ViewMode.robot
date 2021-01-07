@@ -10,7 +10,8 @@ ${TEST_FIELD_CHOOSER_REMEMBER_DETAIL_SETTING}         Angle For General Test
 
 *** Test Cases ***
 Verify Search Viewmode
-    [Tags]  acc_wc_aci_s
+    [Documentation]    This test case Verifyies Displays view mode in search page
+    [Tags]   acc_wc_aci_s    TC_C231830
     [Setup]  Import Angle By API  /models/1  ANGLE_HIGHLIGHT.json  user=${Username}
 
     # compact mode
@@ -43,6 +44,8 @@ Verify Search Viewmode
     [Teardown]  Clean Up Items And Go To Search Page
 
 Verify Field Chooser Remember Detail Setting Test
+    [Documentation]      This test case Verifyies remembered state of view mode
+    [Tags]    TC_C231830
     Search Angle From Search Page And Execute Angle    ${TEST_FIELD_CHOOSER_REMEMBER_DETAIL_SETTING}
     Click Add New Column To List
     Click Set Field Chooser View To Full Mode

@@ -634,35 +634,9 @@ describe("FacetFiltersViewModel", function () {
 
         var tests = [
             {
-                title: 'should get true if type is not business_process',
-                has_search_query: true,
-                model_checked: false,
-                element_checked: false,
-                type: 'any',
-                expected: {
-                    result: true,
-                    model_checked: false,
-                    element_checked: false
-                }
-            },
-            {
-                title: 'should get true if query exists',
-                has_search_query: true,
-                model_checked: false,
-                element_checked: false,
-                type: 'business_process',
-                expected: {
-                    result: true,
-                    model_checked: false,
-                    element_checked: false
-                }
-            },
-            {
                 title: 'should get true if checkbox is checked',
-                has_search_query: false,
                 model_checked: false,
                 element_checked: true,
-                type: 'business_process',
                 expected: {
                     result: true,
                     model_checked: true,
@@ -670,22 +644,19 @@ describe("FacetFiltersViewModel", function () {
                 }
             },
             {
-                title: 'should get false',
-                has_search_query: false,
-                model_checked: false,
+                title: 'should get true if checkbox is unchecked',
+                model_checked: true,
                 element_checked: false,
-                type: 'business_process',
                 expected: {
-                    result: false,
-                    model_checked: true,
-                    element_checked: true
+                    result: true,
+                    model_checked: false,
+                    element_checked: false,
                 }
             }
         ];
 
         $.each(tests, function (index, test) {
             it(test.title, function () {
-                spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue(test.has_search_query);
                 var model = {
                     checked: ko.observable(test.model_checked)
                 };
@@ -693,7 +664,7 @@ describe("FacetFiltersViewModel", function () {
                     currentTarget: { checked: test.element_checked }
                 };
                 var parent = {
-                    type: test.type
+
                 };
                 var result = facetFiltersViewModel.FilterItems(model, event, parent);
 

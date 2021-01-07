@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpMC.robot
 Suite Setup         Suite Setup MC WebHelp
 Test Setup          Test Setup MC WebHelp
 Test Teardown       Test Teardown MC WebHelp
-Force Tags          webhelp  webhelp_mc
+Force Tags          webhelp_s  webhelp_mc_s
 
 *** Test Cases ***
 # Prerequisite

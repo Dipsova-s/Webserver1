@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/SystemLogs/Repository.robot
 Suite Setup         Initialize Download Path And Login MC With Admin User
 Suite Teardown      Force Logout MC Then Close Browser
-Force Tags          acc_mc
+Force Tags          acc_mc_s
 
 *** Test Cases ***
 Verify Repository Log Grid Column Sorting And Downloading Log Files

@@ -6,6 +6,8 @@ Force Tags          allangles_i
 
 *** Test Cases ***
 Run Angle
+    [Documentation]     This tests get all angle and template details in search page and writes them to files.
+    [Tags]      TC_C231429
     Run Keyword And Ignore Error    Log    %{PROCESSOR_IDENTIFIER}
     Run Keyword And Ignore Error    Log    %{PROCESSOR_LEVEL}
     Search Filter By Query String    ${QueryString}

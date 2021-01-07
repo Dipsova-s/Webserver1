@@ -2,12 +2,13 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_NotificationFeed.robot
 Suite Setup         Go to WC Then Login With EAPower User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Notification Feed
-    [Tags]  acc_wc_aci
+    [Documentation]   This test case Verifyies EA notifications in WC 
+    [Tags]  acc_wc_aci   TC_C93619
     Wait Notification Feed Loaded
     Check Notification Feed On Welcome Page
     Search By Text And Expect In Search Result    Angle For General Test

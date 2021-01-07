@@ -1,11 +1,13 @@
 using System;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.Web.Optimization;
 
 namespace EveryAngle.WebClient.Web
 {
     public static class BundleConfig
     {
+        [ExcludeFromCodeCoverage]
         public static void RegisterBundles(BundleCollection bundles)
         {
             var modernizrScripts = new string[] {
@@ -249,6 +251,11 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmanagement/shared/itemsaveas/itemsaveashandler.js"
             };
 
+            var savedDisplaysInAutomationTaskScripts = new string[] {
+                "~/scripts/htmltemplate/savedisplaysusedinautomationtasks/savedisplaysusedinautomationtaskshtmltemplate.js",
+                "~/scripts/viewmanagement/shared/SaveDisplaysUsedInAutomationTasksHandler.js"
+            };
+
             /*** Begin - main ***/
             bundles.Add(new StyleBundle("~/content/css/main.css")
                 .Include(
@@ -277,6 +284,7 @@ namespace EveryAngle.WebClient.Web
                     "~/content/css/displaylist.css",
                     "~/content/css/displaychart.css",
                     "~/content/css/displaypivot.css",
+                    "~/content/css/displayUsedInAutomationTasks.css",
                     "~/content/css/itemstate.css",
                     "~/content/css/angle.displaydropdown.css",
                     "~/content/css/angle.css"));
@@ -415,6 +423,7 @@ namespace EveryAngle.WebClient.Web
                 .Include(itemDescriptionScripts)
                 .Include(itemSaveAsScripts)
                 .Include(sidePanelScripts)
+                .Include(savedDisplaysInAutomationTaskScripts)
                 .Include("~/scripts/viewmodels/models/dashboard/dashboardwidgetmodel.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardmodel.js",
 

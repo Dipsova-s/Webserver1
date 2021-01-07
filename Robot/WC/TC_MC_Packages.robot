@@ -9,7 +9,7 @@ Force Tags          acc_mc_s
 *** Test Cases ***
 Test Global Packages
     [Documentation]     Verify the user is able to upload package in global packages page. High Criticality
-    [Tags]  TC_C586  
+    [Tags]  TC_C586      TC_C587      TC_C588
     Verify Package Page Is Ready
     Verify Filter Not Found
     Verify Upload Package And Filter The Package    Robot_Test_1    ${EXECDIR}\\resources\\Robot-Test-1.eapackage
@@ -36,7 +36,7 @@ Create new package and verify the package is created successfully
     Edit the GUI Export Package options     ${packageName}
     Click on OK button in Create Package popup
     Verify Uploaded Package And Filter The Package  ${packageName}
-    Verify the package data in packages grid    model   ${packageName}
+    Verify the package data in packages grid    model   ${packageName}      angles, dashboards, labels, model_authorizations
     Delete Uploaded Package     ${packageName}
 
 Activate and Deactivate the uploaded package in models
@@ -51,7 +51,7 @@ Activate and Deactivate the uploaded package in models
     Verify the Model Package data in Model Packages grid    Active      ${packageName}
     Go To Package Page
     Verify Filtering The Package    ${packageName}
-    Verify the package data in packages grid    EA2_800     ${packageName}
+    Verify the package data in packages grid    EA2_800     ${packageName}      angles, labels, model_authorizations
     Go To Models Package Page  EA2_800
     Deactivate Package in Model package grid    ${packageName}
     Click Inactive Radio Button

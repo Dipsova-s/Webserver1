@@ -65,6 +65,15 @@ namespace EveryAngle.Core.ViewModels.Users
         [JsonProperty(PropertyName = "container")]
         public string container { get; set; }
 
+        [JsonProperty(PropertyName = "identity_provider_issuer")]
+        public string identityProviderIssuer { get; set; }
+
+        [JsonProperty(PropertyName = "identity_provider_single_sign_on_url")]
+        public string identityProviderSingleSignOnUrl { get; set; }
+
+        [JsonProperty(PropertyName = "identity_provider_certificate_string")]
+        public string identityProviderCertificateString { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

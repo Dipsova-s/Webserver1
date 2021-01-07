@@ -1,0 +1,60 @@
+﻿@using System.Threading
+@using EveryAngle.Shared.Globalization;
+@{
+    Layout = null;
+    Culture = "en-US";
+    UICulture = "en-US";
+}
+<!DOCTYPE html>
+<html class="no-js pageLogin" lang="@Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName'">
+<head>
+
+<title>Every Angle</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="Login" />
+    <meta name="Keywords" content="Login" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="@Url.Content("~/images/favicon.ico")" />
+    <link rel="preload" as="font" href="@Url.Content("~/content/fonts/roboto-v19-latin-regular.woff2")" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" as="font" href="@Url.Content("~/content/fonts/roboto-v19-latin-regular.woff")" type="font/woff" crossorigin="anonymous" />
+    <link rel="preload" as="font" href="@Url.Content("~/content/externalresource/webclientico.woff")" type="font/woff" crossorigin="anonymous" />
+
+
+    <!--[if lt IE 10]>
+    @Styles.Render("~/content/kendoui/kendoui.common.css")
+    @Styles.Render("~/content/kendoui/kendoui.default.css")
+    <![endif]-->
+    <!--[if gte IE 10]>
+    @Styles.Render("~/content/kendoui/kendoui.css")
+    <![endif]-->
+    <!--[if !IE]> -->
+    @Styles.Render("~/content/kendoui/kendoui.css")
+    <!-- <![endif]-->
+
+    @Styles.Render("~/content/css/main.css")
+
+    @Scripts.Render("~/bundles/core_external",
+                "~/resources/embedded/sharedjs",
+                "~/bundles/core",
+                "~/bundles/login")
+</head>
+<body>
+    <div class="k-window-custom k-window-titleless loginPage">
+        <div class="k-content k-window-content">
+            @using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "LogoutForm" }))
+            {
+                <div id="LoginContainer">
+                    <h1>@Resource.Error_Title</h1>
+
+                    <div id="ErrorMessage" class="loginMessage">
+                        @Resource.DonotHaveWCAndMCAuthrozation
+                    </div>
+
+                    <input id="LoginButton" class="btn btn-primary" type="submit" value="@Resource.Logout" tabindex="3" />
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -91,6 +91,7 @@ Click Fields Tab
     Click Element    ${tabFormatSetting}
 
 Click Save User Settings
+    Close All Toasts
     Click Element    ${btnSaveSettings}
     Wait Search Page Document Loaded
     Close All Toasts

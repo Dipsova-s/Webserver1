@@ -26,7 +26,8 @@ Wait Web Server Settings Page Ready
 Click Save Web Server Setting
     Wait Until Element Is Visible    ${btnSaveWebServerSetting}
     Click Element    ${btnSaveWebServerSetting}
-    Wait Web Server Settings Page Ready
+    Sleep    ${TIMEOUT_MC_LOAD}
+    # Wait Web Server Settings Page Ready
 
 Click Save Web Server Setting And Expect Error
     [Arguments]    ${message}

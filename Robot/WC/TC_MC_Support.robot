@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to MC Then Login With Admin User
 Suite Teardown      Run Keywords   Roll back to ITMC page  AND   Logout MC Then Close Browser
-Force Tags          MC    acc_mc
+Force Tags          MC    acc_mc_s
 
 *** Test Cases ***
 Validate Online Support portal link in ITMC

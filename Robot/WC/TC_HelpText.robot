@@ -1,12 +1,14 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go to Search Page
 Force Tags          acc_wc    smk_content
 
 *** Test Cases ***
 Verify Help Text Links
+    [Documentation]     This test verifies help text links in Field Chooser Info.
+    [Tags]  TC_C231306
     Search Angle From Search Page And Execute Angle    Angle For General Test
     Click Add New Column To List
     Fill In Search Field Chooser  "Margin"
@@ -21,6 +23,8 @@ Verify Help Text Links
     Switch Window  MAIN
 
 Verify Web Client Link
+    [Documentation]     This test verifies Help text page in Webclient
+    [Tags]  TC_C231310
     Open Web Client Help Page
     ${windows}  Get Window Handles
     Length Should Be  ${windows}  2

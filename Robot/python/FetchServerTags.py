@@ -19,8 +19,6 @@ def StoreServerTags(tags):
         file.write(tag+"\n" )
         file.close()
 
-
-
 if __name__ == '__main__':
     # Map command line arguments to function arguments.
     StoreServerTags(sys.argv[1:])

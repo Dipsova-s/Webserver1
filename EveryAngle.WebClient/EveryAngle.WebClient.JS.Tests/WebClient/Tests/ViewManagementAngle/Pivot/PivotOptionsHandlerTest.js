@@ -2,6 +2,7 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Pivot/PivottHelper.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Pivot/PivotOptionsView.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Angle/Pivot/PivotOptionsHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SaveDisplaysUsedInAutomationTasksHandler.js" />
 
 describe("PivotOptionsHandler", function () {
     var pivotOptionsHandler;

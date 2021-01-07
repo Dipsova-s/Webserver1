@@ -2,13 +2,14 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/API/API_Angle.robot
 Suite Setup         Go to WC Then Login With EAPower User
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go to Search Page
 Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Execute Invalid Angle
-    [Tags]  acc_wc_aci
+    [Documentation]     This test verifies Invalid Angle Settings and options.
+    [Tags]  acc_wc_aci  TC_C231293
     [Setup]  Import Angle By API  /models/1  ANGLE_Execute_Invalid.json  user=${Username}
 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_EXECUTE_INVALID

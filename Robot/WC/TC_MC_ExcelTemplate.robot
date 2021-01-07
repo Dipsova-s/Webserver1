@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Initialize Download Path And Login MC With Admin User
 Test Setup          Go To ExcelTemplates Page
-Suite Teardown      Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Empty Download Directory
 Force Tags          acc_mc_s
 

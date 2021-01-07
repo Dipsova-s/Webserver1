@@ -21,13 +21,7 @@
         var checkSessionChange = function (e) {
             clearTimeout(fnCheckSessionChange);
 
-            if (!e.originalEvent.oldValue) {
-                jQuery('#LoginButton').attr('disabled', 'disabled');
-
-                // reload page to get a new info from AS
-                document.location.reload();
-            }
-            else {
+            if (e.originalEvent.oldValue) {
                 window.sessionStateChanged = true;
                 popup.Alert(Localization.Title_SessionChanged, Localization.Info_SessionChanged);
                 popup.OnCloseCallback = function () {

@@ -3,7 +3,6 @@ Screenshot "WC_Angle_actions" page
     Go to Search Page
     Select Search Filter Angle
     Crop Search Action Buttons
-    Crop Mass Change Unchange State Checkbox
 
 Crop Search Action Buttons
     Click Select First Item From Search Result
@@ -15,8 +14,3 @@ Crop Search Action Buttons
     Crop WebHelp Image     WC_Delete_Angle_Icon.png             css=#ActionDropdownListPopup .delete    ${False}
     Crop WebHelp Image     WC_Upload_Angles_Icon.png            css=#ActionDropdownListPopup .upload    ${False}
     Crop WebHelp Image     WC_Download_Angles_Icon.png          css=#ActionDropdownListPopup .download    ${False}
-
-Crop Mass Change Unchange State Checkbox
-    Open Mass Change Popup
-    Crop WebHelp Image     WC_checkbox_unequal.png              jquery=#popupMassChangePopup .chkIndeterminatable.empty:eq(0)    ${False}
-    Click Close Mass Change Popup

@@ -285,8 +285,8 @@ namespace EveryAngle.WebClient.Service.LogHandlers
                 // settingId: FindExpression, ReplaceExpression
                 return new Dictionary<string, string[]>
                 {
-                    { "database_manager_connection_string", new string[] { "Password=[^;>]*", "Password=" + MASKING_CHARACTERS } },
-                    { "odbc_connection_string", new string[] { "Pwd=[^;>]*", "Pwd=" + MASKING_CHARACTERS } }
+                    { "database_manager_connection_string", new string[] { "(Password=)[^;>]*", "$1" + MASKING_CHARACTERS } },
+                    { "odbc_connection_string", new string[] { "(Password=|Pwd=)[^;>]*", "$1" + MASKING_CHARACTERS } }
                 };
             }
 

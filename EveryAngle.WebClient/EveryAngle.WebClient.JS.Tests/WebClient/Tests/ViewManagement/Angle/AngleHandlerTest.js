@@ -5,6 +5,7 @@
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelClassesHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/businessprocesshandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/SaveDisplaysUsedInAutomationTasksHandler.js" />
 
 describe("AngleHandler", function () {
     var angleHandler;
@@ -1297,6 +1298,7 @@ describe("AngleHandler", function () {
             spyOn(display1, 'CanCreateOrUpdate').and.returnValue(true);
             spyOn(display2, 'CanCreateOrUpdate').and.returnValue(false);
             spyOn(display3, 'CanCreateOrUpdate').and.returnValue(true);
+
             angleHandler.Displays = [display1, display2, display3];
             spyOn(Array.prototype, 'pushDeferred');
             spyOn(angleHandler, 'SaveDisplay').and.returnValue($.when());
@@ -1317,6 +1319,36 @@ describe("AngleHandler", function () {
             // assert
             expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(2);
             expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(0);
+        });
+        it("should save all Displays usedInTask", function () {
+            var forcedSaveDisplays = true;
+            spyOn(display3, 'IsUsedInTask').and.returnValue(true);
+            spyOn(display3, 'Data').and.returnValue({ uri: 'display/3', user_specific: { is_user_default: function () { return true } } });
+            spyOn(angleHandler.SaveDisplaysUsedInAutomationTasksHandler, 'IsDisplayRequiredToSave').and.returnValue(true);
+
+            // call
+            angleHandler.SaveDisplays(forcedSaveDisplays);
+
+            // assert
+            expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave).toHaveBeenCalledTimes(1);
+            expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave).toHaveBeenCalledWith('display/3');
+            expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(1);
+            expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(1);
+        });
+        it("should not save displays usedInTask but user don't want save it", function () {
+            var forcedSaveDisplays = true;
+            spyOn(display3, 'IsUsedInTask').and.returnValue(true);
+            spyOn(display3, 'Data').and.returnValue({ uri: 'display/3', user_specific: { is_user_default: function () { return true } } });
+            spyOn(angleHandler.SaveDisplaysUsedInAutomationTasksHandler, 'IsDisplayRequiredToSave').and.returnValue(false);
+
+            // call
+            angleHandler.SaveDisplays(forcedSaveDisplays);
+
+            // assert
+            expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave).toHaveBeenCalledTimes(1);
+            expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave).toHaveBeenCalledWith('display/3');
+            expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(1);
+            expect(angleHandler.SaveDisplay).not.toHaveBeenCalled();
         });
     });
 
@@ -1469,30 +1501,126 @@ describe("AngleHandler", function () {
         });
     });
 
-    describe(".ConfirmSaveWithUsedInTask", function () {
-        var fn = {};
+    describe(".ConfirmValidationSaveUsedInTask", function () {
+        var fn = {
+            callback: $.noop,
+            cancel: $.noop
+        };
         beforeEach(function () {
-            fn.callback = $.noop;
             spyOn(fn, 'callback');
+            spyOn(fn, 'cancel');
             spyOn(popup, 'Confirm');
-        });
-        it("should confirm when checker = true", function () {
-            // prepare
-            var checker = function () { return true; };
-            angleHandler.ConfirmSaveWithUsedInTask(checker, fn.callback, $.noop);
 
-            // assert
-            expect(popup.Confirm).toHaveBeenCalled();
-            expect(fn.callback).not.toHaveBeenCalled();
+            spyOn(angleHandler, 'GetChangedDisplayDetailsUsedInTask').and.returnValue([]);
+            spyOn(angleHandler.SaveDisplaysUsedInAutomationTasksHandler, 'ShowSavePopup');
         });
-        it("should not confirm when checker = false", function () {
+        describe("should show popup when checker = true", function () {
+            var checker = function () { return true; };
+            it("show confirm popup if changed displays not used in task", function () {
+                // prepare
+                spyOn(angleHandler, 'IsChangeDisplaysUsedInTask').and.returnValue(false);
+
+                // call
+                angleHandler.ConfirmValidationSaveUsedInTask(checker, fn.callback, fn.cancel);
+
+                // assert
+                expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).not.toHaveBeenCalled();
+                expect(angleHandler.IsChangeDisplaysUsedInTask).toHaveBeenCalled();
+                expect(popup.Confirm).toHaveBeenCalled();
+                expect(fn.callback).not.toHaveBeenCalled();
+            });
+            it("show confirm popup if changed displays used in task", function () {
+                // prepare
+                spyOn(angleHandler, 'IsChangeDisplaysUsedInTask').and.returnValue(true);
+
+                // call
+                angleHandler.ConfirmValidationSaveUsedInTask(checker, fn.callback, fn.cancel);
+
+                // assert
+                expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).toHaveBeenCalled();
+                expect(angleHandler.GetChangedDisplayDetailsUsedInTask).toHaveBeenCalled();
+                expect(popup.Confirm).not.toHaveBeenCalled();
+                expect(fn.callback).not.toHaveBeenCalled();
+            });
+        });
+        it("should not show popup when checker = false and call the callback ", function () {
             // prepare
             var checker = function () { return false; };
-            angleHandler.ConfirmSave(checker, fn.callback, $.noop);
+
+            angleHandler.ConfirmValidationSaveUsedInTask(checker, fn.callback, fn.cancel);
 
             // assert
+            expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).not.toHaveBeenCalled();
+            expect(angleHandler.GetChangedDisplayDetailsUsedInTask).not.toHaveBeenCalled();
             expect(popup.Confirm).not.toHaveBeenCalled();
             expect(fn.callback).toHaveBeenCalled();
+        });
+    });
+
+    describe(".ConfirmSaveWithUsedInTask", function () {
+        var fn = {
+            callback: $.noop,
+            cancel: $.noop
+        };
+        beforeEach(function () {
+            spyOn(fn, 'callback');
+            spyOn(fn, 'cancel');
+            spyOn(angleHandler, 'ShowSaveDisplaysUsedInAutomationTasksPopup');
+        });
+        it("should show popup when checker = true", function () {
+            // prepare
+            var checker = function () { return true; };
+
+            // call
+            angleHandler.ConfirmSaveWithUsedInTask(checker, fn.callback, fn.cancel);
+
+            // assert
+            expect(angleHandler.ShowSaveDisplaysUsedInAutomationTasksPopup).toHaveBeenCalledWith(angleHandler.IsChangeDisplaysUsedInTask, fn.callback, fn.cancel);
+            expect(fn.callback).not.toHaveBeenCalled();
+        });
+        it("should not show popup when checker = false and call the callback ", function () {
+            // prepare
+            var checker = function () { return false; };
+
+            angleHandler.ConfirmSaveWithUsedInTask(checker, fn.callback, fn.cancel);
+
+            // assert
+            expect(angleHandler.ShowSaveDisplaysUsedInAutomationTasksPopup).not.toHaveBeenCalled();
+            expect(fn.callback).toHaveBeenCalled();
+        });
+    });
+    describe(".ShowSaveDisplaysUsedInAutomationTasksPopup", function () {
+        var fn = {
+            callback: $.noop,
+            cancel: $.noop
+        };
+        beforeEach(function () {
+            spyOn(angleHandler, 'GetChangedDisplayDetailsUsedInTask').and.returnValue([]);
+            spyOn(angleHandler.SaveDisplaysUsedInAutomationTasksHandler, 'ShowSavePopup');
+            spyOn(popup, 'Confirm');
+        });
+        it("should show popup when checker = true", function () {
+            // prepare
+            var checker = function () { return true; };
+
+            // call
+            angleHandler.ShowSaveDisplaysUsedInAutomationTasksPopup(checker, fn.callback, fn.cancel);
+
+            // assert
+            expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).toHaveBeenCalledWith([], fn.callback, fn.cancel);
+            expect(angleHandler.GetChangedDisplayDetailsUsedInTask).toHaveBeenCalled();
+            expect(popup.Confirm).not.toHaveBeenCalled();
+        });
+        it("should not show popup when checker = false and call the callback ", function () {
+            // prepare
+            var checker = function () { return false; };
+
+            angleHandler.ShowSaveDisplaysUsedInAutomationTasksPopup(checker, fn.callback, fn.cancel);
+
+            // assert
+            expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).not.toHaveBeenCalled();
+            expect(angleHandler.GetChangedDisplayDetailsUsedInTask).not.toHaveBeenCalled();
+            expect(popup.Confirm).toHaveBeenCalledWith(Localization.MessageSaveQuestionAngleUsedInTask, fn.callback, fn.cancel);
         });
     });
 
@@ -1991,6 +2119,52 @@ describe("AngleHandler", function () {
             angleHandler.Validate();
 
             expect(angleHandler.AngleLabelHandler.Validate).toHaveBeenCalled();
+        });
+    });
+
+    describe(".GetChangedDisplayDetailsUsedInTask", function () {
+        it("should return object of changed displays and displays count", function () {
+            // prepare
+            angleHandler.Displays = [
+                {
+                    GetCreateOrUpdateData: function () { return true; },
+                    IsUsedInTask: function () { return true; },
+                    GetName: function () { return 'Display 1'; },
+                    GetData: function () { return {}; }
+                },
+                {
+                    GetCreateOrUpdateData: function () { return true; },
+                    IsUsedInTask: function () { return true; },
+                    GetName: function () { return 'Display 2'; },
+                    GetData: function () { return {}; }
+                },
+                {
+                    GetCreateOrUpdateData: function () { return false; },
+                    IsUsedInTask: function () { return false; },
+                    GetName: function () { return 'Display 3'; },
+                    GetData: function () { return {}; }
+                }
+            ];
+            spyOn(angleHandler, 'CanCreateOrUpdate');
+            for (var i = 0; i < angleHandler.Displays; i++) {
+                spyOn(angleHandler.Displays[i], 'GetCreateOrUpdateData');
+                spyOn(angleHandler.Displays[i], 'IsUsedInTask');
+                spyOn(angleHandler.Displays[i], 'GetName');
+                spyOn(angleHandler.Displays[i], 'GetData');
+            }
+
+            //call
+            var result = angleHandler.GetChangedDisplayDetailsUsedInTask();
+
+            //assert
+            expect(angleHandler.CanCreateOrUpdate).toHaveBeenCalledTimes(3);
+            for (var i = 0; i < angleHandler.Displays; i++) {
+                expect(angleHandler.Displays[i].GetCreateOrUpdateData).toHaveBeenCalledTimes(3);
+                expect(angleHandler.Displays[i].IsUsedInTask).toHaveBeenCalledTimes(3);
+                expect(angleHandler.Displays[i].GetName).toHaveBeenCalledTimes(3);
+                expect(angleHandler.Displays[i].GetData).toHaveBeenCalledTimes(3);
+            }
+            expect(result).toBeTruthy();
         });
     });
 });

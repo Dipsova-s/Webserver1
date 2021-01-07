@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go To All Users Page With Admin User
-Suite Teardown      Logout MC Then Close Browser
+Suite Teardown      Close Browser
 Test Teardown       Go To All Users Page
 Force Tags          acc_mc
 
@@ -9,7 +9,7 @@ Force Tags          acc_mc
 *** Test Cases ***
 Test CRUD User
     [Documentation]     This test performs the Crud Operation Adding and Deleting the User
-    [Tags]  acc_mc_aci
+    [Tags]  acc_mc_aci TC_C640
     Add User
     Delete User    ${username}
 

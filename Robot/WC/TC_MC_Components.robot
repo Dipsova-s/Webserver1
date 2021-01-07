@@ -5,7 +5,7 @@ Resource                  ${EXECDIR}/WC/Scenarios/ManagementConsole/Components/T
 Suite Setup               Go to MC Then Login With Admin User
 Test Setup                Go To System Components Page
 Suite Teardown            Force Logout MC Then Close Browser
-Force Tags                MC    acc_mc
+Force Tags                MC    acc_mc_s
 
 *** Test Cases ***
 Verify System Components Page
@@ -15,7 +15,7 @@ Verify System Components Page
 
 Verify the Info popup for the applicable components
     [Documentation]     This test case will verify the Information popup for the applicable components in components page. Medium criticality.
-    [Tags]  TC_C68710   acc_mc_aci
+    [Tags]  TC_C68710   acc_mc_aci_s
     Click on Action drop down and select Info option for Extraction service Component
     Check Info popup displayed for Extraction Service
     Click on Close button in Component Info popup

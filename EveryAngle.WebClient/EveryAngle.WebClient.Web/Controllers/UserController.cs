@@ -1,50 +1,33 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Web.Mvc;
 using EveryAngle.Core.ViewModels.Users;
-using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service.LogHandlers;
 using EveryAngle.WebClient.Service.Security;
 using EveryAngle.WebClient.Web.Filters.ActionFilters;
 using EveryAngle.WebClient.Web.Helpers;
-using System.Web.Mvc;
 
 namespace EveryAngle.WebClient.Web.Controllers
 {
+    [ExcludeFromCodeCoverage] // Cannot fake the user settings as it requires a static class RequestManager
     public class UserController : Controller
     {
-        [IsUserLogedInAction]
-        public ActionResult Login(bool popup = false)
+        [CustomAuthorize]
+        [IsUserLoggedInAction]
+        public ActionResult Login()
         {
-            if (popup)
+            SessionHelper session = SessionHelper.Initialize();
+            string currentUserLanguage = "en";
+            UserSettingsViewModel setting = session.GetUserSettings();
+            if (setting != null && !string.IsNullOrEmpty(setting.default_language) && !string.IsNullOrEmpty(setting.default_language.Trim()))
             {
-                return PartialView(@"~/Views/User/PartialViews/UserLoginBodyPage.cshtml");
+                currentUserLanguage = setting.default_language;
             }
-            else if (string.IsNullOrEmpty(Request.Url.Query) && !Request.Url.ToString().EndsWith("/"))
-            {
-                // url must endwiths "/", if not the redirect
-                return Redirect(Request.Url.ToString() + "/");
-            }
-            else
-            {
-                string mcClearSessionUrl;
-#if DEVMODE
-                mcClearSessionUrl = "''";
-#else
-                mcClearSessionUrl = "(mcUrl + 'Security/DestroyAllSession').toLowerCase()";
-#endif
-                ViewBag.ClearSessionUrl = mcClearSessionUrl;
-                ViewBag.ClientIP = EveryAngle.Shared.EmbeddedViews.Util.GetIPAddress();
-                return View(@"~/Views/Security/Login.cshtml");
-            }
-        }
-
-        public ActionResult GetLoginPage()
-        {
-            ViewBag.PostAction = "about:blank";
-            ViewBag.FileVersion = AssemblyInfoHelper.GetFileVersion();
-            return PartialView("~/Views/User/LoginPage.cshtml");
+            return Redirect($"~/{currentUserLanguage}/search/searchPage");
         }
 
         [LogExceptionHandler]
         [AcceptVerbs(HttpVerbs.Put)]
+
         public void UpdateUserSetting()
         {
             // Clear domain element
@@ -54,10 +37,15 @@ namespace EveryAngle.WebClient.Web.Controllers
             LocalizationHelper.SetCultureFormatBy(userInfo.Settings);
         }
 
+        public ActionResult Forbidden()
+        {
+            return View();
+        }
+
         public ActionResult Logout()
         {
             SessionHelper.Initialize().Logout();
-            return new RedirectResult(HttpContext.Request.ApplicationPath.ToLowerInvariant());
+            return Redirect("~/");
         }
 
         public void DestroyAllSession()

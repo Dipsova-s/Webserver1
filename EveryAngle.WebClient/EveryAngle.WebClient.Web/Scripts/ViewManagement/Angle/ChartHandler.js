@@ -2841,9 +2841,15 @@ function ChartHandler(elementId, container) {
             return '';
         }
 
+        if (!self.FieldSettings) {
+            fieldSettingsHandler.Handler = self;
+            fieldSettingsHandler.BuildFieldsSettings();
+        }
+     
         var fieldSetting = self.FieldSettings.GetFieldByFieldName(settings.FieldId);
         var fieldName = fieldSetting.FieldName;
         return self.GetFormattedValue(self.FieldMetadata[fieldName], value);
+        
     };
     self.GetGaugeLabel = function (value, settings) {
         if (self.GaugeLabels[value] && self.GaugeLabels[value].visible === false) {

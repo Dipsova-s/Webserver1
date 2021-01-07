@@ -13,6 +13,7 @@ function AngleHandler(model) {
     self.AngleLabelHandler = new AngleLabelHandler(self);
     self.AngleTagHandler = new AngleTagHandler(self);
     self.AngleStatisticHandler = new AngleStatisticHandler(self);
+    self.SaveDisplaysUsedInAutomationTasksHandler = new SaveDisplaysUsedInAutomationTasksHandler();
     self.Initial = function (model, updateRaw) {
         if (updateRaw)
             self.SetRawData(model);
@@ -395,10 +396,13 @@ function AngleHandler(model) {
         var saveUserDefaultInfo = null;
         jQuery.each(self.Displays, function (_index, display) {
             if (display.CanCreateOrUpdate()) {
-                if (display.Data().user_specific.is_user_default())
-                    saveUserDefaultInfo = [display, forced];
-                else
-                    deferred.pushDeferred(self.SaveDisplay, [display, forced]);
+                var shouldDisplayBeSaved = display.IsUsedInTask() && !self.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave(display.Data().uri) ? false : true;                     //if display not selected by user to save remove it
+                if (shouldDisplayBeSaved) {
+                    if (display.Data().user_specific.is_user_default())
+                        saveUserDefaultInfo = [display, forced];
+                    else
+                        deferred.pushDeferred(self.SaveDisplay, [display, forced]);
+                }
             }
         });
         return jQuery.whenAllSet(deferred)
@@ -428,6 +432,20 @@ function AngleHandler(model) {
         });
         return isChangeDisplaysUsedInTask;
     };
+    self.GetChangedDisplayDetailsUsedInTask = function () {
+        var changedDisplaysUsedInTask = [], changedDisplayCount = 0;
+        jQuery.each(self.Displays, function (_index, display) {
+            if (self.CanCreateOrUpdate() && display.GetCreateOrUpdateData()) {
+                changedDisplayCount++;//Count of displays which are changed.
+                if(display.IsUsedInTask())
+                    changedDisplaysUsedInTask.push({ Name: display.GetName(), Details: display.GetData() });
+            }
+        });
+        return {
+            DispalyTotal: changedDisplayCount,
+            Display: changedDisplaysUsedInTask
+        };
+    };
     self.IsDisplaysUsedInTask = function () {
         var isDisplaysUsedInTask = false;
         jQuery.each(self.Displays, function (index, display) {
@@ -441,7 +459,12 @@ function AngleHandler(model) {
     self.IsChangeUsedInTask = function () {
         return self.CanCreateOrUpdate() && self.GetCreateOrUpdateData() && self.IsDisplaysUsedInTask();
     };
-
+    self.ShowSaveDisplaysUsedInAutomationTasksPopup = function (checker, callback, cancel) {
+        if (checker())
+            self.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup(self.GetChangedDisplayDetailsUsedInTask(), callback, cancel);
+        else
+            popup.Confirm(Localization.MessageSaveQuestionAngleUsedInTask, callback, cancel);
+    };
     // save utilities
     self.ConfirmSave = function (checker, callback, cancel) {
         if (!jQuery.isFunction(checker))
@@ -456,10 +479,25 @@ function AngleHandler(model) {
     };
     self.ConfirmSaveWithUsedInTask = function (checker, callback, cancel) {
         if (checker())
-            popup.Confirm(Localization.MessageSaveQuestionAngleUsedInTask, callback, cancel);
+            self.ShowSaveDisplaysUsedInAutomationTasksPopup(self.IsChangeDisplaysUsedInTask, callback, cancel);
         else
             callback();
     };
+
+    self.ConfirmValidationSaveUsedInTask = function (checker, callback, cancel) {
+        if (checker()) {
+            if (self.IsChangeDisplaysUsedInTask()) {
+                self.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup(self.GetChangedDisplayDetailsUsedInTask(), function () {
+                    jQuery.when(self.SaveAll(true)).done(callback);
+                }, cancel);
+            }
+            else
+                popup.Confirm(Localization.MessageSaveQuestionAngleUsedInTask, callback, cancel);
+        }
+        else
+            callback();
+    };
+
     self.IsConflict = function () {
         return self.IsChangeUsedInTask() || self.IsChangeDisplaysUsedInTask();
     };

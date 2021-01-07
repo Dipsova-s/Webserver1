@@ -72,10 +72,13 @@
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UtilModelServerInfoTest.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.AuthenticationTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.BusinessProcessesTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.SystemlogTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.ComponentsTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.AngleExports.ExcelTemplatesTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.AutomationTasks.DataStoresTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.SystemRolesTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.WebClientSettingsTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.WelcomePageTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.Models.PackagesTest.js" />
@@ -218,6 +221,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Shared\QueryDefinition\QueryStepJumpHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\QueryDefinition\QueryStepSortableHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\QueryDefinition\QueryStepViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\SaveDisplayUsedInAutomationTasksHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\SearchStorageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelFieldDomainHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelLabelCategoryHandlerTest.js" />

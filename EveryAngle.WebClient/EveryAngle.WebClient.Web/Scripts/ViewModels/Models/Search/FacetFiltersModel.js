@@ -599,15 +599,7 @@ function FacetFiltersViewModel() {
     self.FilterItems = function (model, event, parent) {
         var chkState = event.currentTarget.checked;
         model.checked(chkState);
-
-        // for business process only
-        // at landing page; when uncheck a checkbox then revert checkbox state
-        if (parent.type === self.GroupBusinessProcess && !searchQueryModel.HasSearchQuery() && !chkState) {
-            model.checked(!chkState);
-            event.currentTarget.checked = !chkState;
-        }
         searchModel.FilterItems(model, event, parent.type === self.GroupGeneral && parent.id !== self.GroupCannotNegativeFilter);
-
         return event.currentTarget.checked === chkState;
     };
     self.GetDuration = function (seconds) {
