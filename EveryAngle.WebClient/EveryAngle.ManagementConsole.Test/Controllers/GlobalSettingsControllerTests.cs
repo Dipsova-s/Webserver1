@@ -257,6 +257,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.NotNull(_testingController.ViewBag.ApprovalStateOptions);
             var approvalOptions = (List<ApprovalStateOption>)_testingController.ViewBag.ApprovalStateOptions;
             Assert.AreEqual(approvalStateOptions.Count, approvalOptions.Count);
+            globalSettingService.Verify(x => x.GetSystemSettings(It.IsAny<string>()), Times.Once);
         }
         #endregion
 
