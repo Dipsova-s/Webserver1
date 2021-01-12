@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
+using EveryAngle.WebClient.Service.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
@@ -20,7 +22,7 @@ namespace EveryAngle.WebClient.Service.Extensions
     public static class AppBuilderExtensions
     {
         private const string Scope = "openid profile application_server";
-        private const string CookieName = "STSEASECTOKEN";
+        private const string CookieName = "STSTOKEN";
         private const string AuthenticationType = "Cookies";
         private const string ClientSecret = "api-secret";
         private const string IdTokenClaimTypeName = "id_token";
@@ -44,6 +46,7 @@ namespace EveryAngle.WebClient.Service.Extensions
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
+                Provider = new CustomCookieAuthenticationProvider(),
                 CookieName = CookieName,
                 AuthenticationType = AuthenticationType,
                 ExpireTimeSpan = TimeSpan.FromHours(1)
@@ -84,7 +87,7 @@ namespace EveryAngle.WebClient.Service.Extensions
                             n.AuthenticationTicket.Properties);
 
                         // Store a temporary cookie to let the search page know that a new login was initiated.
-                        n.Response.Cookies.Append("NewLogin", "true");
+                        n.Response.Cookies.Append("NewLogin", "true", new CookieOptions { Path = HttpContext.Current.GetCookiePath() });
 
                         return Task.CompletedTask;
                     },

@@ -20,6 +20,17 @@
         }
     };
 
+    window.DeleteCookieOnApplicationPath = function (name) {
+        var path = rootWebsitePath;
+
+        // Remove trailing '/'
+        if (path.endsWith('/') && path.length > 1) {
+            path = path.substring(0, path.length - 1);
+        }
+
+        window.DeleteCookie(name, path);
+    };
+
     window.DeleteCookie = function (name, path) {
         jQuery.removeCookie(name, { 'path': path });
     };
