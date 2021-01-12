@@ -203,44 +203,7 @@
         // initial grid
         var grid = MC.ui.logpopup.InitialLogGrid();
         MC.ui.logpopup.ShowLogHideGrid(_self.isLogFile);
-
-        // log view scroll 
-        $(".scrollToBottom").addClass("disabled");
-        $("#LogFileDetails, .logDetails").scroll(function () {
-            var maxScrollHeight = $("#LogFileDetails .logDetails").prop("scrollHeight") - 630;
-            var heightFromTop = $("#LogFileDetails .logDetails").scrollTop();
-            if (heightFromTop < 25) {
-                $(".scrollToBottom").addClass("disabled");
-            }
-            else {
-                $(".scrollToBottom").removeClass("disabled");
-            }
-            if (heightFromTop < maxScrollHeight) {
-                $(".scrollToTop").removeClass("disabled");
-            }
-            else {
-                $(".scrollToTop").addClass("disabled");
-            }
-        });
-
-        // Csl view scroll
-        $("#SystemLogGrid .k-scrollbar").scroll(function () {
-            var maxScrollHeight = $('#SystemLogGrid .k-scrollbar').prop("scrollHeight") - 244;
-            var heightFromTop = $('#SystemLogGrid .k-scrollbar').scrollTop();
-            if (heightFromTop < 20) {
-                $(".scrollToBottom").addClass("disabled");
-            }
-            else {
-                $(".scrollToBottom").removeClass("disabled");
-            }
-            if (heightFromTop < maxScrollHeight) {
-                $(".scrollToTop").removeClass("disabled");
-            }
-            else {
-                $(".scrollToTop").addClass("disabled");
-            }
-        });
-
+        MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom();
         var setEnableLogPopup = function (enable) {
             if (enable) {
                 grid.content.find('.k-grid-error').remove();
@@ -391,6 +354,44 @@
             grid.setDataSource(dataSource);
             win.trigger('resize');
         }, 100);
+    };
+    logpopup.EnableCslAndLogViewScrollUpAndBottom = function () {
+        // log view scroll 
+        $(".scrollToBottom").addClass("disabled");
+        $("#LogFileDetails, .logDetails").scroll(function () {
+            var maxScrollHeight = $("#LogFileDetails .logDetails").prop("scrollHeight") - 630;
+            var heightFromTop = $("#LogFileDetails .logDetails").scrollTop();
+            if (heightFromTop < 25) {
+                $(".scrollToBottom").addClass("disabled");
+            }
+            else {
+                $(".scrollToBottom").removeClass("disabled");
+            }
+            if (heightFromTop < maxScrollHeight) {
+                $(".scrollToTop").removeClass("disabled");
+            }
+            else {
+                $(".scrollToTop").addClass("disabled");
+            }
+        });
+
+        // Csl view scroll
+        $("#SystemLogGrid .k-scrollbar").scroll(function () {
+            var maxScrollHeight = $('#SystemLogGrid .k-scrollbar').prop("scrollHeight") - 244;
+            var heightFromTop = $('#SystemLogGrid .k-scrollbar').scrollTop();
+            if (heightFromTop < 20) {
+                $(".scrollToBottom").addClass("disabled");
+            }
+            else {
+                $(".scrollToBottom").removeClass("disabled");
+            }
+            if (heightFromTop < maxScrollHeight) {
+                $(".scrollToTop").removeClass("disabled");
+            }
+            else {
+                $(".scrollToTop").addClass("disabled");
+            }
+        });
     };
     logpopup.RefreshCsl = function () {
         $('#SystemLogGrid').data('kendoGrid').dataSource.read();
