@@ -61,7 +61,7 @@ Click OKTA button in login page
     Click Link  ${OKTALogin}
     
 Check if Login required
-    ${isRedirected}   Run Keyword And Return Status    Wait Until Page Contains Element    ${OKTALogin}   10s
+    ${isRedirected}   Run Keyword And Return Status    Wait Until Page Contains Element    ${OKTAbtnLogin}   10s
     [Return]    ${isRedirected}
 
 Check if user is logged in

@@ -98,6 +98,8 @@ ${OKTAPowerUsername}             eapower_okta@magnitude.com
 ${OKTAPowerPassword}             Welcome1
 ${OKTAViewerUsername}             eaviewer_okta@magnitude.com
 ${OKTAViewerPassword}             Welcome1
+${OKTABasicUsername}             eabasic_okta@magnitude.com
+${OKTABasicPassword}             Welcome1
 # Performance
 ${API_SLA}     0.5      # SLA time
 ${API_SEED}    50       # Number of item to test per case
