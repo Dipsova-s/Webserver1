@@ -17,9 +17,6 @@ Test Edit Input Fields And Verify Edited Content
     Read The Content From Input Fields
     Edit The Content From Input Fields
     Click Save Web Server Setting
-    Login To MC By Admin User
-    Wait Until Overview Page Loaded
-    Go To Web Server Settings Page
     Verify The Edited Input Values
     Restore Old Input Values 
     Click Save Web Server Setting
