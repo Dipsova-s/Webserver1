@@ -92,6 +92,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase(SystemLogType.Repository)]
         [TestCase(SystemLogType.WebClient)]
         [TestCase(SystemLogType.ManagementConsole)]
+        [TestCase(SystemLogType.AppServer)]
+        [TestCase(SystemLogType.ModelServer)]
         public void SystemLog_Should_RunClientOperationsWithLogViewer_When_LogTypeIs(SystemLogType logType)
         {
             sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>());
@@ -103,12 +105,16 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 Assert.IsFalse(view.ViewBag.ServerOperation);
             }
+            else if(logType == SystemLogType.ModelServer)
+            {
+                Assert.IsFalse(view.ViewBag.SortEnabled);
+            }
             else
             {
                 Assert.IsTrue(view.ViewBag.ServerOperation);
+                Assert.IsTrue(view.ViewBag.SortEnabled);
             }
             Assert.IsTrue(view.ViewBag.EnableLogViewer);
-            Assert.IsTrue(view.ViewBag.SortEnabled);
         }
 
         [Test]
