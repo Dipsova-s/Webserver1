@@ -23,7 +23,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.STSEASECTOKEN = string.Empty;
+            ViewBag.STSTOKEN = string.Empty;
             return PartialView("~/Views/Shared/Index.cshtml");
         }
 

@@ -40,7 +40,7 @@ function Authentication() {
     // handle new logins from STS
     self.CheckForNewLogin = function() {
         if (window.GetCookie('NewLogin', false) === 'true') {
-            window.DeleteCookie('NewLogin', '/');
+            window.DeleteCookieOnApplicationPath('NewLogin');
 
             var mainDeferred = jQuery.Deferred();
             self.LoadAllResources(mainDeferred);
@@ -120,8 +120,7 @@ function Authentication() {
     };
     _self.CleanupAuthorizedData = function () {
         // cleanup old cookies
-        DeleteCookie('STSEASECTOKEN', '/');
-        DeleteCookie('STSEASECTOKEN', rootWebsitePath);
+        DeleteCookieOnApplicationPath('STSTOKEN');
 
         return jQuery.when(
             !_self.isSessionCleared && window.mcClearSessionUrl ? GetAjaxHtmlResult(window.mcClearSessionUrl) : null,

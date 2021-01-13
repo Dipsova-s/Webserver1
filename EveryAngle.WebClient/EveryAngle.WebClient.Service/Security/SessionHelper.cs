@@ -322,13 +322,13 @@ namespace EveryAngle.WebClient.Service.Security
             {
                 hasCookie = false;
                 DestroyAllSession();
-                HttpContext.Current.Session["STSEASECTOKEN"] = null;
+                HttpContext.Current.Session["STSTOKEN"] = null;
             }
             else
             {
                 if (HttpContext.Current.Session != null)
                 {
-                    HttpContext.Current.Session["STSEASECTOKEN"] = token;
+                    HttpContext.Current.Session["STSTOKEN"] = token;
                     hasCookie = true;
                 }
                 else
