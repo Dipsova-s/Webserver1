@@ -66,12 +66,10 @@ Click on View button by index
     Scroll Element into View  (${ViewButton})[${index}]
     Custom click element  (${ViewButton})[${index}]
 
-Verify Log popup appears for all Log files 
+Verify View button present for all Log files 
     ${NoOfViewButton}=  Get Element Count    ${ViewButton}
     :For   ${i}   IN RANGE   1  ${NoOfViewButton}+1
-    \    Click on View button by index   ${i}
-    \   Page Should Contain Element   ${CloseButton}  message=After clicking View button Log popup did not appear
-    \   Custom click element   ${CloseButton}
+    \   Page Should Contain Element   ${ViewButton}  message=View button should be present for log files
 
 
 
