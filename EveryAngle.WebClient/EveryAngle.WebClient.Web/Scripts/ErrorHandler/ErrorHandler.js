@@ -41,7 +41,7 @@ function ErrorHandlerViewModel() {
             return xhr.status === 401 ||
                 xhr.status === 440 ||
                 // Missing the token means the user needs to authorize again
-                (xhr.status === 403 && self.GetErrorFromResponseText(xhr.responseText) === "Forbidden, Missing CSRF token"); 
+                (xhr.status === 403 && self.GetErrorFromResponseText(xhr.responseText) === "Forbidden, Missing CSRF token");
         else
             return false;
     };
@@ -108,6 +108,11 @@ function ErrorHandlerViewModel() {
 
     self.BuildAppServerError = function (settings, xhr) {
         if (self.IsRequestTimeout(xhr.status, xhr.statusText)) {
+            // Means request was never sent
+            if (xhr.status === 0 && xhr.readyState === 0) {
+                window.location = rootWebsitePath + '?redirect=' + location.pathname + location.hash;
+                return null;
+            }
             return {
                 type: 'alert',
                 title: Localization.Info_OperationTimeout,
@@ -119,7 +124,7 @@ function ErrorHandlerViewModel() {
             };
         }
 
-        var errorMessage = xhr.statusText === 'abort'  ? '' : self.GetErrorFromResponseText(xhr.responseText);
+        var errorMessage = xhr.statusText === 'abort' ? '' : self.GetErrorFromResponseText(xhr.responseText);
         if (errorMessage) {
             var type = 'error';
             var title = xhr.status + ': ' + xhr.statusText;
@@ -134,8 +139,8 @@ function ErrorHandlerViewModel() {
             if (window.showErrorSourceUri)
                 errorTemplate += '<br /> <div class="errorSource"><strong>Request url</strong><br />{type} {url}</div>';
             errorTemplate = errorTemplate.replace('{source}', self.Source())
-                                .replace('{message}', errorMessage.replace(/\\n$/i, '').replace(/\\n/ig, '<br />'))
-                                .replace('{type}', settings.type.toUpperCase());
+                .replace('{message}', errorMessage.replace(/\\n$/i, '').replace(/\\n/ig, '<br />'))
+                .replace('{type}', settings.type.toUpperCase());
 
             return {
                 type: type,
@@ -195,11 +200,11 @@ function ErrorHandlerViewModel() {
         }
 
         var errorTemplate = '{message}'
-                            + '<div class="errorInfo">'
-                            + ' <a class="btnErrorInfo"><span class="more">More...</span><span class="less">Less...</span></a>'
-                            + ' <span class="info">{info}</span>'
-                            + ' <span class="errorSource">{file}:{line}</span>'
-                            + '</div>';
+            + '<div class="errorInfo">'
+            + ' <a class="btnErrorInfo"><span class="more">More...</span><span class="less">Less...</span></a>'
+            + ' <span class="info">{info}</span>'
+            + ' <span class="errorSource">{file}:{line}</span>'
+            + '</div>';
         if (!isCustomError) {
             info = msg;
             var errorType = self.GetWebClientErrorType(msg);
@@ -207,10 +212,10 @@ function ErrorHandlerViewModel() {
             msg = errorType.Message;
         }
         errorTemplate = errorTemplate.replace('{source}', self.Source())
-                                    .replace('{message}', msg.replace('Message: ', '').replace(/\\n$/i, '').replace(/\\n/ig, '<br />'))
-                                    .replace(/{file}/g, url.substr(url.lastIndexOf('/') + 1))
-                                    .replace(/{line}/g, line)
-                                    .replace('{info}', info);
+            .replace('{message}', msg.replace('Message: ', '').replace(/\\n$/i, '').replace(/\\n/ig, '<br />'))
+            .replace(/{file}/g, url.substr(url.lastIndexOf('/') + 1))
+            .replace(/{line}/g, line)
+            .replace('{info}', info);
 
         self.WebClientMessage.push(errorTemplate);
 
