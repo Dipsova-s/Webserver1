@@ -2,6 +2,7 @@
 using EveryAngle.WebClient.Web.Filters.ActionFilters;
 using Moq;
 using NUnit.Framework;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -39,9 +40,10 @@ namespace EveryAngle.ManagementConsole.Test.Filters
         }
 
         [Test]
-        public void OnActionExecuting_Should_ValidateToken_WhenIsSkippableIsFalse()
+        public void OnActionExecuting_Calls_ValidateToken_WhenIsSkippableIsFalse()
         {
             _service.Setup(x => x.ValidateToken(It.IsAny<HttpRequestBase>()))
+                .Returns(Task.CompletedTask)
                 .Verifiable();
 
             _filter.OnActionExecuting(CreateFilterContext());

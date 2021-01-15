@@ -29,8 +29,7 @@ namespace EveryAngle.WebClient.Web.CS.Tests.Extensions
         [Test]
         public void GetAccessToken_ReturnsNull_WhenAccessTokenIsNotPresent()
         {
-            var props = new AuthenticationProperties(new Dictionary<string, string> { { "access_token", null } });
-            var authenticationResult = new AuthenticateResult(_identityMock.Object, props, new AuthenticationDescription());
+            var authenticationResult = new AuthenticateResult(_identityMock.Object, new AuthenticationProperties(), new AuthenticationDescription());
             var token = authenticationResult.GetAccessToken();
 
             Assert.Null(token, "Expected no token");
@@ -40,8 +39,8 @@ namespace EveryAngle.WebClient.Web.CS.Tests.Extensions
         public void GetAccessToken_ReturnsToken_WhenAccessTokenIsPresent()
         {
             var tokenValue = "some access token";
-            var props = new AuthenticationProperties(new Dictionary<string, string> { { "access_token", tokenValue } });
-            var authenticationResult = new AuthenticateResult(_identityMock.Object, props, new AuthenticationDescription());
+            var authenticationResult = new AuthenticateResult(_identityMock.Object, new AuthenticationProperties(), new AuthenticationDescription());
+            authenticationResult.Identity.AddClaim(new System.Security.Claims.Claim("access_token", tokenValue));
             var token = authenticationResult.GetAccessToken();
 
             Assert.NotNull(token, "Expected a token");

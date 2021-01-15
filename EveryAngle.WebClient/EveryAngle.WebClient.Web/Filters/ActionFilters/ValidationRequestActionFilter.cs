@@ -21,7 +21,7 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            Service.ValidateToken(actionContext.Request);
+            Service.ValidateToken(actionContext.Request).Wait();
             base.OnActionExecuting(actionContext);
         }
     }
