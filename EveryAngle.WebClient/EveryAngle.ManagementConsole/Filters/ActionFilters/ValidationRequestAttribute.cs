@@ -30,7 +30,7 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
         {
             if (!IsSkippable)
             {
-                Service.ValidateToken(filterContext.HttpContext.Request);
+                Service.ValidateToken(filterContext.HttpContext.Request).Wait();
             }
             base.OnActionExecuting(filterContext);
         }

@@ -8,7 +8,7 @@ namespace EveryAngle.WebClient.Service.Extensions
 
         public static string GetAccessToken(this AuthenticateResult result)
         {
-            return result?.Properties?.Dictionary[AccessTokenKey];
+            return result?.Identity?.FindFirst(AccessTokenKey)?.Value;
         }
     }
 }
