@@ -118,7 +118,9 @@ namespace EveryAngle.WebClient.Web.CS.Tests.SecurityTests
             var mockRefreshTokenClient = new Mock<HttpClient>(MockBehavior.Strict);
 
             // SUT
+#pragma warning disable CS0618 // Type or member is obsolete - Needed for this unit test
             var service = new ValidationRequestService(mockDescoveryClient.Object, mockRefreshTokenClient.Object);
+#pragma warning restore CS0618 // Type or member is obsolete
 
             // Act
             Assert.DoesNotThrow(async () => await service.ValidateToken(req));
@@ -164,7 +166,9 @@ namespace EveryAngle.WebClient.Web.CS.Tests.SecurityTests
             ConfigurationManager.AppSettings["Authority"] = "https://some_authority_url";
 
             // SUT
+#pragma warning disable CS0618 // Type or member is obsolete - Needed for this unit test
             var service = new ValidationRequestService(mockDescoveryClient, mockRefreshTokenClient);
+#pragma warning restore CS0618 // Type or member is obsolete
 
             // Act
             await service.ValidateToken(req);

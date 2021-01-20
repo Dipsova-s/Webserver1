@@ -28,17 +28,22 @@ namespace EveryAngle.WebClient.Service.Security
         private const string AccessTokenExpiresAtClaimName = "access_token_expires_at";
         private const string WebServerClientId = "web_server";
 
-        private ValidationRequestService()
+        [Obsolete("For unit tests only", false)]
+        public ValidationRequestService()
         {
-            _handler = new JwtSecurityTokenHandler();
-            _discoveryClient = new HttpClient();
-            _refreshTokenClient = new HttpClient();
         }
 
-        // For testing
+        [Obsolete("For unit tests only", false)]
         public ValidationRequestService(HttpClient discoveryClient, HttpClient refreshTokenClient)
         {
             _handler = new JwtSecurityTokenHandler();
+            _discoveryClient = discoveryClient;
+            _refreshTokenClient = refreshTokenClient;
+        }
+
+        private ValidationRequestService(JwtSecurityTokenHandler jwtSecurityTokenHandler, HttpClient discoveryClient, HttpClient refreshTokenClient)
+        {
+            _handler = jwtSecurityTokenHandler;
             _discoveryClient = discoveryClient;
             _refreshTokenClient = refreshTokenClient;
         }
@@ -50,7 +55,7 @@ namespace EveryAngle.WebClient.Service.Security
 
         public static IValidationRequestService Instance()
         {
-            return _instance ?? (_instance = new ValidationRequestService());
+            return _instance ?? (_instance = new ValidationRequestService(new JwtSecurityTokenHandler(), new HttpClient(), new HttpClient()));
         }
 
         [ExcludeFromCodeCoverage] // Cannot mock the owin context as there is no extension method to set the owin context
@@ -62,7 +67,7 @@ namespace EveryAngle.WebClient.Service.Security
             return token;
         }
 
-        public async Task ValidateToken(HttpRequestMessage request)
+        public virtual async Task ValidateToken(HttpRequestMessage request)
         {
             var cookieTokenTask = request.GetOwinContext().AuthenticateAsyncFromCookies();
             var token = cookieTokenTask.Result?.GetAccessToken();
@@ -79,7 +84,7 @@ namespace EveryAngle.WebClient.Service.Security
         }
 
         [ExcludeFromCodeCoverage] // Cannot mock the owin context as there is no extension method to set the owin context on a request base
-        public async Task ValidateToken(HttpRequestBase request)
+        public virtual async Task ValidateToken(HttpRequestBase request)
         {
             var cookieTokenTask = request.GetOwinContext().AuthenticateAsyncFromCookies();
             var token = cookieTokenTask.Result?.GetAccessToken();
