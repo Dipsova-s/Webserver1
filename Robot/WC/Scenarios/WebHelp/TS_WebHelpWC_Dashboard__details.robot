@@ -19,7 +19,6 @@ Crop Dashboard Details
 
 Crop Dashboard Displays
     Click Displays Tab
-    Collapse All Displays Section Panels
     ${width}  ${height}  Get Element Size  css=#TabContentWidgets
     ${tabWidth}  ${tabHeight}  Get Element Size  css=#TabDetails .tab-menu-wrapper
     Crop WebHelp Image With Dimensions  WC_Display_Details_Dashboard.png  css=#TabDetails  0  0  ${width}  ${height}+${tabHeight}
