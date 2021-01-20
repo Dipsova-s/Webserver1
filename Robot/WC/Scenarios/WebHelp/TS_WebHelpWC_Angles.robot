@@ -5,11 +5,10 @@ Screenshot "WC_Angles" page
     Find Angle By ID Then Execute The First Angle    ${AngleId}
 
     Resize WebHelp Window    1300   700
-    Crop Example List
     Change Display To First Chart
-    Crop Example Chart
     Maximize WebHelp Window
 
+# Below keywords not in use as of now
 Crop Example List
     Crop WebHelp Image  WC_Angle_result_list.png  css=body
 
