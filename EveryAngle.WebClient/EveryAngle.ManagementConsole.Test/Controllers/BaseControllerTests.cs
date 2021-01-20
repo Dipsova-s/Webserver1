@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.ManagementConsole.Controllers;
@@ -14,13 +17,15 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
     public class BaseControllerTests
     {
         private Mock<SessionHelper> _sessionHelperMock;
+        private Mock<ValidationRequestService> _validationRequestService;
         private BaseController _baseController;
 
         [SetUp]
         public void SetUp()
         {
             _sessionHelperMock = new Mock<SessionHelper>();
-            _baseController = new BaseController(_sessionHelperMock.Object);
+            _validationRequestService = new Mock<ValidationRequestService>();
+            _baseController = new BaseController(_sessionHelperMock.Object, _validationRequestService.Object);
         }
 
         [Test]
@@ -114,5 +119,25 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual(resultLanguage, Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName, "Expected current culture to be correct.");
             Assert.AreEqual(resultLanguage, Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, "Expected current UI culture to be correct.");
         }
+
+        [Test]
+        public void ValidateToken_CallsService_WhenCalled()
+        {
+            // Arrange
+            var actionContext = new ActionExecutingContext();
+            var httpContextMock = new Mock<HttpContextBase>();
+            var httpRequestMock = new Mock<HttpRequestBase>();
+            httpContextMock.Setup(x => x.Request).Returns(httpRequestMock.Object);
+            actionContext.HttpContext = httpContextMock.Object;
+            _validationRequestService.Setup(x => x.ValidateToken(It.IsAny<HttpRequestBase>())).Returns(Task.CompletedTask).Verifiable();
+
+            // Act
+            _baseController.ValidateToken(actionContext);
+
+            // Assert
+            _validationRequestService.Verify(x => x.ValidateToken(It.IsAny<HttpRequestBase>()), Times.Once);
+        }
+
+
     }
 }
