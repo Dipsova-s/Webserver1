@@ -919,17 +919,9 @@ begin
   else
     setDeployParameter(Parameters, 'Redirect_to_FQDN', 'false');
 
-  // Enable HTTPS redirect and https-only cookies when HTTPS is used
-  if StartsWith(WebSite_FQDN, 'https://') then
-  begin
-    setDeployParameter(Parameters, 'HTTPS_Redirect', 'true')
-    setDeployParameter(Parameters, 'httpCookies_requireSSL', 'true')
-  end
-  else
-  begin
-    setDeployParameter(Parameters, 'HTTPS_Redirect', 'false');
-    setDeployParameter(Parameters, 'httpCookies_requireSSL', 'false')
-  end;
+  // Enable HTTPS redirect and https-only cookies
+  setDeployParameter(Parameters, 'HTTPS_Redirect', 'true')
+  setDeployParameter(Parameters, 'httpCookies_requireSSL', 'true')
 
   // Write webclient deploy parameters
   SaveXMLConfigFile(Parameters, ParametersPath, 'EveryAngle.WebClient.Web.SetParameters.xml');
