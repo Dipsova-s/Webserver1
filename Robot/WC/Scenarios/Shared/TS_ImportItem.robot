@@ -82,6 +82,13 @@ Import Angle By API
     ...    ${model} model uri for dashboard and angles
     ...    ${data} data or a JSON file contain angle data
     [Arguments]  ${model}  ${data}  ${user}=${AdminUsername}  ${pwd}=${Password}
+    # ${Is_OKTA_Login_Required}=      Is OKTA login required for login to application
+    # ${user} =  Set Variable If
+    # ...  ${Is_OKTA_Login_Required}==True  ${OKTAUsername}
+    # ...  Final else!
+    # ${pwd} =  Set Variable If
+    # ...  ${Is_OKTA_Login_Required}==True  ${OKTAPassword}
+    # ...  Final else!
     Create Context: Web    ${user}  ${pwd}
     ${angleData}      Create Angle    ${model}  ${data}
     ${angleUri}       Get Uri From Response    ${angleData}
