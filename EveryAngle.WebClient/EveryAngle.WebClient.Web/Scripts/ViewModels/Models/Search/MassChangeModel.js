@@ -129,10 +129,7 @@ function MassChangeModel() {
                 self.GeneralCategories = [];
                 self.TagCategories = [];
                 self.TagSearchKeyword = ko.observable('');
-                if (self.CanSetLabels())
-                    return self.GenerateGeneralLabelView();
-                else
-                    return jQuery.when();
+                self.GenerateGeneralLabelView();                
             })
             .done(function () {
                 self.InitialObservableObject();
@@ -422,11 +419,11 @@ function MassChangeModel() {
                             labelDeferred.pushDeferred(self.SaveWithReport, [reports, reportProps, { uri: self.Angles[loop].uri, data: { assigned_labels: updateDatas } }]);
                             reports.header.total++;
                         }
-                    }
-
-                    //Add and remove tag
-                    self.AddOrRemoveTag(reports, labelDeferred);                           
+                    }                    
                 }
+
+                //Add and remove tag
+                self.AddOrRemoveTag(reports, labelDeferred); 
 
                 /* EOF: M4-7138: generate update data and report */
                 // update private note & starred
@@ -776,6 +773,10 @@ function MassChangeModel() {
         var tabId = viewType === enumHandlers.LABELVIEWTYPE.BP ? 'BPLabels' : viewType === enumHandlers.LABELVIEWTYPE.SEARCH ? 'SearchLabels' : 'PrivilegeLabels';
         jQuery('#LabelTabWrapper .tab-menu-wrapper div').removeClass('active');
         jQuery('#' + tabId).addClass('active');
+        if (!self.CanSetLabels()) {
+            jQuery('#Labels-PlaceHolder').empty().html(noModelSelectedHtmlTemplate());
+            return;
+        };
         jQuery('#Labels-PlaceHolder').empty().html(massChangeLabelsHtmlTemplate());
 
         var allModelLabelCategories = modelLabelCategoryHandler.GetLabelCategoriesByModelAndViewType(self.modelData.uri, viewType);
@@ -988,7 +989,7 @@ function MassChangeModel() {
         else if (viewType === enumHandlers.LABELVIEWTYPE.TAGS && !jQuery(element).hasClass('active')) {
             return self.GenerateTagsLabelView();
         }
-        else if (self.CanSetLabels() && !jQuery(element).hasClass('active')) {
+        else if (!jQuery(element).hasClass('active')) {
             return self.GenerateAddRemoveLabelView(viewType);
         }
     };
@@ -1010,6 +1011,9 @@ function MassChangeModel() {
         if (selectedAnglesModel.length === 1)
             self.modelData = modelsHandler.GetModelByUri(selectedAnglesModel[0]);
         return selectedAnglesModel.length === 1;
+    };
+    self.IsGeneralLabel = function () {
+        return $('#GeneralLabel').hasClass('active');
     };
     /* EOF: M4-7138: add/remove labels */
 }

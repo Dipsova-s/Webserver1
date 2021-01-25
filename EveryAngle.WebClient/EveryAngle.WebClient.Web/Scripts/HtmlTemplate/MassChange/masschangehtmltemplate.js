@@ -11,8 +11,7 @@ var massChangeHtmlTemplate = function () {
                         '<div id="TagsLabels" class="tab-menu" onclick="massChangeModel.LabelTabClick(enumHandlers.LABELVIEWTYPE.TAGS, this);" data-bind="css: { disabled: !massChangeModel.CanSetLabels() }"><span>' + Localization.TagLabel + '</span></div>',
                     '</div>',
                 '</div>',
-                '<div id="Labels-PlaceHolder" data-bind="css: { disabled: !massChangeModel.CanSetLabels() }"></div>',
-                '<div class="infoText">' + Captions.MassChange_Label_NoModelSelected + '</div>',
+                '<div id="Labels-PlaceHolder" data-bind="css: { disabled: !massChangeModel.CanSetLabels() && !massChangeModel.IsGeneralLabel() }"></div>',
             '</div>',
         '</div>'
     ].join('');

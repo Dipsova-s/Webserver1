@@ -113,3 +113,8 @@ var massChangeTagLabelHtmlTemplate = function () {
         '<!-- /ko -->'
     ].join('');
 };
+var noModelSelectedHtmlTemplate = function () {
+    return [
+        '<div class="infoText">' + Captions.MassChange_Label_NoModelSelected + '</div>'
+    ].join('');
+};
