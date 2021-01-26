@@ -48,3 +48,12 @@ EAAdmin can login to WC and directly to MC with deeplink URL
     Go to    ${testUrl}
     Wait Until Languages Page Loaded
     Logout MC
+
+Login to MC directly when using deeplink URL to check the Overview page displayed
+    [Documentation]     This test verifies that login to MC directly when using deeplink URL landing to overview page.
+    [Tags]  acc_mc_s  
+    Go to    ${URL_MC}/home/index
+    Sleep    3s
+    Login    ${AdminUsername}    ${Password}
+    Wait Until Overview Page Loaded
+    Logout MC
