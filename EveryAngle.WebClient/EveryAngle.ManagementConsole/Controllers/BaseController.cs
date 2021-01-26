@@ -6,8 +6,11 @@ using EveryAngle.WebClient.Service.Security.Interfaces;
 using System;
 using System.Configuration;
 using System.Globalization;
+using System.Net;
 using System.Threading;
+using System.Web;
 using System.Web.Mvc;
+using EveryAngle.Logging;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
@@ -16,7 +19,7 @@ namespace EveryAngle.ManagementConsole.Controllers
     [CustomHandleError(Order = 1)]
     public class BaseController : Controller
     {
-        public IValidationRequestService ValidationRequestService { get; private set; }
+        public IValidationRequestService ValidationRequestService { get; }
         protected SessionHelper SessionHelper;
         internal delegate string GetLoginPathDelegate(bool forceToWc);
         internal GetLoginPathDelegate GetLoginPath;
@@ -72,14 +75,28 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            ValidateToken(filterContext);
+            if (!ValidateToken(filterContext))
+            {
+                return;
+            }
+
             HandleActionExecution(filterContext);
             base.OnActionExecuting(filterContext);
         }
 
-        internal void ValidateToken(ActionExecutingContext filterContext)
+        internal bool ValidateToken(ActionExecutingContext filterContext)
         {
-            ValidationRequestService.ValidateToken(filterContext.HttpContext.Request).Wait();
+            try
+            {
+                ValidationRequestService.ValidateToken(filterContext.HttpContext.Request).Wait();
+                return true;
+            }
+            catch (AggregateException ex) when ((ex.InnerException as HttpException)?.GetHttpCode() == (int) HttpStatusCode.Forbidden)
+            {
+                Log.SendWarning("No valid token found, redirecting to STS");
+                filterContext.Result = new RedirectResult(GetLoginPath(false));
+                return false;
+            }
         }
 
         internal void HandleActionExecution(ActionExecutingContext filterContext)
