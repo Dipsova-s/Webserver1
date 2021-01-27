@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.ManagementConsole.Controllers;
 using EveryAngle.WebClient.Service.Security;
+using EveryAngle.WebClient.Service.Security.Interfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -132,12 +133,56 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _validationRequestService.Setup(x => x.ValidateToken(It.IsAny<HttpRequestBase>())).Returns(Task.CompletedTask).Verifiable();
 
             // Act
-            _baseController.ValidateToken(actionContext);
+            var result = _baseController.ValidateToken(actionContext);
 
             // Assert
             _validationRequestService.Verify(x => x.ValidateToken(It.IsAny<HttpRequestBase>()), Times.Once);
+            Assert.IsTrue(result, "Expected ValidateToken to return true");
         }
 
+        [Test]
+        public void OnActionExecuting_RedirectsToSts_WhenServiceThrows()
+        {
+            // Arrange
+            var actionContext = new ActionExecutingContext();
+            var httpContextMock = new Mock<HttpContextBase>();
+            var httpRequestMock = new Mock<HttpRequestBase>();
+            httpContextMock.Setup(x => x.Request).Returns(httpRequestMock.Object);
+            actionContext.HttpContext = httpContextMock.Object;
+            var exception = new HttpException((int) HttpStatusCode.Forbidden, "Missing CSRF token");
+            _validationRequestService.Setup(x => x.ValidateToken(It.IsAny<HttpRequestBase>())).Returns(Task.Run(() => throw exception)).Verifiable();
+            var baseController = new BaseControllerTestClass(_sessionHelperMock.Object, _validationRequestService.Object);
 
+            var loginPath = "some_url";
+            bool forcedToWebClient = true;
+            baseController.GetLoginPath = forceToWc =>
+            {
+                forcedToWebClient = forceToWc;
+                return loginPath;
+            };
+
+            // Act
+            baseController.CallOnActionExecuting(actionContext);
+
+            // Assert
+            _validationRequestService.Verify(x => x.ValidateToken(It.IsAny<HttpRequestBase>()), Times.Once);
+            var redirect = actionContext.Result as RedirectResult;
+            Assert.NotNull(redirect, "Expected ValidateToken to return a RedirectResult");
+            Assert.AreEqual(loginPath, redirect.Url, "Expected correct redirect url");
+            Assert.IsFalse(forcedToWebClient, "User shouldn't be forced to the WebClient");
+        }
+
+        private class BaseControllerTestClass : BaseController
+        {
+            public BaseControllerTestClass(SessionHelper sessionHelper, IValidationRequestService validationRequestService)
+                : base(sessionHelper, validationRequestService)
+            {
+            }
+
+            public void CallOnActionExecuting(ActionExecutingContext filterContext)
+            {
+                OnActionExecuting(filterContext);
+            }
+        }
     }
 }
