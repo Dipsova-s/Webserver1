@@ -51,7 +51,8 @@ Crop Item Type Filters
     ...     ];
     Crop WebHelp Image With Dimensions  WC_EA_filter.png  css=#facetcat_itemtype_Checkbox  30  12  @{sizes}[0]  20  ${False}
     Crop WebHelp Image With Dimensions  WC_Template_filter.png  css=#facetcat_itemtype_Checkbox  30  42  @{sizes}[1]  20  ${False}
-    Crop WebHelp Image With Dimensions  WC_Dashboard_filter.png  css=#facetcat_itemtype_Checkbox  30  72  @{sizes}[2]  20  ${False}
+    # Crop WebHelp Image With Dimensions  WC_Dashboard_filter.png  css=#facetcat_itemtype_Checkbox  30  72  @{sizes}[2]  20  ${False}
+
 
 Crop Characteristic Filters
     Execute JavaScript    $('#with_private_display').closest('li').show();

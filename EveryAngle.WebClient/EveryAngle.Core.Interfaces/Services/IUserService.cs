@@ -7,7 +7,6 @@ namespace EveryAngle.Core.Interfaces.Services
 {
     public interface IUserService 
     {
-        UserViewModel GetUser(string uri, bool isLoadModelPrivileges);
         UserViewModel GetUser(string uri);
         ListViewModel<UserViewModel> GetUsers(string uri);
 

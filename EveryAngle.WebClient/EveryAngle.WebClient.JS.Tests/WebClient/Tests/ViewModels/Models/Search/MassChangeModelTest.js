@@ -62,7 +62,6 @@ describe("MassChangeModel", function () {
         it("Should call GenerateAddRemoveLabelView for other viewType", function () {
             var viewType = enumHandlers.LABELVIEWTYPE.BP;
             spyOn(massChangeModel, 'GenerateAddRemoveLabelView').and.returnValue($.noop);
-            spyOn(massChangeModel, 'CanSetLabels').and.returnValue(true);
             var result = massChangeModel.LabelTabClick(viewType);
             expect(result).toBe($.noop);
             expect(massChangeModel.GenerateAddRemoveLabelView).toHaveBeenCalled();
@@ -308,6 +307,7 @@ describe("MassChangeModel", function () {
         });
         it("Label View selected value should be equal to expected", function () {
             //prepare
+            spyOn(massChangeModel, 'CanSetLabels').and.returnValue(true);
             spyOn(modelLabelCategoryHandler, 'GetLabelsByCategoryUri').and.returnValue(data.Labels);
             massChangeModel.modelData = { uri: '//' }
             spyOn(modelLabelCategoryHandler, "GetLabelCategoriesByModelAndViewType").and.returnValue(data.Category);;
@@ -323,6 +323,7 @@ describe("MassChangeModel", function () {
 
         it("IsChecked value should updated properly when switch between Yes and Leave unchanged radio button", function () {
             //prepare
+            spyOn(massChangeModel, 'CanSetLabels').and.returnValue(true);
             spyOn(modelLabelCategoryHandler, 'GetLabelsByCategoryUri').and.returnValue(data.Labels);
             massChangeModel.modelData = { uri: '//' }
             spyOn(modelLabelCategoryHandler, "GetLabelCategoriesByModelAndViewType").and.returnValue(data.Category);
@@ -337,6 +338,31 @@ describe("MassChangeModel", function () {
                 expect($("input[name='" + value.name + "']:checked").val()).toBe(value.IsChecked());
             });
         });
+        it("'Note: To add/remove labels, only select Angle(s) from the same model' message should shown when we have multi model", function () {
+            //arrange
+            spyOn(massChangeModel, 'CanSetLabels').and.returnValue(false);
 
+            //call
+            massChangeModel.GenerateAddRemoveLabelView('business_process');
+
+            //assert
+            expect($('.infoText').text()).toBe('Note: To add/remove labels, only select Angle(s) from the same model.');
+        });
+    });
+    describe(".IsGeneralLabel", function () {
+        var element;
+        afterEach(function () {
+            element.remove();
+        });
+        it("Should return true ", function () {
+            element = $('<div id="GeneralLabel" class="active""></div>').appendTo('body');
+            var result = massChangeModel.IsGeneralLabel();
+            expect(result).toBe(true);
+        });
+        it("Should return false ", function () {
+            element = $('<div id="GeneralLabel" class="""></div>').appendTo('body');
+            var result = massChangeModel.IsGeneralLabel();
+            expect(result).toBe(false);
+        });
     });
 });

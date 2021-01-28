@@ -269,6 +269,7 @@
     <Compile Include="ErrorHandlers\CustomApiHandleError.cs" />
     <Compile Include="ErrorHandlers\CustomErrorPageHandler.cs" />
     <Compile Include="ErrorHandlers\CustomHandleError.cs" />
+    <Compile Include="Extensions\HttpContextExtensions.cs" />
     <Compile Include="FriendlyErrorMessageHelper.cs" />
     <Compile Include="HttpHandlers\CustomHeaderModule.cs" />
     <Compile Include="HttpHandlers\HttpResponseMessageBuilder.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="Extensions\OwinContextExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AccountService.cs" />
+    <Compile Include="Security\CustomCookieAuthenticationProvider.cs" />
     <Compile Include="Security\Interfaces\IValidationRequestService.cs" />
     <Compile Include="Security\SessionHelper.cs" />
     <Compile Include="Security\ValidationRequestService.cs" />

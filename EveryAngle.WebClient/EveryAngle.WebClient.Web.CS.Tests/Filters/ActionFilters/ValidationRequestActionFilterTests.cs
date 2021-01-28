@@ -3,6 +3,7 @@ using EveryAngle.WebClient.Web.Filters.ActionFilters;
 using Moq;
 using NUnit.Framework;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 
 namespace EveryAngle.WebClient.Web.CS.Tests.Filters.ActionFilters
@@ -28,9 +29,10 @@ namespace EveryAngle.WebClient.Web.CS.Tests.Filters.ActionFilters
         }
 
         [Test]
-        public void OnActionExecuting_Should_ValidateToken_WhenBeCalled()
+        public void OnActionExecuting_Calls_ValidateToken_WhenCalled()
         {
             _service.Setup(x => x.ValidateToken(It.IsAny<HttpRequestMessage>()))
+                .Returns(Task.CompletedTask)
                 .Verifiable();
 
             Mock<HttpActionContext> actionContext = new Mock<HttpActionContext>();

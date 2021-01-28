@@ -46,7 +46,7 @@ Verify the User Sessions Filtered with Text
     @{rowList}  Get Grid Column Texts  css=#SessionsGrid .k-grid-content tr  1
     ${rowCount}  Get Element Count  css=#SessionsGrid .k-grid-content tr
     :For    ${index}      IN RANGE    0   ${rowCount-1}
-    \       Should Contain      @{rowList}[${index}]    ${filterText}
+    \       Should Contain      @{rowList}[${index}]    ${filterText}   ignore_case=True
 
 Wait Until Sessions Grid Is Ready
     Wait Until Ajax Complete

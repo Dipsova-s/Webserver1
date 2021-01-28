@@ -13,7 +13,9 @@ Screenshot "WC_Chart_options" page
     Crop Reference line Icon
     Crop Format Icon
     Crop Format Field Popup
+    Crop Thousands separator checkbox
     Crop Apply Chart Button
+    Crop Undo Button in chart options
 
     Resize WebHelp Window    1000   700
     Crop Chart Navigator
@@ -59,6 +61,13 @@ Crop Format Field Popup
     Crop WebHelp Image  WC_Format_Field.png  css=.aggregation-format-popup
     Close Field Format
 
+Crop Thousands separator checkbox
+    Click Field In Data Area By Field Index  1
+    Click Show Field Format For Field Settings
+    Update Popup Position  css=.aggregation-format-popup
+    Crop WebHelp Image With Dimensions  WC_ThousandsSeparator_checkbox.png  jquery=.aggregation-format-popup .row-thousandseparator .form-col-body .chk-indeterminatable-wrapper .chkIndeterminatable   0    0   16    16    ${False}
+    Close Field Format
+
 Crop Reference line Icon
     Click Field In Data Area By Field Index  1
     Crop WebHelp Image  WC_Icon_Reference_Line.png  jquery=.query-aggregation-data .item-aggregation:eq(1) .action-reference-line   ${False}
@@ -67,6 +76,11 @@ Crop Apply Chart Button
     Crop WebHelp Image  WC_Button_Apply_Inactive.png  jquery=.section-aggregation .btn-save
     Change Chart To Column Cluster
     Crop WebHelp Image  WC_Button_Apply_Active.png  jquery=.section-aggregation .btn-save
+    Click Undo field Settings
+
+Crop Undo Button in chart options
+    Change Chart To Column Cluster
+    Crop WebHelp Image With Dimensions    WC_Button_Undo.png   jquery=.accordion-toolbar .icon-undo    3   3   14   15    ${False}
     Click Undo field Settings
 
 Crop Chart Navigator

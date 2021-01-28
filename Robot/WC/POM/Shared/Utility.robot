@@ -48,6 +48,15 @@ Wait MC Progress Bar Closed
     Check And Wait Until Element Is Not Visible    ${pgbMC}    ${TIMEOUT_MC_PROGRESS_BAR}
     Check And Wait Until Element Is Not Visible    ${pgbMCMainContent}    60s
 
+Wait for 30 minutes
+    Sleep   30m
+
+Wait for 35 minutes
+    Sleep   35m
+
+Wait for 65 minutes
+    Sleep   65m
+
 Wait Until JavaScript Is True
     [Arguments]  ${script}
     : FOR    ${INDEX}    IN RANGE    0    ${TIMEOUT_AJAX_COMPLETE}
@@ -439,6 +448,6 @@ Is OKTA login required for login to application
     ${filePath}=    set variable    ${EXECDIR}/python/TagsFromServer.txt
     Log   ${filePath}
     ${TextFileContent}=    Get File    ${filePath}
-    ${match}    ${value}    Run Keyword And Ignore Error    Should Contain  ${TextFileContent}  login:okta
+    ${match}    ${value}    Run Keyword And Ignore Error    Should Contain  ${TextFileContent}  okta
     ${RETURNVALUE}      Set Variable If     '${match}'=='PASS'    ${True}     ${False}
     [Return]    ${RETURNVALUE}

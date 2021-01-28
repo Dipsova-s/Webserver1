@@ -13,7 +13,6 @@ Screenshot "WC_Angle_details" page
     Crop Add Filter Before Jump Button
     Crop Edit Filter Button
     Crop Undo Button
-    Crop Angle Publishing Popup
 
 Crop Angle Details
     Collapse All Angle Section Panels
@@ -43,6 +42,7 @@ Crop Undo Button
     Crop WebHelp Image  WC_Icon_Undo.png  css=#TabContentAngle .btn-cancel
     Click Undo Filters And Jumps
 
+# This keyword Not in use as of now
 Crop Angle Publishing Popup
     Open Angle Publishing Popup
     Update Popup Position    css=.popupPublishSettings

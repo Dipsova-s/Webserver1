@@ -2,21 +2,24 @@ using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service.ErrorHandlers;
 using EveryAngle.WebClient.Service.LogHandlers;
 using EveryAngle.WebClient.Service.Security;
-using EveryAngle.WebClient.Web.Filters.ActionFilters;
+using EveryAngle.WebClient.Service.Security.Interfaces;
 using System;
 using System.Configuration;
 using System.Globalization;
+using System.Net;
 using System.Threading;
+using System.Web;
 using System.Web.Mvc;
+using EveryAngle.Logging;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
     [ValidateInput(false)]
-    [ValidationRequest]
     [LogExceptionHandler(Order = 2)]
     [CustomHandleError(Order = 1)]
     public class BaseController : Controller
     {
+        public IValidationRequestService ValidationRequestService { get; }
         protected SessionHelper SessionHelper;
         internal delegate string GetLoginPathDelegate(bool forceToWc);
         internal GetLoginPathDelegate GetLoginPath;
@@ -26,11 +29,17 @@ namespace EveryAngle.ManagementConsole.Controllers
             if (SessionHelper == null)
                 SessionHelper = SessionHelper.Initialize();
             GetLoginPath = Shared.Helpers.UrlHelper.GetLoginPath;
+            ValidationRequestService = WebClient.Service.Security.ValidationRequestService.Instance();
         }
 
-        internal BaseController(SessionHelper sessionHelper)
+        internal BaseController(SessionHelper sessionHelper) : this(sessionHelper, WebClient.Service.Security.ValidationRequestService.Instance())
+        {
+        }
+
+        internal BaseController(SessionHelper sessionHelper, IValidationRequestService validationRequestService)
         {
             SessionHelper = sessionHelper;
+            ValidationRequestService = validationRequestService;
         }
 
         public int DefaultPageSize => SessionHelper.SystemSettings.default_pagesize;
@@ -66,8 +75,28 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (!ValidateToken(filterContext))
+            {
+                return;
+            }
+
             HandleActionExecution(filterContext);
             base.OnActionExecuting(filterContext);
+        }
+
+        internal bool ValidateToken(ActionExecutingContext filterContext)
+        {
+            try
+            {
+                ValidationRequestService.ValidateToken(filterContext.HttpContext.Request).Wait();
+                return true;
+            }
+            catch (AggregateException ex) when ((ex.InnerException as HttpException)?.GetHttpCode() == (int) HttpStatusCode.Forbidden)
+            {
+                Log.SendWarning("No valid token found, redirecting to STS");
+                filterContext.Result = new RedirectResult(GetLoginPath(false));
+                return false;
+            }
         }
 
         internal void HandleActionExecution(ActionExecutingContext filterContext)

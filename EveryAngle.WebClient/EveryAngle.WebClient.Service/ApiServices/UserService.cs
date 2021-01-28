@@ -32,7 +32,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return users;
         }
 
-        public UserViewModel GetUser(string uri, bool isLoadModelPrivileges)
+        public UserViewModel GetUser(string uri)
         {
             var requestManager = RequestManager.Initialize(uri);
 
@@ -41,29 +41,32 @@ namespace EveryAngle.WebClient.Service.ApiServices
             {
                 var result = JsonConvert.DeserializeObject<UserViewModel>(jsonResult.ToString(),
                     new UnixDateTimeConverter());
-                if (isLoadModelPrivileges && result != null)
+                if (result != null)
                 {
-                    var systemSettings = SessionHelper.Initialize().SystemSettings;
-                    requestManager = RequestManager.Initialize(
-                            result.ModelPrivilegesUri + "?" +
-                            UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettings.max_pagesize));
-                    jsonResult = requestManager.Run();
-
                     //next step get user privileges
-                    if (jsonResult.SelectToken("model_privileges") != null)
+                    if (SessionHelper.Initialize().Session.ModelPrivileges != null)
                     {
-                        result.ModelPrivileges =
-                            JsonConvert.DeserializeObject<List<ModelPrivilegeViewModel>>(
-                                jsonResult.SelectToken("model_privileges").ToString(), new UnixDateTimeConverter());
+                        result.ModelPrivileges = SessionHelper.Initialize().Session.ModelPrivileges;
+                    }
+                    else
+                    {
+                        var systemSettings = SessionHelper.Initialize().SystemSettings;
+                        requestManager = RequestManager.Initialize(
+                                result.ModelPrivilegesUri + "?" +
+                                UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettings.max_pagesize));
+                        jsonResult = requestManager.Run();
+                        //next step get user privileges
+                        if (jsonResult.SelectToken("model_privileges") != null)
+                        {
+                            result.ModelPrivileges =
+                                JsonConvert.DeserializeObject<List<ModelPrivilegeViewModel>>(
+                                    jsonResult.SelectToken("model_privileges").ToString(), new UnixDateTimeConverter());
+                        }
                     }
                 }
                 return result;
             }
             return null;
-        }
-        public UserViewModel GetUser(string uri)
-        {
-            return GetUser(uri, true);
         }
 
         public List<ModelPrivilegeViewModel> GetUserModelPrivilege(string modelPrivilegesUri)

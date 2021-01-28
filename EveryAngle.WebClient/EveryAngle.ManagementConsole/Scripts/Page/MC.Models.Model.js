@@ -135,7 +135,7 @@
                     }
                 })
                 .fail(function (xhr) {
-                    if (xhr.status === 401) {
+                    if (xhr.status === 401 || xhr.status === 0) {
                         logoutToOverviewPage();
                     }
                 });

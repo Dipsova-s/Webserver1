@@ -47,7 +47,20 @@
             expect(isGridVisible).toBeFalsy();
         });
     });
-    
+    describe(".ShowLogTable", function () {
+        beforeEach(function () {
+            $('<a id=showLogTable class="btn btnOpenWindow" onclick="MC.ui.logpopup.ShowLogTable(this)">Show Log Table</a>').appendTo('body');
+        });
+
+        afterEach(function () {
+            $('#showLogTable').remove();
+        });
+        it("should call ShowLogTable when clicking view button", function () {
+            spyOn(MC.ui.logpopup, 'ShowLogTable');
+            jQuery('#showLogTable').trigger('click');
+            expect(MC.ui.logpopup.ShowLogTable).toHaveBeenCalled();
+        });
+    });
     describe(".UpdateLogFileDetailsLayout", function () {
         beforeEach(function () {
             $("<div id='popupLogTable'><div class='popupContent'><div class='contentSectionGrid'></div><div class='contentSectionLog'><div class='logViewNavigationButtons'></div><div id='LogFileDetails'><div class='logDetails'></div></div></div></div>></div>").appendTo('body');

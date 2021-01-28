@@ -95,6 +95,9 @@
             }
 
             if (xhr.status === 0 || xhr.__disable_error === true) {
+                if (xhr.readyState === 0 && xhr.statusText != "abort") {
+                    MC.util.reload();
+                }
                 return;
             }
 

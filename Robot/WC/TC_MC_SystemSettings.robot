@@ -12,25 +12,11 @@ ${Program/ScriptFolderPath}     c:/random/path
 
 *** Test Cases ***
 Test System Settings
-    [Documentation]     This test case verifies the system settings
+    [Documentation]     This test case verifies the ssl email settings and default approval state automation task actions setting lists
     [Tags]  smk_mc  TC_C230851      TC_C603
-    Verify Instance To Keep Per Model
     Verify SSL Email Settings
-    Verify Default Maximum Export Page Size Is Exist
     Verify Default Approval State Automation task Actions Setting Lists
     
-Fill System Settings and verify the data saved successfully with given values
-    [Documentation]      Verify the values changed by user in System setings page are saved successfully and changes the data back to old values.
-    [Tags]  smk_mc_s  TC_C592  TC_C230851
-    Verify System Settings Page Is Ready
-    Get the System Settings page field values
-    Fill the System settings page field values
-    Click Save System Settings
-    Verify System Settings Page Is Ready
-    Verify the System Settings page field values
-    Set the System settings page field values
-    Click Save System Settings
-
 Verify Active Directory Size limit changes reflects the users list in users page
     [Documentation]     This test case changes the active directory size limit and verifies the changes reflects in the user page as per the ADSL number
     ...                 Risk Coverage:This test covers the failures in the system settings page and also changes that reflects/affects other modules
@@ -45,14 +31,6 @@ Verify Active Directory Size limit changes reflects the users list in users page
     Go To System Settings Page
     Verify System Settings Page Is Ready
     Restore Active Directory Size Limit Value
-
-Verify Program/Scripts folder
-    [Documentation]     This test case verifies the path of the Program/Scripts folder in the system settings page
-    ...                 Risk Coverage: This test covers the failures in the system settings page
-    [Tags]   smk_mc  TC_C39021
-    Verify Text for info property of Program/Script folder
-    Input Program/Script folder path and Save       ${Program/ScriptFolderPath}
-    Verify Program/Script folder path saved correctly     ${Program/ScriptFolderPath}
 
 Verify No Manage System
     [Documentation]     This test case verifies no manage system privilege in the system settings page

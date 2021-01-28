@@ -441,16 +441,18 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             for (int i = 0; i < allCookies.Count; i++)
             {
                 System.Web.HttpCookie newCookie = allCookies[i];
-                if (newCookie.Name.Equals("STSEASECTOKEN"))
+                if (newCookie.Name.Equals("STSTOKEN"))
                 {
                     // Cookie is encrypted so we need to get the correct value if we want to have the AppServer read it
                     var authenticateCookies = requestContext.GetOwinContext().AuthenticateAsyncFromCookies();
                     string token = authenticateCookies?.Result?.GetAccessToken();
-                    request.AddCookie(newCookie.Name, token);
+
+                    // AppServer expects a cookie with the name 'STSEASECTOKEN' containing the access token
+                    request.AddCookie("STSEASECTOKEN", token);
                 }
                 else
                 {
-                    if (!newCookie.Name.Equals("EASECTOKEN")) // Do not add the old EASECTOKEN
+                    if (!newCookie.Name.Equals("EASECTOKEN") && !newCookie.Name.Equals("STSEASECTOKEN")) // Do not add the old EASECTOKEN or STSEASECTOKEN
                     {
                         request.AddCookie(newCookie.Name, newCookie.Value);
                     }
@@ -514,17 +516,17 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             }
 
 
-            /* M4-32522: clean STSEASECTOKEN
-             * - STSEASECTOKEN will be duplicated in request
+            /* M4-32522: clean STSTOKEN
+             * - STSTOKEN will be duplicated in request
              * After you add a cookie by using the HttpResponse.Cookies collection,
              * the cookie is immediately available in the HttpRequest.Cookies collection,
              * even if the response has not been sent to the client.
              * ref: https://msdn.microsoft.com/en-us/library/system.web.httprequest.cookies(v=vs.110).aspx
             */
-            string tokenName = "STSEASECTOKEN";
+            string tokenName = "STSTOKEN";
             if (HttpContext.Current != null && HttpContext.Current.Request.Cookies[tokenName] != null)
             {
-                // use the last STSEASECTOKEN
+                // use the last STSTOKEN
                 for (int i = HttpContext.Current.Request.Cookies.Count - 1; i >= 0; i--)
                 {
                     if (HttpContext.Current.Request.Cookies[i].Name == tokenName)
