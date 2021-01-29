@@ -356,43 +356,35 @@
         }, 100);
     };
     logpopup.EnableCslAndLogViewScrollUpAndBottom = function () {
-        // log view scroll 
-        $(".scrollToBottom").addClass("disabled");
-        $("#LogFileDetails, .logDetails").scroll(function () {
-            var maxScrollHeight = $("#LogFileDetails .logDetails").prop("scrollHeight") - 630;
-            var heightFromTop = $("#LogFileDetails .logDetails").scrollTop();
-            if (heightFromTop < 25) {
-                $(".scrollToBottom").addClass("disabled");
-            }
-            else {
-                $(".scrollToBottom").removeClass("disabled");
-            }
-            if (heightFromTop < maxScrollHeight) {
-                $(".scrollToTop").removeClass("disabled");
-            }
-            else {
-                $(".scrollToTop").addClass("disabled");
-            }
-        });
+         
+        $(".scrollToTop").addClass("disabled");
+        $(".scrollToBottom").removeClass("disabled");
+
+        // log view scroll
+        $("#LogFileDetails, .logDetails").scroll(logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent()));
 
         // Csl view scroll
-        $("#SystemLogGrid .k-scrollbar").scroll(function () {
-            var maxScrollHeight = $('#SystemLogGrid .k-scrollbar').prop("scrollHeight") - 244;
-            var heightFromTop = $('#SystemLogGrid .k-scrollbar').scrollTop();
-            if (heightFromTop < 20) {
-                $(".scrollToBottom").addClass("disabled");
-            }
-            else {
+        $("#SystemLogGrid .k-scrollbar").scroll(logpopup.SetScrollUpTopAndDownStatus($('#SystemLogGrid .k-scrollbar'), $('#SystemLogDetails')));
+    };
+    logpopup.SetScrollUpTopAndDownStatus = function (maxScrollHeighthtml, divHeight) {
+        return function () {
+            let popupHeight = divHeight.attr('id') === 'SystemLogDetails' ? parseInt(divHeight.css('top')) : divHeight.height();
+            let maxScrollHeight = maxScrollHeighthtml.prop("scrollHeight") - popupHeight;
+            let heightFromTop = maxScrollHeighthtml.scrollTop();
+            if (heightFromTop < 22) {
+                $(".scrollToTop").addClass("disabled");
                 $(".scrollToBottom").removeClass("disabled");
             }
-            if (heightFromTop < maxScrollHeight) {
+            else if (heightFromTop < maxScrollHeight) {
                 $(".scrollToTop").removeClass("disabled");
+                $(".scrollToBottom").removeClass("disabled");
             }
             else {
-                $(".scrollToTop").addClass("disabled");
+                $(".scrollToBottom").addClass("disabled");
+                $(".scrollToTop").removeClass("disabled");
             }
-        });
-    };
+        }
+    }
     logpopup.RefreshCsl = function () {
         $('#SystemLogGrid').data('kendoGrid').dataSource.read();
     };
@@ -433,12 +425,11 @@
         var grid = $('#SystemLogGrid').data('kendoGrid');
         var scrollbar = (grid.element).find(".k-scrollbar").get(0);
         $(scrollbar).stop().animate({ scrollTop: 0 }, 500);
-
     };
     logpopup.ScrollToBottomCsl = function () {
         var grid = $('#SystemLogGrid').data('kendoGrid');
         var scrollbar = (grid.element).find(".k-scrollbar").get(0);
-        $(scrollbar).stop().animate({ scrollTop: scrollbar.scrollHeight }, 500);
+        $(scrollbar).stop().animate({ scrollTop: scrollbar.scrollHeight }, 500);     
     };
     logpopup.InitialLogGrid = function () {
         var grid = $('#SystemLogGrid').data('kendoGrid');
