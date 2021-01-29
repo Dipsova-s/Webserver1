@@ -81,6 +81,7 @@
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.SystemRolesTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.WebClientSettingsTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.WelcomePageTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.Models.ModelserverTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.Models.PackagesTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.PackagesTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.Models.CommunicationsTest.js" />
