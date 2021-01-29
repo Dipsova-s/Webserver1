@@ -361,16 +361,17 @@
         $(".scrollToBottom").removeClass("disabled");
 
         // log view scroll
-        $("#LogFileDetails, .logDetails").scroll(logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent()));
+        $("#LogFileDetails .logDetails").scroll(logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent()));
 
         // Csl view scroll
         $("#SystemLogGrid .k-scrollbar").scroll(logpopup.SetScrollUpTopAndDownStatus($('#SystemLogGrid .k-scrollbar'), $('#SystemLogDetails')));
     };
+
     logpopup.SetScrollUpTopAndDownStatus = function (maxScrollHeighthtml, divHeight) {
         return function () {
-            let popupHeight = divHeight.attr('id') === 'SystemLogDetails' ? parseInt(divHeight.css('top')) : divHeight.height();
-            let maxScrollHeight = maxScrollHeighthtml.prop("scrollHeight") - popupHeight;
-            let heightFromTop = maxScrollHeighthtml.scrollTop();
+            var popupHeight = divHeight.attr('id') === 'SystemLogDetails' ? parseInt(divHeight.css('top')) : divHeight.height();
+            var maxScrollHeight = maxScrollHeighthtml.prop("scrollHeight") - popupHeight;
+            var heightFromTop = maxScrollHeighthtml.scrollTop();
             if (heightFromTop < 22) {
                 $(".scrollToTop").addClass("disabled");
                 $(".scrollToBottom").removeClass("disabled");
@@ -384,7 +385,8 @@
                 $(".scrollToTop").removeClass("disabled");
             }
         }
-    }
+    };
+
     logpopup.RefreshCsl = function () {
         $('#SystemLogGrid').data('kendoGrid').dataSource.read();
     };
