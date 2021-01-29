@@ -54,6 +54,8 @@ namespace EveryAngle.ManagementConsole.Test.Models
             _testingModel.CreateSiteMap();
             var returnValue = _testingModel.GetSiteMaps();
             Assert.IsNotNull(returnValue);
+            Assert.IsTrue(returnValue.Find(x => x.Id.Contains("GlobalSettings")).Childs.Exists(x => x.HashPath == "GlobalSettings/License"));
+            Assert.IsTrue(returnValue.Find(x => x.Id.Contains("Models")).Childs.Find(x => x.Id.Equals("AllModels")).Childs.Exists(x => x.HashPath == "Models/AllModels/EditModel"));
         }
         #endregion
     }

@@ -216,7 +216,7 @@
                         url: self.ModelGraphDataUri,
                         parameters: { eventLogUri: modelServer.event_log, modelServerId: modelServer.id }
                     })
-                    .done(function (data,) {
+                    .done(function (data) {
                         self.ModelServersData[data.id] = data.logs;
 
                         var html = '', size;
