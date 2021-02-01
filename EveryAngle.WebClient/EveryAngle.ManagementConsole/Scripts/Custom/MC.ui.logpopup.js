@@ -203,7 +203,7 @@
         // initial grid
         var grid = MC.ui.logpopup.InitialLogGrid();
         MC.ui.logpopup.ShowLogHideGrid(_self.isLogFile);
-        MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom(_self.isLogFile);
+        
         var setEnableLogPopup = function (enable) {
             if (enable) {
                 grid.content.find('.k-grid-error').remove();
@@ -304,6 +304,7 @@
                                     response = '<pre>' + response  + '</pre>' + '<hr/>';
                                 }
                                 $('#LogFileDetails .logDetails').html(response);
+                                MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom(_self.isLogFile);
                             }
                             else {
                                 // add row number
@@ -370,10 +371,14 @@
 
     logpopup.SetScrollUpTopAndDownStatus = function (ScrollHeighthtml, divHeight) {
         return function () {
-            var popupHeight = divHeight.attr('id') === 'SystemLogDetails' ? parseInt(divHeight.css('top')) : divHeight.height();
+            var popupHeight = divHeight.attr('id') === 'SystemLogDetails' ? parseInt(divHeight.css('top'))-15 : divHeight.height();
             var maxScrollHeight = ScrollHeighthtml.prop("scrollHeight") - popupHeight;
             var heightFromTop = ScrollHeighthtml.scrollTop();
-            if (heightFromTop < 22) {
+            if (maxScrollHeight < 0) {
+                $(".scrollToTop").addClass("disabled");
+                $(".scrollToBottom").addClass("disabled");
+            }
+            else if (heightFromTop < 20) {
                 $(".scrollToTop").addClass("disabled");
                 $(".scrollToBottom").removeClass("disabled");
             }
