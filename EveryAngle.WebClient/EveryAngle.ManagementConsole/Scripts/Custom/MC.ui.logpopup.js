@@ -324,6 +324,7 @@
                             }
                             cacheLogs[queryString] = response;
                             option.success(response);
+                            MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom(_self.isLogFile);
                         });
                 }
             },
