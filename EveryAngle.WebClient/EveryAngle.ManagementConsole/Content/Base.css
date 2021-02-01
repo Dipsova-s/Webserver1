@@ -1603,7 +1603,7 @@ table.grid tbody td:first-child {
     position: relative;
 }
 
-.gridToolbarFilter input{
+.gridToolbarFilter input {
     padding-right: 25px;
     width: 165px;
     padding-top: 0;

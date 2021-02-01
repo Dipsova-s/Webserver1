@@ -389,6 +389,7 @@
 
     logpopup.RefreshCsl = function () {
         $('#SystemLogGrid').data('kendoGrid').dataSource.read();
+        logpopup.SetScrollUpTopAndDownStatus($('#SystemLogGrid .k-scrollbar'), $('#SystemLogDetails'))();
     };
     logpopup.RefreshLog = function () {
         var fullPath = MC.ui.logpopup.LogFullPath;
@@ -412,6 +413,7 @@
         .done(function (response) {
             response = '<pre>' + response + '</pre>' + '<hr/>';
             $('#LogFileDetails .logDetails').html(response);
+            logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent())();
         });
     };
     logpopup.ScrollToTopLog = function () {
