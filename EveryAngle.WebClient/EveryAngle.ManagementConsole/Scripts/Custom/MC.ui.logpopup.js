@@ -203,7 +203,7 @@
         // initial grid
         var grid = MC.ui.logpopup.InitialLogGrid();
         MC.ui.logpopup.ShowLogHideGrid(_self.isLogFile);
-        MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom();
+        MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom(_self.isLogFile);
         var setEnableLogPopup = function (enable) {
             if (enable) {
                 grid.content.find('.k-grid-error').remove();
@@ -355,24 +355,24 @@
             win.trigger('resize');
         }, 100);
     };
-    logpopup.EnableCslAndLogViewScrollUpAndBottom = function () {
-        if (_self.isLogFile) {
-            let callBackFunction = logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent());
+    logpopup.EnableCslAndLogViewScrollUpAndBottom = function (isLogFile) {
+        if (isLogFile) {
+            var callBackFunction = logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent());
             $("#LogFileDetails .logDetails").scroll(callBackFunction);
             callBackFunction();
         }
         else {
-            let callBackFunction = logpopup.SetScrollUpTopAndDownStatus($('#SystemLogGrid .k-scrollbar'), $('#SystemLogDetails'));
+            var callBackFunction = logpopup.SetScrollUpTopAndDownStatus($('#SystemLogGrid .k-scrollbar'), $('#SystemLogDetails'));
             $("#SystemLogGrid .k-scrollbar").scroll(callBackFunction);
             callBackFunction();
         }
     };
 
-    logpopup.SetScrollUpTopAndDownStatus = function (maxScrollHeighthtml, divHeight) {
+    logpopup.SetScrollUpTopAndDownStatus = function (ScrollHeighthtml, divHeight) {
         return function () {
             var popupHeight = divHeight.attr('id') === 'SystemLogDetails' ? parseInt(divHeight.css('top')) : divHeight.height();
-            var maxScrollHeight = maxScrollHeighthtml.prop("scrollHeight") - popupHeight;
-            var heightFromTop = maxScrollHeighthtml.scrollTop();
+            var maxScrollHeight = ScrollHeighthtml.prop("scrollHeight") - popupHeight;
+            var heightFromTop = ScrollHeighthtml.scrollTop();
             if (heightFromTop < 22) {
                 $(".scrollToTop").addClass("disabled");
                 $(".scrollToBottom").removeClass("disabled");

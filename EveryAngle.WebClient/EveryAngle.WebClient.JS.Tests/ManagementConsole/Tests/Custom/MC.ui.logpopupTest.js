@@ -112,15 +112,49 @@
         });
     });
     describe(".EnableCslAndLogViewScrollUpAndBottom", function () {
-        it("should call the scroll enabling function", function () {
-            spyOn($.fn, 'scroll').and.returnValue($());
-            MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom();
-            expect($.fn.scroll).toHaveBeenCalledTimes(2);
+        var docElement;
+        beforeEach(function () {
+            docElement =$('<div class="logViewNavigationButtons">'+
+                            '<div class="logViewActionButtons">'+
+                                '<a class="refreshLog" onclick="MC.ui.logpopup.RefreshLog()" title="Refresh Log"></a>'+
+                                '<a class="scrollToBottom" onclick="MC.ui.logpopup.ScrollToBottomLog()" title="Scroll To Bottom"></a>'+
+                                '<a class="scrollToTop disabled" onclick="MC.ui.logpopup.ScrollToTopLog()" title="Scroll To Top"></a>'+              
+                            '</div>'+
+                        '</div>'+
+                        '<div class="popup k-window-content k-content" id="popupLogTable" style="display: block;" >' +
+                            '<div id="LogFileDetails" style="overflow: auto; height: 585px;">' +
+                                '<div class="logDetails"></div>'+
+                            '</div>' +
+                        '</div>');
+            docElement.appendTo('body');
         });
-        it("should add class", function () {
-            spyOn($.fn, 'addClass');
-            MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom();
-            expect($.fn.addClass).toHaveBeenCalled();
+        afterEach(function () {
+            docElement.remove();
+        });
+        it("When click on scroll should set scrollToBottom to enable and scrollToTop to disable", function () {
+            spyOn(MC.ui.logpopup, 'ScrollToBottomLog');
+            MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom(true);
+            $("#LogFileDetails .logDetails").trigger('scroll');
+            expect($('.scrollToBottom').attr('class')).toEqual('scrollToBottom');
+            expect($('.scrollToTop').attr('class')).toEqual('scrollToTop disabled');
+        });
+        it("When click on scroll to Bottom icon MC.ui.logpopup.ScrollToBottomLog should have been called", function () {
+            spyOn(MC.ui.logpopup, 'ScrollToBottomLog');
+            MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom(true);
+            $('.scrollToBottom').trigger('click');
+            expect(MC.ui.logpopup.ScrollToBottomLog).toHaveBeenCalled();
+        });
+        it("When click on scroll to Top icon MC.ui.logpopup.ScrollToTopLog should have been called", function () {
+            spyOn(MC.ui.logpopup, 'ScrollToTopLog');
+            MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom(true);
+            $('.scrollToTop').trigger('click');
+            expect(MC.ui.logpopup.ScrollToTopLog).toHaveBeenCalled();
+        });
+        it("When click on refreshLog icon MC.ui.logpopup.RefreshLog should have been called", function () {
+            spyOn(MC.ui.logpopup, 'RefreshLog');
+            MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom(true);
+            $('.refreshLog').trigger('click');
+            expect(MC.ui.logpopup.RefreshLog).toHaveBeenCalled();
         });
     });
     describe(".ScrollToTopLog", function () {
@@ -166,4 +200,9 @@
             expect($.fn.animate).toHaveBeenCalled();
         });
     });
+    //describe(".SetScrollUpTopAndDownStatus", function () {
+    //    it("", function () {
+
+    //    });
+    //});
 });
