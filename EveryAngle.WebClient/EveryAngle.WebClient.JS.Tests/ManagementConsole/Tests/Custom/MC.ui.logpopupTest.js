@@ -200,9 +200,28 @@
             expect($.fn.animate).toHaveBeenCalled();
         });
     });
-    //describe(".SetScrollUpTopAndDownStatus", function () {
-    //    it("", function () {
-
-    //    });
-    //});
+    describe(".RefreshLog", function () {
+        it("Should call Ajac request", function () {
+            var handler = {
+                fail: function () {
+                    return { done: function () { return true; } }
+                }
+            };
+            spyOn(MC.ajax, 'request').and.returnValue(handler);
+            MC.ui.logpopup.RefreshLog();
+            expect(MC.ajax.request).toHaveBeenCalled();
+        });
+    });
+    describe(".RefreshCsl", function () {
+        it("Should call $.fn.data", function () {
+            var handler = {
+                dataSource: {
+                    read: function () { return;}
+                }
+            }
+            spyOn($.fn, 'data').and.returnValue(handler);
+            MC.ui.logpopup.RefreshCsl();
+            expect($.fn.data).toHaveBeenCalled();
+        });
+    });
 });
