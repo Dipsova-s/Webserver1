@@ -94,7 +94,7 @@
         TaskHistoryUri: '',
         Target: '',
         LogType: '',
-        LogFullPath:''
+        LogFullPath: ''
     };
     logpopup.LogFileCheck = function (fullPath) {
         return fullPath.match('log$');
@@ -356,15 +356,16 @@
         }, 100);
     };
     logpopup.EnableCslAndLogViewScrollUpAndBottom = function () {
-         
-        $(".scrollToTop").addClass("disabled");
-        $(".scrollToBottom").removeClass("disabled");
-
-        // log view scroll
-        $("#LogFileDetails .logDetails").scroll(logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent()));
-
-        // Csl view scroll
-        $("#SystemLogGrid .k-scrollbar").scroll(logpopup.SetScrollUpTopAndDownStatus($('#SystemLogGrid .k-scrollbar'), $('#SystemLogDetails')));
+        if (_self.isLogFile) {
+            let callBackFunction = logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent());
+            $("#LogFileDetails .logDetails").scroll(callBackFunction);
+            callBackFunction();
+        }
+        else {
+            let callBackFunction = logpopup.SetScrollUpTopAndDownStatus($('#SystemLogGrid .k-scrollbar'), $('#SystemLogDetails'));
+            $("#SystemLogGrid .k-scrollbar").scroll(callBackFunction);
+            callBackFunction();
+        }
     };
 
     logpopup.SetScrollUpTopAndDownStatus = function (maxScrollHeighthtml, divHeight) {
@@ -402,19 +403,19 @@
             parameters: query,
             timeout: 300000
         })
-        .fail(function (xhr, status, error) {
-            if (error !== 'abort') {
-                setEnableLogPopup(false);
-                var msg = $(MC.ajax.getErrorMessage(xhr, null, error));
-                $('#LogFileDetails .logDetails').addClass('fail').html(msg);
-                MC.ajax.setErrorDisable(xhr, status, error, null);
-            }
-        })
-        .done(function (response) {
-            response = '<pre>' + response + '</pre>' + '<hr/>';
-            $('#LogFileDetails .logDetails').html(response);
-            logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent())();
-        });
+            .fail(function (xhr, status, error) {
+                if (error !== 'abort') {
+                    setEnableLogPopup(false);
+                    var msg = $(MC.ajax.getErrorMessage(xhr, null, error));
+                    $('#LogFileDetails .logDetails').addClass('fail').html(msg);
+                    MC.ajax.setErrorDisable(xhr, status, error, null);
+                }
+            })
+            .done(function (response) {
+                response = '<pre>' + response + '</pre>' + '<hr/>';
+                $('#LogFileDetails .logDetails').html(response);
+                logpopup.SetScrollUpTopAndDownStatus($("#LogFileDetails .logDetails"), $('#popupLogTable').parent())();
+            });
     };
     logpopup.ScrollToTopLog = function () {
         var div = $("#LogFileDetails .logDetails");
@@ -433,7 +434,7 @@
     logpopup.ScrollToBottomCsl = function () {
         var grid = $('#SystemLogGrid').data('kendoGrid');
         var scrollbar = (grid.element).find(".k-scrollbar").get(0);
-        $(scrollbar).stop().animate({ scrollTop: scrollbar.scrollHeight }, 500);     
+        $(scrollbar).stop().animate({ scrollTop: scrollbar.scrollHeight }, 500);
     };
     logpopup.InitialLogGrid = function () {
         var grid = $('#SystemLogGrid').data('kendoGrid');
