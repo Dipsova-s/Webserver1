@@ -445,4 +445,33 @@ describe("MC.Models.Packages", function () {
             });
         });
     });
+    describe(".PackagesGridFilter", function () {
+        it("Should call trigger", function () {
+            spyOn($.fn, 'data').and.returnValue({ value: $.noop, trigger: $.noop });
+            MC.Models.Packages.PackagesGridFilter();
+            expect($.fn.data).toHaveBeenCalled();
+        });
+    });
+    describe(".PackagesGridBeforeFilter", function () {
+        var docElement;
+        beforeEach(function () {
+            docElement = $('<input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="inactive" type="radio" checked="checked">').appendTo('body');
+        });
+        afterEach(function () {
+            docElement.remove();
+        })
+        
+        it("Should update the grid url", function () {
+            var grid = {
+                dataSource: {
+                    transport: {
+                        options: { read: { url: "/Jasmine/admin/packages/readpackages?packageUri=Test.local&activeStatus=active"}}
+                    }
+                }
+            };
+            MC.Models.Packages.PackagesGridBeforeFilter(grid);
+
+            expect(grid.dataSource.transport.options.read.url).toEqual('/Jasmine/admin/packages/readpackages?packageUri=Test.local&activeStatus=inactive')
+        });
+    });
 });
