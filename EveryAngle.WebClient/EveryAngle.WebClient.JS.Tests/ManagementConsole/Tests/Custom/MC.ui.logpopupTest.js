@@ -135,7 +135,7 @@
             spyOn(MC.ui.logpopup, 'ScrollToBottomLog');
             MC.ui.logpopup.EnableCslAndLogViewScrollUpAndBottom(true);
             $("#LogFileDetails .logDetails").trigger('scroll');
-            expect($('.scrollToBottom').attr('class')).toEqual('scrollToBottom');
+            expect($('.scrollToBottom').attr('class')).toEqual('scrollToBottom disabled');
             expect($('.scrollToTop').attr('class')).toEqual('scrollToTop disabled');
         });
         it("When click on scroll to Bottom icon MC.ui.logpopup.ScrollToBottomLog should have been called", function () {
