@@ -86,6 +86,7 @@
     <Content Include="ManagementConsole\Tests\Page\MC.Models.PackagesTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.PackagesTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.Models.CommunicationsTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.Models.SuggestedFieldsTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.Users.UserTest.js" />
     <Content Include="MockData\text.js" />
     <Content Include="MockData\mockdata.js" />
