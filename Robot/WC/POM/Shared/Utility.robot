@@ -68,6 +68,11 @@ Wait Until Ajax Complete
     Wait Until JavaScript Is True    window.jQuery && window.jQuery.active<1
     Execute Javascript    window.jQuery.active=0
 
+Wait Until Axios Complete
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until JavaScript Is True    document.readyState==="complete"
+    Execute Javascript    document.readyState="complete"
+
 Get Page Title
     ${title}    Get Title
     ${title}    Replace String    ${title}    '    ${EMPTY}
