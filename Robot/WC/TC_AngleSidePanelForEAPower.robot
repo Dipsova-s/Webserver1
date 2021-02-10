@@ -166,7 +166,6 @@ Verify Angle contain invalid jump And Display contain invalid field As Well
 	Click Display Tab
 	Add Display Filter Button Is Not Visible
     Add Display Jump Button Is Not Visible
-	Info Button On Jump Should Be Visible On Display    0
 	Delete Jump Button Should Not Be Visible On Display    0
 	Add Angle Filter Before Jump Button Should Not Be Visible On Display    0
 
