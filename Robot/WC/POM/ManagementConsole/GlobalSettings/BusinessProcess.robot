@@ -70,7 +70,7 @@ Close Preview Business Process Bar Popup
     Click Element    ${divClosePopupPreviewBusinessProcess}
 
 Click Save Business Process Without Delete
-    Wait Until Page Contains Element    ${btnSaveBusinessProcess}
+    Wait Until Element Is Visible    ${btnSaveBusinessProcess}
     Click Element    ${btnSaveBusinessProcess}
     Wait Until Ajax Complete
     Wait MC Progress Bar Closed
