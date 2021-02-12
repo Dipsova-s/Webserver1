@@ -8,7 +8,7 @@ ${txtSheetName}                     css=#SaveSheetName
 ${btnCancelExportToExcel}           btn-popupExportExcel0
 ${btnOKExportToExcel}               btn-popupExportExcel1
 ${btnOKExportDrilldownToExcel}      btn-popupExportDrilldownExcel1
-${pgbExportToExcel}                 css=#popupExportToExcel .k-loading-mask
+${pgbExportToExcel}                 css=.popupExportExcel .k-loading-mask
 ${textDefaultHeaderFormat}          xpath=//div[text()='Header format']/following::div/descendant::span[@class='k-input']
 ${textExcelTemplate}                //div[contains(text(), 'Excel template')]/following::div/descendant::span[@class='k-input']
 ${ddlExcelTemplates}                css=[aria-owns="ExcelTemplate_listbox"]
@@ -76,9 +76,9 @@ Click Cancel Excel Button
 
 Wait Until Export To Excel Popup Loaded
     Sleep  ${TIMEOUT_GENERAL}
+    Wait Until Page Does Not Contain Element    ${pgbExportToExcel}
     Wait Until Page Contains Element    ${btnOKExportToExcel}
     Wait Until Element Is Visible    ${btnOKExportToExcel}
-    Wait Until Page Does Not Contain Element    ${pgbExportToExcel}
     Wait Until Ajax Complete
 
 Wait Until Export Drilldown To Excel Popup Loaded
