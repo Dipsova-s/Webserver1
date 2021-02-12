@@ -2,12 +2,11 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Initialize Download Path And Login With Power User
 Suite Teardown      Close Browser
-Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Download Items From Search Page
     [Documentation]     This test verify downloading Angle and Dashboard from Search page
-    [Tags]   TC_C199723
+    [Tags]   exclude    TC_C199723
     [Setup]  Run Keywords  Import Dashboard By API  /models/1  DASHBOARD_Download.json  DASHBOARD_Download.angles.json  user=${Username}
     ...      AND           Import Angle By API  /models/1  ANGLE_Download.json  user=${Username}
     Search By Text And Expect In Search Result    Dashboard Download
@@ -19,7 +18,7 @@ Verify Download Items From Search Page
 
 Verify Download Item From Angle Page
     [Documentation]     This test verify downloading from Angle page
-    [Tags]   TC_C229266
+    [Tags]   acc_wc    TC_C229266
     ${angleName}  Set Variable  [ROBOT] Angle Download Test
     Create Adhoc Angle From Object List  PD   ${angleName}
     Download Button Should Not Be Available
@@ -32,7 +31,7 @@ Verify Download Item From Angle Page
 
 Verify Download Item From Dashboard Page
     [Documentation]     This test verify downloading from Dashboard page
-    [Tags]   TC_C229267
+    [Tags]   acc_wc    TC_C229267
     [Setup]  Import Angle By API  /models/1  Angle_Download.json  user=${Username}
     ${dashboardName}  Set Variable  [ROBOT] Dashboard Download Test
     Create Adhoc Dashboard  Dashboard Download  ${dashboardName}
