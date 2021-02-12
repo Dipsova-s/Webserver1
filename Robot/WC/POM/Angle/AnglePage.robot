@@ -188,7 +188,7 @@ Click Save Angle
     ...    ELSE                   Click Main Save
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Page Should Contain Toast Success
+    Wait Until Element Exist And Visible   ${btnShowPublishSettings}
     Wait Display Executed
 
 Click Save Angle And Expect Warning
