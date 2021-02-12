@@ -102,6 +102,7 @@ Click Format Field From Header Column
     Wait Until Element Is visible  ${formatPopup}
 
 Click OK Button On Field Format Popup
+    Wait Until Element Is Visible   ${formatOKButton}
     Click Element    ${formatOKButton} 
     Sleep    ${TIMEOUT_LARGEST}    Wait format field applied
 
@@ -250,7 +251,7 @@ Unselect Filter "${CheckboxId}" On Drilldown To Item
 Input Field Name
     [Arguments]    ${fieldName}
     Wait Until Element Is Visible    ${txtFieldName}
-    Input Text    ${txtFieldName}    ${fieldName}
+    Input Text    ${txtFieldName}    ${fieldName}       clear = True
 
-Click CheckBox Set As Default For Field 
+Click CheckBox Set As Default For Field
     Select Checkbox    ${chkUseAsDefaultFormate}
