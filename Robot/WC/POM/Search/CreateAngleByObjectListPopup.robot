@@ -10,9 +10,10 @@ ${gridObjectList}                               css=#ObjectsGrid
 ${chkObjectsFromList}                           jquery=#ObjectsGrid .k-grid-content tr input
 ${trObjectsDescriptionFromList}                 jquery=#ObjectsGrid .k-grid-content tr
 ${lbNumberOfObjectBusinessProcess}              classTotals
-${divBusinessProcess}                           CreateAngleByObjectBusinessProcess
+${divBusinessProcess}                           css=#CreateAngleByObjectBusinessProcess .businessProcesses
 ${chkSkipTemplate}                              SkipTemplate
 ${btnCloseCreateAnglePopUp}                     //span[@id='popupCreateNewAngleOption_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
+${downArrowBPMoreItems}                         css=#CreateAngleByObjectBusinessProcess .businessProcesses  .businessProcessesItemMore
 
 *** Keywords ***
 Wait Create Angle Popup Option Object List Loaded
@@ -91,9 +92,16 @@ Get Number Of Object In Business Process
 
 Click Select Or Deselect Business Process In Object List
     [Arguments]    ${businessProcessName}
-    Wait Until Page Contains Element    css=#${divBusinessProcess} .${businessProcessName}
-    Click Element    css=#${divBusinessProcess} .${businessProcessName}
+    ${BP}   Is Element Visible     ${divBusinessProcess} .${businessProcessName}
+    Run Keyword If   ${BP}   Click Element    ${divBusinessProcess} .${businessProcessName}
+    ...    ELSE          Click bpDownArrow and select BP  ${businessProcessName}
     Wait Until Ajax Complete
+
+Click bpDownArrow and select BP
+    [Arguments]    ${nameOfBusinessProcess}
+    Click Element     ${downArrowBPMoreItems}
+    Click Element     ${divBusinessProcess} .${nameOfBusinessProcess}
+
 
 Click Skip Template Checkbox
     Select Checkbox    ${chkSkipTemplate}
