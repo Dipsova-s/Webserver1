@@ -1,15 +1,18 @@
 *** Variables ***
 ${chbActiveDebugLogging}    xpath=(//input[@name='IsDebugLogging' and not(@disabled)])
+${chbActiveCheckedDebugLogging}    xpath=(//input[@name='IsDebugLogging' and not(@disabled) and @checked])
+${chbActiveUncheckedDebugLogging}    xpath=(//input[@name='IsDebugLogging' and not(@disabled) and not(@checked)])
 ${tblSessionsGrid}      //div[@id='SessionsGrid']
 ${txtSessionsFilter}        css=#AllSessionsGridFilterBox
 ${gridSessionsTable}        css=.k-scrollbar-vertical
 
 *** Keywords ***
 Select the Debug logging checkbox for all the users in sessions grid
-    ${rowCount}  Get Element Count  ${chbActiveDebugLogging}
-    :FOR    ${index}    IN RANGE    1  ${rowCount+1}
-    \       Scroll Element Into View    ${chbActiveDebugLogging}[${index}]
-    \       Select Checkbox     ${chbActiveDebugLogging}[${index}]
+    :FOR    ${index}    IN RANGE    999999  # emulating While loop
+    \       ${chbUncheckedLeft}  Get Element Count  ${chbActiveUncheckedDebugLogging}
+    \       Exit For Loop If   ${chbUncheckedLeft} == 0
+    \       Scroll Element Into View    ${chbActiveUncheckedDebugLogging}[1]
+    \       Select Checkbox     ${chbActiveUncheckedDebugLogging}[1]
     \       Wait Until Sessions Page Is Ready
 
 Verify the Debug logging checkbox checked for all the users in Sessions grid
@@ -23,10 +26,11 @@ Go to Sessions page in MC
     Wait Until Sessions Page Is Ready
 
 Unselect the Debug logging checkbox for all the users in sessions grid
-    ${rowCount}  Get Element Count  ${chbActiveDebugLogging}
-    :FOR    ${index}    IN RANGE    1  ${rowCount+1}
-    \       Scroll Element Into View    ${chbActiveDebugLogging}[${index}]
-    \       Unselect Checkbox   ${chbActiveDebugLogging}[${index}]
+    :FOR    ${index}    IN RANGE    999999  # emulating While loop
+    \       ${chbCheckedLeft}  Get Element Count  ${chbActiveCheckedDebugLogging}
+    \       Exit For Loop If   ${chbCheckedLeft} == 0
+    \       Scroll Element Into View    ${chbActiveCheckedDebugLogging}[1]
+    \       Unselect Checkbox   ${chbActiveCheckedDebugLogging}[1]
     \       Wait Until Sessions Page Is Ready
 
 Verify the Debug logging checkbox is not checked for all the users in Sessions grid
