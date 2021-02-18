@@ -42,6 +42,7 @@ Select Display Dropdown By Name
 
 Scroll To Display In Dropdown
     [Arguments]  ${displayItem}
+    Wait Until Element Exist And Visible   ${ddlSelectDisplayItemList}
     Scroll Vertical To Element    ${ddlSelectDisplayItemList}    ${displayItem}
 
 Scroll To Display In Dropdown By Index
