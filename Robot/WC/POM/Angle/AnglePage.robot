@@ -96,9 +96,9 @@ Angle Name Should Be
     Should Be Equal  ${name}  ${expected}
 
 Wait Angle Page Document Loaded
+    Wait Progress Bar Closed
     Wait Until Page Initialized
     Wait Until Page Contains Element    ${tabCurrentDisplay}    60s
-    Wait Progress Bar Closed
     Wait Until Ajax Complete
 
 Wait Display Executed
