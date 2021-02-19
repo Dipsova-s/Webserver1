@@ -33,17 +33,24 @@ Verify Execute Dashboard With Execution Parameters
     ...              Risk/coverage area: Dashboard execution parameters.
     [Tags]  TC_C229292  acc_wc_aci
     [Setup]  Import Dashboard By API  /models/1  DASHBOARD_ExecutionParameters.json  DASHBOARD_ExecutionParameters.angles.json  user=${Username}
-    ${dashboardName}  Set variable  [ROBOT] Dashboard Execution Parameters
+    ${dashboardName}    Set variable  [ROBOT] Dashboard Execution Parameters
+    ${filterDisplayName}   Set variable  (Self) - ID ends on substring(s) (1)
     Search And Execute Dashboard With Execution Parameters  ${dashboardName}  Change Dashboard Execution Parameters Value
-    Check First Angle Should Apply Dashboard Execution Parameters
-    Check Second Angle Should Apply Dashboard Execution Parameters
-    Check Third Angle Should Apply Dashboard Execution Parameters
+    #First angle
+    Check If Dashboard Execution Parameters Should Apply On Angle   0   1    ${filterDisplayName}   chart 
+    #Second Angle
+    Check If Dashboard Execution Parameters Should Apply On Angle   1   2    ${filterDisplayName}    pivot
+    #Third Angle
+    Check If Dashboard Execution Parameters Should Apply On Angle   2   1    ${filterDisplayName}    list
 
     # edit mode
     Re-execute Dashboard In Edit Mode With Execution Parameters  ${dashboardName}  Change Dashboard Execution Parameters Value
-    Check First Angle Should Apply Dashboard Execution Parameters
-    Check Second Angle Should Apply Dashboard Execution Parameters
-    Check Third Angle Should Apply Dashboard Execution Parameters
+    #First angle
+    Check If Dashboard Execution Parameters Should Apply On Angle   0   1    ${filterDisplayName}   chart 
+    #Second Angle
+    Check If Dashboard Execution Parameters Should Apply On Angle   1   2    ${filterDisplayName}    pivot
+    #Third Angle
+    Check If Dashboard Execution Parameters Should Apply On Angle   2   1    ${filterDisplayName}    list
 
     [Teardown]  Clean Up Items And Go To Search Page
 
