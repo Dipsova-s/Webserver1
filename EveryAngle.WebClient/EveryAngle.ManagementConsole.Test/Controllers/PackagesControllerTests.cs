@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EveryAngle.Core.ViewModels.Cycle;
 using Newtonsoft.Json;
+using System;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -89,6 +90,60 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.IsTrue(argumentsAsString.Contains("everyangle.com"));
             Assert.IsTrue(argumentsAsString.Contains("true"));
             Assert.IsTrue(argumentsAsString.Contains("overwrite"));
+        }
+
+        [TestCase]
+        public void ManageMultiplePackage()
+        {
+            //arrange.
+            PackageViewModel viewModel = new PackageViewModel("ManagementConsole", "2021.1")
+            {
+                active = true,
+                Uri = new Uri("/test", UriKind.Relative),
+                packageFileUri = new Uri("/test2", UriKind.Relative),
+                Id = "id",
+                correlation_id = "correlation_id",
+                Name = "name",
+                Description = "description",
+                Version = "version",
+                status = "status",
+                Enabled = true,
+                CreatedDate = 11111,
+                InstalledDate = 22222,
+                Languages = new List<string> { "en", "nl" },
+                Contents = new List<string> { "content1", "content2" },
+                is_ea_package = true,
+                source = "source",
+                activated_models = new List<string> { "model1", "model2" },
+                ActivatedModels = "model1",
+                Filename = "filename",
+                active_version = "active_version",
+                activated = new Core.ViewModels.Users.UserDateViewModel { },
+                deactivated = new Core.ViewModels.Users.UserDateViewModel { },
+                error_message = "error_message",
+            };
+
+            List<ActivePackageQueryViewModel> viewModels = new List<ActivePackageQueryViewModel>() {
+                new ActivePackageQueryViewModel
+                {
+                    IsActive = true,
+                    ModelId = "EA2_800",
+                    PackageUri = "http://everyangle.com/package/1",
+                    IncludeLabelCategories = true,
+                    IncludePrivateItems = true,
+                    AnglesConflictResolution = "overwrite",
+                    LabelCategoriesConflictResolution = "overwrite"
+                }
+            };
+
+            modelService.Setup(m => m.GetModelPackage(viewModels[0].PackageUri)).Returns(viewModel);
+
+            //act.
+            _testingController.ManageMultiplePackage(viewModels);
+
+            //assert.
+            modelService.Verify(m => m.CreateTask(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            modelService.Verify(m => m.GetModelPackage(viewModels[0].PackageUri), Times.Once);
         }
 
         #endregion

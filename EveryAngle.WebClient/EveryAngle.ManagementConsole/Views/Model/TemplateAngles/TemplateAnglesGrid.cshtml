@@ -92,6 +92,17 @@
             .HtmlAttributes(new { @class = "gridColumnToolbar" })
             .Title(Resource.MC_Action)
             .Sortable(false).Width(75);
+
+        columns.Bound("")
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+            .HtmlAttributes(new { @class = "columnBoolean" })
+            .Title(Resource.Select)
+            .Sortable(false)
+            .ClientTemplate(
+            "<label>"
+            + "<input id = \"IsSelected\" name=\"IsSelected\" value='#=JSON.stringify(data)#' type=\"checkbox\">"
+            + "<span class=\"label\"></span></label>"
+        );
     })
     .EnableCustomBinding(true)
     .AutoBind(false)

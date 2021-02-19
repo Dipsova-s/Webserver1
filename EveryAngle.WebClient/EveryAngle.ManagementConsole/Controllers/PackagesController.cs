@@ -224,6 +224,71 @@ namespace EveryAngle.ManagementConsole.Controllers
             return JsonHelper.GetJsonResult(true, null, null, null, MessageType.DEFAULT);
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ManageMultiplePackage(List<ActivePackageQueryViewModel> packages)
+        {
+            var actions = new List<TaskAction>();
+
+            foreach (var input in packages)
+            {
+                PackageViewModel package = modelService.GetModelPackage(input.PackageUri);
+                List<Argument> arguments = new List<Argument>
+                {
+                    new Argument { name = TaskArgumentConstant.Model, value = input.ModelId },
+                    new Argument { name = TaskArgumentConstant.Package, value = package.Uri.AbsolutePath.Replace("//", "/") }
+                };
+                if (input.IsActive)
+                {
+                    arguments.Add(new Argument { name = TaskArgumentConstant.AutoCreateMissingUsers, value = true });
+                    AddArgumentsForUpgradePackage(arguments, package, input);
+                }
+                actions.Add(new TaskAction 
+                {
+                    action_type = input.IsActive ? "activate_package" : "deactivate_package",
+                    arguments = arguments
+                });
+            }
+
+            VersionViewModel version = SessionHelper.Version;
+
+            TaskViewModel taskViewModel = new TaskViewModel
+            {
+                actions = actions,
+                description = Resource.MC_ActivateUpgradePackageTask,
+                Triggers = null,
+                action_count = 1,
+                delete_after_completion = true,
+                enabled = true,
+                last_run_result = "not_started",
+                last_run_time = null,
+                max_run_time = 0,
+                name = "Multiple Package",
+                next_run_time = null,
+                status = "not_started",
+                run_as_user = null,
+                start_immediately = true,
+            };
+
+            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new CleanUpPropertiesResolver(new List<string>
+                {
+                    "id",
+                    "uri",
+                    "description",
+                    "created",
+                    "changed",
+                    "status"
+                })
+            };
+
+            string uri = version.GetEntryByName("tasks").Uri.ToString();
+            string data = JsonConvert.SerializeObject(taskViewModel, jsonSerializerSettings);
+            modelService.CreateTask(uri, data);
+
+            return JsonHelper.GetJsonResult(true, null, null, null, MessageType.DEFAULT);
+        }
+
         public TaskViewModel GetPackageTaskViewModel(ActivePackageQueryViewModel activePackageQueryViewModel)
         {
             PackageViewModel package = modelService.GetModelPackage(activePackageQueryViewModel.PackageUri);

@@ -11,7 +11,8 @@
                 ModelId: '@ViewBag.ModelId',
                 ShowPackageErrorMessageUri: '@Url.Action("GetPackageErrorMessage", "Packages")',
                 ManagePackageUri: '@Url.Content("~/Packages/ManagePackage")',
-                DownloadPackageUri: '@Url.Content("~/Packages/DownloadPackageFile")'
+                DownloadPackageUri: '@Url.Content("~/Packages/DownloadPackageFile")',
+                ManageMultiplePackagesUri: '@Url.Content("~/Packages/ManageMultiplePackage")'
             });
             MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
             MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
@@ -39,6 +40,7 @@
                 <label><input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="active" type="radio" checked="checked" /><span class="label">@Resource.MC_Active</span></label>
                 <label><input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="inactive" type="radio" /><span class="label">@Resource.Inactive</span></label>
                 <label><input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="all" type="radio" /><span class="label">@Resource.All</span></label>
+                <label><button id="btnactivatedeactivate" disabled="disabled" class="btnActivateDeactivate btnPrimary" name="btnactivatedeactivate" onclick="MC.Models.Packages.ActivatePackages()" value="Deactivate"><span class="label">@Resource.Deactivate</span></button></label>
             </div>
         </div>
         <div class="gridContainer" id="TemplateAnglesGridContainer">

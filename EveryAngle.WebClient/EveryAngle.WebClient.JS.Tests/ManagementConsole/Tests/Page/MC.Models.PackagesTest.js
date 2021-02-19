@@ -474,4 +474,35 @@ describe("MC.Models.Packages", function () {
             expect(grid.dataSource.transport.options.read.url).toEqual('/Jasmine/admin/packages/readpackages?packageUri=Test.local&activeStatus=inactive')
         });
     });
+    describe(".Activation of multiple packages at a time", function () {
+        var testData = {
+            "Uri": "https://test:60000//users/2"
+        };
+        beforeEach(function () {
+            domElement = $(
+                '<p><input name = "IsSelected" type="checkbox" class = "click" value= ' + JSON.stringify(testData) +'> <button id="btnactivatedeactivate" class="btnActivateDeactivate btnPrimary" disabled = "disabled" value = "Activate"><span class="label">Deactivate</span></button></p>').appendTo('body') 
+        });
+        afterEach(function () {
+            domElement.remove();
+        });
+
+        it("btnactivatedeactivate should be disabled", function () {
+            //Act
+            jQuery('.click').trigger('click');
+            jQuery('.click').trigger('click');
+
+            //Assert
+            var t = jQuery('#btnactivatedeactivate').attr('disabled');
+            expect(t).toEqual('disabled');
+        });
+
+        it("btnactivatedeactivate should be enabled", function () {
+            //Act
+            jQuery('.click').trigger('click');
+
+            //Assert
+            var t = jQuery('#btnactivatedeactivate').attr('disabled');
+            expect(t).toEqual(undefined);
+        });
+    });
 });

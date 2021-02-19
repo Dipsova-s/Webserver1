@@ -6,6 +6,10 @@
         self.ShowPackageErrorMessageUri = '';
         self.ManagePackageUri = '';
         self.DownloadPackageUri = '';
+        self.ManageMultiplePackagesUri = '';
+        self.IsMultiSelect = false;
+        self.IsPopuprequired = false;
+        self.CheckedPackages = [];
 
         self.PACKAGE_STATUS = {
             ACTIVATING: 'Activating',
@@ -231,6 +235,9 @@
         };
 
         self.PackagesGridBeforeFilter = function (grid) {
+            self.IsMultiSelect = false;
+            self.IsPopuprequired = false;
+            self.CheckedPackages = [];
             var url = grid.dataSource.transport.options.read.url;
             var queryIndex = url.indexOf('?') + 1;
             var query, sourceUrl;
@@ -244,10 +251,57 @@
             }
             query.activeStatus = $('input[name="FilterPackages"]:checked').val();
             grid.dataSource.transport.options.read.url = sourceUrl + '?' + jQuery.param(query);
+            self.DisableCheckBox(query);
+        };
+
+        self.EnableDisableButtonAndCheckBox = function (query) {
+            if (query.activeStatus === 'all') {
+                $('#btnactivatedeactivate').hide();
+                $('input[name="IsSelected"]').attr('disabled', true);
+            } else {
+                query.activeStatus === 'active' ? $('#btnactivatedeactivate > span').text(Localization.Deactivate) : $('#btnactivatedeactivate > span').text(Localization.Activate);
+                $('#btnactivatedeactivate').show();
+                $('#btnactivatedeactivate').attr("disabled", true);
+                $('input[name="IsSelected"]').attr('disabled', false);
+            }
+        };
+
+        self.DisableCheckBox = function (query) {
+            if ($('.gridToolbarFilter .loader-spinner-inline').length) {
+                setTimeout(function() {
+                    self.DisableCheckBox(query);
+                }, 10)
+            } else {
+                self.EnableDisableButtonAndCheckBox(query);
+            }
         };
 
         self.PackagesGridFilter = function () {
             $('#PackagesGridFilterBox').data('defaultValue', '***********').trigger('keyup');
+        };
+
+        self.ActivatePackages = function () {
+            self.IsMultiSelect = true;
+            $('#btnactivatedeactivate').attr("disabled", true);
+            if (self.IsPopuprequired) {
+                var popup = $('<a />', {
+                    attr: {
+                        href: '#ImportPackagePopup',
+                        title: Localization.MC_ActivatePackage
+                    },
+                    data: {
+                        width: 600,
+                        height: 400,
+                        minWidth: 500,
+                        role: "mcPopup"
+                    }
+                });
+                MC.ui.popup(popup);
+                popup.trigger('click');
+            }
+            else {
+                self.PostPackages(self.CheckedPackages);
+            }
         };
 
         self.ShowPackageErrorMessage = function (e, obj) {
@@ -310,20 +364,34 @@
         };
 
         self.ActivatePackage = function (submitButton) {
-            var importPackagePopup = $('#ImportPackagePopup').data('kendoWindow');
-            var importPackageFormData = importPackagePopup.element.find('form').serializeArray();
-            var packageParameters = $(submitButton).data('parameters');
+            if (!self.IsMultiSelect) {
+                var importPackagePopup = $('#ImportPackagePopup').data('kendoWindow');
+                var importPackageFormData = importPackagePopup.element.find('form').serializeArray();
+                var packageParameters = $(submitButton).data('parameters');
 
-            importPackageFormData.forEach(function (field) {
-                packageParameters[field.name] = field.value;
-            });
+                importPackageFormData.forEach(function (field) {
+                    packageParameters[field.name] = field.value;
+                });
 
-            var element = $('<a>')
-                .attr('href', self.ManagePackageUri)
-                .data('parameters', packageParameters);
+                var element = $('<a>')
+                    .attr('href', self.ManagePackageUri)
+                    .data('parameters', packageParameters);
 
-            importPackagePopup.close();
-            self.PostPackage(element);
+                importPackagePopup.close();
+                self.PostPackage(element);
+            } else {
+                var importPackagePopup = $('#ImportPackagePopup').data('kendoWindow');
+                var importPackageFormData = importPackagePopup.element.find('form').serializeArray();
+                self.CheckedPackages.forEach(function (field) {
+                    if (field.IsUpgradePackage) {
+                        importPackageFormData.forEach(function (f) {
+                            field[f.name] = f.value;
+                        });
+                    }
+                });
+                importPackagePopup.close();
+                self.PostPackages(self.CheckedPackages);
+            }
         };
 
         self.PostPackage = function (element) {
@@ -337,6 +405,25 @@
                 .done(function () {
                     var parameters = $(element).data('parameters');
                     self.PostPackageSuccessCallback(parameters);
+                });
+        };
+
+        self.PostPackages = function (input) {
+            MC.ajax
+                .request({
+                    url: self.ManageMultiplePackagesUri,
+                    parameters: {
+                        packages: input
+                    },
+                    type: 'POST'
+                })
+                .fail(self.PostPackageFailureCallback)
+                .done(function (result) {
+                    var input = { isActive: true };
+                    self.IsPopuprequired = false;
+                    self.CheckedPackages = [];
+                    self.IsMultiSelect = false;
+                    self.PostPackageSuccessCallback(input);
                 });
         };
 
@@ -387,6 +474,39 @@
                 radioButtons.attr('disabled', true);
             }
         };
+
+        self.EnableDisableActivateDeactivateButton = function () {
+            return function (e) {
+                var selected = JSON.parse(e.target.value);
+                if (e.target.checked) {
+                    var input = {
+                        PackageUri: selected.Uri,
+                        ModelId: self.ModelId,
+                        IsActive: !selected.active,
+                        IsUpgradePackage: selected.IsUpgradePackage
+                    }
+                    if (!selected.active && selected.IsUpgradePackage) {
+                        self.IsPopuprequired = true;
+                    }
+                    self.CheckedPackages.push(input);
+                }
+                else {
+                    if (!selected.active && selected.IsUpgradePackage) {
+                        self.IsPopuprequired = false;
+                    }
+                    self.CheckedPackages.removeObject('PackageUri', selected.Uri);
+                }
+                
+                self.ResetActivateDeactivateButton();
+            }
+        };
+
+        self.ResetActivateDeactivateButton = function () {
+            self.CheckedPackages.length > 0 ? $('#btnactivatedeactivate').attr("disabled", false) :
+                $('#btnactivatedeactivate').attr("disabled", true);
+        };
+
+        $(document).on('change', 'input[name="IsSelected"]', self.EnableDisableActivateDeactivateButton());
     }
 
     win.MC.Models = models || {};
