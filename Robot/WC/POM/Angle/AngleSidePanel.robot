@@ -160,6 +160,13 @@ Click Display Tab
     Click Element  ${tabDisplay}
     Run Keyword If  ${expandAll}==${True}  Expand All Display Section Panels
 
+Verify Newly Created Display
+    [Arguments]     ${displaytype}
+    ${accordionHeaderName}  Get Text    ${divDisplayAggregationHeader}
+    ${accordionHeaderNameLowerCase}     Convert To Lower Case       ${accordionHeaderName}
+    Run Keyword If  '${displaytype}'!='list'    Should Contain  ${accordionHeaderNameLowerCase}    ${displaytype}
+    ...     ELSE    Should Contain  ${accordionHeaderName}  ${EMPTY}
+
 Scroll Display Tab To Vertical
     [Arguments]    ${top} 
     Mouse Over    ${divDisplaySidepanel}  

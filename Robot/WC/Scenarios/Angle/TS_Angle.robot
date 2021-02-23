@@ -105,27 +105,27 @@ Get Model Date Time
     [Return]    ${getUnixModelDateTimeStamp}
     
 Create New Display on Angle Page
-    [Arguments]   ${displaytype}   ${name}=${EMPTY}     ${isAdhoc}=${False}
+    [Arguments]   ${displaytype}   ${name}=${EMPTY}
     Select Display Type By Name    ${displaytype}
     Run Keyword If      '${name}'!='${EMPTY}'   Add Or Edit Description     en      ${name}     ${EMPTY}
     Click Save Edit Description
     Wait Progress Bar Closed
-    Run Keyword If      ${isAdhoc} == ${False}  Page Should Contain Toast Success
     Click Display Tab
+    Verify Newly Created Display   ${displaytype}
 
 Create New List Display on Angle Page
-    [Arguments]   ${name}=${EMPTY}  ${isAdhoc}=${False}
-    Create New Display on Angle Page    list  ${name}   ${isAdhoc}
+    [Arguments]   ${name}=${EMPTY}
+    Create New Display on Angle Page    list  ${name}
     Wait Until List Display Loaded
 
 Create New Pivot Display on Angle Page
-    [Arguments]   ${name}=${EMPTY}  ${isAdhoc}=${False}
-    Create New Display on Angle Page    pivot  ${name}  ${isAdhoc}
+    [Arguments]   ${name}=${EMPTY}
+    Create New Display on Angle Page    pivot  ${name}
     Wait Until Pivot Display Loaded
 
 Create New Chart Display on Angle Page
-    [Arguments]   ${name}=${EMPTY}  ${isAdhoc}=${False}
-    Create New Display on Angle Page    chart  ${name}  ${isAdhoc}
+    [Arguments]   ${name}=${EMPTY}
+    Create New Display on Angle Page    chart  ${name}
     Wait Until Chart Display Loaded
 
 Back To Search And Delete Angle Are Created

@@ -8,7 +8,6 @@ Wait Angle Validating Popup Loaded
 
 Wait Angle Validating Saved
     Wait Until Page Does Not Contain Element    ${divValidatingPopup}
-    Page Should Contain Toast Success
     Wait Progress Bar Closed
     Wait Until Ajax Complete
 

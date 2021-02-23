@@ -93,7 +93,6 @@ Input Dashboard Note
     Input Text    ${txtDashboardNote}    ${text}
     Press Keys    ${txtDashboardNote}    RETURN 
     Run Keyword If  ${isAdhoc} == ${False}  Wait Until Ajax Complete
-    ...     Page Should Contain Toast Success
 
 Click Edit Dashboard Description
     Click Element  ${btnEditDashboardDescription}

@@ -40,8 +40,7 @@ Name Should Not Append Copy Text In Save Angle As Popup
 
 Save Dashboard As
     Click Element    ${btnSubmitSaveDashboardAs}
-    Wait Progress Bar Closed
-    Page Should Contain Toast Success  
+    Wait Progress Bar Closed  
 
 Close Save Angle As Popup
     Click Element    ${btnCloseSaveAngleAs}

@@ -40,7 +40,6 @@ Save Display Detail From Popup
     Click Element    ${btnSaveDisplay}
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Page Should Contain Toast Success
 
 Confirm To Add Jump
     Wait Until Page Contains    Confirmation

@@ -18,7 +18,6 @@ Wait Angle Publishing Popup Loaded
 
 Wait Angle Publishing Saved
     Wait Until Page Does Not Contain Element    ${divPublishingPopup}
-	Page Should Contain Toast Success
     Wait Progress Bar Closed
     Wait Until Ajax Complete
 
@@ -38,13 +37,33 @@ Click Save Angle Publish Settings
     Click Element    ${btnSavePublishSettings}
     Wait Angle Publishing Saved
 
+Do Not Allow Users to Obtain More Details Is Checked    
+    Open Angle Publishing Popup
+    Checkbox Should Be Selected     ${chkAllowUserToObtainMoreDetails}
+    Close Publish Angle Popup
+
+Do Not Allow Users to Obtain More Details Is Unchecked
+    Open Angle Publishing Popup
+    Checkbox Should Not Be Selected     ${chkAllowUserToObtainMoreDetails}
+    Close Publish Angle Popup
+
+Do Not Allow Users To Go To Related Objects Via The Jumps Is Checked
+    Open Angle Publishing Popup
+    Checkbox Should Be Selected     ${chkAllowUserToGoToRelatedObjectViaJump}
+    Close Publish Angle Popup
+
+Do Not Allow Users To Go To Related Objects Via The Jumps Is Unchecked
+    Open Angle Publishing Popup
+    Checkbox Should Not Be Selected     ${chkAllowUserToGoToRelatedObjectViaJump}
+    Close Publish Angle Popup
+
 Click Publish Angle
     Click Element    ${btnPublishAngle}
     Wait Angle Publishing Saved
 
 Click Unpublish Angle
     Click Element    ${btnUnpublishAngle}
-    Wait Angle Publishing Saved
+    Wait Angle Publishing Saved  
 
 Close Publish Angle Popup
     Wait Until Element Is Visible    ${btnClosePublishPopup}

@@ -9,8 +9,8 @@ Verify Adhoc Chart Removed
 
 Create An Adhoc Chart
     [Arguments]     ${displayName} 
-    Create New Chart Display on Angle Page      ${displayName}      ${True}
+    Create New Chart Display on Angle Page      ${displayName}
 
 Create An Adhoc Pivot
     [Arguments]     ${displayName} 
-    Create New Pivot Display on Angle Page      ${displayName}      ${True}
+    Create New Pivot Display on Angle Page      ${displayName}

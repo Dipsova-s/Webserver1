@@ -8,40 +8,48 @@ Set Angle To Not Allow User To Obtain More Details
     Open Angle Publishing Popup
     Click Do Not Allow User To Obtain More Details
     Click Save Angle Publish Settings
+    Do Not Allow Users to Obtain More Details Is Checked
 
 Set Angle To Allow User To Obtain More Details
     Open Angle Publishing Popup
     Click Allow User To Obtain More Details
     Click Save Angle Publish Settings
+    Do Not Allow Users to Obtain More Details Is Unchecked
 
 Set Angle To Not Allow User To Go To Related Objects Via The Jumps
     Open Angle Publishing Popup
     Click Do Not Allow Users To Go To Related Objects Via The Jumps
     Click Save Angle Publish Settings
+    Do Not Allow Users To Go To Related Objects Via The Jumps Is Checked
 
 Set Angle To Allow User To Go To Related Objects Via The Jumps
     Open Angle Publishing Popup
     Click Allow Users To Go To Related Objects Via The Jumps
     Click Save Angle Publish Settings
+    Do Not Allow Users To Go To Related Objects Via The Jumps Is Checked
 
 Publish Angle
     Open Angle Publishing Popup
-    Click Publish Angle
+    Click Publish Angle    
+    Check Angle Is Published
     Wait Display Executed
 
 Unpublish Angle
     Open Angle Publishing Popup
     Click Unpublish Angle
+    Check Angle Is Unpublished
     Wait Display Executed
 
 Validate Angle
     Open Angle Validating Popup
-    Click Validate Angle
+    Click Validate Angle    
+    Check Angle Is Validated
     Wait Display Executed
 
 Unvalidate Angle
     Open Angle Validating Popup
     Click Unvalidate Angle
+    Check Angle Is Unvalidated
     Wait Display Executed
 
 Verify Angle Publishing Confirmation

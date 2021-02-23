@@ -14,10 +14,8 @@ Verify Publishing Angle
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_PUBLISHING
     Verify Angle Publishing Confirmation
     Publish Angle
-    Check Angle Is Published
     Verify All Display Are Published
     Unpublish Angle
-    Check Angle Is Unpublished
 
     [Teardown]  Clean Up Items And Go To Search Page
 
@@ -33,12 +31,10 @@ Verify Validating Angle
 
     # Validated
     Validate Angle
-    Check Angle Is Validated
     Page Should Contain Validated Icon
 
     # Unvalidated
     Unvalidate Angle
-    Check Angle Is Unvalidated
     Page Should Not Contain Validated Icon
 
     [Teardown]  Clean Up Items And Go To Search Page

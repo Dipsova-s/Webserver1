@@ -41,6 +41,7 @@ ${btnSaveDisplayAs}         css=#AngleSavingWrapper .action-save-display-as
 ${btnSetToTemplate}         css=#AngleSavingWrapper .action-set-template
 ${btnSetToAngle}            css=#AngleSavingWrapper .action-set-angle
 ${iconTemplate}             css=#SectionInfo .icon-template
+${iconAngle}                css=#SectionInfo .icon-angle
 
 ${btnAngleActionMeatBalls}                          css=#ActionDropdownList
 ${ddlAngleActionDropdownListCopyDisplay}            css=#ActionDropdownListPopup .copydisplay
@@ -167,7 +168,7 @@ Click Save All
     ...    ELSE                   Click Main Save
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Page Should Contain Toast Success
+    Main Save Button Should Be Disabled
     Wait Display Executed
 
 Save All Button Should Be Available
@@ -217,7 +218,7 @@ Click Save Display
     ...    ELSE                   Click Main Save
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Page Should Contain Toast Success
+    Main Save Button Should Be Disabled
     Wait Display Executed
 
 Save Display Button Should Be Available
@@ -274,7 +275,7 @@ Click Set Angle To Template
     ...    ELSE                   Click Main Save
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Page Should Contain Toast Success
+    Check Template Icon Is Visible
     Wait Display Executed
 
 Set To Template Button Should Available
@@ -295,7 +296,7 @@ Click Set Template To Angle
     ...    ELSE                   Click Main Save
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Page Should Contain Toast Success
+    Check Angle Icon Is Visible
     Wait Display Executed
 
 Set To Angle Button Should Be Available
@@ -322,6 +323,9 @@ Check Template Icon Is Visible
 
 Check Template Icon Is Not Visible
     Page Should Not Contain Element    ${iconTemplate}
+
+Check Angle Icon Is Visible
+    Element Should Be Visible    ${iconAngle}
 
 Click To Create New Display
     Click Angle Action    ${btnNewDisplay}

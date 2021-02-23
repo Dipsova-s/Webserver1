@@ -9,4 +9,3 @@ Input Personal Note
     Input Text    ${txtPersonalNote}    ${Text}
     Press Keys    ${txtPersonalNote}    RETURN   
     Run Keyword If  ${isAdhoc} == ${False}  Wait Until Ajax Complete
-    ...     Page Should Contain Toast Success

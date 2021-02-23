@@ -183,8 +183,8 @@ Click Dashboard Save All
     ...    ELSE                   Click Dashboard Main Save
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Page Should Contain Toast Success
     Wait Dashboard Widgets Loaded
+    Dashboard Save Button Should Be Disabled
 
 Click Save Dashboard As
     ${hasButton}  Is Element Exist  ${btnSaveDashboardAs} 
