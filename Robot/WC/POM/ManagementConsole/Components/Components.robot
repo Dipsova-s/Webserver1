@@ -32,6 +32,7 @@ Click on Action drop down and select Info option for Extraction service Componen
     Click Element   ${trComponent}
     Click Show Action Dropdown In Grid By Name   ExtractionService     ${trComponent}
     Click Action In Grid By Name  ExtractionService  ${trComponent}  ${btnComponentInfo}
+    Wait Progress Bar Closed
     Wait Until Ajax Complete
     Wait until page contains Element    ${tblmodelServerInfoData}
 
@@ -58,6 +59,7 @@ Click on Action drop down and select Info option for Model query service Compone
     Click Element   ${trComponent}
     Click Show Action Dropdown In Grid By Name   ClassicModelQueryService   ${trComponent}
     Click Main Action In Grid By Name   ClassicModelQueryService  ${trComponent}  ${btnComponentInfo}
+    Wait Progress Bar Closed
     Wait Until Ajax Complete
     Wait until page contains Element    ${tblmodelServerPopup}
 

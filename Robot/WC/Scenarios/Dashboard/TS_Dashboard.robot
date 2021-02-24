@@ -51,33 +51,14 @@ Open Angle In Dashboard Widget
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
 
-Check First Angle Should Apply Dashboard Execution Parameters
-    Open Angle In Dashboard Widget    0
+Check If Dashboard Execution Parameters Should Apply On Angle
+    [Arguments]     ${Widget}   ${index}   ${filterDisplayName}   ${display}
+    Open Angle In Dashboard Widget    ${Widget}
     Set Editor Context: Display Tab
-    Set Editor Index  1
-    Filter Display Name Should Contains  (Self) - ID ends on substring(s) (1)
+    Set Editor Index  ${index}
+    Filter Display Name Should Contains   ${filterDisplayName}
     Check Filter Asterisk Should Be Available
-    Display Should Mark As UnSaved  chart
-    Close Window
-    Switch Window   MAIN
-
-Check Second Angle Should Apply Dashboard Execution Parameters
-    Open Angle In Dashboard Widget    1
-    Set Editor Context: Display Tab
-    Set Editor Index  2
-    Filter Display Name Should Contains  (Self) - ID ends on substring(s) (1)
-    Check Filter Asterisk Should Be Available
-    Display Should Mark As UnSaved  pivot
-    Close Window
-    Switch Window   MAIN
-
-Check Third Angle Should Apply Dashboard Execution Parameters
-    Open Angle In Dashboard Widget    2
-    Set Editor Context: Display Tab
-    Set Editor Index  1
-    Filter Display Name Should Contains  (Self) - ID ends on substring(s) (1)
-    Check Filter Asterisk Should Be Available
-    Display Should Mark As UnSaved  list
+    Display Should Mark As UnSaved   ${display}
     Close Window
     Switch Window   MAIN
 
