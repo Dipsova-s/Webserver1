@@ -1328,6 +1328,8 @@ function ChartHandler(elementId, container) {
             }
         };
 
+        self.SetChartFieldOptions(chartOptions, setting);
+
         var categoryCrossingValues = self.GetCategoryCrossingValues(modelField[categoryField]);
         if (setting.MultiAxis) {
             self.SetChartOptionsMultiAxis(chartOptions, setting, categoryCrossingValues);
@@ -2056,6 +2058,16 @@ function ChartHandler(elementId, container) {
 
         return dataSource;
     };
+
+    // series[0].categoryField is not working during null values thereofore categoryAxis[1].field used
+    self.SetChartFieldOptions = function (chartOptions, setting) {
+        if (!self.IsScatterOrBubbleChartType(setting.Type)) {
+            var isDonutOrPieChart = self.IsDonutOrPieChartType(setting.Type);
+            var categoryField = WC.Utility.ConvertFieldName(self.CategoryField);
+            var groupField = WC.Utility.ConvertFieldName(self.GroupField);
+            chartOptions.categoryAxis[1].field = isDonutOrPieChart && groupField ? groupField : categoryField;
+        }
+    };
     self.SetChartOptionsMultiAxis = function (chartOptions, setting, axisCrossingValues) {
         var colorSeries = [];
         var categorySeries = [];
@@ -2150,7 +2162,7 @@ function ChartHandler(elementId, container) {
                     type: seriesChartType,
                     name: '#= group.value #',
                     field: aggField.field,
-                    categoryField: categoryField,
+                    //categoryField: categoryField, categoryField won't support null values
                     width: 1,
                     axis: aggField.field + '_axis',
                     visibleInLegend: i === 0 ? true : false,
@@ -2281,7 +2293,7 @@ function ChartHandler(elementId, container) {
                 chartOptions.series[0].labels.visual = self.VisualLabel;
             }
             chartOptions.series[0].field = aggFieldName1;
-            chartOptions.series[0].categoryField = isDonutOrPieChart && groupField ? groupField : categoryField;
+            //chartOptions.series[0].categoryField = isDonutOrPieChart && groupField ? groupField : categoryField; categoryField won't support null values
             chartOptions.series[0].width = 1;
             chartOptions.series[0].colorField = (groupField || categoryField) + '_color';
 
@@ -2845,11 +2857,11 @@ function ChartHandler(elementId, container) {
             fieldSettingsHandler.Handler = self;
             fieldSettingsHandler.BuildFieldsSettings();
         }
-     
+
         var fieldSetting = self.FieldSettings.GetFieldByFieldName(settings.FieldId);
         var fieldName = fieldSetting.FieldName;
         return self.GetFormattedValue(self.FieldMetadata[fieldName], value);
-        
+
     };
     self.GetGaugeLabel = function (value, settings) {
         if (self.GaugeLabels[value] && self.GaugeLabels[value].visible === false) {
@@ -4366,7 +4378,7 @@ function ChartHandler(elementId, container) {
         var dataItems = self.GetDataItemsFromView(chart);
         var axisValueSettings;
         var target = '', fieldDetails;
-        
+
         if (chartDetails.show_as_percentage)
             return;
         target = self.IsScatterOrBubbleChartType(chartDetails.chart_type) ? chart.options.yAxis : chart.options.valueAxis;
@@ -4406,22 +4418,22 @@ function ChartHandler(elementId, container) {
         var val = strlength === axisValueSettings.max.toString().length? 2.3 : 2;
         var tovalue = parseInt(fieldDetails.targetlinedetails.fromvalue) - (Math.pow(10, strlength - val));
         tovalue = fieldDetails.targetlinedetails.fromvalue >= 0 ? Math.abs(tovalue) : tovalue;
-            if (chartDetails.multi_axis) {                
-                target[row].plotBands = [{
-                    from: fieldDetails.targetlinedetails.fromvalue,
-                    to: tovalue,
-                    color: fieldDetails.targetlinedetails.color,
-                    opacity: fieldDetails.targetlinedetails.opacity
-                }];
-            }
-            else {
-                target.plotBands = [{
-                    from: fieldDetails.targetlinedetails.fromvalue,
-                    to: tovalue,
-                    color: fieldDetails.targetlinedetails.color,
-                    opacity: fieldDetails.targetlinedetails.opacity
-                }];
-            }
+        if (chartDetails.multi_axis) {
+            target[row].plotBands = [{
+                from: fieldDetails.targetlinedetails.fromvalue,
+                to: tovalue,
+                color: fieldDetails.targetlinedetails.color,
+                opacity: fieldDetails.targetlinedetails.opacity
+            }];
+        }
+        else {
+            target.plotBands = [{
+                from: fieldDetails.targetlinedetails.fromvalue,
+                to: tovalue,
+                color: fieldDetails.targetlinedetails.color,
+                opacity: fieldDetails.targetlinedetails.opacity
+            }];
+        }
     };
     self.PlotReferenceBand = function (row, chartDetails, fieldDetails, target) {
         if (chartDetails.multi_axis) {

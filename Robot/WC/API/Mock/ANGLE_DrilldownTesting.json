@@ -1,93 +1,88 @@
 {
-    "multi_lang_name": [
-        {
-            "lang": "en",
-            "text": "[ROBOT] Angle Drilldown by floating Number"
-        }
+  "id": "ROBOT_ANGLE_DrilldownTesting",
+  "model": "/models/1",
+  "is_validated": false,
+  "is_parameterized": false,
+  "is_published": false,
+  "is_template": false,
+  "assigned_labels": [
+      "S2D"
     ],
-    "allow_followups": true,
-    "allow_more_details": true,
-    "assigned_labels": [
-        "S2D"
+    "multi_lang_name": [
+      {
+        "lang": "en",
+        "text": "[Robot] Angle Drilldown by Null Value Type"
+      }
+    ],
+    "multi_lang_description": [
+      {
+        "lang": "en",
+        "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143627349784254\"><h2 class=\" topictitle2\" id=\"Hidelem4x4304\">Summary</h2><p class=\"\" id=\"Pidelem4x4306\">The object Address contains all address information of objects like Customer or Vendor.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4308\">Explanation</h2><p class=\"\" id=\"Pidelem4x4310\">If you like to contact a customer or vendor it is necessary that the address information is maintained correctly.</p><h2 class=\" topictitle2\" id=\"Hidelem4x4313\">Technical background</h2><p class=\"\" id=\"Pidelem4x4316\">Based on SAP table ADRC an object is created. Also SAP tables ADCP, ADR2, ADR3, and ADR6 are involved.</p></div>"
+      }
     ],
     "query_definition": [
-        {
-            "base_classes": [
-                "PurchaseOrderScheduleLine"
-            ],
-            "queryblock_type": "base_classes"
-        }
+      {
+        "queryblock_type": "base_classes",
+        "base_classes": [
+          "Address"
+        ]
+      }
     ],
     "display_definitions": [
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "en",
-                    "text": "New chart display"
-                }
-            ],
-            "angle_id": "1811",
-            "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":244},\"count_index\":0,\"show_as_percentage\":false,\"axisscale\":\"automatic\"}",
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "field": "Margin",
-                            "operator": "between",
-                            "arguments": [
-                                {
-                                    "argument_type": "value",
-                                    "value": 7
-                                },
-                                {
-                                    "argument_type": "value",
-                                    "value": 8
-                                }
-                            ],
-                            "step_type": "filter"
-                        },
-                        {
-                            "aggregation_fields": [
-                                {
-                                    "field": "count",
-                                    "operator": "count"
-                                }
-                            ],
-                            "grouping_fields": [
-                                {
-                                    "field": "power10_min3_Margin",
-                                    "operator": "power10_min3",
-                                    "source_field": "Margin"
-                                }
-                            ],
-                            "step_type": "aggregation"
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "fields": [
-                {
-                    "field": "power10_min3_Margin",
-                    "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"\",\"thousandseparator\":true,\"decimals\":6}",
-                    "valid": true
-                },
-                {
+      {
+        "id": "dd7b68dde0f277d3129ea614168344273",
+        "is_public": false,
+        "is_angle_default": true,
+        "display_type": "chart",
+        "multi_lang_name": [
+          {
+            "lang": "en",
+            "text": "No. per Country"
+          }
+        ],
+        "multi_lang_description": [
+          {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441112767926243\"><p class=\"\" id=\"P1441112767926864\" /></div>"
+          }
+        ],
+        "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0,\"axisscale\":\"automatic\"}",
+        "query_blocks": [
+          {
+            "queryblock_type": "query_steps",
+            "query_steps": [
+              {
+                "step_type": "aggregation",
+                "aggregation_fields": [
+                  {
                     "field": "count",
-                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}",
-                    "valid": true
-                }
-            ],
-            "is_public": false,
-            "display_type": "chart",
-            "is_angle_default": true,
-            "id": "eaecb5f35ab60e4437b86c5614b4b8b383"
-        }
-    ],
-    "id": "ROBOT_ANGLE_DRILLDOWN_FLOAT",
-    "model": "/models/1",
-    "is_validated": false,
-    "is_parameterized": false,
-    "is_published": false,
-    "is_template": false
+                    "operator": "count"
+                  }
+                ],
+                "grouping_fields": [
+                  {
+                    "source_field": "LAND1",
+                    "tech_info": "ADRC-COUNTRY",
+                    "field": "individual_LAND1",
+                    "operator": "individual"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "field": "individual_LAND1",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\"}"
+          },
+          {
+            "field": "count",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
+          }
+        ]
+      }      
+    ]
 }
