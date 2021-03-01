@@ -1190,7 +1190,7 @@
 
                     var displayUri = e.sender.dataItem().uri;
                     self.SetLinkToDisplay(displayUri, _self.modelId);
-                    self.SetDatastoreOnDisplayChange(e.sender.dataItem().display_details);
+                    self.SetDatastoreOnDisplayChange(e.sender.dataItem());
                 }
             });
 
@@ -1649,7 +1649,7 @@
 
                     // set link
                     self.SetLinkToDisplay(display.uri, _self.modelId);
-                    self.SetDatastoreOnDisplayChange(display.display_details);
+                    self.SetDatastoreOnDisplayChange(display);
                 }
                 else {
                     jQuery('#angle_id').val(angleUri);
@@ -2368,20 +2368,26 @@
                 $('#linkDisplay').removeAttr('href').addClass('disabled');
             }
         };
-        self.SetDatastoreOnDisplayChange = function (displayDetail)
+        self.SetDatastoreOnDisplayChange = function (display)
         {
             var ddlDatastore = $('#datastore').data('kendoDropDownList');
             var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
-            ddlDatastore.enable(self.ConfigureDefaultTemplateFile(displayDetail, ddlExcelTemplate));
+            ddlDatastore.enable(self.ConfigureDefaultTemplateFile(display, ddlExcelTemplate));
         };
-        self.ConfigureDefaultTemplateFile = function (displayDetail, ddlExcelTemplate) {
-            if (displayDetail) {
-                var displayDetailObject = JSON.parse(displayDetail)
-                var excelTemplate = displayDetailObject.excel_template;
-                if (typeof excelTemplate !== 'undefined') {
-                    self.DisplayExcelTemplate = excelTemplate;
-                    self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
-                    self.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
+        self.ConfigureDefaultTemplateFile = function (display, ddlExcelTemplate) {
+            if (display) {
+                if (display.display_details) {
+                    var displayDetailObject = JSON.parse(display.display_details)
+                    var excelTemplate = displayDetailObject.excel_template;
+                    if (typeof excelTemplate !== 'undefined') {
+                        self.DisplayExcelTemplate = excelTemplate;
+                        self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+                        self.AddDisplayExcelTemplateToddlExcelTemplate(ddlExcelTemplate);
+                    }
+                    else {
+                        self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
+                        self.DisplayExcelTemplate = '';
+                    }
                 }
                 else {
                     self.RemoveDisplayExcelTemplateFromddlExcelTemplate(ddlExcelTemplate);
@@ -2514,7 +2520,7 @@
                         if (display) {
                             displayId = display.id;
                             self.SetLinkToDisplay(angleDisplayUrl, _self.modelId);
-                            self.SetDatastoreOnDisplayChange(display.display_details);
+                            self.SetDatastoreOnDisplayChange(display);
                         }
                         else {
                             setTimeout(function () {
