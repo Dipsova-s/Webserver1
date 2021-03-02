@@ -77,7 +77,7 @@ function ItemDownloadHandler() {
             }
             else {
                 WC.Ajax.EnableBeforeExit = false;
-                WC.Utility.DownloadFile(urls.splice(0, 1)[0]);
+                WC.Utility.DownloadFile(urls.splice(0, 1)[0], true);
                 progressbarModel.SetProgressBarText(kendo.toString((itemCount - urls.length) / itemCount * 100, 'n0'), null, Localization.ProgressBar_DownloadAngle);
                 setTimeout(function () {
                     downloadItem(urls);
@@ -94,6 +94,7 @@ function ItemDownloadHandler() {
         progressbarModel.IsCancelPopup = false;
         progressbarModel.EndProgressBar();
         self.DownloadItemDoneCallback();
+        $('.downloadIframe') && $('.downloadIframe').remove();
     };
     self.DownloadItemDoneCallback = jQuery.noop;
     // EOF: Methods

@@ -104,7 +104,7 @@ describe("ItemDownloadHandler", function () {
             spyOn(itemDownloadHandler, 'GetSelectData');
             spyOn(itemDownloadHandler, 'DownloadItems');
             itemDownloadHandler.StartExportItems();
-            
+
             expect(progressbarModel.IsCancelPopup).toEqual(false);
             expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
             expect(itemDownloadHandler.DownloadItems).toHaveBeenCalled();
@@ -138,7 +138,6 @@ describe("ItemDownloadHandler", function () {
                 done();
             }, 600);
         });
-
     });
 
     describe(".DownloadItemDone", function () {
@@ -153,8 +152,19 @@ describe("ItemDownloadHandler", function () {
             expect(progressbarModel.EndProgressBar).toHaveBeenCalled();
             expect(itemDownloadHandler.DownloadItemDoneCallback).toHaveBeenCalled();
         });
+        it("iframe in the body should be 0", function () {
+            $('<iframe class="downloadIframe"/>')
+                .attr('src', '')
+                .appendTo('body');
+            progressbarModel.IsCancelPopup = true;
+            spyOn(progressbarModel, 'EndProgressBar');
+            spyOn(itemDownloadHandler, 'DownloadItemDoneCallback');
 
+            itemDownloadHandler.DownloadItemDone();
+            var iframeCount = $('body').find('.downloadIframe').length;
+            expect(iframeCount).toBe(0);
+        });
     });
-    
+
 });
 

@@ -156,9 +156,19 @@
         else
             window.location = url;
     };
-    window.WC.Utility.DownloadFile = function (url) {
+    window.WC.Utility.DownloadFile = function (url,useFrame) {
         var queryStringSymbol = url.indexOf('?') !== -1 ? '&' : '?';
-        WC.Utility.RedirectUrl(url + queryStringSymbol + ValidationRequestService.getVerificationTokenAsQueryString());
+        var downloadUrl = url + queryStringSymbol + ValidationRequestService.getVerificationTokenAsQueryString();
+        if (useFrame === true) {
+            $('<iframe class="downloadIframe"/>')
+                .hide()
+                .attr('src', downloadUrl)
+                .appendTo('body');
+        }
+        else {
+            WC.Utility.RedirectUrl(downloadUrl);
+        }
+
     };
     window.WC.Utility.UrlParameter = function (name, value, append) {
         return jQuery.address.parameter(name, value, append);

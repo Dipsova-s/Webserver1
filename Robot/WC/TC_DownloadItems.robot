@@ -6,7 +6,7 @@ Suite Teardown      Close Browser
 *** Test Cases ***
 Verify Download Items From Search Page
     [Documentation]     This test verify downloading Angle and Dashboard from Search page
-    [Tags]   exclude    TC_C199723
+    [Tags]   acc_wc    TC_C199723
     [Setup]  Run Keywords  Import Dashboard By API  /models/1  DASHBOARD_Download.json  DASHBOARD_Download.angles.json  user=${Username}
     ...      AND           Import Angle By API  /models/1  ANGLE_Download.json  user=${Username}
     Search By Text And Expect In Search Result    Dashboard Download

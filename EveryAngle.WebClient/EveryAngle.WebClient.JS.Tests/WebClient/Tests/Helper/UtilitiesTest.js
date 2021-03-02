@@ -281,4 +281,29 @@
 
     });
 
+    describe(".DownloadFile", function () {
+        it("Should call RedirectUrl when isFrame is undefined", function () {
+            spyOn(WC.Utility, 'RedirectUrl');
+            WC.Utility.DownloadFile('');
+            expect(WC.Utility.RedirectUrl).toHaveBeenCalled();
+        });
+        it("Should call RedirectUrl when isFrame is false", function () {
+            spyOn(WC.Utility, 'RedirectUrl');
+            WC.Utility.DownloadFile('', false);
+            expect(WC.Utility.RedirectUrl).toHaveBeenCalled();
+        });
+        it("should download with iframe", function () {
+            //Prepare
+            spyOn($.fn, 'attr').and.returnValue($());
+            spyOn($.fn, 'appendTo').and.returnValue($());
+
+            //Action
+            WC.Utility.DownloadFile('test.json', true);
+
+            //Assert
+            expect($.fn.attr).toHaveBeenCalledWith('src', 'test.json?request_verification_token=[object Object]');
+            expect($.fn.appendTo).toHaveBeenCalledWith('body');
+        });
+    });
+
 });
