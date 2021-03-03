@@ -29,18 +29,9 @@ EAPower is redirectrd to searchpage when using deeplink URL to MC
     Wait Search Page Document Loaded
     Logout
 
-EAAdmin can login to MC directly when using deeplink URL
-    [Documentation]     This test verifies that EAAdmin can login to MC directly when using deeplink URL.
-    [Tags]   exclude   TC_C231308
-    Go to    ${URL_MC}/home/index#/Global settings/Languages/
-    Sleep    3s
-    Login    ${AdminUsername}    ${Password}
-    Wait Until Languages Page Loaded
-    Logout MC
-
 EAAdmin can login to WC and directly to MC with deeplink URL
     [Documentation]     This test verifies that EAAdmin can login to WC and directly to MC with deeplink URL.     
-    [Tags]   exclude TC_C231308
+    [Tags]    smk_wc_s   TC_C231308  
     Go to    ${URL_WC}
     Sleep    3s
     Login To WC By Admin User
@@ -51,7 +42,7 @@ EAAdmin can login to WC and directly to MC with deeplink URL
 
 Login to MC directly when using deeplink URL to check the Overview page displayed
     [Documentation]     This test verifies that login to MC directly when using deeplink URL landing to overview page.
-    [Tags]  acc_mc_s  
+    [Tags]   acc_mc_s   TC_C231308
     Go to    ${URL_MC}/home/index
     Sleep    3s
     Login    ${AdminUsername}    ${Password}

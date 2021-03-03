@@ -1,5 +1,5 @@
 *** Variables ***
-${btnSaveModels}                        css=.btnSave
+${btnSaveModels}                        xpath=//a[contains(@class, 'Save')]
 ${btnReloadModels}                      css=.btnReload
 
 ${trRowAllModelGrid}                    jquery=#mainContent tbody tr
@@ -79,10 +79,12 @@ Click Save Models
     Click Confirmation
 
 Click Edit Save Models
-    Wait Until Page Contains Element    ${btnSaveModels}
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Element Is Enabled    ${btnSaveModels}
     Click Element    ${btnSaveModels}
     ${passed}=  Run Keyword And Return Status   Element Should Be Visible   ${btnConfirmationModels}
     Run Keyword If      ${passed}==True   Click Element  ${btnSubmitConfirm}
+    Wait Progress Bar Closed
 
 Click Confirmation
     Wait Until Page Contains Element    ${btnConfirmationModels} ${btnSubmitConfirm}

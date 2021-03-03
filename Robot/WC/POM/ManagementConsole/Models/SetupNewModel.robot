@@ -6,7 +6,10 @@ ${txtModelLongName}                     jquery=#long_name
 ${txtModelEnvironment}                  jquery=#environment
 
 ${msgNoModelsAvailable}                 No models available
-${Modifymodel}                          modifiedmodel
+${ModifymodelShortname}                 ModifiedModelShortName
+${ModifymodelName}                      ModifiedModelName
+${ModifymodelEnviroment}                ModifiedEnv
+
 
 *** Keywords ***
 Check Model Id DropdownList
@@ -56,7 +59,7 @@ Get and Modify Model Short Name
     ${ModelShortName}   Get Value  ${txtModelShortName}
     Set Global Variable     ${ModelShortName}   ${ModelShortName}
     Clear Element Text    ${txtModelShortName}  
-    Input Text      ${txtModelShortName}    ${Modifymodel}
+    Input Text      ${txtModelShortName}    ${ModifymodelShortname}
 
 Get and Modify Model Name
     Wait Until Page Contains Element    ${txtModelLongName}
@@ -64,7 +67,7 @@ Get and Modify Model Name
     ${ModelName}    Get Value  ${txtModelLongName}
     Set Global Variable     ${ModelName}   ${ModelName}
     Clear Element Text      ${txtModelLongName}
-    Input Text      ${txtModelLongName}    ${Modifymodel}
+    Input Text      ${txtModelLongName}    ${ModifymodelName}
 
 Get and Modify Model Environment
     Wait Until Page Contains Element    ${txtModelEnvironment}
@@ -72,7 +75,7 @@ Get and Modify Model Environment
     ${ModelEnvironment}     Get Value  ${txtModelEnvironment}
     Set Global Variable     ${ModelEnvironment}   ${ModelEnvironment}
     Clear Element Text      ${txtModelEnvironment}
-    Input Text      ${txtModelEnvironment}    ${Modifymodel}
+    Input Text      ${txtModelEnvironment}    ${ModifymodelEnviroment}
 
 Verify model name is displayed in overview page
     Wait Until Page Contains Element    xpath=//h2[contains(text(),'${Modeldetails}')]
@@ -81,9 +84,8 @@ Verify model name is displayed in overview page
 
 Verify modified model name is displayed in overview page
     Click Hyperlink Overview
-    Wait Until Page Contains Element    xpath=//h2[contains(text(),'${Modifymodel}')]
-    Page Should Contain Element    xpath=//h2[contains(text(),'${Modifymodel}')]
-    Element Text Should Be    xpath=//h2[contains(text(),'${Modifymodel}')]   ${Modifymodel}
+    Wait Until Overview Page Loaded
+    Page Should Contain    ${ModifymodelShortname}
 
 Verify deleted model is not displayed in overview page
     Wait Until All Models Page Loaded
