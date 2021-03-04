@@ -9,12 +9,8 @@ Force Tags          acc_mc_s
 ${txtSessionsFilterValue}    EAAd
 
 *** Test Cases ***
-Verify the user is able to edit debug logging value of user sessions and saved successfully
-    [Documentation]     To verify the user is able to edit the debug logging checkbox option for user sessions and saved automatically on checking/unchecking the checkbox.
-    [Tags]  TC_C202359_s
-    Verify the Debug logging checkbox is saved for all the users in Sessions grid
-
 Verify the Sessions grid in MC is filtered correctly 
     [Documentation]     To verify the user is able to filter User sessions with user id and user sessions are filtered for the entered text in Sessions grid.
     [Tags]  TC_C644_s
     Verify the User Sessions filtered with Text     ${txtSessionsFilterValue}
+    Verify the User Sessions Filtered with no Text
