@@ -829,9 +829,9 @@ describe("MC.AutomationTasks.Tasks", function () {
 
         it("should set display excel template and call AddDisplayExcelTemplate", function () {
             // Prepare
-            var displayDetail = '{ "excel_template": "excel_template_00.xlsx" }';
+            var display = { display_details : '{ "excel_template": "excel_template_00.xlsx" }' };
 
-            var result = automationTask.ConfigureDefaultTemplateFile(displayDetail, null);
+            var result = automationTask.ConfigureDefaultTemplateFile(display, null);
 
             // Assert
             expect(automationTask.AddDisplayExcelTemplateToddlExcelTemplate).toHaveBeenCalled();
@@ -843,9 +843,21 @@ describe("MC.AutomationTasks.Tasks", function () {
 
         it("should reset display excel template and call RemoveDisplayExcelTemplate", function () {
             // Prepare
-            var displayDetail = '{}';
+            var display = { display_details : '{}' };
 
-            var result = automationTask.ConfigureDefaultTemplateFile(displayDetail, null);
+            var result = automationTask.ConfigureDefaultTemplateFile(display, null);
+
+            // Assert
+            expect(automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate).toHaveBeenCalled();
+            expect(automationTask.DisplayExcelTemplate).toBe('');
+            expect(result).toBe(true);
+        });
+
+        it("should reset display excel template and call RemoveDisplayExcelTemplate when display_detail is undefined", function () {
+            // Prepare
+            var display = { };
+
+            var result = automationTask.ConfigureDefaultTemplateFile(display, null);
 
             // Assert
             expect(automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate).toHaveBeenCalled();
@@ -855,9 +867,9 @@ describe("MC.AutomationTasks.Tasks", function () {
 
         it("should reset display excel template and return false", function () {
             // Prepare
-            var displayDetail = null;
+            var display = null;
 
-            var result = automationTask.ConfigureDefaultTemplateFile(displayDetail, null);
+            var result = automationTask.ConfigureDefaultTemplateFile(display, null);
 
             // Assert
             expect(automationTask.RemoveDisplayExcelTemplateFromddlExcelTemplate).toHaveBeenCalled();
