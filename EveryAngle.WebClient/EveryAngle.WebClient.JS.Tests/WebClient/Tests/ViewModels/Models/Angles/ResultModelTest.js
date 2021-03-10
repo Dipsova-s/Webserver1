@@ -36,6 +36,13 @@ describe("ResultModel", function () {
             expect(errorHandlerModel.GetAreaErrorMessage).toHaveBeenCalled();
             expect(errorHandlerModel.ShowAreaError).toHaveBeenCalled();
         });
+        it('should set error for 200 status code and sorting limit exceeded', function () {
+            var sortErrorMessage = "This Angle cannot be sorted. The maximum number of objects to sort is 1000";
+            resultModel.SetRetryPostResult({ status: 200, responseText: sortErrorMessage });
+            expect(errorHandlerModel.IgnoreAjaxError).toHaveBeenCalled();
+            expect(errorHandlerModel.GetAreaErrorMessage).toHaveBeenCalled();
+            expect(errorHandlerModel.ShowAreaError).toHaveBeenCalled();
+        });
     });
 
     describe(".IsSupportSapTransaction", function () {

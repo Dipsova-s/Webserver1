@@ -62,4 +62,22 @@ describe("ErrorHandlerTest", function () {
 
     });
 
+    describe("call GetRetryButtonLabel", function () {
+
+        it("When Angle reexecuted without sorting", function () {
+            var expected = Localization.ReexecuteWithoutSorting;
+            var msg = "This Angle cannot be sorted. The maximum number of objects to sort is 1000000";
+            var result = errorHandlerModel.GetRetryButtonLabel(msg);
+            expect(expected).toEqual(result);
+        });
+
+        it("When Angle reexecuted because of previous unsuccessful execution", function () {
+            var expected = Localization.Reexecute;
+            var msg = "Cannot retrieve data because execution was unsuccesful";
+            var result = errorHandlerModel.GetRetryButtonLabel(msg);
+            expect(expected).toEqual(result);
+        });
+
+    });
+
 });

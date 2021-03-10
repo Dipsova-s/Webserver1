@@ -6439,6 +6439,9 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="Reexecute" xml:space="preserve">
     <value>Neu ausführen</value>
   </data>
+  <data name="ReexecuteWithoutSorting" xml:space="preserve">
+    <value>Re-execute without sorting</value>
+  </data>
   <data name="CloseSidebar" xml:space="preserve">
     <value>Randleiste schließen</value>
   </data>

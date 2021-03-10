@@ -289,18 +289,24 @@ function ErrorHandlerViewModel() {
         var response = WC.Utility.ParseJSON(text, { reason: null, message: text });
         return response.reason ? response.reason + ', ' + response.message : response.message;
     };
+
+    self.GetRetryButtonLabel = function (msg) {
+        var sortErrorMessage = Localization.Info_DisplaySortingReachedLimitation.slice(0, -3);
+        var retryButtonLabel = msg.indexOf(sortErrorMessage) === 0 ? Localization.ReexecuteWithoutSorting : Localization.Reexecute;
+        return retryButtonLabel;
+    };
+
     self.ShowAreaError = function (element, msg, retryFunction) {
         if (!msg) {
             return;
         }
-
         self.Enable(false);
 
         var error = jQuery('<div class="areaErrorContainer" />');
         error.append('<div class="areaErrorMessage">' + msg.replace(/\\n$/i, '').replace(/\\n/ig, '<br />') + '</div>');
         if (typeof retryFunction === 'function') {
             error.children('.areaErrorMessage')
-                .append('<a class="areaErrorRetryButton">' + Localization.Reexecute + '</a>')
+                .append('<a class="areaErrorRetryButton">' + self.GetRetryButtonLabel(msg) + '</a>')
                 .children('.areaErrorRetryButton')
                 .click(function () {
                     jQuery(this).parents('.areaErrorContainer').remove();
