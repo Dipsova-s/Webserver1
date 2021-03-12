@@ -76,6 +76,14 @@ namespace EveryAngle.ManagementConsole.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GoToModellingWorkbench()
+        {
+            IEnumerable<ComponentViewModel> components = _componentService.GetItems().OrderBy(x => x.ModelId);
+            string workbenchURI = components.Any(x => x.TypeName == "ModellingWorkbench") ? components.First(x => x.TypeName == "ModellingWorkbench").Uri : Shared.Helpers.UtilitiesHelper.GetWebClientUrl("") + "workbench";
+
+            return new RedirectResult(workbenchURI);
+        }
+
         [AcceptVerbs(HttpVerbs.Delete)]
         public void DeleteComponent(Guid registrationId)
         {

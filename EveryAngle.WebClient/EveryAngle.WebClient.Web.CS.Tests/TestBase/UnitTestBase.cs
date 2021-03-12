@@ -18,6 +18,7 @@ using EveryAngle.WebClient.Service.Aggregation;
 using Newtonsoft.Json.Linq;
 using System.Web.SessionState;
 using System.Reflection;
+using EveryAngle.Utilities;
 
 namespace EveryAngle.WebClient.Web.CSTests.TestBase
 {
@@ -158,6 +159,42 @@ namespace EveryAngle.WebClient.Web.CSTests.TestBase
 
         }
 
+        #endregion
+
+        #region protected overrride functions
+        /// <summary>
+        /// Get mock data from TestResources/XXXX.json file
+        /// </summary>
+        /// <typeparam name="T">ViewModel class</typeparam>
+        /// <returns></returns>
+        protected virtual T GetMockViewModel<T>() where T : class
+        {
+            // get name from T
+            // check if has GenericTypeArguments then use its name, for example
+            // - VersionViewModel -> VersionViewModel
+            // - List<SystemAuthenticationProviderViewModel> -> SystemAuthenticationProviderViewModel
+            Type type = typeof(T);
+            if (type.GenericTypeArguments.Length != 0)
+                type = type.GenericTypeArguments[0];
+
+            return GetMockViewModel<T>(type.Name);
+        }
+        /// <summary>
+        /// Get mock data from TestResources/XXXX.json file by sepcific json file name
+        /// </summary>
+        /// <typeparam name="T">ViewModel class</typeparam>
+        /// <param name="name">name of json file</param>
+        /// <returns></returns>
+        protected virtual T GetMockViewModel<T>(string name) where T : class
+        {
+            string filePath = string.Format("{0}TestResources\\{1}.json", AppDomain.CurrentDomain.BaseDirectory, name);
+            if (File.Exists(filePath))
+            {
+                string data = File.ReadAllText(filePath);
+                return JsonConvert.DeserializeObject<T>(data, new UnixDateTimeConverter());
+            }
+            return (T)Activator.CreateInstance(typeof(T));
+        }
         #endregion
     }
 }

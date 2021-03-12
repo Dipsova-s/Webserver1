@@ -121,7 +121,24 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             string json = JsonConvert.SerializeObject(jsonResult.Data);
             ComponentsResult result = JsonConvert.DeserializeObject<ComponentsResult>(json);
 
-            Assert.AreEqual(6, result.Total);
+            Assert.AreEqual(7, result.Total);
+        }
+
+        [TestCase]
+        public void GoToModellingWorkbench_Should_ReturnWorkbench_URI_When_Called()
+        {
+            //Prepare
+            ComponentController controller = new ComponentController(
+                componentService.Object, modelService.Object, sessionHelper.Object);
+
+
+            //Action
+            ActionResult result = controller.GoToModellingWorkbench();
+
+            //Assert
+            Assert.That(result, Is.InstanceOf<RedirectResult>());
+            RedirectResult routeResult = result as RedirectResult;
+            Assert.AreEqual(routeResult.Url, "http://NL-WEBMB01.everyangle.org:62029/workbench");
         }
         #endregion
     }

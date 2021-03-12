@@ -45,7 +45,7 @@
                 <a class="actionDropdownItem btnMC" target="_blank" href="@administratorPath.ToLower()"><span data-bind="text: Localization.SearchPageManagementConsole"></span></a>
             }
             @{
-                string workbenchUri = EveryAngle.Shared.Helpers.UtilitiesHelper.GetWebClientUrl("") + "workbench";
+                string workbenchUri = @Url.Content("~/Component/GoToModellingWorkbench");
             }
             <a id="btnWorkbench" class="actionDropdownItem btnWorkbench" href="@workbenchUri" target="_blank">
                 <span data-bind="text: Localization.Workbench"></span>

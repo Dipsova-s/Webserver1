@@ -200,6 +200,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ControllerTest\ComponentControllerTests.cs" />
     <Compile Include="ControllerTest\SharedComponentControllerTest.cs" />
     <Compile Include="Extensions\AuthenticateResultExtensionsTests.cs" />
     <Compile Include="Extensions\OwinContextExtensionsTests.cs" />
@@ -259,6 +260,9 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="TestResources\Copyright.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\ComponentViewModel.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

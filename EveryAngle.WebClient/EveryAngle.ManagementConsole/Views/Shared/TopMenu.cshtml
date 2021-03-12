@@ -45,7 +45,7 @@
                 }
                 @if (SessionHelper.Initialize().Session.IsValidToManageModelingWorkbenchPrivilege())
                 {
-                    string workbenchUri = EveryAngle.Shared.Helpers.UtilitiesHelper.GetWebClientUrl("") + "workbench";
+                    string workbenchUri = @Url.Content("~/Component/GoToModellingWorkbench");
                     <a id="btnWorkbench" href="@workbenchUri" class="actionDropdownItem btnWorkbench" target="_blank">
                         <span>@Resource.Workbench</span>
                     </a>

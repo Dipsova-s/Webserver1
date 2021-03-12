@@ -1,0 +1,17 @@
+[
+  {
+    "registration_id": "1e59e0ad-031c-4a5d-9b12-10cf1c9c561d",
+    "type": "ModellingWorkbench",
+    "uri": "http://NL-WEBMB01.everyangle.org:62029/workbench",
+    "model_id": "EA2_800",
+    "version": "19.000.00.1937",
+    "machine_name": "NL-WEBMB01",
+    "status": {
+      "available": true,
+      "last_event": "Queryable",
+      "timestamp": 1547698804
+    },
+    "registered_on": 1547697520,
+    "last_successful_heartbeat": null
+  }
+]
