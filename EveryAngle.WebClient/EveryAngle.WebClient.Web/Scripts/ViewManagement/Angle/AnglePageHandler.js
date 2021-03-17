@@ -5,7 +5,8 @@ function AnglePageHandler() {
     "use strict";
 
     var self = this;
-
+    var _self = {};
+    _self.angleData = null;
     // extend method from AngleActionMenuHandler.js
     jQuery.extend(self, new AngleActionMenuHandler(self));
 
@@ -222,7 +223,7 @@ function AnglePageHandler() {
         // side panel + splitter + html stuff
         self.HandlerSidePanel.InitialAngle(self.SaveSidePanelCallback);
         self.SetHandlerAngle();
-        
+
         self.HandlerAngle.InitialAngleUserSpecific();
 
         // display overview
@@ -423,7 +424,7 @@ function AnglePageHandler() {
         self.HandlerDisplay.UpdateAngleQueryDefinition();
         self.HandlerDisplay.QueryDefinitionHandler.RefreshQuerySteps();
     };
-    self.CheckUpdatingDisplay = function (display, isSaved) {
+    self.CheckUpdatingDisplay = function (display, isSaved,isRemoveColoumn) {
         var displayData = jQuery.extend(self.HandlerDisplay.GetData(), ko.toJS({
             fields: display.fields,
             display_details: display.display_details,
@@ -437,7 +438,7 @@ function AnglePageHandler() {
         self.HandlerDisplay.QueryDefinitionHandler.InitialAggregation();
         displayModel.LoadSuccess(displayData);
 
-        self.ApplyExecutionAngle();
+        !isRemoveColoumn && self.ApplyExecutionAngle();
     };
     self.OnDisplayRenderStart = function () {
         self.HandlerDisplayOverview.CanSwitchDisplay(false);
@@ -780,7 +781,7 @@ function AnglePageHandler() {
     };
     self.CheckDisplay = function () {
         // check if displayParameter is ['default'] then redirect to that
-        var angleData = self.HandlerAngle.GetData();
+        var angleData = _self.angleData !== null ? _self.angleData: self.HandlerAngle.GetData();
         var displayObject;
         var angleParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
         var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
@@ -998,6 +999,7 @@ function AnglePageHandler() {
                 return self.CheckModelStatus();
             })
             .then(function () {
+                _self.angleData = self.HandlerAngle.GetData();
                 return jQuery.when(
                     self.CheckDisplay()
                     && self.CheckNewAngle()
@@ -1013,9 +1015,12 @@ function AnglePageHandler() {
                 if (!canContinue)
                     return;
 
+                //Get angle data
+                var angleData = _self.angleData !== null ? _self.angleData : self.HandlerAngle.GetData()
+
                 // show invalid message
                 // - there is 1s delay in CheckTarget, add 1s to show a message
-                self.UpdateAngleDisplayValidation();
+                self.UpdateAngleDisplayValidation(angleData);
                 var target = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.TARGET);
                 self.ShowAngleDisplayInvalidMessage(target ? 1300 : 300);
 
@@ -1077,7 +1082,7 @@ function AnglePageHandler() {
                 // show parameterized popup
                 if (self.CanExecutionParameters(self.HandlerDisplay)) {
                     self.IsExecuted = true;
-                    self.ShowExecutionParameterPopup(self.HandlerAngle.GetData(), self.HandlerDisplay.GetData());
+                    self.ShowExecutionParameterPopup(angleData, self.HandlerDisplay.GetData());
                     return;
                 }
 
@@ -1097,7 +1102,7 @@ function AnglePageHandler() {
                 progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_CheckingModel);
                 return jQuery.when(
                     self.PostResult(),
-                    self.LoadAngleDisplayMetadata(self.HandlerAngle.GetData(), displayData)
+                    self.LoadAngleDisplayMetadata(angleData, displayData)
                 )
                     .done(self.CheckLoadMetadataDone);
             });
@@ -1252,7 +1257,7 @@ function AnglePageHandler() {
                 self.BuildFieldSettingWhenNoResult(displayData);
             });
     };
-/* EOF: M4-8817: After POST /results fail still show angle/display details */
+    /* EOF: M4-8817: After POST /results fail still show angle/display details */
     self.ResultErrorXhr = null;
     self.PostResult = function () {
         var renderNewResult = true;
@@ -1320,7 +1325,7 @@ function AnglePageHandler() {
         self.ResultErrorXhr = null;
         angleInfoModel.ModelServerAvailable = true;
     };
-    
+
     self.ApplyExecutionAngle = function () {
         progressbarModel.EndProgressBar();
         self.UpdateSidePanelHandlers();
@@ -1833,8 +1838,8 @@ function AnglePageHandler() {
                 pivotPageHandler.ShowError(self.ResultErrorXhr);
         }
     };
-    self.UpdateAngleDisplayValidation = function () {
-        var angle = self.HandlerAngle.GetData();
+    self.UpdateAngleDisplayValidation = function (angle) {
+        angle = typeof angle !== 'undefined' ? angle : self.HandlerAngle.GetData();
         var display = self.HandlerDisplay.GetData();
         self.HandlerValidation.Angle = validationHandler.GetAngleValidation(angle);
         self.HandlerValidation.Display = validationHandler.GetDisplayValidation(display, angle.model);
@@ -1911,7 +1916,7 @@ function AnglePageHandler() {
         jQuery(window).off('resize.angle').on('resize.angle', function () {
             if (!jQuery.isReady)
                 return;
-            
+
             self.UpdateLayout(300);
         });
         jQuery(window).off('beforeunload.angle').on('beforeunload.angle', function () {
