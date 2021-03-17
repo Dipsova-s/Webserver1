@@ -21,6 +21,7 @@
         self.CurrentCopyModel = null;
         self.CurrentAssignedRolesUser = null;
         self.ModelData = null;
+        self.ModelType = '';
         self.SubRoles = 0;
         var cacheHelps = {};
         self.GetHelpTextUri = '';
@@ -2216,11 +2217,17 @@
                 else {
                     var refrencedObjectValue = $(self.CurrentGridField).parent().prev('td').prev('td').find('select[name="refrencedObject"]').data('kendoDropDownList').value();
                     var sourceObjectValue = $(self.CurrentGridField).closest('tr').find('td:eq(0) select[name="SourceObject"]').data('kendoDropDownList').value();
-                    if (refrencedObjectValue === "(self)" || refrencedObjectValue === sourceObjectValue) {
+                    if (refrencedObjectValue === "(self)") {
                         request.data.classes = sourceObjectValue;
                     }
                     else {
                         request.data.classes = refrencedObjectValue;
+
+                        // For RMS, get only (self) fields - reference filter on reference fields not yet supported
+                        if (self.ModelType === "HanaServer") {
+                            request.data.fq = "source_en:\"%5C(Self%5C)\"";
+                            fieldsChooserModel.FacetsHidden = ['source', 'classes'];
+                        }
                     }
                 }
 

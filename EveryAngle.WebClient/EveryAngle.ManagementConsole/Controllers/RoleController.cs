@@ -1206,6 +1206,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewData["FieldsUri"] = model.FieldsUri.ToString();
             ViewData["SupportODataService"] = sessionHelper.Info.ODataService;
             ViewData["ClientSettings"] = sessionHelper.CurrentUser.Settings.client_settings;
+            ViewData["ModelType"] = modelServers.Any(x => x.IsHanaServer) ? "HanaServer" : "ModelServer";
         }
 
         public SystemRoleViewModel LoadRole(string modelUri, string roleUri, ModelViewModel model)

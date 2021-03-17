@@ -43,6 +43,7 @@
                     ResourceIconPath: '@VirtualPathUtility.ToAbsolute("~/content/externalresource/")',
                     BusinessProcessesData: @Html.Raw(Json.Encode(ViewData["BusinessProcesses"])),
                     ModelData: @Html.Raw(Json.Encode(ViewData["ModelData"])),
+                    ModelType: '@ViewData["ModelType"]',
                     GetModelClassesUri: '@Url.Action("GetModelClasses", "SuggestedFields")',
                     GetModelAnglesUri: '@Url.Action("GetModelAngles", "SuggestedFields")',
                     GetHelpTextUri: '@Url.Action("GetHelpText", "Role")',
