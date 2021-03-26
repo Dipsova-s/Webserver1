@@ -38,13 +38,16 @@ function AngleHandler(model) {
         data.assigned_labels = ko.observableArray(data.assigned_labels);
         data.assigned_tags = ko.observableArray(data.assigned_tags);
         self.Data(data);
+
     };
     self.GetData = function () {
-        var rawData = jQuery.extend(ko.toJS(self.Data()), self.QueryDefinitionHandler.GetQueryDefinition());
-        var data = WC.ModelHelper.ExtendAngleData(rawData);
-        data.display_definitions = jQuery.map(self.Displays, function (display) {
-            return display.GetData();
-        });
+        var data = jQuery.extend(ko.toJS(self.Data()), self.QueryDefinitionHandler.GetQueryDefinition());
+        
+        if (!data.display_definitions || self.IsAdhoc()) {
+            data.display_definitions = jQuery.map(self.Displays, function (display) {
+                return display.GetData();
+            });
+        }
         return data;
     };
     self.ClearData = function () {
@@ -151,7 +154,7 @@ function AngleHandler(model) {
     self.InitialTag = function (target) {
         self.AngleTagHandler.Initial(target);
     };
-    
+
     // personal things
     self.CanUpdateUserSpecific = function () {
         return self.AngleUserSpecificHandler.CanUpdate();

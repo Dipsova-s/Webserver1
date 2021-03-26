@@ -70,8 +70,8 @@ function DisplayHandler(model, parent) {
         };
         return data;
     };
-    self.HasChanged = function () {
-        return !jQuery.isEmptyObject(self.GetChangeData(self.GetData(), self.GetRawData()));
+    self.HasChanged = function (displayData) {
+        return !jQuery.isEmptyObject(self.GetChangeData(displayData ? displayData : self.GetData(), self.GetRawData()));
     };
     self.SetDisplayResultHandler = function (displayType) {
         if (displayType === enumHandlers.DISPLAYTYPE.PIVOT) {
@@ -82,10 +82,10 @@ function DisplayHandler(model, parent) {
         }
         else if (displayType === enumHandlers.DISPLAYTYPE.LIST) {
             self.DisplayResultHandler = new DisplayListResultHandler(self);
-        }
+        } 
     };
-    self.GetValidationResult = function () {
-        return validationHandler.GetDisplayValidation(self.GetData(), self.GetModelUri());
+    self.GetValidationResult = function (displayData) {
+        return validationHandler.GetDisplayValidation(displayData ? displayData : self.GetData(), self.GetModelUri());
     };
     self.GetModelUri = function () {
         return self.AngleHandler.Data().model;

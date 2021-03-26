@@ -475,13 +475,11 @@ function ResultViewModel() {
         }
     };
     self.ApplyResult = function () {
-        if (window.anglePageHandler)
-            anglePageHandler.ApplyExecutionAngle();
-
         switch (displayModel.Data().display_type) {
             case enumHandlers.DISPLAYTYPE.PIVOT:
                 pivotPageHandler.HasResult(true);
                 pivotPageHandler.ReadOnly(false);
+                window.anglePageHandler && anglePageHandler.ApplyExecutionAngle();
                 pivotPageHandler.GetPivotDisplay();
                 break;
             case enumHandlers.DISPLAYTYPE.CHART:

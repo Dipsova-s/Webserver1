@@ -1535,7 +1535,7 @@ function ListHandler(elementId, container) {
 
         });
         self.Models.Display.Data.commit();
-        self.OnChanged(self.Models.Display.Data(), false);
+        self.OnChanged(self.Models.Display.Data(), false, true);
 
         var gridElement = jQuery(self.ElementId);
         var scrollPosition = {};
@@ -1593,7 +1593,7 @@ function ListHandler(elementId, container) {
             self.Models.Display.Data().fields.removeObject('field', fieldId, false);
             self.Models.Display.Data.commit();
             
-            self.OnChanged(self.Models.Display.Data(), false);
+            self.OnChanged(self.Models.Display.Data(), false,true);
 
             var scrollSettings = self.GetGridScrollSettingsData();
             self.GetListDisplay({ left: scrollSettings.left, top: scrollSettings.top }, self.SelectingRowId);
