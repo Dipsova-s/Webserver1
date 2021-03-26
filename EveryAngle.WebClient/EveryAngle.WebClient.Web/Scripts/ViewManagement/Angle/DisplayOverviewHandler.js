@@ -76,10 +76,10 @@ function DisplayOverviewHandler(angleHandler) {
         var name = display.GetName();
         var hasFilter = display.QueryDefinitionHandler.GetFilters().length;
         var hasFollowup = display.QueryDefinitionHandler.GetJumps().length;
-        var validation = display.GetValidationResult();
+        var validation = display.GetValidationResult(displayData);
         var isError = validation.Level === validationHandler.VALIDATIONLEVEL.ERROR;
         var isWarning = validation.Level === validationHandler.VALIDATIONLEVEL.WARNING;
-        var hasAdhocSign = display.CanCreateOrUpdate() && display.HasChanged();
+        var hasAdhocSign = display.CanCreateOrUpdate() && display.HasChanged(displayData);
         var isNewAdhoc = !display.GetRawData();
         var groupInfo = self.GetGroupInfo(display);
 
