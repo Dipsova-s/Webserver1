@@ -34,7 +34,7 @@ function ExportExcelHandler() {
             "fields": fieldsData,
             "angle_multi_lang_name": angleInfoModel.Data().multi_lang_name,
             "angle_multi_lang_description": angleInfoModel.Data().multi_lang_description,
-            "query_definition": angleQueryStepModel.CollectQueryBlocks(),
+            "query_definition": anglePageHandler.HandlerAngle.QueryDefinitionHandler.GetQueryDefinition().query_definition,
             "display_definitions": [{
                 "display_type": displayModel.Data().display_type,
                 "multi_lang_name": displayModel.Data().multi_lang_name,
