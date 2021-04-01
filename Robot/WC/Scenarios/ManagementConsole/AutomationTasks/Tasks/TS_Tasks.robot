@@ -42,5 +42,4 @@ Able To Add Action
     Click Ok Button On Action Popup
 
 Verify Run As User On Action Grid
-    Task Action Should Contain Run As User   1     local\\EAViewer  
-    
+    Task Action Should Contain Run As User   1     local\\EAViewer

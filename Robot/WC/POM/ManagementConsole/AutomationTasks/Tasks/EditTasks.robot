@@ -51,6 +51,7 @@ ${addActionPopup}               AddActionPopup
 ${txtRusAsUser}                 css=#action_run_as_user
 ${btnAddAction}                 css=#AddActionPopup .btnAddAction
 ${txtApprovalState}             css=.k-dropdown[aria-owns="approvalddl_listbox"]
+${pgbTaskActionDatastore}       css=.k-loading-mask
                    
 
 *** Keywords ***
@@ -137,7 +138,7 @@ Select Action Type Program/script
 Select Dropdown Datastore
     [Arguments]    ${text}
     Select Dropdown By InnerText    ${ddlTaskActionDatastore}  ${text}
-    Sleep   ${TIMEOUT_DROPDOWN}
+    Wait Until Page Does Not Contain Element    ${pgbTaskActionDatastore}
     Wait Until Ajax Complete
 
 Enable Send Email Notification
