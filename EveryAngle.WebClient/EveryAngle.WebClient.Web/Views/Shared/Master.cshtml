@@ -127,7 +127,7 @@
                 WC.Page.LoadCoreScripts(
                     [
                         '@Styles.Url("~/content/externalresource/externalresource.css")',
-                        '@Scripts.Url("~/bundles/kendoui_core.js")'
+                    /*    '@Scripts.Url("~/bundles/kendoui_core.js")'  */
                     ],
                     [
                         '@Scripts.Url("~/bundles/kendoui_cultures.js")',
@@ -145,6 +145,8 @@
                     }
                 );
             </script>
+            <script src='@Scripts.Url("~/bundles/kendoui_core.js")' type="text/javascript"></script>
+
         }
     }
 
