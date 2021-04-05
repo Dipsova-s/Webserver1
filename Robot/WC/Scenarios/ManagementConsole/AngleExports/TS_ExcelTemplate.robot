@@ -14,14 +14,6 @@ Verify Upload Excel Template In Excel Template Page
     Wait Until Page Contains Element      ${trRowInExcelTemplateGrid}:contains("${excelFileName}")
     Page Should Contain Element       ${trRowInExcelTemplateGrid}:contains("${excelFileName}")
 
-Verify Download Excel Template In Excel Template Page
-    [Arguments]     ${excelFileName}
-    Click Show Action Dropdown In Grid By Name      ${excelFileName}     ${trRowInExcelTemplateGrid}
-    Wait Until Ajax Complete
-    Click Download Excel Template       ${excelFileName}
-    ${files}    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done  1
-    Download Should Contain File    ${excelFileName}
-
 Verify Delete Excel Template In Excel Template Page
     [Arguments]     ${excelFileName}
     Click Show Action Dropdown In Grid By Name      ${excelFileName}     ${trRowInExcelTemplateGrid}
