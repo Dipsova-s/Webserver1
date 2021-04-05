@@ -451,6 +451,7 @@ function AnglePageHandler() {
         self.HandlerDisplayOverview.CanSwitchDisplay(true);
         self.HandlerDisplay.QueryDefinitionHandler.HideAggregationProgressBar();
         self.HandlerDisplayOverview.IsVisibleKeepFilter(self.HandlerDisplayOverview.CanKeepFilter());
+        self.HandlerDisplayOverview.UpdateExecutionInfo();
     };
     self.ApplyKnockoutInfoSection = function () {
         WC.HtmlHelper.ApplyKnockout(self.HandlerAngle, jQuery('#ContentWrapper .section-info'), true);

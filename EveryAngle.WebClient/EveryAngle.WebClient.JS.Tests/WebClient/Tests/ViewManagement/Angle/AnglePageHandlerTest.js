@@ -176,4 +176,22 @@ describe("AnglePageHandler", function () {
             expect(anglepageHandler.MarkAsExecutedParameter).not.toHaveBeenCalled();
         });
     });
+
+    describe(".OnDisplayRenderEnd", function () {
+        it('should call update execution info from display handler', function () {
+            spyOn(anglepageHandler.HandlerDisplayOverview, 'CanSwitchDisplay');
+            spyOn(anglepageHandler.HandlerDisplay.QueryDefinitionHandler, 'HideAggregationProgressBar');
+            spyOn(anglepageHandler.HandlerDisplayOverview, 'IsVisibleKeepFilter');
+            spyOn(anglepageHandler.HandlerDisplayOverview, 'CanKeepFilter');
+            spyOn(anglepageHandler.HandlerDisplayOverview, 'UpdateExecutionInfo');
+            anglepageHandler.OnDisplayRenderEnd();
+
+            //assert
+            expect(anglepageHandler.HandlerDisplayOverview.CanSwitchDisplay).toHaveBeenCalled();
+            expect(anglepageHandler.HandlerDisplay.QueryDefinitionHandler.HideAggregationProgressBar).toHaveBeenCalled();
+            expect(anglepageHandler.HandlerDisplayOverview.IsVisibleKeepFilter).toHaveBeenCalled();
+            expect(anglepageHandler.HandlerDisplayOverview.CanKeepFilter).toHaveBeenCalled();
+            expect(anglepageHandler.HandlerDisplayOverview.UpdateExecutionInfo).toHaveBeenCalled();
+        });
+    });
 });
