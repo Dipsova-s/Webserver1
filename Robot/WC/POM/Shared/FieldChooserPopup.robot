@@ -60,4 +60,5 @@ Select Field Source(Self)
     Wait Until Element Is Visible    ${divFieldSource}
     Click Element    ${divFieldSource}
     Select Checkbox    ${chkSourceSelf}   
-    Wait Until Ajax Complete 
+    Wait Until Ajax Complete
+    Wait Until Field Chooser Loaded 
