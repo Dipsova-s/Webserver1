@@ -97,6 +97,26 @@ Check For The Selected Excel Template And The Existence Of Definitions Sheet In 
     Should Be Equal As Strings   ${cellData}     None
     Close All Excel Documents
 
+Check For The Correct Execute Parameter Filter Updated in the Summary Sheet In Excel File
+    [Arguments]     ${excelFile}    ${expectedAngleFilter}     ${expectedDisplayFilter}
+    Open Excel Document    ${excelFile}    doc1
+    ${sheets}=	Get List Sheet Names
+    ${sheetName1}    Set variable    Summary	
+    ${sheetName2}    Set variable    New Display
+    List Should Contain Value	${sheets}	Summary
+    ${actualAngleFilter}     Read Excel Cell   9  2  ${sheetName1}  
+    Should Contain      ${actualAngleFilter}     ${expectedAngleFilter[0]}
+    Should Contain      ${actualAngleFilter}     ${expectedAngleFilter[1]}
+    ${actualDisplayFilter}     Read Excel Cell   9  6  ${sheetName1}
+    Should Contain      ${actualDisplayFilter}     ${expectedDisplayFilter[0]}
+    Should Contain      ${actualDisplayFilter}     ${expectedDisplayFilter[1]}
+    ${colName}     Read Excel Cell   1  1  ${sheetName2}
+    Should Be Equal As Strings   ${colName}     ID 
+    @{colData}=      Read Excel Column   1   1   100
+    :FOR  ${var}  IN  @{colData}
+    \   Should Contain   ${var}   /1
+    Close All Excel Documents
+
 Checkboxes Should Not Be Selected By Default
     [Arguments]     ${angleSummary}     ${angleDefinition}
     Run Keyword If    '${angleSummary}' == 'check'     Checkbox should be selected  ${chkAddSummarySheet}

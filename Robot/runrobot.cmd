@@ -22,6 +22,9 @@ if exist "%PythonPath%" echo %date% %time% "%PythonPath%" found. &goto python_in
 echo Check pip version...
 python -m pip install pip==20.0.2
 
+echo Check openpyxl version...
+python -m pip install openpyxl==2.5
+
 echo Check Robot Framework version...
 set updateRobot=yes
 set updateRobotVersion="robotframework==3.0.4"

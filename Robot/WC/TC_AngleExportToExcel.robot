@@ -103,3 +103,30 @@ Verify Export Field Names Contain Special Charactor
     Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
     Wait Until Export Excel Popup Close
     Download Should Contain File   ${angleName}.xlsx
+
+Verify Correct Filter Value Updated On Excel Export For Execution Parameters     
+    [Documentation]     Execute an angle with angle and display filter. Execution parameter pop-up should appear to enter the input
+    ...                 Export to excel and verify correct Filters and Jumps value are updated under the section Angle Details Definition on Summary Sheet
+    ...                 Risk/coverage area: Correct filter value are updated on export to excel
+    [Tags]    TC_C232790
+    ${angleName}  Set Variable  Verify Execution Parameters Behavior
+    ${expectedAngleFilterResult}  Set variable    (Self) - ID ends on substring(s) (1, 2)
+    ...     (Self) - ID is not empty
+    ${expectedDisplayFilterResult}  Set variable    (Self) - ID contains substring(s) (30, 31)
+    ...     (Self) - Object type Every Angle is equal to SD Schedule Line (Sales Document Schedule Line)
+    Upload Item And Check From Search Result  ANGLE_ExecutionParametersBehavior.angle.json    EA2_800    ${angleName}
+    Click Link Item From Search Result Not Execute Popup    ${angleName}
+    Wait Until Angle Execute Parameters Popup Loaded
+    Input Filter Input Text In List  0  2
+    Switch To Display Parameters
+    Input Filter Input Text In List  0  31
+    Click Submit Angle Execution Parameters
+    Click Angle Dropdown To Export Excel
+    Click Check Add Summary Sheet
+    Input Excel File Name    ${angleName}
+    Click Export Excel Button
+    ${files}    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
+    Wait Until Export Excel Popup Close
+    Download Should Contain File   ${angleName}.xlsx
+    Check For The Correct Execute Parameter Filter Updated in the Summary Sheet In Excel File  ${files[0]}      ${expectedAngleFilterResult}      ${expectedDisplayFilterResult}
+    Back To Search And Delete Angle Are Created    ${angleName}
