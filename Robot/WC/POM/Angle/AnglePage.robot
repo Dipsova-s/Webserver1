@@ -380,14 +380,6 @@ Click On Schedule Angle
 Download Button Should Be Available
     Element Should Be Visible  ${ddlAngleActionDropdownDownload}
 
-Download Button Should Not Be Available
-    Element Should Not Be Visible  ${ddlAngleActionDropdownDownload}
-
-Angle Downloading Should Get A Confirmation Popup
-    Click Download Angle
-    Page Should Contain Element  ${popupNotification} .confirm
-    Click Element   ${btnCancelConfirmation}
-
 Get Display Type
     [Arguments]    ${item}
     ${selector}    Get JQuery Selector    ${item}

@@ -283,9 +283,3 @@ Delete And Check All Widgets
     Editing Widget Name Should Be  1  EA2_800 - Angle For General Test - Test Pivot 1
     Widget Should Be List Display  0
     Widget Should Be Pivot Display  1
-
-Verify Dashboard Downloading Confirmation
-    Click Displays Tab
-    Edit Widget Name  [ROBOT] Angle Dashboard Download  new name
-    Dashboard Downloading Should Get A Confirmation Popup
-    Edit Widget Name  new name  ${EMPTY}

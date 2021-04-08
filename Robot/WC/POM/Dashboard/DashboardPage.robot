@@ -89,14 +89,6 @@ Click Download Dashboard
 Dashboard Download Button Should Be Available
     Element Should Be Visible    ${ddlDashboardActionDropdownDownload}
 
-Dashboard Download Button Should Not Be Available
-    Element Should Not Be Visible    ${ddlDashboardActionDropdownDownload}
-
-Dashboard Downloading Should Get A Confirmation Popup
-    Click Download Dashboard
-    Page Should Contain Element  ${popupNotification} .confirm
-    Click Element   ${btnCancelConfirmation}
-
 Open Dashboard Publishing Popup
     Click Element   ${btnShowPublishSettings}
     Wait Dashboard Publishing Popup Loaded
