@@ -822,7 +822,7 @@ function CreateNewAngleViewManagementModel() {
         self.ClassesChooserHandler.CurrentModelData = self.CurrentModelData;
         self.ClassesChooserHandler.Element = e.sender.element;
         self.ClassesChooserHandler.ApplyHandler();
-        self.SetCreateAngleByObjectSelectionMode(self.CurrentModelData.id);
+        self.ClassesChooserHandler.MultipleSelection = true;
         jQuery('.skipTemplate').show();
 
         var modelPrivileges = privilegesViewModel.GetModelPrivilegesByUri(self.CreateAngleSettings.model);
@@ -879,12 +879,6 @@ function CreateNewAngleViewManagementModel() {
                 }, 100);
             });
     };
-    self.SetCreateAngleByObjectSelectionMode = function (modelId) {
-        // M4-43508: Prevent selection of multiple classes for RMS-based model
-        var isRealTimeModel = aboutSystemHandler.IsRealTimeModel(modelId);
-        self.ClassesChooserHandler.MultipleSelection = !isRealTimeModel;
-    };
-
     self.CloseCreateAngleByObject = function () {
         popup.Close('#popupCreateNewAngle');
     };

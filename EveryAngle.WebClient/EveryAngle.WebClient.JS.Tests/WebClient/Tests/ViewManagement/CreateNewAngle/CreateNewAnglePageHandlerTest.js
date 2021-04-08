@@ -56,33 +56,6 @@ describe("CreateNewAnglePageHandlerTest", function () {
             expect(displayModel.GetDefaultListFields).toHaveBeenCalled();
         });
     });
-    describe(".SetCreateAngleByObjectSelectionMode", function () {
-
-        beforeEach(function () {
-            createNewAngleViewManagementModel.ClassesChooserHandler = {};
-        });
-
-        var tests = [
-            {
-                title: 'should be multiple selection if not a real time model',
-                is_real_time: false,
-                expected: true
-            },
-            {
-                title: 'should be single selection if a real time model',
-                is_real_time: true,
-                expected: false
-            }
-        ];
-
-        $.each(tests, function (index, test) {
-            it(test.title, function () {
-                spyOn(aboutSystemHandler, 'IsRealTimeModel').and.returnValue(test.is_real_time);
-                createNewAngleViewManagementModel.SetCreateAngleByObjectSelectionMode();
-                expect(createNewAngleViewManagementModel.ClassesChooserHandler.MultipleSelection).toEqual(test.expected);
-            });
-        });
-    });
 
     describe(".SelectBusinessProcesses", function () {
         it("should select the first active and allowed BP", function () {
