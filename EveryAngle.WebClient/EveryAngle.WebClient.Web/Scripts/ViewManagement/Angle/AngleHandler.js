@@ -37,7 +37,6 @@ function AngleHandler(model) {
         data.assigned_labels = ko.observableArray(data.assigned_labels);
         data.assigned_tags = ko.observableArray(data.assigned_tags);
         self.Data(data);
-
     };
     self.GetData = function () {
         var data = jQuery.extend(ko.toJS(self.Data()), self.QueryDefinitionHandler.GetQueryDefinition());

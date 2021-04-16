@@ -479,8 +479,8 @@ function ResultViewModel() {
             case enumHandlers.DISPLAYTYPE.PIVOT:
                 pivotPageHandler.HasResult(true);
                 pivotPageHandler.ReadOnly(false);
-                window.anglePageHandler && anglePageHandler.ApplyExecutionAngle();
                 pivotPageHandler.GetPivotDisplay();
+                window.anglePageHandler && anglePageHandler.ApplyExecutionAngle();
                 break;
             case enumHandlers.DISPLAYTYPE.CHART:
                 chartHandler.HasResult(true);

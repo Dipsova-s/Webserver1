@@ -84,7 +84,17 @@ describe("AngleSaveActionHandler", function () {
                 dataAngle: true,
                 saveDisplay: true,
                 dataDisplay: false,
+                notFistTimeLoad: true,
                 expected: true
+            },
+            {
+                title: 'should be false (saveAngle=true, dataAngle=true, saveDisplay=true, dataDisplay=false) on angle execution',
+                saveAngle: true,
+                dataAngle: true,
+                saveDisplay: true,
+                dataDisplay: false,
+                notFistTimeLoad: false,
+                expected: false
             },
             {
                 title: 'should be true (saveAngle=true, dataAngle=false, saveDisplay=true, dataDisplay=true)',
@@ -92,6 +102,7 @@ describe("AngleSaveActionHandler", function () {
                 dataAngle: false,
                 saveDisplay: true,
                 dataDisplay: true,
+                notFistTimeLoad: true,
                 expected: true
             },
             {
@@ -100,11 +111,18 @@ describe("AngleSaveActionHandler", function () {
                 dataAngle: false,
                 saveDisplay: false,
                 dataDisplay: false,
+                notFistTimeLoad: true,
                 expected: false
             }
         ];
+        beforeAll(function () {
+            createMockHandler(window, 'anglePageHandler', {
+                SaveAllCalledOnce: false
+            });
+        });
         $.each(tests, function (index, test) {
             it(test.title, function () {
+                anglePageHandler.SaveAllCalledOnce = test.notFistTimeLoad;
                 spyOn(angleSaveActionHandler.AngleHandler, 'CanCreateOrUpdate').and.returnValue(test.saveAngle);
                 spyOn(angleSaveActionHandler.AngleHandler, 'GetCreateOrUpdateData').and.returnValue(test.dataAngle);
                 angleSaveActionHandler.AngleHandler.Displays = [
