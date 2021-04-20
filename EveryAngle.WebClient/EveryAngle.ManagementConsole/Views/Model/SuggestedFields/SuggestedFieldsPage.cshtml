@@ -1,7 +1,7 @@
 ﻿@using EveryAngle.ManagementConsole.Models
 @using EveryAngle.Shared.Globalization
 
-<script>
+    <script>
     MC.util.loadScript([
         {
             test: window.BusinessProcessesViewModel && window.FieldsChooserModel,
@@ -33,12 +33,12 @@
                     SaveSuggestedByClassessUri: '@Url.Action("SaveSuggestedByClasses", "SuggestedFields")',
                     GetModelSuggestedUri: '@Url.Action("GetModelSuggested", "SuggestedFields")',
                     ModelId : '@ViewBag.ModelId',
-                    ClientSettings: '@Html.Raw(ViewBag.ClientSettings)'
+                    ClientSettings: @Html.Raw(Json.Encode(ViewBag.ClientSettings)),
                 });
             }
         }
     ]);
-</script>
+    </script>
 
 @{
     @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
