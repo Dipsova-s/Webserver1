@@ -54,7 +54,6 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_SystemLog.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Roles/TS_Roles.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Users/TS_Users.robot
-Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Users/TS_UserDefaults.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_AllModels.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelOverview.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_SetupNewModel.robot

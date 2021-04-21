@@ -99,7 +99,7 @@ Check For The Selected Excel Template And The Existence Of Definitions Sheet In 
 
 Check For The Correct Execute Parameter Filter Updated in the Summary Sheet In Excel File
     [Arguments]     ${excelFile}    ${expectedAngleFilter}     ${expectedDisplayFilter}
-    Open Excel Document    ${excelFile}    doc1
+    Open Excel Document    ${excelFile}    doc2
     ${sheets}=	Get List Sheet Names
     ${sheetName1}    Set variable    Summary	
     ${sheetName2}    Set variable    New Display
