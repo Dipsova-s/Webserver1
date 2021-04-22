@@ -114,7 +114,7 @@ Check For The Correct Execute Parameter Filter Updated in the Summary Sheet In E
     Should Be Equal As Strings   ${colName}     ID 
     @{colData}=      Read Excel Column   1   1   100
     :FOR  ${var}  IN  @{colData}
-    \   Should Contain   ${var}   /1
+    \   Should Contain Any   ${var}   /1    /2
     Close All Excel Documents
 
 Checkboxes Should Not Be Selected By Default

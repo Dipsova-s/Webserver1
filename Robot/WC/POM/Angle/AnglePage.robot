@@ -30,7 +30,6 @@ ${tabCurrentDisplayIcon}                jquery=#DisplayTabs .tab-menu.active .di
 ${tabCurrentDisplayName}                jquery=#DisplayTabs .tab-menu.active .name
 ${icoDisplayWarningItems}               jquery=#DisplayTabs .tab-menu .validWarning
 ${icoDisplayErrorItems}                 jquery=#DisplayTabs .tab-menu .validError
-${pgbAngleContent}                      css=.k-grid-content > div.k-loading-mask
 
 ${btnSaveMain}              css=#AngleSavingWrapper .btn-main-saving
 ${btnSaveOptions}           css=#AngleSavingWrapper .btn-saving-options
@@ -101,7 +100,6 @@ Wait Angle Page Document Loaded
     Wait Progress Bar Closed
     Wait Until Page Initialized
     Wait Until Page Contains Element    ${tabCurrentDisplay}    60s
-    Wait Until Page Does Not Contain Element    ${pgbAngleContent}
     Wait Until Ajax Complete
 
 Wait Display Executed
