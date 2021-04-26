@@ -31,6 +31,7 @@ function AnglePageHandler() {
     self.HandlerDisplayOverview = new DisplayOverviewHandler(self.HandlerAngle);
     self.HandlerAngleSaveAction = new AngleSaveActionHandler(self.HandlerAngle, self.HandlerState);
     self.LoadResultFieldDone = false;
+    self.SaveAllCalledOnce = false;
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
@@ -467,9 +468,6 @@ function AnglePageHandler() {
         self.UpdateLayout(0);
     };
     self.UpdateSidePanelHandlers = function () {
-        // labels
-        self.HandlerAngle.InitialLabel(jQuery('.section-labels'));
-
         // tags
         self.HandlerAngle.InitialTag(jQuery('.section-tags'));
 
@@ -1155,6 +1153,7 @@ function AnglePageHandler() {
                     resultModel.ApplyResult();
                 else
                     self.ApplyExecutionAngle();
+                self.HandlerAngle.InitialLabel(jQuery('.section-labels'));
             }
         }, 10);
     };

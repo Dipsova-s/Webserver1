@@ -28,6 +28,10 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
         return !self.AngleHandler.IsAdhoc() && (canSaveAngle || canSaveAnyDisplay);
     };
     self.EnableSaveAll = function () {
+        if (!anglePageHandler.SaveAllCalledOnce) {
+            anglePageHandler.SaveAllCalledOnce = true;
+            return false;
+        }
         var hasAngleChanged = self.AngleHandler.CanCreateOrUpdate() && self.AngleHandler.GetCreateOrUpdateData();
         var hasAnyDisplayChanged = false;
         jQuery.each(self.AngleHandler.Displays, function (index, display) {
