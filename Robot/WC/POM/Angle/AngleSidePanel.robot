@@ -38,7 +38,7 @@ ${btnAddFilter}                         .action-edit-filters
 ${btnAddJump}                           .action-add-jump
 ${btnAddFilterToJump}                   .action-add-filter
 ${btnDeleteOperator}                    .action-delete
-${btnUndo}                              .btn-cancel
+${btnCancel}                            .btn-cancel
 ${btnApplyFilter}                       .btn-save
 ${chkExecutionParameter}                .query-execution-parameter
 ${btnSelectField}                       .btn-select-field
@@ -318,12 +318,13 @@ Click Delete Jump From Display
     Wait Progress Bar Closed
     Wait Until Ajax Complete
 
-Click Undo Angle Filters And Jumps
-    Click Element    ${divTabContentAngle} ${btnUndo}
+Click Cancel button Angle Filters And Jumps
+    Wait Until Element Is Visible  ${divTabContentAngle} ${btnCancel}
+    Click Element    ${divTabContentAngle} ${btnCancel}
 
-Click Undo Display Filters And Jumps   
-    Wait Until Element Is Visible    ${divTabContentDisplay} ${btnUndo} 
-    Click Element    ${divTabContentDisplay} ${btnUndo}
+Click Cancel button Display Filters And Jumps   
+    Wait Until Element Is Visible    ${divTabContentDisplay} ${btnCancel} 
+    Click Element    ${divTabContentDisplay} ${btnCancel}
 
 Info Button On Jump Should Be Visible On Angle
     [Arguments]    ${index}

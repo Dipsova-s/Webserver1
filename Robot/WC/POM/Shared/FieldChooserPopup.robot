@@ -5,6 +5,7 @@ ${btnSubmitFieldChooser}    css=#btn-popupFieldChooser0 > span
 ${tblFieldList}    jquery=#DisplayPropertiesGrid .k-grid-content
 ${pgbFieldChooser}    jquery=#DisplayPropertiesGrid .k-loading-mask
 ${popupFieldChooser}    css=#popupFieldChooser
+${fieldChooserContent}   css=.fieldChooserContent
 ${btnCloseFieldChooser}    css=#popupFieldChooser_wnd_title + .k-window-actions .k-window-action[aria-label="Close"]
 
 ${btnFieldChooserFullMode}      LongProperty
@@ -21,7 +22,7 @@ ${percentageChkInFieldType}               xpath=//input[@id='percentage']/parent
 Wait Until Field Chooser Loaded
     Sleep    ${TIMEOUT_GENERAL}
     Wait Until Ajax Complete
-    Wait Until Page Does Not Contain Element    ${pgbFieldChooser}
+    Wait Until Page Contains Element   ${fieldChooserContent}
 
 Close Field Chooser Popup
     Click Element    ${btnCloseFieldChooser}
