@@ -35,7 +35,7 @@ Verify Operators Currency Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Currency
-    Click Undo Display Filters And Jumps
+    Click Cancel button Display Filters And Jumps
 
 Add Or Change Filter
     [Arguments]    ${fieldId}    ${fieldKeyword}    ${filterOperatorId}    ${isSelfSource}
@@ -59,7 +59,7 @@ Verify Operators Date Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Date
-    Click Undo Display Filters And Jumps
+    Click Cancel button Display Filters And Jumps
 
 #Enumerated
 Verify Operators Enumerated Field
@@ -68,7 +68,7 @@ Verify Operators Enumerated Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Enumerated
-    Click Undo Display Filters And Jumps
+    Click Cancel button Display Filters And Jumps
 
 #Text
 Verify Operators Text Field
@@ -77,7 +77,7 @@ Verify Operators Text Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Text
-    Click Undo Display Filters And Jumps
+    Click Cancel button Display Filters And Jumps
 
 #Boolean
 Verify Operators Boolean Field
@@ -86,7 +86,7 @@ Verify Operators Boolean Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Boolean
-    Click Undo Display Filters And Jumps
+    Click Cancel button Display Filters And Jumps
 
 #Percentage
 Verify Operators Percentage Field
@@ -95,7 +95,7 @@ Verify Operators Percentage Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Percentage
-    Click Undo Display Filters And Jumps
+    Click Cancel button Display Filters And Jumps
 
 #Number
 Verify Operators Number Field
@@ -104,7 +104,7 @@ Verify Operators Number Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Number
-    Click Undo Display Filters And Jumps
+    Click Cancel button Display Filters And Jumps
 
 #DateTime
 Verify Operators DateTime Field     
@@ -113,7 +113,7 @@ Verify Operators DateTime Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of DateTime
-    Click Undo Display Filters And Jumps
+    Click Cancel button Display Filters And Jumps
 
 #Time
 Verify Operators Time Field

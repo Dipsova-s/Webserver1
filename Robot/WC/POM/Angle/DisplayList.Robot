@@ -180,9 +180,9 @@ Active Context Menu Should Contain Match
 Scroll To Angle Grid Header List Display
     [Arguments]   ${fieldId}
     Scroll Grid Horizontal By Field Id    ${gridAngleListDisplay}    ${fieldId}
-    Wait Until Element Is Visible    jquery=#${tblAngleHeaderListDisplay} th.k-header[data-field="${fieldId}"]
     Wait Until List Display Loaded
-    Sleep    ${TIMEOUT_LARGEST}
+    Wait Until Element Is Visible    jquery=#${tblAngleHeaderListDisplay} th.k-header[data-field="${fieldId}"]
+
 
 Get Cell Value From List Display
     [Arguments]    ${fieldId}    ${fieldType}=text

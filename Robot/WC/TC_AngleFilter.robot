@@ -47,7 +47,7 @@ Verify Add Filter Before Jump
     Jump Should Be Existed In Popup    Material
     Jump Should Be Existed In Popup    Material on Plant Level
     Click Close Add Jump Popup
-    Click Undo Angle Filters And Jumps
+    Click Cancel button Angle Filters And Jumps
 
     # check add filter/jump from Display popup
     Click Display Tab
@@ -59,6 +59,6 @@ Verify Add Filter Before Jump
     Click Add Jump On Display
     Jump Should Be Existed In Popup    Material Plant Data
     Click Close Add Jump Popup
-    Click Undo Display Filters And Jumps
+    Click Cancel button Display Filters And Jumps
 
     [Teardown]    Back To Search And Delete Angle Are Created    ${angleName}
