@@ -14,7 +14,7 @@ ${defaultNumberFilterDisplayName}       (Self) - Ordered Quantity is greater tha
 ${defaultOperatorNumberFilter}          is greater than
 ${defaultArgumentNumberFilter}          
 
-${defaultPercentageFilterDisplayName}   (Self) - Margin % is greater than 0 %
+${defaultPercentageFilterDisplayName}   (Self) - Margin Percentage is greater than 0 %
 ${defaultOperatorPercentageFilter}      is greater than
 ${defaultArgumentPercentageFilter}      0 %
 
@@ -50,7 +50,7 @@ ${txtEnumerateAfterEditValue}           (Self) - Delivery Reliability is in list
 ${txtIntAfterEditValue}                 (Self) - Number of Material Plant Data is greater than 1
 ${txtPercentageAfterEditValue}          (Self) - Delivery Reliability As Percentage is greater than 1 %
 ${txtPeriodAfterEditValue}              (Self) - Calculated Delay is greater than 1 day(s)
-${txtTextAfterEditValue}                (Self) - Area of the country contains substring(s) (AA, ABC)
+${txtTextAfterEditValue}                (Self) - Area of the Country contains substring(s) (AA, ABC)
 ${txtTimeAfterEditValue}                (Self) - TheTime is after 00:00:01
 ${txtTimespanAfterEditValue}            (Self) - Description is greater than 2 days 00:00:00
 
@@ -118,7 +118,7 @@ Verify Add Filter Time Editor
 
 # TimeSpan
 Verify Add Filter TimeSpan Editor
-    Add Filter       "Calc. Delay"              ExpectedDelay       ${TRUE}
+    Add Filter       "Calculated Delay"              ExpectedDelay       ${TRUE}
     Set Editor Index    0  
     Filter Display Name Should Contains         ${defaultTimeSpanFilterDisplayName}
     Query Operator Should Be    ${defaultOperatorTimeSpanFilter}
@@ -195,11 +195,11 @@ Verify Edit Filter Period Operator
     Verify Edit Filter Operator    8    is between             (Self) - Calculated Delay is between
 
 Verify Edit Filter Text Operator
-    Verify Edit Filter Operator    9    is not empty           (Self) - Area of the country is not empty   
-    Verify Edit Filter Operator    9    is equal to            (Self) - Area of the country is equal to
-    Verify Edit Filter Operator    9    is smaller than        (Self) - Area of the country is smaller than
-    Verify Edit Filter Operator    9    is between             (Self) - Area of the country is between
-    Verify Edit Filter Operator    9    matches pattern(s)     (Self) - Area of the country matches pattern(s)
+    Verify Edit Filter Operator    9    is not empty           (Self) - Area of the Country is not empty   
+    Verify Edit Filter Operator    9    is equal to            (Self) - Area of the Country is equal to
+    Verify Edit Filter Operator    9    is smaller than        (Self) - Area of the Country is smaller than
+    Verify Edit Filter Operator    9    is between             (Self) - Area of the Country is between
+    Verify Edit Filter Operator    9    matches pattern(s)     (Self) - Area of the Country matches pattern(s)
 
 Verify Edit Filter Time Operator
     Verify Edit Filter Operator    10    is not empty          (Self) - TheTime is not empty   

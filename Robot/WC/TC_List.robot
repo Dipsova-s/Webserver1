@@ -55,7 +55,7 @@ Verify Single Item Drilldown
     Click Item Link
 
     Create New List Display on Angle Page
-    Click Drilldown To Item By Name    PD Schedule Line (Purchase Document (PD) Schedule Line)
+    Click Drilldown To Item By Name    PD Schedule Line (Purchase Document Schedule Line)
     Page Should Contain Drilldown Label
     Click Item Link
     Delete Current Display

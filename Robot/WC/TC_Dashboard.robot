@@ -31,7 +31,7 @@ Verify Dashboard Statistics
 Verify Execute Dashboard With Execution Parameters
     [Documentation]  Execute dashboard with execution parameters and check on each widgets.
     ...              Risk/coverage area: Dashboard execution parameters.
-    [Tags]  TC_C229292  acc_wc_aci
+    [Tags]  TC_C229292  acc_wc_s    acc_wc_aci_s
     [Setup]  Import Dashboard By API  /models/1  DASHBOARD_ExecutionParameters.json  DASHBOARD_ExecutionParameters.angles.json  user=${Username}
     ${dashboardName}  Set variable  [ROBOT] Dashboard Execution Parameters
     ${filterDisplayName}   Set variable  (Self) - ID ends on substring(s) (1)

@@ -127,8 +127,8 @@ Verify A Normal Drilldown On Chart Widget
     Click Display Tab
     Display Type Should Be Equal To  list
     Display Filter/Jump Count Should Be  2
-    Display Filter Should Contain  Execution status is not empty
-    Display Filter Should Contain  Execution status is equal to
+    Display Filter Should Contain  Execution Status is not empty
+    Display Filter Should Contain  Execution Status is equal to
     Close Window
     Switch Window   MAIN
 
@@ -141,7 +141,7 @@ Verify A Drilldown To Display On Pivot Widget
     Display Type Should Be Equal To  chart
     Display Filter/Jump Count Should Be  2
     Display Filter Should Contain  ID is not empty
-    Display Filter Should Contain  Execution status is equal to
+    Display Filter Should Contain  Execution Status is equal to
     Close Window
     Switch Window   MAIN
 
