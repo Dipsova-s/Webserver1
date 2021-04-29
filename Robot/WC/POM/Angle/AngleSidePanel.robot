@@ -26,6 +26,7 @@ ${divAngleReadOnlyQueryDefinition}      jquery=#TabContentDisplay .query-definit
 ${divAngleReadOnlyOperator}             jquery=#TabContentDisplay .query-definition-wrapper.readonly .item
 ${divDisplayQueryDefinition}            jquery=#TabContentDisplay .query-definition-wrapper:not(.readonly)
 ${liDisplayOperator}                    jquery=#TabContentDisplay .query-definition-wrapper:not(.readonly) .item
+${liAngleFilterReadOnly}                jquery=#TabContentDisplay .query-definition-wrapper.readonly .item-filter
 ${liDisplayFilter}                      jquery=#TabContentDisplay .query-definition-wrapper:not(.readonly) .item-filter
 ${liDisplayJump}                        jquery=#TabContentDisplay .query-definition-wrapper:not(.readonly) .item-jump
 ${chkExecuteOnLogin}                    css=#ExecuteOnLogin
@@ -200,6 +201,11 @@ Move Display Filter By Index
 Get Display Filter Name By Index
     [Arguments]    ${index}
     ${text}    Get Text   ${liDisplayFilter}[data-index=${index}] .name span
+    [Return]    ${text}
+
+Get Read Only Angle Filter Name By Index
+    [Arguments]    ${index}
+    ${text}    Get Text   ${liAngleFilterReadOnly}[data-index=${index}] .name span
     [Return]    ${text}
 
 Angle Readonly Filter Should Contain

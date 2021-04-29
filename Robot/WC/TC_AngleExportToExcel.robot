@@ -110,10 +110,6 @@ Verify Correct Filter Value Updated On Excel Export For Execution Parameters
     ...                 Risk/coverage area: Correct filter value are updated on export to excel
     [Tags]    TC_C232790
     ${angleName}  Set Variable  Verify Execution Parameters Behavior
-    ${expectedAngleFilterResult}  Set variable    (Self) - ID ends on substring(s) (1, 2)
-    ...     (Self) - ID is not empty
-    ${expectedDisplayFilterResult}  Set variable    (Self) - ID contains substring(s) (30, 31)
-    ...     (Self) - Object type Every Angle is equal to SD Schedule Line (Sales Document Schedule Line)
     Upload Item And Check From Search Result  ANGLE_ExecutionParametersBehavior.angle.json    EA2_800    ${angleName}
     Click Link Item From Search Result Not Execute Popup    ${angleName}
     Wait Until Angle Execute Parameters Popup Loaded
@@ -121,6 +117,8 @@ Verify Correct Filter Value Updated On Excel Export For Execution Parameters
     Switch To Display Parameters
     Input Filter Input Text In List  0  31
     Click Submit Angle Execution Parameters
+    ${expectedAngleFilterResult}=      Get Angle Filters
+    ${expectedDisplayFilterResult}=     Get Display Filters
     Click Angle Dropdown To Export Excel
     Click Check Add Summary Sheet
     Input Excel File Name    ${angleName}

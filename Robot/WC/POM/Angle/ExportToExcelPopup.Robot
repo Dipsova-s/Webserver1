@@ -179,3 +179,17 @@ Condition For Checking Substring [Use default]
     [Arguments]     ${nameExcelTemplate}
     ${returnStatus}     Run Keyword     Contains Substring [Use default]    ${nameExcelTemplate}
     [Return]    ${returnStatus}    
+
+Get Angle Filters
+    @{expectedAngleFilterResultList}      Create List
+    :FOR  ${i}  IN RANGE   0   2
+    \   ${expectedAngleFilterResult}=    Get Read Only Angle Filter Name By Index    ${i}
+    \   Append To List      ${expectedAngleFilterResultList}    ${expectedAngleFilterResult}
+    [Return]    ${expectedAngleFilterResultList}
+
+Get Display Filters
+    @{expectedDisplayFilterResultList}      Create List
+    :FOR  ${i}  IN RANGE   0   2
+    \   ${expectedDisplayFilterResult}=     Get Display Filter Name By Index    ${i}
+    \   Append To List      ${expectedDisplayFilterResultList}    ${expectedDisplayFilterResult}
+    [Return]    ${expectedDisplayFilterResultList}
