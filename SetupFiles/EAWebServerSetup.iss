@@ -151,7 +151,7 @@ Source: "Resources\EveryAngle.EncryptionDecryption32-2.3\EveryAngle.EncryptionDe
 
 ; PowerShell Scripts
 Source: "SetupFiles\PowerShellScripts\SetCertificatePermissions.ps1"; Flags: dontcopy noencryption
-Source: "SetupFiles\PowerShellScripts\SetUrlRedirectsAndAuhtority.ps1"; Flags: dontcopy noencryption
+Source: "SetupFiles\PowerShellScripts\SetUrlRedirectsAndAuthority.ps1"; Flags: dontcopy noencryption
 
 [Dirs]
 Name: "{code:DataPath|log}";
@@ -1248,7 +1248,7 @@ var
   WebConfig : variant;
 
 begin
-  scriptName := 'SetUrlRedirectsAndAuhtority.ps1';
+  scriptName := 'SetUrlRedirectsAndAuthority.ps1';
   scriptPath := ExpandConstant('{tmp}') + '\' + scriptName;
 
   ExtractTemporaryFile(scriptName);
