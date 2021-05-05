@@ -52,6 +52,18 @@ param (
   $ManagementConsolePhysicalPath
 );
 
+# Set error preference to make sure that the script exits on the first error with exit code 1.
+$ErrorActionPreference = "stop"
+
+# Disable SSL 3.0, TLS 1.0 and TLS 1.1
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -band -bnot [System.Net.SecurityProtocolType]::Ssl3
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -band -bnot [System.Net.SecurityProtocolType]::Tls
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -band -bnot [System.Net.SecurityProtocolType]::Tls11
+
+# Enable TLS 1.2
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12
+
+Write-Host "[INFO] Enabled TLS versions: $([System.Net.ServicePointManager]::SecurityProtocol)"
 
 <#
 # Helper functions
@@ -62,6 +74,7 @@ function SetValueInWebConfig {
     $Uri,
     $Key
   )
+  Write-Host "[INFO] Updating $Physicalpath (Key: ${Key}, Value: ${Uri})"
     
   $configFile = $Physicalpath + "/web.config";
   $doc = (Get-Content $configFile) -as [Xml]
@@ -105,8 +118,11 @@ $Components = Invoke-RestMethod -Uri $Uri -Certificate $Certificate -Method Get;
 $WebServer = $Components | Where-Object { $_.type -ieq $WebClientServiceName };
 $STS = $Components | Where-Object { $_.type -ieq $STSServiceName };
 
-SetValueInWebConfig -Physicalpath $WebServerPhysicalPath -Uri $STS.uri.ToLower() -Key "Authority";
-SetValueInWebConfig -Physicalpath $ManagementConsolePhysicalPath -Uri $STS.uri.ToLower() -Key "Authority";
+$stsUri = $STS.uri.ToLower()
+$webServerUri = $WebServer.uri
 
-SetValueInWebConfig -Physicalpath $WebServerPhysicalPath -Uri $WebServer.uri -Key "RedirectBaseUri";
-SetValueInWebConfig -Physicalpath $ManagementConsolePhysicalPath -Uri $WebServer.uri -Key "RedirectBaseUri";
+SetValueInWebConfig -Physicalpath $WebServerPhysicalPath -Uri $stsUri -Key "Authority";
+SetValueInWebConfig -Physicalpath $ManagementConsolePhysicalPath -Uri $stsUri -Key "Authority";
+
+SetValueInWebConfig -Physicalpath $WebServerPhysicalPath -Uri $webServerUri -Key "RedirectBaseUri";
+SetValueInWebConfig -Physicalpath $ManagementConsolePhysicalPath -Uri $webServerUri -Key "RedirectBaseUri";
