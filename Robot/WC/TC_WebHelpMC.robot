@@ -19,3 +19,4 @@ WebHelp MC
     Crop Model Overview Page
     Crop Edit Automation Task Page
     Crop Default Datastore Icon
+    Crop Innowera Template Icon

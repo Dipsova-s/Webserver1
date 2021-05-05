@@ -121,3 +121,8 @@ Crop Edit Automation Task Page
 Crop Default Datastore Icon
     Go To Datastores Page
     Crop WebHelp Image   MC_icon_check.png      jquery=#DataStoresGrid td[data-field="is_default"] img   ${False}
+
+Crop Innowera Template Icon
+    Go to MC Then Login With Admin User
+    Go To ExcelTemplates Page
+    Crop WebHelp Image     WC_icon_Innowera.png    jquery=.icon-innowera    ${False}

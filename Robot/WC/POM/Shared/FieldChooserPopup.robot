@@ -28,7 +28,7 @@ Close Field Chooser Popup
     Click Element    ${btnCloseFieldChooser}
 
 Click Insert Field From Field Chooser
-    Wait Until Ajax Complete
+    Wait Until Element Is Visible    ${btnSubmitFieldChooser}
     Click Element   ${btnSubmitFieldChooser}
     Wait Until Ajax Complete
 

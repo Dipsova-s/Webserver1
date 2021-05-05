@@ -21,8 +21,8 @@ Crop "WC_SaveDashboards" button
     Click Element      ${fieldTypeSectionInChooseFieldPopUp}
     Wait Until Element Is Visible     ${percentageChkInFieldType}
     Click Element      ${percentageChkInFieldType}
-    Wait Until Element Is Visible    xpath=//div[@id='DisplayPropertiesGrid']/div[2]//tr[1]
-    Click Element       xpath=//div[@id='DisplayPropertiesGrid']/div[2]//tr[1]
+    Wait Until Element Is Visible    xpath=//div[@id='DisplayPropertiesGrid']/div[2]//tr[1]/td[3]
+    Click Element       xpath=//div[@id='DisplayPropertiesGrid']/div[2]//tr[1]/td[3]
     Click Insert Field From Field Chooser
     Sleep    ${TIMEOUT_LARGEST}
     
