@@ -153,12 +153,65 @@ describe("ModelsHandler", function () {
             it(test.title, function () {
                 spyOn(modelCurrentInstanceHandler, 'GetCurrentModelInstance').and.returnValue(test.currentModelInstance);
                 spyOn(modelsHandler, 'GetModelByUri').and.returnValue(test.modelByUri);
+                if (test.currentModelInstance) {
+                    spyOn(modelsHandler, 'GetFieldsUri').and.returnValue(test.currentModelInstance.fields);
+                }
 
                 var result = modelsHandler.GetResultQueryFieldsUri(test.resultClasses, test.modelUri);
                 expect(result).toEqual(test.expected);
+                if (test.currentModelInstance) {
+                    expect(modelsHandler.GetFieldsUri).toHaveBeenCalled();
+                }
             });
         });
 
+    });
+    describe(".GetFieldsUri", function () {
+        var tests = [
+            {
+                title: 'should get correct field uri when current model instance has not changed',
+                modelUri: '/models/1',
+                currentInstance: {
+                    uri: '/models/1/instances/1',
+                    fields: '/models/1/instances/1/fields'
+                },
+                modelByUri: {
+                    current_instance: '/models/1/instances/1'
+                },
+                expected: '/models/1/instances/1/fields'
+            },
+            {
+                title: 'should get correct field uri when current modeld instance has changed',
+                modelUri: '/models/1',
+                currentInstance: {
+                    uri: '/models/1/instances/1',
+                    fields: '/models/1/instances/1/fields'
+                },
+                modelByUri: {
+                    current_instance: '/models/1/instances/2'
+                },
+                expected: '/models/1/instances/2/fields'
+            },
+            {
+                title: 'should get correct field uri when current modeld instance is null',
+                modelUri: '/models/1',
+                currentInstance: {
+                    uri: '/models/1/instances/1',
+                    fields: '/models/1/instances/1/fields'
+                },
+                modelByUri: {
+                    current_instance: null
+                },
+                expected: '/models/1/instances/1/fields'
+            }
+        ];
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(modelsHandler, 'GetModelByUri').and.returnValue(test.modelByUri);
+                var result = modelsHandler.GetFieldsUri(test.currentInstance, test.modelUri);
+                expect(result).toEqual(test.expected);
+            });
+        });
     });
 
     describe(".GetResultFollowupsUri", function () {

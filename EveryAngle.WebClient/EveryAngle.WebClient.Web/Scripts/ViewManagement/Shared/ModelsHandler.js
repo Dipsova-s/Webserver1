@@ -174,9 +174,20 @@ function ModelsHandler() {
     };
     self.GetResultQueryFieldsUri = function (resultClasses, modelUri) {
         var currentInstance = modelCurrentInstanceHandler.GetCurrentModelInstance(modelUri);
-        var uri = currentInstance ? currentInstance.fields : self.GetModelByUri(modelUri).fields;
+        var uri = currentInstance ? self.GetFieldsUri(currentInstance, modelUri) : self.GetModelByUri(modelUri).fields;
         var query = '?classes=' + resultClasses.join(',');
         return uri + query;
+    };
+    //M4-93115: GetFieldsUri function returns updated instance uri for fields when current model instance changes.
+    self.GetFieldsUri = function (currentInstance, modelUri) { 
+        var instanceUri = self.GetModelByUri(modelUri).current_instance;
+        if (instanceUri && currentInstance.uri !== instanceUri) { 
+            var newInstanceUri = currentInstance.fields.replace(currentInstance.uri, instanceUri);
+            return newInstanceUri;
+        }
+        else {
+            return currentInstance.fields;
+        }
     };
     self.GetResultFollowupsUri = function (resultClasses, modelUri) {
         var currentInstance = modelCurrentInstanceHandler.GetCurrentModelInstance(modelUri);
