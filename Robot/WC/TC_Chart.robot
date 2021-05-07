@@ -16,11 +16,11 @@ Verify Chart Options Axis Scale Functionality
 Verify Chart Display Drilldown Test
     Drilldown Chart Display
 
-Verify Chart Is Displayed For Null Value Type
-    [Tags]  acc_wc_aci  TC_232778
+Verify Chart Display Drilldown With Floating Number Test
+    [Tags]  acc_wc_aci
     [Setup]  Import Angle By API  /models/1  ANGLE_DrilldownTesting.json  user=${Username}
     
-    Drilldown Chart Display with Null Value Type
+    Drilldown Chart Display With Floating Number
 
     [Teardown]  Clean Up Items And Go To Search Page
 

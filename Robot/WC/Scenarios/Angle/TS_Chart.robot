@@ -65,8 +65,8 @@ Drilldown Chart Display
     Click Display Tab
     Display Filter Should Contain    ${expectFilter}
 
-Drilldown Chart Display with Null Value Type
-    Find Angle By ID Then Execute The First Angle      ROBOT_ANGLE_DrilldownTesting
+Drilldown Chart Display With Floating Number
+    Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_DRILLDOWN_FLOAT
     ${beforeDrilldownCount}   Get Total Of First Bar In Column Chart
     Click First Bar In Column Chart
     ${afterDrilldownCount}    Get Number Of Object

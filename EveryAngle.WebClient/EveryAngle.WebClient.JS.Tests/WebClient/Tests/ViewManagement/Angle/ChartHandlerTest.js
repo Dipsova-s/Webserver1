@@ -643,13 +643,13 @@ describe("ChartHandler", function () {
                 "count": 2800,
                 "count_label": "2800",
                 "count_color": "",
-                "sum_Margin": -165670616.47,
-                "sum_Margin_color": "#91c439",
-                "sum_Margin_label": "-165670616 EUR",
-                "sum_Margin_sortindex": 0,
-                "week_OrderDueDate_color": "#0431bf",
+                "sum_Margin":-165670616.47,
+                "sum_Margin_color":"#91c439",
+                "sum_Margin_label":"-165670616 EUR",
+                "sum_Margin_sortindex":0,
+                "week_OrderDueDate_color":"#0431bf",
                 "week_OrderDueDate_label": "Wk 50 of 2006",
-                "week_OrderDueDate_sortindex": 102
+                "week_OrderDueDate_sortindex":102
             }];
 
             var result = chartHandler.TransferSortindex(categoryFieldName, fieldSorting);
@@ -766,9 +766,9 @@ describe("ChartHandler", function () {
             beforeEach(function () {
                 jQuery([
                     '<div id="ChartWrapper">',
-                    '<div class="chartWrapper" style="height: 1000px; overflow: scroll;">',
-                    '<div style="height: 2000px;"></div>',
-                    '</div>',
+                        '<div class="chartWrapper" style="height: 1000px; overflow: scroll;">',
+                            '<div style="height: 2000px;"></div>',
+                        '</div>',
                     '</div>'
                 ].join('')).appendTo('body');
 
@@ -1052,37 +1052,6 @@ describe("ChartHandler", function () {
             expect(result).toEqual(box);
             expect(chartHandler.SetLabelPositionX).toHaveBeenCalled();
             expect(chartHandler.SetLabelPositionY).toHaveBeenCalled();
-        });
-    });
-    describe(".SetChartFieldOptions", function () {
-        it("Should update the categoryAxis field to CategoryField", function () {
-            var setting = {
-                Type: 'bar'
-            }, chartOption = {
-                categoryAxis: [{}, {}]
-                };
-            chartHandler.CategoryField="test_object"
-            chartHandler.SetChartFieldOptions(chartOption, setting);
-            expect(chartOption.categoryAxis[1].field).toEqual('test_object');
-        });
-        it("Should update the categoryAxis field to GroupField", function () {
-            var setting = {
-                Type: 'pie'
-            }, chartOption = {
-                categoryAxis: [{}, {}]
-                };
-            chartHandler.GroupField = "test_object_group"
-            chartHandler.SetChartFieldOptions(chartOption, setting);
-            expect(chartOption.categoryAxis[1].field).toEqual('test_object_group');
-        });
-        it("categoryAxis field should be undefined in bubble or Scatter", function () {
-            var setting = {
-                Type: 'bubble'
-            }, chartOption = {
-                categoryAxis: [{}, {}]
-            };       
-            chartHandler.SetChartFieldOptions(chartOption, setting);
-            expect(chartOption.categoryAxis[1].field).toEqual(undefined);
         });
     });
 });
