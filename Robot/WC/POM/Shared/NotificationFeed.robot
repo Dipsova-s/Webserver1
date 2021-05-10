@@ -7,9 +7,13 @@ ${divTopbarFeedPopup}          css=#NotificationsFeedMenu
 ${spanNotificationsFeedIcon}    css=#NotificationsFeedIcon
 
 *** Keywords ***
-Wait Notification Feed Loaded
+Wait MC Notification Feed Loaded
+    Wait Until Element Is Visible    ${spanNotificationsFeedIcon}
 	Wait Until Page Contains Element    ${divTopbarFeedItems}
 
+Wait WC Notification Feed Loaded
+    Wait Search Page Document Loaded
+    Wait Until Page Contains Element    ${divTopbarFeedItems}
 
 Open Topbar Feed Menu
     ${IsVisible}    Is Element Visible    ${divTopbarFeedPopup}
@@ -29,11 +33,9 @@ Check Notification Feed On Welcome Page
     Page Should Contain Element      ${divWelcomeFeedItems}
     Element Should Be Visible        ${divWelcomeFeedItems}
     Element Should Not Be Visible    ${btnTopbarFeedButton}
-    Element Should Not Be Visible    ${divTopbarFeedItems}
 
 Check Notification Feed On Topbar
-    Wait Until Page Contains Element    ${spanNotificationsFeedIcon}
     Page Should Contain Element      ${divTopbarFeedItems}
     Element Should Not Be Visible    ${divTopbarFeedItems}
     Element Should Be Visible        ${btnTopbarFeedButton}
-    Element Should Not Be Visible    ${divWelcomeFeedItems}
+

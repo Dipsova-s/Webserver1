@@ -77,6 +77,7 @@ Verify Set Template To Angle
     [Arguments]    ${angleName}
     Execute First Search Item In Edit Mode
     Click Set Template To Angle
+    Check Angle Icon Is Visible
     Back To Search
     Search By Text And Expect In Search Result    ${angleName}
     Click Search Filter Angle

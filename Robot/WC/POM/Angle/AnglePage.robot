@@ -275,7 +275,6 @@ Click Set Angle To Template
     ...    ELSE                   Click Main Save
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Check Template Icon Is Visible
     Wait Display Executed
 
 Set To Template Button Should Available
@@ -296,7 +295,6 @@ Click Set Template To Angle
     ...    ELSE                   Click Main Save
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Check Angle Icon Is Visible
     Wait Display Executed
 
 Set To Angle Button Should Be Available
