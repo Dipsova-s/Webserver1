@@ -20,7 +20,6 @@ Verify Quick Filter Options
     Quick Filter Options For Number    Angle For General Test    OrderedValue
 
 Verify Add A Duplicate Field To Display List Test
-    [Tags]  acc_wc_aci
     ${bps}    Create List    S2D
     ${objectName}           Set Variable       PD Header
     ${firstFieldId}         Set Variable       ServiceLevel

@@ -25,7 +25,7 @@ Verify All Operators For All Field Type
 Add Or Change Filter And Get Correct Result
     [Documentation]     Verify step add or change the filter on display filter should get the correct result
     ...                 Risk/coverage area: The filter on the display side panel
-    [Tags]      TC_C196803  acc_wc_aci
+    [Tags]      TC_C196803   acc_wc_aci
     ${angleName}  Set Variable   [ROBOT] Test Add Or Change Filter
     ${objectName}     Set Variable   PD Schedule Line
     ${bps}    Create List    S2D
