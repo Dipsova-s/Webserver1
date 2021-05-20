@@ -20,12 +20,14 @@ Verify Quick Filter Options
     Quick Filter Options For Number    Angle For General Test    OrderedValue
 
 Verify Add A Duplicate Field To Display List Test
+    ${bps}    Create List    S2D
+    ${objectName}           Set Variable       PD Header
     ${firstFieldId}         Set Variable       ServiceLevel
     ${firstFieldKeyword}    Set Variable       Service Level
     ${secondFieldId}        Set Variable       ExecutionStatus
     ${secondFieldKeyword}   Set Variable       Execution
 
-    Create Angle From Object List And Save    PD    ${TEST_RE_ADD_FIELD_TO_DISPLAY_LIST}
+    Create Blank Adhoc Angle From One Object    ${objectName}   ${TEST_RE_ADD_FIELD_TO_DISPLAY_LIST}   ${bps}
     Add Column By Search And Add To List Display If Not Exist    ${firstFieldId}    ${firstFieldKeyword}    ${TRUE}
     Click Header by Data Field Angle Grid List Display    ${firstFieldId}
     Click Sort Descending From Head Column to List
