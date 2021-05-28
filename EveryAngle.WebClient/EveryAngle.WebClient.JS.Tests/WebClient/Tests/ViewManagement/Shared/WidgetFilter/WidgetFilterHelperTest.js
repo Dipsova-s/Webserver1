@@ -1095,6 +1095,7 @@ describe("WidgetFilterHelper", function () {
             { date: new Date(2017, 2, 1), type: 'day', operator: 'not_between', added: -1, expected: '2017/03/01 00:00:00' },
             { date: new Date(2017, 2, 1), type: 'day', operator: 'not_between', added: 0, expected: '2017/03/02 00:00:00' },
             { date: new Date(2017, 2, 1), type: 'day', operator: 'not_between', added: 1, expected: '2017/03/03 00:00:00' },
+            { date: new Date(2017, 2, 1), type: 'day', operator: 'relative_between', added: -1, expected: '2017/03/01 00:00:00' },
 
             { date: new Date(2017, 2, 6), type: 'week', operator: 'equal_to', added: -1, expected: '2017/03/06 00:00:00' },
             { date: new Date(2017, 2, 6), type: 'week', operator: 'equal_to', added: 0, expected: '2017/03/13 00:00:00' },
@@ -1108,6 +1109,7 @@ describe("WidgetFilterHelper", function () {
             { date: new Date(2017, 2, 6), type: 'week', operator: 'not_between', added: -1, expected: '2017/03/06 00:00:00' },
             { date: new Date(2017, 2, 6), type: 'week', operator: 'not_between', added: 0, expected: '2017/03/13 00:00:00' },
             { date: new Date(2017, 2, 6), type: 'week', operator: 'not_between', added: 1, expected: '2017/03/20 00:00:00' },
+            { date: new Date(2017, 2, 6), type: 'week', operator: 'relative_between', added: -1, expected: '2017/03/06 00:00:00' },
 
             { date: new Date(2017, 0, 1), type: 'month', operator: 'equal_to', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'month', operator: 'equal_to', added: 0, expected: '2017/02/01 00:00:00' },
@@ -1121,6 +1123,7 @@ describe("WidgetFilterHelper", function () {
             { date: new Date(2017, 0, 1), type: 'month', operator: 'not_between', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'month', operator: 'not_between', added: 0, expected: '2017/02/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'month', operator: 'not_between', added: 1, expected: '2017/03/01 00:00:00' },
+            { date: new Date(2017, 0, 1), type: 'month', operator: 'relative_between', added: -1, expected: '2017/01/01 00:00:00' },
 
             { date: new Date(2017, 0, 1), type: 'quarter', operator: 'equal_to', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'quarter', operator: 'equal_to', added: 0, expected: '2017/04/01 00:00:00' },
@@ -1134,6 +1137,7 @@ describe("WidgetFilterHelper", function () {
             { date: new Date(2017, 0, 1), type: 'quarter', operator: 'not_between', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'quarter', operator: 'not_between', added: 0, expected: '2017/04/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'quarter', operator: 'not_between', added: 1, expected: '2017/07/01 00:00:00' },
+            { date: new Date(2017, 0, 1), type: 'quarter', operator: 'relative_between', added: -1, expected: '2017/01/01 00:00:00' },
 
             { date: new Date(2017, 0, 1), type: 'trimester', operator: 'equal_to', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'trimester', operator: 'equal_to', added: 0, expected: '2017/05/01 00:00:00' },
@@ -1147,6 +1151,7 @@ describe("WidgetFilterHelper", function () {
             { date: new Date(2017, 0, 1), type: 'trimester', operator: 'not_between', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'trimester', operator: 'not_between', added: 0, expected: '2017/05/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'trimester', operator: 'not_between', added: 1, expected: '2017/09/01 00:00:00' },
+            { date: new Date(2017, 0, 1), type: 'trimester', operator: 'relative_between', added: -1, expected: '2017/01/01 00:00:00' },
 
             { date: new Date(2017, 0, 1), type: 'semester', operator: 'equal_to', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'semester', operator: 'equal_to', added: 0, expected: '2017/07/01 00:00:00' },
@@ -1160,6 +1165,7 @@ describe("WidgetFilterHelper", function () {
             { date: new Date(2017, 0, 1), type: 'semester', operator: 'not_between', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'semester', operator: 'not_between', added: 0, expected: '2017/07/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'semester', operator: 'not_between', added: 1, expected: '2018/01/01 00:00:00' },
+            { date: new Date(2017, 0, 1), type: 'semester', operator: 'relative_between', added: -1, expected: '2017/01/01 00:00:00' },
 
             { date: new Date(2017, 0, 1), type: 'year', operator: 'equal_to', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'year', operator: 'equal_to', added: 0, expected: '2018/01/01 00:00:00' },
@@ -1172,7 +1178,8 @@ describe("WidgetFilterHelper", function () {
             { date: new Date(2017, 0, 1), type: 'year', operator: 'between', added: 1, expected: '2019/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'year', operator: 'not_between', added: -1, expected: '2017/01/01 00:00:00' },
             { date: new Date(2017, 0, 1), type: 'year', operator: 'not_between', added: 0, expected: '2018/01/01 00:00:00' },
-            { date: new Date(2017, 0, 1), type: 'year', operator: 'not_between', added: 1, expected: '2019/01/01 00:00:00' }
+            { date: new Date(2017, 0, 1), type: 'year', operator: 'not_between', added: 1, expected: '2019/01/01 00:00:00' },
+            { date: new Date(2017, 0, 1), type: 'year', operator: 'relative_between', added: -1, expected: '2017/01/01 00:00:00' },
         ];
 
         $.each(tests, function (index, test) {
@@ -1240,7 +1247,9 @@ describe("WidgetFilterHelper", function () {
             { argsText: '0 day', operator: 'greater_than', fieldType: 'date', expected: Localization.WidgetFilter_Preview_After },
             { argsText: '0 day', operator: 'greater_than', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_After },
             { argsText: '0 day', operator: 'less_than', fieldType: 'date', expected: Localization.WidgetFilter_Preview_Before },
-            { argsText: '0 day', operator: 'less_than', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_Before }
+            { argsText: '0 day', operator: 'less_than', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_Before },
+            { argsText: '0 day', operator: 'relative_between', fieldType: 'date', expected: Localization.WidgetFilter_Preview_Between },
+            { argsText: '0 day', operator: 'relative_between', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_Between },
         ];
         $.each(tests2, function (index, test) {
             it("should get a translate settings for '" + test.fieldType + " " + test.operator + " " + test.argsText + "' as '" + test.expected + "'", function () {

@@ -280,7 +280,7 @@ BaseAdvanceFilterEditor.prototype.GetArgumentPreview = function (filedType) {
         var argumentMappers = {};
         argumentMappers[enumHandlers.OPERATOR.RELATIVEBEFORE.Value] = enumHandlers.OPERATOR.BEFORE.Value;
         argumentMappers[enumHandlers.OPERATOR.RELATIVEAFTER.Value] = enumHandlers.OPERATOR.AFTER.Value;
-        argumentMappers[enumHandlers.OPERATOR.RELATIVEBETWEEN.Value] = enumHandlers.OPERATOR.BETWEEN.Value;
+        argumentMappers[enumHandlers.OPERATOR.RELATIVEBETWEEN.Value] = enumHandlers.OPERATOR.RELATIVEBETWEEN.Value;
         argumentMappers[enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value] = enumHandlers.OPERATOR.NOTBETWEEN.Value;
         data.operator = argumentMappers[data.operator];
         jQuery.each(data.arguments, function (index, arg) {
