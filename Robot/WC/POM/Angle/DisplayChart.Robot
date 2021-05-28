@@ -23,11 +23,12 @@ ${LocatorColorInColorSelector}  xpath=//span[@class='k-selected-color']
 ${InputFieldOpacity}            xpath=//div[text()='Opacity']/..//input[@class='k-formatted-value eaText k-input']
 *** Keywords ***
 Wait Until Chart Display Loaded
+    Wait Until Field Settings Loaded
+    Wait Until Ajax Complete
     Wait Until Page Contains Element    ${divChartWrapper}
     ${isExecute}  Is Angle Executed
-    Run Keyword If    ${isExecute} == ${True}    Wait Until Page Contains Element    ${svgChart}
-    Wait Until Page Does Not Contain Element    ${pgbChartDisplay}
-    Wait Until Field Settings Loaded
+    Run Keyword If    ${isExecute} == ${True}        Wait Until Page Contains Element    ${svgChart}    
+    Wait Until Page Does Not Contain Element    ${pgbChartDisplay}    
     Wait Until Ajax Complete
 
 Click First Bar In Column Chart
