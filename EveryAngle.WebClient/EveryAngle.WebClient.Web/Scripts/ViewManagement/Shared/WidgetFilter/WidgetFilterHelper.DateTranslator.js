@@ -128,7 +128,8 @@
                 if (isDayUpperBound(isEqualOperator, argValueType) || index === 1) {
                     if (operator === enumHandlers.OPERATOR.NOTEQUALTO.Value || operator === enumHandlers.OPERATOR.NOTBETWEEN.Value)
                         includedEndDate = true;
-                    var upperDate = self.GetUpperBoundDate(lowerDate, argValueType, 0);
+                    var argValueAdd = operator === enumHandlers.OPERATOR.RELATIVEBETWEEN.Value ? -1 : 0;
+                    var upperDate = self.GetUpperBoundDate(lowerDate, argValueType, argValueAdd);
                     settings.arguments.push(kendo.toString(upperDate, formatCustom));
                 }
             }
@@ -152,7 +153,7 @@
     };
 
     var isPreviewAsBetween = function (operator, translatedArgs) {
-        return operator === enumHandlers.OPERATOR.BETWEEN.Value || (operator === enumHandlers.OPERATOR.EQUALTO.Value && translatedArgs.length === 2);
+        return operator === enumHandlers.OPERATOR.BETWEEN.Value || operator === enumHandlers.OPERATOR.RELATIVEBETWEEN.Value || (operator === enumHandlers.OPERATOR.EQUALTO.Value && translatedArgs.length === 2);
     };
     var isPreviewAsNotBetween = function (operator, translatedArgs) {
         return operator === enumHandlers.OPERATOR.NOTBETWEEN.Value || (operator === enumHandlers.OPERATOR.NOTEQUALTO.Value && translatedArgs.length === 2);
