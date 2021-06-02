@@ -1221,9 +1221,9 @@
             })
                 .done(function (field) {
                     var enumInput = parentCell.find('.enumerated');
-
+                    var fieldElements = self.RemoveNoValueFromList(field.elements);
                     self.CreateEnumMultiSelect(enumInput, {
-                        dataSource: field.elements
+                        dataSource: fieldElements
                     });
                     
                     var generatedControl = enumInput.prev();
@@ -1723,9 +1723,9 @@
                         })
                         .done(function (field) {
                             var enumInput = ele.find('.enumerated');
-                            
+                            var fieldElements = self.RemoveNoValueFromList(field.elements);
                             self.CreateEnumMultiSelect(enumInput, {
-                                dataSource: field.elements,
+                                dataSource: fieldElements,
                                 value: enumInput.val().split(',')
                             });
                             
@@ -1961,6 +1961,17 @@
                     self.RemovedDisAllowValue.splice(index, 1);
                 }
             }
+        };
+        self.RemoveNoValueFromList = function (elements) { // Function to be removed once '<no value>' is allowed in filter dropdown. Please refer M4-80718 for more information.
+            if (elements.length) {
+                for (var index = 0; index < elements.length; index++) {
+                    if (elements[index].id === null) {
+                        elements.splice(index, 1);
+                        break;
+                    }
+                }
+            }
+            return elements;
         };
         self.DeleteField = function () {
             $('#btnRemoveField').hide();

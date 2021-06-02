@@ -110,6 +110,17 @@ describe("MC.Models.Roles", function () {
         });
 
     });
+    describe(".RemoveNoValueFromList", function () {
 
+        it("should remove values with id as null from the array passed", function () {
+            var fieldElements = [
+                { id: null, short_name: '<no value>', long_name: '<no value>' },
+                { id: '~NotInSet', short_name: '<not in set>', long_name: '<not in set>' }
+            ]
+            var newFieldElements = modelsRole.RemoveNoValueFromList(fieldElements);
+            expect(newFieldElements.length).toEqual(1);
+        });
+
+    });
 });
 
