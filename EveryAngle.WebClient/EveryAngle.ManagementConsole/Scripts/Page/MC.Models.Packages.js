@@ -82,7 +82,20 @@
             });
         };
 
+        self.PersistCheckedPakcages = function (data) {
+            data.IsSelected = false;
+            self.CheckedPackages.forEach(function (element) {
+                if (element.PackageUri === data.Uri) {
+                    data.IsSelected = true;
+                    return;
+                }
+            });
+        };
+
         self.GetPackageButtonsTemplate = function (data, enable) {
+            // persist cheked packeages
+            self.PersistCheckedPakcages(data);
+
             // package action button html
             var actionAttributes = self.GetPackageActionHtmlAttributes(data, enable);
             var actionButton = self.GetPackageButtonHtml(actionAttributes);
@@ -488,7 +501,9 @@
                     if (!selected.active && selected.IsUpgradePackage) {
                         self.IsPopuprequired = true;
                     }
-                    self.CheckedPackages.push(input);
+                    if (!self.CheckedPackages.findObject('PackageUri', input.PackageUri)) {
+                        self.CheckedPackages.push(input);
+                    }
                 }
                 else {
                     if (!selected.active && selected.IsUpgradePackage) {

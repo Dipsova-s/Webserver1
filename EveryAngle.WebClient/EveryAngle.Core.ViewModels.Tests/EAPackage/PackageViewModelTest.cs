@@ -37,6 +37,7 @@ namespace EveryAngle.Core.ViewModels.Tests
                 activated = new UserDateViewModel { },
                 deactivated = new UserDateViewModel { },
                 error_message = "error_message",
+                IsSelected = false
             };
 
             //assert type
@@ -55,6 +56,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.Languages.GetType(), typeof(List<string>));
             Assert.AreEqual(viewModel.Contents.GetType(), typeof(List<string>));
             Assert.AreEqual(viewModel.is_ea_package.GetType(), typeof(bool));
+            Assert.AreEqual(viewModel.IsSelected.GetType(), typeof(bool));
             Assert.AreEqual(viewModel.source.GetType(), typeof(string));
             Assert.AreEqual(viewModel.activated_models.GetType(), typeof(List<string>));
             Assert.AreEqual(viewModel.ActivatedModels.GetType(), typeof(string));
@@ -81,6 +83,20 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.status.GetType(), typeof(string));
             Assert.AreEqual(viewModel.StatusName.GetType(), typeof(string));
             Assert.AreEqual("Activation failed", viewModel.StatusName);
+        }
+
+        [TestCase]
+        public void PackageViewModel_TestIsSelected_TEST()
+        {
+            //arrange
+            PackageViewModel viewModel = new PackageViewModel
+            {
+                IsSelected = true,
+            };
+
+            //assert type
+            Assert.AreEqual(viewModel.IsSelected.GetType(), typeof(bool));
+            Assert.AreEqual(true, viewModel.IsSelected);
         }
 
         [TestCase("ManagementConsole", "", false)]

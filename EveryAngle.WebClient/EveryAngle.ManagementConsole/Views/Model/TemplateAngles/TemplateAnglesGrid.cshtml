@@ -93,14 +93,14 @@
             .Title(Resource.MC_Action)
             .Sortable(false).Width(75);
 
-        columns.Bound("")
+        columns.Bound(model => model.IsSelected)
             .HeaderHtmlAttributes(new { @class = "columnBoolean" })
             .HtmlAttributes(new { @class = "columnBoolean" })
             .Title(Resource.Select)
             .Sortable(false)
             .ClientTemplate(
             "<label>"
-            + "<input id = \"IsSelected\" name=\"IsSelected\" value='#=JSON.stringify(data)#' type=\"checkbox\">"
+            + "<input type=\"checkbox\" id = \"IsSelected\" name=\"IsSelected\" #= data.IsSelected ? checked='checked' : ''# value='#=JSON.stringify(data)#'/>"
             + "<span class=\"label\"></span></label>"
         );
     })

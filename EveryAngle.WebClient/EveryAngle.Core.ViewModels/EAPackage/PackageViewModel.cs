@@ -166,5 +166,16 @@ namespace EveryAngle.Core.ViewModels.EAPackage
 
         [JsonProperty(PropertyName = "error_message")]
         public string error_message { get; set; }
+        
+        [JsonProperty(PropertyName = "isselected")]
+        private bool isselected;
+        public bool IsSelected
+        {
+            get { return isselected; }
+            set 
+            { 
+                isselected = value; 
+            }
+        }
     }
 }
