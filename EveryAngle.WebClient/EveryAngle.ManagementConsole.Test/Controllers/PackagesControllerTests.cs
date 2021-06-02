@@ -121,6 +121,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 activated = new Core.ViewModels.Users.UserDateViewModel { },
                 deactivated = new Core.ViewModels.Users.UserDateViewModel { },
                 error_message = "error_message",
+                IsSelected = false
             };
 
             List<ActivePackageQueryViewModel> viewModels = new List<ActivePackageQueryViewModel>() {

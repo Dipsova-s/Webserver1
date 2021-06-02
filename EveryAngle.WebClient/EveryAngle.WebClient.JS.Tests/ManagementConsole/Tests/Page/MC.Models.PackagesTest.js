@@ -9,6 +9,7 @@ describe("MC.Models.Packages", function () {
             spyOn(MC.Models.Packages, 'GetPackageActionHtmlAttributes').and.callFake($.noop);
             spyOn(MC.Models.Packages, 'GetPackageDownloadHtmlAttributes').and.callFake($.noop);
             spyOn(MC.Models.Packages, 'GetPackageButtonHtml').and.callFake(function () { return ''; });
+            spyOn(MC.Models.Packages, 'PersistCheckedPakcages').and.callFake($.noop);
 
             var template = MC.Models.Packages.GetPackageButtonsTemplate(data, enable);
 
@@ -503,6 +504,32 @@ describe("MC.Models.Packages", function () {
             //Assert
             var t = jQuery('#btnactivatedeactivate').attr('disabled');
             expect(t).toEqual(undefined);
+        });
+
+        it("Should set IsSelected true if checkbox selected", function () {
+            // prepare
+            var data = {
+                IsSelected: false,
+                Uri: "https://test:60000//users/2"
+            };
+
+            MC.Models.Packages.PersistCheckedPakcages(data);
+
+            // assert
+            expect(data.IsSelected).toEqual(true);
+        });
+
+        it("Should set IsSelected false if checkbox is notselected", function () {
+            // prepare
+            var data = {
+                IsSelected: true,
+                Uri: "https://test.com//3"
+            };
+
+            MC.Models.Packages.PersistCheckedPakcages(data);
+
+            // assert
+            expect(data.IsSelected).toEqual(false);
         });
     });
 });
