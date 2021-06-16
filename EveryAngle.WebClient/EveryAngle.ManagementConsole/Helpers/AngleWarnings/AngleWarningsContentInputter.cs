@@ -140,48 +140,30 @@ namespace EveryAngle.ManagementConsole.Helpers
 
             if (InputContentMapper.Maps(WarningFix.ReplaceReference, warning))
             {
-                if (jump != null)
-                {
-                    AngleWarningsContentInput contentInput = ContentInputList.FirstOrDefault(x => x.Fix == WarningFix.ReplaceSublist &&
-                                                                                             x.ObjectClass == objectClass &&
-                                                                                             x.FieldOrClassToReplace == jump);
+                string oldReference = GetReferenceFromReferenceField(field);
+                string oldField = GetFieldFromReferenceField(field);
 
-                    if (contentInput != null)
+                AngleWarningsContentInput contentInput = GetContentInputItemReference(objectClass, oldReference);
+                if (contentInput != null)
+                {
+                    AngleWarningsContentInput contentInput2 = GetContentInputItemFieldChanged(contentInput.NewFieldOrClass, oldField);
+                    if (contentInput2 != null)
                     {
                         itemSolver.Fix = contentInput.Fix;
                         itemSolver.ObjectClass = objectClass;
-                        itemSolver.FieldOrClassToReplace = jump;
-                        itemSolver.NewFieldOrClass = contentInput.NewFieldOrClass;
+                        itemSolver.FieldOrClassToReplace = field;
+                        itemSolver.NewFieldOrClass = contentInput.NewFieldOrClass + "__" + contentInput2.NewFieldOrClass;
+                    }
+                    else
+                    {
+                        itemSolver.Fix = contentInput.Fix;
+                        itemSolver.ObjectClass = objectClass;
+                        itemSolver.FieldOrClassToReplace = field;
+                        itemSolver.NewFieldOrClass = contentInput.NewFieldOrClass + "__" + oldField;
                     }
 
                     return itemSolver;
-                }
-                else
-                {
-                    string oldReference = GetReferenceFromReferenceField(field);
-                    string oldField = GetFieldFromReferenceField(field);
 
-                    AngleWarningsContentInput contentInput = GetContentInputItemReference(objectClass, oldReference);
-                    if (contentInput != null)
-                    {
-                        AngleWarningsContentInput contentInput2 = GetContentInputItemFieldChanged(contentInput.NewFieldOrClass, oldField);
-                        if (contentInput2 != null)
-                        {
-                            itemSolver.Fix = contentInput.Fix;
-                            itemSolver.ObjectClass = objectClass;
-                            itemSolver.FieldOrClassToReplace = field;
-                            itemSolver.NewFieldOrClass = contentInput.NewFieldOrClass + "__" + contentInput2.NewFieldOrClass;
-                        }
-                        else
-                        {
-                            itemSolver.Fix = contentInput.Fix;
-                            itemSolver.ObjectClass = objectClass;
-                            itemSolver.FieldOrClassToReplace = field;
-                            itemSolver.NewFieldOrClass = contentInput.NewFieldOrClass + "__" + oldField;
-                        }
-
-                        return itemSolver;
-                    }
                 }
             }
                         
