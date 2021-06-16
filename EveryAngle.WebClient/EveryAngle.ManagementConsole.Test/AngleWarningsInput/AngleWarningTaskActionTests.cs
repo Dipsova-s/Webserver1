@@ -69,13 +69,12 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        [Ignore] //dennis
         public void AngleWarningsTaskAction_AddActionArgument_ReplaceField2_ShouldSucceed()
         {
             string modelName = "EA2_800";
             AngleWarningsTaskAction taskAction = new AngleWarningsTaskAction(modelName);
 
-            AngleWarningsContentInput contentInput = new AngleWarningsContentInput(WarningFix.ReplaceField, "R2020SP5", "Material", "FieldA", "FieldB");
+            AngleWarningsContentInput contentInput = new AngleWarningsContentInput(WarningFix.ReplaceField, "R2020SP5", "Material", "Material__FieldA", "Material__FieldB");
 
             taskAction.AddActionArgument("Material__FieldA", contentInput, "WorkOrder", new string[] { "unsupported_display_field" });
 
@@ -134,13 +133,12 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        [Ignore] //dennis
         public void AngleWarningsTaskAction_AddActionArgument_ReplaceReference_ShouldSucceed()
         {
             string modelName = "EA2_800";
             AngleWarningsTaskAction taskAction = new AngleWarningsTaskAction(modelName);
 
-            AngleWarningsContentInput contentInput = new AngleWarningsContentInput(WarningFix.ReplaceReference, "R2020SP5", "BillingDocumentItem", "Test_ref_Payer", "Payer");
+            AngleWarningsContentInput contentInput = new AngleWarningsContentInput(WarningFix.ReplaceReference, "R2020SP5", "BillingDocumentItem", "Test_ref_Payer", "Payer__Description");
 
             taskAction.AddActionArgument("Test_ref_Payer__Description", contentInput, "BillingDocumentItem", new string[] { "unsupported_display_field" });
 

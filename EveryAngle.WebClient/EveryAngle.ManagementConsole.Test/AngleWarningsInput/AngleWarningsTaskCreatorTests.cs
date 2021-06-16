@@ -15,7 +15,6 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        [Ignore] //dennis
         public void AngleWarningsTaskCreator_ShouldReturnCorrectJsonTask()
         {
             string modelName = "EA2_800";
@@ -37,7 +36,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             mainTaskModel.AddAction(actionReplaceField);
 
             //Replace reference
-            AngleWarningsContentInput contentInput3 = new AngleWarningsContentInput(WarningFix.ReplaceReference, "R2020SP4", "BillingDocumentItem", "Test_ref_Payer", "Payer");
+            AngleWarningsContentInput contentInput3 = new AngleWarningsContentInput(WarningFix.ReplaceReference, "R2020SP4", "BillingDocumentItem", "Test_ref_Payer", "Payer__Description");
             AngleWarningsTaskAction actionReplaceReference = new AngleWarningsTaskAction(modelName);
             actionReplaceReference.AddTargetId(contentInput3.Fix, "eadf5b93fbb20a4827ab7e5a25b93994e1", "de3a904054afb7feac660621183330004");
             actionReplaceReference.AddActionArgument("Test_ref_Payer__Description", contentInput3, "BillingDocumentItem", new string[] { "unsupported_display_field" });

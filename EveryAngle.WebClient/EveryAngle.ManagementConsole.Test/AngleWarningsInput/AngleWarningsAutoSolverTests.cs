@@ -90,16 +90,15 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
-        [Ignore] //dennis
         public void AutoSolverRun_MultipleTargets()
         {
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
             contentInputter.Setup(x => x.CountFieldMatches(It.IsAny<string>(), It.IsAny<JObject>())).Returns(5);
             contentInputter.Setup(x => x.TryReadInputList()).Returns(true);
 
-            ItemSolver contentInput1 = new ItemSolver(WarningFix.ReplaceField, "R2020", "Order", "FieldA", "FieldB");
+            ItemSolver contentInput1 = new ItemSolver(WarningFix.ReplaceField, "R2020", "Purchase", "Order__FieldA", "Order__FieldB");
 
-            contentInputter.Setup(x => x.GetInputBySolutionClassAndField("unsupported_display_field", "Purchase", "Order__FieldA", null)).Returns(contentInput1);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_display_field", "Purchase", "Order__FieldA", null)).Returns(contentInput1);
 
             JObject angleWarning1st = new JObject();
             string serializeSummary = JsonConvert.SerializeObject(new AngleWarningsSummaryViewModel());
@@ -148,7 +147,6 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
-        [Ignore] //dennis
         public void CompleteAutoSolverRun()
         {
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
@@ -159,16 +157,16 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             AngleWarningsContentInput contentInput2 = new AngleWarningsContentInput(WarningFix.ReplaceClass, "R2020", "InternalOrder", "InternalOrder", "WorkOrder");
             AngleWarningsContentInput contentInput3 = new AngleWarningsContentInput(WarningFix.ReplaceField, "R2020", "Batch", "FieldB", "FieldC");
             AngleWarningsContentInput contentInput4 = new AngleWarningsContentInput(WarningFix.ReplaceReference, "R2020", "InternalOrder", "InternalOrder", "WorkOrder");
-            AngleWarningsContentInput contentInput5 = new AngleWarningsContentInput(WarningFix.ReplaceReference, "R2020", "BillingDocumentItem", "Test_ref_Payer", "Payer");
+            AngleWarningsContentInput contentInput5 = new AngleWarningsContentInput(WarningFix.ReplaceReference, "R2020", "BillingDocumentItem", "Test_ref_Payer", "Payer__Description");
 
-            contentInputter.Setup(x => x.GetInputBySolutionClassAndField("unsupported_display_field", "Order", "FieldA", null)).Returns(contentInput1);
-            contentInputter.Setup(x => x.GetInputBySolutionClassAndField("unsupported_start_object", "InternalOrder", null, null)).Returns(contentInput2);
-            contentInputter.Setup(x => x.GetInputBySolutionClassAndField("unsupported_sorting_field", "Batch", "FieldB", null)).Returns(contentInput3);
-            contentInputter.Setup(x => x.GetInputBySolutionClassAndField("unsupported_filter_field", "Batch", "FieldB", null)).Returns(contentInput3);
-            contentInputter.Setup(x => x.GetInputBySolutionClassAndField("unsupported_grouping_field", "Batch", "FieldB", null)).Returns(contentInput3);
-            contentInputter.Setup(x => x.GetInputBySolutionClassAndField("unsupported_aggregration_field", "Batch", "FieldB", null)).Returns(contentInput3);
-            contentInputter.Setup(x => x.GetInputBySolutionClassAndField("unsupported_jump", "PurchaseOrderScheduleLine", null, "InternalOrder")).Returns(contentInput4);
-            contentInputter.Setup(x => x.GetInputBySolutionClassAndField("unsupported_display_field", "BillingDocumentItem", "Test_ref_Payer__Description", null)).Returns(contentInput5);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_display_field", "Order", "FieldA", null)).Returns(contentInput1);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_start_object", "InternalOrder", null, null)).Returns(contentInput2);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_sorting_field", "Batch", "FieldB", null)).Returns(contentInput3);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_filter_field", "Batch", "FieldB", null)).Returns(contentInput3);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_grouping_field", "Batch", "FieldB", null)).Returns(contentInput3);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_aggregration_field", "Batch", "FieldB", null)).Returns(contentInput3);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_jump", "PurchaseOrderScheduleLine", null, "InternalOrder")).Returns(contentInput4);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_display_field", "BillingDocumentItem", "Test_ref_Payer__Description", null)).Returns(contentInput5);
 
             JObject angleWarning1st = new JObject();
             string serializeSummary = JsonConvert.SerializeObject(new AngleWarningsSummaryViewModel());
@@ -773,7 +771,8 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
               ""field"": ""FieldB"",
               ""replace_with"": ""FieldC"",
               ""types"": [
-                ""unsupported_grouping_field""
+                ""unsupported_grouping_field"",
+                ""unsupported_display_field""
               ]
             }
           }

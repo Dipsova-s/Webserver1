@@ -210,7 +210,6 @@ namespace EveryAngle.ManagementConsole.Helpers
                         itemSolver.NewFieldOrClass = oldObject + "__" + contentInput.NewFieldOrClass;
                     }
 
-                    Log.SendInfo("Dennis:" + itemSolver.ObjectClass + "," + itemSolver.FieldOrClassToReplace + "," + itemSolver.NewFieldOrClass);
                 }
 
                 return itemSolver;
