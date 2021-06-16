@@ -938,7 +938,6 @@ procedure WriteConfigFiles(IISPhysicalPath, WebSite_FQDN: string);
 var 
   NewWCConfig,
   NewMCConfig: variant;
-  ContentInputFile: string;
 begin
   // Get the settings from the setup Gui
   setAppSetting(WebClientConfig, 'RedirectUrl', AddProtocolUrl(WebClientConfigPage.Values[0]));
@@ -977,17 +976,13 @@ begin
   // Check the existence of the Angle Warnings Content Input File
   if FileExists(DataPath('Tools\Data') + '\AngleWarningsList.xlsx') then
   begin
-    ContentInputFile := DataPath('Tools\Data') + '\AngleWarningsList.xlsx';
-    Log('Angle warnings input file found. Storing location in management console config file');
-  end
-  else
-  begin
-    ContentInputFile := '';
-    Log('Angle warnings input file not found. Resetting setting in management console config file');
+    Log('Angle warnings input file found in Tools\Data folder.');
+    // Do not log the location of file yet, that will come in later pbi
+    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', '');
   end;
 
-  setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', ContentInputFile)
-  
+  ManagementConsoleConfig := MergeAppSettings(ManagementConsoleConfig, NewMCConfig);
+
   // Save management console web.config
   SaveXMLConfigFile(ManagementConsoleConfig, IISPhysicalPath + '\admin', 'web.config');
 end;
