@@ -103,6 +103,8 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.SetParameters.xml"; Des
 Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 ;Diagrams
 Source: "Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
+;Content Input File for fixing angle warnings
+Source: "Content\AngleWarningsList.xlsx"; DestDir: "{code:DataPath|Tools\Data}"; Flags: ignoreversion skipifsourcedoesntexist; Components: webclient
 ;ManagementConsole
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
@@ -845,7 +847,7 @@ begin
   ODataSettings := EmptyJsonObject();
   IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true);
   
-  ODataModelIdFromIni := pri_GetOverrideValue('ODataModelIds');  //dennis  
+  ODataModelIdFromIni := pri_GetOverrideValue('ODataModelIds'); 
   
   if IISPhysicalPath <> '' then
   begin
@@ -936,7 +938,6 @@ procedure WriteConfigFiles(IISPhysicalPath, WebSite_FQDN: string);
 var 
   NewWCConfig,
   NewMCConfig: variant;
-  
 begin
   // Get the settings from the setup Gui
   setAppSetting(WebClientConfig, 'RedirectUrl', AddProtocolUrl(WebClientConfigPage.Values[0]));
@@ -970,6 +971,14 @@ begin
               IISPhysicalPath +'\admin\web.config'#13
               'Setup can not continue!', mbError, MB_OK);
     DoAbort();
+  end;
+
+  // Check the existence of the Angle Warnings Content Input File
+  if FileExists(DataPath('Tools\Data') + '\AngleWarningsList.xlsx') then
+  begin
+    Log('Angle warnings input file found in Tools\Data folder.');
+    // Do not log the location of file yet, that will come in later pbi
+    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', '');
   end;
 
   ManagementConsoleConfig := MergeAppSettings(ManagementConsoleConfig, NewMCConfig);
