@@ -1,5 +1,6 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/ErrorHandler/ErrorHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
+/// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelLabelCategoryHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <chutzpah_reference path="/../../Dependencies/ViewManagement/Shared/ProgressBar.js" />
 /// <chutzpah_reference path="/../../Dependencies/viewmanagement/shared/itemdownloadhandler.js" />
@@ -187,7 +188,7 @@ describe("ImportAngleHandler", function () {
     describe(".SetAngleForUpload", function () {
 
         beforeEach(function () {
-            spyOn(importAngleHandler, "RemoveDenyLabel");
+            spyOn(importAngleHandler, "RemoveDenyAndNonExistingLabel");
         });
 
         var modelUri = '/models/1';
@@ -221,7 +222,7 @@ describe("ImportAngleHandler", function () {
     describe(".SetDashboardForUpload", function () {
 
         beforeEach(function () {
-            spyOn(importAngleHandler, "RemoveDenyLabel");
+            spyOn(importAngleHandler, "RemoveDenyAndNonExistingLabel");
 
             importAngleHandler.Angles = {
                 'angle1': {
@@ -274,7 +275,7 @@ describe("ImportAngleHandler", function () {
         });
     });
 
-    describe(".RemoveDenyLabel", function () {
+    describe(".RemoveDenyAndNonExistingLabel", function () {
 
         var modelUri = '/models/1';
 
@@ -289,23 +290,40 @@ describe("ImportAngleHandler", function () {
                 };
             });
             spyOn(userSettingModel, "GetByName").and.callFake(function () { return ["S2D"]; });
+
+            var myLabels = {
+                'O2C': 'O2C',
+                'S2D': 'S2D',
+                'IT': 'IT',
+                'NonExistingLabel': null
+            };
+
+            spyOn(modelLabelCategoryHandler, "GetLabelById").and.callFake(function (myParam) {
+                return myLabels[myParam];
+            });
         });
 
         it("not have assign label, should assign default business process", function () {
             var angle = {};
-            importAngleHandler.RemoveDenyLabel(angle, modelUri);
+            importAngleHandler.RemoveDenyAndNonExistingLabel(angle, modelUri);
             expect(angle.assigned_labels).toEqual(["S2D"]);
         });
 
         it("have assign label, should remove deny label", function () {
             var angle = { assigned_labels: ["O2C", "IT"] };
-            importAngleHandler.RemoveDenyLabel(angle, modelUri);
+            importAngleHandler.RemoveDenyAndNonExistingLabel(angle, modelUri);
+            expect(angle.assigned_labels).toEqual(["O2C"]);
+        });
+
+        it("have assign label, should remove non-existing label", function () {
+            var angle = { assigned_labels: ["O2C", "NonExistingLabel"] };
+            importAngleHandler.RemoveDenyAndNonExistingLabel(angle, modelUri);
             expect(angle.assigned_labels).toEqual(["O2C"]);
         });
 
         it("all assign label is removed by deny label, should assign default business process", function () {
             var angle = { assigned_labels: ["IT"] };
-            importAngleHandler.RemoveDenyLabel(angle, modelUri);
+            importAngleHandler.RemoveDenyAndNonExistingLabel(angle, modelUri);
             expect(angle.assigned_labels).toEqual(["S2D"]);
         });
     });
@@ -743,6 +761,7 @@ describe("ImportAngleHandler", function () {
             spyOn(searchPageHandler, "BindSearchResultGrid");
             importAngleHandler.UploadCount = 0;
             importAngleHandler.NumberOfUploadedFile = 2;
+            importAngleHandler.GetLabelsFinished = true;
         });
         afterEach(function () {
             restoreMockHandlers();
@@ -873,6 +892,7 @@ describe("ImportAngleHandler", function () {
             spyOn(importAngleHandler, "UploadComplete");
             spyOn(importAngleHandler, "HideUploadPopup");
             spyOn(importAngleHandler, "CloseUploadPopup");
+            spyOn(importAngleHandler, "GetLabels");
             spyOn(progressbarModel, "ShowStartProgressBar");
             spyOn(progressbarModel, "SetProgressBarText");
             spyOn(progressbarModel, "CancelFunction");

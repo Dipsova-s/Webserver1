@@ -9,6 +9,7 @@ function ImportAngleHandler() {
     self.NumberOfUploadedFile = 0;
     self.UploadCount = 0;
     self.AllowedExtensions = ['.json'];
+    self.GetLabelsFinished = false;
 
     self.ResultUploadSuccess = [];
 
@@ -159,7 +160,7 @@ function ImportAngleHandler() {
             if (jQuery.inArray(name, validAngleProperties) === -1)
                 delete angle[name];
         });
-        self.RemoveDenyLabel(angle, modelUri);
+        self.RemoveDenyAndNonExistingLabel(angle, modelUri);
         angle.is_published = false;
         angle.is_template = false;
         angle.is_validated = false;
@@ -205,7 +206,7 @@ function ImportAngleHandler() {
             if (jQuery.inArray(name, validDashboardProperties) === -1)
                 delete dashboard[name];
         });
-        self.RemoveDenyLabel(dashboard, modelUri);
+        self.RemoveDenyAndNonExistingLabel(dashboard, modelUri);
         dashboard.is_published = false;
         dashboard.is_validated = false;
         dashboard.model = modelUri;
@@ -249,14 +250,20 @@ function ImportAngleHandler() {
         }
     };
 
-    self.RemoveDenyLabel = function (angle, modelUri) {
+    self.RemoveDenyAndNonExistingLabel = function (angle, modelUri) {
         var labels = WC.Utility.ToArray(angle.assigned_labels);
         var modelPrivilege = userModel.GetModelPrivilegeByUri(modelUri);
+
+        labels = labels.filter(function(label) {
+            return modelLabelCategoryHandler.GetLabelById(label) !== null;
+        });
+
         jQuery.each(modelPrivilege.label_authorizations, function (key, privilege) {
             if (privilege === 'deny') {
                 labels = jQuery.grep(labels, function (value) { return value !== key; });
             }
         });
+
         if (!labels.length)
             labels = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES);
 
@@ -437,28 +444,35 @@ function ImportAngleHandler() {
     };
 
     self.UploadComplete = function (e) {
-        var itemDeferred = self.GetDashboardAndAngleDeferred();
+        if (!self.GetLabelsFinished) {
+            setTimeout(function() {
+                self.UploadComplete(e);
+            }, 10);
+        }
+        else {
+            var itemDeferred = self.GetDashboardAndAngleDeferred();
 
-        jQuery.whenAllSet(itemDeferred.angleDeferred, 5)
-            .always(function () {
+            jQuery.whenAllSet(itemDeferred.angleDeferred, 5)
+                .always(function () {
                 jQuery.whenAllSet(itemDeferred.dashboardDeferred, 5);
             });
 
-        var showCompleteReport = setInterval(function () {
-            if (self.UploadCount >= self.NumberOfUploadedFile) {
-                errorHandlerModel.Enable(true);
-                progressbarModel.CancelCustomHandler = false;
-                progressbarModel.EndProgressBar();
-                self.ShowCompleteUploadReport();
-                self.CloseUploadPopup(e);
+            var showCompleteReport = setInterval(function () {
+                if (self.UploadCount >= self.NumberOfUploadedFile) {
+                    errorHandlerModel.Enable(true);
+                    progressbarModel.CancelCustomHandler = false;
+                    progressbarModel.EndProgressBar();
+                    self.ShowCompleteUploadReport();
+                    self.CloseUploadPopup(e);
 
-                searchModel.ClearSelectedRow();
-                setTimeout(function () {
-                    searchPageHandler.BindSearchResultGrid(0);
-                }, 500);
-                clearInterval(showCompleteReport);
-            }
-        }, 100);
+                    searchModel.ClearSelectedRow();
+                    setTimeout(function () {
+                            searchPageHandler.BindSearchResultGrid(0);
+                        }, 500);
+                    clearInterval(showCompleteReport);
+                }
+            }, 100);
+        }
     };
 
     self.CheckFileExtension = function (e) {
@@ -494,6 +508,13 @@ function ImportAngleHandler() {
         }
     };
 
+    self.GetLabels = function () {
+        var labelUri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.LABELS);
+        modelLabelCategoryHandler.LoadAllLabels(labelUri).then(function () {
+            self.GetLabelsFinished = true;
+        });
+    };
+
     self.SelectFileUpload = function (e) {
         errorHandlerModel.Enable(false);
         self.SuccessItems([]);
@@ -502,11 +523,14 @@ function ImportAngleHandler() {
         self.NumberOfUploadedFile = e.files.length;
         self.Angles = {};
         self.ResultUploadSuccess = [];
+        self.GetLabelsFinished = false;
 
         // check file extensions
         self.CheckFileExtension(e);
         // check uploaded dashboard files at least one of the linked Angles is uploaded
         self.ValidUploadedFile(e);
+        // Make sure that all labels are loaded
+        self.GetLabels();
 
         if (!e.files.length) {
             self.UploadComplete(e);
