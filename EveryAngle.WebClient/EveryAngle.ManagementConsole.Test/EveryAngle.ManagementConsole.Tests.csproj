@@ -85,6 +85,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -125,6 +126,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AngleWarningsInput\AngleWarningsAutoSolverTests.cs" />
+    <Compile Include="AngleWarningsInput\AngleWarningsContentInputterTests.cs" />
+    <Compile Include="AngleWarningsInput\AngleWarningsContentInputTests.cs" />
+    <Compile Include="AngleWarningsInput\AngleWarningsFileReaderTests.cs" />
+    <Compile Include="AngleWarningsInput\AngleWarningsTaskCreatorTests.cs" />
+    <Compile Include="AngleWarningsInput\AngleWarningTaskActionTests.cs" />
     <Compile Include="App_Start\NinjectWebCommonTest.cs" />
     <Compile Include="Controllers\ActiveLanguageControllerTests.cs" />
     <Compile Include="Controllers\AngleExportsControllerTests.cs" />

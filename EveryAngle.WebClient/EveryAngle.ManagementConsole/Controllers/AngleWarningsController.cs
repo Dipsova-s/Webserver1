@@ -1,6 +1,7 @@
 using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.ManagementConsole.Helpers;
+using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service.Security;
@@ -10,8 +11,10 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Controllers
@@ -22,6 +25,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private readonly IModelService _modelService;
         private readonly IGlobalSettingService _globalSettingService;
+        private readonly IAngleWarningsAutoSolver _angleWarningsAutoSolver;
 
         #endregion
 
@@ -30,19 +34,27 @@ namespace EveryAngle.ManagementConsole.Controllers
         public AngleWarningsController(
             IModelService modelService,
             IGlobalSettingService globalSettingService,
+            IAngleWarningsAutoSolver angleWarningsAutoSolver,
             SessionHelper sessionHelper)
         {
             _modelService = modelService;
             _globalSettingService = globalSettingService;
+            _angleWarningsAutoSolver = angleWarningsAutoSolver;
             SessionHelper = sessionHelper;
+
+            _angleWarningsAutoSolver.Initialize(SessionHelper);
         }
 
         public AngleWarningsController(
-            IModelService modelService, 
-            IGlobalSettingService globalSettingService)
+            IModelService modelService,
+            IGlobalSettingService globalSettingService,
+            IAngleWarningsAutoSolver angleWarningsAutoSolver)
         {
             _modelService = modelService;
             _globalSettingService = globalSettingService;
+            _angleWarningsAutoSolver = angleWarningsAutoSolver;
+
+            _angleWarningsAutoSolver.Initialize(SessionHelper);
         }
 
         #endregion
@@ -53,7 +65,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             var version = SessionHelper.Version;
             var model = SessionHelper.GetModel(modelUri);
-
             ViewBag.TasksUri = version.GetEntryByName("tasks").Uri.ToString();
             ViewBag.TaskHistoryUri = version.GetEntryByName("eventlog").Uri.ToString();
             ViewBag.ModelUri = modelUri;
@@ -83,66 +94,100 @@ namespace EveryAngle.ManagementConsole.Controllers
             var model = SessionHelper.GetModel(modelUri);
             string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
             var result = new AngleWarningsDataSourceResult();
+
             if (formData["level"] == "1")
             {
-                string requestUri = model.angle_warnings_summary.ToString() + string.Format("?include_public={0}&include_private={1}&include_validated={2}&include_angles={3}&include_templates={4}&created_by={5}&" + limitOffsetQueryString, formData["include_public"], formData["include_private"], formData["include_validated"], formData["include_angles"], formData["include_templates"], formData["created_by"]);
-                var angleWarningsResult = this._modelService.GetAngleWarningFirstLevel(requestUri);
-                var data = JsonConvert.DeserializeObject<List<AngleWarningFirstLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
-                var angleWarningViewModelList = new List<AngleWarningsViewModel>();
-                MapWarningFirstLevel(data, angleWarningViewModelList, Convert.ToBoolean(formData["include_angles"]), Convert.ToBoolean(formData["include_templates"]));
-
-                result = new AngleWarningsDataSourceResult
-                {
-                    Data = angleWarningViewModelList,
-                    Summary = JsonConvert.DeserializeObject<AngleWarningsSummaryViewModel>(angleWarningsResult.SelectToken("summary").ToString())
-                };
+                result = GetAngleWarningsFirstLevel(formData, model, limitOffsetQueryString);
+                result.Summary.WarningsSolvable = GetNumberOfSolvableFieldsViaInputFile(result);
             }
             else if (formData["level"] == "2")
             {
-                string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + formData["uri"] + "&" + limitOffsetQueryString;
-                var angleWarningsResult = this._modelService.GetAngleWarningSecondLevel(requestUri);
-                var data = JsonConvert.DeserializeObject<List<AngleWarningSecondLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
-                var angleWarningViewModelList = new List<AngleWarningsViewModel>();
-                List<dynamic> objectNameList = new List<dynamic>();
-                List<FollowupViewModel> jumpNameList = new List<FollowupViewModel>();
-                List<Field> fieldNameList = new List<Field>();
-                List<dynamic> sourceList = new List<dynamic>();
-                WarningType warningType = WarningType.Other;
-                GetDataForSecondLevelWarningName(model, data, ref objectNameList, ref jumpNameList, fieldNameList, sourceList, ref warningType);
-                foreach (AngleWarningSecondLevelViewmodel dataSecondLevel in data)
-                {
-                    var field = fieldNameList.FirstOrDefault(w => w.id == dataSecondLevel.Field);
-                    if (field != null)
-                    {
-                        dataSecondLevel.FieldType = field.fieldtype;
-                    }
-                }
-                MapWarningSecondLevel(formData, data, angleWarningViewModelList, objectNameList, jumpNameList, fieldNameList, sourceList, warningType);
-
-                result = new AngleWarningsDataSourceResult
-                {
-                    Data = angleWarningViewModelList,
-                    Solutions = JsonConvert.DeserializeObject<List<AngleWarningsSolutionsViewModel>>(angleWarningsResult.SelectToken("solutions").ToString()),
-                    SolutionId = int.Parse(formData["id"])
-                };
+                result = GetAngleWarningsSecondLevel(formData, model, limitOffsetQueryString);
             }
             else if (formData["level"] == "3")
             {
-                string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + formData["uri"] + "&" + limitOffsetQueryString;
-                var angleWarningsResult = this._modelService.GetAngleWarningThirdLevel(requestUri);
-                var data = JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
-                var angleWarningViewModelList = new List<AngleWarningsViewModel>();
-                List<dynamic> angleNameList = GetAngleNameList(model, data);
-                List<dynamic> displayNameLIst = GetDisplayNameList(data);
-                MapWarningThirdLevel(formData, data, angleWarningViewModelList, angleNameList, displayNameLIst);
-
-                result = new AngleWarningsDataSourceResult
-                {
-                    Data = angleWarningViewModelList,
-                };
+                result = GetAngleWarningsThirdLevel(formData, model, limitOffsetQueryString);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        private int GetNumberOfSolvableFieldsViaInputFile(AngleWarningsDataSourceResult dataSource)
+        {
+            return _angleWarningsAutoSolver.GetNumberOfSolvableFieldsViaInputFile(dataSource);
+        }
+
+        private AngleWarningsDataSourceResult GetAngleWarningsFirstLevel(FormCollection formData, ModelViewModel model, string limitOffsetQueryString)
+        {
+            AngleWarningsDataSourceResult result;
+            string requestUri = model.angle_warnings_summary.ToString() + string.Format("?include_public={0}&include_private={1}&include_validated={2}&include_angles={3}&include_templates={4}&created_by={5}&" + limitOffsetQueryString, formData["include_public"], formData["include_private"], formData["include_validated"], formData["include_angles"], formData["include_templates"], formData["created_by"]);
+            var angleWarningsResult = this._modelService.GetAngleWarningFirstLevel(requestUri);
+            
+            AngleWarningsAutoSolver.SetFirstLevelWarnings(angleWarningsResult);
+            
+            var data = JsonConvert.DeserializeObject<List<AngleWarningFirstLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
+
+            var angleWarningViewModelList = new List<AngleWarningsViewModel>();
+            MapWarningFirstLevel(data, angleWarningViewModelList, Convert.ToBoolean(formData["include_angles"]), Convert.ToBoolean(formData["include_templates"]));
+
+            result = new AngleWarningsDataSourceResult
+            {
+                Data = angleWarningViewModelList,
+                Summary = JsonConvert.DeserializeObject<AngleWarningsSummaryViewModel>(angleWarningsResult.SelectToken("summary").ToString())
+            };
+            return result;
+        }
+
+        private AngleWarningsDataSourceResult GetAngleWarningsSecondLevel(FormCollection formData, ModelViewModel model, string limitOffsetQueryString)
+        {
+            AngleWarningsDataSourceResult result;
+            string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + formData["uri"] + "&" + limitOffsetQueryString;
+            var angleWarningsResult = this._modelService.GetAngleWarningSecondLevel(requestUri);
+            var data = JsonConvert.DeserializeObject<List<AngleWarningSecondLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
+
+            var angleWarningViewModelList = new List<AngleWarningsViewModel>();
+            List<dynamic> objectNameList = new List<dynamic>();
+            List<FollowupViewModel> jumpNameList = new List<FollowupViewModel>();
+            List<Field> fieldNameList = new List<Field>();
+            List<dynamic> sourceList = new List<dynamic>();
+            WarningType warningType = WarningType.Other;
+            GetDataForSecondLevelWarningName(model, data, ref objectNameList, ref jumpNameList, fieldNameList, sourceList, ref warningType);
+            foreach (AngleWarningSecondLevelViewmodel dataSecondLevel in data)
+            {
+                var field = fieldNameList.FirstOrDefault(w => w.id == dataSecondLevel.Field);
+                if (field != null)
+                {
+                    dataSecondLevel.FieldType = field.fieldtype;
+                }
+            }
+            MapWarningSecondLevel(formData, data, angleWarningViewModelList, objectNameList, jumpNameList, fieldNameList, sourceList, warningType);
+
+            result = new AngleWarningsDataSourceResult
+            {
+                Data = angleWarningViewModelList,
+                Solutions = JsonConvert.DeserializeObject<List<AngleWarningsSolutionsViewModel>>(angleWarningsResult.SelectToken("solutions").ToString()),
+                SolutionId = int.Parse(formData["id"])
+            };
+            return result;
+        }
+
+        private AngleWarningsDataSourceResult GetAngleWarningsThirdLevel(FormCollection formData, ModelViewModel model, string limitOffsetQueryString)
+        {
+            AngleWarningsDataSourceResult result;
+            string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + formData["uri"] + "&" + limitOffsetQueryString;
+            var angleWarningsResult = this._modelService.GetAngleWarningThirdLevel(requestUri);
+            var data = JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
+
+            var angleWarningViewModelList = new List<AngleWarningsViewModel>();
+            List<dynamic> angleNameList = GetAngleNameList(model, data);
+            List<dynamic> displayNameLIst = GetDisplayNameList(data);
+            MapWarningThirdLevel(formData, data, angleWarningViewModelList, angleNameList, displayNameLIst);
+
+            result = new AngleWarningsDataSourceResult
+            {
+                Data = angleWarningViewModelList,
+            };
+            return result;
         }
 
         public ActionResult GetAllJumps(string jumpUri)
@@ -156,9 +201,35 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             var version = SessionHelper.Version;
             var angleWarningTask = _modelService.CreateTask(version.GetEntryByName("tasks").Uri.ToString(), taskData);
-
             var executionTask = _modelService.CreateTask($"{angleWarningTask.Uri}/execution",
                 "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
+           return Json(executionTask, JsonRequestBehavior.AllowGet);
+       }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ExecuteAngleWarningsUsingInputFile(string modelId)
+        {
+            string json;
+            try
+            {
+                json = _angleWarningsAutoSolver.ExecuteAngleWarningsUsingInputFile(modelId);
+
+                if (json == "")
+                {
+                    throw new Exception("Angle warnings solve request is empty.");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Unable to construct automatic solving request: {e.Message}");
+            }
+            
+            var version = SessionHelper.Version;
+            var angleWarningTask = _modelService.CreateTask(version.GetEntryByName("tasks").Uri.ToString(), json);
+
+            var executionTask = _modelService.CreateTask($"{angleWarningTask.Uri}/execution",
+               "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
+
             return Json(executionTask, JsonRequestBehavior.AllowGet);
         }
 
@@ -453,7 +524,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 // set access denied if no Angle and Display
                 if (item.AngleUri == null && item.DisplayUri == null)
                     name.AppendFormat(" ({0})", Resource.MC_AccessDenied.ToLowerInvariant());
-                
+
                 angleWarningViewModel.Name = name.ToString();
                 angleWarningViewModel.DataThirdLevel = item;
                 angleWarningViewModel.ParentId = int.Parse(formData["id"]);

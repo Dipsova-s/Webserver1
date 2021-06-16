@@ -5,13 +5,17 @@ using EveryAngle.Core.ViewModels.FieldCategory;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.ManagementConsole.Controllers;
+using EveryAngle.ManagementConsole.Helpers;
+using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Web.Mvc;
+using static EveryAngle.ManagementConsole.Controllers.AngleWarningsController;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -70,8 +74,13 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             angleWarning3rd.Add("data", JToken.FromObject(new List<AngleWarningThirdLevelViewmodel>()));
             modelService.Setup(x => x.GetAngleWarningThirdLevel(It.IsAny<string>())).Returns(angleWarning3rd);
 
+            Mock<IAngleWarningsAutoSolver> autoWarningsSolver = new Mock<IAngleWarningsAutoSolver>();
+            autoWarningsSolver.Setup(x => x.ExecuteAngleWarningsUsingInputFile("EA_80")).Returns("{test}");
+            autoWarningsSolver.Setup(x => x.ExecuteAngleWarningsUsingInputFile("ReturnEmpty")).Returns("");
+            autoWarningsSolver.Setup(x => x.GetNumberOfSolvableFieldsViaInputFile(It.IsAny<AngleWarningsDataSourceResult>())).Returns(88);
+            
             // assign to controller
-            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, sessionHelper.Object);
+            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoWarningsSolver.Object, sessionHelper.Object);
         }
 
         #endregion
@@ -89,9 +98,22 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             UserViewModel userViewModel = GetMockViewModel<UserViewModel>();
             userViewModel.Settings = GetMockViewModel<UserSettingsViewModel>();
             sessionHelper.Setup(x => x.CurrentUser).Returns(userViewModel);
-            
+
+            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+
+            List<string> csvData = new List<string>();
+            csvData.Add("Field__A,Field__B");
+            csvData.Add("Field__C,Field__D");
+            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+
+            Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
+            contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
+
+            AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
+            autoSolver.Initialize(sessionHelper.Object);
+
             // execute
-            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, sessionHelper.Object);
+            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
             ActionResult result = _testingController.GetAngleWarnings(modelUri, modelId);
 
             // assert
@@ -142,6 +164,19 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.IsNotNull(viewmodels);
         }
 
+        [TestCase]
+        public void Can_ExecuteAngleWarningsUsingInputFile()
+        {
+            Assert.That(() => _testingController.ExecuteAngleWarningsUsingInputFile("ReturnEmpty"), Throws.TypeOf<Exception>());
+
+            JsonResult result = _testingController.ExecuteAngleWarningsUsingInputFile("EA2_800") as JsonResult;
+            TaskViewModel viewmodels = result.Data as TaskViewModel;
+            
+            Assert.IsNotNull(result);
+            Assert.AreEqual(JsonRequestBehavior.AllowGet, result.JsonRequestBehavior);
+            Assert.IsNotNull(viewmodels);
+        }
+       
         [TestCase("/tasks/1")]
         [TestCase("/tasks/2")]
         public void Can_CheckExecuteAngleWarnings(string uri)

@@ -5096,6 +5096,12 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
   <data name="MC_AngleWarnings_InfoTotalWarnings" xml:space="preserve">
     <value>Total number of warnings</value>
   </data>
+  <data name="MC_AngleWarnings_WarningsSolvable" xml:space="preserve">
+    <value>Warnings solvable by input file</value>
+  </data>
+  <data name="MC_AngleWarnings_WarningsSolve" xml:space="preserve">
+    <value>Solve</value>
+  </data>
   <data name="MC_AngleWarnings_InfoUniqueErrors" xml:space="preserve">
     <value>unique errors</value>
   </data>

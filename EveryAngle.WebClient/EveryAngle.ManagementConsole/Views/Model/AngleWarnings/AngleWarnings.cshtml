@@ -19,6 +19,7 @@
                 MC.Models.AngleWarnings.InitialAngleWarnings({
                     SearchAngleWarningsUrl: '@Url.Action("FilterAngleWarnings", "AngleWarnings")',
                     ExecuteAngleWarningsUrl: '@Url.Action("ExecuteAngleWarnings", "AngleWarnings")',
+                    ExecuteAutoAngleWarningsUrl: '@Url.Action("ExecuteAngleWarningsUsingInputFile", "AngleWarnings")',
                     CheckExecuteAngleWarningsUrl: '@Url.Action("CheckExecuteAngleWarnings", "AngleWarnings")',
                     GetAngleWarningTaskHistoryUrl: '@Url.Action("GetAngleWarningTaskHistory", "AngleWarnings")',
                     DeleteAngleWarningTaskUrl: '@Url.Action("DeleteAngleWarningTask", "AngleWarnings")',
@@ -121,7 +122,7 @@
                 <label>@Resource.MC_AngleWarnings_InfoTotalAngles</label>
                 <p>
                     <span id="AnglesTotal"></span>
-                    <span >(@Resource.MC_AngleWarnings_InfoContainErrorsWarnings <strong id="AnglesWarnings"></strong>)</span>
+                    <span>(@Resource.MC_AngleWarnings_InfoContainErrorsWarnings <strong id="AnglesWarnings"></strong>)</span>
                 </p>
             </div>
 
@@ -146,6 +147,14 @@
                 <p>
                     <span id="WarningsTotal"></span>
                     <span>(@Resource.MC_AngleWarnings_InfoUniqueWarnings <strong id="WarningsUnique"></strong>)</span>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_AngleWarnings_WarningsSolvable</label>
+                <p>
+                    <span id="WarningsSolvable"></span>
+                    <a class="btn btnPrimary btnSolveAutoWarnings" id="ButtonSearch" onclick="MC.Models.AngleWarnings.ShowSolveWarningAutoConfirm(this)">@Resource.MC_AngleWarnings_WarningsSolve</a>
                 </p>
             </div>
         </div>

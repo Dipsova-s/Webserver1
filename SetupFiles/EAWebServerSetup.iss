@@ -103,6 +103,8 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.SetParameters.xml"; Des
 Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 ;Diagrams
 Source: "Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
+;Content Input File for fixing angle warnings
+Source: "Content\AngleWarningsList.xlsx"; DestDir: "{code:DataPath|Tools\Data}"; Flags: ignoreversion skipifsourcedoesntexist; Components: webclient
 ;ManagementConsole
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
@@ -845,7 +847,7 @@ begin
   ODataSettings := EmptyJsonObject();
   IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true);
   
-  ODataModelIdFromIni := pri_GetOverrideValue('ODataModelIds');  //dennis  
+  ODataModelIdFromIni := pri_GetOverrideValue('ODataModelIds'); 
   
   if IISPhysicalPath <> '' then
   begin
@@ -936,7 +938,7 @@ procedure WriteConfigFiles(IISPhysicalPath, WebSite_FQDN: string);
 var 
   NewWCConfig,
   NewMCConfig: variant;
-  
+  ContentInputFile: string;
 begin
   // Get the settings from the setup Gui
   setAppSetting(WebClientConfig, 'RedirectUrl', AddProtocolUrl(WebClientConfigPage.Values[0]));
@@ -972,8 +974,20 @@ begin
     DoAbort();
   end;
 
-  ManagementConsoleConfig := MergeAppSettings(ManagementConsoleConfig, NewMCConfig);
+  // Check the existence of the Angle Warnings Content Input File
+  if FileExists(DataPath('Tools\Data') + '\AngleWarningsList.xlsx') then
+  begin
+    ContentInputFile := DataPath('Tools\Data') + '\AngleWarningsList.xlsx';
+    Log('Angle warnings input file found. Storing location in management console config file');
+  end
+  else
+  begin
+    ContentInputFile := '';
+    Log('Angle warnings input file not found. Resetting setting in management console config file');
+  end;
 
+  setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', ContentInputFile)
+  
   // Save management console web.config
   SaveXMLConfigFile(ManagementConsoleConfig, IISPhysicalPath + '\admin', 'web.config');
 end;

@@ -4,6 +4,7 @@
         var self = this;
         self.SearchAngleWarningsUrl = '';
         self.ExecuteAngleWarningsUrl = '';
+        self.ExecuteAutoAngleWarningsUrl = '';
         self.CheckExecuteAngleWarningsUrl = '';
         self.DeleteAngleWarningTaskUrl = '';
         self.GetAllThirdLevelUrl = '';
@@ -85,6 +86,7 @@
         self.InitialAngleWarnings = function (data) {
             self.SearchAngleWarningsUrl = '';
             self.ExecuteAngleWarningsUrl = '';
+            self.ExecuteAutoAngleWarningsUrl = '';
             self.CheckExecuteAngleWarningsUrl = '';
             self.DeleteAngleWarningTaskUrl = '';
             self.GetAllThirdLevelUrl = '';
@@ -285,8 +287,18 @@
         // set warning info
         self.ApplyAngleWarningsInfo = function (e) {
             if (e.response) {
+
                 if (e.response.Summary) {
                     $.each(e.response.Summary, function (name, value) {
+                        if (name === 'WarningsSolvable') {
+                            if (value === 0) {
+                                $('.btnSolveAutoWarnings').addClass('disabled');
+                            }
+                            else {
+                                $('.btnSolveAutoWarnings').removeClass('disabled');
+                            }
+                        }
+
                         if (name === 'AnglesTotal') {
                             var label = $('#' + name).parent().prev();
                             self.UpdateAnglesTotalLabel(label);
@@ -1171,6 +1183,26 @@
                 return deferred.promise();
             }
         };
+        // private method for execute task
+        var executeAutoTask = function (task) {
+            if (task.actions) {
+                return MC.ajax.request({
+                    url: self.ExecuteAutoAngleWarningsUrl,
+                    parameters: {
+                        modelId: self.ModelId
+                    },
+                    type: 'POST'
+                });
+            }
+            else {
+                MC.util.massReport.closeReport();
+                MC.util.showPopupAlert(Localization.MC_AngeWarningsNoBeExecuted);
+
+                var deferred = $.Deferred();
+                deferred.reject();
+                return deferred.promise();
+            }
+        };
         // private method for run all execute task processes
         var executeProcesses = function (task, dataItem) {
             self.SelectNode = '#TreeListAngleWarnings .k-grid-content tr:eq(' + (dataItem.parentId - 1) + ')';
@@ -1179,6 +1211,31 @@
             MC.util.massReport.setStatus(Localization.MC_CurrentProgress, 'executing', '');
 
             executeTask(task)
+                .then(function (data) {
+                    // check result
+                    return self.CheckExecutionAngleWarning(data.Uri);
+                })
+                .then(function (data) {
+                    // delete task
+                    self.DeleteAngleWarningTask(data.Uri);
+                    self.SearchAngleWarnings();
+
+                    MC.util.massReport.setStatus(Localization.MC_CurrentProgress, "getting report", '');
+                    return self.GetAngleWarningTaskHistory(data.History);
+                })
+                .done(function (response) {
+                    MC.util.massReport.closeReport();
+                    $('#showAngleWarningLog').data('correlationid', response.correlation_id);
+                    $('#showAngleWarningLog').trigger('click');
+                    $("#popupLogTable_wnd_title").html(task.name);
+                });
+        };
+        // private method for run all execute auto task processes
+        var executeAutoProcesses = function (task) {
+            MC.util.massReport.initial();
+            MC.util.massReport.setStatus(Localization.MC_CurrentProgress, 'executing', '');
+
+            executeAutoTask(task)
                 .then(function (data) {
                     // check result
                     return self.CheckExecutionAngleWarning(data.Uri);
@@ -1363,6 +1420,70 @@
             else {
                 MC.util.showPopupAlert('No solve warnings selected', 100, 100);
             }
+
+            return task;
+        };
+        // Show execute angles auto confirm
+        self.ShowSolveWarningAutoConfirm = function (btn) {
+
+            btn = $(btn);
+            if (btn.hasClass('disabled')) return;
+
+            // Get checkboxs were selected in 'Action' column in 'Errors and warnings' grid
+            var checkBoxs = $('input[name*="solve_"]:checked');
+
+            // prepare confirm message and execution task if user selected solve angle(s)
+            var task = null;
+
+            var confirmBtn = $(btn);
+            if (confirmBtn.hasClass('alwaysHidden'))
+                return;
+
+            // Create treelist object to use for get data item
+            var treelist = $('#TreeListAngleWarnings').data('kendoTreeList');
+            var confirmMessage = prepareConfirmMessage(checkBoxs, treelist);
+            task = self.CreateTask('Solve angle warnings', 'This task use for solve angle warnings by user selected actions.', self.UserId);
+            var resolveWarningCount = checkBoxs.length;
+            var taskActions = [];
+
+            // prepare task data
+            taskActions = prepareTaskActionsInitial(checkBoxs, treelist, self.ModelId);
+
+            $.each(taskActions, function (index, action) {
+                if (action.DataItem && action.DataItem.hasChildren) {
+                    $.when(getTargetData(action.DataItem, self.GetAllThirdLevelUrl, treelist))
+                        .done(function (response) {
+                            action.TaskAction.arguments.push(response);
+                            var replaceValue = $('#replacement_' + action.CheckBox.name.replace('solve_', '')).val();
+                            var actionArgument = self.CreateTaskActionArgument(action.Solution);
+                            var actionArgumentParameter = self.CreateActionParameter(action.Solution, action.DataItem, replaceValue);
+                            actionArgument = self.ClearUnusedActionArgumentParameter(actionArgument, actionArgumentParameter);
+
+                            action.TaskAction.arguments.push(actionArgument);
+                            task.actions.push(action.TaskAction);
+                        })
+                        .always(function () {
+                            resolveWarningCount--;
+                        });
+                }
+                else
+                    resolveWarningCount--;
+            });
+
+            // show confirm popup after all data prepared
+            var fnCheckGetTaskInfo = setInterval(function () {
+                if (resolveWarningCount <= 0) {
+                    clearInterval(fnCheckGetTaskInfo);
+
+                    // find last expanded item in grid
+                    //var lastItem = taskActions.findObject('Index', task.actions.length - 1);
+                    MC.util.showPopupConfirmation("Execute automatic warnings solving using the input file?", function () {
+                        executeAutoProcesses(task);
+                    }, null, 300, 150);
+                }
+            }, 100);
+
+
 
             return task;
         };

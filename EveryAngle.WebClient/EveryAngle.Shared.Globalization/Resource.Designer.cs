@@ -1132,7 +1132,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Package download is not available, because the selection contains Angle/Templates from multiple models..
+        ///   Looks up a localized string similar to Package download is not available, because the selection contains Angles/Templates from multiple models..
         /// </summary>
         public static string AngleExport_TypePackage_Angle_MultipleModel {
             get {
@@ -1177,7 +1177,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download is not available, because the selection contains dashboards from multiple models..
+        ///   Looks up a localized string similar to Download is not available, because the selection contains Dashboards from multiple models..
         /// </summary>
         public static string AngleExport_TypePackage_Dashboard_MultipleModel {
             get {
@@ -1186,7 +1186,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download is not available, because the selection contains private dashboard(s)..
+        ///   Looks up a localized string similar to Download is not available, because the selection contains Private Dashboard(s)..
         /// </summary>
         public static string AngleExport_TypePackage_Dashboard_Private {
             get {
@@ -3850,7 +3850,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The default Display was deleted or hidden. Close this pop-up to update..
+        ///   Looks up a localized string similar to The Default Display was deleted or hidden. Close this pop-up to update..
         /// </summary>
         public static string ErrorAngleNoDefaultDisplay {
             get {
@@ -5083,7 +5083,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Dashboard cannot be published, because it contains private Displays.&lt;br&gt;&lt;br&gt;Click OK to be redirected to the Definition tab. Then click on Go to Angle to access the Display you wish to publish..
+        ///   Looks up a localized string similar to The Dashboard cannot be published, because it contains Private Displays.&lt;br&gt;&lt;br&gt;Click OK to be redirected to the Definition tab. Then click on Go to Angle to access the Display you wish to publish..
         /// </summary>
         public static string Info_CannotPublishedDashboardBecausePrivateAngleDisplay {
             get {
@@ -5101,7 +5101,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A private Display cannot be set as default Display.
+        ///   Looks up a localized string similar to A Private Display cannot be set as Default Display.
         /// </summary>
         public static string Info_CannotSetPrivateDisplayToDefaultDisplay {
             get {
@@ -7550,7 +7550,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow private angles.
+        ///   Looks up a localized string similar to Allow Private Angles.
         /// </summary>
         public static string MC_AllowPrivateAngles {
             get {
@@ -7762,6 +7762,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_AngleWarnings_InfoUniqueWarnings {
             get {
                 return ResourceManager.GetString("MC_AngleWarnings_InfoUniqueWarnings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warnings solvable by input file.
+        /// </summary>
+        public static string MC_AngleWarnings_WarningsSolvable {
+            get {
+                return ResourceManager.GetString("MC_AngleWarnings_WarningsSolvable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solve.
+        /// </summary>
+        public static string MC_AngleWarnings_WarningsSolve {
+            get {
+                return ResourceManager.GetString("MC_AngleWarnings_WarningsSolve", resourceCulture);
             }
         }
         
@@ -11589,7 +11607,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connect to OData.
+        ///   Looks up a localized string similar to Connect to ODATA/ODBC/JDBC (Pull).
         /// </summary>
         public static string MC_ODataLogin {
             get {
@@ -12462,7 +12480,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Templates that are connected to an object in the object list, always have a default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these default Displays and Filters of that Template..
+        ///   Looks up a localized string similar to Templates that are connected to an object in the object list, always have a Default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these Default Displays and Filters of that Template..
         /// </summary>
         public static string MC_SetAllDefaultTemplateFieldsToSuggested_Description {
             get {
@@ -14050,7 +14068,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use non-default displays on angles.
+        ///   Looks up a localized string similar to Use non-default Displays on Angles.
         /// </summary>
         public static string MC_UseNonDefaultDisplaysAngles {
             get {
@@ -15856,7 +15874,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Personal default Display.
+        ///   Looks up a localized string similar to Personal Default Display.
         /// </summary>
         public static string PersonalDefaultDisplay {
             get {
@@ -16747,7 +16765,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot publish Dashboard. Publish all private Displays first..
+        ///   Looks up a localized string similar to Cannot publish Dashboard. Publish all Private Displays first..
         /// </summary>
         public static string PublishSettings_WidgetsInvalid {
             get {
@@ -17116,7 +17134,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save as private Angle.
+        ///   Looks up a localized string similar to Save as Private Angle.
         /// </summary>
         public static string SaveAsPrivate {
             get {
@@ -17377,7 +17395,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set default Display:.
+        ///   Looks up a localized string similar to Set Default Display:.
         /// </summary>
         public static string SetDefaultDisplay {
             get {
@@ -17449,7 +17467,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show tag for &lt;i class=&quot;iconWarning&quot;&gt;&lt;/i&gt; Angle warnings.
+        ///   Looks up a localized string similar to Show filter for &lt;i class=&quot;iconWarning&quot;&gt;&lt;/i&gt; Angle warnings.
         /// </summary>
         public static string ShowFacetForAngleWarnings {
             get {
@@ -17458,7 +17476,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show only my own private Displays.
+        ///   Looks up a localized string similar to Show only my own Private Displays.
         /// </summary>
         public static string ShowOnlyOwnPrivateDisplays {
             get {

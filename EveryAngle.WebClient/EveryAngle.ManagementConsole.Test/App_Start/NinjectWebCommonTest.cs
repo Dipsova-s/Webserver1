@@ -1,5 +1,7 @@
 ﻿using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.ManagementConsole.App_Start;
+using EveryAngle.ManagementConsole.Helpers;
+using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 using EveryAngle.WebClient.Service.ApiServices;
 using EveryAngle.WebClient.Service.ApplicationServices;
 using EveryAngle.WebClient.Service.WebClientConfigs;
@@ -43,6 +45,11 @@ namespace EveryAngle.ManagementConsole.Test.App_Start
             AddBind<IGlobalSettingsAppService, GlobalSettingsAppService>(kernel);
             AddBind<ICopyrightService, CopyrightService>(kernel);
             AddBind<IFileTemplateService, ExcelTemplatesService>(kernel);
+            AddBind<IAngleWarningsFileReader, AngleWarningsFileReader>(kernel);
+            AddBind<IAngleWarningsContentInputter, AngleWarningsContentInputter> (kernel);
+            AddBind<IFileHelper, FileHelper>(kernel);
+            AddBind<IAngleWarningsAutoSolver, AngleWarningsAutoSolver>(kernel);
+
 
             NinjectWebCommon.RegisterServices(kernel.Object);
 
