@@ -69,6 +69,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
+        [Ignore] //dennis
         public void AngleWarningsTaskAction_AddActionArgument_ReplaceField2_ShouldSucceed()
         {
             string modelName = "EA2_800";
@@ -133,6 +134,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
+        [Ignore] //dennis
         public void AngleWarningsTaskAction_AddActionArgument_ReplaceReference_ShouldSucceed()
         {
             string modelName = "EA2_800";

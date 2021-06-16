@@ -112,13 +112,6 @@ namespace EveryAngle.ManagementConsole.Helpers
                                                    x.FieldOrClassToReplace == oldField);
         }
 
-        private AngleWarningsContentInput GetContentInputItemField(string objectClass, string oldField)
-        {
-            return ContentInputList.FirstOrDefault(x => x.Fix == WarningFix.ReplaceField &&
-                                                   x.ObjectClass == objectClass &&
-                                                   x.FieldOrClassToReplace == oldField);
-        }
-
         public AngleWarningsContentInput GetSolveItem(string warning, string objectClass, string field, string jump)
         {
             ItemSolver itemSolver = new ItemSolver
@@ -205,7 +198,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                 if (contentInput != null)
                 {
                     itemSolver.Fix = contentInput.Fix;
-                    itemSolver.ObjectClass = oldObject;
+                    itemSolver.ObjectClass = objectClass;
                     itemSolver.FieldOrClassToReplace = field;
 
                     if (objectClass == oldObject)
@@ -216,6 +209,8 @@ namespace EveryAngle.ManagementConsole.Helpers
                     {
                         itemSolver.NewFieldOrClass = oldObject + "__" + contentInput.NewFieldOrClass;
                     }
+
+                    Log.SendInfo("Dennis:" + itemSolver.ObjectClass + "," + itemSolver.FieldOrClassToReplace + "," + itemSolver.NewFieldOrClass);
                 }
 
                 return itemSolver;
@@ -286,24 +281,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                 {
                     fieldToCheck = ConstructFieldToCheckFromReferenceField(objectClass, field);
                     contentInput = ContentInputList.FirstOrDefault(x => InputContentMapper.Maps(x.Fix, warning) &&
-                                                                    x.GetClassOrFieldToReplaceString().Equals(fieldToCheck, StringComparison.CurrentCultureIgnoreCase));
-                }
-
-                if (contentInput != null)
-                {
-                    string oldReference = GetReferenceFromReferenceField(field);
-                    string oldField = GetFieldFromReferenceField(field);
-
-                    System.IO.File.WriteAllText(@"c:\temp\" + Guid.NewGuid() + ".txt", field);
-                    
-                    
-                    AngleWarningsContentInput aci = GetInputBySolutionClassAndField("unsupported_display_field", contentInput.NewFieldOrClass, GetFieldFromReferenceField(field), null);
-                    if (aci != null)
-                    {
-                        AngleWarningsContentInput cc = new AngleWarningsContentInput(contentInput.Fix, contentInput.Version, contentInput.ObjectClass, contentInput.FieldOrClassToReplace, contentInput.NewFieldOrClass + "__" + aci.NewFieldOrClass);
-                        contentInput.NewFieldOrClass = contentInput.NewFieldOrClass + "__" + aci.NewFieldOrClass;
-                        contentInput.Fix = WarningFix.ReplaceField;
-                    }
+                                                                   x.GetClassOrFieldToReplaceString().Equals(fieldToCheck, StringComparison.CurrentCultureIgnoreCase));
                 }
 
                 if (contentInput != null)

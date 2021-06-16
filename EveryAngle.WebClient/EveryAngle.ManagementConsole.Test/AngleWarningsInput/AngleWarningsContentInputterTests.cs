@@ -192,38 +192,6 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void AngleWarningsTool_GetInputByDennis()
-        {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
-
-            List<string> csvData = new List<string>
-            {
-                "Replace reference,Replace reference,R2020SP1,BillingDocumentItem,Reference_old_2,BillingDocumentHeader",
-                "Replace Field,Replace Field,R2020SP1,BillingDocumentHeader,Display_old_1,DocumentCurrency",
-                "Replace Field,Replace Field,R2020SP1,BillingDocumentHeader,Display_old_2,CreationDate"
-            };
-
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
-
-            contentInputter.TryReadInputList();
-
-            AngleWarningsContentInput contentInput = contentInputter.GetInputBySolutionClassAndField("unsupported_display_field", "BillingDocumentItem", "Reference_old_2__Display_old_1", null);
-            AngleWarningsContentInput contentInput2 = contentInputter.GetInputBySolutionClassAndField("unsupported_display_field", "BillingDocumentItem", "Reference_old_2__Display_old_2", null);
-
-            Assert.AreEqual("BillingDocumentHeader__DocumentCurrency", contentInput.NewFieldOrClass);
-
-            MainTaskModel mainTaskModel = new MainTaskModel("localEAAdmin");
-            AngleWarningsTaskAction actionReplaceField = new AngleWarningsTaskAction("EA2_800");
-
-            actionReplaceField.AddActionArgument("Reference_old_2__Display_old_1", contentInput, "BillingDocumentItem", new string[] { "unsupported_display_field" });
-            mainTaskModel.AddAction(actionReplaceField);
-
-
-            Assert.IsTrue(11 == 1);
-       }
-
-        [TestCase]
         public void GetSolveItem()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
@@ -244,8 +212,28 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             
            
             Assert.AreEqual("BillingDocumentHeader__DocumentCurrency", contentInput.NewFieldOrClass);
+        }
 
 
+        [TestCase]
+        public void Adeed()
+        {
+            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+
+            List<string> csvData = new List<string>
+            {
+                "Replace Field,Replace Field,R2020SP1,Material,Material123,Material"
+            };
+
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+
+            contentInputter.TryReadInputList();
+
+            AngleWarningsContentInput contentInput = contentInputter.GetSolveItem("unsupported_display_field", "PurchaseOrderLine", "Material__Material123", null);
+
+
+            Assert.AreEqual("Material__Material", contentInput.NewFieldOrClass);
         }
 
 
