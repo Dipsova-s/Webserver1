@@ -112,6 +112,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        //Dennis: Here get number of solvable warnings
         private int GetNumberOfSolvableFieldsViaInputFile(AngleWarningsDataSourceResult dataSource)
         {
             return _angleWarningsAutoSolver.GetNumberOfSolvableFieldsViaInputFile(dataSource);
@@ -206,6 +207,7 @@ namespace EveryAngle.ManagementConsole.Controllers
            return Json(executionTask, JsonRequestBehavior.AllowGet);
        }
 
+        //Dennis: start solving angles
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ExecuteAngleWarningsUsingInputFile(string modelId)
         {

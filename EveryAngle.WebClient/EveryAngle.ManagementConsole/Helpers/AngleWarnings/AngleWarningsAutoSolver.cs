@@ -60,7 +60,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             return result;
         }
 
-        // Dennis: here is begins
+        // Dennis: here is begins solving
         public string ExecuteAngleWarningsUsingInputFile(string modelId)
         {
             if (string.IsNullOrEmpty(modelId))

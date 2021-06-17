@@ -146,6 +146,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             Assert.IsTrue(JObject.DeepEquals(ExceptectedJObject, actualJObject));
         }
 
+        // Dennis: this could do some refactoring
         [TestCase]
         public void CompleteAutoSolverRun()
         {

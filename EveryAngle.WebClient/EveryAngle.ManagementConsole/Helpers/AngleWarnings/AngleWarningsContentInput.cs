@@ -44,8 +44,11 @@ namespace EveryAngle.ManagementConsole.Helpers
             NewFieldOrClass = newField;
 
             //Dennis: the order is meant for determining if a field has been changed in a later version
-            // So: In 2019 Field A was changed into Field B
-            //     In 2020 Field B was changed into Field C
+            // So: In 2019    Field A was changed into Field B
+            //     In 2020    Field B was changed into Field C
+            //     In 2020SP4 Field C was changed into Field D
+            //     In 2020SP5 Field D was changed into Field E
+                  
             // Method CheckIfFieldHasChangedAgainInLaterReleases then changes the contentinput for the 2019 field:
             // OldField = Field A, new field is Field C
             SetOrder();
