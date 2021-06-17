@@ -144,18 +144,6 @@ namespace EveryAngle.ManagementConsole.Helpers
             }
         }
 
-        private static string ReplaceFieldReference(string oldField, string newReference)
-        {
-            string newField = "";
-            string[] split = oldField.Split(new string[] { "__" }, StringSplitOptions.None);
-            if (split.Length == 2)
-            {
-                newField = newReference + "__" + split[1];
-            }
-
-            return newField;
-        }
-
         private ActionValue AddActionArgument_ReplaceField(WarningSolution warningSolution, string field, string replaceWith, string[] types, string[] objects)
         {
             ActionValue actionValue = new ActionValue

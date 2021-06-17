@@ -37,6 +37,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             _firstLevelWarnings = _firstLevelWarnings.Where(x => x.Count > 0).ToList();
         }
 
+        // Dennis: Try to see how many warnings could be solved via the input file
         public int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource)
         {
             int result = 0;
@@ -59,6 +60,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             return result;
         }
 
+        // Dennis: here is begins
         public string ExecuteAngleWarningsUsingInputFile(string modelId)
         {
             if (string.IsNullOrEmpty(modelId))
@@ -73,6 +75,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
             MainTaskModel mainTaskModel = new MainTaskModel(_sessionHelper.CurrentUser.Id);
 
+            // Dennis: get the level one warnings
+            // Postman: https://nl-dennis.eatestad.local:60010/models/1/angle_warnings/summary?include_public=true&include_private=true&include_validated=true&include_angles=true&include_templates=false&created_by=&offset=0&limit=1000
             _firstLevelWarnings.ForEach(x => ConstructAngleWarningActions(mainTaskModel, x, modelId));
 
             return (mainTaskModel.Actions.Count > 0) ? mainTaskModel.GetJsonRequest() : "";
@@ -80,6 +84,10 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
         private void ConstructAngleWarningActions(MainTaskModel mainTaskModel, AngleWarningFirstLevelViewmodel level1AngleWarning, string modelId)
         {
+            //Dennis: get the level 2 warnings
+            // Postman: https://nl-dennis.eatestad.local:60010//models/1/angle_warnings/unsupported_display_field?include_public=true&include_private=true&include_validated=true&include_angles=true&include_templates=false
+            // This "unsupported_display_field" in this api call is gotten from the level1 warning
+            
             List<AngleWarningSecondLevelViewmodel> leve2AngleWarnings = GetLevel2Warnings(level1AngleWarning);
 
             LoopThroughSecondLevelWarnings(mainTaskModel, level1AngleWarning, leve2AngleWarnings, modelId);
@@ -89,18 +97,23 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         {
             foreach (AngleWarningSecondLevelViewmodel level2AngleWarning in leve2AngleWarnings)
             {
-                AngleWarningsContentInput contentInput = GetContentInput(level1AngleWarning.Id, level2AngleWarning);
+                // Dennis: try and see if there is an Excel entry which might solve this angle warning
+                // what we get back is a SolveItem object, this should be refactored (so its a solveitem not a AngleWarningsContentInput
+                // It works because SolveItem is derived from AngleWarningsContentInput, but not so nice
+                AngleWarningsContentInput solveItem = GetContentInput(level1AngleWarning.Id, level2AngleWarning);
 
-
-                if (contentInput == null || contentInput.Fix == WarningFix.NotSupportedMethod)
+                if (solveItem == null || solveItem.Fix == WarningFix.NotSupportedMethod)
                 {
                     continue;
                 }
                 
-                AngleWarningsTaskAction taskAction = AddActionArgument(level1AngleWarning.Id, level2AngleWarning, contentInput, modelId);
+                // Dennis: Add the solveItem to the JSON which will be sent to appserver
+                AngleWarningsTaskAction taskAction = AddActionArgument(level1AngleWarning.Id, level2AngleWarning, solveItem, modelId);
 
+                // Dennis: Add the targetid's (angleid and displayid, if needed) to the JSON
+                // Postman call for level 3 warnings: https://nl-dennis.eatestad.local:60010/models/1/angle_warnings/unsupported_display_field/items?include_public=true&include_private=true&include_validated=true&include_angles=true&include_templates=false&object=BillingDocumentItem&field=ERDAT
                 List<AngleWarningThirdLevelViewmodel> level3AngleWarnings = GetLevel3Warnings(level2AngleWarning);
-                level3AngleWarnings.ForEach(x => AddTargetIds(contentInput.Fix, taskAction, x));
+                level3AngleWarnings.ForEach(x => AddTargetIds(solveItem.Fix, taskAction, x));
 
                 mainTaskModel.AddAction(taskAction);
             }

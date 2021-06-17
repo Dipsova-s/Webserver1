@@ -14,6 +14,7 @@ namespace EveryAngle.ManagementConsole.Helpers
 
         public int Order;
 
+        //Dennis: this is one Excel input line
         public AngleWarningsContentInput(WarningFix fix, string version, string objectClass, string fieldToReplace, string newField)
         {
             if (string.IsNullOrEmpty(version))
@@ -42,6 +43,11 @@ namespace EveryAngle.ManagementConsole.Helpers
             FieldOrClassToReplace = fieldToReplace;
             NewFieldOrClass = newField;
 
+            //Dennis: the order is meant for determining if a field has been changed in a later version
+            // So: In 2019 Field A was changed into Field B
+            //     In 2020 Field B was changed into Field C
+            // Method CheckIfFieldHasChangedAgainInLaterReleases then changes the contentinput for the 2019 field:
+            // OldField = Field A, new field is Field C
             SetOrder();
         }
 
@@ -52,13 +58,6 @@ namespace EveryAngle.ManagementConsole.Helpers
         public string GetClassOrFieldToReplaceString()
         {
             return $"{ObjectClass}__{FieldOrClassToReplace}";
-        }
-
-        public string GetNewFieldString(string startObject)
-        {
-            return ObjectClass.Equals(startObject, StringComparison.CurrentCultureIgnoreCase)
-                ? NewFieldOrClass
-                : $"{ObjectClass}__{NewFieldOrClass}";
         }
 
         private void SetOrder()

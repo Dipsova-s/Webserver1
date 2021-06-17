@@ -68,6 +68,12 @@ namespace EveryAngle.ManagementConsole.Helpers
             return succeeded;
         }
 
+        //Dennis: the order of a content input item is meant for determining if a field has been changed in a later version
+        // So: In 2019 Field A was changed into Field B
+        //     In 2020 Field B was changed into Field C
+        // Method CheckIfFieldHasChangedAgainInLaterReleases then changes the contentinput for the 2019 field:
+        // OldField = Field A, new field is Field C
+
         private void CheckIfFieldHasChangedAgainInLaterReleases()
         {
             foreach (var item in ContentInputList)
@@ -112,6 +118,12 @@ namespace EveryAngle.ManagementConsole.Helpers
                                                    x.FieldOrClassToReplace == oldField);
         }
 
+
+        // Dennis: ItemSolver is meant to be given to the angle warnings tool api as is.
+        // So this gives back how the warning can be solved.
+        // Here some unit tests should be written around.
+        // The input parameters are exact how the come from the appserver API (gotten from level 1 and 2 warning api call)
+        // After this, we can and should refactor this including all private methods it is calling
         public AngleWarningsContentInput GetSolveItem(string warning, string objectClass, string field, string jump)
         {
             ItemSolver itemSolver = new ItemSolver
@@ -247,6 +259,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             return null;
         }
 
+        // Dennis: used for counting the number of solvable items
         public AngleWarningsContentInput GetInputBySolutionClassAndField(string warning, string objectClass, string field, string jump)
         {
             string fieldToCheck = "";

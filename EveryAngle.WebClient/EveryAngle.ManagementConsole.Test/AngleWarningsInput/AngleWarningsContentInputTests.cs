@@ -38,26 +38,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             AngleWarningsContentInput angleWarningsContentInput = new AngleWarningsContentInput(WarningFix.ReplaceField, "R2020", objectClass, fieldToReplace, newField);
 
             Assert.AreEqual(expectedOtherObject, angleWarningsContentInput.GetClassOrFieldToReplaceString());
-            Assert.AreEqual(expectedSameObjectNewField, angleWarningsContentInput.GetNewFieldString(objectClass));
-            Assert.AreEqual(expectedOtherObjectNewField, angleWarningsContentInput.GetNewFieldString("Something"));
         }
 
 
-        [TestCase]
-        public void AngleWarningsTool_ContentInput_GetNewFieldString()
-        {
-            string objectClass = "Order";
-            string fieldToReplace = "FieldA";
-            string newField = "FieldB";
-
-            string expectedSameObjectNewField = "FieldB";
-            string expectedOtherObjectNewField = "Order__FieldB";
-
-            AngleWarningsContentInput angleWarningsContentInput = new AngleWarningsContentInput(WarningFix.ReplaceField, "R2020", objectClass, fieldToReplace, newField);
-
-            Assert.AreEqual(expectedSameObjectNewField, angleWarningsContentInput.GetNewFieldString(objectClass));
-            Assert.AreEqual(expectedOtherObjectNewField, angleWarningsContentInput.GetNewFieldString("Something"));
-        }
 
         [TestCase(WarningFix.ReplaceField, "", "Order", "FieldA", "FieldB")]
         [TestCase(WarningFix.ReplaceField, "R2020SP4", "", "FieldA", "FieldB")]
