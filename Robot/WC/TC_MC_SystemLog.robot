@@ -5,11 +5,12 @@ Suite Teardown      Close Browser
 Force Tags          MC    acc_mc
 
 *** Test Cases ***
-Verify Systemlog File Should Show Forbidden When Access Path Denied
-    [Tags]  acc_mc_aci
-    Get Systemlog File By Arbitrary Path Traversal
-    Go To Application Server Log Page
-    Get Systemlog File By Wrong File Extension
+# Test removed until M4-94396 is complete
+#Verify Systemlog File Should Show Forbidden When Access Path Denied
+#    [Tags]  acc_mc_aci
+#    Get Systemlog File By Arbitrary Path Traversal
+#    Go To Application Server Log Page
+#    Get Systemlog File By Wrong File Extension
 
 Validate logs can be viewed for Application Server
     [Documentation]  This TC is to validate that logs can be viewed for Application Server for all files
