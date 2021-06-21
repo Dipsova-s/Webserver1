@@ -302,7 +302,7 @@ function ResultViewModel() {
 
         var callback = xhr.status === 404 || xhr.status === 503 ? callbackModelServer : callbackCommon;
         var sortErrorMessage = Localization.Info_DisplaySortingReachedLimitation.slice(0, -3);
-        if (message.indexOf(sortErrorMessage) === 0) {
+        if (message && message.indexOf(sortErrorMessage) === 0) {
             callback = callbackRemoveSorting;
         }
         errorHandlerModel.ShowAreaError(element, message, callback);
