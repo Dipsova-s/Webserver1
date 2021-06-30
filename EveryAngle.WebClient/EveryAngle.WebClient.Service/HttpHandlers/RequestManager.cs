@@ -128,7 +128,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             if (!string.IsNullOrEmpty(queryString))
                 requestUrl = requestUrl.Replace(queryString, string.Empty);
 
-            return requestUrl.EndsWith("/file") || requestUrl.Contains("/download");
+            return requestUrl.EndsWith("/file") || requestUrl.Contains("/download") || requestUrl.EndsWith("png/");
         }
 
         public static string GetProxyRequestUrl()

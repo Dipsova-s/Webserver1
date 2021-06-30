@@ -77,6 +77,10 @@ namespace EveryAngle.WebClient.Web
                 {
                     PermanentRedirect(url.ToLower() + HttpContext.Current.Request.Url.Query);
                 }
+                else if (HttpContext.Current.Request.Url.Query.ToLowerInvariant().Contains("filetype="))
+                {
+                   PermanentRedirect(url.ToLowerInvariant() + HttpContext.Current.Request.Url.Query);
+	            }
             }
             else if (url.ToLower().Contains("admin"))
             {

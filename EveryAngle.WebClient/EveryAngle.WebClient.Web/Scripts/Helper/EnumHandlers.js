@@ -477,6 +477,12 @@ function EnumHandlers() {
         ANGLEPOPUP: 'anglepopup'
     };
 
+    self.HELPTEXTPARAMETER = {
+        MODELNAME: 'modelName',
+        IMAGENAME:'imageName',
+        MODELCONTENTIMAGE:'ModelContentImage'
+    }
+
     // action dropdown on search page
     self.SEARCHACTION = {
         SELECTALL: { Text: Localization.SelectAll, Id: 'selectAll' },

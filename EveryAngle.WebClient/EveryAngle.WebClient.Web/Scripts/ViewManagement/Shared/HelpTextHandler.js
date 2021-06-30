@@ -87,10 +87,10 @@ function HelpTextHandler() {
     };
     self.GetTemplate = function () {
         return [
-        '<div class="helpHeaderContainer"></div>',
-        '<div class="helpTextContainer"></div>',
-        '<div class="helpAdditionalContainer"></div>',
-        '<div class="helpObjectId"></div>'
+            '<div class="helpHeaderContainer"></div>',
+            '<div class="helpTextContainer"></div>',
+            '<div class="helpAdditionalContainer"></div>',
+            '<div class="helpObjectId"></div>'
         ].join('');
     };
     self.LoadHelpTextByUri = function (uri) {
@@ -256,7 +256,7 @@ function HelpTextHandler() {
     };
     self.SetHelpTextHtml = function (target, modelUri) {
         // M4-11239: New design: Field info pop-up
-        target.find('.helpTextContainer, .helpHeaderContainer, .helpAdditionalContainer, .helpObjectId' ).empty();
+        target.find('.helpTextContainer, .helpHeaderContainer, .helpAdditionalContainer, .helpObjectId').empty();
         if (self.Field.helptext || self.Field.helpid || self.HelpType === self.HELPTYPE.HELPTEXT) {
             var deferred = [];
             if (self.Field.helptext) {
@@ -302,12 +302,15 @@ function HelpTextHandler() {
                     helpHeaderText += '</p>';
 
                     target.find('.helpHeaderContainer').html(helpHeaderText);
-           
+
                     if (helpText && helpText.html_help) {
                         target.find('.helpTextContainer').html(helpText.html_help);
                         target.find('.helpObjectId').html('<h4>' + self.Field.id + '</h4>');
                         target.find('.helpTextContainer a').each(function () {
                             self.UpdateHelpTextLink(jQuery(this), modelUri);
+                        });
+                        target.find('.helpTextContainer img').each(function () {
+                            self.UpdateHelpTextLinkImage(jQuery(this));
                         });
                     }
 
@@ -344,16 +347,43 @@ function HelpTextHandler() {
     };
     self.UpdateHelpTextLink = function (link, modelUri) {
         var url = link.attr('href');
-        
+
         if (WC.Utility.IsAbsoluteUrl(url))
             return;
-        
+
         // set link
         var query = jQuery.param({ model: modelUri, id: url });
         link.attr({
             'href': helptextPageUrl + '?' + query,
             'target': '_blank'
         });
+    };
+    self.UpdateHelpTextLinkImage = function (image) {
+        var originalUrl = image.attr('src');
+
+        if (self.ValidateHelpTextImageLink(originalUrl)) {
+            var modelName = self.GetUrlParamater(originalUrl, enumHandlers.HELPTEXTPARAMETER.MODELNAME);
+            var imageName = self.GetUrlParamater(originalUrl, enumHandlers.HELPTEXTPARAMETER.IMAGENAME);
+            var imageUrl = modelsHandler.GetModelById(modelName).help_texts_image + "/" + imageName + ".png/";
+
+            // set link
+            var query = jQuery.param({ filetype: enumHandlers.HELPTEXTPARAMETER.MODELCONTENTIMAGE });
+            image.attr({
+                'src': kendo.format('{0}?{1}&{2}', WC.Ajax.BuildRequestUrl(imageUrl, false), query, ValidationRequestService.getVerificationTokenAsQueryString())
+            });
+        }
+    };
+
+    self.ValidateHelpTextImageLink = function (originalUrl) {
+        var regexp = new RegExp(/helptexts\/HelpTextImages.*/ig);
+        return regexp.test(originalUrl);
+    }
+
+    self.GetUrlParamater = function (url, param) {
+        var pattern = param + "=(.*)";
+        var regexp = new RegExp(pattern, 'gi');
+        var result = regexp.exec(url);
+        return result ? result[1].replace(/&(.*)/, "") : '';
     };
     /*================================================*/
     //EOF: Methods
