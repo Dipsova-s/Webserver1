@@ -16,9 +16,9 @@ Verify Expand And Collapse Items In WC Webhelp ToC
     ...                 the left panel and navigation to pages using items link in WC Webhelp.
     Switch Window     Introduction
     Header text of Web Help Page Should Be     Introduction
+    Expand/Collapse Subject Item In Webhelp Page TOC       ${SubjectItemInTOC}
     Verify Expanded Item In Webhelp Page TOC
     Expand/Collapse Subject Item In Webhelp Page TOC       ${SubjectItemInTOC}
     Verify Collapsed Item In Webhelp Page TOC
     Expand/Collapse Subject Item In Webhelp Page TOC       ${SubjectItemInTOC}
-    Verify Expanded Item In Webhelp Page TOC
     Header text of a page on clicking an Item link in left panel Should Be       Supporting concepts     Supporting concepts

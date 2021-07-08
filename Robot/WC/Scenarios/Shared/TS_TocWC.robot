@@ -20,12 +20,12 @@ Expand/Collapse Subject Item In Webhelp Page TOC
 Verify Expanded Item In Webhelp Page TOC
     Wait Until Element Is Visible           ${leftPanelHelpPage}
     Element Should Contain       ${leftPanelHelpPage}     Supporting concepts
-    Element Should Contain       ${leftPanelHelpPage}     Navigating Every Angle
+    Element Should Contain       ${leftPanelHelpPage}     Navigating Angles for SAP
     Element Should Contain       ${leftPanelHelpPage}     User configuration
 
 Verify Collapsed Item In Webhelp Page TOC
     Element Should Not Contain      ${leftPanelHelpPage}     Supporting concepts
-    Element Should Not Contain      ${leftPanelHelpPage}     Navigating Every Angle
+    Element Should Not Contain      ${leftPanelHelpPage}     Navigating Angles for SAP
     Element Should Not Contain      ${leftPanelHelpPage}     User configuration
 
 Header text of Web Help Page Should Be
