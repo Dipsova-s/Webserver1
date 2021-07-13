@@ -467,7 +467,11 @@ function AnglePageHandler() {
     self.SaveSidePanelCallback = function () {
         self.UpdateLayout(0);
     };
-    self.UpdateSidePanelHandlers = function () {
+    self.UpdateSidePanelHandlers = function (isAngleAndDisplayWithoutResult) {
+
+        // labels
+        isAngleAndDisplayWithoutResult && self.HandlerAngle.InitialLabel(jQuery('.section-labels'));
+
         // tags
         self.HandlerAngle.InitialTag(jQuery('.section-tags'));
 
@@ -1253,7 +1257,7 @@ function AnglePageHandler() {
         resultModel.LoadResultFields(false)
             .done(function () {
                 self.LoadResultFieldDone = true;
-                self.ApplyExecutionAngle();
+                self.ApplyExecutionAngle(true);
                 self.BuildFieldSettingWhenNoResult(displayData);
             });
     };
@@ -1326,9 +1330,9 @@ function AnglePageHandler() {
         angleInfoModel.ModelServerAvailable = true;
     };
 
-    self.ApplyExecutionAngle = function () {
+    self.ApplyExecutionAngle = function (isAngleAndDisplayWithoutResult) {
         progressbarModel.EndProgressBar();
-        self.UpdateSidePanelHandlers();
+        self.UpdateSidePanelHandlers(isAngleAndDisplayWithoutResult);
         self.RenderActionDropdownList();
         self.RenderDisplayTabs();
         self.SetWrapperHeight();
