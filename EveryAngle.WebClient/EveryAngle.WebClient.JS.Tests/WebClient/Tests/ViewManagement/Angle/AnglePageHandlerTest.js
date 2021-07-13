@@ -133,7 +133,6 @@ describe("AnglePageHandler", function () {
 
     describe(".SaveAdhocDisplays", function () {
         it('should retrieve adhoc display and store in local storage', function () {
-
             var display = {
                 display_name: 'display_name',
                 uri: 'display_data_uri'
@@ -179,6 +178,50 @@ describe("AnglePageHandler", function () {
             expect(anglepageHandler.HandlerDisplayOverview.IsVisibleKeepFilter).toHaveBeenCalled();
             expect(anglepageHandler.HandlerDisplayOverview.CanKeepFilter).toHaveBeenCalled();
             expect(anglepageHandler.HandlerDisplayOverview.UpdateExecutionInfo).toHaveBeenCalled();
+        });
+    });
+
+    describe(".UpdateSidePanelHandlers", function () { //M4-94835
+        beforeEach(function () {
+            //prepare
+            var data = {
+                Data: function () {
+                    return {
+                        is_angle_default: function () { }
+                    };
+                },
+                SetAngleDefault: function () {
+                    return {}
+                }
+            }
+            spyOn(anglepageHandler.HandlerAngle, 'InitialLabel');
+            spyOn(anglepageHandler.HandlerAngle, 'InitialTag');
+            spyOn(anglepageHandler.HandlerDisplay, 'InitialDefaultDrilldown');
+            spyOn(anglepageHandler.HandlerDisplay, 'InitialExcelTemplate');
+            spyOn(anglepageHandler.HandlerAngle, 'GetDefaultDisplay').and.returnValues(data);
+        });
+        afterEach(function () {
+            expect(anglepageHandler.HandlerAngle.InitialTag).toHaveBeenCalledWith(jQuery('.section-tags'));
+            expect(anglepageHandler.HandlerDisplay.InitialDefaultDrilldown).toHaveBeenCalledWith('.section-default-drilldown');
+            expect(anglepageHandler.HandlerDisplay.InitialExcelTemplate).toHaveBeenCalledWith('.section-default-excel-template');
+        });
+        it("Should not call InitialLabel when isAngleAndDisplayWithoutResult undefined", function () {           
+            anglepageHandler.UpdateSidePanelHandlers();
+
+            //assert
+            expect(anglepageHandler.HandlerAngle.InitialLabel).not.toHaveBeenCalled();           
+        });
+        it("Should not call InitialLabel when isAngleAndDisplayWithoutResult false", function () {
+            anglepageHandler.UpdateSidePanelHandlers(false);
+
+            //assert
+            expect(anglepageHandler.HandlerAngle.InitialLabel).not.toHaveBeenCalled();
+        });
+        it("Should call InitialLabel when isAngleAndDisplayWithoutResult true", function () {
+            anglepageHandler.UpdateSidePanelHandlers(true);
+
+            //assert
+            expect(anglepageHandler.HandlerAngle.InitialLabel).toHaveBeenCalledWith(jQuery('.section-labels'));
         });
     });
 });
