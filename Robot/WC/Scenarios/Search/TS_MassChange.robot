@@ -61,7 +61,8 @@ Set Template To Angle Via Search Page
     Element Should Not Contain    ${gridSearchResult}    ${angleName}
     Click Search Filter Template
     Wait Progress Bar Search Closed
-    Delete All Search Result Items
+    ${itemCount}    Get Number Of Search Results
+    Delete All Search Result Items      ${itemCount}
     Element Should Not Contain    ${gridSearchResult}    ${angleName}
 
 Set Publish To Angle Via Search Page
@@ -83,7 +84,8 @@ Set Publish To Angle Via Search Page
     Click Close Mass Change Report Popup
     Check Existing Angle From Search Result    ${angleName}
     Check First Angle From Search Result Is Private
-    Delete All Search Result Items
+    ${itemCount}    Get Number Of Search Results
+    Delete All Search Result Items      ${itemCount}
     Element Should Not Contain    ${gridSearchResult}    ${angleName}
 
 Set Validate To Angle Via Search Page
@@ -106,5 +108,6 @@ Set Validate To Angle Via Search Page
     Click Close Mass Change Report Popup
     Check Existing Angle From Search Result    ${angleName}
     Page Should Not Contain Element    ${validatedStatusFromFirstAngleInSearchResult}
-    Delete All Search Result Items
+    ${itemCount}    Get Number Of Search Results
+    Delete All Search Result Items      ${itemCount}
     Element Should Not Contain    ${gridSearchResult}    ${angleName}

@@ -19,7 +19,7 @@ Import Item From Directory
 
     Search Filter By Query String    sort=name&dir=asc&ids=${ids}
     ${itemCount}    Get Number Of Search Results
-    Run Keyword If    ${itemCount}>0    Delete All Search Result Items
+    Run Keyword If    ${itemCount}>0    Delete All Search Result Items      ${itemCount}
 
     Log   Importing 
     @{angleFiles}  Create List

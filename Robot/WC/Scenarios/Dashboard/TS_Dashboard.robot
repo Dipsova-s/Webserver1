@@ -177,6 +177,7 @@ Edit Dashboard Description On Dashboard Name
 Show Edit Dashboard Description Popup
     Open Side Panel
     Click Dashboard Tab
+    Wait Until Page Contains Element       ${btnEditDashboardDescription}
     Click Edit Dashboard Description
 
 Edit Dashboard ID

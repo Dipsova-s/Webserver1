@@ -28,6 +28,8 @@ Verify Publishing Dashboard
 
     # Publish Display
     Publish Display From Dashboard Page    0
+    Reload Dashboard Page
+    Open Dashboard Publishing Popup
     Dashboard Publish Settings Popup Should Not Contain Private Display Warnings
 
     # Publish Dashboard

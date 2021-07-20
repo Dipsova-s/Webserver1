@@ -20,5 +20,6 @@ Add Display To Angle Test
     ${expectedResult}    Convert To Integer    3
     Should Be Equal    ${displayLength}    ${expectedResult}
     Click Select First Item From Search Result
-    Delete All Search Result Items
+    ${itemCount}    Get Number Of Search Results
+    Delete All Search Result Items      ${itemCount}
     Element Should Not Contain    ${gridSearchResult}    ${angleName}

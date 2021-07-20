@@ -133,11 +133,14 @@ Click Select All Items from Search Result
     Wait Until Page Contains    ${totalItems} item(s) selected
 
 Delete Selecting Items
+    [Arguments]     ${itemCount}
     Click Search Action Delete Items
     Wait Until Page Contains    Are you sure you want to delete
     Click Element    ${btnConfirmDeleteAngle}
     Wait Progress Bar Closed
     Wait Until Element Is Visible    ${btnCloseDeleteAngleReportPopup}
+    ${totalItems} =    Get Number of Deleted Angle
+    Should Be Equal    ${itemCount}    ${totalItems}
     Click Element    ${btnCloseDeleteAngleReportPopup}
     Check And Wait Until Element Is Not Visible    ${divDeleteAngleProgress}
     Sleep    ${TIMEOUT_GENERAL}
@@ -145,11 +148,12 @@ Delete Selecting Items
 
 Delete First Search Result Item
     Click Select First Item From Search Result
-    Delete Selecting Items
+    Delete Selecting Items      ${1}
 
 Delete All Search Result Items
+    [Arguments]     ${itemCount}
     Click Select All Items from Search Result
-    Delete Selecting Items
+    Delete Selecting Items      ${itemCount}
 
 Copy Angle Via Search Action
     Click Select First Item From Search Result

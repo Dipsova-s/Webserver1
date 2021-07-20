@@ -12,6 +12,8 @@ Verify Notification Feed
     Wait WC Notification Feed Loaded
     Check Notification Feed On Welcome Page
     Search By Text And Expect In Search Result    Angle For General Test
+    Wait WC Notification Feed Loaded on Topbar
     Check Notification Feed On Topbar
     Open Angle From First Angle in Search Page    Angle For General Test
+    Wait WC Notification Feed Loaded on Topbar
     Check Notification Feed On Topbar

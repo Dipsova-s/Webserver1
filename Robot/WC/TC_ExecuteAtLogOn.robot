@@ -22,7 +22,8 @@ Verify Item Execute At Logon Work
     Switch Window    NEW
     ${angleNameWithSetExecuteAtLogin}    Execute Javascript    return jQuery("#SectionInfo .displayNameContainer .name").text() 
     Switch Window    MAIN
-    Delete All Search Result Items
+    ${itemCount}    Get Number Of Search Results
+    Delete All Search Result Items      ${itemCount}
     Sleep    ${TIMEOUT_LARGEST}
     Should be Equal     ${angleName}    ${angleNameWithSetExecuteAtLogin}
     Element Should Not Contain    ${gridSearchResult}    ${angleName}

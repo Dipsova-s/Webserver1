@@ -70,7 +70,8 @@ Copy And Delete Angle Via Search Page
     Search By Text And Expect In Search Result    ${angleName}
     Copy Angle Via Search Action
     Search By Text And Expect In Search Result    ${angleName} (copy)
-    Delete All Search Result Items
+    ${itemCount}    Get Number Of Search Results
+    Delete All Search Result Items      ${itemCount}
     Element Should Not Contain    ${gridSearchResult}    ${angleName} (copy)
 
 Create Template from Angle
@@ -81,7 +82,8 @@ Create Template from Angle
     Search By Text And Expect In Search Result    ${angleName}
     Click Search Filter Template
     Check Existing Angle From Search Result    ${angleName}
-    Delete All Search Result Items
+    ${itemCount}    Get Number Of Search Results
+    Delete All Search Result Items      ${itemCount}
     Element Should Not Contain    ${gridSearchResult}    ${angleName}
 
 Verify Last Execute Time Angle
@@ -137,7 +139,7 @@ Delete Item On Search Page
     [Arguments]   ${name}
     Search By Text    ${name}
     ${itemCount}    Get Number Of Search Results
-    Run Keyword If    ${itemCount}>0    Delete All Search Result Items
+    Run Keyword If    ${itemCount}>0    Delete All Search Result Items      ${itemCount}
     Element Should Not Contain    ${gridSearchResult}    ${name}
 
 Execute All Displays In Angle

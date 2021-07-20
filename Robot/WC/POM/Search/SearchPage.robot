@@ -702,3 +702,7 @@ Check Existing Tag From Search Result
 
 Check Existing Most Used Tag From Search Filter
     Page Should Contain Element  ${divMostUsedTagFilter}
+
+Get Number of Deleted Angle
+    ${itemCount}    Execute Javascript     return parseInt(jQuery('#popupReport').text().replace('Deleting Dashboard/Angles successful ',''))
+    [return]   ${itemCount}
