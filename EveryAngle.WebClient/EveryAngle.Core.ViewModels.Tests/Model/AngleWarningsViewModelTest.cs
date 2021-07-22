@@ -142,7 +142,8 @@ namespace EveryAngle.Core.ViewModels.Tests
                 DisplaysWarnings = 3,
                 ErrorsTotal = 4,
                 WarningsTotal = 5,
-                WarningsUnique = 6
+                WarningsUnique = 6,
+                WarningsSolvable = 7
             };
         }
 

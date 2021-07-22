@@ -813,5 +813,57 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return JsonConvert.DeserializeObject<SystemRoleViewModel>(jsonResult.ToString(),
                new UnixDateTimeConverter());
         }
+
+        public bool ClassIdExists(string uri, string classId, ref Dictionary<string, List<string>> cachedClasses)
+        {
+            List<string> classes;
+
+            if (cachedClasses.ContainsKey(uri))
+            {
+                classes = cachedClasses[uri];
+            }
+            else
+            {
+                classes = GetClassesId(uri);
+                cachedClasses.Add(uri, classes);
+            }
+
+            return classes.Contains(classId, StringComparer.OrdinalIgnoreCase);
+        }
+
+        public bool FollowUpIdExists(string uri, string followUpId, ref Dictionary<string, List<FollowupViewModel>> cachedFollowUps)
+        {
+            List<FollowupViewModel> followUps;
+            
+            if (cachedFollowUps.ContainsKey(uri))
+            {
+                followUps = cachedFollowUps[uri];
+            }
+            else
+            {
+                followUps = GetFollowups(uri);
+                cachedFollowUps.Add(uri, followUps);
+            }
+
+            return followUps.Any(x => x.id.Equals(followUpId, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public bool FieldExists(string uri, string field, ref Dictionary<string, FieldViewModel> cachedFields)
+        {
+            FieldViewModel fields;
+
+            if (cachedFields.ContainsKey(uri))
+            {
+                fields = cachedFields[uri];
+            }
+            else
+            {
+                fields = GetModelFields(uri);
+                cachedFields.Add(uri, fields);
+            }
+
+            return fields.fields.Any(x => x.id.Equals(field, StringComparison.OrdinalIgnoreCase));
+        }
+
     }
 }

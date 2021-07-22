@@ -19,6 +19,7 @@
                 MC.Models.AngleWarnings.InitialAngleWarnings({
                     SearchAngleWarningsUrl: '@Url.Action("FilterAngleWarnings", "AngleWarnings")',
                     ExecuteAngleWarningsUrl: '@Url.Action("ExecuteAngleWarnings", "AngleWarnings")',
+                    ExecuteAutoAngleWarningsUrl: '@Url.Action("ExecuteAngleWarningsUsingInputFile", "AngleWarnings")',
                     CheckExecuteAngleWarningsUrl: '@Url.Action("CheckExecuteAngleWarnings", "AngleWarnings")',
                     GetAngleWarningTaskHistoryUrl: '@Url.Action("GetAngleWarningTaskHistory", "AngleWarnings")',
                     DeleteAngleWarningTaskUrl: '@Url.Action("DeleteAngleWarningTask", "AngleWarnings")',
@@ -74,12 +75,12 @@
                     </label>
 
                     <label>
-                        <input type="checkbox" name="include_private" id="include_private" />
+                        <input type="checkbox" name="include_private" id="include_private" checked="checked" />
                         <span class="label">@Resource.MC_AngleWarnings_FilterPrivateItems</span>
                     </label>
 
                     <label>
-                        <input type="checkbox" name="include_validated" id="include_validated" />
+                        <input type="checkbox" name="include_validated" id="include_validated" checked="checked" />
                         <span class="label">@Resource.MC_AngleWarnings_FilterValidatedItems</span>
                     </label>
                     
@@ -121,7 +122,7 @@
                 <label>@Resource.MC_AngleWarnings_InfoTotalAngles</label>
                 <p>
                     <span id="AnglesTotal"></span>
-                    <span >(@Resource.MC_AngleWarnings_InfoContainErrorsWarnings <strong id="AnglesWarnings"></strong>)</span>
+                    <span>(@Resource.MC_AngleWarnings_InfoContainErrorsWarnings <strong id="AnglesWarnings"></strong>)</span>
                 </p>
             </div>
 
@@ -193,8 +194,10 @@
                 )
             </div>
 
-            <div class="textRight">
-                <a class="btn btnExecuteAction" id="showSolveWarningConfirm" onclick="MC.Models.AngleWarnings.ShowSolveWarningConfirm(this)">Execute</a>
+            <div class="textLeft">
+
+                <a class="btn btnPrimary btnSolveAutoWarnings" id="ButtonSearch" onclick="MC.Models.AngleWarnings.ShowSolveWarningAutoConfirm(this)"></a>
+                <a class="btn btnExecuteAction" id="showSolveWarningConfirm" onclick="MC.Models.AngleWarnings.ShowSolveWarningConfirm(this)">Solve with selected actions</a>
             </div>
         </div>
     </div>

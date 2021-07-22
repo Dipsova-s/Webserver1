@@ -2,6 +2,8 @@ using System;
 using System.Web;
 using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.ManagementConsole.App_Start;
+using EveryAngle.ManagementConsole.Helpers;
+using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service.ApiServices;
 using EveryAngle.WebClient.Service.ApplicationServices;
@@ -87,6 +89,10 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<IGlobalSettingsAppService>().To<GlobalSettingsAppService>();
             kernel.Bind<ICopyrightService>().To<CopyrightService>();
             kernel.Bind<IFileTemplateService>().To<ExcelTemplatesService>();
+            kernel.Bind<IAngleWarningsFileReader>().To<AngleWarningsFileReader>();
+            kernel.Bind<IAngleWarningsContentInputter>().To<AngleWarningsContentInputter>();
+            kernel.Bind<IFileHelper>().To<FileHelper>();
+            kernel.Bind<IAngleWarningsAutoSolver>().To<AngleWarningsAutoSolver>();
         }
     }
 }

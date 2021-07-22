@@ -54,7 +54,10 @@ namespace EveryAngle.Core.ViewModels.Model
         public int WarningsTotal { get; set; }
 
         [JsonProperty(PropertyName = "warnings_unique")]
-        public int WarningsUnique { get; set; }
+        public int WarningsUnique { get ; set; }
+
+        [JsonProperty(PropertyName = "warnings_solvable")]
+        public int WarningsSolvable { get; set; }
     }
 
     public class AngleWarningsSolutionsViewModel
