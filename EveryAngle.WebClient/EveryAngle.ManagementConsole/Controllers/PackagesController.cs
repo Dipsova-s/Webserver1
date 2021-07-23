@@ -227,7 +227,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ManageMultiplePackage(List<ActivePackageQueryViewModel> packages)
         {
-            var actions = new List<TaskAction>();
+            var actions = new List<Core.ViewModels.Cycle.TaskAction>();
 
             foreach (var input in packages)
             {
@@ -242,7 +242,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     arguments.Add(new Argument { name = TaskArgumentConstant.AutoCreateMissingUsers, value = true });
                     AddArgumentsForUpgradePackage(arguments, package, input);
                 }
-                actions.Add(new TaskAction 
+                actions.Add(new Core.ViewModels.Cycle.TaskAction 
                 {
                     action_type = input.IsActive ? "activate_package" : "deactivate_package",
                     arguments = arguments
@@ -307,9 +307,9 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             TaskViewModel taskViewModel = new TaskViewModel
             {
-                actions = new List<TaskAction>
+                actions = new List<Core.ViewModels.Cycle.TaskAction>
                 {
-                    new TaskAction
+                    new Core.ViewModels.Cycle.TaskAction
                     {
                         action_type = activePackageQueryViewModel.IsActive ? "activate_package" : "deactivate_package",
                         arguments = arguments

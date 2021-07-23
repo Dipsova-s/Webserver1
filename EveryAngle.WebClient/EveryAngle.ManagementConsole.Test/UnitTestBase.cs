@@ -70,6 +70,8 @@ namespace EveryAngle.ManagementConsole.Test
                 short_name = "EA2_800",
                 Agent = new Uri("/uri/2", UriKind.Relative),
                 FieldsUri = new Uri("/models/1/fields", UriKind.Relative),
+                ClassesUri = new Uri("/models/1/classes", UriKind.Relative),
+                FollowupsUri = new Uri("/models/1/followups", UriKind.Relative),
                 angle_warnings_summary = new Uri("angles/x/warnings", UriKind.Relative)
             };
 

@@ -105,5 +105,12 @@ namespace EveryAngle.Core.Interfaces.Services
         JObject GetAngleWarningThirdLevel(string uri);
 
         List<FollowupViewModel> GetFollowups(string uri);
+
+        bool ClassIdExists(string uri, string classId, ref Dictionary<string, List<string>> cachedClasses);
+
+        bool FollowUpIdExists(string uri, string followUpId, ref Dictionary<string, List<FollowupViewModel>> cachedFollowUps);
+
+        bool FieldExists(string uri, string field, ref Dictionary<string, FieldViewModel> cachedFields);
+
     }
 }

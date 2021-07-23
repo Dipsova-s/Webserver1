@@ -49,6 +49,9 @@
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EA.EPPlus.4.1.0\lib\net35-client\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="EveryAngle.Logging, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Logging.3.0.38190\lib\net461\EveryAngle.Logging.dll</HintPath>
     </Reference>
@@ -95,6 +98,9 @@
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.3.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -135,6 +141,7 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="Raize.CodeSiteLogging, Version=5.1.8.0, Culture=neutral, PublicKeyToken=5979856d688ff136, processorArchitecture=MSIL">
       <HintPath>..\packages\Raize.CodeSiteLogging.5.1.8\lib\net45\Raize.CodeSiteLogging.dll</HintPath>
     </Reference>
@@ -147,6 +154,9 @@
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -173,10 +183,12 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Text.Encodings.Web, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.7.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
+    <Reference Include="System.Threading.Tasks, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -267,9 +279,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AngleWarnings\AngleWarningsAutoSolver.cs" />
+    <Compile Include="Helpers\AngleWarnings\AngleWarningsContentInputter.cs" />
+    <Compile Include="Helpers\AngleWarnings\AngleWarningsFileReader.cs" />
+    <Compile Include="Helpers\AngleWarnings\AngleWarningsContentInput.cs" />
+    <Compile Include="Helpers\AngleWarnings\AngleWarningsTaskAction.cs" />
+    <Compile Include="Helpers\AngleWarnings\AngleWarningsTaskActionModel.cs" />
+    <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsFileReader.cs" />
+    <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsContentInputter.cs" />
+    <Compile Include="Helpers\AngleWarnings\Enums\EAVersion.cs" />
+    <Compile Include="Helpers\AngleWarnings\Enums\WarningSolution.cs" />
+    <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsTaskAction.cs" />
+    <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsAutoSolver.cs" />
+    <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsContentInput.cs" />
+    <Compile Include="Helpers\AngleWarnings\Helpers\InputContentMapper.cs" />
+    <Compile Include="Helpers\AngleWarnings\ItemSolver.cs" />
+    <Compile Include="Helpers\AngleWarnings\Enums\WarningFix.cs" />
     <Compile Include="Helpers\AssemblyInfoHelper.cs" />
     <Compile Include="Helpers\ConsolidateRoleHelper.cs" />
     <Compile Include="Helpers\ExcelTemplateHelper.cs" />
+    <Compile Include="Helpers\AngleWarnings\Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\AngleWarnings\Contracts\IFileHelper.cs" />
     <Compile Include="Helpers\ParallelRequestHelper.cs" />
     <Compile Include="Helpers\EventLogHelper.cs" />
     <Compile Include="Helpers\Log4NetStorage.cs" />
