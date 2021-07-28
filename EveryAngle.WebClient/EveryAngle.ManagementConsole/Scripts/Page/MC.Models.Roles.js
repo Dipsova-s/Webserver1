@@ -1430,7 +1430,7 @@
                 tagTemplate: '#: (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
                 template: '#: (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
                 filter: 'startswith',
-                autoClose: false,
+                autoClose: true,
                 change: self.onMultiSelectChange
             };
 
