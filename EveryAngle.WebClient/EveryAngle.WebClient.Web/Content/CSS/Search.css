@@ -1050,9 +1050,9 @@
       #LeftMenu .tags-most-used .item-label .tag-count {
         padding-left: 3px; }
     #LeftMenu .tags-most-used .item-label-selected {
-      background-color: #358ed7; }
+      background-color: #25cad2; }
       #LeftMenu .tags-most-used .item-label-selected:hover {
-        background-color: #358ed7;
+        background-color: #25cad2;
         text-shadow: none; }
   #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox {
     padding-bottom: 9px; }

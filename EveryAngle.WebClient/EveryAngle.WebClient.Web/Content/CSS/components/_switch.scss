@@ -12,13 +12,14 @@
 
     label {
         cursor: pointer;
+        margin-left: 16px;
 
         input[type=checkbox] {
             opacity: 0;
             margin-left: 25px;
 
             &:checked + .lever {
-                background-color: #cde2f5;
+                background-color: #cef4f6;
 
                 &:before, &:after {
                     left: 18px;
@@ -39,15 +40,13 @@
             content: '';
             display: inline-block;
             position: relative;
-            width: 36px;
+            width: 38px;
             height: 14px;
             background-color: #bcc8ce;
             border-radius: 15px;
-            margin-right: 10px;
             -webkit-transition: background .3s ease;
             transition: background .3s ease;
             vertical-align: middle;
-            margin: 0 16px;
 
             &:before, &:after {
                 content: "";
