@@ -70,7 +70,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About Every Angle.
+        ///   Looks up a localized string similar to About Angle for SAP.
         /// </summary>
         public static string AboutEveryAngle {
             get {

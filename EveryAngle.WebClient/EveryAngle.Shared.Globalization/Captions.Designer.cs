@@ -1645,7 +1645,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Every Angle - Angle page.
+        ///   Looks up a localized string similar to Angle for SAP - Angle page.
         /// </summary>
         public static string Page_Angle_Title {
             get {
@@ -1654,7 +1654,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Every Angle - Dashboard.
+        ///   Looks up a localized string similar to Angle for SAP - Dashboard.
         /// </summary>
         public static string Page_Dashboard_Title {
             get {
@@ -1663,7 +1663,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Every Angle - Search page.
+        ///   Looks up a localized string similar to Angle for SAP - Search page.
         /// </summary>
         public static string Page_Search_Title {
             get {
