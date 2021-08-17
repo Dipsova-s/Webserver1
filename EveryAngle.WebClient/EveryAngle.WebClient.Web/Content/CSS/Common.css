@@ -2157,7 +2157,7 @@ textarea.input-light {
   .breadcrumb-wrapper .icon-breadcrumb-front {
     margin-right: 7px; }
     .breadcrumb-wrapper .icon-breadcrumb-front.icon-angle {
-      color: #ff6c2c; }
+      color: #ff4040; }
   .breadcrumb-wrapper .icon-breadcrumb-rear {
     margin-left: 5px; }
     .breadcrumb-wrapper .icon-breadcrumb-rear.icon-validated {
@@ -2235,7 +2235,7 @@ textarea.input-light {
     .displayNameContainer .icon:before {
       margin: auto; }
     .displayNameContainer .icon.icon-angle {
-      color: #ff6c2c; }
+      color: #ff4040; }
     .displayNameContainer .icon.icon-validated {
       color: #7dc855; }
     .displayNameContainer .icon.icon-star-active:before, .displayNameContainer .icon.icon-star-inactive:before {
@@ -3579,7 +3579,7 @@ textarea.input-light {
 .display-tab-hint {
   padding: 0; }
   .display-tab-hint .tab-menu-wrapper .tab-menu:before {
-    background-color: #ff6c2c; }
+    background-color: #ff4040; }
 
 .display-option-wrapper {
   background-color: #fff;

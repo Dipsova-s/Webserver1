@@ -3710,7 +3710,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 #TreeListAngleWarnings .itemType .icon.icon-angle:before {
     content: "\e908";
-    color: #ff6c2c;
+    color: #ff4040;
 }
 
 #TreeListAngleWarnings .itemType .icon.icon-template {
@@ -3777,7 +3777,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 .angleWarningConfirmItem.angle:before {
     content: "\e908";
-    color: #ff6c2c;
+    color: #ff4040;
 }
 
 .angleWarningConfirmItem.template {
