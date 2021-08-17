@@ -40,16 +40,16 @@
     margin: 0 auto;
     height: 2px;
     position: absolute;
-    bottom: 5px;
+    bottom: 6px;
     left: 0;
     right: 0;
     background: #24bdc5;
     transition: .3s;
 }
 
-.btn.btn-small:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split +.btn, .btn.disabled, .btn[disabled]):hover:before {
-    bottom: 2px;
-}
+    .btn.btn-small:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split +.btn, .btn.disabled, .btn[disabled]):hover:before {
+        bottom: 4px;
+    }
 
 
     .btn:focus {
