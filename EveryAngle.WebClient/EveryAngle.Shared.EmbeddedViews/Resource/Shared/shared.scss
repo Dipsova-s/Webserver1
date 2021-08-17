@@ -55,8 +55,8 @@
 
 .chkIndeterminatable.yes,
 .chkIndeterminatable.empty {
-    border-color: #358ed7;
-    background-color: #358ed7;
+    border-color: #25cad2;
+    background-color: #25cad2;
 }
 
 .chkIndeterminatable.disabled {
@@ -69,7 +69,7 @@
 }
 
 .chkIndeterminatable:hover {
-    border-color: #358ed7;
+    border-color: #25cad2;
 }
 
 .chkIndeterminatable.disabled:hover {
@@ -78,7 +78,7 @@
 
 .chkIndeterminatable.disabled.yes:hover,
 .chkIndeterminatable.disabled.empty:hover {
-    border-color: #358ed7;
+    border-color: #25cad2;
 }
 
 .chkIndeterminatable:after {
@@ -176,12 +176,12 @@
 }
 
 [type="checkbox"]:checked + .label:before {
-    border-color: #358ed7;
-    background-color: #358ed7;
+    border-color: #25cad2;
+    background-color: #25cad2;
 }
 
 [type="radio"]:checked + .label:before {
-    border-color: #358ed7;
+    border-color: #25cad2;
 }
 
 [type="checkbox"]:hover + .label:before,
@@ -215,8 +215,8 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #358ed7;
-    border: solid #358ed7;
+    background-color: #25cad2;
+    border: solid #25cad2;
 }
 
 input[type="checkbox"]:not(:checked) + .label {
@@ -234,6 +234,7 @@ input[type="checkbox"]:not(:checked) + .label {
 [type="radio"]:disabled:checked + .label:before {
     cursor: default;
     opacity: .5;
+    border-width: 1px;
 }
 
 [type="checkbox"]:disabled:hover + .label:before,
@@ -247,7 +248,7 @@ input[type="checkbox"]:not(:checked) + .label {
 [type="radio"]:disabled:checked:hover + .label:before,
 [type="checkbox"]:disabled:checked + .label:hover:before,
 [type="radio"]:disabled:checked + .label:hover:before {
-    border-color: #358ed7;
+    border-color: #25cad2;
 }
 
 /* .helpTextContainer
