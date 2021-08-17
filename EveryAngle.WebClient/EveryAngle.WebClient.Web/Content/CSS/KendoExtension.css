@@ -220,11 +220,12 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
   display: none;
   position: absolute;
   border-radius: 2px;
-  background-color: #34495e;
+  background-color: #000000;
+  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 11px;
   color: #fff;
-  padding: 4px;
-  max-width: 250px;
+  padding: 5px 8px;
+  min-height: 15px;
   box-shadow: inset 4px -14px 11px 0 rgba(0, 0, 0, 0.02);
   z-index: 10000; }
 
@@ -245,28 +246,28 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
   margin-left: -4px;
   top: -4px;
   bottom: auto;
-  border-bottom-color: #34495e; }
+  border-bottom-color: #000000; }
 
 .k-grid-tooltip.k-window-arrow-s:before {
   left: 50%;
   margin-left: -4px;
   top: auto;
   bottom: -4px;
-  border-top-color: #34495e; }
+  border-top-color: #000000; }
 
 .k-grid-tooltip.k-window-arrow-e:before {
   left: auto;
   right: -4px;
   top: 50%;
   margin-top: -4px;
-  border-left-color: #34495e; }
+  border-left-color: #000000; }
 
 .k-grid-tooltip.k-window-arrow-w:before {
   left: -4px;
   right: auto;
   top: 50%;
   margin-top: -4px;
-  border-right-color: #34495e; }
+  border-right-color: #000000; }
 
 .k-state-selected,
 .k-state-selected > td,
