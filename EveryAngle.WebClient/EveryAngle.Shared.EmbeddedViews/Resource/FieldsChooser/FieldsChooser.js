@@ -666,7 +666,6 @@ function FieldsChooserModel() {
                 virtual: true
             },
             columnResize: function (e) {
-                self.AdjustColumn(e.sender);
                 e.sender.resize(true);
             },
             dataBound: function (e) {
