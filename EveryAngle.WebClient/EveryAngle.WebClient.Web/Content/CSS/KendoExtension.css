@@ -1192,11 +1192,11 @@ div.k-tooltip.k-chart-tooltip {
    height: 36/20
 =================================== */
 .k-tagtextbox .k-multiselect-wrap {
-  border-color: #b5becc;
+  border-color: #c6cacc;
   border-radius: 0;
   padding-top: 7px;
   padding-left: 7px;
-  min-height: 36px;
+  min-height: 30px;
   box-sizing: border-box; }
   .k-tagtextbox .k-multiselect-wrap .item-label {
     font-size: 12px;
@@ -1231,15 +1231,15 @@ div.k-tooltip.k-chart-tooltip {
   box-shadow: none; }
   .k-tagtextbox.k-state-focused > .k-multiselect-wrap {
     box-shadow: none;
-    border-color: #358ed7; }
+    border-color: #061c2b; }
 
 .k-tagtextbox.k-state-border-down > .k-multiselect-wrap, .k-tagtextbox.k-state-border-down.k-state-focused > .k-multiselect-wrap, .k-tagtextbox.k-state-border-down.k-state-focused:hover > .k-multiselect-wrap {
-  border-color: #358ed7;
+  border-color: #061c2b;
   border-bottom-color: transparent;
   border-radius: 0; }
 
 .k-tagtextbox.k-state-border-up > .k-multiselect-wrap, .k-tagtextbox.k-state-border-up.k-state-focused > .k-multiselect-wrap, .k-tagtextbox.k-state-border-up.k-state-focused:hover > .k-multiselect-wrap {
-  border-color: #358ed7;
+  border-color: #061c2b;
   border-top-color: #e3e5e5;
   border-radius: 0; }
 
@@ -1247,7 +1247,8 @@ div.k-tooltip.k-chart-tooltip {
   display: none; }
 
 .k-tagtextbox-list-container {
-  background-color: #fff; }
+  background-color: #fff;
+  border-color: #061c2b !important; }
   .k-tagtextbox-list-container.k-state-border-up {
     border-top-width: 0; }
   .k-tagtextbox-list-container.k-state-border-down {

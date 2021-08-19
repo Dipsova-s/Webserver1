@@ -1414,11 +1414,11 @@ $tagtextbox-item-height: 20px;
 $tagtextbox-item-margin: 7px;
 .k-tagtextbox {
     .k-multiselect-wrap {
-        border-color: #b5becc;
+        border-color: $input-primary-border;
         border-radius: 0;
         padding-top: $tagtextbox-item-margin;
         padding-left: $tagtextbox-item-margin;
-        min-height: 36px;
+        min-height: 30px;
         box-sizing: border-box;
 
         .item-label {
@@ -1463,7 +1463,7 @@ $tagtextbox-item-margin: 7px;
 
         > .k-multiselect-wrap {
             box-shadow: none;
-            border-color: #358ed7;
+            border-color: $input-focus-border;
         }
     }
 
@@ -1471,7 +1471,7 @@ $tagtextbox-item-margin: 7px;
     &.k-state-border-down.k-state-focused,
     &.k-state-border-down.k-state-focused:hover {
         > .k-multiselect-wrap {
-            border-color: #358ed7;
+            border-color: $input-focus-border;
             border-bottom-color: transparent;
             border-radius: 0;
         }
@@ -1481,7 +1481,7 @@ $tagtextbox-item-margin: 7px;
     &.k-state-border-up.k-state-focused,
     &.k-state-border-up.k-state-focused:hover {
         > .k-multiselect-wrap {
-            border-color: #358ed7;
+            border-color: $input-focus-border;
             border-top-color: #e3e5e5;
             border-radius: 0;
         }
@@ -1496,6 +1496,7 @@ $tagtextbox-item-margin: 7px;
 
 .k-tagtextbox-list-container {
     background-color: #fff;
+    border-color: $input-focus-border!important;
 
     &.k-state-border-up {
         border-top-width: 0;
@@ -1512,7 +1513,7 @@ $tagtextbox-item-margin: 7px;
             border-top-color: transparent;
         }
     }
-
+    
     .k-list {
         .k-item {
             border-color: transparent;
