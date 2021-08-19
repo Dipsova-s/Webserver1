@@ -2536,7 +2536,7 @@ textarea.input-light {
 
 .multiple-select-items .multiple-select-header {
   order: 1;
-  color: #25cad2; }
+  color: #000000; }
 
 .multiple-select-items .multiple-select-button {
   cursor: pointer;
@@ -2546,19 +2546,14 @@ textarea.input-light {
   margin-right: 0;
   font-size: 9px;
   line-height: 15px;
-  color: #25cad2;
+  color: #000000;
   text-align: center; }
   .multiple-select-items .multiple-select-button.disabled {
     opacity: .3;
     cursor: default; }
 
-.multiple-select-items .multiple-select-item {
-  background-color: #25cad2;
-  color: #fff; }
-  .multiple-select-items .multiple-select-item:hover {
-    background: #25cad2; }
-  .multiple-select-items .multiple-select-item.disabled .btn-remove {
-    visibility: hidden; }
+.multiple-select-items .multiple-select-item.disabled .btn-remove {
+  visibility: hidden; }
 
 .multiple-select-list {
   position: absolute;

@@ -17,7 +17,7 @@
 
     .multiple-select-header {
         order: 1;
-        color: #25cad2;
+        color: #000000;
     }
 
     .multiple-select-button {
@@ -28,7 +28,7 @@
         margin-right: 0;
         font-size: 9px;
         line-height: 15px;
-        color: #25cad2;
+        color: #000000;
         text-align: center;
 
         &.disabled {
@@ -38,13 +38,6 @@
     }
 
     .multiple-select-item {
-        background-color: #25cad2;
-        color: #fff;
-
-        &:hover {
-            background: #25cad2;
-        }
-
         &.disabled {
             .btn-remove {
                 visibility: hidden;
