@@ -203,6 +203,13 @@
   font-display: swap;
   src: url("../fonts/roboto-medium.eot") format("eot"), url("../fonts/roboto-medium.woff2") format("woff2"), url("../fonts/roboto-medium.woff") format("woff"), url("../fonts/roboto-medium.ttf") format("truetype"), url("../fonts/roboto-medium.svg#Roboto") format("svg"); }
 
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url("../fonts/roboto-regular.eot") format("eot"), url("../fonts/roboto-regular.woff2") format("woff2"), url("../fonts/roboto-regular.woff") format("woff"), url("../fonts/roboto-regular.ttf") format("truetype"), url("../fonts/roboto-regular.svg#Roboto") format("svg"); }
+
 html, body {
   height: 100%;
   margin: 0;
@@ -547,24 +554,29 @@ input[type="text"],
 input[type="password"],
 textarea {
   -webkit-appearance: none;
-  border: 1px solid #b5becc;
+  border: 1px solid #c6cacc;
   background-color: #fff;
-  border-radius: 0;
-  padding: 5px;
+  border-radius: 3px;
+  padding: 16px;
   margin: 0;
   line-height: 16px;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  height: 24px;
+  font-family: Roboto;
+  font-size: 16px;
+  letter-spacing: 0.15px;
+  color: rgba(0, 0, 0, 0.6); }
   input[type="text"]:focus,
   input[type="password"]:focus,
   textarea:focus {
-    border-color: #4d90fe;
+    border-color: #061c2b;
     outline: none; }
   input[type="text"].invalid, input[type="text"].invalid:focus,
   input[type="password"].invalid,
   input[type="password"].invalid:focus,
   textarea.invalid,
   textarea.invalid:focus {
-    border-color: #e91e3d;
+    border-color: #b00020;
     outline: none; }
 
 input[type="text"].input-light,
@@ -572,11 +584,12 @@ input[type="password"].input-light,
 textarea.input-light {
   border-top-color: transparent;
   border-left-color: transparent;
-  border-right-color: transparent; }
+  border-right-color: transparent;
+  border-radius: 0; }
   input[type="text"].input-light:focus,
   input[type="password"].input-light:focus,
   textarea.input-light:focus {
-    border-bottom-color: #25cad2;
+    border-bottom-color: #061c2b;
     outline: none; }
 
 .input-fieldset {
@@ -586,7 +599,12 @@ textarea.input-light {
     left: 10px;
     top: -7px;
     padding: 0 3px;
-    background-color: #fff; }
+    background-color: #fff;
+    font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+    font-size: 12px;
+    line-height: 1.33;
+    letter-spacing: 0.4px;
+    color: #061c2b; }
   .input-fieldset input,
   .input-fieldset input:hover {
     width: 100%;
@@ -595,7 +613,11 @@ textarea.input-light {
     padding-right: 12px; }
     .input-fieldset input.invalid + .legend,
     .input-fieldset input:hover.invalid + .legend {
-      color: #e91e3d; }
+      color: #b00020; }
+  .input-fieldset input:focus {
+    border-color: #061c2b; }
+  .input-fieldset input:disabled + .legend {
+    color: rgba(0, 0, 0, 0.5); }
 
 /* .btn
 ============================================ */

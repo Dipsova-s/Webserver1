@@ -11,9 +11,9 @@
 .k-widget .k-picker-wrap,
 .k-widget .k-numeric-wrap {
     background: #fff none;
-    border: 1px solid #b5becc;
+    border: 1px solid $input-primary-border;
     padding: 0 30px 0 0;
-    border-radius: 0;
+    border-radius: 3px;
     box-shadow: none;
     box-sizing: border-box;
 }
@@ -262,7 +262,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     display: none;
     position: absolute;
     border-radius: 2px;
-    background-color: #000000;
+    background-color: #061c2b;
     font-family: $font-stack;
     font-size: 11px;
     color: #fff;
@@ -291,7 +291,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     margin-left: -4px;
     top: -4px;
     bottom: auto;
-    border-bottom-color: #000000;
+    border-bottom-color: #061c2b;
 }
 
 .k-grid-tooltip.k-window-arrow-s:before {
@@ -299,7 +299,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     margin-left: -4px;
     top: auto;
     bottom: -4px;
-    border-top-color: #000000;
+    border-top-color: #061c2b;
 }
 
 .k-grid-tooltip.k-window-arrow-e:before {
@@ -307,7 +307,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     right: -4px;
     top: 50%;
     margin-top: -4px;
-    border-left-color: #000000;
+    border-left-color: #061c2b;
 }
 
 .k-grid-tooltip.k-window-arrow-w:before {
@@ -315,7 +315,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     right: auto;
     top: 50%;
     margin-top: -4px;
-    border-right-color: #000000;
+    border-right-color: #061c2b;
 }
 
 .k-state-selected,
