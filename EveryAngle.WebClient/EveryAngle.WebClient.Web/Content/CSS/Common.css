@@ -2799,13 +2799,18 @@ textarea.input-light {
         top: 0;
         left: 50%;
         width: 0;
-        height: 2px;
+        height: 3px;
         background-color: #25cad2;
         transition: width .3s ease-in-out, left .3s ease-in-out; }
       .tab .tab-menu-wrapper .tab-menu.active {
-        color: #333;
+        color: #061c2b !important;
         background-color: #fff;
-        text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
+        font-family: Roboto;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.83;
+        letter-spacing: 0.1px;
+        text-align: center; }
         .tab .tab-menu-wrapper .tab-menu.active:before {
           width: 100%;
           left: 0; }
@@ -2829,7 +2834,7 @@ textarea.input-light {
   flex-shrink: 1;
   flex-basis: 0; }
 
-.tab-details .tab-menu-wrapper:before {
+.tab-details .tab-menu-wrapper:before, .tab-settings .tab-menu-wrapper:before {
   content: '';
   position: absolute;
   left: 0;
@@ -2838,26 +2843,21 @@ textarea.input-light {
   height: 0;
   border-bottom: 1px solid #e3e5e5; }
 
-.tab-details .tab-menu-wrapper .tab-menu:before {
-  top: auto;
-  bottom: 0; }
-
-.tab-details .tab-menu-wrapper .tab-menu.active {
-  font-size: 13px;
-  color: #25cad2;
-  background-color: transparent; }
-
-.tab-settings .tab-menu-wrapper {
-  background: #f6eac1;
-  background: linear-gradient(to right, #A7BFE8 5%, #358ed7 100%);
-  padding: 0 6px; }
-  .tab-settings .tab-menu-wrapper .tab-menu {
-    color: #fff; }
-    .tab-settings .tab-menu-wrapper .tab-menu:before {
-      display: none; }
-    .tab-settings .tab-menu-wrapper .tab-menu.active {
-      color: #3e4345;
-      background-color: #f7f9fa; }
+.tab-details .tab-menu-wrapper .tab-menu, .tab-settings .tab-menu-wrapper .tab-menu {
+  font-family: Roboto;
+  font-size: 12px;
+  line-height: 2;
+  letter-spacing: 0.44px;
+  text-align: center;
+  color: #444; }
+  .tab-details .tab-menu-wrapper .tab-menu:before, .tab-settings .tab-menu-wrapper .tab-menu:before {
+    top: auto;
+    bottom: 0;
+    height: 2px; }
+  .tab-details .tab-menu-wrapper .tab-menu.active, .tab-settings .tab-menu-wrapper .tab-menu.active {
+    font-size: 13px;
+    color: #25cad2 !important;
+    background-color: transparent; }
 
 /* .description-editor
 ============================================ */
