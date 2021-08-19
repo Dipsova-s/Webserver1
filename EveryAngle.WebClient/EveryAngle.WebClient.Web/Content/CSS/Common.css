@@ -2576,6 +2576,7 @@ textarea.input-light {
 .accordion-item {
   box-sizing: border-box;
   background-color: #fff;
+  border: solid 1px #f1f3f4;
   margin: 14px 0;
   padding: 0; }
   .accordion-transparent .accordion-item {
