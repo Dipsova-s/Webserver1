@@ -1645,7 +1645,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angles for SAP - Angle page.
+        ///   Looks up a localized string similar to Magnitude Angles for SAP - Angle page.
         /// </summary>
         public static string Page_Angle_Title {
             get {
@@ -1654,7 +1654,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angles for SAP - Dashboard.
+        ///   Looks up a localized string similar to Magnitude Angles for SAP - Dashboard.
         /// </summary>
         public static string Page_Dashboard_Title {
             get {
@@ -1663,7 +1663,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angles for SAP - Search page.
+        ///   Looks up a localized string similar to Magnitude Angles for SAP - Search page.
         /// </summary>
         public static string Page_Search_Title {
             get {

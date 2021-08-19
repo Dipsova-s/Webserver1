@@ -511,7 +511,7 @@ function FacetFiltersViewModel() {
             var extraCss = filter.enabled() ? '' : ' disabled';
             var filterNumber = filter.index % businessProcessesModel.General.TotalBusinessProcesses;
             html += '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.id + '"></span>';
-            html += '<span class="BusinessProcessBadgeLabel' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.name + '</span>';
+            html += '<span class="BusinessProcessBadgeLabel' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.description + '</span>';
         }
         else {
             var icon = self.GetIconInfo(filter.id);
