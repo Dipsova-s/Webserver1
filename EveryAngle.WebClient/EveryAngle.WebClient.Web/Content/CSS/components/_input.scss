@@ -25,14 +25,12 @@ textarea {
     -webkit-appearance: none;
     border: 1px solid $input-primary-border;
     background-color: #fff;
-    border-radius: 3px;
-    padding: 16px;
+    padding: 6px 12px;
     margin: 0;
-    line-height: 16px;
     box-sizing: border-box;
-    height: 24px;
+    height: 30px;
     font-family: Roboto;
-    font-size: 16px;
+    font-size: 12px;
     letter-spacing: 0.15px;
     color: $input-primary-font-color;
 
@@ -68,11 +66,11 @@ textarea.input-light {
     .legend {
         position: absolute;
         left: 10px;
-        top: -7px;
+        top: -6px;
         padding: 0 3px;
         background-color: #fff;
         font-family: $font-stack;
-        font-size: 12px;
+        font-size: 11px;
         line-height: 1.33;
         letter-spacing: 0.4px;
         color: #061c2b;
