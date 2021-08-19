@@ -2301,8 +2301,7 @@ textarea.input-light {
   font-size: 12px;
   font-weight: 500; }
   .item-label > span:first-child {
-    min-width: 46px;
-    margin-right: 22px; }
+    margin-right: 7px; }
   .item-label .btn-remove {
     display: inline-flex;
     align-items: center;
@@ -2310,7 +2309,7 @@ textarea.input-light {
     cursor: pointer;
     height: 10px;
     width: 10px;
-    font-size: 10px; }
+    font-size: 8px; }
     .item-label .btn-remove .icon {
       line-height: 12px;
       font-weight: 500 !important; }
