@@ -11,7 +11,7 @@
 .k-widget .k-picker-wrap,
 .k-widget .k-numeric-wrap {
     background: #fff none;
-    border: 1px solid $input-primary-border;
+    border: 1px solid $input-base-border;
     padding: 0 30px 0 0;
     border-radius: 3px;
     box-shadow: none;
@@ -655,29 +655,40 @@ div.k-window-content {
 .k-button:active,
 .k-button:active:hover,
 .k-button.k-state-focused {
-    background: none #f7f9fa;
-    border-color: #358ed7;
-    color: #358ed7;
+    padding: 0 8px;
     border-radius: 2px;
-    line-height: 18px;
-    box-shadow: none;
+    text-align: center;
+    cursor: pointer;
+    height: 28px;
+    outline: none;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: 500;
+    color: $primary-color;
+    background: #fff;
+    border: 1px solid $primary-color;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.k-button:hover,
-.k-button:focus {
-    box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16) !important;
-}
-
-.k-button:active {
-    box-shadow: none !important;
-}
-
-.k-button.k-primary,
-.k-button.k-primary:hover,
-.k-button.k-primary:active {
-    background: none #358ed7;
-    border-color: #358ed7;
+.k-button.k-primary {
+    background: none $primary-color;
+    border-color: $primary-color;
     color: #fff;
+
+    &:hover {
+        background-color: #03c6cf;
+        color: #fff;
+    }
+
+    &:active {
+        background-color: #17ccd4;
+        color: #fff;
+    }
+
+    &:focus {
+        background-color: #16dfe9;
+        color: #fff;
+    }
 }
 
 
@@ -1414,7 +1425,7 @@ $tagtextbox-item-height: 20px;
 $tagtextbox-item-margin: 7px;
 .k-tagtextbox {
     .k-multiselect-wrap {
-        border-color: $input-primary-border;
+        border-color: $input-base-border;
         border-radius: 0;
         padding-top: $tagtextbox-item-margin;
         padding-left: $tagtextbox-item-margin;
