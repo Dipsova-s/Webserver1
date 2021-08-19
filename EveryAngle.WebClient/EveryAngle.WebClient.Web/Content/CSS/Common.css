@@ -2563,8 +2563,9 @@ textarea.input-light {
 .accordion {
   overflow: auto;
   margin: 0;
-  padding: 0;
-  list-style: none; }
+  padding: 14px;
+  list-style: none;
+  background: #f7f7f7; }
   .accordion hr {
     border-top: 2px solid #fff;
     margin: 0 10px; }
@@ -2572,7 +2573,7 @@ textarea.input-light {
 .accordion-item {
   box-sizing: border-box;
   background-color: #fff;
-  margin: 0;
+  margin: 14px 0;
   padding: 0; }
   .accordion-transparent .accordion-item {
     background-color: transparent; }
@@ -2581,14 +2582,13 @@ textarea.input-light {
   display: flex;
   align-items: center;
   cursor: default;
-  background-color: #fcfdfd;
-  text-transform: uppercase;
-  color: #3d4852;
+  background-color: #fff;
+  color: #061c2b;
   font-size: 10px;
-  font-weight: bold;
-  line-height: 1.6;
-  letter-spacing: 1.5px;
-  padding: 10px; }
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 12px; }
   .accordion-transparent .accordion-header {
     background-color: transparent; }
   .accordion-header .accordion-toolbar {
@@ -2612,8 +2612,9 @@ textarea.input-light {
 .close-indicator {
   margin-top: -2px;
   margin-right: 5px;
+  margin-right: 14px;
   color: #78909c;
-  font-size: 11px;
+  font-size: 12px;
   line-height: inherit; }
 
 .open .open-indicator,
@@ -2625,7 +2626,11 @@ textarea.input-light {
   display: none; }
 
 .accordion-body {
-  padding: 10px; }
+  padding: 0 12px 10px;
+  font-family: Roboto;
+  font-size: 12px;
+  color: #061c2b;
+  line-height: 1.67; }
   .open + .accordion-body {
     display: block; }
   .close + .accordion-body {
