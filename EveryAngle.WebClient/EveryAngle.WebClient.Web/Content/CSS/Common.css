@@ -2299,10 +2299,8 @@ textarea.input-light {
   box-sizing: border-box;
   font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal; }
-  .item-label span {
+  font-weight: 500; }
+  .item-label > span:first-child {
     min-width: 46px;
     margin-right: 22px; }
   .item-label .btn-remove {
@@ -2316,20 +2314,25 @@ textarea.input-light {
     .item-label .btn-remove .icon {
       line-height: 12px;
       font-weight: 500 !important; }
+  .item-label:hover {
+    background: #e9e9e9; }
 
 .item-label-primary {
-  background-color: #25cad2;
-  color: #fff;
+  background-color: #e9ecee;
+  color: #333333;
   border-radius: 2px; }
   .item-label-primary .btn-remove {
-    color: #fff; }
+    color: #333333; }
 
 .item-label-light {
-  background-color: transparent;
-  background-image: linear-gradient(to right, #e6effb 0%, #f5fcff);
-  border-radius: 2px; }
+  background-color: #dffeff;
+  border-radius: 2px;
+  color: #25cad2; }
   .item-label-light.active {
     outline: 1px auto #25cad2; }
+
+.item-label.item-label-light:hover {
+  background-color: #c6fdff; }
 
 /* .displayNameContainer
 =================================== */
@@ -2528,12 +2531,13 @@ textarea.input-light {
   box-sizing: border-box;
   margin: 0 5px 5px 0;
   line-height: 20px;
-  font-size: 11px; }
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500; }
 
 .multiple-select-items .multiple-select-header {
   order: 1;
-  font-style: italic;
-  color: #78909c; }
+  color: #25cad2; }
 
 .multiple-select-items .multiple-select-button {
   cursor: pointer;
@@ -2543,14 +2547,19 @@ textarea.input-light {
   margin-right: 0;
   font-size: 9px;
   line-height: 15px;
-  color: #78909c;
+  color: #25cad2;
   text-align: center; }
   .multiple-select-items .multiple-select-button.disabled {
     opacity: .3;
     cursor: default; }
 
-.multiple-select-items .multiple-select-item.disabled .btn-remove {
-  visibility: hidden; }
+.multiple-select-items .multiple-select-item {
+  background-color: #25cad2;
+  color: #fff; }
+  .multiple-select-items .multiple-select-item:hover {
+    background: #25cad2; }
+  .multiple-select-items .multiple-select-item.disabled .btn-remove {
+    visibility: hidden; }
 
 .multiple-select-list {
   position: absolute;

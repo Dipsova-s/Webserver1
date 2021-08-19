@@ -10,13 +10,14 @@
         box-sizing: border-box;
         margin: 0 5px 5px 0;
         line-height: 20px;
-        font-size: 11px;
+        font-family: Roboto;
+        font-size: 12px;
+        font-weight: 500;
     }
 
     .multiple-select-header {
         order: 1;
-        font-style: italic;
-        color: #78909c;
+        color: #25cad2;
     }
 
     .multiple-select-button {
@@ -27,7 +28,7 @@
         margin-right: 0;
         font-size: 9px;
         line-height: 15px;
-        color: #78909c;
+        color: #25cad2;
         text-align: center;
 
         &.disabled {
@@ -37,6 +38,13 @@
     }
 
     .multiple-select-item {
+        background-color: #25cad2;
+        color: #fff;
+
+        &:hover {
+            background: #25cad2;
+        }
+
         &.disabled {
             .btn-remove {
                 visibility: hidden;

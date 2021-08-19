@@ -1050,7 +1050,8 @@
       #LeftMenu .tags-most-used .item-label .tag-count {
         padding-left: 3px; }
     #LeftMenu .tags-most-used .item-label-selected {
-      background-color: #25cad2; }
+      background-color: #25cad2;
+      color: #ffffff; }
       #LeftMenu .tags-most-used .item-label-selected:hover {
         background-color: #25cad2;
         text-shadow: none; }
