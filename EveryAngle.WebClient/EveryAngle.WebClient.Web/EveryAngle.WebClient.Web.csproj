@@ -760,6 +760,7 @@
     <Content Include="Images\Domains\DeliveryBlockReleaseStatus\DeliveryBlockReleaseStatusDBRS_ReleasedOnTime.png" />
     <Content Include="Images\Domains\ExecutionStatus\ExecutionStatusesReversal.png" />
     <Content Include="Images\Domains\ExecutionStatus\ExecutionStatusesReverted.png" />
+    <Content Include="Images\favicon.ico" />
     <Content Include="Images\Icons\icon_sort_desc.svg" />
     <Content Include="Images\Icons\icon_sort_asc.svg" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType0PO.png" />
@@ -901,6 +902,7 @@
     <Content Include="Images\image-not-found.svg" />
     <Content Include="Images\Login\login_bg.jpg" />
     <Content Include="Images\Login\login_logo.svg" />
+    <Content Include="Images\magnitude-logo.png" />
     <Content Include="Images\Master\EALogo.svg" />
     <Content Include="Images\Master\ea_about_logo.svg" />
     <Content Include="Images\Master\help.svg" />
@@ -1188,7 +1190,6 @@
     <Content Include="Images\Angle\btn_ToggleDown.png" />
     <Content Include="Images\Angle\btn_ToggleUp.png" />
     <Content Include="Images\SearchPage\icn_new.png" />
-    <Content Include="Images\favicon.ico" />
     <Content Include="Images\Popup\Error\icn_alert.png" />
     <Content Include="Images\Popup\Error\icn_error.png" />
     <Content Include="Images\Popup\Error\icn_info.png" />
@@ -1425,7 +1426,7 @@
           <DevelopmentServerPort>33986</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:33947/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+		  <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
           <IISAppRootUrl>http://PORT0310.everyangle.org:33947</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
