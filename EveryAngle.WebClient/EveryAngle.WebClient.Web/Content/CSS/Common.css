@@ -544,6 +544,7 @@ input::-ms-clear {
 input:disabled,
 textarea:disabled {
   cursor: default;
+  pointer-events: none;
   opacity: 0.7; }
 
 input[type="text"],
@@ -555,6 +556,7 @@ input[type="password"],
 textarea {
   -webkit-appearance: none;
   border: 1px solid #c6cacc;
+  border-radius: 0;
   background-color: #fff;
   padding: 6px 12px;
   margin: 0;
@@ -563,11 +565,16 @@ textarea {
   font-family: Roboto;
   font-size: 12px;
   letter-spacing: 0.15px;
-  color: rgba(0, 0, 0, 0.6); }
+  color: #7d7d7d; }
   input[type="text"]:focus,
   input[type="password"]:focus,
   textarea:focus {
-    border-color: #061c2b;
+    border-color: #6fdfe4;
+    outline: none; }
+  input[type="text"]:hover,
+  input[type="password"]:hover,
+  textarea:hover {
+    border-color: #25cad2;
     outline: none; }
   input[type="text"].invalid, input[type="text"].invalid:focus,
   input[type="password"].invalid,
@@ -587,7 +594,17 @@ textarea.input-light {
   input[type="text"].input-light:focus,
   input[type="password"].input-light:focus,
   textarea.input-light:focus {
-    border-bottom-color: #061c2b;
+    border-bottom-color: #6fdfe4;
+    outline: none; }
+  input[type="text"].input-light:hover,
+  input[type="password"].input-light:hover,
+  textarea.input-light:hover {
+    border-bottom-color: #25cad2;
+    outline: none; }
+  input[type="text"].input-light:active,
+  input[type="password"].input-light:active,
+  textarea.input-light:active {
+    border-bottom-color: #6fdfe4;
     outline: none; }
 
 .input-fieldset {
@@ -603,14 +620,14 @@ textarea.input-light {
     line-height: 1.33;
     letter-spacing: 0.4px;
     color: #061c2b; }
-  .input-fieldset input,
-  .input-fieldset input:hover {
+  .input-fieldset > input,
+  .input-fieldset > input:hover {
     width: 100%;
     border-radius: 2px;
     padding-left: 12px;
     padding-right: 12px; }
-    .input-fieldset input.invalid + .legend,
-    .input-fieldset input:hover.invalid + .legend {
+    .input-fieldset > input.invalid + .legend,
+    .input-fieldset > input:hover.invalid + .legend {
       color: #b00020; }
   .input-fieldset input:focus {
     border-color: #061c2b; }

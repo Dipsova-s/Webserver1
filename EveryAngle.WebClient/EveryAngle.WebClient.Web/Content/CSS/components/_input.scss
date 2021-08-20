@@ -11,6 +11,7 @@ input::-ms-clear {
 input:disabled,
 textarea:disabled {
     cursor: default;
+    pointer-events: none;
     opacity: $disabled-opacity;
 }
 
@@ -24,6 +25,7 @@ input[type="password"],
 textarea {
     -webkit-appearance: none;
     border: 1px solid $input-base-border;
+    border-radius: 0;
     background-color: #fff;
     padding: 6px 12px;
     margin: 0;
@@ -36,6 +38,11 @@ textarea {
 
     &:focus {
         border-color: $input-focus-border;
+        outline: none;
+    }
+
+    &:hover {
+        border-color: $input-hover-border;
         outline: none;
     }
 
@@ -58,6 +65,16 @@ textarea.input-light {
         border-bottom-color: $input-focus-border;
         outline: none;
     }
+
+    &:hover {
+        border-bottom-color: $input-hover-border;
+        outline: none;
+    }
+
+    &:active {
+        border-bottom-color: $input-active-border;
+        outline: none;
+    }
 }
 
 .input-fieldset {
@@ -76,8 +93,8 @@ textarea.input-light {
         color: #061c2b;
     }
 
-    input,
-    input:hover {
+    > input,
+    > input:hover {
         width: 100%;
         border-radius: 2px;
         padding-left: 12px;
@@ -89,7 +106,7 @@ textarea.input-light {
     }
 
     input:focus {
-        border-color: $input-focus-border;
+        border-color: $input-textfield-focus-border;
     }
 
     input:disabled + .legend {
