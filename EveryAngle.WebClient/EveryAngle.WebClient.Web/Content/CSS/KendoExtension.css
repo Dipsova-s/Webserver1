@@ -714,6 +714,9 @@ table.k-editor .k-colorpicker .k-picker-wrap .k-selected-color {
   border-top: 1px dashed #d5d5d5;
   background: none #f7f9fa; }
 
+.k-button-group .k-tool {
+  line-height: 1em; }
+
 /* .eaText
 =================================== */
 input.eaText,
