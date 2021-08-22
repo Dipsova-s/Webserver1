@@ -105,11 +105,15 @@ textarea.input-light {
         }
     }
 
-    input:focus {
+    > input:not(.invalid):hover {
+        border-color: $input-textfield-hover-border;
+    }
+
+    > input:not(.invalid):focus, > input:not(.invalid):active {
         border-color: $input-textfield-focus-border;
     }
 
-    input:disabled + .legend {
+    > input:disabled + .legend {
         color: rgba(0, 0, 0, 0.5)
     }
 }
