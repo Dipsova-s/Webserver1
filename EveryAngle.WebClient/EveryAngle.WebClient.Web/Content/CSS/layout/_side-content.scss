@@ -1,7 +1,7 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
-$side-content-color: #f7f9fa;
+$side-content-color: #f7f7f7;
 
 /* .side-content
 ============================================ */
@@ -15,13 +15,13 @@ $side-content-color: #f7f9fa;
     }
 
     .accordion-item {
-        background-color: transparent;
+        background-color: #ffffff;
     }
 
     .card-header, .card-body,
     .accordion-header, .accordion-body {
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 14px;
+        padding-right: 12px;
         background-color: transparent;
     }
 
@@ -37,12 +37,15 @@ $side-content-color: #f7f9fa;
 
     .accordion-header {
         font-size: 12px;
-        letter-spacing: .44px;
+        font-weight: 500;
+        line-height: 1.83;
+        letter-spacing: 0.1px;
+        text-align: left;
         text-transform: none;
         background-color: transparent;
 
         &.close {
-            background-color: #f7f9fa;
+            background-color: #ffffff;
         }
     }
 
@@ -52,9 +55,11 @@ $side-content-color: #f7f9fa;
                 flex-grow: 1;
 
                 .name {
-                    font-size: 12px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    line-height: 1.38;
                     text-transform: none;
-                    letter-spacing: .24px;
+                    letter-spacing: 0.44px;
                 }
 
                 .rear {
@@ -83,9 +88,9 @@ $side-content-color: #f7f9fa;
 
         .section-info-body {
             font-size: 12px;
-            letter-spacing: .44px;
-            color: #78909c;
-            line-height: 16px;
+            letter-spacing: .24px;
+            color: #777;
+            line-height: 1.33;
         }
     }
 
@@ -136,7 +141,7 @@ $side-content-color: #f7f9fa;
             margin-bottom: 10px;
             padding-bottom: 0;
             letter-spacing: .24px;
-            line-height: 18px;
+            line-height: 20px;
         }
 
         .close + .section-description-body {
@@ -145,8 +150,8 @@ $side-content-color: #f7f9fa;
     }
 
     .section-personal-note {
-        background-color: #fcf3d7;
-        margin: 15px 14px;
+        background-color: #ffbf00;
+        margin: 10px 14px;
         overflow-wrap: break-word;
 
         &.disabled {
@@ -154,11 +159,11 @@ $side-content-color: #f7f9fa;
         }
 
         .section-personal-note-body {
-            line-height: 16px;
+            line-height: 20px;
         }
 
         &.editable .section-personal-note-body {
-            padding-bottom: 6px;
+            padding-bottom: 10px;
         }
 
         .add-note {
@@ -166,7 +171,7 @@ $side-content-color: #f7f9fa;
         }
 
         textarea {
-            line-height: 16px;
+            line-height: 20px;
             width: 100%;
             height: 16px;
             padding: 0;
@@ -234,7 +239,7 @@ $side-content-color: #f7f9fa;
 
         .labels-wrapper {
             border-radius: 2px;
-            border: solid 1px #b5becc;
+            border: solid 1px #e9ecee;
             background-color: #ffffff;
             padding: 7px 2px 2px 7px;
             margin-bottom: 10px;
