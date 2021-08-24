@@ -393,7 +393,12 @@
     background: url('../../images/icons/icon_warnings.svg') no-repeat center;
     background-size: 15px 15px;
     border-radius: 50%;
-    margin: auto;
+    margin-right: 10px;
+}
+
+.btn span + i.icon.validWarning {
+    margin-left: 10px;
+    margin-right: 0;
 }
 
 .icon.validError {

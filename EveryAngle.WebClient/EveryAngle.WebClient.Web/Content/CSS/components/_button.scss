@@ -16,14 +16,13 @@
     text-shadow: none;
     margin-right: 5px;
     margin-left: 5px;
+    min-width: 74px;
     cursor: pointer;
     height: 37px;
     outline: none;
     box-sizing: border-box;
     font-size: 14px;
     font-weight: 500;
-    font-style: normal;
-    font-stretch: normal;
     color: $primary-color;
     border: 1px solid transparent;
     transition: $animation;
@@ -242,7 +241,7 @@
 
     .btn span,
     .btn-busy:before {
-        min-width: 70px;
+        margin: 0 auto;
     }
 
     .btn-busy:before {
@@ -291,6 +290,7 @@
     + .btn {
         border-radius: 0 2px 2px 0;
         margin-left: 0;
+        min-width: unset;
 
         &:after {
             border-left: 1px solid transparent;
@@ -307,7 +307,7 @@
     }
 }
 
-    .btn-split.btn-primary {
+.btn-split.btn-primary {
     &.disabled + .btn {
         opacity: 0.5;
     }
@@ -320,55 +320,27 @@
         background-color: #03c6cf !important;
     }
 
-    &:hover, &:hover + .btn {
-        background-color: #03c6cf !important;
-    }
-
-    &:focus, &:focus + .btn {
+    &:focus {
         background-color: #16dfe9 !important;
         border-color: $primary-color;
     }
 
-    &:focus {
-        border-right-color: transparent;
-    }
-
-    &:focus + .btn, + .btn:focus {
-        border-left-color: transparent;
-    }
-
     &.disabled:hover,
     &[disabled]:hover,
-    &.disabled:hover + .btn,
-    &.disabled + .btn:hover,
     &.disabled:focus,
-    &[disabled]:focus,
-    &.disabled:focus + .btn,
-    &.disabled:focus + .btn {
-        background-color: $primary-color!important;
+    &[disabled]:focus {
+        background-color: $primary-color !important;
     }
 }
 
-    .btn-split.btn-secondary {
+.btn-split.btn-secondary, .btn-split.btn-secondary +.btn {
     &:hover {
         background-color: #e9e9e9 !important;
     }
 
-    &:hover, &:hover + .btn {
-        background-color: #e9e9e9 !important;
-    }
-
-    &:focus, &:focus + .btn {
+    &:focus {
         background-color: #f2f2f2 !important;
         border-color: $primary-color;
-    }
-
-    &:focus {
-        border-right-color: transparent;
-    }
-
-    &:focus + .btn, + .btn:focus {
-        border-left-color: transparent;
     }
 
     &.disabled:hover,
