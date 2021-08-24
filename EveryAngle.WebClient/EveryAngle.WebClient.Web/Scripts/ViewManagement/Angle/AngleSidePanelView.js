@@ -37,7 +37,6 @@
                     '</div>',
                 '</div>',
                 '<div class="accordion-body aggregation-body"></div>',
-                '<hr>',
             '</div>'
         ].join('');
     };

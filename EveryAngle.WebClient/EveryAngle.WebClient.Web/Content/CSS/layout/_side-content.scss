@@ -97,6 +97,10 @@ $side-content-color: #f7f7f7;
     .tab .tab-content-wrapper {
         overflow: auto;
         padding: 0;
+
+        .tab-content {
+            padding-top: 0px;
+        }
     }
 
     .section-definition {
@@ -151,7 +155,7 @@ $side-content-color: #f7f7f7;
 
     .section-personal-note {
         background-color: #ffbf00;
-        margin: 10px 14px;
+        margin-bottom: 10px;
         overflow-wrap: break-word;
 
         &.disabled {
@@ -277,12 +281,20 @@ $side-content-color: #f7f7f7;
     }
 
     .section-tags {
+        margin: -10px;
+        margin-bottom: 0px;
+
         .form-col-header {
             color: #78909c;
             font-style: italic;
             font-weight: normal;
             font-size: 11px;
             width: 100%;
+        }
+
+        .form-col-body {
+            padding-left: 3px;
+            padding-right: 3px;
         }
     }
 }

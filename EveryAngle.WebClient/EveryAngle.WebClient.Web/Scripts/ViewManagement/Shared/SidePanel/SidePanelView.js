@@ -27,7 +27,6 @@ SidePanelView.prototype.GetSectionFiltersAndJumpsTemplate = function () {
                 '<!-- /ko -->',
                 '<div class="definition-body-inner"></div>',
             '</div>',
-            '<hr>',
         '</div>',
     ].join('');
 };
@@ -42,8 +41,7 @@ SidePanelView.prototype.GetSectionDescriptionTemplate = function () {
                     '<a class="icon icon-pencil action action-edit-description" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: ShowEditDescriptionPopup, attr: { \'data-tooltip-text\': Localization.Edit }"></a>',
                 '</div>',
             '</div>',
-            '<div class="accordion-body section-description-body" data-bind="html: GetDescriptionText()"></div>',
-            '<hr>',
+            '<div class="accordion-body section-description-body" data-bind="html: GetDescriptionText()"></div>',            
         '</div>',
     ].join('');
 };
@@ -97,7 +95,6 @@ SidePanelView.prototype.GetSectionLabelsTemplate = function () {
                 '<!-- /ko -->',
                 '<div class="group-message required clearfix"></div>',
             '</div>',
-            '<hr>',
          '</div>',
     ].join('');
 };
@@ -112,7 +109,6 @@ SidePanelView.prototype.GetSectionTagsTemplate = function () {
                     '<div class="form-col form-col-body"><input class="tags-input"/></div>',
                 '</div>',
             '</div>',
-            '<hr>',
         '</div>',
     ].join('');
 };

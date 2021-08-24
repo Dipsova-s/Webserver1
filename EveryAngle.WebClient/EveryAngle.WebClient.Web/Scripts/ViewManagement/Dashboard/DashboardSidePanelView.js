@@ -36,7 +36,6 @@
                 '<div class="accordion-body definition-body">',
                     '<div class="definition-body-inner"></div>',
                 '</div>',
-                '<hr>',
            '</div>'
         ].join('');
     };
