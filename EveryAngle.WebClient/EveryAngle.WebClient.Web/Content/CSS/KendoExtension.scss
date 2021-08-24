@@ -834,7 +834,7 @@ table.k-editor .k-colorpicker .k-picker-wrap .k-selected-color {
 }
 
 .k-button-group .k-tool {
-    line-height: 1em;
+    line-height: 1em!important;
 }
 /* .eaText
 =================================== */
@@ -1111,7 +1111,7 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 
     .k-popup .k-list-scroller .k-list .k-item {
         border-top-color: transparent;
-        font-family: Roboto;
+        font-family: $font-stack;
         font-size: 14px;
         font-weight: 500;
         line-height: 30px;

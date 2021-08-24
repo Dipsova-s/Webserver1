@@ -32,7 +32,6 @@
     .btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split +.btn, .btn.disabled, .btn[disabled]):hover {
         text-decoration: underline;
         text-underline-offset: 2px;
-        text-decoration-thickness: 2px;
     }
 
     .btn:focus {

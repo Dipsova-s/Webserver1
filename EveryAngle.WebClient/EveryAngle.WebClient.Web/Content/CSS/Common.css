@@ -562,7 +562,7 @@ textarea {
   margin: 0;
   box-sizing: border-box;
   height: 30px;
-  font-family: Roboto;
+  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   letter-spacing: 0.15px;
   color: #7d7d7d; }
@@ -666,8 +666,7 @@ textarea.input-light {
 
 .btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split + .btn, .btn.disabled, .btn[disabled]):hover {
   text-decoration: underline;
-  text-underline-offset: 2px;
-  text-decoration-thickness: 2px; }
+  text-underline-offset: 2px; }
 
 .btn:focus {
   color: #1fc7cf; }
@@ -2547,7 +2546,7 @@ textarea.input-light {
   box-sizing: border-box;
   margin: 0 5px 5px 0;
   line-height: 20px;
-  font-family: Roboto;
+  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   font-weight: 500; }
 
@@ -2606,7 +2605,7 @@ textarea.input-light {
   background-color: #fff;
   color: #061c2b;
   font-size: 10px;
-  font-family: Roboto;
+  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   font-weight: 500;
   padding: 12px; }
@@ -2648,7 +2647,7 @@ textarea.input-light {
 
 .accordion-body {
   padding: 0 12px 10px;
-  font-family: Roboto;
+  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   color: #061c2b;
   line-height: 1.67; }
@@ -2831,7 +2830,7 @@ textarea.input-light {
       .tab .tab-menu-wrapper .tab-menu.active {
         color: #061c2b !important;
         background-color: #fff;
-        font-family: Roboto;
+        font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
         font-size: 12px;
         font-weight: 500;
         line-height: 1.83;
@@ -2870,7 +2869,7 @@ textarea.input-light {
   border-bottom: 1px solid #e3e5e5; }
 
 .tab-details .tab-menu-wrapper .tab-menu, .tab-settings .tab-menu-wrapper .tab-menu {
-  font-family: Roboto;
+  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   line-height: 2;
   letter-spacing: 0.44px;

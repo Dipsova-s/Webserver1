@@ -35,7 +35,7 @@
             &.active {
                 color: #061c2b !important;
                 background-color: #fff;
-                font-family: Roboto;
+                font-family: $font-stack;
                 font-size: 12px;
                 font-weight: 500;
                 line-height: 1.83;
@@ -98,7 +98,7 @@
         }
 
         .tab-menu {
-            font-family: Roboto;
+            font-family: $font-stack;
             font-size: 12px;
             line-height: 2;
             letter-spacing: 0.44px;
