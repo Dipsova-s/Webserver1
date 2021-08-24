@@ -629,10 +629,6 @@ textarea.input-light {
     .input-fieldset > input.invalid + .legend,
     .input-fieldset > input:hover.invalid + .legend {
       color: #b00020; }
-  .input-fieldset > input:not(.invalid):hover {
-    border-color: rgba(0, 0, 0, 0.12); }
-  .input-fieldset > input:not(.invalid):focus, .input-fieldset > input:not(.invalid):active {
-    border-color: #061c2b; }
   .input-fieldset > input:disabled + .legend {
     color: rgba(0, 0, 0, 0.5); }
 
