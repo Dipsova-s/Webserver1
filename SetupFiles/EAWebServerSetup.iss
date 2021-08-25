@@ -978,7 +978,7 @@ begin
   begin
     Log('Angle warnings input file found in Tools\Data folder.');
     // Do not log the location of file yet, that will come in later pbi
-    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', '');
+    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', DataPath('Tools\Data') + '\AngleWarningsList.xlsx');
   end;
 
   ManagementConsoleConfig := MergeAppSettings(ManagementConsoleConfig, NewMCConfig);

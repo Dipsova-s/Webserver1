@@ -34,6 +34,7 @@ namespace EveryAngle.Core.Interfaces.Services
         void DeletePrivilege(string uri, string updatedRole);
         List<string> GetClassesId(string uri);
         List<ClassViewModel> GetClasses(string uri);
+        ClassViewModel GetClass(string uri);
         ListViewModel<ModelServerViewModel> GetModelServers(string uri);
         List<EventLogViewModel> GetEventLog(string modelServerUri);
         List<SystemRoleViewModel> GetSystemRoles(string systemRoleUri);
@@ -112,5 +113,6 @@ namespace EveryAngle.Core.Interfaces.Services
 
         bool FieldExists(string uri, string field, ref Dictionary<string, FieldViewModel> cachedFields);
 
+        List<FieldSourceViewModel> GetFieldSources(string uri);
     }
 }

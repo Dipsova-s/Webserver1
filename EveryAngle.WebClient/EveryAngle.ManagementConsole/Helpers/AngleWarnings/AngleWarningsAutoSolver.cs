@@ -81,6 +81,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
             List<AngleWarningSecondLevelViewmodel> secondLevels = JsonConvert.DeserializeObject<List<AngleWarningSecondLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
 
+            _contentInputter.Initialize(_model.FieldsourcesUri.ToString(), _model.ClassesUri.ToString());
+            
             foreach (AngleWarningSecondLevelViewmodel secondLevel in secondLevels)
             {
                 ItemSolver solveItem = _contentInputter.GetSolveItem(warning, secondLevel.Object, secondLevel.Field, secondLevel.Jump);
@@ -107,6 +109,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             }
 
             MainTaskModel mainTaskModel = new MainTaskModel(_sessionHelper.CurrentUser.Id);
+
+            _contentInputter.Initialize(_model.FieldsourcesUri.ToString(), _model.ClassesUri.ToString());
 
             // Example request: https://nl-dennis.eatestad.local:60010/models/1/angle_warnings/summary?include_public=true&include_private=true&include_validated=true&include_angles=true&include_templates=false&created_by=&offset=0&limit=1000
             _firstLevelWarnings.ForEach(x => ConstructAngleWarningActions(mainTaskModel, x, modelId));
