@@ -16,7 +16,7 @@
         .breadcrumb-label {
             display: inline-flex;
             cursor: default;
-            color: #333;
+            color: #061c2b;
             font-weight: bold;
 
             &.icon-breadcrumb-edit {
@@ -26,7 +26,7 @@
 
         .breadcrumb-link {
             cursor: pointer;
-            color: #818181;
+            color: #061c2b;
 
             &:hover .breadcrumb-name {
                 color: $primary-color;

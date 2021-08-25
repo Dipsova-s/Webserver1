@@ -35,11 +35,10 @@
     <div id="DashboardTopBar" class="topBarWrapper">
         <div class="Wrapper Shadow">
             <a id="Logo" href="@Url.Action("SearchPage", "Search")">
-                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" height="29" />
+                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" height="20" />
             </a>
 
             <a class="icon icon-hamburger toggle-sidebar disabled" id="ButtonToggleSidePanel"></a>
-            @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
             @{Html.RenderPartial("~/Views/Shared/Top/UserPanel.cshtml");}
         </div>
     </div>

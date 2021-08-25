@@ -1487,7 +1487,7 @@ $dropdown-large-item-height: 20px;
 .content-wrapper {
     opacity: 0;
     transition: $animation;
-    background-color: #f7f9fa;
+    background-color: #f7f7f7;
     @include calc-vh(height, 48px);
     border-width: 0;
 
@@ -1498,7 +1498,7 @@ $dropdown-large-item-height: 20px;
     > .k-splitbar, > .k-ghost-splitbar {
         z-index: 3;
         width: 0;
-        border-color: $general-border-color;
+        border-color: transparent;
         border-right-width: 0;
         background: transparent none;
 
@@ -1513,7 +1513,7 @@ $dropdown-large-item-height: 20px;
 
     > .k-splitbar:hover, > .k-ghost-splitbar {
         border-left-width: 2px;
-        border-color: #358ed7;
+        border-color: #25cad2;
     }
 
     > .k-restricted-size-horizontal {

@@ -6,8 +6,8 @@ SidePanelView.prototype.GetSectionFiltersAndJumpsTemplate = function () {
     return [
         '<div class="accordion-item section-definition">',
             '<div class="accordion-header open">',
-                '<i class="open-indicator icon icon-caret-down"></i>',
-                '<i class="close-indicator icon icon-caret-right"></i>',
+                '<i class="open-indicator icon icon-chevron-down"></i>',
+                '<i class="close-indicator icon icon-chevron-right"></i>',
                 '<span data-bind="text: Localization.Filters"></span>',
                 '<div class="accordion-toolbar">',
                     '<!-- ko if: Authorizations.CanChangeJump() && CanAdd() -->',
@@ -27,7 +27,6 @@ SidePanelView.prototype.GetSectionFiltersAndJumpsTemplate = function () {
                 '<!-- /ko -->',
                 '<div class="definition-body-inner"></div>',
             '</div>',
-            '<hr>',
         '</div>',
     ].join('');
 };
@@ -35,15 +34,14 @@ SidePanelView.prototype.GetSectionDescriptionTemplate = function () {
     return [
         '<div class="accordion-item section-description">',
             '<div class="accordion-header open">',
-                '<i class="open-indicator icon icon-caret-down"></i>',
-                '<i class="close-indicator icon icon-caret-right"></i>',
+                '<i class="open-indicator icon icon-chevron-down"></i>',
+                '<i class="close-indicator icon icon-chevron-right"></i>',
                 '<span data-bind="text: Localization.Description"></span>',
                 '<div class="accordion-toolbar">',
                     '<a class="icon icon-pencil action action-edit-description" data-role="tooltip" data-tooltip-position="bottom" data-bind="click: ShowEditDescriptionPopup, attr: { \'data-tooltip-text\': Localization.Edit }"></a>',
                 '</div>',
             '</div>',
-            '<div class="accordion-body section-description-body" data-bind="html: GetDescriptionText()"></div>',
-            '<hr>',
+            '<div class="accordion-body section-description-body" data-bind="html: GetDescriptionText()"></div>',            
         '</div>',
     ].join('');
 };
@@ -62,8 +60,8 @@ SidePanelView.prototype.GetSectionLabelsTemplate = function () {
      return [
         '<div class="accordion-item section-labels">',
             '<div class="accordion-header open">',
-                '<i class="open-indicator icon icon-caret-down"></i>',
-                '<i class="close-indicator icon icon-caret-right"></i>',
+                '<i class="open-indicator icon icon-chevron-down"></i>',
+                '<i class="close-indicator icon icon-chevron-right"></i>',
                 '<span data-bind="text: Localization.Labels"></span>',
             '</div>',
             '<div class="accordion-body section-labels-body">',
@@ -97,7 +95,6 @@ SidePanelView.prototype.GetSectionLabelsTemplate = function () {
                 '<!-- /ko -->',
                 '<div class="group-message required clearfix"></div>',
             '</div>',
-            '<hr>',
          '</div>',
     ].join('');
 };
@@ -112,7 +109,6 @@ SidePanelView.prototype.GetSectionTagsTemplate = function () {
                     '<div class="form-col form-col-body"><input class="tags-input"/></div>',
                 '</div>',
             '</div>',
-            '<hr>',
         '</div>',
     ].join('');
 };

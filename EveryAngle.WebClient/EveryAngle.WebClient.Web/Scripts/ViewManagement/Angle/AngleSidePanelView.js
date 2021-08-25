@@ -24,8 +24,8 @@
         return [
             '<div class="accordion-item section-aggregation" data-bind="visible: CanUseAggregation()">',
                 '<div class="accordion-header open">',
-                    '<i class="open-indicator icon icon-caret-down"></i>',
-                    '<i class="close-indicator icon icon-caret-right"></i>',
+                    '<i class="open-indicator icon icon-chevron-down"></i>',
+                    '<i class="close-indicator icon icon-chevron-right"></i>',
                     '<span data-bind="text: Texts().AggregationTitle"></span>',
                     '<div class="accordion-toolbar">',
                         '<!-- ko if: HasAggregationChanged(false) -->',
@@ -37,7 +37,6 @@
                     '</div>',
                 '</div>',
                 '<div class="accordion-body aggregation-body"></div>',
-                '<hr>',
             '</div>'
         ].join('');
     };
