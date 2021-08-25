@@ -133,6 +133,7 @@
     <Compile Include="AngleWarningsInput\AngleWarningsTaskCreatorTests.cs" />
     <Compile Include="AngleWarningsInput\AngleWarningsTestsHelper.cs" />
     <Compile Include="AngleWarningsInput\AngleWarningTaskActionTests.cs" />
+    <Compile Include="AngleWarningsInput\ClassReferencesManagerTests.cs" />
     <Compile Include="App_Start\NinjectWebCommonTest.cs" />
     <Compile Include="Controllers\ActiveLanguageControllerTests.cs" />
     <Compile Include="Controllers\AngleExportsControllerTests.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Helpers\ProfilerTests.cs" />
     <Compile Include="Helpers\SiteMapHelperTests.cs" />
     <Compile Include="Localization\UserCultureTests.cs" />
+    <Compile Include="Models\FieldSourceViewModelTests.cs" />
     <Compile Include="Models\SiteMapModelTests.cs" />
     <Compile Include="Services\ExcelTemplatesServiceTest.cs" />
     <Compile Include="Services\GlobalSettingsAppServiceTest.cs" />

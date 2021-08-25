@@ -9,6 +9,7 @@ using EveryAngle.Core.ViewModels.Directory;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.SystemSettings;
 using EveryAngle.Core.ViewModels.Users;
+using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 using EveryAngle.ManagementConsole.Models;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.Utilities;
@@ -55,6 +56,7 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<ISystemScriptService> systemScriptService = new Mock<ISystemScriptService>();
         protected readonly Mock<IComponentService> componentService = new Mock<IComponentService>();
         protected readonly Mock<IFileTemplateService> excelTemplateService = new Mock<IFileTemplateService>();
+        protected readonly Mock<IClassReferencesManager> classReferencesManager = new Mock<IClassReferencesManager>();
 
         #endregion
 
@@ -70,6 +72,7 @@ namespace EveryAngle.ManagementConsole.Test
                 short_name = "EA2_800",
                 Agent = new Uri("/uri/2", UriKind.Relative),
                 FieldsUri = new Uri("/models/1/fields", UriKind.Relative),
+                FieldsourcesUri = new Uri("/models/1/fieldsources", UriKind.Relative),
                 ClassesUri = new Uri("/models/1/classes", UriKind.Relative),
                 FollowupsUri = new Uri("/models/1/followups", UriKind.Relative),
                 angle_warnings_summary = new Uri("angles/x/warnings", UriKind.Relative)

@@ -2,14 +2,12 @@ using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
-using EveryAngle.Core.ViewModels.Privilege;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.Utilities;
 using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EveryAngle.ManagementConsole.Services.Test
 {

@@ -7,28 +7,8 @@ using System.ComponentModel;
 namespace EveryAngle.Core.ViewModels.Model
 {
     [Serializable]
-    public class FollowupViewModel
+    public class FollowupViewModel: BaseViewModel
     {
-        [JsonProperty(PropertyName = "short_name")]
-        public string short_name { get; set; }
-
-        [JsonProperty(PropertyName = "long_name")]
-        public string long_name { get; set; }
-
-        [JsonProperty(PropertyName = "id")]
-        public string id { get; set; }
-
-        private Uri Uri;
-        [JsonProperty(PropertyName = "uri")]
-        public virtual Uri uri
-        {
-            get { return Uri; }
-            set
-            {
-                Uri = new Uri(UrlHelper.GetRequestUrl(URLType.NOA) + value);
-            }
-        }
-
         [JsonProperty(PropertyName = "resulting_classes")]
         public List<string> resulting_classes { get; set; }
 
