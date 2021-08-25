@@ -479,9 +479,9 @@ img {
 }
 
 #TopBar {
-    background: #f7f9fa;
-    color: #666;
-
+    background: #061c2b;
+    color: #fafcfc;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     .Wrapper {
         height: 48px;
     }
@@ -493,8 +493,8 @@ img {
 }
 
 #Logo {
-    margin-top: 10px;
-    margin-left: 50px;
+    margin-top: 14px;
+    margin-left: 54px;
     display: inline-block;
 }
 
@@ -567,7 +567,7 @@ img {
     max-width: 100px;
     padding-right: 3px;
     letter-spacing: 0.2px;
-    color: #3d4852;
+    color: #fafcfc;
     box-sizing: border-box;
 }
 
@@ -1469,15 +1469,16 @@ $dropdown-large-item-height: 20px;
     left: 8px;
     top: 9px;
     font-size: 18px;
-    color: #78909c;
+    color: #fafcfc;
     padding: 7px;
-    transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     &:hover {
         border-radius: 50%;
-        background-color: #ebebeb;
-        color: #3d4852;
+        color: #fafcfc;
         top: 4px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        background-color: #f5333f;
     }
 }
 

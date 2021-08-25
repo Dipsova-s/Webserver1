@@ -1477,8 +1477,9 @@ textarea.input-light {
       min-width: 700px; } }
 
 #TopBar {
-  background: #f7f9fa;
-  color: #666; }
+  background: #061c2b;
+  color: #fafcfc;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); }
   #TopBar .Wrapper {
     height: 48px; }
 
@@ -1487,8 +1488,8 @@ textarea.input-light {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1) !important; }
 
 #Logo {
-  margin-top: 10px;
-  margin-left: 50px;
+  margin-top: 14px;
+  margin-left: 54px;
   display: inline-block; }
 
 #BusinessProcessBadgeWrapper {
@@ -1542,7 +1543,7 @@ textarea.input-light {
   max-width: 100px;
   padding-right: 3px;
   letter-spacing: 0.2px;
-  color: #3d4852;
+  color: #fafcfc;
   box-sizing: border-box; }
 
 #UserControl {
@@ -2271,7 +2272,7 @@ textarea.input-light {
   .breadcrumb-wrapper .icon-breadcrumb-front {
     margin-right: 7px; }
     .breadcrumb-wrapper .icon-breadcrumb-front.icon-angle {
-      color: #ff6c2c; }
+      color: #ff4040; }
   .breadcrumb-wrapper .icon-breadcrumb-rear {
     margin-left: 5px; }
     .breadcrumb-wrapper .icon-breadcrumb-rear.icon-validated {
@@ -2357,7 +2358,7 @@ textarea.input-light {
     .displayNameContainer .icon:before {
       margin: auto; }
     .displayNameContainer .icon.icon-angle {
-      color: #ff6c2c; }
+      color: #ff4040; }
     .displayNameContainer .icon.icon-validated {
       color: #7dc855; }
     .displayNameContainer .icon.icon-star-active:before, .displayNameContainer .icon.icon-star-inactive:before {
@@ -3707,7 +3708,7 @@ textarea.input-light {
 .display-tab-hint {
   padding: 0; }
   .display-tab-hint .tab-menu-wrapper .tab-menu:before {
-    background-color: #ff6c2c; }
+    background-color: #ff4040; }
 
 .display-option-wrapper {
   background-color: #fff;
@@ -3984,14 +3985,15 @@ textarea.input-light {
   left: 8px;
   top: 9px;
   font-size: 18px;
-  color: #78909c;
+  color: #fafcfc;
   padding: 7px;
-  transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+  transition: top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
   .toggle-sidebar:hover {
     border-radius: 50%;
-    background-color: #ebebeb;
-    color: #3d4852;
-    top: 4px; }
+    color: #fafcfc;
+    top: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    background-color: #f5333f; }
 
 /* .content-wrapper
 ============================================ */
