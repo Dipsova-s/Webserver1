@@ -836,6 +836,24 @@ table.k-editor .k-colorpicker .k-picker-wrap .k-selected-color {
 .k-button-group .k-tool {
     line-height: 1em!important;
 }
+
+.k-editor .k-editor-toolbar .k-select .k-icon {
+    top: 1px;
+}
+
+.k-editor-toolbar .k-tool-group a.k-tool.k-state-hover {
+    background-color: #03c6cf;
+    color: #061c2b;
+    border-color: #25cad2;
+}
+
+.k-editor-toolbar .k-tool-group a.k-tool.k-state-hover.k-state-selected, .k-editor-toolbar .k-tool-group a.k-tool.k-state-selected {
+    background-color: #16dfe9;
+    color: #061c2b;
+    border-color: #25cad2;
+}
+
+
 /* .eaText
 =================================== */
 input.eaText,
