@@ -154,9 +154,20 @@ $side-content-color: #f7f7f7;
     }
 
     .section-personal-note {
-        background-color: #ffbf00;
+        background-color: rgba(255, 191, 0, 0.3);
         margin-bottom: 10px;
         overflow-wrap: break-word;
+        border-radius: 3px;
+        color: #061c2b;
+        letter-spacing: 0.25px;
+
+        .card-header {
+            font-size: 10px;
+            line-height: 20px;
+            letter-spacing: 1.5px;
+            color: #061c2b;
+            padding: 8px 8px 4px 12px;
+        }
 
         &.disabled {
             display: none;
@@ -164,6 +175,7 @@ $side-content-color: #f7f7f7;
 
         .section-personal-note-body {
             line-height: 20px;
+            padding: 0px 12px 8px 12px;
         }
 
         &.editable .section-personal-note-body {
@@ -185,6 +197,8 @@ $side-content-color: #f7f7f7;
             box-shadow: none;
             resize: none;
             background-color: transparent;
+            color: #061c2b;
+            letter-spacing: 0.25px;
         }
     }
 

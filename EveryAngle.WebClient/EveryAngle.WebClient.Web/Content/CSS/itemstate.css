@@ -12,7 +12,15 @@
 /* .popupPublishSettings
 ============================================ */
 .popupPublishSettings .k-window-title {
-  margin-left: 10px; }
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0.1px;
+  color: rgba(0, 0, 0, 0.87);
+  margin-left: 12px; }
+
+.popupPublishSettings .k-window-titlebar {
+  padding-top: 8px; }
 
 .popupPublishSettings .k-window-content {
   font-size: 12px; }
@@ -27,11 +35,34 @@
   margin-right: 10px; }
 
 .popupPublishSettings .card-body {
-  line-height: 15px; }
+  line-height: 15px;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 0.75px;
+  color: #3d4852;
+  padding: 0px 12px 11px; }
+
+.popupPublishSettings .accordion {
+  padding: 0px;
+  background-color: #fff; }
+
+.popupPublishSettings .accordion-item {
+  border: none;
+  margin: 0px; }
 
 .popupPublishSettings .card-header, .popupPublishSettings .accordion-header {
-  text-transform: none;
-  font-size: 11px; }
+  font-size: 10px;
+  line-height: 16px;
+  height: 24px;
+  font-weight: 500;
+  letter-spacing: 0.75px;
+  padding: 8px 8px 8px 12px;
+  color: #3d4852;
+  text-transform: uppercase; }
+
+.popupPublishSettings .card-header {
+  padding-bottom: 0px; }
 
 .popupPublishSettings .publish-displays .display-listview {
   margin-left: 4px;
@@ -96,6 +127,10 @@
     width: 14px;
     margin-right: 5px;
     margin-top: -1px; }
+
+.popupPublishSettings .btn-wrapper.btn-wrapper-popup {
+  background-color: #fff;
+  border-top: none; }
 
 .publish-labels .btn-warning,
 .multiple-select-list .btn-warning {
