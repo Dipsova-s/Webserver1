@@ -971,6 +971,12 @@
     <None Include="Content\CSS\components\_card.scss" />
     <None Include="Content\CSS\abstracts\_variables.scss" />
     <None Include="Content\CSS\vendors\_jquery.scrollbar.scss" />
+    <Content Include="Content\fonts\roboto-medium.ttf" />
+    <Content Include="Content\fonts\roboto-medium.woff" />
+    <Content Include="Content\fonts\roboto-medium.woff2" />
+    <Content Include="Content\fonts\roboto-regular.ttf" />
+    <Content Include="Content\fonts\roboto-regular.woff" />
+    <Content Include="Content\fonts\roboto-regular.woff2" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
