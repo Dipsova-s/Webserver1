@@ -5,8 +5,8 @@ DashboardStateView.prototype.GetPublishWidgetsTemplate = function () {
     return [
         '<li class="accordion-item publish-displays publish-widgets">',
             '<div class="accordion-header open">',
-                '<i class="open-indicator icon icon-caret-down"></i>',
-                '<i class="close-indicator icon icon-caret-right"></i>',
+                '<i class="open-indicator icon icon-chevron-down"></i>',
+                '<i class="close-indicator icon icon-chevron-right"></i>',
                 '<span class="group-name" data-bind="text: Localization.PublishSettings_PanelWidgets"></span> ',
                 '(<span class="group-count" data-bind="text: Widgets().length"></span>)',
             '</div>',
