@@ -42,6 +42,7 @@
 
         .displayNameContainer {
             padding-left: 1px;
+            font-size: 12px;
         }
     }
 
@@ -98,5 +99,13 @@
 
     .placeholder {
         color: #909191;
+    }
+
+    .k-window-buttons {
+        border: none;
+    }
+
+    .k-window-buttons-inner {
+        background-color: #fff;
     }
 }

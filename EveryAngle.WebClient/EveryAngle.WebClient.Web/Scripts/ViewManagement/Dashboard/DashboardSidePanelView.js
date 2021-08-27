@@ -41,7 +41,7 @@
     };
     self.GetSectionExecuteAtLogonTemplate = function () {
         return [
-            '<div class="card section-execute-at-logon" data-bind="if: CanUpdate()">',
+            '<div class="card section-execute-at-logon side-content-alignment" data-bind="if: CanUpdate()">',
                 '<div class="card-body">',
                     '<div class="form-row">',
                         '<div class="form-col">',

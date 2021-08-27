@@ -659,7 +659,7 @@ textarea.input-light {
   border: 1px solid transparent;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 
-.btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split + .btn, .btn.disabled, .btn[disabled]):hover {
+.btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split + .btn, btn-display-badge .btn.disabled, .btn[disabled]):hover {
   text-decoration: underline;
   text-underline-offset: 2px; }
 
@@ -966,6 +966,8 @@ textarea.input-light {
     min-width: 16px;
     border-radius: 50%;
     padding: 3px; }
+  .btn-display-badge:hover {
+    text-decoration: none !important; }
 
 /* .icon
 ============================================ */
@@ -2251,7 +2253,10 @@ textarea.input-light {
         color: #78909c; }
     .breadcrumb-wrapper .breadcrumb-item .breadcrumb-link {
       cursor: pointer;
-      color: #061c2b; }
+      color: #061c2b;
+      font-weight: normal;
+      line-height: 2;
+      letter-spacing: 0.44px; }
       .breadcrumb-wrapper .breadcrumb-item .breadcrumb-link:hover .breadcrumb-name {
         color: #25cad2;
         text-decoration: underline; }
@@ -2327,7 +2332,7 @@ textarea.input-light {
   border-radius: 2px;
   color: #25cad2; }
   .item-label-light.active {
-    outline: 1px auto #25cad2; }
+    border: 1px solid #25cad2; }
 
 .item-label.item-label-light:hover {
   background-color: #c6fdff; }
@@ -3015,6 +3020,7 @@ textarea.input-light {
   background-size: 10px 1px, 10px 1px, 1px 10px, 1px 10px; }
 
 .filter-editor {
+  background-color: deeppink;
   padding-top: 5px;
   padding-bottom: 5px;
   cursor: default; }
@@ -3779,7 +3785,8 @@ textarea.input-light {
   margin-right: 40px;
   margin-top: -4px; }
   .dashboard-widget-popup .k-window-title .displayNameContainer {
-    padding-left: 1px; }
+    padding-left: 1px;
+    font-size: 12px; }
 
 .dashboard-widget-popup .form-row {
   margin-left: -5px;
@@ -3812,6 +3819,12 @@ textarea.input-light {
 .dashboard-widget-popup .placeholder {
   color: #909191; }
 
+.dashboard-widget-popup .k-window-buttons {
+  border: none; }
+
+.dashboard-widget-popup .k-window-buttons-inner {
+  background-color: #fff; }
+
 /* .side-content
 ============================================ */
 .side-content {
@@ -3821,7 +3834,9 @@ textarea.input-light {
   .side-content.active {
     opacity: 1; }
   .side-content .accordion-item {
-    background-color: #ffffff; }
+    background-color: #ffffff;
+    border-radius: 3px;
+    margin: 10px 0px; }
   .side-content .card-header, .side-content .card-body,
   .side-content .accordion-header, .side-content .accordion-body {
     padding-left: 14px;
@@ -3872,7 +3887,9 @@ textarea.input-light {
     overflow: auto;
     padding: 0; }
     .side-content .tab .tab-content-wrapper .tab-content {
-      padding-top: 0px; }
+      padding: 0px;
+      padding-left: 10px;
+      padding-right: 10px; }
   .side-content .section-definition .query-definition {
     margin-left: -15px;
     margin-right: -15px; }
@@ -3950,6 +3967,9 @@ textarea.input-light {
     flex-basis: 0; }
     .side-content .section-default-excel-template .form-col-body > span {
       flex-grow: 1; }
+  .side-content .section-default-excel-template .displayNameContainer {
+    font-size: 12px;
+    font-weight: 400; }
   .side-content .section-default-excel-template .innowera-details {
     display: inline-block;
     margin-left: 120px;
@@ -4004,6 +4024,11 @@ textarea.input-light {
     .side-content .section-tags .form-col-body {
       padding-left: 3px;
       padding-right: 3px; }
+    .side-content .section-tags .k-tagtextbox {
+      border-color: #f1f3f4;
+      border-radius: 3px; }
+  .side-content .side-content-alignment {
+    margin-left: -10px; }
 
 .toggle-sidebar {
   position: absolute;

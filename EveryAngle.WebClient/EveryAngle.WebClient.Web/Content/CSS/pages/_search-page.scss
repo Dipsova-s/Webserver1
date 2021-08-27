@@ -2,7 +2,7 @@
 @import '../abstracts/mixins';
 
 $facet-filter-padding-bottom: 9px;
-$left-menu-background-color: #f7f9fa;
+$left-menu-background-color: #f7f7f7;
 
 /* #LeftMenu
 ============================================ */
@@ -24,7 +24,7 @@ $left-menu-background-color: #f7f9fa;
 
     .facetFilter {
         display: none;
-        margin: 0 22px;
+        margin: 0 14px;
 
         & > div {
             border-top: 0;
@@ -49,7 +49,7 @@ $left-menu-background-color: #f7f9fa;
         &:not(.expand) {
             padding-bottom: 15px;
 
-            .icon-chevron-up {
+            .icon-chevron-right {
                 display: none;
             }
         }
@@ -68,20 +68,24 @@ $left-menu-background-color: #f7f9fa;
         }
 
         .FilterTitle {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
-            margin-right: auto;
+            margin-left: 12px;
             letter-spacing: .24px;
         }
 
         span {
             display: block;
             position: relative;
-            color: #333;
-            font-size: 11px;
+            color: #061c2b;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            font-family: $font-stack;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 22px;
+            letter-spacing: 0.1px;
         }
     }
 
@@ -133,8 +137,21 @@ $left-menu-background-color: #f7f9fa;
 
     .facetFilter {
 
-        .facetFilterSection .FilterCheckBox {
-            padding-bottom: $facet-filter-padding-bottom;
+        .facetFilterSection {
+            background: #ffffff;
+            padding: 0 12px;
+            margin: 10px 0;
+            border-radius: 3px;
+            /*border: solid 1px #f1f3f4;*/
+            background-color: #fff;
+
+            .FilterCheckBox {
+                padding-bottom: $facet-filter-padding-bottom;
+
+                &:first-child {
+                    padding-top: 22px;
+                }
+            }
         }
 
         .k-tagtextbox {
@@ -152,14 +169,16 @@ $left-menu-background-color: #f7f9fa;
             padding: 0;
             list-style-type: none;
             color: #333;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: normal;
             text-decoration: none;
             margin-bottom: 12px;
+            font-family: Roboto;
+            font-size: 12px;
+            line-height: normal;
+            letter-spacing: 0.44px;
+            text-align: left;
 
             &:hover span {
-                color: #006f9b;
+                color: #03c6cf;
             }
 
             &.item-label {
@@ -224,167 +243,163 @@ $left-menu-background-color: #f7f9fa;
 
 /* #Content
 ============================================ */
-#Content {
-    margin: 0 0 0 230px;
-    min-width: 575px;
-    position: relative;
-    top: 0;
-    z-index: 1;
-    border-left: 1px solid $general-border-color;
+            #Content {
+                margin: 0 0 0 230px;
+                min-width: 575px;
+                position: relative;
+                top: 0;
+                z-index: 1;
+                border-left: 1px solid $general-border-color;
 
-    @include respond-to(medium) {
-        min-width: 536px;
-    }
-}
-
-/* #SearchSortingView
-============================================ */
-#SearchSortingView {
-    display: flex;
-    align-items: center;
-    margin: 20px 0 0 auto;
-
-    .search-info-label {
-        color: #34495e;
-        letter-spacing: 0.25px;
-    }
-
-    .search-sorting-item {
-        padding-left: 15px;
-        border-left: 1px solid $general-border-color;
-        white-space: nowrap;
-
-        &:first-child {
-            padding-right: 15px;
-            border-left-width: 0;
-        }
-    }
-
-    #SortItemBySelect_ddlWrapper {
-        margin-left: 8px;
-        width: 160px;
-    }
-}
-
-/* #InnerResultWrapper
-============================================ */
-#InnerResultWrapper {
-    border-left-width: 0;
-    border-right-width: 0;
-
-    &.k-widget {
-        border-color: $general-border-color;
-    }
-
-    .k-grid-header {
-        height: 0;
-        visibility: hidden;
-    }
-
-    div.k-grid-header-wrap {
-        box-shadow: none;
-        border-color: #F2F2F2;
-    }
-
-    td {
-        padding: 0;
-        font-family: inherit;
-        font-size: 12px;
-        border: 1px solid transparent;
-        border-bottom-color: $general-border-color;
-    }
-
-    colgroup {
-        display: none;
-    }
-
-    .k-grid-content table {
-        min-width: 420px;
-    }
-}
-
-
-/* 
-============================================ */
-.ResultView {
-    right: 8px;
-    position: absolute;
-    width: 20px;
-    z-index: 2;
-
-    .detailDefinitionList {
-        .listview-item {
-            cursor: pointer;
-            height: 27px;
-            background-color: transparent;
-
-            &:hover {
-                background-color: $general-border-color;
+                @include respond-to(medium) {
+                    min-width: 536px;
+                }
             }
-        }
-    }
-}
+            /* #SearchSortingView
+============================================ */
+            #SearchSortingView {
+                display: flex;
+                align-items: center;
+                margin: 20px 0 0 auto;
 
-.displaysMode {
-    .ResultView {
-        width: 525px;
-        height: 150px;
-        padding-top: 0;
-        overflow: hidden;
-        border-left: 1px solid $general-border-color;
+                .search-info-label {
+                    color: #34495e;
+                    letter-spacing: 0.25px;
+                }
 
-        @include respond-to(medium) {
-            width: 275px;
-        }
+                .search-sorting-item {
+                    padding-left: 15px;
+                    border-left: 1px solid $general-border-color;
+                    white-space: nowrap;
 
-        @include respond-to(large) {
-            width: 375px;
-        }
+                    &:first-child {
+                        padding-right: 15px;
+                        border-left-width: 0;
+                    }
+                }
 
-        &:hover {
-            overflow: auto;
-        }
+                #SortItemBySelect_ddlWrapper {
+                    margin-left: 8px;
+                    width: 160px;
+                }
+            }
+            /* #InnerResultWrapper
+============================================ */
+            #InnerResultWrapper {
+                border-left-width: 0;
+                border-right-width: 0;
 
-        .detailDefinitionList {
-            margin-left: 21px;
-            max-height: none;
-            background: transparent;
+                &.k-widget {
+                    border-color: $general-border-color;
+                }
 
-            .listview-item {
-                cursor: pointer;
-                height: 27px;
-                background-color: transparent;
+                .k-grid-header {
+                    height: 0;
+                    visibility: hidden;
+                }
 
-                &:hover {
-                    background-color: #f5f5f5;
+                div.k-grid-header-wrap {
+                    box-shadow: none;
+                    border-color: #F2F2F2;
+                }
+
+                td {
+                    padding: 0;
+                    font-family: inherit;
+                    font-size: 12px;
+                    border: 1px solid transparent;
+                    border-bottom-color: $general-border-color;
+                }
+
+                colgroup {
+                    display: none;
+                }
+
+                .k-grid-content table {
+                    min-width: 420px;
+                }
+            }
+            /* 
+============================================ */
+            .ResultView {
+                right: 8px;
+                position: absolute;
+                width: 20px;
+                z-index: 2;
+
+                .detailDefinitionList {
+                    .listview-item {
+                        cursor: pointer;
+                        height: 27px;
+                        background-color: transparent;
+
+                        &:hover {
+                            background-color: $general-border-color;
+                        }
+                    }
+                }
+            }
+
+            .displaysMode {
+                .ResultView {
+                    width: 525px;
+                    height: 150px;
+                    padding-top: 0;
+                    overflow: hidden;
+                    border-left: 1px solid $general-border-color;
+
+                    @include respond-to(medium) {
+                        width: 275px;
+                    }
+
+                    @include respond-to(large) {
+                        width: 375px;
+                    }
+
+                    &:hover {
+                        overflow: auto;
+                    }
+
+                    .detailDefinitionList {
+                        margin-left: 21px;
+                        max-height: none;
+                        background: transparent;
+
+                        .listview-item {
+                            cursor: pointer;
+                            height: 27px;
+                            background-color: transparent;
+
+                            &:hover {
+                                background-color: #f5f5f5;
+                            }
+
+                            .displayNameContainer {
+                                overflow: visible;
+                            }
+                        }
+                    }
                 }
 
                 .displayNameContainer {
-                    overflow: visible;
+                    @include respond-to(medium) {
+                        min-width: 80px;
+                    }
+                }
+
+                .ResultContent {
+                    @include respond-to(medium) {
+                        margin-right: 300px;
+                    }
+
+                    @include respond-to(large) {
+                        margin-right: 400px;
+                    }
                 }
             }
-        }
-    }
 
-    .displayNameContainer {
-        @include respond-to(medium) {
-            min-width: 80px;
-        }
-    }
-
-    .ResultContent {
-        @include respond-to(medium) {
-            margin-right: 300px;
-        }
-
-        @include respond-to(large) {
-            margin-right: 400px;
-        }
-    }
-}
-
-.no-mouse.displaysMode {
-    .ResultView {
-        overflow: auto;
-    }
-}
+            .no-mouse.displaysMode {
+                .ResultView {
+                    overflow: auto;
+                }
+            }

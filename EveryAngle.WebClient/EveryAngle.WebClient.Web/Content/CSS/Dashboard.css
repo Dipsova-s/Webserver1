@@ -77,7 +77,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  height: 30px; }
+  height: 30px;
+  border-bottom: 1px solid #f1f3f4; }
   .widget-display-header .widgetName {
     margin: 0 auto 0 10px;
     display: inline-block;

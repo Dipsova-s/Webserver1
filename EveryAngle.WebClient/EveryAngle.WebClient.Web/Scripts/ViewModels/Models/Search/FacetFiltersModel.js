@@ -676,5 +676,6 @@ function FacetFiltersViewModel() {
 
         return result.join(' ');
     }
+
     window.GetRefreshTime = self.GetRefreshTime;
 }
