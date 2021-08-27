@@ -16,6 +16,8 @@ $side-content-color: #f7f7f7;
 
     .accordion-item {
         background-color: #ffffff;
+        border-radius: 3px;
+        margin: 10px 0px;
     }
 
     .card-header, .card-body,
@@ -99,7 +101,9 @@ $side-content-color: #f7f7f7;
         padding: 0;
 
         .tab-content {
-            padding-top: 0px;
+            padding: 0px;
+            padding-left: 10px;
+            padding-right: 10px;
         }
     }
 
@@ -225,6 +229,11 @@ $side-content-color: #f7f7f7;
             }
         }
 
+        .displayNameContainer {
+            font-size: 12px;
+            font-weight: 400;
+        }
+
         .innowera-details {
             display: inline-block;
             margin-left: 120px;
@@ -310,5 +319,14 @@ $side-content-color: #f7f7f7;
             padding-left: 3px;
             padding-right: 3px;
         }
+
+        .k-tagtextbox {
+            border-color: #f1f3f4;
+            border-radius: 3px;
+        }
+    }
+
+    .side-content-alignment{
+        margin-left: -10px;
     }
 }

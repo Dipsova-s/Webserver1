@@ -42,7 +42,7 @@
     };
     self.GetSectionDefaultDrilldownTemplate = function () {
         return [
-            '<div class="card section-default-drilldown alwaysHide">',
+            '<div class="card section-default-drilldown alwaysHide side-content-alignment">',
                 '<div class="card-body">',
                     '<div class="form-row">', 
                         '<div class="form-col">',
@@ -58,7 +58,7 @@
     };
     self.GetSectionExcelTemplate = function () {
         return [
-            '<div class="card section-default-excel-template">',
+            '<div class="card section-default-excel-template side-content-alignment">',
                 '<div class="card-body">',
                     '<div class="form-row">',
                         '<div class="form-col">',
@@ -83,7 +83,7 @@
     };
     self.GetSectionDisplayOptionsTemplate = function () {
         return [
-            '<div class="card section-display-options">',
+            '<div class="card section-display-options side-content-alignment">',
                 '<div class="card-body">',
                     '<div class="form-row">',
                         '<div class="form-col">',
