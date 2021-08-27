@@ -659,7 +659,7 @@ textarea.input-light {
   border: 1px solid transparent;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 
-.btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split + .btn, .btn.disabled, .btn[disabled]):hover {
+.btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split + .btn, btn-display-badge .btn.disabled, .btn[disabled]):hover {
   text-decoration: underline;
   text-underline-offset: 2px; }
 
@@ -966,6 +966,8 @@ textarea.input-light {
     min-width: 16px;
     border-radius: 50%;
     padding: 3px; }
+  .btn-display-badge:hover {
+    text-decoration: none !important; }
 
 /* .icon
 ============================================ */

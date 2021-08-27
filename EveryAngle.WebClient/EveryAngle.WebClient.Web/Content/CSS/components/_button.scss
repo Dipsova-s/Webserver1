@@ -28,10 +28,10 @@
     transition: $animation;
 }
 
-    .btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split +.btn, .btn.disabled, .btn[disabled]):hover {
-        text-decoration: underline;
-        text-underline-offset: 2px;
-    }
+.btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split +.btn, btn-display-badge .btn.disabled, .btn[disabled]):hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
 
     .btn:focus {
         color: #1fc7cf;
@@ -422,5 +422,9 @@
             min-width: 16px;
             border-radius: 50%;
             padding: 3px;
+        }
+
+        &:hover {
+            text-decoration: none!important;
         }
     }

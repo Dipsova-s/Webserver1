@@ -235,7 +235,7 @@
 .createNewAngleButtonWrapper {
   display: inline-block;
   position: relative;
-  margin: 17px 22px;
+  margin: 17px 14px;
   margin-bottom: 0; }
 
 .btnCreateNewAngle {
@@ -252,6 +252,8 @@
   border: none;
   box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16);
   z-index: 1001; }
+  .btnCreateNewAngle.btn:hover {
+    text-decoration: none !important; }
 
 .btnCreateNewAngle:after {
   display: none; }
@@ -309,7 +311,7 @@
     width: 492px !important; } }
 
 .popupAdvFiltering .popupSectionTitle {
-  color: #358ed7;
+  color: #25cad2;
   font-size: 12px;
   font-weight: bold;
   font-style: normal;
@@ -668,6 +670,12 @@
   padding: 0;
   height: 22px;
   text-align: left; }
+  #SearchFilterView .clear-filters .btn > span {
+    font-weight: normal;
+    font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+    letter-spacing: 0.25px; }
+  #SearchFilterView .clear-filters .btn:hover {
+    text-underline-offset: 1px; }
 
 /* #SearchSortingView
 ============================================ */
@@ -978,7 +986,7 @@
 #LeftMenu {
   position: absolute;
   z-index: 0;
-  background-color: #f7f9fa; }
+  background-color: #f7f7f7; }
   #LeftMenu .left-menu-wrapper {
     width: 230px;
     min-height: 200px;
@@ -988,7 +996,7 @@
     display: none; }
   #LeftMenu .facetFilter {
     display: none;
-    margin: 0 22px; }
+    margin: 0 14px; }
     #LeftMenu .facetFilter > div {
       border-top: 0; }
   #LeftMenu .FilterTab {
@@ -1005,7 +1013,7 @@
       font-size: 10px; }
     #LeftMenu .FilterTab:not(.expand) {
       padding-bottom: 15px; }
-      #LeftMenu .FilterTab:not(.expand) .icon-chevron-up {
+      #LeftMenu .FilterTab:not(.expand) .icon-chevron-right {
         display: none; }
     #LeftMenu .FilterTab.expand .icon-chevron-down {
       display: none; }
@@ -1015,18 +1023,22 @@
     #LeftMenu .FilterTab.border-separator {
       border-top: 2px solid #fff; }
     #LeftMenu .FilterTab .FilterTitle {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
-      margin-right: auto;
+      margin-left: 12px;
       letter-spacing: .24px; }
     #LeftMenu .FilterTab span {
       display: block;
       position: relative;
-      color: #333;
-      font-size: 11px;
+      color: #061c2b;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap; }
+      white-space: nowrap;
+      font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 22px;
+      letter-spacing: 0.1px; }
   #LeftMenu .FilterCheckBox {
     margin: 0;
     position: relative;
@@ -1055,8 +1067,17 @@
       #LeftMenu .tags-most-used .item-label-selected:hover {
         background-color: #25cad2;
         text-shadow: none; }
-  #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox {
-    padding-bottom: 9px; }
+  #LeftMenu .facetFilter .facetFilterSection {
+    background: #ffffff;
+    padding: 0 12px;
+    margin: 10px 0;
+    border-radius: 3px;
+    /*border: solid 1px #f1f3f4;*/
+    background-color: #fff; }
+    #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox {
+      padding-bottom: 9px; }
+      #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox:first-child {
+        padding-top: 22px; }
   #LeftMenu .facetFilter .k-tagtextbox {
     margin-bottom: 10px; }
   #LeftMenu .facetFilter ul {
@@ -1068,13 +1089,15 @@
     padding: 0;
     list-style-type: none;
     color: #333;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: normal;
     text-decoration: none;
-    margin-bottom: 12px; }
+    margin-bottom: 12px;
+    font-family: Roboto;
+    font-size: 12px;
+    line-height: normal;
+    letter-spacing: 0.44px;
+    text-align: left; }
     #LeftMenu .facetFilter li:hover span {
-      color: #006f9b; }
+      color: #03c6cf; }
     #LeftMenu .facetFilter li.item-label {
       font-size: 12px;
       padding: 0 5px;
