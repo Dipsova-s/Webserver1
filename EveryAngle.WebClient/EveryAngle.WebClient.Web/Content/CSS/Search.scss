@@ -752,9 +752,11 @@
     margin-right: 4px;
 }
 
-.viewType a:hover,
+.viewType a:hover {
+    background-color: #03c6cf;
+}
 .viewType a.active {
-    background-color: #78909c;
+    background-color: #16dfe9;
 }
 
 

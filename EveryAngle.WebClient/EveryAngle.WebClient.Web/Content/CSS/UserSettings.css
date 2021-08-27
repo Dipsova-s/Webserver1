@@ -39,7 +39,8 @@
     letter-spacing: 0.25px;
     color: #78909c; }
   .settingsPanel .accordion {
-    overflow: hidden; }
+    overflow: hidden;
+    padding: 0; }
     .settingsPanel .accordion .accordion-body {
       padding-top: 0; }
   .settingsPanel input[type="text"], .settingsPanel .k-dropdown {

@@ -60,7 +60,7 @@
     color: #25cad2;
 
     &.active {
-        outline: 1px auto $primary-color;
+        border: 1px solid $primary-color;
     }
 }
 
