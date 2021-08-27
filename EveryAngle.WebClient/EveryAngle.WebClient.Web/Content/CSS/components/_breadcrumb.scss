@@ -27,6 +27,9 @@
         .breadcrumb-link {
             cursor: pointer;
             color: #061c2b;
+            font-weight: normal;
+            line-height: 2;
+            letter-spacing: 0.44px;
 
             &:hover .breadcrumb-name {
                 color: $primary-color;

@@ -75,7 +75,7 @@
                     text: Localization.Apply,
                     isSecondary: true,
                     position: 'right',
-                    className: 'disabled btn-apply',
+                    className: 'btn-small disabled btn-apply',
                     click: self.Apply
                 }
             ],
