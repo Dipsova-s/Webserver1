@@ -238,7 +238,7 @@ function Popup() {
 
             jQuery.each(buttons, function (k, v) {
                 v.kendoWindow = win;
-                jQuery('<a class="btn" />')
+                jQuery('<a class="btn btn-small" />')
                     .attr(jQuery.extend({}, v.attr, { id: 'btn-' + winId + k }))
                     .data('setting', v)
                     .click(function (e) {

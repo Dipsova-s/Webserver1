@@ -958,8 +958,7 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-popup .k-list-scroller .k-list .k-item {
   border-top-color: transparent;
   font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 12px;
   line-height: 30px;
   min-height: 30px; }
 
