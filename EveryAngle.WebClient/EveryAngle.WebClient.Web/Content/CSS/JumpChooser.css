@@ -61,7 +61,7 @@
     color: #fff;
     font-weight: bold;
     font-size: 12px;
-    background: #8197c8 none;
+    background: #2f4354 none;
     text-align: center;
 }
 
@@ -118,13 +118,13 @@
     height: 20px;
 }
 
-.followupBlock .k-grid-header .k-header.gridHeaderContainer {
-    color: #fff;
-    line-height: 22px;
-    height: 30px;
-    padding-right: 20px;
-    background: #8197c8;
-}
+    .followupBlock .k-grid-header .k-header.gridHeaderContainer {
+        color: #fff;
+        line-height: 22px;
+        height: 30px;
+        padding-right: 20px;
+        background: #2f4354;
+    }
 
 .followupBlock .gridHeaderContainer .sort {
     right: -15px;
@@ -186,7 +186,7 @@
     padding: 0;
     list-style: none;
     font-size: 11px;
-    color: #777;
+    color: #061c2b;
 }
 
 .followupsIndicator > li {
@@ -201,6 +201,19 @@
 .followupsIndicator > .relation.manyToOne {
     background-image: url('../../images/angle/followups/followups_relation_indicator.svg');
 }
+
+    .followupsIndicator > .relation.manyToOne > span {
+        flex-grow: 0;
+        margin: 0 0 0 16.5px;
+        font-family: Roboto;
+        font-size: 12px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 2;
+        letter-spacing: 0.44px;
+        text-align: left;
+    }
 
 .followupsIndicator > .flow {
     line-height: 45px;
