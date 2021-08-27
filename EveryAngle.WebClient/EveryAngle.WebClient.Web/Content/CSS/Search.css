@@ -611,11 +611,9 @@
 .viewType .typeDisplays {
   margin-right: 4px; }
 
-.viewType a:hover {
-  background-color: #03c6cf; }
-
+.viewType a:hover,
 .viewType a.active {
-  background-color: #16dfe9; }
+  background-color: #78909c; }
 
 .viewType a:before {
   content: '';
