@@ -203,13 +203,7 @@
   font-display: swap;
   src: url("../fonts/roboto-medium.eot") format("eot"), url("../fonts/roboto-medium.woff2") format("woff2"), url("../fonts/roboto-medium.woff") format("woff"), url("../fonts/roboto-medium.ttf") format("truetype"), url("../fonts/roboto-medium.svg#Roboto") format("svg"); }
 
-@font-face {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: normal;
-  font-display: swap;
-  src: url("../fonts/roboto-regular.eot") format("eot"), url("../fonts/roboto-regular.woff2") format("woff2"), url("../fonts/roboto-regular.woff") format("woff"), url("../fonts/roboto-regular.ttf") format("truetype"), url("../fonts/roboto-regular.svg#Roboto") format("svg"); }
-
+/*@include font-face(Roboto, "../fonts/roboto-regular", normal, normal);*/
 html, body {
   height: 100%;
   margin: 0;
@@ -659,7 +653,7 @@ textarea.input-light {
   border: 1px solid transparent;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 
-.btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split + .btn, btn-display-badge .btn.disabled, .btn[disabled]):hover {
+.btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split + .btn, btn-display-badge .btn.disabled, .btn[disabled], a[class*="btn-"]):hover {
   text-decoration: underline;
   text-underline-offset: 2px; }
 
@@ -3020,7 +3014,6 @@ textarea.input-light {
   background-size: 10px 1px, 10px 1px, 1px 10px, 1px 10px; }
 
 .filter-editor {
-  background-color: deeppink;
   padding-top: 5px;
   padding-bottom: 5px;
   cursor: default; }
@@ -3044,7 +3037,8 @@ textarea.input-light {
       flex: 1; }
     .filter-editor .filter-editor-arguments .btn-select-field {
       color: #78909c;
-      line-height: 26px;
+      line-height: 30px;
+      height: 30px;
       font-size: 14px;
       padding: 0 8px; }
     .filter-editor .filter-editor-arguments .form-col-header {

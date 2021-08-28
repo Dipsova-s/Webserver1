@@ -1055,8 +1055,7 @@
       padding: 0 7px 0 7px;
       max-width: 186px; }
       #LeftMenu .tags-most-used .item-label:hover {
-        background-color: #d8d8d8;
-        text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
+        background-color: #d8d8d8; }
       #LeftMenu .tags-most-used .item-label .tag-content {
         display: flex; }
       #LeftMenu .tags-most-used .item-label .tag-count {

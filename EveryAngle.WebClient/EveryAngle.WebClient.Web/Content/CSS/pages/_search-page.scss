@@ -112,7 +112,6 @@ $left-menu-background-color: #f7f7f7;
 
             &:hover {
                 background-color: #d8d8d8;
-                text-shadow: $text-shadow-bold;
             }
 
             .tag-content {
@@ -243,163 +242,163 @@ $left-menu-background-color: #f7f7f7;
 
 /* #Content
 ============================================ */
-            #Content {
-                margin: 0 0 0 230px;
-                min-width: 575px;
-                position: relative;
-                top: 0;
-                z-index: 1;
-                border-left: 1px solid $general-border-color;
+#Content {
+    margin: 0 0 0 230px;
+    min-width: 575px;
+    position: relative;
+    top: 0;
+    z-index: 1;
+    border-left: 1px solid $general-border-color;
 
-                @include respond-to(medium) {
-                    min-width: 536px;
-                }
-            }
-            /* #SearchSortingView
+    @include respond-to(medium) {
+        min-width: 536px;
+    }
+}
+/* #SearchSortingView
 ============================================ */
-            #SearchSortingView {
-                display: flex;
-                align-items: center;
-                margin: 20px 0 0 auto;
+#SearchSortingView {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 0 auto;
 
-                .search-info-label {
-                    color: #34495e;
-                    letter-spacing: 0.25px;
-                }
+    .search-info-label {
+        color: #34495e;
+        letter-spacing: 0.25px;
+    }
 
-                .search-sorting-item {
-                    padding-left: 15px;
-                    border-left: 1px solid $general-border-color;
-                    white-space: nowrap;
+    .search-sorting-item {
+        padding-left: 15px;
+        border-left: 1px solid $general-border-color;
+        white-space: nowrap;
 
-                    &:first-child {
-                        padding-right: 15px;
-                        border-left-width: 0;
-                    }
-                }
+        &:first-child {
+            padding-right: 15px;
+            border-left-width: 0;
+        }
+    }
 
-                #SortItemBySelect_ddlWrapper {
-                    margin-left: 8px;
-                    width: 160px;
-                }
-            }
-            /* #InnerResultWrapper
+    #SortItemBySelect_ddlWrapper {
+        margin-left: 8px;
+        width: 160px;
+    }
+}
+/* #InnerResultWrapper
 ============================================ */
-            #InnerResultWrapper {
-                border-left-width: 0;
-                border-right-width: 0;
+#InnerResultWrapper {
+    border-left-width: 0;
+    border-right-width: 0;
 
-                &.k-widget {
-                    border-color: $general-border-color;
-                }
+    &.k-widget {
+        border-color: $general-border-color;
+    }
 
-                .k-grid-header {
-                    height: 0;
-                    visibility: hidden;
-                }
+    .k-grid-header {
+        height: 0;
+        visibility: hidden;
+    }
 
-                div.k-grid-header-wrap {
-                    box-shadow: none;
-                    border-color: #F2F2F2;
-                }
+    div.k-grid-header-wrap {
+        box-shadow: none;
+        border-color: #F2F2F2;
+    }
 
-                td {
-                    padding: 0;
-                    font-family: inherit;
-                    font-size: 12px;
-                    border: 1px solid transparent;
-                    border-bottom-color: $general-border-color;
-                }
+    td {
+        padding: 0;
+        font-family: inherit;
+        font-size: 12px;
+        border: 1px solid transparent;
+        border-bottom-color: $general-border-color;
+    }
 
-                colgroup {
-                    display: none;
-                }
+    colgroup {
+        display: none;
+    }
 
-                .k-grid-content table {
-                    min-width: 420px;
-                }
-            }
-            /* 
+    .k-grid-content table {
+        min-width: 420px;
+    }
+}
+/* 
 ============================================ */
-            .ResultView {
-                right: 8px;
-                position: absolute;
-                width: 20px;
-                z-index: 2;
+.ResultView {
+    right: 8px;
+    position: absolute;
+    width: 20px;
+    z-index: 2;
 
-                .detailDefinitionList {
-                    .listview-item {
-                        cursor: pointer;
-                        height: 27px;
-                        background-color: transparent;
+    .detailDefinitionList {
+        .listview-item {
+            cursor: pointer;
+            height: 27px;
+            background-color: transparent;
 
-                        &:hover {
-                            background-color: $general-border-color;
-                        }
-                    }
-                }
+            &:hover {
+                background-color: $general-border-color;
             }
+        }
+    }
+}
 
-            .displaysMode {
-                .ResultView {
-                    width: 525px;
-                    height: 150px;
-                    padding-top: 0;
-                    overflow: hidden;
-                    border-left: 1px solid $general-border-color;
+.displaysMode {
+    .ResultView {
+        width: 525px;
+        height: 150px;
+        padding-top: 0;
+        overflow: hidden;
+        border-left: 1px solid $general-border-color;
 
-                    @include respond-to(medium) {
-                        width: 275px;
-                    }
+        @include respond-to(medium) {
+            width: 275px;
+        }
 
-                    @include respond-to(large) {
-                        width: 375px;
-                    }
+        @include respond-to(large) {
+            width: 375px;
+        }
 
-                    &:hover {
-                        overflow: auto;
-                    }
+        &:hover {
+            overflow: auto;
+        }
 
-                    .detailDefinitionList {
-                        margin-left: 21px;
-                        max-height: none;
-                        background: transparent;
+        .detailDefinitionList {
+            margin-left: 21px;
+            max-height: none;
+            background: transparent;
 
-                        .listview-item {
-                            cursor: pointer;
-                            height: 27px;
-                            background-color: transparent;
+            .listview-item {
+                cursor: pointer;
+                height: 27px;
+                background-color: transparent;
 
-                            &:hover {
-                                background-color: #f5f5f5;
-                            }
-
-                            .displayNameContainer {
-                                overflow: visible;
-                            }
-                        }
-                    }
+                &:hover {
+                    background-color: #f5f5f5;
                 }
 
                 .displayNameContainer {
-                    @include respond-to(medium) {
-                        min-width: 80px;
-                    }
-                }
-
-                .ResultContent {
-                    @include respond-to(medium) {
-                        margin-right: 300px;
-                    }
-
-                    @include respond-to(large) {
-                        margin-right: 400px;
-                    }
+                    overflow: visible;
                 }
             }
+        }
+    }
 
-            .no-mouse.displaysMode {
-                .ResultView {
-                    overflow: auto;
-                }
-            }
+    .displayNameContainer {
+        @include respond-to(medium) {
+            min-width: 80px;
+        }
+    }
+
+    .ResultContent {
+        @include respond-to(medium) {
+            margin-right: 300px;
+        }
+
+        @include respond-to(large) {
+            margin-right: 400px;
+        }
+    }
+}
+
+.no-mouse.displaysMode {
+    .ResultView {
+        overflow: auto;
+    }
+}

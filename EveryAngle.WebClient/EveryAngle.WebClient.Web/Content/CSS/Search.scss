@@ -313,7 +313,7 @@
     z-index: 1001;
 
     &.btn:hover {
-        text-decoration: none!important;
+        text-decoration: none !important;
     }
 }
 
@@ -1078,7 +1078,7 @@
     box-shadow: none;
     background-color: transparent;
 }
- 
+
 .displaysMode .ResultContent .ContentDetail {
     height: 66px;
     -webkit-line-clamp: 4; /* NOSONAR: css for specific browser */

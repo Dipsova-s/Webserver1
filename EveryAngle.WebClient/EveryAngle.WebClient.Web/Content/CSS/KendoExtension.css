@@ -1331,11 +1331,15 @@ div.k-tooltip.k-chart-tooltip {
 
 .k-tagtextbox .btn-search {
   position: absolute;
-  top: auto;
+  top: 12px;
   right: 6px;
   bottom: 10px;
   color: #78909c;
   font-size: 16px; }
+
+.k-tagtextbox .k-multiselect-wrap ul[id="SearchTag_taglist"] ~ .btn-search,
+.k-tagtextbox .k-multiselect-wrap ul.k-reset:empty ~ .btn-search {
+  top: 10px; }
 
 .k-tagtextbox.k-state-focused {
   box-shadow: none; }
