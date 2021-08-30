@@ -3707,7 +3707,7 @@ textarea.input-light {
     margin: 10px 0px; }
   .side-content .card-header, .side-content .card-body,
   .side-content .accordion-header, .side-content .accordion-body {
-    padding-left: 14px;
+    padding-left: 12px;
     padding-right: 12px;
     background-color: transparent; }
   .side-content .card-body {
@@ -3781,7 +3781,7 @@ textarea.input-light {
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    max-height: 127px;
+    max-height: 120px;
     margin-bottom: 10px;
     padding-bottom: 0;
     letter-spacing: .24px;
@@ -3892,11 +3892,11 @@ textarea.input-light {
     .side-content .section-tags .form-col-body {
       padding-left: 3px;
       padding-right: 3px; }
-    .side-content .section-tags .k-tagtextbox {
+    .side-content .section-tags .k-tagtextbox .k-multiselect-wrap {
       border-color: #f1f3f4;
       border-radius: 3px; }
   .side-content .side-content-alignment {
-    margin-left: -10px; }
+    margin-left: -12px; }
 
 .toggle-sidebar {
   position: absolute;

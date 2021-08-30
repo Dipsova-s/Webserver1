@@ -7,7 +7,7 @@ $display-tab-bottom-border-color: #e6e6e6;
     z-index: 0;
     background: #fafafa;
 }
- 
+
 .detailsWrapper {
     left: 0;
     position: relative;
@@ -32,5 +32,40 @@ $display-tab-bottom-border-color: #e6e6e6;
     .Wrapper {
         z-index: 0;
         background: #fafafa;
+    }
+
+    .display-tab {
+        background-color: #fff;
+    }
+}
+
+#DisplayTabs {
+
+    .tab-menu-header-inner {
+        background-color: #e9ecee;
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 1.83;
+        letter-spacing: 0.1px;
+        text-align: left;
+        color: #061c2b;
+
+        .icon {
+            color: #78909c;
+        }
+    }
+
+    .active .tab-menu-header-inner {
+        background-color: #25cad2;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.83;
+        letter-spacing: 0.1px;
+        text-align: left;
+        color: #fafcfc;
+
+        .icon {
+            color: #fafcfc;
+        }
     }
 }

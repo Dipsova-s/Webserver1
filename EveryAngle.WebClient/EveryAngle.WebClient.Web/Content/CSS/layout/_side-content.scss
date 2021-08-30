@@ -22,7 +22,7 @@ $side-content-color: #f7f7f7;
 
     .card-header, .card-body,
     .accordion-header, .accordion-body {
-        padding-left: 14px;
+        padding-left: 12px;
         padding-right: 12px;
         background-color: transparent;
     }
@@ -145,7 +145,7 @@ $side-content-color: #f7f7f7;
             -webkit-line-clamp: 7;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            max-height: 127px;
+            max-height: 120px;
             margin-bottom: 10px;
             padding-bottom: 0;
             letter-spacing: .24px;
@@ -320,13 +320,13 @@ $side-content-color: #f7f7f7;
             padding-right: 3px;
         }
 
-        .k-tagtextbox {
+        .k-tagtextbox .k-multiselect-wrap {
             border-color: #f1f3f4;
             border-radius: 3px;
         }
     }
 
-    .side-content-alignment{
-        margin-left: -10px;
+    .side-content-alignment {
+        margin-left: -12px;
     }
 }
