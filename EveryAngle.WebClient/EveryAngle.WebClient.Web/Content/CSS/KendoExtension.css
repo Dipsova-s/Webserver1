@@ -560,7 +560,6 @@ div.k-window-content {
   right: 0;
   bottom: 0;
   height: 48px;
-  border-top: 1px dashed #d5d5d5;
   border-radius: 0 0 2px 2px; }
 
 .k-window-buttons-inner {
@@ -569,7 +568,7 @@ div.k-window-content {
   right: 0;
   padding: 10px;
   overflow: hidden;
-  background: #f7f9fa; }
+  background: #f6f6f6; }
 
 .k-window-buttons .loading16x16 {
   position: static;
@@ -1302,8 +1301,8 @@ div.k-tooltip.k-chart-tooltip {
    height: 36/20
 =================================== */
 .k-tagtextbox .k-multiselect-wrap {
-  border-color: #c6cacc;
-  border-radius: 0;
+  border-color: #e9ecee;
+  border-radius: 3px;
   padding-top: 7px;
   padding-left: 7px;
   min-height: 30px;

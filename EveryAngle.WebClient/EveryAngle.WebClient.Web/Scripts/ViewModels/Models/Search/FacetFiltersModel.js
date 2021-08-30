@@ -663,8 +663,7 @@ function FacetFiltersViewModel() {
     self.GetFacetTabClassname = function (facet) {
         var result = [
             'FilterTab-' + facet.type,
-            (facet.panel_opened() ? 'expand' : ''),
-            self.GroupBusinessProcess !== facet.type ? 'border-separator' : ''
+            (facet.panel_opened() ? 'expand' : '')
         ];
 
         return result.join(' ');

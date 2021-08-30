@@ -1,7 +1,7 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
-$facet-filter-padding-bottom: 9px;
+$facet-filter-padding-bottom: 1px;
 $left-menu-background-color: #f7f7f7;
 
 /* #LeftMenu
@@ -36,7 +36,7 @@ $left-menu-background-color: #f7f7f7;
         z-index: 10;
         line-height: 23px;
         height: 23px;
-        padding-top: 15px;
+        padding-top: 8px;
         display: flex;
         align-items: center;
         position: relative;
@@ -47,24 +47,20 @@ $left-menu-background-color: #f7f7f7;
         }
 
         &:not(.expand) {
-            padding-bottom: 15px;
+            padding-bottom: 8px;
 
-            .icon-chevron-right {
+            .icon-chevron-down {
                 display: none;
             }
         }
 
-        &.expand .icon-chevron-down {
+        &.expand .icon-chevron-right {
             display: none;
         }
 
         &.expand + .FilterCheckBox,
         &.sliding + .FilterCheckBox {
             padding-top: 15px;
-        }
-
-        &.border-separator {
-            border-top: 2px solid #fff;
         }
 
         .FilterTitle {
@@ -85,6 +81,7 @@ $left-menu-background-color: #f7f7f7;
             font-size: 12px;
             font-weight: 500;
             line-height: 22px;
+            height: 24px;
             letter-spacing: 0.1px;
         }
     }
@@ -143,11 +140,15 @@ $left-menu-background-color: #f7f7f7;
             border-radius: 3px;
             background-color: #fff;
 
+            &:first-child{
+                margin-top:14px;
+            }
+            
             .FilterCheckBox {
                 padding-bottom: $facet-filter-padding-bottom;
 
                 &:first-child {
-                    padding-top: 22px;
+                    padding-top: 15px;
                 }
             }
         }
@@ -216,7 +217,7 @@ $left-menu-background-color: #f7f7f7;
             position: absolute;
             left: 0;
             bottom: 0;
-            margin-left: 21px;
+            margin-left: 22px;
         }
 
         .name.withIcon {

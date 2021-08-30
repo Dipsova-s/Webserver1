@@ -420,7 +420,7 @@
   display: none;
   padding: 30px 37px 0 37px;
   overflow: auto;
-  background-color: #f7f9fa; }
+  background-color: #ffffff; }
 
 .sectionWelcomeRow {
   float: left;
@@ -1004,7 +1004,7 @@
     z-index: 10;
     line-height: 23px;
     height: 23px;
-    padding-top: 15px;
+    padding-top: 8px;
     display: flex;
     align-items: center;
     position: relative; }
@@ -1012,16 +1012,14 @@
       font-weight: bold;
       font-size: 10px; }
     #LeftMenu .FilterTab:not(.expand) {
-      padding-bottom: 15px; }
-      #LeftMenu .FilterTab:not(.expand) .icon-chevron-right {
+      padding-bottom: 8px; }
+      #LeftMenu .FilterTab:not(.expand) .icon-chevron-down {
         display: none; }
-    #LeftMenu .FilterTab.expand .icon-chevron-down {
+    #LeftMenu .FilterTab.expand .icon-chevron-right {
       display: none; }
     #LeftMenu .FilterTab.expand + .FilterCheckBox,
     #LeftMenu .FilterTab.sliding + .FilterCheckBox {
       padding-top: 15px; }
-    #LeftMenu .FilterTab.border-separator {
-      border-top: 2px solid #fff; }
     #LeftMenu .FilterTab .FilterTitle {
       font-size: 12px;
       font-weight: bold;
@@ -1038,6 +1036,7 @@
       font-size: 12px;
       font-weight: 500;
       line-height: 22px;
+      height: 24px;
       letter-spacing: 0.1px; }
   #LeftMenu .FilterCheckBox {
     margin: 0;
@@ -1072,10 +1071,12 @@
     margin: 10px 0;
     border-radius: 3px;
     background-color: #fff; }
+    #LeftMenu .facetFilter .facetFilterSection:first-child {
+      margin-top: 14px; }
     #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox {
-      padding-bottom: 9px; }
+      padding-bottom: 1px; }
       #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox:first-child {
-        padding-top: 22px; }
+        padding-top: 15px; }
   #LeftMenu .facetFilter .k-tagtextbox {
     margin-bottom: 10px; }
   #LeftMenu .facetFilter ul {
@@ -1120,7 +1121,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    margin-left: 21px; }
+    margin-left: 22px; }
   #LeftMenu .facetFilter .name.withIcon {
     margin-left: 23px; }
   #LeftMenu .facetFilter .BusinessProcessBadge {

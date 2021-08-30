@@ -14,21 +14,28 @@ $side-content-color: #f7f7f7;
         opacity: 1;
     }
 
+    .tab .tab-content-wrapper {
+        box-sizing: border-box;
+        padding: 14px;
+    }
+
+    .tab-content-wrapper.active {
+        padding: 0 !important;
+    }
+
+    div#TabContentAngle.accordion, div#TabContentDisplay.accordion {
+        padding: 0;
+    }
+
     .accordion-item {
-        background-color: #ffffff;
-        border-radius: 3px;
         margin: 10px 0px;
     }
 
     .card-header, .card-body,
     .accordion-header, .accordion-body {
-        padding-left: 14px;
+        padding-left: 12px;
         padding-right: 12px;
         background-color: transparent;
-    }
-
-    .card-body {
-        padding-top: 10px;
     }
 
     .card:not(.disabled) + .card > .card-body,
@@ -40,7 +47,9 @@ $side-content-color: #f7f7f7;
     .accordion-header {
         font-size: 12px;
         font-weight: 500;
-        line-height: 1.83;
+        line-height: 22px;
+        height: 24px;
+        padding: 8px 12px;
         letter-spacing: 0.1px;
         text-align: left;
         text-transform: none;
@@ -95,18 +104,7 @@ $side-content-color: #f7f7f7;
             line-height: 1.33;
         }
     }
-
-    .tab .tab-content-wrapper {
-        overflow: auto;
-        padding: 0;
-
-        .tab-content {
-            padding: 0px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-    }
-
+  
     .section-definition {
         .query-definition {
             margin-left: -15px;
@@ -145,7 +143,7 @@ $side-content-color: #f7f7f7;
             -webkit-line-clamp: 7;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            max-height: 127px;
+            max-height: 135px;
             margin-bottom: 10px;
             padding-bottom: 0;
             letter-spacing: .24px;
@@ -170,7 +168,7 @@ $side-content-color: #f7f7f7;
             line-height: 20px;
             letter-spacing: 1.5px;
             color: #061c2b;
-            padding: 8px 8px 4px 12px;
+            padding: 8px 12px;
         }
 
         &.disabled {
@@ -178,8 +176,8 @@ $side-content-color: #f7f7f7;
         }
 
         .section-personal-note-body {
-            line-height: 20px;
-            padding: 0px 12px 8px 12px;
+            line-height: 10px;
+            padding: 0px 12px 10px 12px;
         }
 
         &.editable .section-personal-note-body {
@@ -304,29 +302,34 @@ $side-content-color: #f7f7f7;
     }
 
     .section-tags {
-        margin: -10px;
-        margin-bottom: 0px;
+        margin-bottom: 10px;
 
-        .form-col-header {
-            color: #78909c;
-            font-style: italic;
-            font-weight: normal;
-            font-size: 11px;
-            width: 100%;
+        .card-body {
+            padding: 0;
+
+            .form-row {
+                margin-left: 0;
+                margin-right: 0;
+
+                .form-col {
+                    padding: 0;
+
+                    &.form-col-header {
+                        color: #78909c;
+                        font-style: italic;
+                        font-weight: normal;
+                        font-size: 11px;
+                        width: 100%;
+                        padding-left: 12px;
+                        padding-bottom: 10px;
+                    }
+                }
+            }
         }
 
-        .form-col-body {
-            padding-left: 3px;
-            padding-right: 3px;
-        }
-
-        .k-tagtextbox {
+        .k-tagtextbox .k-multiselect-wrap {
             border-color: #f1f3f4;
             border-radius: 3px;
         }
-    }
-
-    .side-content-alignment{
-        margin-left: -10px;
     }
 }

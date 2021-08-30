@@ -661,15 +661,16 @@ textarea.input-light {
   color: #1fc7cf; }
 
 .btn-small {
-  font-size: 12px;
-  height: 28px; }
+  font-size: 12px !important;
+  height: 28px !important; }
 
 .btn-primary,
 .btn-primary:link,
 .btn-primary:visited {
   background-color: #25cad2;
   border-color: #25cad2;
-  color: #ffffff; }
+  color: #ffffff;
+  font-weight: normal; }
 
 .btn-primary:hover {
   background-color: #03c6cf;
@@ -699,6 +700,7 @@ textarea.input-light {
 
 .btn-secondary:hover {
   background-color: #e9e9e9;
+  border-color: #e9e9e9;
   text-decoration: none; }
 
 .btn-secondary:focus {
@@ -2573,8 +2575,9 @@ textarea.input-light {
 
 .accordion-item {
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: #ffffff;
   border: solid 1px #f1f3f4;
+  border-radius: 3px;
   margin: 14px 0;
   padding: 0; }
   .accordion-transparent .accordion-item {
@@ -3483,7 +3486,8 @@ textarea.input-light {
     display: flex;
     padding: 0;
     font-size: 12px;
-    color: #78909c; }
+    color: #78909c;
+    min-width: unset; }
     .display-tab .btn:after {
       display: none; }
     .display-tab .btn .icon {
@@ -3827,17 +3831,20 @@ textarea.input-light {
   z-index: 1; }
   .side-content.active {
     opacity: 1; }
+  .side-content .tab .tab-content-wrapper {
+    box-sizing: border-box;
+    padding: 14px; }
+  .side-content .tab-content-wrapper.active {
+    padding: 0 !important; }
+  .side-content div#TabContentAngle.accordion, .side-content div#TabContentDisplay.accordion {
+    padding: 0; }
   .side-content .accordion-item {
-    background-color: #ffffff;
-    border-radius: 3px;
     margin: 10px 0px; }
   .side-content .card-header, .side-content .card-body,
   .side-content .accordion-header, .side-content .accordion-body {
-    padding-left: 14px;
+    padding-left: 12px;
     padding-right: 12px;
     background-color: transparent; }
-  .side-content .card-body {
-    padding-top: 10px; }
   .side-content .card:not(.disabled) + .card > .card-body,
   .side-content .card-header + .card-body,
   .side-content .accordion-body {
@@ -3845,7 +3852,9 @@ textarea.input-light {
   .side-content .accordion-header {
     font-size: 12px;
     font-weight: 500;
-    line-height: 1.83;
+    line-height: 22px;
+    height: 24px;
+    padding: 8px 12px;
     letter-spacing: 0.1px;
     text-align: left;
     text-transform: none;
@@ -3877,13 +3886,6 @@ textarea.input-light {
     letter-spacing: .24px;
     color: #777;
     line-height: 1.33; }
-  .side-content .tab .tab-content-wrapper {
-    overflow: auto;
-    padding: 0; }
-    .side-content .tab .tab-content-wrapper .tab-content {
-      padding: 0px;
-      padding-left: 10px;
-      padding-right: 10px; }
   .side-content .section-definition .query-definition {
     margin-left: -15px;
     margin-right: -15px; }
@@ -3907,7 +3909,7 @@ textarea.input-light {
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    max-height: 127px;
+    max-height: 135px;
     margin-bottom: 10px;
     padding-bottom: 0;
     letter-spacing: .24px;
@@ -3926,12 +3928,12 @@ textarea.input-light {
       line-height: 20px;
       letter-spacing: 1.5px;
       color: #061c2b;
-      padding: 8px 8px 4px 12px; }
+      padding: 8px 12px; }
     .side-content .section-personal-note.disabled {
       display: none; }
     .side-content .section-personal-note .section-personal-note-body {
-      line-height: 20px;
-      padding: 0px 12px 8px 12px; }
+      line-height: 10px;
+      padding: 0px 12px 10px 12px; }
     .side-content .section-personal-note.editable .section-personal-note-body {
       padding-bottom: 10px; }
     .side-content .section-personal-note .add-note {
@@ -4007,22 +4009,25 @@ textarea.input-light {
   .side-content ul.business-processes {
     max-height: none; }
   .side-content .section-tags {
-    margin: -10px;
-    margin-bottom: 0px; }
-    .side-content .section-tags .form-col-header {
-      color: #78909c;
-      font-style: italic;
-      font-weight: normal;
-      font-size: 11px;
-      width: 100%; }
-    .side-content .section-tags .form-col-body {
-      padding-left: 3px;
-      padding-right: 3px; }
-    .side-content .section-tags .k-tagtextbox {
+    margin-bottom: 10px; }
+    .side-content .section-tags .card-body {
+      padding: 0; }
+      .side-content .section-tags .card-body .form-row {
+        margin-left: 0;
+        margin-right: 0; }
+        .side-content .section-tags .card-body .form-row .form-col {
+          padding: 0; }
+          .side-content .section-tags .card-body .form-row .form-col.form-col-header {
+            color: #78909c;
+            font-style: italic;
+            font-weight: normal;
+            font-size: 11px;
+            width: 100%;
+            padding-left: 12px;
+            padding-bottom: 10px; }
+    .side-content .section-tags .k-tagtextbox .k-multiselect-wrap {
       border-color: #f1f3f4;
       border-radius: 3px; }
-  .side-content .side-content-alignment {
-    margin-left: -10px; }
 
 .toggle-sidebar {
   position: absolute;
