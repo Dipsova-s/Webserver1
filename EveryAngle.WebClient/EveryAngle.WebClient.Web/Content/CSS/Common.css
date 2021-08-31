@@ -626,7 +626,12 @@ textarea.input-light {
 
 .btn-primary,
 .btn-primary:link,
-.btn-primary:visited,
+.btn-primary:visited {
+  background-color: #25cad2;
+  border-color: #25cad2;
+  color: #ffffff;
+  font-weight: normal; }
+
 .btn-primary:hover {
   background-color: #358ed7;
   border-color: #358ed7;
@@ -3871,6 +3876,13 @@ textarea.input-light {
     .side-content .section-labels .labels-wrapper .business-processes-selection-message {
       font-size: 11px; }
   .side-content .section-labels .business-process-multi-select {
+    color: #fff;
+    height: 20px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: 0.4px;
     color: #fff; }
     .side-content .section-labels .business-process-multi-select .btn-remove {
       color: #fff; }
