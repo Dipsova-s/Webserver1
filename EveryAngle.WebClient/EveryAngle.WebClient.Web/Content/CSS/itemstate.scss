@@ -11,7 +11,7 @@
     }
 
     .icon {
-        margin-left: 3px;
+        margin-left: 9px;
     }
 }
 
@@ -139,6 +139,10 @@
     }
 
     .publish-limitations {
+        .card-header {
+            padding-bottom: 10px;
+        }
+
         .card-body {
             padding-bottom: 0;
         }

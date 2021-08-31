@@ -4001,6 +4001,13 @@ textarea.input-light {
     .side-content .section-labels .labels-wrapper .business-processes-selection-message {
       font-size: 11px; }
   .side-content .section-labels .business-process-multi-select {
+    color: #fff;
+    height: 20px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: 0.4px;
     color: #fff; }
     .side-content .section-labels .business-process-multi-select .btn-remove {
       color: #fff; }

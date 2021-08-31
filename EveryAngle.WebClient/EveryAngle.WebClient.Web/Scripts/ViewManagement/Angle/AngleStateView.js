@@ -5,8 +5,8 @@ AngleStateView.prototype.GetPublishDisplaysTemplate = function () {
     return [
         '<li class="accordion-item publish-displays">',
             '<div class="accordion-header open">',
-                '<i class="open-indicator icon icon-caret-down"></i>',
-                '<i class="close-indicator icon icon-caret-right"></i>',
+                '<i class="open-indicator icon icon-chevron-down"></i>',
+                '<i class="close-indicator icon icon-chevron-right"></i>',
                 '<span class="group-name" data-bind="text: Localization.PublishSettings_PanelDisplays"></span> ',
                 '(<span class="group-count" data-bind="text: Displays().length"></span>)',
             '</div>',
