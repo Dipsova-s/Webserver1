@@ -936,8 +936,8 @@ textarea.input-light {
   padding: 10px 5px;
   box-sizing: border-box; }
   .btn-wrapper.btn-wrapper-popup {
-    background-color: #f7f9fa;
-    border-top: 1px dashed #d5d5d5;
+    background-color: #f7f7f7;
+    border-top: 1px solid #f7f7f7;
     border-radius: 0 0 2px 2px; }
   .btn-wrapper .float-right {
     margin-left: auto; }

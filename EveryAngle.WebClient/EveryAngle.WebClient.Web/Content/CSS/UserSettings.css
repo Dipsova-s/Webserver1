@@ -4,7 +4,7 @@
 
 .settingsPanel {
   box-shadow: 0 6px 12px 0 rgba(8, 35, 48, 0.14), 0 16px 24px 0 rgba(8, 35, 48, 0.08);
-  background-color: #f7f9fa;
+  background-color: #f7f7f7;
   width: 354px;
   position: absolute;
   top: 48px;
@@ -15,7 +15,7 @@
     position: fixed;
     right: -364px; }
   .settingsPanel .card-header, .settingsPanel .accordion-header {
-    color: #069697;
+    color: #061c2b;
     text-transform: none;
     font-size: 12px;
     letter-spacing: .44px; }
@@ -40,9 +40,12 @@
     color: #78909c; }
   .settingsPanel .accordion {
     overflow: hidden;
-    padding: 0; }
-    .settingsPanel .accordion .accordion-body {
-      padding-top: 0; }
+    padding: 0 10px 10px; }
+    .settingsPanel .accordion .accordion-item {
+      border: none; }
+    .settingsPanel .accordion .accordion-body, .settingsPanel .accordion .accordion-header {
+      padding: 0;
+      padding-bottom: 10px; }
   .settingsPanel input[type="text"], .settingsPanel .k-dropdown {
     width: 100%; }
   .settingsPanel fieldset {
