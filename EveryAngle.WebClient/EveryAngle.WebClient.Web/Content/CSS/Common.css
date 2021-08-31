@@ -2577,7 +2577,6 @@ textarea.input-light {
   box-sizing: border-box;
   background-color: #ffffff;
   border: solid 1px #f1f3f4;
-  border-radius: 3px;
   margin: 14px 0;
   padding: 0; }
   .accordion-transparent .accordion-item {
@@ -3831,19 +3830,22 @@ textarea.input-light {
   z-index: 1; }
   .side-content.active {
     opacity: 1; }
+  .side-content div#TabContentAngle.accordion,
+  .side-content div#TabContentDisplay.accordion,
   .side-content .tab .tab-content-wrapper {
-    box-sizing: border-box;
-    padding: 14px; }
-  .side-content .tab-content-wrapper.active {
-    padding: 0 !important; }
-  .side-content div#TabContentAngle.accordion, .side-content div#TabContentDisplay.accordion {
-    padding: 0; }
+    padding: 0;
+    box-sizing: border-box; }
   .side-content .accordion-item {
-    margin: 10px 0px; }
-  .side-content .card-header, .side-content .card-body,
-  .side-content .accordion-header, .side-content .accordion-body {
-    padding-left: 12px;
-    padding-right: 12px;
+    margin: 10px 14px;
+    border-radius: 3px; }
+    .side-content .accordion-item.disabled {
+      margin: 10px 0; }
+  .side-content .card-header,
+  .side-content .card-body,
+  .side-content .accordion-header,
+  .side-content .accordion-body {
+    padding-left: 14px;
+    padding-right: 14px;
     background-color: transparent; }
   .side-content .card:not(.disabled) + .card > .card-body,
   .side-content .card-header + .card-body,
@@ -3918,7 +3920,7 @@ textarea.input-light {
     display: none; }
   .side-content .section-personal-note {
     background-color: rgba(255, 191, 0, 0.3);
-    margin-bottom: 10px;
+    margin: 0 14px 10px 14px;
     overflow-wrap: break-word;
     border-radius: 3px;
     color: #061c2b;
@@ -4009,7 +4011,7 @@ textarea.input-light {
   .side-content ul.business-processes {
     max-height: none; }
   .side-content .section-tags {
-    margin-bottom: 10px; }
+    margin: 0 14px 10px 14px; }
     .side-content .section-tags .card-body {
       padding: 0; }
       .side-content .section-tags .card-body .form-row {
