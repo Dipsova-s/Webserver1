@@ -121,7 +121,7 @@
     <value>Add Filter</value>
   </data>
   <data name="AddFollowUp" xml:space="preserve">
-    <value>Add Jump</value>
+    <value>Apply Jump</value>
   </data>
   <data name="AddToAngle" xml:space="preserve">
     <value>Add to Angle</value>
@@ -1336,7 +1336,7 @@
     <value>There is no related movie available.</value>
   </data>
   <data name="FollowupsButtonSubmit" xml:space="preserve">
-    <value>Execute selected Jump</value>
+    <value>Execute Jump</value>
   </data>
   <data name="FollowupsWarningAngle" xml:space="preserve">
     <value>All Displays will be deleted</value>

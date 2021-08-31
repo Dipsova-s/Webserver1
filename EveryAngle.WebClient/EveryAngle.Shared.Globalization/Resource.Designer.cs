@@ -277,7 +277,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Jump.
+        ///   Looks up a localized string similar to Apply Jump.
         /// </summary>
         public static string AddFollowUp {
             get {
@@ -4570,7 +4570,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Execute selected Jump.
+        ///   Looks up a localized string similar to Execute Jump.
         /// </summary>
         public static string FollowupsButtonSubmit {
             get {
