@@ -11,13 +11,21 @@ namespace EveryAngle.ManagementConsole.Helpers
         private const string ClassFieldSeperator = "__";
         private readonly IAngleWarningsFileReader _angleWarningsFileReader;
 
+        private readonly IClassReferencesManager _classReferencesManager;
+
         public List<AngleWarningsContentInput> ContentInputList;
 
-        public AngleWarningsContentInputter(IAngleWarningsFileReader angleWarningsFileReader)
+        public AngleWarningsContentInputter(IAngleWarningsFileReader angleWarningsFileReader, IClassReferencesManager classReferencesManager)
         {
             _angleWarningsFileReader = angleWarningsFileReader ?? throw new System.ArgumentNullException(nameof(angleWarningsFileReader));
+            _classReferencesManager = classReferencesManager ?? throw new System.ArgumentNullException(nameof(classReferencesManager));
 
             ContentInputList = new List<AngleWarningsContentInput>();
+        }
+
+        public void Initialize(string fieldSourcesUri, string classesUri)
+        {
+            _classReferencesManager.Initialize(fieldSourcesUri, classesUri);
         }
 
         private void AddContentInputItem(WarningFix fix, string version, string objectClass, string fieldToReplace, string newField)
@@ -38,7 +46,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                 foreach (string line in csvData)
                 {
                     string[] inputLine = line.Split(',');
-                 
+
                     WarningFix warningFix = InputContentMapper.GetWarningTypeEnum(inputLine[1]);
                     if (warningFix == WarningFix.NotSupportedMethod)
                     {
@@ -202,6 +210,15 @@ namespace EveryAngle.ManagementConsole.Helpers
             AngleWarningsContentInput contentInput = ContentInputList.FirstOrDefault(x => x.Fix == WarningFix.ReplaceField &&
                                                                                      x.ObjectClass == oldObject &&
                                                                                      x.FieldOrClassToReplace == oldField);
+            
+            if (contentInput == null)
+            {
+                string referencedClass = _classReferencesManager.GetReferencedClass(oldObject);
+                contentInput = ContentInputList.FirstOrDefault(x => x.Fix == WarningFix.ReplaceField &&
+                                                                    x.ObjectClass == referencedClass &&
+                                                                    x.FieldOrClassToReplace == oldField);
+            }
+            
             if (contentInput != null)
             {
                 itemSolver.Fix = contentInput.Fix;
@@ -211,7 +228,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                 itemSolver.NewFieldOrClass = objectClass == oldObject ? contentInput.NewFieldOrClass : oldObject + ClassFieldSeperator + contentInput.NewFieldOrClass;
 
             }
-
+           
             return itemSolver;
         }
 

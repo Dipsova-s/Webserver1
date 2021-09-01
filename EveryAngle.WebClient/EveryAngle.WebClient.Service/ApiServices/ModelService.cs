@@ -22,9 +22,11 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using EveryAngle.WebClient.Service.Security;
 using EveryAngle.Logging;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EveryAngle.WebClient.Service.ApiServices
 {
+    [ExcludeFromCodeCoverage]
     public class ModelService : IModelService
     {
         public string WebServiceUri { get; set; }
@@ -571,6 +573,22 @@ namespace EveryAngle.WebClient.Service.ApiServices
             var jsonResult = requestManager.Run();
 
             return JsonConvert.DeserializeObject<List<ClassViewModel>>(jsonResult.SelectToken("classes").ToString());
+        }
+
+        public ClassViewModel GetClass(string uri)
+        {
+            var requestManager = RequestManager.Initialize(uri);
+            var jsonResult = requestManager.Run();
+
+            return JsonConvert.DeserializeObject<ClassViewModel>(jsonResult.ToString());
+        }
+
+        public List<FieldSourceViewModel> GetFieldSources(string uri)
+        {
+            var requestManager = RequestManager.Initialize(uri);
+            var jsonResult = requestManager.Run();
+
+            return JsonConvert.DeserializeObject<List<FieldSourceViewModel>>(jsonResult.SelectToken("field_sources").ToString());
         }
 
         public string GetModelAngles(string uri)

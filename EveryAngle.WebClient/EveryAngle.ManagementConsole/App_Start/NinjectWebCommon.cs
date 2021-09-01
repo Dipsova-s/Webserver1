@@ -93,6 +93,7 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<IAngleWarningsContentInputter>().To<AngleWarningsContentInputter>();
             kernel.Bind<IFileHelper>().To<FileHelper>();
             kernel.Bind<IAngleWarningsAutoSolver>().To<AngleWarningsAutoSolver>();
+            kernel.Bind<IClassReferencesManager>().To<ClassReferencesManager>();
         }
     }
 }

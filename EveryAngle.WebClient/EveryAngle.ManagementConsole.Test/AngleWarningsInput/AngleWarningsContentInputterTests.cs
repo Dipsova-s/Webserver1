@@ -25,7 +25,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
                     
             bool succeeded = contentInputter.TryReadInputList();
 
@@ -50,7 +50,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Throws<FileNotFoundException>();
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
 
             Assert.IsFalse(contentInputter.TryReadInputList());
         }
@@ -66,7 +66,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Add filters,Unsupported,R2020SP4,D,E,F"
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Assert.IsTrue(contentInputter.TryReadInputList());
@@ -85,7 +85,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 inputColumns
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Assert.IsFalse(contentInputter.TryReadInputList());
@@ -101,7 +101,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace field,Replace field,R2020SP3,Order,Field1,Field2",
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Assert.IsTrue(contentInputter.TryReadInputList());
@@ -133,7 +133,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace class,Replace class,R2020SP1,Class1,Class1,Class2",
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Assert.IsTrue(contentInputter.TryReadInputList());
@@ -160,7 +160,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace Field,Replace Field,R2020SP1,Material,Material123,Material"
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             contentInputter.TryReadInputList();
@@ -223,13 +223,52 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace Field,Replace Field,R2020SP1,BillingDocumentHeader,Display_old_2,CreationDate"
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             contentInputter.TryReadInputList();
 
             AngleWarningsContentInput contentInput = contentInputter.GetSolveItem("unsupported_display_field", "BillingDocumentItem", "Reference_old_2__Display_old_1", null);
             Assert.AreEqual("BillingDocumentHeader__DocumentCurrency", contentInput.NewFieldOrClass);
+        }
+
+        [TestCase]
+        public void AngleWarningsTool_GetSolveItem_Reference()
+        {
+            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            classReferencesManager.Setup(x => x.GetReferencedClass(It.IsAny<string>())).Returns("Customer");
+
+            List<string> csvData = new List<string>
+            {
+                "Replace Field,Replace Field,R2020SP1,Customer,Name,NewName"
+            };
+
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+
+            contentInputter.TryReadInputList();
+
+            AngleWarningsContentInput contentInput = contentInputter.GetSolveItem("unsupported_display_field", "BillingDocumentItem", "Payer__Name", null);
+            Assert.AreEqual("Payer__NewName", contentInput.NewFieldOrClass);
+        }
+
+        [TestCase]
+        public void AngleWarningsTool_GetSolveItem_InvalidWarningsShouldReturnNoFixAvailable()
+        {
+            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+
+            AngleWarningsContentInput contentInput = contentInputter.GetSolveItem("invalid_display_field", "BillingDocumentItem", "Payer__Name", null);
+            Assert.AreEqual(WarningFix.NoFixAvailable, contentInput.Fix);
+        }
+
+        [TestCase]
+        public void AngleWarningsTool_ContentInputter_Initialize()
+        {
+            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+
+            contentInputter.Initialize(@"\fieldsourcesuri", @"\classesuri");
         }
 
         [TestCase]
@@ -243,7 +282,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace Reference,Replace Reference,R2020SP1,BillingDocumentItem,Reference_old_1,Customer",
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, null);
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             contentInputter.TryReadInputList();

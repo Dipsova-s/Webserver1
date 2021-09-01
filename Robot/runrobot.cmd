@@ -26,6 +26,8 @@ echo Check openpyxl version...
 python -m pip install openpyxl==2.5
 
 echo Check Robot Framework version...
+set updateSix=yes
+set updateSixVersion="six==1.16.0"
 set updateRobot=yes
 set updateRobotVersion="robotframework==3.0.4"
 set updateSeleniumLibrary=yes
@@ -45,6 +47,7 @@ set updateRequestsModuleVersion="requests==2.23.0"
 set updatelxml=yes
 set updatelxmlVersion="lxml==4.5.0"
 for /F %%i in ('pip freeze --local') do (
+	if "%%i"==%updateSixVersion% set updateSix=no
 	if "%%i"==%updateRobotVersion% set updateRobot=no
 	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
 	if "%%i"==%updatePabotVersion% set updatePabot=no
@@ -55,6 +58,7 @@ for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateRequestsModuleVersion% set updateRequestsModule=no 
 	if "%%i"==%updatelxmlVersion% set updatelxml=no
 )
+if "%updateSix%"=="yes" pip install %updateSixVersion%
 if "%updateRobot%"=="yes" pip install %updateRobotVersion%
 if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
 if "%updatePabot%"=="yes" pip install %updatePabotVersion%
