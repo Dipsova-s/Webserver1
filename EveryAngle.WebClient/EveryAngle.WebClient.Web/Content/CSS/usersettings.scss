@@ -62,6 +62,11 @@
 
         .accordion-item {
             border: none;
+            margin: 20px 0;
+
+            &:first-child {
+                margin-top: 10px;
+            }
         }
 
         .accordion-body, .accordion-header {

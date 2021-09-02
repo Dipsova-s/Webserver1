@@ -42,7 +42,10 @@
     overflow: hidden;
     padding: 0 10px 10px; }
     .settingsPanel .accordion .accordion-item {
-      border: none; }
+      border: none;
+      margin: 20px 0; }
+      .settingsPanel .accordion .accordion-item:first-child {
+        margin-top: 10px; }
     .settingsPanel .accordion .accordion-body, .settingsPanel .accordion .accordion-header {
       padding: 0;
       padding-bottom: 10px; }

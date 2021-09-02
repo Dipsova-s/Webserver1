@@ -2565,7 +2565,7 @@ textarea.input-light {
 .accordion {
   overflow: auto;
   margin: 0;
-  padding: 14px;
+  padding: 0;
   list-style: none;
   background: #f7f7f7; }
   .accordion hr {
@@ -2576,7 +2576,7 @@ textarea.input-light {
   box-sizing: border-box;
   background-color: #ffffff;
   border: solid 1px #f1f3f4;
-  margin: 14px 0;
+  margin: 10px 14px;
   padding: 0; }
   .accordion-transparent .accordion-item {
     background-color: transparent; }
@@ -3829,8 +3829,6 @@ textarea.input-light {
   z-index: 1; }
   .side-content.active {
     opacity: 1; }
-  .side-content div#TabContentAngle.accordion,
-  .side-content div#TabContentDisplay.accordion,
   .side-content .tab .tab-content-wrapper {
     padding: 0;
     box-sizing: border-box; }
@@ -3901,10 +3899,14 @@ textarea.input-light {
       position: relative;
       top: 1px;
       font-size: 14px; }
-    .side-content .section-aggregation .query-aggregation-inner .accordion-header, .side-content .section-aggregation .query-aggregation-inner .accordion-body {
-      padding-left: 10px;
-      padding-right: 10px;
-      background-color: #fff; }
+    .side-content .section-aggregation .query-aggregation-inner {
+      margin: 0 0 10px 0; }
+      .side-content .section-aggregation .query-aggregation-inner:last-child {
+        margin-bottom: 0; }
+      .side-content .section-aggregation .query-aggregation-inner .accordion-header, .side-content .section-aggregation .query-aggregation-inner .accordion-body {
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: #fff; }
   .side-content .section-description .section-description-body {
     display: -webkit-box;
     -webkit-line-clamp: 7;

@@ -14,8 +14,6 @@ $side-content-color: #f7f7f7;
         opacity: 1;
     }
 
-    div#TabContentAngle.accordion,
-    div#TabContentDisplay.accordion,
     .tab .tab-content-wrapper {
         padding: 0;
         box-sizing: border-box;
@@ -130,6 +128,12 @@ $side-content-color: #f7f7f7;
         }
 
         .query-aggregation-inner {
+            margin: 0 0 10px 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
             .accordion-header, .accordion-body {
                 padding-left: 10px;
                 padding-right: 10px;

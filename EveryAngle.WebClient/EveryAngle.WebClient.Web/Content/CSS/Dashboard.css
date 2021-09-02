@@ -40,7 +40,9 @@
   display: block; }
 
 #dashboardContentWrapper {
-  border: 15px 20px solid #ffffff; 
+  border-width: 15px 20px;
+  border-style: solid;
+  border-color: #ffffff;
   box-sizing: border-box; }
 
 #dashboardWrapper {
@@ -75,7 +77,8 @@
   display: flex;
   align-items: center;
   height: 30px;
-  border-bottom: 1px solid #f1f3f4; }
+  border-bottom: 1px solid #f1f3f4;
+  box-sizing: border-box; }
   .widget-display-header .widgetName {
     margin: 0 auto 0 10px;
     display: inline-block;
