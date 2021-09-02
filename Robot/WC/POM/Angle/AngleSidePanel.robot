@@ -52,6 +52,8 @@ ${popupExecutionParameter}              jquery=.popup-execution-parameter
 ${liFilterHeight}                       32
 ${liFilterGutter}                       5
 
+${dragAndDropBoxToMoveFilter}           //div[text()='Drop here to move filter to Angle.']
+
 ${divAngleDefinitionHeader}             css=#TabContentAngle .section-definition .accordion-header
 ${divAngleDescriptionHeader}            css=#TabContentAngle .section-description .accordion-header
 ${divDisplayDefinitionHeader}           css=#TabContentDisplay .section-definition .accordion-header
@@ -188,8 +190,7 @@ Display Description Should Contain
 
 Move Display Filter To Angle
     [Arguments]    ${fromIndex}
-    ${offsetY}    Execute JavaScript    return -(${liFilterHeight}) * (${fromIndex}+1)
-    Drag And Drop By Offset    ${liDisplayFilter}[data-index=${fromIndex}]    0    ${offsetY}
+    Drag And Drop    ${liDisplayFilter}    ${dragAndDropBoxToMoveFilter}
     Sleep    ${TIMEOUT_GENERAL}
 
 Move Display Filter By Index
