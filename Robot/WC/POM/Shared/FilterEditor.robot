@@ -22,7 +22,7 @@ ${btnAddFilterToJump}                   .action-add-filter
 ${btnDeleteOperator}                    .action-delete
 ${btnUndo}                              .btn-cancel
 ${btnApplyFilter}                       .btn-save
-${chkExecutionParameter}                .query-execution-parameter
+${chkExecutionParameter}                .query-execution-parameter .lever
 ${btnSelectField}                       .btn-select-field
 ${btnInfo}								.action-info
 ${btnEditFilter}						.action-edit
@@ -93,6 +93,7 @@ Choose Dropdown Filter Operator Via Edit Filter
     Select Dropdown By Text   ${EditorContext} ${EditorIndex} ${dropdownOperator}    ${selectText}    
 
 Click Execute Parameter To Edit Filter
+    Wait Until Page Contains Element    ${EditorContext} ${EditorIndex} ${chkExecutionParameter}
     Click Element   ${EditorContext} ${EditorIndex} ${chkExecutionParameter}
 
 Filter Display Execution Parameter Icon Should Be Visible
