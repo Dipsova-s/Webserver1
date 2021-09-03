@@ -511,7 +511,7 @@ function FacetFiltersViewModel() {
             var extraCss = filter.enabled() ? '' : ' disabled';
             var filterNumber = filter.index % businessProcessesModel.General.TotalBusinessProcesses;
             html += '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.id + '"></span>';
-            html += '<span class="BusinessProcessBadgeLabel' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.name + '</span>';
+            html += '<span class="BusinessProcessBadgeLabel' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.description + '</span>';
         }
         else {
             var icon = self.GetIconInfo(filter.id);
@@ -663,8 +663,7 @@ function FacetFiltersViewModel() {
     self.GetFacetTabClassname = function (facet) {
         var result = [
             'FilterTab-' + facet.type,
-            (facet.panel_opened() ? 'expand' : ''),
-            self.GroupBusinessProcess !== facet.type ? 'border-separator' : ''
+            (facet.panel_opened() ? 'expand' : '')
         ];
 
         return result.join(' ');
@@ -676,5 +675,6 @@ function FacetFiltersViewModel() {
 
         return result.join(' ');
     }
+
     window.GetRefreshTime = self.GetRefreshTime;
 }

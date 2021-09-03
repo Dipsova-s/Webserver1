@@ -1,3 +1,5 @@
+@import 'abstracts/variables.scss';
+
 /* .searchBusinessProcesses
 ============================================ */
 .searchBusinessProcesses {
@@ -291,7 +293,7 @@
 .createNewAngleButtonWrapper {
     display: inline-block;
     position: relative;
-    margin: 17px 22px;
+    margin: 17px 14px;
     margin-bottom: 0;
 }
 
@@ -309,6 +311,10 @@
     border: none;
     box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16);
     z-index: 1001;
+
+    &.btn:hover {
+        text-decoration: none !important;
+    }
 }
 
 .btnCreateNewAngle:after {
@@ -379,7 +385,7 @@
 }
 
 .popupAdvFiltering .popupSectionTitle {
-    color: #358ed7;
+    color: $primary-color;
     font-size: 12px;
     font-weight: bold;
     font-style: normal;
@@ -508,7 +514,7 @@
     display: none;
     padding: 30px 37px 0 37px;
     overflow: auto;
-    background-color: #f7f9fa;
+    background-color: #ffffff;
 }
 
 .sectionWelcomeRow {
@@ -817,6 +823,16 @@
     padding: 0;
     height: 22px;
     text-align: left;
+
+    > span {
+        font-weight: normal;
+        font-family: $font-stack;
+        letter-spacing: 0.25px;
+    }
+
+    &:hover {
+        text-underline-offset: 1px
+    }
 }
 
 /* #SearchSortingView
@@ -1062,7 +1078,7 @@
     box-shadow: none;
     background-color: transparent;
 }
- 
+
 .displaysMode .ResultContent .ContentDetail {
     height: 66px;
     -webkit-line-clamp: 4; /* NOSONAR: css for specific browser */

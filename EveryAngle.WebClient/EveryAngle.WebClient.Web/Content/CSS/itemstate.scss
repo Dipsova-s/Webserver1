@@ -11,7 +11,7 @@
     }
 
     .icon {
-        margin-left: 3px;
+        margin-left: 9px;
     }
 }
 
@@ -19,7 +19,16 @@
 ============================================ */
 .popupPublishSettings {
     .k-window-title {
-        margin-left: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 22px;
+        letter-spacing: 0.1px;
+        color: rgba(0, 0, 0, 0.87);
+        margin-left: 12px;
+    }
+
+    .k-window-titlebar {
+        padding-top: 8px;
     }
 
     .k-window-content {
@@ -37,12 +46,38 @@
 
     .card-body {
         line-height: 15px;
+        font-size: 12px;
+        font-style: normal;
+        line-height: 1.33;
+        letter-spacing: 0.75px;
+        color: #3d4852;
+        padding: 0px 12px 11px;
+    }
+
+    .accordion {
+        padding: 0px;
+        background-color: #fff;
+    }
+
+    .accordion-item {
+        border: none;
+        margin: 0px;
     }
 
     .card-header, .accordion-header {
-        text-transform: none;
-        font-size: 11px;
+        font-size: 12px;
+        line-height: 16px;
+        height: 24px;
+        font-weight: 500;
+        letter-spacing: 0.75px;
+        padding: 8px 8px 8px 12px;
+        color: #3d4852;
     }
+
+    .card-header {
+        padding-bottom: 0px;
+    }
+
 
     .publish-displays {
         .display-listview {
@@ -91,6 +126,12 @@
             margin-bottom: 10px;
         }
 
+        .multiple-select-header {
+            font-style: italic;
+            font-weight: normal;
+            padding-bottom: 4px;
+        }
+
         .label-selection-message {
             margin: -10px 14px 10px 14px;
             font-size: 11px;
@@ -98,6 +139,10 @@
     }
 
     .publish-limitations {
+        .card-header {
+            padding-bottom: 10px;
+        }
+
         .card-body {
             padding-bottom: 0;
         }
@@ -132,6 +177,11 @@
             margin-right: 5px;
             margin-top: -1px;
         }
+    }
+
+    .btn-wrapper.btn-wrapper-popup {
+        background-color: #fff;
+        border-top: none;
     }
 }
 

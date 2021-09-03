@@ -40,7 +40,9 @@
   display: block; }
 
 #dashboardContentWrapper {
-  border: 20px solid transparent;
+  border-width: 15px 20px;
+  border-style: solid;
+  border-color: #ffffff;
   box-sizing: border-box; }
 
 #dashboardWrapper {
@@ -59,11 +61,11 @@
   width: 100%;
   overflow: hidden;
   z-index: 1;
-  box-shadow: inset 0 0 0 1px transparent;
+  box-shadow: inset 0 0 0 1px #f1f3f4;
   transition: box-shadow ease-out 100ms; }
 
 #dashboardWrapper .widget-display-column:hover {
-  box-shadow: inset 0 0 0 1px #358ed7; }
+  box-shadow: inset 0 0 0 1px #25cad2; }
 
 #dashboardWrapper.nodrag .widget-display-column:hover,
 #dashboardWrapper.resizing .widget-display-column:hover {
@@ -74,16 +76,21 @@
   position: relative;
   display: flex;
   align-items: center;
-  height: 30px; }
+  height: 30px;
+  border-bottom: 1px solid #f1f3f4;
+  box-sizing: border-box; }
   .widget-display-header .widgetName {
     margin: 0 auto 0 10px;
     display: inline-block;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: .44px; }
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 1.5px;
+    color: #5e6366;
+    text-transform: uppercase; }
 
 #widgetMaximizeWrapper .widget-display-header,
 #dashboardWrapper.nodrag .widget-display-header,
@@ -102,6 +109,9 @@
 .widget-display-column .widgetToolbar > a {
   color: #78909c;
   padding: 0 4px; }
+
+.widget-display-column .widgetToolbar > a:hover {
+  color: #34495e; }
 
 #widgetMaximizeWrapper .widgetToolbar .widgetButtonMaximize {
   display: none; }
@@ -166,8 +176,8 @@
 
 #dashboardWrapper .k-splitbar {
   z-index: 2;
-  background-color: #f9f9f9;
-  border-color: #f9f9f9; }
+  background-color: #fff;
+  border-color: transparent; }
 
 #dashboardWrapper .k-ghost-splitbar {
   z-index: 2;
@@ -179,15 +189,15 @@
   position: absolute;
   width: 0;
   height: 0;
-  border: 0 solid #358ed7; }
+  border: 0 solid #25cad2; }
 
 #dashboardWrapper .k-ghost-splitbar-horizontal,
 #dashboardWrapper .k-splitbar-horizontal {
-  width: 8px; }
+  width: 10px; }
 
 #dashboardWrapper .k-ghost-splitbar-vertical,
 #dashboardWrapper .k-splitbar-vertical {
-  height: 8px; }
+  height: 10px; }
 
 #dashboardWrapper .k-splitbar-horizontal-hover:hover,
 #dashboardWrapper .k-splitbar-vertical-hover:hover {
@@ -200,7 +210,7 @@
   margin: 0;
   left: 0;
   top: 0;
-  border: 0 solid #358ed7; }
+  border: 0 solid #25cad2; }
 
 #dashboardWrapper .k-ghost-splitbar-horizontal:before,
 #dashboardWrapper .k-splitbar-horizontal-hover:hover .k-resize-handle {
@@ -227,7 +237,7 @@
   overflow: hidden; }
 
 .widget-display-column .navigatorWrapper .toggleButton {
-  background-color: transparent; }
+  background-color: #f1f3f4; }
 
 .widget-display-column:hover .navigatorWrapper .toggleButton {
   background-color: #eaeaea; }
@@ -319,8 +329,8 @@
   z-index: 2; }
 
 .widgetDropArea .droppable.drop-to-widget.current {
-  background-color: rgba(229, 239, 255, 0.35);
-  border: 1px solid #358ed7; }
+  background-color: rgba(206, 244, 246, 0.35);
+  border: 1px solid #25cad2; }
 
 .widgetDropArea .droppable.drop-to-row {
   flex-direction: row; }
@@ -337,7 +347,7 @@
   height: 0; }
 
 .widgetDropArea .droppable.drop-to-row:before {
-  background-image: linear-gradient(to right, #358ed7 50%, transparent 50%);
+  background-image: linear-gradient(to right, #25cad2 50%, transparent 50%);
   background-position: left top;
   background-repeat: repeat-x;
   background-size: 10px 1px;
@@ -353,7 +363,7 @@
   left: 0; }
 
 .widgetDropArea .droppable.drop-to-column:before {
-  background-image: linear-gradient(to bottom, #358ed7 50%, transparent 50%);
+  background-image: linear-gradient(to bottom, #25cad2 50%, transparent 50%);
   background-position: left top;
   background-repeat: repeat-y;
   background-size: 1px 10px;
@@ -370,7 +380,7 @@
 
 .widgetDropArea .droppable.focused:before {
   opacity: 1;
-  background-color: #358ed7; }
+  background-color: #25cad2; }
 
 /* .popupDashboardDetails
 ===================================== */

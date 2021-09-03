@@ -26,13 +26,13 @@ Verify Sort And Move Filters
     Should Be Equal    ${nameThirstFilter}    ${nameFourthFilter}
 
     #Verify filter can be moved but got warning popup
-    Move Display Filter To Angle    0
+    Move Display Filter To Angle
     Page Should Display Move Filter Warning Popup
     Close Move Filter Warning Popup
 
     #Verify filter can be moved completely
     ${nameFirstFilter}    Get Display Filter Name By Index    0
-    Move Display Filter To Angle    0
+    Move Display Filter To Angle
     Page Should Display Move Filter Warning Popup
     Confirm To Move Filter To Angle Definition
 
@@ -49,7 +49,7 @@ Verify Move Filters And Save
     ${displayFilterText}    Get Display Filter Name By Index    0
     Change Display By Name    Chart
 
-    Move Display Filter To Angle    0
+    Move Display Filter To Angle
     Confirm To Move Filter To Angle Definition
 
     #Verify filter text in display panel
@@ -75,7 +75,7 @@ Verify Move Filters And Save As
     ${displayFilterText}    Get Display Filter Name By Index    0
     Change Display By Name    Chart
 
-    Move Display Filter To Angle    0
+    Move Display Filter To Angle
     Confirm To Move Filter To Angle Definition
     
     Click Save Display As
@@ -95,7 +95,7 @@ Verify Move Filters And Save As With New Angle
     ${displayFilterText}    Get Display Filter Name By Index    0
     Change Display By Name    Chart
 
-    Move Display Filter To Angle    0
+    Move Display Filter To Angle
     Confirm To Move Filter To Angle Definition
     
     Click Save Display As
@@ -116,7 +116,7 @@ Verify Move Filters And Save With Jump
     ${displayJumpText}=    Set Variable    Delivery Item
     Add Jump To Display    ${displayJumpText}
 
-    Move Display Filter To Angle    0
+    Move Display Filter To Angle
     Confirm To Move Filter To Angle Definition With Adhoc Jump
 
     #Verify filter text in display panel
@@ -136,7 +136,7 @@ Verify Move Filters And Save As With Jump
     Click Apply Filter On Display
     Confirm To Add Jump
 
-    Move Display Filter To Angle    0
+    Move Display Filter To Angle
     Confirm To Move Filter To Angle Definition
     
     Click Save Display As
@@ -158,7 +158,7 @@ Verify Move Filters And Save As New Angle With Jump
     Click Apply Filter On Display
     Confirm To Add Jump
 
-    Move Display Filter To Angle    0
+    Move Display Filter To Angle
     Confirm To Move Filter To Angle Definition
 
     Click Save Display As

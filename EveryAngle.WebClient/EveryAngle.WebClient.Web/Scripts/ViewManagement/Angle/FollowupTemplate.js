@@ -16,7 +16,7 @@ function FollowupsTemplate(handler) {
                 '<div class="followupFlow forward"></div>',
                 '<div class="followupFlow forward"></div>',
                 '<ul class="followupsIndicator fix">',
-                    '<li class="relation manyToOne">' + Localization.FollowupsHelpManyToOneRelation + '</li>',
+                    '<li class="relation manyToOne"><span>' + Localization.FollowupsHelpManyToOneRelation + '</span></li>',
                 '</ul>',
             '</div>',
         '</div>',

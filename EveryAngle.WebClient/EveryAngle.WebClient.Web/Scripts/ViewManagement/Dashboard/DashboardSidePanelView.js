@@ -6,7 +6,7 @@
                 '<div class="card-header section-info-header">',
                     '<div class="displayNameContainer small">',
                         '<div class="front">',
-                            '<i class="icon icon-dashboard"></i>',
+                            '<i class="icon icon-angle"></i>',
                         '</div>',
                         '<div class="name" data-role="tooltip" data-tooltip-position="bottom" data-showwhenneed="true" data-bind="text: DashboardModel.Data().name()"></div>',
                         '<div class="rear">',
@@ -24,8 +24,8 @@
        return [
             '<div class="accordion-item section-definition">',
                 '<div class="accordion-header open">',
-                    '<i class="open-indicator icon icon-caret-down"></i>',
-                    '<i class="close-indicator icon icon-caret-right"></i>',
+                    '<i class="open-indicator icon icon-chevron-down"></i>',
+                    '<i class="close-indicator icon icon-chevron-right"></i>',
                     '<span data-bind="text: Localization.DashboardFilters_Title"></span>',
                     '<div class="accordion-toolbar">',
                         '<!-- ko if: CanAdd() -->',
@@ -36,13 +36,12 @@
                 '<div class="accordion-body definition-body">',
                     '<div class="definition-body-inner"></div>',
                 '</div>',
-                '<hr>',
            '</div>'
         ].join('');
     };
     self.GetSectionExecuteAtLogonTemplate = function () {
         return [
-            '<div class="card section-execute-at-logon" data-bind="if: CanUpdate()">',
+            '<div class="card section-execute-at-logon side-content-alignment" data-bind="if: CanUpdate()">',
                 '<div class="card-body">',
                     '<div class="form-row">',
                         '<div class="form-col">',
@@ -61,8 +60,8 @@
         return [
             '<div class="accordion-item section-widgets">',
                 '<div class="accordion-header open">',
-                    '<i class="open-indicator icon icon-caret-down"></i>',
-                    '<i class="close-indicator icon icon-caret-right"></i>',
+                    '<i class="open-indicator icon icon-chevron-down"></i>',
+                    '<i class="close-indicator icon icon-chevron-right"></i>',
                     '<span data-bind="text: Localization.AppliedDashboardDisplays"></span>',
                 '</div>',
                 '<div class="accordion-body widgets-body"></div>',

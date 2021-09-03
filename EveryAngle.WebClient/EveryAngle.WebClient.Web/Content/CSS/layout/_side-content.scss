@@ -1,7 +1,7 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
-$side-content-color: #f7f9fa;
+$side-content-color: #f7f7f7;
 
 /* .side-content
 ============================================ */
@@ -14,19 +14,27 @@ $side-content-color: #f7f9fa;
         opacity: 1;
     }
 
+    .tab .tab-content-wrapper {
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     .accordion-item {
-        background-color: transparent;
+        margin: 10px 14px;
+        border-radius: 3px;
+
+        &.disabled {
+            margin: 10px 0;
+        }
     }
 
-    .card-header, .card-body,
-    .accordion-header, .accordion-body {
-        padding-left: 15px;
-        padding-right: 15px;
+    .card-header,
+    .card-body,
+    .accordion-header,
+    .accordion-body {
+        padding-left: 14px;
+        padding-right: 14px;
         background-color: transparent;
-    }
-
-    .card-body {
-        padding-top: 10px;
     }
 
     .card:not(.disabled) + .card > .card-body,
@@ -37,12 +45,17 @@ $side-content-color: #f7f9fa;
 
     .accordion-header {
         font-size: 12px;
-        letter-spacing: .44px;
+        font-weight: 500;
+        line-height: 22px;
+        height: 24px;
+        padding: 8px 12px;
+        letter-spacing: 0.1px;
+        text-align: left;
         text-transform: none;
         background-color: transparent;
 
         &.close {
-            background-color: #f7f9fa;
+            background-color: #ffffff;
         }
     }
 
@@ -52,9 +65,11 @@ $side-content-color: #f7f9fa;
                 flex-grow: 1;
 
                 .name {
-                    font-size: 12px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    line-height: 1.38;
                     text-transform: none;
-                    letter-spacing: .24px;
+                    letter-spacing: 0.44px;
                 }
 
                 .rear {
@@ -83,15 +98,10 @@ $side-content-color: #f7f9fa;
 
         .section-info-body {
             font-size: 12px;
-            letter-spacing: .44px;
-            color: #78909c;
-            line-height: 16px;
+            letter-spacing: .24px;
+            color: #777;
+            line-height: 1.33;
         }
-    }
-
-    .tab .tab-content-wrapper {
-        overflow: auto;
-        padding: 0;
     }
 
     .section-definition {
@@ -118,6 +128,12 @@ $side-content-color: #f7f9fa;
         }
 
         .query-aggregation-inner {
+            margin: 0 0 10px 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
             .accordion-header, .accordion-body {
                 padding-left: 10px;
                 padding-right: 10px;
@@ -132,11 +148,11 @@ $side-content-color: #f7f9fa;
             -webkit-line-clamp: 7;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            max-height: 127px;
+            max-height: 135px;
             margin-bottom: 10px;
             padding-bottom: 0;
             letter-spacing: .24px;
-            line-height: 18px;
+            line-height: 20px;
         }
 
         .close + .section-description-body {
@@ -145,20 +161,32 @@ $side-content-color: #f7f9fa;
     }
 
     .section-personal-note {
-        background-color: #fcf3d7;
-        margin: 15px 14px;
+        background-color: rgba(255, 191, 0, 0.3);
+        margin: 0 14px 10px 14px;
         overflow-wrap: break-word;
+        border-radius: 3px;
+        color: #061c2b;
+        letter-spacing: 0.25px;
+
+        .card-header {
+            font-size: 10px;
+            line-height: 20px;
+            letter-spacing: 1.5px;
+            color: #061c2b;
+            padding: 8px 12px;
+        }
 
         &.disabled {
             display: none;
         }
 
         .section-personal-note-body {
-            line-height: 16px;
+            line-height: 10px;
+            padding: 0px 12px 10px 12px;
         }
 
         &.editable .section-personal-note-body {
-            padding-bottom: 6px;
+            padding-bottom: 10px;
         }
 
         .add-note {
@@ -166,7 +194,7 @@ $side-content-color: #f7f9fa;
         }
 
         textarea {
-            line-height: 16px;
+            line-height: 20px;
             width: 100%;
             height: 16px;
             padding: 0;
@@ -176,6 +204,8 @@ $side-content-color: #f7f9fa;
             box-shadow: none;
             resize: none;
             background-color: transparent;
+            color: #061c2b;
+            letter-spacing: 0.25px;
         }
     }
 
@@ -200,6 +230,11 @@ $side-content-color: #f7f9fa;
             & > span {
                 flex-grow: 1;
             }
+        }
+
+        .displayNameContainer {
+            font-size: 12px;
+            font-weight: 400;
         }
 
         .innowera-details {
@@ -234,7 +269,7 @@ $side-content-color: #f7f9fa;
 
         .labels-wrapper {
             border-radius: 2px;
-            border: solid 1px #b5becc;
+            border: solid 1px #e9ecee;
             background-color: #ffffff;
             padding: 7px 2px 2px 7px;
             margin-bottom: 10px;
@@ -252,6 +287,13 @@ $side-content-color: #f7f9fa;
         }
 
         .business-process-multi-select {
+            color: #fff;
+            height: 20px;
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: 500;
+            line-height: 1.45;
+            letter-spacing: 0.4px;
             color: #fff;
 
             .btn-remove {
@@ -272,12 +314,34 @@ $side-content-color: #f7f9fa;
     }
 
     .section-tags {
-        .form-col-header {
-            color: #78909c;
-            font-style: italic;
-            font-weight: normal;
-            font-size: 11px;
-            width: 100%;
+        margin: 0 14px 10px 14px;
+
+        .card-body {
+            padding: 0;
+
+            .form-row {
+                margin-left: 0;
+                margin-right: 0;
+
+                .form-col {
+                    padding: 0;
+
+                    &.form-col-header {
+                        color: #78909c;
+                        font-style: italic;
+                        font-weight: normal;
+                        font-size: 11px;
+                        width: 100%;
+                        padding-left: 12px;
+                        padding-bottom: 10px;
+                    }
+                }
+            }
+        }
+
+        .k-tagtextbox .k-multiselect-wrap {
+            border-color: #f1f3f4;
+            border-radius: 3px;
         }
     }
 }

@@ -137,6 +137,7 @@
     width: 100%;
     height: 100%;
     line-height: 45px;
+    font-weight: normal;
 }
 
 .popupImportAngle .k-upload-status,

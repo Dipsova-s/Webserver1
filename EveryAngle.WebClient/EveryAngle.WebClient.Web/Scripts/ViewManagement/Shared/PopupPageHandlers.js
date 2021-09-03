@@ -238,7 +238,7 @@ function Popup() {
 
             jQuery.each(buttons, function (k, v) {
                 v.kendoWindow = win;
-                jQuery('<a class="btn" />')
+                jQuery('<a class="btn btn-small" />')
                     .attr(jQuery.extend({}, v.attr, { id: 'btn-' + winId + k }))
                     .data('setting', v)
                     .click(function (e) {
@@ -252,7 +252,8 @@ function Popup() {
                     })
                     .addClass(v.isPrimary ? 'btn-primary' : '')
                     .addClass(v.isSecondary ? 'btn-secondary' : '')
-                    .addClass(!v.isPrimary && !v.isSecondary ? 'btn-ghost' : '')
+                    .addClass(v.isLight ? 'btn-light' : '')
+                    .addClass(!v.isPrimary && !v.isSecondary && !v.isLight ? 'btn-ghost' : '')
                     .addClass(v.position ? 'float-' + v.position : '')
                     .addClass(v.className)
                     .append('<span>' + v.text + '</span>')

@@ -6,7 +6,7 @@
   top: 0;
   width: 100%;
   min-width: 762px;
-  background: #f7f9fa;
+  background: #061c2b;
   color: #666; }
 
 .topBarWrapper .Wrapper {
@@ -58,8 +58,7 @@
     display: none; }
   .saving-wrapper .btn {
     margin: 0;
-    white-space: nowrap;
-    width: 100%; }
+    white-space: nowrap; }
     .saving-wrapper .btn span {
       width: 100%; }
   .saving-wrapper .btn-main-saving:after,
@@ -557,3 +556,27 @@
   .detailsWrapper .Wrapper {
     z-index: 0;
     background: #fafafa; }
+  .detailsWrapper .display-tab {
+    background-color: #fff; }
+
+#DisplayTabs .tab-menu-header-inner {
+  background-color: #e9ecee;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.83;
+  letter-spacing: 0.1px;
+  text-align: left;
+  color: #061c2b; }
+  #DisplayTabs .tab-menu-header-inner .icon {
+    color: #78909c; }
+
+#DisplayTabs .active .tab-menu-header-inner {
+  background-color: #25cad2;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.83;
+  letter-spacing: 0.1px;
+  text-align: left;
+  color: #fafcfc; }
+  #DisplayTabs .active .tab-menu-header-inner .icon {
+    color: #fafcfc; }

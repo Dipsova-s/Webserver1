@@ -11,7 +11,7 @@
 .k-widget .k-picker-wrap,
 .k-widget .k-numeric-wrap {
     background: #fff none;
-    border: 1px solid #b5becc;
+    border: 1px solid $input-base-border;
     padding: 0 30px 0 0;
     border-radius: 0;
     box-shadow: none;
@@ -22,8 +22,8 @@
     border-radius: 0;
     padding-top: 0;
     padding-bottom: 0;
-    height: 26px;
-    line-height: 26px;
+    height: 30px;
+    line-height: 30px;
 }
 
 .k-widget .k-select {
@@ -41,11 +41,38 @@
 .k-widget .k-select .k-icon.k-i-arrow-n,
 .k-widget .k-select .k-icon.k-i-arrow-e,
 .k-widget .k-select .k-icon.k-i-arrow-w {
-    width: 10px;
-    height: 10px;
-    font-size: 10px;
-    line-height: 10px;
+    width: 11px;
+    height: 11px;
+    font-size: 11px;
+    line-height: 11px;
     background: transparent none;
+}
+
+.k-dropdown-wrap .k-select,
+.k-numeric-wrap .k-select {
+    top: 2px;
+}
+
+.k-dropdown-wrap.k-state-hover,
+.k-numeric-wrap.k-state-hover,
+.k-picker-wrap.k-state-hover,
+.custom-datetimepicker span.fake-timepicker .k-picker-wrap.k-state-hover {
+    border-color: $input-hover-border;
+    /*border-width: 2px;*/
+    > input {
+        color: $input-primary-font-color;
+    }
+}
+
+.k-dropdown-wrap.k-state-focused,
+.k-numeric-wrap.k-state-focused,
+.k-picker-wrap.k-state-focused,
+.custom-datetimepicker span.fake-timepicker .k-picker-wrap.k-state-focused {
+    border-color: $input-focus-border;
+    /*border-width: 2px;*/
+    > input {
+        color: $input-focus-font-color;
+    }
 }
 
 .k-loading-mask {
@@ -262,11 +289,12 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     display: none;
     position: absolute;
     border-radius: 2px;
-    background-color: #34495e;
+    background-color: #061c2b;
+    font-family: $font-stack;
     font-size: 11px;
     color: #fff;
-    padding: 4px;
-    max-width: 250px;
+    padding: 5px 8px;
+    min-height: 15px;
     box-shadow: inset 4px -14px 11px 0 rgba(0, 0, 0, 0.02);
     z-index: 10000;
 }
@@ -290,7 +318,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     margin-left: -4px;
     top: -4px;
     bottom: auto;
-    border-bottom-color: #34495e;
+    border-bottom-color: #061c2b;
 }
 
 .k-grid-tooltip.k-window-arrow-s:before {
@@ -298,7 +326,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     margin-left: -4px;
     top: auto;
     bottom: -4px;
-    border-top-color: #34495e;
+    border-top-color: #061c2b;
 }
 
 .k-grid-tooltip.k-window-arrow-e:before {
@@ -306,7 +334,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     right: -4px;
     top: 50%;
     margin-top: -4px;
-    border-left-color: #34495e;
+    border-left-color: #061c2b;
 }
 
 .k-grid-tooltip.k-window-arrow-w:before {
@@ -314,7 +342,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     right: auto;
     top: 50%;
     margin-top: -4px;
-    border-right-color: #34495e;
+    border-right-color: #061c2b;
 }
 
 .k-state-selected,
@@ -347,16 +375,20 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 .k-grid.grid-custom-scroller:not(:hover) .k-grid-content {
     padding-right: 0 !important;
 }
+
 .k-grid.grid-custom-scroller .k-virtual-scrollable-wrap {
     overflow-x: hidden;
 }
+
 .k-grid.grid-custom-scroller:hover .k-virtual-scrollable-wrap,
 .no-mouse .k-grid .k-virtual-scrollable-wrap {
     overflow-x: auto;
 }
+
 .k-grid.grid-custom-scroller .k-scrollbar-vertical {
     visibility: hidden;
 }
+
 .k-grid.grid-custom-scroller:hover .k-scrollbar-vertical,
 .no-mouse .k-grid.grid-custom-scroller .k-scrollbar-vertical {
     visibility: visible;
@@ -365,8 +397,9 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 .k-grid.grid-custom-scroller .k-grid-content:not([data-role="virtualscrollable"]) {
     overflow: hidden;
 }
+
 .k-grid.grid-custom-scroller:hover .k-grid-content:not([data-role="virtualscrollable"]),
-.no-mouse .k-grid.grid-custom-scroller .k-grid-content:not([data-role="virtualscrollable"]){
+.no-mouse .k-grid.grid-custom-scroller .k-grid-content:not([data-role="virtualscrollable"]) {
     overflow: auto;
 }
 
@@ -619,7 +652,6 @@ div.k-window-content {
     right: 0;
     bottom: 0;
     height: 48px;
-    border-top: 1px dashed #d5d5d5;
     border-radius: 0 0 2px 2px;
 }
 
@@ -629,7 +661,7 @@ div.k-window-content {
     right: 0;
     padding: 10px;
     overflow: hidden;
-    background: #f7f9fa;
+    background: #f6f6f6;
 }
 
 .k-window-buttons .loading16x16 {
@@ -654,29 +686,35 @@ div.k-window-content {
 .k-button:active,
 .k-button:active:hover,
 .k-button.k-state-focused {
-    background: none #f7f9fa;
-    border-color: #358ed7;
-    color: #358ed7;
+    font-size: 12px;
+    font-weight: 500;
+    background: none #fff;
+    border-color: $primary-color;
+    color: $primary-color;
     border-radius: 2px;
     line-height: 18px;
     box-shadow: none;
 }
 
-.k-button:hover,
-.k-button:focus {
-    box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16) !important;
-}
-
-.k-button:active {
-    box-shadow: none !important;
-}
-
-.k-button.k-primary,
-.k-button.k-primary:hover,
-.k-button.k-primary:active {
-    background: none #358ed7;
-    border-color: #358ed7;
+.k-button.k-primary {
+    background: none $primary-color;
+    border-color: $primary-color;
     color: #fff;
+
+    &:hover {
+        background-color: #03c6cf;
+        color: #fff;
+    }
+
+    &:active {
+        background-color: #17ccd4;
+        color: #fff;
+    }
+
+    &:focus {
+        background-color: #16dfe9;
+        color: #fff;
+    }
 }
 
 
@@ -723,12 +761,12 @@ div.k-window-content {
 /* .k-colorpicker
 =================================== */
 .k-colorpicker .k-picker-wrap {
-    height: 28px;
+    height: 29px;
 }
 
 .k-colorpicker .k-picker-wrap .k-selected-color {
-    width: 31px;
-    height: 26px;
+    width: 32px;
+    height: 27px;
     border-radius: 0;
 }
 
@@ -755,6 +793,7 @@ table.k-editor {
     border-width: 0;
     border-spacing: 0;
 }
+
 table.k-editor .k-colorpicker .k-picker-wrap .k-selected-color {
     height: 3px;
     width: 22px;
@@ -794,10 +833,32 @@ table.k-editor .k-colorpicker .k-picker-wrap .k-selected-color {
 .k-editor-dialog .k-checkbox-label:after {
     display: none;
 }
+
 .k-editor-dialog .k-edit-form-container .k-edit-buttons {
     border-top: 1px dashed #d5d5d5;
     background: none #f7f9fa;
 }
+
+.k-button-group .k-tool {
+    line-height: 1em !important;
+}
+
+.k-editor .k-editor-toolbar .k-select .k-icon {
+    top: 1px;
+}
+
+.k-editor-toolbar .k-tool-group a.k-tool.k-state-hover {
+    background-color: #03c6cf;
+    color: #061c2b;
+    border-color: #25cad2;
+}
+
+.k-editor-toolbar .k-tool-group a.k-tool.k-state-hover.k-state-selected, .k-editor-toolbar .k-tool-group a.k-tool.k-state-selected {
+    background-color: #16dfe9;
+    color: #061c2b;
+    border-color: #25cad2;
+}
+
 
 /* .eaText
 =================================== */
@@ -834,32 +895,58 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 =================================== */
 .k-widget.k-autocomplete {
     background: #fff none;
-    border-color: #e3e5e5;
+    border-color: $input-base-border;
     border-radius: 0;
     box-shadow: none;
 }
 
 .k-widget.k-autocomplete.k-state-border-down {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
 }
 
 .k-widget.k-autocomplete .k-input {
     text-indent: 6px;
 }
 
+.k-widget.k-autocomplete.k-state-hover {
+    border-color: $input-hover-border;
+
+    .k-input {
+        color: $input-primary-font-color;
+    }
+}
+
+.k-widget.k-autocomplete.k-state-focused {
+    border-color: $input-focus-border;
+
+    .k-input {
+        color: $input-focus-font-color;
+    }
+}
+
 /* .k-autocomplete-light
 =================================== */
 .k-widget.k-autocomplete-light {
     border-color: transparent;
-    border-bottom-color: #e1e8ee;
+    border-bottom-color: $input-base-border;
 }
 
 .k-widget.k-autocomplete-light.k-state-focused {
-    border-bottom-color: #358ed7;
+    border-color: transparent;
+    border-bottom-color: $input-focus-border;
+
+    .k-input {
+        color: $input-focus-font-color;
+    }
 }
 
-.k-widget.k-autocomplete-light .k-input {
-    color: #3d4852;
+.k-widget.k-autocomplete-light.k-state-hover {
+    border-color: transparent;
+    border-bottom-color: $input-hover-border;
+
+    .k-input {
+        color: $input-primary-font-color;
+    }
 }
 
 /* .k-dropdown
@@ -882,14 +969,14 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-down,
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-down.k-state-focused,
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-down.k-state-focused:hover {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
     border-bottom-color: transparent;
 }
 
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-up,
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-up.k-state-focused,
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-up.k-state-focused:hover {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
     border-top-color: #e3e5e5;
 }
 
@@ -901,6 +988,13 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
     display: none;
 }
 
+.k-widget.k-dropdown .k-dropdown-wrap.k-state-hover {
+    border-color: $input-hover-border;
+}
+
+.k-widget.k-dropdown .k-dropdown-wrap.k-state-focused {
+    border-color: $input-focus-border;
+}
 /* .k-dropdown-large
 =================================== */
 .k-widget.k-dropdown-large .k-dropdown-wrap {
@@ -916,7 +1010,6 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
     height: 38px;
     line-height: 38px;
 }
-
 /* .k-dropdown-light
 =================================== */
 .k-widget.k-dropdown-light {
@@ -965,17 +1058,26 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
     background-size: 10px 10px;
 }
 
+.k-widget.k-dropdown-light .k-dropdown-wrap.k-state-hover {
+    border-color: transparent;
+    border-bottom-color: $input-hover-border;
+}
+
+.k-widget.k-dropdown-light .k-dropdown-wrap.k-state-focused {
+    border-color: transparent;
+    border-bottom-color: $input-focus-border;
+}
 /* .k-popup.k-list-container
 =================================== */
 .k-popup.k-list-container {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
     border-top-color: #e3e5e5;
     border-radius: 0;
     padding: 0;
 }
 
 .k-popup.k-list-container.k-state-border-down {
-    border-top-color: #358ed7;
+    border-top-color: $input-focus-border;
     border-bottom-color: #e3e5e5;
     box-shadow: none;
 }
@@ -1031,13 +1133,29 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
     background-color: #f4f5f5 !important;
 }
 
+.k-popup .k-list-scroller .k-list .k-item {
+    border-top-color: transparent;
+    font-family: $font-stack;
+    font-size: 12px;
+    line-height: 30px;
+    min-height: 30px;
+}
+
+.k-popup .k-list-scroller .k-list .k-item.k-state-focused,
+.k-popup .k-list-scroller .k-list .k-item.k-state-focused:after,
+.k-popup .k-list-scroller .k-list .k-item.k-state-selected,
+.k-popup .k-list-scroller .k-list .k-item.k-state-selected:after,
+.k-popup .k-list-scroller .k-list .k-item.k-state-hover,
+.k-popup .k-list-scroller .k-list .k-item.k-state-hover:after {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: $listview-item-hover-color !important;
+}
 /* .k-list-container-large
 =================================== */
 .k-popup.k-list-container-large .k-item {
-    line-height: 2.25;
-    min-height: 26px;
+    line-height: 2.5;
+    min-height: 30px;
 }
-
 /* .k-popup.k-list-container-light
 =================================== */
 .k-popup.k-list-container-light {
@@ -1046,7 +1164,7 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 }
 
 .k-popup.k-list-container-light.k-state-border-down {
-    border-top-color: #358ed7;
+    border-top-color: $input-focus-border;
     border-bottom-color: #fff;
 }
 
@@ -1063,7 +1181,6 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-popup.k-list-container-light .k-state-hover {
     background-color: #f7f9fa !important;
 }
-
 /* .k-datepicker
 =================================== */
 .k-datepicker {
@@ -1078,7 +1195,6 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-calendar td.k-state-focused.k-state-selected {
     background-color: #025e7f;
 }
-
 /* .k-datepicker-light
 =================================== */
 .k-widget.k-datepicker-light .k-picker-wrap {
@@ -1087,12 +1203,14 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 }
 
 .k-widget.k-datepicker-light .k-picker-wrap.k-state-focused {
-    border-bottom-color: #358ed7;
+    border-bottom-color: $input-hover-border;
 }
 
+.k-widget.k-datepicker-light .k-picker-wrap.k-state-hover {
+    border-bottom-color: $input-hover-border;
+}
 /* .k-popup.k-calendar-container
 =================================== */
-
 .k-popup.k-calendar-container .k-calendar-view,
 .k-popup.k-calendar-container .k-month .k-link {
     height: auto;
@@ -1121,7 +1239,6 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
     color: #fff;
     box-shadow: none;
 }
-
 /* .k-popup.k-calendar-container-light
 =================================== */
 .k-popup.k-calendar-container-light {
@@ -1188,7 +1305,6 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-popup.k-calendar-container-light td.k-state-focused .k-link {
     color: #fff;
 }
-
 /* .k-timepicker
 =================================== */
 .k-timepicker {
@@ -1199,7 +1315,6 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
     margin-top: 1px;
     opacity: 1;
 }
-
 /* .custom-datetimepicker
 =================================== */
 .custom-datetimepicker {
@@ -1227,14 +1342,14 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .custom-datetimepicker span.fake-timepicker .k-picker-wrap.k-state-border-down,
 .custom-datetimepicker span.fake-timepicker .k-picker-wrap.k-state-border-down.k-state-focused,
 .custom-datetimepicker span.fake-timepicker .k-picker-wrap.k-state-border-down.k-state-focused:hover {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
     border-bottom-color: transparent;
 }
 
 .custom-datetimepicker span.fake-timepicker .k-picker-wrap.k-state-border-up,
 .custom-datetimepicker span.fake-timepicker .k-picker-wrap.k-state-border-up.k-state-focused,
 .custom-datetimepicker span.fake-timepicker .k-picker-wrap.k-state-border-up.k-state-focused:hover {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
     border-top-color: transparent;
 }
 
@@ -1245,9 +1360,18 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .custom-datetimepicker.time-suffix span.fake-timepicker {
     width: 110px;
 }
-
 /* .k-numerictextbox
 =================================== */
+.k-numerictextbox .k-numeric-wrap {
+    &.k-state-hover {
+        border-color: $input-hover-border;
+    }
+
+    &.k-state-focused {
+        border-color: $input-focus-border;
+    }
+}
+
 .k-numerictextbox.no-spinners .k-numeric-wrap {
     padding-right: 0 !important;
 }
@@ -1262,18 +1386,20 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
     color: inherit;
     opacity: .3;
 }
-
 /* .k-numerictextbox-light
 =================================== */
 .k-widget.k-numerictextbox-light .k-numeric-wrap {
     border-color: transparent;
-    border-bottom-color: #e1e8ee;
+    border-bottom-color: $input-base-border;
 }
 
 .k-widget.k-numerictextbox-light .k-numeric-wrap.k-state-focused {
-    border-bottom-color: #358ed7;
+    border-bottom-color: $input-focus-border;
 }
 
+.k-widget.k-numerictextbox-light .k-numeric-wrap.k-state-hover {
+    border-bottom-color: $input-hover-border;
+}
 /* .k-numerictextbox-custom
 =================================== */
 .k-numerictextbox-custom {
@@ -1310,7 +1436,6 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
     font-weight: bold;
     background-image: none;
 }
-
 /* .k-timespanpicker
 =================================== */
 .k-timespanpicker {
@@ -1345,27 +1470,33 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
     border-left-color: transparent;
 }
 
+.k-timespanpicker .k-timepicker .k-picker-wrap.k-state-hover {
+    border-left-color: $input-hover-border;
+}
+
+.k-timespanpicker .k-picker-wrap.k-state-focused {
+    border-left-color: $input-focus-border;
+}
+
 .k-timespanpicker .k-timepicker .k-picker-wrap.k-state-border-down,
 .k-timespanpicker .k-timepicker .k-picker-wrap.k-state-border-down.k-state-focused,
 .k-timespanpicker .k-timepicker .k-picker-wrap.k-state-border-down.k-state-focused:hover {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
     border-bottom-color: transparent;
 }
 
 .k-timespanpicker .k-timepicker .k-picker-wrap.k-state-border-up,
 .k-timespanpicker .k-timepicker .k-picker-wrap.k-state-border-up.k-state-focused,
 .k-timespanpicker .k-timepicker .k-picker-wrap.k-state-border-up.k-state-focused:hover {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
     border-top-color: transparent;
 }
-
 /* .k-notification
 =================================== */
 .k-notification {
     border: none;
     border-radius: 0;
 }
-
 /* .k-periodpicker
 =================================== */
 .k-periodpicker {
@@ -1382,6 +1513,7 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-periodpicker .k-dropdown.k-periodpicker-control {
     max-width: 110px;
 }
+
 .k-periodpicker .k-dropdown.k-periodpicker-control .k-dropdown-wrap {
     border-left-color: transparent;
 }
@@ -1389,14 +1521,14 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-periodpicker .k-dropdown.k-periodpicker-control .k-dropdown-wrap.k-state-border-down,
 .k-periodpicker .k-dropdown.k-periodpicker-control .k-dropdown-wrap.k-state-border-down.k-state-focused,
 .k-periodpicker .k-dropdown.k-periodpicker-control .k-dropdown-wrap.k-state-border-down.k-state-focused:hover {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
     border-bottom-color: transparent;
 }
 
 .k-periodpicker .k-dropdown.k-periodpicker-control .k-dropdown-wrap.k-state-border-up,
 .k-periodpicker .k-dropdown.k-periodpicker-control .k-dropdown-wrap.k-state-border-up.k-state-focused,
 .k-periodpicker .k-dropdown.k-periodpicker-control .k-dropdown-wrap.k-state-border-up.k-state-focused:hover {
-    border-color: #358ed7;
+    border-color: $input-focus-border;
     border-top-color: transparent;
 }
 
@@ -1405,19 +1537,19 @@ div.k-tooltip.k-chart-tooltip {
     margin-left: -3px;
     padding-bottom: 1px;
 }
-
 /* .k-tagtextbox
    height: 36/20
 =================================== */
 $tagtextbox-item-height: 20px;
 $tagtextbox-item-margin: 7px;
+
 .k-tagtextbox {
     .k-multiselect-wrap {
-        border-color: #b5becc;
-        border-radius: 0;
+        border-color: #e9ecee;
+        border-radius: 3px;
         padding-top: $tagtextbox-item-margin;
         padding-left: $tagtextbox-item-margin;
-        min-height: 36px;
+        min-height: 30px;
         box-sizing: border-box;
 
         .item-label {
@@ -1450,11 +1582,16 @@ $tagtextbox-item-margin: 7px;
 
     .btn-search {
         position: absolute;
-        top: auto;
+        top: 12px;
         right: 6px;
         bottom: 10px;
         color: #78909c;
         font-size: 16px;
+    }
+
+    .k-multiselect-wrap ul[id="SearchTag_taglist"] ~ .btn-search,
+    .k-multiselect-wrap ul.k-reset:empty ~ .btn-search {
+        top: 10px;
     }
 
     &.k-state-focused {
@@ -1462,7 +1599,7 @@ $tagtextbox-item-margin: 7px;
 
         > .k-multiselect-wrap {
             box-shadow: none;
-            border-color: #358ed7;
+            border-color: $input-focus-border;
         }
     }
 
@@ -1470,7 +1607,7 @@ $tagtextbox-item-margin: 7px;
     &.k-state-border-down.k-state-focused,
     &.k-state-border-down.k-state-focused:hover {
         > .k-multiselect-wrap {
-            border-color: #358ed7;
+            border-color: $input-focus-border;
             border-bottom-color: transparent;
             border-radius: 0;
         }
@@ -1480,7 +1617,7 @@ $tagtextbox-item-margin: 7px;
     &.k-state-border-up.k-state-focused,
     &.k-state-border-up.k-state-focused:hover {
         > .k-multiselect-wrap {
-            border-color: #358ed7;
+            border-color: $input-focus-border;
             border-top-color: #e3e5e5;
             border-radius: 0;
         }
@@ -1495,6 +1632,7 @@ $tagtextbox-item-margin: 7px;
 
 .k-tagtextbox-list-container {
     background-color: #fff;
+    border-color: $input-focus-border !important;
 
     &.k-state-border-up {
         border-top-width: 0;

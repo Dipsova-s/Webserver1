@@ -70,7 +70,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About Every Angle.
+        ///   Looks up a localized string similar to About Angles for SAP.
         /// </summary>
         public static string AboutEveryAngle {
             get {
@@ -79,7 +79,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For the latest product information,&lt;br&gt; visit us at &lt;a href=&quot;http://www.everyangle.com&quot; target=&quot;_blank&quot;&gt;www.everyangle.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; .
+        ///   Looks up a localized string similar to For the latest product information,&lt;br&gt; visit us at &lt;a href=&quot;http://www.magnitude.com&quot; target=&quot;_blank&quot;&gt;www.magnitude.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; .
         /// </summary>
         public static string AboutEveryAngleDetails {
             get {
@@ -277,7 +277,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Jump.
+        ///   Looks up a localized string similar to Apply Jump.
         /// </summary>
         public static string AddFollowUp {
             get {
@@ -4570,7 +4570,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Execute selected Jump.
+        ///   Looks up a localized string similar to Execute Jump.
         /// </summary>
         public static string FollowupsButtonSubmit {
             get {

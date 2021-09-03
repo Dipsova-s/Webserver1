@@ -2,7 +2,7 @@
 
 /* input, textarea
 ============================================ */
-$invalid-color: #e91e3d;
+$invalid-color: #b00020;
 
 input::-ms-clear {
     display: none;
@@ -11,6 +11,7 @@ input::-ms-clear {
 input:disabled,
 textarea:disabled {
     cursor: default;
+    pointer-events: none;
     opacity: $disabled-opacity;
 }
 
@@ -23,16 +24,25 @@ input[type="text"],
 input[type="password"],
 textarea {
     -webkit-appearance: none;
-    border: 1px solid #b5becc;
-    background-color: #fff;
+    border: 1px solid $input-base-border;
     border-radius: 0;
-    padding: 5px;
+    background-color: #fff;
+    padding: 6px 12px;
     margin: 0;
-    line-height: 16px;
     box-sizing: border-box;
+    height: 30px;
+    font-family: $font-stack;
+    font-size: 12px;
+    letter-spacing: 0.15px;
+    color: $input-primary-font-color;
 
     &:focus {
-        border-color: #4d90fe;
+        border-color: $input-focus-border;
+        outline: none;
+    }
+
+    &:hover {
+        border-color: $input-hover-border;
         outline: none;
     }
 
@@ -49,9 +59,20 @@ textarea.input-light {
     border-top-color: transparent;
     border-left-color: transparent;
     border-right-color: transparent;
+    border-radius: 0;
 
     &:focus {
-        border-bottom-color: $primary-color;
+        border-bottom-color: $input-focus-border;
+        outline: none;
+    }
+
+    &:hover {
+        border-bottom-color: $input-hover-border;
+        outline: none;
+    }
+
+    &:active {
+        border-bottom-color: $input-active-border;
         outline: none;
     }
 }
@@ -62,13 +83,18 @@ textarea.input-light {
     .legend {
         position: absolute;
         left: 10px;
-        top: -7px;
+        top: -6px;
         padding: 0 3px;
         background-color: #fff;
+        font-family: $font-stack;
+        font-size: 11px;
+        line-height: 1.33;
+        letter-spacing: 0.4px;
+        color: #061c2b;
     }
 
-    input,
-    input:hover {
+    > input,
+    > input:hover {
         width: 100%;
         border-radius: 2px;
         padding-left: 12px;
@@ -77,5 +103,9 @@ textarea.input-light {
         &.invalid + .legend {
             color: $invalid-color;
         }
+    }
+
+    > input:disabled + .legend {
+        color: rgba(0, 0, 0, 0.5)
     }
 }

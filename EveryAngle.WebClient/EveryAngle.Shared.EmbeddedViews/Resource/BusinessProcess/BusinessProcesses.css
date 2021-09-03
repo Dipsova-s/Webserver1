@@ -432,58 +432,82 @@
 
 .BusinessProcessBadgeLabel {
     height: auto;
+    width: 9em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .BusinessProcessBadgeItem0,
-.BusinessProcessBadge.P2P {
+.BusinessProcessBadge.P2P,
+.BusinessProcessBadgeItem0:hover,
+.BusinessProcessBadge.P2P:hover {
     background-color: #008e91;
 }
 
 .BusinessProcessBadgeItem1,
-.BusinessProcessBadge.S2D {
+.BusinessProcessBadge.S2D,
+.BusinessProcessBadgeItem1:hover,
+.BusinessProcessBadge.S2D:hover {
     background-color: #00537a;
 }
 
 .BusinessProcessBadgeItem2,
-.BusinessProcessBadge.O2C {
+.BusinessProcessBadge.O2C,
+.BusinessProcessBadgeItem2:hover,
+.BusinessProcessBadge.O2C:hover {
     background-color: #cf691e;
 }
 
 .BusinessProcessBadgeItem3,
-.BusinessProcessBadge.F2R {
+.BusinessProcessBadge.F2R,
+.BusinessProcessBadgeItem3:hover,
+.BusinessProcessBadge.F2R:hover {
     background-color: #dfb500;
 }
 
 .BusinessProcessBadgeItem4,
-.BusinessProcessBadge.PM {
+.BusinessProcessBadge.PM,
+.BusinessProcessBadgeItem4:hover,
+.BusinessProcessBadge.PM:hover {
     background-color: #93bf00;
 }
 
 .BusinessProcessBadgeItem5,
-.BusinessProcessBadge.QM {
+.BusinessProcessBadge.QM,
+.BusinessProcessBadgeItem5:hover,
+.BusinessProcessBadge.QM:hover {
     background-color: #07bcb5;
 }
 
 .BusinessProcessBadgeItem6,
-.BusinessProcessBadge.HCM {
+.BusinessProcessBadge.HCM
+.BusinessProcessBadgeItem6:hover,
+.BusinessProcessBadge.HCM:hover {
     background-color: #7f196f;
 }
 
 .BusinessProcessBadgeItem7,
-.BusinessProcessBadge.GRC {
+.BusinessProcessBadge.GRC,
+.BusinessProcessBadgeItem7:hover,
+.BusinessProcessBadge.GRC:hover {
     background-color: #c00000;
 }
 
 .BusinessProcessBadgeItem8,
-.BusinessProcessBadge.IT {
+.BusinessProcessBadge.IT,
+.BusinessProcessBadgeItem8:hover,
+.BusinessProcessBadge.IT:hover {
     background-color: #218b00;
 }
 
-.BusinessProcessBadge.OTHER {
+.BusinessProcessBadge.OTHER,
+.BusinessProcessBadge.OTHER:hover {
     background-color: #999;
 }
 
-.BusinessProcessBadgeLabel.disabled {
+.BusinessProcessBadgeLabel.disabled,
+.BusinessProcessBadgeLabel.disabled:hover {
     color: #aaa;
 }
 

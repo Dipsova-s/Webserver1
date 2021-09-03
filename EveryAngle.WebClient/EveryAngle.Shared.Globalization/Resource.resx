@@ -121,7 +121,7 @@
     <value>Add Filter</value>
   </data>
   <data name="AddFollowUp" xml:space="preserve">
-    <value>Add Jump</value>
+    <value>Apply Jump</value>
   </data>
   <data name="AddToAngle" xml:space="preserve">
     <value>Add to Angle</value>
@@ -1336,7 +1336,7 @@
     <value>There is no related movie available.</value>
   </data>
   <data name="FollowupsButtonSubmit" xml:space="preserve">
-    <value>Execute selected Jump</value>
+    <value>Execute Jump</value>
   </data>
   <data name="FollowupsWarningAngle" xml:space="preserve">
     <value>All Displays will be deleted</value>
@@ -3833,7 +3833,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Search object...</value>
   </data>
   <data name="AboutEveryAngle" xml:space="preserve">
-    <value>About Every Angle</value>
+    <value>About Angles for SAP</value>
   </data>
   <data name="Helppage" xml:space="preserve">
     <value>Help page</value>
@@ -3914,7 +3914,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Content</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>For the latest product information,&lt;br&gt; visit us at &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; </value>
+    <value>For the latest product information,&lt;br&gt; visit us at &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
     <value>Client:</value>

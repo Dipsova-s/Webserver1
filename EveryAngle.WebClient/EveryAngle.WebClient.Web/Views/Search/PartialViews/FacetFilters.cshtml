@@ -5,9 +5,9 @@
              attr: { 'id': facet.id },
              css: $root.GetFacetTabClassname(facet),
              click: $root.ToggleCategory">
-            <span class="FilterTitle" data-bind="text: $root.GroupGeneral === facet.type ? Localization.GeneralFilters : facet.name"></span>
-            <i class="icon icon-chevron-up"></i>
             <i class="icon icon-chevron-down"></i>
+            <i class="icon icon-chevron-right"></i>
+            <span class="FilterTitle" data-bind="text: $root.GroupGeneral === facet.type ? Localization.GeneralFilters : facet.name"></span>
         </div>
         <!-- /ko -->
         <div class="FilterCheckBox" data-bind="

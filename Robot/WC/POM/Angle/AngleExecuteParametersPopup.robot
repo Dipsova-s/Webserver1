@@ -5,7 +5,7 @@ ${btnCloseExecuteParametersPopup}       jquery=.popup-execution-parameter .k-win
 ${btnSubmitExecuteParameters}           css=#btn-PopupExecutionParameter3
 ${btnSwitchAngleExecuteParameters}      css=.btnChangeAngleParameters
 ${btnSwitchDisplayExecuteParameters}    css=.btnChangeDisplayParameters
-${searchPageTitle}                      Every Angle - Search page
+${searchPageTitle}                      Magnitude Angles for SAP - Search page
 
 *** Keywords ***
 Wait Until Angle Execute Parameters Popup Loaded

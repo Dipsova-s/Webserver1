@@ -10,71 +10,127 @@
     display: inline-flex;
     align-items: center;
     align-self: center;
-    padding: 0 5px;
+    padding: 0 8px;
     border-radius: 2px;
     text-align: center;
     text-shadow: none;
     margin-right: 5px;
     margin-left: 5px;
+    min-width: 74px;
     cursor: pointer;
-    height: 28px;
+    height: 37px;
     outline: none;
     box-sizing: border-box;
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 500;
     color: $primary-color;
     border: 1px solid transparent;
-    box-shadow: none;
     transition: $animation;
 }
 
-.btn:hover {
-    box-shadow: $box-shadow;
+.btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split +.btn, btn-display-badge .btn.disabled, .btn[disabled], a[class*="btn-"]):hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.btn:focus {
+    color: #1fc7cf;
 }
 
 .btn-small {
-    font-size: 13px;
-    height: 24px;
+    font-size: 12px!important;
+    height: 28px!important;
 }
 
 .btn-primary,
 .btn-primary:link,
-.btn-primary:visited,
-.btn-primary:hover {
+.btn-primary:visited {
     background-color: $primary-color;
     border-color: $primary-color;
-    color: #fff;
+    color: #ffffff;
+    font-weight: normal;
+}
+
+.btn-primary:hover {
+    background-color: #03c6cf;
+    border-color: $primary-color;
+    text-decoration: none;
+}
+
+.btn-primary:focus {
+    background-color: #16dfe9;
+    border-color: $primary-color;
+    color: #ffffff;
 }
 
 .btn-primary:active,
 .btn-primary.active {
-    box-shadow: none;
+    background-color: #17ccd4;
+}
+
+.btn-primary.disabled,
+.btn-primary[disabled] {
+    background-color: #25cad2;
+    opacity: 0.5 !important;
 }
 
 .btn-secondary,
 .btn-secondary:link,
-.btn-secondary:visited,
-.btn-secondary:hover {
+.btn-secondary:visited {
     background-color: $secondary-color;
     border-color: $secondary-color;
+    color: #000000;
+}
+
+.btn-secondary:hover {
+    background-color: #e9e9e9;
+    border-color: #e9e9e9;
+    text-decoration: none;
+}
+
+.btn-secondary:focus {
+    background-color: #f2f2f2;
+    border-color: $primary-color;
+    color: #000000;
 }
 
 .btn-secondary:active,
 .btn-secondary.active {
-    box-shadow: none;
+    background-color: #f1f1f1;
 }
 
 .btn-ghost,
 .btn-ghost:link,
-.btn-ghost:visited,
-.btn-ghost:hover {
-    background-color: #f7f9fa;
+.btn-ghost:visited {
+    background-color: #ffffff;
     border-color: $primary-color;
+}
+
+.btn-ghost:hover {
+    border-color: #03c6cf;
+    color: #03c6cf;
+    text-decoration: none;
+}
+
+.btn-ghost:focus {
+    color: #16dfe9;
 }
 
 .btn-ghost:active,
 .btn-ghost.active {
-    box-shadow: none;
+    color: #17ccd4;
+    border-color: #17ccd4;
+}
+
+.btn-ghost.disabled,
+.btn-ghost[disabled],
+.btn-ghost.disabled,
+.btn-ghost.disabled:active,
+.btn-ghost.disabled:hover,
+.btn-ghost[disabled],
+.btn-ghost[disabled]:active,
+.btn-ghost[disabled]:hover {
+    opacity: 0.5 !important;
 }
 
 .btn-success,
@@ -86,22 +142,45 @@
     color: #7dc855;
 }
 
-.btn-success:active,
-.btn-success.active {
-    box-shadow: none;
+.btn-success:hover {
+    text-decoration: none;
+}
+
+.btn-success:focus {
+    border-color: #7dc855;
+    color: #7dc855;
 }
 
 .btn-light,
 .btn-light:link,
 .btn-light:visited,
 .btn-light:hover {
-    background-color: #f7f9fa;
-    border-color: #f7f9fa;
+    background-color: #cef4f6;
+}
+
+.btn-light:hover {
+    text-decoration: none;
+    background-color: #bfeff1;
+}
+
+.btn-light:focus {
+    border-color: #25cad2;
 }
 
 .btn-light:active,
 .btn-light.active {
-    box-shadow: none;
+    background-color: #caf5f8;
+}
+
+.btn-light.disabled,
+.btn-light[disabled],
+.btn-light.disabled,
+.btn-light.disabled:active,
+.btn-light.disabled:hover,
+.btn-light[disabled],
+.btn-light[disabled]:active,
+.btn-light[disabled]:hover {
+    opacity: 0.5 !important;
 }
 
 .btn:after {
@@ -110,8 +189,8 @@
     background: transparent none left center no-repeat;
     position: absolute;
     top: 0;
-    right: -5px;
-    width: 30px;
+    right: 0;
+    width: 31px;
     height: 100%;
 }
 
@@ -125,34 +204,33 @@
 .btn[disabled]:active,
 .btn[disabled]:hover {
     cursor: default;
-    box-shadow: none;
     opacity: $disabled-opacity;
 }
 
 .btn-secondary.executing,
 .btn-secondary.executing:active,
-.btn-secondary.executing:hover,
-.btn-secondary.disabled,
-.btn-secondary.disabled:active,
-.btn-secondary.disabled:hover,
-.btn-secondary[disabled],
-.btn-secondary[disabled]:active,
-.btn-secondary[disabled]:hover {
+.btn-secondary.executing:hover {
     opacity: 1;
     background-color: #f1f3f4;
     border-color: #f1f3f4;
     color: #78909c;
 }
 
+.btn-secondary.disabled,
+.btn-secondary[disabled],
+.btn-secondary.disabled,
+.btn-secondary.disabled:active,
+.btn-secondary.disabled:hover,
+.btn-secondary[disabled],
+.btn-secondary[disabled]:active,
+.btn-secondary[disabled]:hover {
+    opacity: 0.5 !important;
+    background-color: #f7f7f7;
+}
+
 .btn-ghost.executing,
 .btn-ghost.executing:active,
-.btn-ghost.executing:hover,
-.btn-ghost.disabled,
-.btn-ghost.disabled:active,
-.btn-ghost.disabled:hover,
-.btn-ghost[disabled],
-.btn-ghost[disabled]:active,
-.btn-ghost[disabled]:hover {
+.btn-ghost.executing:hover {
     border-color: #78909c;
     color: #78909c;
 }
@@ -161,12 +239,11 @@
 .btn-busy:active,
 .btn-busy:hover {
     cursor: default;
-    box-shadow: none;
 }
 
 .btn span,
 .btn-busy:before {
-    min-width: 70px;
+    margin: 0 auto;
 }
 
 .btn-busy:before {
@@ -210,61 +287,73 @@
 
 .btn-split {
     border-radius: 2px 0 0 2px;
-    box-shadow: none;
     margin-right: 0;
-
-    &:hover {
-        box-shadow: none;
-    }
 
     + .btn {
         border-radius: 0 2px 2px 0;
-        box-shadow: none;
         margin-left: 0;
+        min-width: unset;
 
         &:after {
             border-left: 1px solid transparent;
-            height: 80%;
-            top: 10%;
+            height: 100%;
+            top: 0;
         }
+    }
 
-        &:hover {
-            box-shadow: none;
-        }
+    &.disabled,
+    &[disabled],
+    &.disabled + .btn {
+        opacity: 0.5 !important;
+        cursor: default;
     }
 }
 
 .btn-split.btn-primary {
+    &.disabled + .btn {
+        opacity: 0.5;
+    }
+
     + .btn:after {
         border-left-color: #fff;
     }
+
+    &:hover {
+        background-color: #03c6cf !important;
+    }
+
+    &:focus {
+        background-color: #16dfe9 !important;
+        border-color: $primary-color;
+    }
+
+    &.disabled:hover,
+    &[disabled]:hover,
+    &.disabled:focus,
+    &[disabled]:focus {
+        background-color: $primary-color !important;
+    }
 }
 
-.btn-split.btn-secondary {
-    &:hover:not(.disabled) {
-        background-color: #bbd5ff;
-        border-color: #bbd5ff;
+.btn-split.btn-secondary, .btn-split.btn-secondary + .btn {
+    &:hover {
+        background-color: #e9e9e9 !important;
     }
 
-    + .btn {
-        &:after {
-            border-left-color: $primary-color;
-        }
-
-        &:hover {
-            background-color: #bbd5ff;
-            border-color: #bbd5ff;
-        }
+    &:focus {
+        background-color: #f2f2f2 !important;
+        border-color: $primary-color;
     }
 
-    &.disabled + .btn {
-        background-color: #f1f3f4;
-        border-color: #f1f3f4;
-
-        &:hover {
-            border-color: #dcdcdc;
-            background: #dcdcdc;
-        }
+    &.disabled:hover,
+    &[disabled]:hover,
+    &.disabled:hover + .btn,
+    &.disabled + .btn:hover,
+    &.disabled:focus,
+    &[disabled]:focus,
+    &.disabled:focus + .btn,
+    &.disabled:focus + .btn {
+        background-color: $secondary-color !important;
     }
 }
 
@@ -276,8 +365,6 @@
 
         &:after {
             border-left-color: $primary-color;
-            height: 100%;
-            top : 0;
         }
     }
 }
@@ -301,8 +388,8 @@
     box-sizing: border-box;
 
     &.btn-wrapper-popup {
-        background-color: #f7f9fa;
-        border-top: 1px dashed #d5d5d5;
+        background-color: #f7f7f7;
+        border-top: 1px solid #f7f7f7;
         border-radius: 0 0 2px 2px;
     }
 
@@ -326,10 +413,6 @@
     min-width: 0;
     height: 18px;
 
-    &:hover {
-        box-shadow: none;
-    }
-
     .icon {
         margin: auto;
     }
@@ -340,5 +423,9 @@
         min-width: 16px;
         border-radius: 50%;
         padding: 3px;
+    }
+
+    &:hover {
+        text-decoration: none !important;
     }
 }

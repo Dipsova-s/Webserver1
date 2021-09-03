@@ -1,8 +1,8 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
-$facet-filter-padding-bottom: 9px;
-$left-menu-background-color: #f7f9fa;
+$facet-filter-padding-bottom: 1px;
+$left-menu-background-color: #f7f7f7;
 
 /* #LeftMenu
 ============================================ */
@@ -24,7 +24,7 @@ $left-menu-background-color: #f7f9fa;
 
     .facetFilter {
         display: none;
-        margin: 0 22px;
+        margin: 0 14px;
 
         & > div {
             border-top: 0;
@@ -36,7 +36,7 @@ $left-menu-background-color: #f7f9fa;
         z-index: 10;
         line-height: 23px;
         height: 23px;
-        padding-top: 15px;
+        padding-top: 8px;
         display: flex;
         align-items: center;
         position: relative;
@@ -47,14 +47,14 @@ $left-menu-background-color: #f7f9fa;
         }
 
         &:not(.expand) {
-            padding-bottom: 15px;
+            padding-bottom: 8px;
 
-            .icon-chevron-up {
+            .icon-chevron-down {
                 display: none;
             }
         }
 
-        &.expand .icon-chevron-down {
+        &.expand .icon-chevron-right {
             display: none;
         }
 
@@ -63,25 +63,26 @@ $left-menu-background-color: #f7f9fa;
             padding-top: 15px;
         }
 
-        &.border-separator {
-            border-top: 2px solid #fff;
-        }
-
         .FilterTitle {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
-            margin-right: auto;
+            margin-left: 12px;
             letter-spacing: .24px;
         }
 
         span {
             display: block;
             position: relative;
-            color: #333;
-            font-size: 11px;
+            color: #061c2b;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            font-family: $font-stack;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 22px;
+            height: 24px;
+            letter-spacing: 0.1px;
         }
     }
 
@@ -108,7 +109,6 @@ $left-menu-background-color: #f7f9fa;
 
             &:hover {
                 background-color: #d8d8d8;
-                text-shadow: $text-shadow-bold;
             }
 
             .tag-content {
@@ -122,6 +122,7 @@ $left-menu-background-color: #f7f9fa;
 
         .item-label-selected {
             background-color: $primary-color;
+            color: #ffffff;
 
             &:hover {
                 background-color: $primary-color;
@@ -132,8 +133,24 @@ $left-menu-background-color: #f7f9fa;
 
     .facetFilter {
 
-        .facetFilterSection .FilterCheckBox {
-            padding-bottom: $facet-filter-padding-bottom;
+        .facetFilterSection {
+            background: #ffffff;
+            padding: 0 12px;
+            margin: 10px 0;
+            border-radius: 3px;
+            background-color: #fff;
+
+            &:first-child{
+                margin-top:14px;
+            }
+            
+            .FilterCheckBox {
+                padding-bottom: $facet-filter-padding-bottom;
+
+                &:first-child {
+                    padding-top: 15px;
+                }
+            }
         }
 
         .k-tagtextbox {
@@ -151,14 +168,16 @@ $left-menu-background-color: #f7f9fa;
             padding: 0;
             list-style-type: none;
             color: #333;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: normal;
             text-decoration: none;
             margin-bottom: 12px;
+            font-family: Roboto;
+            font-size: 12px;
+            line-height: normal;
+            letter-spacing: 0.44px;
+            text-align: left;
 
             &:hover span {
-                color: #006f9b;
+                color: #03c6cf;
             }
 
             &.item-label {
@@ -198,7 +217,7 @@ $left-menu-background-color: #f7f9fa;
             position: absolute;
             left: 0;
             bottom: 0;
-            margin-left: 30px;
+            margin-left: 22px;
         }
 
         .name.withIcon {
@@ -235,7 +254,6 @@ $left-menu-background-color: #f7f9fa;
         min-width: 536px;
     }
 }
-
 /* #SearchSortingView
 ============================================ */
 #SearchSortingView {
@@ -264,7 +282,6 @@ $left-menu-background-color: #f7f9fa;
         width: 160px;
     }
 }
-
 /* #InnerResultWrapper
 ============================================ */
 #InnerResultWrapper {
@@ -301,8 +318,6 @@ $left-menu-background-color: #f7f9fa;
         min-width: 420px;
     }
 }
-
-
 /* 
 ============================================ */
 .ResultView {
