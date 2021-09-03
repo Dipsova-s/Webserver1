@@ -189,7 +189,7 @@ Display Description Should Contain
     Element Should Contain  ${divDisplayDescription}  ${text}
 
 Move Display Filter To Angle
-    [Arguments]    ${fromIndex}
+    [Arguments]
     Drag And Drop    ${liDisplayFilter}    ${dragAndDropBoxToMoveFilter}
     Sleep    ${TIMEOUT_GENERAL}
 

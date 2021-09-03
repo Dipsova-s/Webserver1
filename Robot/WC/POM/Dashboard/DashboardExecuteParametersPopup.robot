@@ -2,7 +2,7 @@
 ${divExecuteParametersPopup}     css=#PopupExecutionParameter
 ${pgbExecuteParameters}          css=#PopupExecutionParameter > div.k-loading-mask
 ${btnSubmitExecuteParameters}    css=#btn-PopupExecutionParameter3
-${searchPageTitle}               Every Angle - Search page
+${searchPageTitle}               Magnitude Angles for SAP - Search page
 
 *** Keywords ***
 Wait Until Dashboard Execute Parameters Popup Loaded

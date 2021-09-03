@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With Admin User
 Test Setup          Go to Web Help Page of WC
-Test Teardown       Switch Window      Every Angle - Search page
+Test Teardown       Switch Window      Magnitude Angles for SAP - Search page
 Suite Teardown      Close Browser
 Force Tags          acc_wc
 
