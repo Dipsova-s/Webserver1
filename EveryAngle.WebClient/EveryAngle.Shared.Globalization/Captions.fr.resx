@@ -331,13 +331,13 @@
     <value>Étiquettes de recherche</value>
   </data>
   <data name="Page_Angle_Title" xml:space="preserve">
-    <value>Every Angle - Page d'Angle</value>
+    <value>Magnitude Angles for SAP - Page d'Angle</value>
   </data>
   <data name="Page_Dashboard_Title" xml:space="preserve">
-    <value>Every Angle - Dashboard</value>
+    <value>Magnitude Angles for SAP - Page de Dashboard</value>
   </data>
   <data name="Page_Search_Title" xml:space="preserve">
-    <value>Every Angle - Page de recherche</value>
+    <value>Magnitude Angles for SAP - Page de recherche</value>
   </data>
   <data name="Popup_Followup_Title" xml:space="preserve">
     <value>Sélectionnez un Jump à appliquer</value>

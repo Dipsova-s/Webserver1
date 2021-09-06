@@ -2600,7 +2600,7 @@
     <value>Zoek object...</value>
   </data>
   <data name="AboutEveryAngle" xml:space="preserve">
-    <value>Over Every Angle</value>
+    <value>Over Magnitude Angles for SAP</value>
   </data>
   <data name="Helppage" xml:space="preserve">
     <value>Helppagina</value>
@@ -2674,7 +2674,7 @@
 If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full permission in the Modeling Workbench.</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>Voor de meest recente productinformatie,&lt;br&gt; bezoek onze website &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; </value>
+    <value>Voor de meest recente productinformatie,&lt;br&gt; bezoek onze website &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
     <value>Client:</value>

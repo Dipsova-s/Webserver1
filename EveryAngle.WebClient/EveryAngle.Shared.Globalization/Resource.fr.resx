@@ -3829,7 +3829,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Objet de recherche...</value>
   </data>
   <data name="AboutEveryAngle" xml:space="preserve">
-    <value>À propos d'Every Angle</value>
+    <value>À propos de Magnitude Angles for SAP</value>
   </data>
   <data name="Helppage" xml:space="preserve">
     <value>Page d'aide</value>
@@ -3910,7 +3910,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Content</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>Pour obtenir les informations les plus récentes sur nos produits,&lt;br/&gt; visitez notre site Web à l'adresse suivante &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
+    <value>Pour obtenir les informations les plus récentes sur nos produits,&lt;br/&gt; visitez notre site Web à l'adresse suivante &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
     <value>Client :</value>
