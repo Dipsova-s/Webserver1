@@ -362,15 +362,13 @@ textarea.error {
 /* .header
 ================================== */
 .header {
-    height: 60px;
-    background: #fafcfc;
+    height: 48px;
+    background: #061c2b;
     box-shadow: 0 0 6px rgba(0, 0, 0, .1);
 }
 
 .brand {
     float: left;
-    width: 165px;
-    height: 29px;
     margin-left: 15px;
     margin-top: 13px;
 }
@@ -401,7 +399,7 @@ textarea.error {
 }
 
 #UserControlName {
-    color: #3d4852;
+    color: #fafcfc;
     letter-spacing: .2px;
     padding-right: 3px;
     min-width: 50px;
@@ -436,13 +434,12 @@ textarea.error {
 }
 
 .systemInfo {
-    position: absolute;
-    right: 20px;
-    top: 43px;
+    position: relative;
     text-align: right;
     white-space: nowrap;
-    font-size: 11px;
-    color: #666;
+    font-size: 13px;
+    float: left;
+    color: #ffffff;
 }
 
 .systemInfoVersion {
@@ -468,7 +465,7 @@ textarea.error {
 .breadcrumbInner {
     line-height: 60px;
     color: #000;
-    font-size: 16px;
+    font-size: 12px;
     overflow: hidden;
     font-weight: normal;
 }
@@ -480,12 +477,15 @@ ul.breadcrumbList {
 }
 
 ul.breadcrumbList li {
-    padding-left: 0;
+    padding: 0;
 }
 
 .breadcrumbList li:before {
-    margin-right: 5px;
-    content: '/';
+    margin: 0 12px;
+    content: url(../Images/Icons/icon_arrow_right.svg);
+    display: inline-block;
+    height: 8px;
+    width: 8px;
 }
 
 .breadcrumbList li:first-child:before {
@@ -494,6 +494,21 @@ ul.breadcrumbList li {
 
 .breadcrumbList a {
     color: inherit;
+}
+
+ul#breadcrumbList li:last-child a,
+ul#breadcrumbList li:only-child a  {
+    font-weight: 500;
+}
+
+ul#breadcrumbList li:first-child a:before {
+    content: url(../images/icons/icon_home.svg);
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin-right: 12px;
+    position: relative;
+    top: 3px;
 }
 
 .breadcrumbList a:hover {
@@ -556,7 +571,7 @@ ul.breadcrumbList li {
     float: left;
     overflow: hidden;
     overflow-y: auto;
-    background-color: #fbfbfb;
+    background-color: #f7f7f7;
     border-right: 1px solid #e6e6e6;
     box-sizing: border-box;
     -webkit-transform: translateZ(0);
@@ -574,30 +589,30 @@ ul.breadcrumbList li {
     font-size: 14px;
 }
 
-.sideMenu > li {
-    background-color: #f2f2f2;
-}
+    .sideMenu > li {
+        background-color: #f2f2f2;
+    }
 
-.sideMenu > li > a {
-    position: relative;
-    display: block;
-    padding: 0 20px;
-    height: 44px;
-    line-height: 45px;
-    text-decoration: none;
-    background: #f2f2f2;
-    border-bottom: 1px solid #e6e6e6;
-    cursor: pointer;
-    color: #1e1e1e;
-}
+        .sideMenu > li > a {
+            position: relative;
+            display: block;
+            padding: 0 12px 0 31.6px;
+            height: 40px;
+            line-height: 45px;
+            text-decoration: none;
+            background: #fff;
+            border: solid 1px #f1f3f4;
+            cursor: pointer;
+            color: #061c2b;
+        }
 
-.sideMenu > li.active > a,
-.sideMenu > li > a:hover,
-.sideMenu > li.active > a:hover {
-    font-weight: bold;
-    background: #f2f2f2;
-    color: #333;
-}
+            .sideMenu > li.active > a,
+            .sideMenu > li > a:hover,
+            .sideMenu > li.active > a:hover {
+                font-weight: bold;
+                background: #f7f9fa;
+                color: #061c2b;
+            }
 
 .sideMenuLabel {
     width: 100%;
@@ -619,10 +634,10 @@ ul.breadcrumbList li {
     position: absolute;
     margin-top: -7px;
     top: 50%;
-    right: 0;
-    width: 20px;
+    left: 9px;
+    width: 12px;
     height: 15px;
-    background: transparent url(../images/icons/icon_arrow_left.svg) left center no-repeat;
+    background: transparent url(../images/icons/icon_arrow_right.svg) left center no-repeat;
 }
 
 .sideMenu > li.active > a > .icon,
@@ -664,8 +679,8 @@ ul.breadcrumbList li {
 }
 
 .sideMenuLevel2 > li.active > a {
-    background-color: #025e7f;
-    color: white;
+    background-color: #b2edf0;
+    color: #444444;
 }
 
 .sideMenuLevel2 > li > a > .icon {
@@ -694,7 +709,7 @@ ul.breadcrumbList li {
     cursor: default;
     display: block;
     padding: 5px 20px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     background: #e0e8ed;
     border-bottom: 1px solid #e6e6e6;

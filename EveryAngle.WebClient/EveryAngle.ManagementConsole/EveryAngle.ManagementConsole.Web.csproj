@@ -365,9 +365,12 @@
       <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
     </Content>
     <Content Include="bin\Template\Xslt\*" />
+	<Content Include="Content\fonts\roboto-v19-latin-500.svg" />
+	<Content Include="Content\fonts\roboto-v19-latin-regular.svg" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Default.css" />
     <Content Include="Images\ea_about_logo.svg" />
+    <Content Include="Images\favicon.ico" />
     <Content Include="Images\Icons\black_arrow_down.svg" />
     <Content Include="Images\Icons\help.svg" />
     <Content Include="Images\Icons\icn_item_template.svg" />
@@ -377,6 +380,7 @@
     <Content Include="Images\Icons\icon_angle_warning.svg" />
     <Content Include="Images\Icons\icon_arrow_left.svg" />
     <Content Include="Images\Icons\icon_arrow_down.svg" />
+	<Content Include="Images\Icons\icon_arrow_right.svg" />
     <Content Include="Images\Icons\icon_chart.png" />
     <Content Include="Images\Icons\icon_check.svg" />
     <Content Include="Images\Icons\icon_close.svg" />
@@ -385,6 +389,7 @@
     <Content Include="Images\Icons\icon_error.svg" />
     <Content Include="Images\Icons\icon_gear.svg" />
     <Content Include="Images\Icons\icon_help.svg" />
+	<Content Include="Images\Icons\icon_home.svg" />
     <Content Include="Images\Icons\icon_innowera.svg" />
     <Content Include="Images\Icons\icon_support.svg" />
     <Content Include="Images\Icons\icon_list.png" />
@@ -455,7 +460,6 @@
     <Content Include="Images\Icons\icon_object.png" />
     <Content Include="Images\Icons\icon_subobject.png" />
     <Content Include="Images\bp_preview_bg.png" />
-    <Content Include="Images\favicon.ico" />
     <Content Include="Images\Icons\icon_alert.png" />
     <Content Include="Images\Icons\icon_arrow_down.png" />
     <Content Include="Images\Icons\icon_edit_cancel.png" />
@@ -868,6 +872,17 @@
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Views\Top\ValidationRequestHeader.cshtml">
       <Link>Views\Shared\Top\ValidationRequestHeader.cshtml</Link>
     </Content>
+	<Content Include="Content\fonts\roboto-medium.ttf" />
+	<Content Include="Content\fonts\roboto-medium.woff" />
+	<Content Include="Content\fonts\roboto-medium.woff2" />
+	<Content Include="Content\fonts\roboto-v19-latin-500.eot" />
+	<Content Include="Content\fonts\roboto-v19-latin-500.ttf" />
+	<Content Include="Content\fonts\roboto-v19-latin-500.woff" />
+	<Content Include="Content\fonts\roboto-v19-latin-500.woff2" />
+	<Content Include="Content\fonts\roboto-v19-latin-regular.eot" />
+	<Content Include="Content\fonts\roboto-v19-latin-regular.ttf" />
+	<Content Include="Content\fonts\roboto-v19-latin-regular.woff" />
+	<Content Include="Content\fonts\roboto-v19-latin-regular.woff2" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

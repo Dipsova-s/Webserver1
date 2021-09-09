@@ -20,7 +20,22 @@
                 webClientUrl = EveryAngle.Shared.Helpers.UtilitiesHelper.GetWebClientUrl(defaultLanguage + System.Configuration.ConfigurationManager.AppSettings["WebClientUrl"]);
             }
         }
+        <div class="systemInfo" id="systemInfo">
+            <span class="systemInfoLastLogin">
+                @Resource.LastLogin <span data-role="localize">
 
+                    @{
+                        string lastAuthenticated = string.Empty;
+                        if (user != null)
+                        {
+                            lastAuthenticated = user.Last_Logon.ToString();
+                        }
+                    }
+                    @lastAuthenticated
+
+                </span>
+            </span><span class="systemInfoVersion">Version @FileVersion</span>
+        </div>
         <div class="menuItem">
             <a id="NotificationsFeed" class="linkNotificationsFeed" href="javascript:void(0)">
             </a>

@@ -47,24 +47,7 @@
 
                         </div>
                         <!--/.topMenu-->
-
-                        <div class="systemInfo" id="systemInfo">
-                            <span class="systemInfoLastLogin">
-                                @Resource.LastLogin <span data-role="localize">
-
-                                @{
-                                    string lastAuthenticated = string.Empty;
-                                    if (user != null)
-                                    {
-                                        lastAuthenticated = user.Last_Logon.ToString();
-                                    }
-                                }
-                                @lastAuthenticated
-
-                            </span>
-                        </span><span class="systemInfoVersion">Version @FileVersion</span>
-                    </div>
-                }
+                    }
                 }
             </div>
             <!--/.headerInner-->
