@@ -9,7 +9,7 @@ Screenshot "WC_Top_Bar" page
     Crop Topbar Notification Button
 
 Crop Topbar Logo Button
-    Crop WebHelp Image With Dimensions    WC_Action_Button_Logo.png    css=#TopBar .Wrapper    50    3    150    41    ${False}
+    Crop WebHelp Image With Dimensions    WC_Action_Button_Logo.png    css=#TopBar .Wrapper    50    3    230    42    ${False}
 
 Crop Topbar Help Button
     ${nodeIndex}   Execute JavaScript    return $('#Help').closest('li').prevAll().length;
