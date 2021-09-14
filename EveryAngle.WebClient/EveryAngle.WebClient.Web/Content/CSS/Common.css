@@ -877,8 +877,7 @@ textarea.input-light {
       border-left: 1px solid transparent;
       height: 100%;
       top: 0; }
-  .btn-split.disabled, .btn-split[disabled],
-  .btn-split.disabled + .btn {
+  .btn-split.disabled, .btn-split[disabled] {
     opacity: 0.5 !important;
     cursor: default; }
 
@@ -914,7 +913,8 @@ textarea.input-light {
 .btn-split.btn-secondary + .btn.disabled + .btn:hover, .btn-split.btn-secondary + .btn.disabled:focus, .btn-split.btn-secondary + .btn[disabled]:focus,
 .btn-split.btn-secondary + .btn.disabled:focus + .btn,
 .btn-split.btn-secondary + .btn.disabled:focus + .btn {
-  background-color: #f7f7f7 !important; }
+  background-color: #f7f7f7 !important;
+  border-color: #f7f7f7 !important; }
 
 .btn-split.btn-ghost {
   border-right-width: 0; }
@@ -2434,7 +2434,7 @@ textarea.input-light {
   background-position: center center; }
 
 .k-dropdown .displayNameContainer {
-  margin-top: 3px;
+  margin-top: 5px;
   margin-left: 5px; }
 
 .k-item .displayNameContainer {
@@ -2880,7 +2880,8 @@ textarea.input-light {
     padding: 8px 0 0 0; }
 
 .description-editor .multiple-select-item {
-  font-size: 12px; }
+  font-size: 12px;
+  font-weight: normal; }
 
 .description-editor .k-editor .k-editor-toolbar-wrap {
   padding: 5px 15px; }
@@ -3038,8 +3039,8 @@ textarea.input-light {
       flex: 1; }
     .filter-editor .filter-editor-arguments .btn-select-field {
       color: #78909c;
-      line-height: 30px;
-      height: 30px;
+      line-height: 32px;
+      height: 32px;
       font-size: 14px;
       padding: 0 8px; }
     .filter-editor .filter-editor-arguments .form-col-header {
@@ -3061,10 +3062,13 @@ textarea.input-light {
         width: 200px; }
       .filter-editor .filter-editor-arguments .col-input-value .input-argument-boolean-value {
         width: 100%;
-        border: 1px solid #e3e5e5;
-        padding: 5px; }
+        border: 1px solid #c6cacc;
+        padding: 7px;
+        height: 32px;
+        box-sizing: border-box; }
       .filter-editor .filter-editor-arguments .col-input-value .btn-select-field {
-        border: 1px solid #b5becc;
+        border: 1px solid #c6cacc;
+        box-sizing: border-box;
         border-left: 0; }
     .filter-editor .filter-editor-arguments .col-input-field {
       min-width: 0; }
@@ -3216,8 +3220,7 @@ textarea.input-light {
         margin: 1px 0 0 4px;
         line-height: 1; }
         .query-aggregation .item .item-header .count-field-wrapper + .name {
-          cursor: pointer;
-          margin-left: -8px; }
+          cursor: pointer; }
         .query-aggregation .item .item-header .count-field-wrapper.disabled + .name {
           cursor: default; }
       .query-aggregation .item .item-header .front {
@@ -3757,7 +3760,7 @@ textarea.input-light {
 ============================================ */
 .widget-definition .item {
   cursor: default;
-  margin-bottom: 5px; }
+  margin-bottom: 7px; }
   .widget-definition .item:hover {
     text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
   .widget-definition .item .btn-definition {

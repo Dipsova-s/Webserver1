@@ -1049,7 +1049,7 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 /* .k-popup.k-calendar-container-light
 =================================== */
 .k-popup.k-calendar-container-light {
-  border-color: #188ae2;
+  border-color: #6fdfe4;
   box-shadow: none;
   border-radius: 0; }
 
@@ -1069,7 +1069,6 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 
 .k-popup.k-calendar-container-light .k-today {
   background-color: #fafafa;
-  border: 1px solid #188ae2;
   box-shadow: none; }
 
 .k-popup.k-calendar-container-light .k-today .k-link {
@@ -1078,7 +1077,7 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-popup.k-calendar-container-light td.k-state-selected,
 .k-popup.k-calendar-container-light td.k-state-hover,
 .k-popup.k-calendar-container-light td.k-state-selected.k-state-hover {
-  background-color: #188ae2; }
+  background-color: #6fdfe4; }
 
 .k-popup.k-calendar-container-light td.k-state-selected .k-link {
   color: #fff; }
@@ -1087,14 +1086,14 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
   color: #2e2e2e; }
 
 .k-popup.k-calendar-container-light .k-today .k-link {
-  color: #188ae2;
+  color: #25cad2;
   font-weight: 700;
   box-shadow: none; }
 
 .k-popup.k-calendar-container-light td.k-state-focused .k-link,
 .k-popup.k-calendar-container-light td.k-state-hover .k-link,
 .k-popup.k-calendar-container-light td.k-state-selected .k-link {
-  background: #188ae2;
+  background: #6fdfe4;
   box-shadow: none; }
 
 .k-popup.k-calendar-container-light td.k-state-focused .k-link {
@@ -1385,3 +1384,9 @@ div.k-tooltip.k-chart-tooltip {
     .k-tagtextbox-list-container .k-nodata > div {
       padding: 0;
       line-height: 28px; }
+
+/* .k-dropdown list - side-content
+=================================== */
+.k-popup ul#DefaultDrilldown_listbox .displayNameContainer.small,
+.k-popup ul#DefaultExcelTemplate_listbox .displayNameContainer {
+  height: 32px; }

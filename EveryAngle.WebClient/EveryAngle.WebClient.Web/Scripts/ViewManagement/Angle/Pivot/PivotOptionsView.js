@@ -47,7 +47,7 @@ function PivotOptionsView() {
         templates.push('<!-- ko if: CanApplyAggregation() -->',
             '<div class="query-aggregation-buttons btn-wrapper">',
             '<a class="float-right invisible"></a>',
-            '<a class="btn btn-secondary btn-small btn-save" data-bind="click: ApplyAggregation , css: { disabled: !HasChanged() }">',
+            '<a class="btn btn-light btn-small btn-save" data-bind="click: ApplyAggregation , css: { disabled: !HasChanged() }">',
             '<span data-bind="text: Localization.Apply"></span>',
             '</a>',
             '</div>',

@@ -104,8 +104,13 @@
   margin: -10px 14px 10px 14px;
   font-size: 11px; }
 
+.popupPublishSettings .publish-summary .card-header {
+  text-transform: capitalize;
+  padding: 10px; }
+
 .popupPublishSettings .publish-limitations .card-header {
-  padding-bottom: 10px; }
+  padding-bottom: 10px;
+  text-transform: capitalize; }
 
 .popupPublishSettings .publish-limitations .card-body {
   padding-bottom: 0; }

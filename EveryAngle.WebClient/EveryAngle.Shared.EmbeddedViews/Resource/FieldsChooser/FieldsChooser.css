@@ -135,7 +135,7 @@
   width: 100%; }
 
 .fieldChooserFilter ul li .label > .name.withIcon {
-  padding-left: 20px;
+  padding-left: 24px;
   box-sizing: border-box; }
 
 .fieldChooserFilter ul li .label .filter-name {
@@ -156,7 +156,7 @@
   position: absolute;
   left: 0;
   bottom: 1px;
-  margin-left: 26px; }
+  margin-left: 22px; }
 
 .fieldChooserContent {
   height: 100%;

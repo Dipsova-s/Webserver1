@@ -244,8 +244,8 @@
 
         .btn-select-field {
             color: #78909c;
-            line-height: 30px;
-            height: 30px;
+            line-height: 32px;
+            height: 32px;
             font-size: 14px;
             padding: 0 8px;
         }
@@ -279,12 +279,15 @@
 
             .input-argument-boolean-value {
                 width: 100%;
-                border: 1px solid #e3e5e5;
-                padding: 5px;
+                border: 1px solid #c6cacc;
+                padding: 7px;
+                height: 32px;
+                box-sizing: border-box;
             }
 
             .btn-select-field {
-                border: 1px solid #b5becc;
+                border: 1px solid #c6cacc;
+                box-sizing:border-box;
                 border-left: 0;
             }
         }
