@@ -138,9 +138,17 @@
         }
     }
 
+    .publish-summary {
+        .card-header {
+            text-transform: capitalize;
+            padding: 10px;
+        }
+    }
+
     .publish-limitations {
         .card-header {
             padding-bottom: 10px;
+            text-transform: capitalize;
         }
 
         .card-body {

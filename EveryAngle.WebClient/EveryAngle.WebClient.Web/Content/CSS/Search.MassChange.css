@@ -26,6 +26,10 @@
     margin-left: -1px;
 }
 
+.sectionGeneral .input.switch > label {
+    margin-left: 16px;
+}
+
 .sectionGeneral .textStatus {
     position: absolute;
     left: 0;

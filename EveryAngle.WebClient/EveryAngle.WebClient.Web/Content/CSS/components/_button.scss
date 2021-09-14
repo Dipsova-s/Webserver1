@@ -302,8 +302,7 @@
     }
 
     &.disabled,
-    &[disabled],
-    &.disabled + .btn {
+    &[disabled] {
         opacity: 0.5 !important;
         cursor: default;
     }
@@ -354,6 +353,7 @@
     &.disabled:focus + .btn,
     &.disabled:focus + .btn {
         background-color: $secondary-color !important;
+        border-color: $secondary-color !important;
     }
 }
 
