@@ -261,8 +261,7 @@
 .btnCreateNewAngle span {
   min-width: 0;
   padding: 0 7px;
-  text-align: left;
-  text-transform: uppercase; }
+  text-align: left; }
 
 .btnCreateNewAngle em {
   font-style: normal;

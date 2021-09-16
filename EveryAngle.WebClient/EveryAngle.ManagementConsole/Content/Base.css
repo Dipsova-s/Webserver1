@@ -33,7 +33,7 @@
 .btn:hover {
     position: relative;
     display: inline-block;
-    padding: 3px 12px 5px 12px;
+    padding: 5px 12px 5px 12px;
     height: 20px;
     border: 1px solid #25cad2;
     border-radius: 2px;
