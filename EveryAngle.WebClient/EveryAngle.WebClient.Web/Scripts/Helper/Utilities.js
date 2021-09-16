@@ -430,7 +430,7 @@
                     d.remove();
                 }
                 if (c) {
-                    jQuery("<div class='k-loading-mask'><span class='k-loading-text'>Loading...</span><div class='k-loading-image'/><div class='k-loading-color'/></div>")
+                    jQuery("<div class='k-loading-mask'><span class='k-loading-text'>" + getLoadingIconSvg() + "</span><div class='k-loading-image'/><div class='k-loading-color'/></div>")
                         .width(b.width())
                         .height(b.height())
                         .prependTo(b);

@@ -88,7 +88,7 @@
     $.fn.busyIndicator = function (c) {
         var b = $(this);
         var d = b.find(".k-loading-mask");
-        c ? d.length || (d = $("<div class='k-loading-mask'><span class='k-loading-text'>Loading...</span><div class='k-loading-image'/><div class='k-loading-color'/></div>").width(b.outerWidth()).height(b.outerHeight()).prependTo(b)) : d && d.remove();
+        c ? d.length || (d = $("<div class='k-loading-mask'><span class='k-loading-text'>" + getLoadingIconSvg() + "</span><div class='k-loading-image'/><div class='k-loading-color'/></div>").width(b.outerWidth()).height(b.outerHeight()).prependTo(b)) : d && d.remove();
         return b;
     };
 })(jQuery);

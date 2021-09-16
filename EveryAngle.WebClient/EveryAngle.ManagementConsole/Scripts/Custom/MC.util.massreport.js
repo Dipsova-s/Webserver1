@@ -6,7 +6,7 @@
             fail: '<li class="fail">{0}: {1}</li>',
             status: [
                 '<div class="mass-report-progress">',
-                    '<div class="loader-spinner-inline"></div>',
+                '<div class="loader-spinner-inline">' + getLoadingIconSvg() + '</div>',
                     '<p>{0}: {1}<br/>{2}</p>',
                 '</div>'
             ].join('')

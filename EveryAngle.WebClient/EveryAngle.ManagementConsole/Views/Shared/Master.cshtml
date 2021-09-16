@@ -82,7 +82,9 @@
         <div class="loader-container" style="display: block">
             <div class="loader-wrapper">
                 <div class="loader-inner">
-                    <div class="loader-spinner"></div>
+                    <div class="loader-spinner">
+                        @{Html.RenderPartial("~/Views/Shared/_LoadingIcon.cshtml");}
+                    </div>
                     <h3 class="loader-percentage"></h3>
                 </div>
                 <div class="loader-button">

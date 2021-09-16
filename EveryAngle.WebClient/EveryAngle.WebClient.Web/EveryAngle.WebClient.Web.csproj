@@ -1360,6 +1360,7 @@
     <Content Include="Views\Shared\Top\ItemState.cshtml" />
     <Content Include="Views\Shared\Copyright.cshtml" />
     <Content Include="Views\User\Forbidden.cshtml" />
+	<Content Include="Views\Shared\_LoadingIcon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
