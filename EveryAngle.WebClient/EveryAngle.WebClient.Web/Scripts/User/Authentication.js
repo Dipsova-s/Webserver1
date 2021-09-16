@@ -178,7 +178,7 @@ function Authentication() {
             loginDeferred.progress(function (status) {
                 jQuery('#ErrorMessage').html([
                     '<div class="login-progress">',
-                        '<div class="loader-spinner-inline"></div>',
+                    '<div class="loader-spinner-inline">' + getLoadingIconSvg() +'</div > ',
                         '<span>' + status + '</span>',
                     '</div>'
                 ].join(''));

@@ -3,23 +3,36 @@
     margin: 0 auto;
     width: 40px;
     height: 40px;
-    border: 6px solid;
+    text-align: center;
+    padding: 1em;
+    vertical-align: top;
+    background: #ff4040;
     border-radius: 50%;
-    border-color: transparent;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-animation: loader 1.1s infinite linear;
-    animation: loader 1.1s infinite linear;
+
+    svg {
+        width: 30px;
+        height: 30px;
+        transform: rotate(180deg);
+        margin: 0 auto;
+
+        path, rect {
+            fill: #fff;
+        }
+    }
 
     &-inline {
         @extend .loader-spinner;
         display: inline-block;
         width: 10px;
         height: 10px;
-        border: 3px solid;
-        border-color: transparent;
-        margin-right: 5px;
+        text-indent: inherit;
+
+        svg {
+            width: 8px;
+            height: 8px;
+            padding-top: 6px;
+            margin: 0 auto;
+        }
     }
 }
 
@@ -97,13 +110,22 @@
 
     .k-loading-text {
         position: relative;
+        text-indent: inherit;
     }
 }
 
 .k-loading-small {
     .k-loading-text {
-        width: 20px;
-        height: 20px;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+
+        svg {
+            width: 8px;
+            height: 8px;
+            padding-top: 6px;
+            margin: 0 auto;
+        }
     }
 }
 
@@ -121,39 +143,5 @@
         height: 10px;
         border: 3px solid;
         border-color: transparent;
-    }
-}
-
-@keyframes loader {
-    0% {
-        transform: rotate(0deg);
-        border-top-color: #4285F4;
-        border-right-color: #4285F4;
-        border-bottom-color: #4285F4;
-    }
-
-    25% {
-        border-top-color: #DE3E35;
-        border-right-color: #DE3E35;
-        border-bottom-color: #DE3E35;
-    }
-
-    50% {
-        border-top-color: #F7C223;
-        border-right-color: #F7C223;
-        border-bottom-color: #F7C223;
-    }
-
-    75% {
-        border-top-color: #1B9A59;
-        border-right-color: #1B9A59;
-        border-bottom-color: #1B9A59;
-    }
-
-    100% {
-        transform: rotate(360deg);
-        border-top-color: #4285F4;
-        border-right-color: #4285F4;
-        border-bottom-color: #4285F4;
     }
 }
