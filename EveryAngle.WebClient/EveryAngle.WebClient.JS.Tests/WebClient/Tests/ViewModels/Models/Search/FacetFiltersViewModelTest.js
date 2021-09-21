@@ -675,4 +675,30 @@ describe("FacetFiltersViewModel", function () {
             });
         });
     });
+
+    describe(".GetGeneralFacetFilterSectionStyles", function () {
+        it('should add margin bottom 10px to all facets of "type=item_property" but last element', function () {
+            var facets = [
+                { id: 'other_facecat', type: 'other_than_item_property' },
+                { id: 'facetcat_models', type: 'item_property' },
+                { id: 'facetcat_itemtype', type: 'item_property' },
+                { id: 'facetcat_characteristics', type: 'item_property' },
+                { id: 'facetcat_admin', type: 'item_property' }
+            ];
+
+            facetFiltersViewModel.IsGeneralFilterPanelOpened = ko.observable(true);
+
+            var styleResults = [];
+            facets.forEach(function (facet, index) {
+                styleResults[index] = facetFiltersViewModel.GetGeneralFacetFilterSectionStyles(facet);
+            });
+
+           // assert
+            expect(styleResults[0]).toEqual(undefined);
+            expect(styleResults[1].marginBottom).toEqual('0px');
+            expect(styleResults[2].marginBottom).toEqual('0px');
+            expect(styleResults[3].marginBottom).toEqual('0px');
+            expect(styleResults[4].marginBottom).toEqual('10px');
+        })
+    })
 });

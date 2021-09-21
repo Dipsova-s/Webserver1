@@ -136,19 +136,20 @@ $left-menu-background-color: #f7f7f7;
         .facetFilterSection {
             background: #ffffff;
             padding: 0 12px;
-            margin: 10px 0;
+            margin: 0 0 10px 0;
+            border: solid 1px #f1f3f4;
             border-radius: 3px;
             background-color: #fff;
 
-            &:first-child{
-                margin-top:14px;
+            &:first-child {
+                margin-top: 14px;
             }
-            
+
             .FilterCheckBox {
                 padding-bottom: $facet-filter-padding-bottom;
 
                 &:first-child {
-                    padding-top: 15px;
+                    padding-top: 10px;
                 }
             }
         }

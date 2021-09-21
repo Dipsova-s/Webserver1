@@ -17,11 +17,12 @@ function FacetFiltersViewModel() {
     self.GroupTag = 'item_tag';
     self.GroupCannotNegativeFilter = 'facetcat_admin';
     self.GroupModels = 'facetcat_models';
-    self.GroupGeneralOrder = ['facetcat_itemtype', 'facetcat_characteristics', 'facetcat_models', 'facetcat_admin'];
+    self.GroupGeneralOrder = ['facetcat_models', 'facetcat_itemtype', 'facetcat_characteristics', 'facetcat_admin'];
     self.DefaultOpenedFacets = ['facetcat_bp', 'facetcat_itemtag', 'facetcat_itemtype', 'facetcat_characteristics', 'facetcat_models', 'facetcat_admin'];
     self.FilterExclusionList = ['facet_executeonlogin', 'facet_has_errors'];
     self.ShowOtherFacetFilterProperties = ko.observable(false);
     self.selectedItems = [];
+    self.IsGeneralFilterPanelOpened = ko.observable(false);
 
     self.FacetItemProperties = ko.observableArray([]);
     self.OptionalFacetProperties = ko.observableArray([]);
@@ -140,6 +141,7 @@ function FacetFiltersViewModel() {
             }
         });
         jQuery.localStorage(self.OPENPANELSNAME, currentPanelsOpened);
+        if (jQuery.inArray(self.GroupGeneral, currentPanelsOpened)) self.IsGeneralFilterPanelOpened(true);
 
         if (!facets.length)
             self.ShowOtherFacetFilterProperties(false);
@@ -557,6 +559,7 @@ function FacetFiltersViewModel() {
             element.removeClass('expand');
             target.stop().slideUp('fast', function () {
                 if (data.type === self.GroupGeneral) {
+                    self.IsGeneralFilterPanelOpened(false);
                     jQuery.each(self.GroupGeneralOrder, function (index, facetId) {
                         panelsOpenedIndex = jQuery.inArray(facetId, panelsOpened);
                         if (panelsOpenedIndex !== -1) {
@@ -578,6 +581,7 @@ function FacetFiltersViewModel() {
             element.addClass('expand');
             target.stop().slideDown('fast', function () {
                 if (data.type === self.GroupGeneral) {
+                    self.IsGeneralFilterPanelOpened(true);
                     panelsOpened = panelsOpened.concat(self.GroupGeneralOrder);
                 }
                 else {
@@ -660,6 +664,25 @@ function FacetFiltersViewModel() {
         }
 
     };
+
+    self.GetGeneralFacetFilterSectionStyles = function (facet) {
+        if (facet.type !== self.GroupGeneral) return;
+
+        var isFirstGeneralFacet = self.GroupGeneralOrder.indexOf(facet.id) === 0 ? true : false;
+        var isLastGeneralFacet = self.GroupGeneralOrder.indexOf(facet.id) === self.GroupGeneralOrder.length - 1 ? true : false;
+        var firstAndClosedFacetBorder = isFirstGeneralFacet && !self.IsGeneralFilterPanelOpened() ? '3px' : '0px';
+
+        return {
+            'marginBottom': (isLastGeneralFacet ? '10px': '0px'),
+            'borderTopWidth': (isFirstGeneralFacet ? '1px' : '0px'),
+            'borderBottomWidth': (isLastGeneralFacet ? '1px' : '0px'),
+            'borderTopLeftRadius': (isFirstGeneralFacet ? '3px' : '0px'),
+            'borderTopRightRadius': (isFirstGeneralFacet ? '3px' : '0px'),
+            'borderBottomLeftRadius': (isLastGeneralFacet ? '3px' : firstAndClosedFacetBorder),
+            'borderBottomRightRadius': (isLastGeneralFacet ? '3px' : firstAndClosedFacetBorder)
+        }
+    };
+
     self.GetFacetTabClassname = function (facet) {
         var result = [
             'FilterTab-' + facet.type,

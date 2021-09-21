@@ -1067,7 +1067,8 @@
   #LeftMenu .facetFilter .facetFilterSection {
     background: #ffffff;
     padding: 0 12px;
-    margin: 10px 0;
+    margin: 0 0 10px 0;
+    border: solid 1px #f1f3f4;
     border-radius: 3px;
     background-color: #fff; }
     #LeftMenu .facetFilter .facetFilterSection:first-child {
@@ -1075,7 +1076,7 @@
     #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox {
       padding-bottom: 1px; }
       #LeftMenu .facetFilter .facetFilterSection .FilterCheckBox:first-child {
-        padding-top: 15px; }
+        padding-top: 10px; }
   #LeftMenu .facetFilter .k-tagtextbox {
     margin-bottom: 10px; }
   #LeftMenu .facetFilter ul {
