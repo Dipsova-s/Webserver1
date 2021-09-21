@@ -1525,10 +1525,10 @@ textarea.input-light {
       padding: 0 0 0 5px; }
     #UserPanel li a {
       font-size: 12px;
-      color: #333;
+      color: #fafcfc;
       cursor: pointer; }
       #UserPanel li a:hover {
-        color: #666; }
+        color: #fafcfc; }
       #UserPanel li a:not(#UserControl) .icon {
         display: block;
         margin-top: -5px;
