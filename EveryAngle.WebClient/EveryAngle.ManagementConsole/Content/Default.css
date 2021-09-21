@@ -428,7 +428,7 @@ textarea.error {
 }
 
 .downArrow {
-    background: transparent url(../images/icons/icon_arrow_down.svg) center center no-repeat;
+    background: transparent url(../images/icons/icon_arrow_down_fcfcfc.svg) center center no-repeat;
     width: 12px;
     height: 12px;
 }
@@ -565,7 +565,7 @@ ul#breadcrumbList li:first-child a:before {
 .sideContent {
     position: relative;
     z-index: 3;
-    width: 194px;
+    width: 204px;
     height: 1000px;
     top: 0;
     float: left;
@@ -647,6 +647,16 @@ ul#breadcrumbList li:first-child a:before {
     fill: white;
 }
 
+#sideMenu-GlobalSettings-Systemlog.active > a > .icon,
+#sideMenu-GlobalSettings-Systemlog > a:hover > .icon,
+#sideMenu-GlobalSettings-Systemlog.active > a:hover > .icon,
+#sideMenu-AngleExports-ExportDefault.active > a > .icon,
+#sideMenu-AngleExports-ExportDefault > a:hover > .icon,
+#sideMenu-AngleExports-ExportDefault.active > a:hover > .icon,
+[id^="sideMenu-Models-"] > a:hover > .icon {
+    background-image: url(../images/icons/icon_arrow_down.svg);
+}
+
 .sideMenuLevel2 {
     display: none;
     border-bottom: none;
@@ -659,7 +669,7 @@ ul#breadcrumbList li:first-child a:before {
 .sideMenuLevel2 > li > a {
     position: relative;
     display: block;
-    padding: 0 20px;
+    padding: 0 10px 0 42px;
     font-weight: normal;
     height: auto;
     line-height: 26px;
@@ -679,7 +689,6 @@ ul#breadcrumbList li:first-child a:before {
 }
 
 .sideMenuLevel2 > li.active > a {
-    background-color: #b2edf0;
     color: #444444;
 }
 
@@ -687,10 +696,10 @@ ul#breadcrumbList li:first-child a:before {
     position: absolute;
     margin-top: -4px;
     top: 50%;
-    left: 0;
+    left: 20px;
     width: 20px;
     height: 9px;
-    background: transparent url(../images/icons/icon_plus.svg) center center no-repeat;
+    background: transparent url(../images/icons/icon_arrow_right.svg) center center no-repeat;
 }
 
 .sideMenuLevel2 > li.active > a > .icon {
@@ -708,7 +717,7 @@ ul#breadcrumbList li:first-child a:before {
 .sideMenuLevel3Category {
     cursor: default;
     display: block;
-    padding: 5px 20px;
+    padding: 5px 20px 5px 50px;
     font-size: 12px;
     font-weight: bold;
     background: #e0e8ed;
@@ -719,7 +728,7 @@ ul#breadcrumbList li:first-child a:before {
 .sideMenuLevel3 > li > a {
     position: relative;
     display: block;
-    padding: 0 10px 0 20px;
+    padding: 0 10px 0 56px;
     font-weight: normal;
     height: auto;
     line-height: 26px;
