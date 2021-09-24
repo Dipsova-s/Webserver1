@@ -199,7 +199,7 @@
 
                 @{
                     string infoButton = "<a data-target=\"#popupModelServer\" data-title=\"" + item.ModelServerName + "\" data-width='80%' data-min-width='760' " +
-                                        " data-height='80%' data-role='mcPopup' class='btn btnInfo' onclick=\"MC.Models.Model.ShowModelServerInfo(event, this)\" data-callback=\"MC.Models.Model.ShowModelServerInfoCallback\" data-parameters='{\"modelServerUri\" : \"" + item.Uri + "\", \"isCurrentInstance\" : " + item.IsCurrentInstance.ToString().ToLower() + " }'>" + Resource.MC_StatusAndReport + "</a>";
+                                        " data-height='80%' data-role='mcPopup' class='btn btnPrimary' onclick=\"MC.Models.Model.ShowModelServerInfo(event, this)\" data-callback=\"MC.Models.Model.ShowModelServerInfoCallback\" data-parameters='{\"modelServerUri\" : \"" + item.Uri + "\", \"isCurrentInstance\" : " + item.IsCurrentInstance.ToString().ToLower() + " }'>" + Resource.MC_StatusAndReport + "</a>";
 
                     List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
 
@@ -223,7 +223,7 @@
                             ModelUri = ViewBag.ModelUri,
                             Privilege = PrivilegeType.Model,
                             Type = PageToolbarButtonType.Custom,
-                            EnableTemplate = infoButton + "<a class=\"btn btnNext btnStartStopModelServer\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + updateStatus + ",'" + item.id + "')\">" + text + "</a>",
+                            EnableTemplate = infoButton + "<a class=\"btn btnStartStopModelServer\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + updateStatus + ",'" + item.id + "')\">" + text + "</a>",
                             DisableTemplate = "<a class=\"btn disabled\" >" + text + "</a>"
                         });
                     }
@@ -234,7 +234,7 @@
                             ModelUri = ViewBag.ModelUri,
                             Privilege = PrivilegeType.Model,
                             Type = PageToolbarButtonType.Custom,
-                            EnableTemplate = infoButton + "<a class=\"btn btnNext btnStartStopModelServer\" onclick=\"MC.Models.Model.ReloadHanaModel()\">" + Resource.MC_Reload + "</a>",
+                            EnableTemplate = infoButton + "<a class=\"btn btnStartStopModelServer\" onclick=\"MC.Models.Model.ReloadHanaModel()\">" + Resource.MC_Reload + "</a>",
                             DisableTemplate = "<a class=\"btn disabled\" >" + Resource.MC_Reload + "</a>"
                         });
                     }
@@ -332,7 +332,7 @@
                 <div class="value">@Resource.MC_NotImplemented</div>
             </div>
 
-            <a href="@SiteMapHelper.ActionHash("Models/AllModels/EditModel")" onclick="MC.util.redirect(event, this)" class="btn" data-parameters='{"modelUri":"@ViewBag.ModelUri"}'>@Resource.ModifySetup</a>
+            <a href="@SiteMapHelper.ActionHash("Models/AllModels/EditModel")" onclick="MC.util.redirect(event, this)" class="btn btnPrimary" data-parameters='{"modelUri":"@ViewBag.ModelUri"}'>@Resource.ModifySetup</a>
 
         </div>
         <!--/.modelInfoSetup-->

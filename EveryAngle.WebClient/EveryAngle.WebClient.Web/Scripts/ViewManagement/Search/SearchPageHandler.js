@@ -1391,7 +1391,7 @@ window.SearchPageHandler = function () {
             buttons: [
                 {
                     text: Captions.Button_Search,
-                    isLight: true,
+                    isPrimary: true,
                     click: self.SearchOnAdvance,
                     position: 'right'
                 }

@@ -13,23 +13,23 @@
                     string dataAttribute = button.Data == null ? "" : " data-parameters=" + Json.Encode(button.Data);
                     if (button.Type == PageToolbarButtonType.Reload)
                     {
-                        <a class="btn btnLarge btnReload" onclick="MC.ajax.reloadMainContent()"@dataAttribute>@Resource.MC_Reload</a>
+                        <a class="btn btnReload" onclick="MC.ajax.reloadMainContent()"@dataAttribute>@Resource.MC_Reload</a>
                     }
                     else if (button.Type == PageToolbarButtonType.Save)
                     {
-                        <a class="btn btnLarge btnPrimary btnSave  @button.CssClass" onclick="@button.OnClick"@dataAttribute>@Resource.Save</a>
+                        <a class="btn btnPrimary btnSave  @button.CssClass" onclick="@button.OnClick"@dataAttribute>@Resource.Save</a>
                     }
                     else if (button.Type == PageToolbarButtonType.Cancel)
                     {
-                        <a class="btn btnLarge btnBack" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@Resource.Cancel</a>
+                        <a class="btn btnBack" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@Resource.Cancel</a>
                     }
                     else if (button.Type == PageToolbarButtonType.Create)
                     {
-                        <a class="btn btnLarge btnPrimary btnSave @button.CssClass" onclick="@button.OnClick"@dataAttribute>@Resource.Create</a>
+                        <a class="btn btnPrimary btnSave @button.CssClass" onclick="@button.OnClick"@dataAttribute>@Resource.Create</a>
                     }
                     else
                     {
-                        <a class="btn btnLarge @button.CssClass" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@button.Label</a>
+                        <a class="btn @button.CssClass" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@button.Label</a>
                     }
                 } 
             }      

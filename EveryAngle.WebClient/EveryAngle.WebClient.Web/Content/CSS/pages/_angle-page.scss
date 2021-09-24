@@ -44,11 +44,11 @@ $display-tab-bottom-border-color: #e6e6e6;
     .tab-menu-header-inner {
         background-color: #e9ecee;
         font-size: 12px;
-        font-weight: normal;
         line-height: 1.83;
-        letter-spacing: 0.1px;
         text-align: left;
         color: #061c2b;
+        filter: brightness(0.98);
+        letter-spacing: 0.42px;
 
         .icon {
             color: #78909c;
@@ -58,9 +58,7 @@ $display-tab-bottom-border-color: #e6e6e6;
     .active .tab-menu-header-inner {
         background-color: #25cad2;
         font-size: 12px;
-        font-weight: bold;
         line-height: 1.83;
-        letter-spacing: 0.1px;
         text-align: left;
         color: #fafcfc;
 

@@ -146,7 +146,7 @@
                 <div class="modelOverviewItemDetailItem">@Html.Raw(licenseStatus)</div>
             </div>
         @*M4-13792: Fixed 'Open model' button missing*@
-        <a href="@SiteMapHelper.ActionHash("Models/" + @ViewBag.ModelId)" class="btn btnLarge btnNext btnOpenModel">@Resource.OpenModel</a>
-        <a href="@SiteMapHelper.ActionHash("GlobalSettings/Systemlog/ModelServer")" onclick="MC.util.redirect(event, this)" data-parameters='{"target":"@SystemLogType.ModelServer","modelId":"@ViewBag.ModelId"}' class="btn btnLarge btnNext btnOpenLogs">@Captions.MC_Button_OpenErrorWarningLog</a>
+        <a href="@SiteMapHelper.ActionHash("Models/" + @ViewBag.ModelId)" class="btn btnLarge btnPrimary btnOpenModel">@Resource.OpenModel</a>
+        <a href="@SiteMapHelper.ActionHash("GlobalSettings/Systemlog/ModelServer")" onclick="MC.util.redirect(event, this)" data-parameters='{"target":"@SystemLogType.ModelServer","modelId":"@ViewBag.ModelId"}' class="btn btnLarge btnSecondary btnOpenLogs">@Captions.MC_Button_OpenErrorWarningLog</a>
     </div>
 }
