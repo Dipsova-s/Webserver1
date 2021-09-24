@@ -18,7 +18,7 @@ var businessProcessBarHtmlTemplate = function () {
                             'attr: { id: $data.id }">',
                         '<span class="label">',
                             '<span class="BusinessProcessBadge" data-bind="css: $root.BindCss($data, $index())"></span>',
-                            '<span class="BusinessProcessBadgeLabel" data-bind="html: $root.BindName($data), css: $root.CssClassDisabled($data)"></span>',
+                            '<span class="BusinessProcessBadgeLabel" data-bind="html: $data.name, css: $root.CssClassDisabled($data)"></span>',
                         '</span>',
                     '</label>',
                 '</div>',

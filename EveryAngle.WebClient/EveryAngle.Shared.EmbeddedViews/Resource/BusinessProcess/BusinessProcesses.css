@@ -414,8 +414,8 @@
 }
 
 .BusinessProcessCheckBox {
-    display: inline-block;
-    width: 100px;
+    display: block;
+    width: auto;
     padding: 3px 0;
 }
 
