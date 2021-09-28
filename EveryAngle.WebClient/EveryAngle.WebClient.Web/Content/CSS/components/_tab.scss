@@ -16,7 +16,7 @@
             justify-content: center;
             cursor: pointer;
             color: #818181;
-            letter-spacing: .2px;
+            letter-spacing: 0.42px;
             height: 36px;
             padding: 0 10px;
             box-sizing: border-box;
@@ -37,9 +37,8 @@
                 background-color: #fff;
                 font-family: $font-stack;
                 font-size: 12px;
-                font-weight: 500;
                 line-height: 1.83;
-                letter-spacing: 0.1px;
+                letter-spacing: 0.42px;
                 text-align: center;
 
                 &:before {
@@ -101,7 +100,7 @@
             font-family: $font-stack;
             font-size: 12px;
             line-height: 2;
-            letter-spacing: 0.44px;
+            letter-spacing: 0.42px;
             text-align: center;
             color: #444;
 

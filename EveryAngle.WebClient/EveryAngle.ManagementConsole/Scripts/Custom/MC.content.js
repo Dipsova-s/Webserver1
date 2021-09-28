@@ -7,7 +7,7 @@ MC.content = {
         MC.addPageResizeFunction(this.adjustContent);
     },
     adjustContent: function () {
-        jQuery('#mainContent').css('height', MC.util.window.height - 120);
+        jQuery('#mainContent').css('height', MC.util.window.height - 100);
 
         if (window.kendo) kendo.resize(jQuery('.k-grid'));
     },

@@ -597,7 +597,9 @@ div.k-window-content {
   color: #25cad2;
   border-radius: 2px;
   line-height: 18px;
-  box-shadow: none; }
+  box-shadow: none;
+  letter-spacing: 0.42px;
+  filter: brightness(0.98); }
 
 .k-button.k-primary {
   background: none #25cad2;

@@ -67,7 +67,7 @@ $delete-icon-color: #ea3d2f;
                 padding-left: 0;
             }
 
-            &.open + .tab-menu-group{
+            &.open + .tab-menu-group {
                 padding-right: 12px;
             }
 
@@ -175,6 +175,8 @@ $delete-icon-color: #ea3d2f;
 
                 .name {
                     max-width: 280px;
+                    filter: brightness(0.98);
+                    letter-spacing: 0.42px;
                 }
 
                 .validWarning {

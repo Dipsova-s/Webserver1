@@ -648,8 +648,10 @@ textarea.input-light {
   box-sizing: border-box;
   font-size: 14px;
   font-weight: 500;
+  letter-spacing: 0.42px;
   color: #25cad2;
   border: 1px solid transparent;
+  filter: brightness(0.98);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 
 .btn:not(.btn-primary, .btn-secondary, .btn-ghost, .btn-busy, .btn-light, .btn-split, .btn-success, .btn-split + .btn, btn-display-badge .btn.disabled, .btn[disabled], a[class*="btn-"]):hover {
@@ -660,7 +662,7 @@ textarea.input-light {
   color: #1fc7cf; }
 
 .btn-small {
-  font-size: 12px !important;
+  font-size: 13px !important;
   height: 28px !important; }
 
 .btn-primary,
@@ -2797,7 +2799,7 @@ textarea.input-light {
       justify-content: center;
       cursor: pointer;
       color: #818181;
-      letter-spacing: .2px;
+      letter-spacing: 0.42px;
       height: 36px;
       padding: 0 10px;
       box-sizing: border-box; }
@@ -2815,9 +2817,8 @@ textarea.input-light {
         background-color: #fff;
         font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
         font-size: 12px;
-        font-weight: 500;
         line-height: 1.83;
-        letter-spacing: 0.1px;
+        letter-spacing: 0.42px;
         text-align: center; }
         .tab .tab-menu-wrapper .tab-menu.active:before {
           width: 100%;
@@ -2855,7 +2856,7 @@ textarea.input-light {
   font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   line-height: 2;
-  letter-spacing: 0.44px;
+  letter-spacing: 0.42px;
   text-align: center;
   color: #444; }
   .tab-details .tab-menu-wrapper .tab-menu:before, .tab-settings .tab-menu-wrapper .tab-menu:before {
@@ -3581,7 +3582,9 @@ textarea.input-light {
         .display-tab .tab-menu-wrapper .tab-menu-group .tab-menu .front {
           position: relative; }
         .display-tab .tab-menu-wrapper .tab-menu-group .tab-menu .name {
-          max-width: 280px; }
+          max-width: 280px;
+          filter: brightness(0.98);
+          letter-spacing: 0.42px; }
         .display-tab .tab-menu-wrapper .tab-menu-group .tab-menu .validWarning {
           margin: unset;
           box-sizing: border-box; }

@@ -1,6 +1,6 @@
 *** Variables ***
 ${btnSaveModelLanguage}           css=.btnSave
-${Locator-Button-Reload}           css=a.btn.btnLarge.btnReload
+${Locator-Button-Reload}           css=a.btn.btnReload
 
 
 *** Keywords ***
