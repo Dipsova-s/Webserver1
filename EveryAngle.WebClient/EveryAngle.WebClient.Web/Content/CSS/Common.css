@@ -2252,7 +2252,7 @@ textarea.input-light {
       cursor: pointer;
       color: #061c2b;
       font-weight: normal;
-      line-height: 2;
+      line-height: 1.2;
       letter-spacing: 0.44px; }
       .breadcrumb-wrapper .breadcrumb-item .breadcrumb-link:hover .breadcrumb-name {
         color: #25cad2;
