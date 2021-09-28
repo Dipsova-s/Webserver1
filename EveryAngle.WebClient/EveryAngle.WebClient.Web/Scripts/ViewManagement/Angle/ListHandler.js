@@ -1592,9 +1592,11 @@ function ListHandler(elementId, container) {
             }
             self.Models.Display.Data().fields.removeObject('field', fieldId, false);
             self.Models.Display.Data.commit();
+            
+            self.OnChanged(self.Models.Display.Data(), false,true);
 
-            grid.hideColumn(fieldId);
-            self.OnChanged(self.Models.Display.Data(), false, false);
+            var scrollSettings = self.GetGridScrollSettingsData();
+            self.GetListDisplay({ left: scrollSettings.left, top: scrollSettings.top }, self.SelectingRowId);
         }
         else {
             popup.Alert(Localization.Warning_Title, Localization.Info_RequiredAtleastOneColumn);
