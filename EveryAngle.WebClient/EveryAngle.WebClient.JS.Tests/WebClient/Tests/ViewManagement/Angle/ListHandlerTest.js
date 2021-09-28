@@ -349,58 +349,5 @@ describe("ListHandler", function () {
             expect(listHandler.LeftClickElement).toEqual(jasmine.objectContaining(context));
         });
     });
-    describe(".RemoveColumn", function () {
-        var grid;
-        beforeEach(function () {
-            grid = {
-                hideColumn: $.noop
-            };
-            listSortHandler = {
-                QuerySteps: function () {
-                    return { findObject: $.noop }
-                }
-            };
-            listHandler.Models = {
-                Display: {
-                    Data: ko.protectedObservable({
-                        commit: $.noop
-                    })
-                },
-                Result: {
-                    Data: $.noop
-                }
-            };
-            spyOn(listHandler, 'GetGridObject').and.callFake(function () {
-                return grid;
-            });
-            spyOn(grid, 'hideColumn');
-            spyOn(popup, 'Alert');
-            spyOn(listHandler, 'OnChanged');
-        });
-
-        it("should remove column from grid", function () {
-            grid.columns = [{}, { field: "ObjectType" }, { field: "ID" }];
-            listHandler.Models.Display.Data().fields = [{ field: "ObjectType" }, { field: "ID" }];
-
-            listHandler.RemoveColumn("ID");
-
-            expect(listHandler.Models.Display.Data().fields.hasObject('field', "ID")).toBeFalsy();
-            expect(grid.hideColumn).toHaveBeenCalled();
-            expect(listHandler.OnChanged).toHaveBeenCalled();
-            expect(popup.Alert).not.toHaveBeenCalled();
-        });
-
-        it("should not remove column from grid when there is only one column", function () {
-            grid.columns = [{}, { field: "ID" }];
-            listHandler.Models.Display.Data().fields = [{ field: "ID" }];
-
-            listHandler.RemoveColumn("ID");
-
-            expect(listHandler.Models.Display.Data().fields.hasObject('field', "ID")).toBeTruthy();
-            expect(grid.hideColumn).not.toHaveBeenCalled();
-            expect(listHandler.OnChanged).not.toHaveBeenCalled();
-            expect(popup.Alert).toHaveBeenCalled();
-        });
-    });
 });
 
