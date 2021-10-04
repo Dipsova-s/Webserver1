@@ -28,18 +28,18 @@ ${txtReportGridFilter}                  ReportGridFilterBox
 ${txtReportGrid}                        jquery=.k-virtual-scrollable-wrap td
 
 ${lnkCommunicationsModelOption}         xpath=//h4[contains(text(),'Server settings')]/parent::div/a[@href='#/Models/EA2_800/Communications/']
-${lnkEAETLSandboxModelOption}           xpath=//h4[contains(text(),'Server settings')]/parent::div/a[@href='#/Models/EA2_800/EA ETL Sandbox/']
-${lnkRefreshCycleModelOption}           xpath=//h4[contains(text(),'Server settings')]/parent::div/a[@href='#/Models/EA2_800/Refresh cycle/']
+${lnkEAETLSandboxModelOption}           css=#sideMenu-Models-EA2_800-EAXtractor  .sideMenuLabel
+${lnkRefreshCycleModelOption}           css=#sideMenu-Models-EA2_800-RefreshCycle  .sideMenuLabel
 
-${lnkAngleWarningsModelOption}          xpath=//h4[contains(text(),'Content settings')]/parent::div/a[@href='#/Models/EA2_800/Angle warnings/']
-${lnkContentParametersModelOption}      xpath=//h4[contains(text(),'Content settings')]/parent::div/a[@href='#/Models/EA2_800/Content parameters/']
-${lnkLabelsModelOption}                 xpath=//h4[contains(text(),'Content settings')]/parent::div/a[@href='#/Models/EA2_800/Labels/']
-${lnkLanguagesModelOption}              xpath=//h4[contains(text(),'Content settings')]/parent::div/a[@href='#/Models/EA2_800/Languages/']
-${lnkPackagesModelOption}               xpath=//h4[contains(text(),'Content settings')]/parent::div/a[@href='#/Models/EA2_800/Packages/']
-${lnkSuggestedFieldsModelOption}        xpath=//h4[contains(text(),'Content settings')]/parent::div/a[@href='#/Models/EA2_800/Suggested fields/']
+${lnkAngleWarningsModelOption}          css=#sideMenu-Models-EA2_800-AngleWarnings  .sideMenuLabel
+${lnkContentParametersModelOption}      css=#sideMenu-Models-EA2_800-ContentParameters  .sideMenuLabel
+${lnkLabelsModelOption}                 css=#sideMenu-Models-EA2_800-LabelCategories  .sideMenuLabel
+${lnkLanguagesModelOption}              css=#sideMenu-Models-EA2_800-Languages  .sideMenuLabel
+${lnkPackagesModelOption}               css=#sideMenu-Models-EA2_800-TemplateAngles  .sideMenuLabel
+${lnkSuggestedFieldsModelOption}        css=#sideMenu-Models-EA2_800-SuggestedFields  .sideMenuLabel
 
-${lnkRolesModelOption}                  xpath=//h4[contains(text(),'Role settings')]/parent::div/a[@href='#/Models/EA2_800/Roles/']
-
+${lnkRolesModelOption}                  css=#sideMenu-Models-EA2_800-Roles  .sideMenuLabel
+${btnSubmitConfirmChangePage}           css=#popupConfirmation .btnSubmit
 
 *** Keywords ***
 Wait Until All Models Page Loaded
@@ -157,56 +157,51 @@ Click on Communications model options
     Wait Until Page Contains    Company information
 
 Click on EA ETL Sandbox model option
-    Wait Until Element Is Visible    ${lnkEAETLSandboxModelOption}
-    Wait MC Progress Bar Closed
+    Page Should Contain Element    ${lnkEAETLSandboxModelOption}
     Click Element        ${lnkEAETLSandboxModelOption}
     Wait until page contains    SAP connection settings
 
 Click on Refresh Cycle model option
-    Wait Until Element Is Visible    ${lnkRefreshCycleModelOption}
-    Wait MC Progress Bar Closed
+    Page Should Contain Element    ${lnkRefreshCycleModelOption}
     Click Element        ${lnkRefreshCycleModelOption}
     Wait until page contains    Refresh cycle history
 
 Click on Angle Warnings model option
-    Wait Until Element Is Visible    ${lnkAngleWarningsModelOption}
-    Wait MC Progress Bar Closed
+    Page Should Contain Element    ${lnkAngleWarningsModelOption}
     Click Element        ${lnkAngleWarningsModelOption}
+    Check and confirm the confirmation popup
     Wait until page contains    Published items
     
 Click on Content parameters model option
-    Wait Until Element Is Visible    ${lnkContentParametersModelOption}
-    Wait MC Progress Bar Closed
+    Page Should Contain Element    ${lnkContentParametersModelOption}
     Click Element        ${lnkContentParametersModelOption}
     Wait until page contains    Enterprise configuration
     
 Click on Label model option
-    Wait Until Element Is Visible    ${lnkLabelsModelOption}
-    Wait MC Progress Bar Closed
+    Page Should Contain Element    ${lnkLabelsModelOption}
     Click Element        ${lnkLabelsModelOption}
     Wait until page contains    EA2_800 Labels
     
 Click on Languages model option
-    Wait Until Element Is Visible    ${lnkLanguagesModelOption}
-    Wait MC Progress Bar Closed
+    Page Should Contain Element    ${lnkLanguagesModelOption}
     Click Element        ${lnkLanguagesModelOption}
     Wait until page contains    Language settings
     
 Click on Packages model option
-    Wait Until Element Is Visible    ${lnkPackagesModelOption}
-    Wait MC Progress Bar Closed
+    Page Should Contain Element    ${lnkPackagesModelOption}
     Click Element        ${lnkPackagesModelOption}
     Wait until page contains    Packages history
     
 Click on Suggested fields model option
-    Wait Until Element Is Visible    ${lnkSuggestedFieldsModelOption}
-    Wait MC Progress Bar Closed
+    Page Should Contain Element    ${lnkSuggestedFieldsModelOption}
     Click Element        ${lnkSuggestedFieldsModelOption}
     Wait until page contains    Manage suggested fields for objects
     
 Click on Role model option
-    Wait Until Element Is Visible    ${lnkRolesModelOption}
-    Wait MC Progress Bar Closed
+    Page Should Contain Element    ${lnkRolesModelOption}
     Click Element        ${lnkRolesModelOption}
     Wait until page contains    All available roles on EA2_800
-    
+
+Check and confirm the confirmation popup
+    ${hasButton}  Is Element Exist  ${btnSubmitConfirmChangePage}
+    Run Keyword If  ${hasButton}  Click Element       ${btnSubmitConfirmChangePage}

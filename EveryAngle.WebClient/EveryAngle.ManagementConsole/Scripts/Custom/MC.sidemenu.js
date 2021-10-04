@@ -279,7 +279,7 @@
             }, 350);
 
             // expand or collapse
-            if (isOpened && !hasLink) {
+            if (isOpened) {
                 self.collapse(obj, true, function () {
                     self.isBusy = false;
                 });
