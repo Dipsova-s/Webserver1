@@ -6556,4 +6556,10 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Go to scheduled task</value>
   </data>
+  <data name="MC_DelayToTriggerTaskOnNewModel" xml:space="preserve">
+    <value>Delay to trigger tasks on new model [seconds]</value>
+  </data>
+  <data name="MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel" xml:space="preserve">
+    <value>The number of seconds delay to trigger tasks associated with new model event.</value>
+  </data>
 </root>
