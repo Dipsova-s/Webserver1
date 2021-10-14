@@ -17089,6 +17089,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SAP download maximum run time.
+        /// </summary>
+        public static string SAPDownloadMaxRunTime {
+            get {
+                return ResourceManager.GetString("SAPDownloadMaxRunTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SAP system.
         /// </summary>
         public static string SAPSystem {

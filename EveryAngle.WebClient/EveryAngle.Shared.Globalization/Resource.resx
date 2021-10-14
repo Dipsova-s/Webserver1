@@ -6556,4 +6556,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Go to scheduled task</value>
   </data>
+  <data name="SAPDownloadMaxRunTime" xml:space="preserve">
+    <value>SAP download maximum run time</value>
+  </data>
 </root>
