@@ -1280,7 +1280,7 @@ function AnglePageHandler() {
                 else {
                     queuedMessage = kendo.format(data.queue_position === 1 ? Localization.FirstInQueueMessage : Localization.LaterInQueueMessage, data.queue_position);
                 }
-                progressbarModel.SetProgressBarTextAndMessage(kendo.toString(data.progress * 100, 'n2'), queuedMessage);
+                progressbarModel.SetProgressBarTextAndMessage(null, queuedMessage);
                 if (data.cancelable)
                     progressbarModel.SetEnableProgressBar();
                 else
