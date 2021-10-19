@@ -15,6 +15,7 @@ ${divSideMenuGlobalSettingsWelcomePage}             sideMenu-GlobalSettings-Welc
 ${divSideMenuModels}                        sideMenu-Models
 ${divSideMenuModelsAllModels}               sideMenu-Models-AllModels
 ${divSideMenuModelsEA2_800}                 xpath=//li[@id='sideMenu-Models-EA2_800']//span[text()='EA2_800']
+${divSideMenuModelsEA2_800Open}             css=.sideMenuLevel2 .sideMenuWithChild.active > a
 ${divSideMenuModelsEA2_800Roles}            jquery=#sideMenu-Models-EA2_800-Roles>a
 ${linkLabel}                                //span[text()='Labels']
 ${divSideMenuModelLanguages}                sideMenu-Models-EA2_800-Languages

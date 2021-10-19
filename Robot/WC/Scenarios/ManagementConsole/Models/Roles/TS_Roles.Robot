@@ -8,7 +8,9 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/Models/Roles/ManageUser.
 *** Keywords ***
 Go To Role Tab Under Model EA2_800
     Click Side Menu Models
-    Click Side Menu Models EA2_800
+    #Checks if EA2_800 sidemenu is open
+     ${hasRolesLink}  Is Element Exist  ${divSideMenuModelsEA2_800Open}
+    Run Keyword If  ${hasRolesLink}==False  Click Side Menu Models EA2_800
     Click Side Menu Models EA2_800 Roles
 
 Create Role By Copy Role

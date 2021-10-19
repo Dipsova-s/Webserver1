@@ -611,7 +611,7 @@ ul#breadcrumbList li:first-child a:before {
             .sideMenu > li > a:hover,
             .sideMenu > li.active > a:hover {
                 font-weight: bold;
-                background: #f7f9fa;
+                background: #ffffff;
                 color: #061c2b;
             }
 
@@ -648,14 +648,12 @@ ul#breadcrumbList li:first-child a:before {
     fill: white;
 }
 
-#sideMenu-GlobalSettings-Systemlog.active > a > .icon,
-#sideMenu-GlobalSettings-Systemlog > a:hover > .icon,
-#sideMenu-GlobalSettings-Systemlog.active > a:hover > .icon,
-#sideMenu-AngleExports-ExportDefault.active > a > .icon,
-#sideMenu-AngleExports-ExportDefault > a:hover > .icon,
-#sideMenu-AngleExports-ExportDefault.active > a:hover > .icon,
-[id^="sideMenu-Models-"] > a:hover > .icon {
+.sideMenuLevel2 .sideMenuWithChild > a:hover > .icon {
     background-image: url(../images/icons/icon_arrow_down.svg);
+}
+
+.sideMenuLevel2 .sideMenuWithChild.active > a {
+    background: #ffffff !important;
 }
 
 .sideMenuLevel2 {
@@ -674,23 +672,21 @@ ul#breadcrumbList li:first-child a:before {
     font-weight: normal;
     height: auto;
     line-height: 26px;
-    background: #fbfbfb;
-    color: #333;
+    background: #ffffff;
+    color: #061c2b;
     font-size: 13px;
-    border-bottom: 1px solid #e6e6e6;
 }
 
-.sideMenuLevel2 > li.active > a,
-.sideMenuLevel2 > li > a:hover,
-.sideMenuLevel2 > li.active > a:hover {
-    font-weight: bold;
-    background: rgba(32,168,230,.11);
-    border-bottom: 1px solid #e6e6e6;
-    color: #333;
-}
+    .sideMenuLevel2 > li.active > a,
+    .sideMenuLevel2 > li > a:hover,
+    .sideMenuLevel2 > li.active > a:hover {
+        font-weight: bold;
+        color: #061c2b;
+        background: #cef4f6;
+    }
 
 .sideMenuLevel2 > li.active > a {
-    color: #444444;
+    color: #061c2b;
 }
 
 .sideMenuLevel2 > li > a > .icon {
@@ -704,7 +700,7 @@ ul#breadcrumbList li:first-child a:before {
 }
 
 .sideMenuLevel2 > li.active > a > .icon {
-    background-image: none;
+    background: transparent url(../images/icons/icon_arrow_down.svg) center center no-repeat;
 }
 
 .sideMenuLevel3 {
@@ -721,31 +717,28 @@ ul#breadcrumbList li:first-child a:before {
     padding: 5px 20px 5px 50px;
     font-size: 12px;
     font-weight: bold;
-    background: #e0e8ed;
-    border-bottom: 1px solid #e6e6e6;
-    color: #333;
+    background: white;
+    color: #78909c;
 }
 
 .sideMenuLevel3 > li > a {
     position: relative;
     display: block;
-    padding: 0 10px 0 56px;
+    padding: 0 10px 0 60px;
     font-weight: normal;
     height: auto;
     line-height: 26px;
     background: #fff;
-    color: #333;
+    color: #061c2b;
     font-size: 13px;
-    border-bottom: 1px solid #d7d7d7;
 }
 
-.sideMenuLevel3 > li.active > a,
-.sideMenuLevel3 > li > a:hover,
-.sideMenuLevel3 > li.active > a:hover {
-    font-weight: bold;
-    background: #eaeaea;
-    border-bottom: 1px solid #dedede;
-}
+    .sideMenuLevel3 > li.active > a,
+    .sideMenuLevel3 > li > a:hover,
+    .sideMenuLevel3 > li.active > a:hover {
+        font-weight: bold;
+        background: #cef4f6;
+    }
 
 .sideMenuLevel3 > li > a > .icon {
     display: none;
@@ -762,9 +755,7 @@ ul#breadcrumbList li:first-child a:before {
 }
 
 .sideMenuLevel3 > li.active > a > .icon {
-    display: block;
-    text-indent: -9000px;
-    background: transparent url(../images/icons/icon_menu_dot.png) 6px center no-repeat;
+    display: none;
 }
 
 /* .mainContent

@@ -20,7 +20,7 @@ Test Manage Users Under Role
     Create Role By Copy Role    EA2_800_ALL    ${Role_Name}
     Filter Role By Role Name    ${Role_Name}
     Add User To Role Name    ${Role_Name}    ${FilterAvailableUser}
-    Go To Role Tab Under Model EA2_800
+    Click Side Menu Models EA2_800 Roles
     Verify Users Count After Added    ${Role_Name}    ${UserCount}
     Delete Role By Role Name    ${Role_Name}
 
