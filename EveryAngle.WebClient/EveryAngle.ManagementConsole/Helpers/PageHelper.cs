@@ -166,7 +166,7 @@ namespace EveryAngle.ManagementConsole.Helpers
 
         public static string HeaderWithTimezone(string header)
         {
-            return string.Format("<span data-tooltip-title=\"MC.util.getTimezoneText\">{0} (<span data-role=\"timezoneinfo\"></span>)</span>", header);
+            return string.Format("<span data-tooltip-title=\"MC.util.getTimezoneText\">{0}</span>", header);
         }
 
         public static string LocalizationText(this HtmlHelper helper, string name)

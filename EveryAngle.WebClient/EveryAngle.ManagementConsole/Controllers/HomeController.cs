@@ -7,6 +7,7 @@ using EveryAngle.ManagementConsole.Helpers;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using EveryAngle.WebClient.Web.Filters.ActionFilters;
+using System;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
@@ -23,6 +24,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult Index()
         {
+            TimeZoneInfo.ClearCachedData();
             ViewBag.STSTOKEN = string.Empty;
             return PartialView("~/Views/Shared/Index.cshtml");
         }

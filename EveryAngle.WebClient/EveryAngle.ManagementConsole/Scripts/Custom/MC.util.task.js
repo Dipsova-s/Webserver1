@@ -142,7 +142,7 @@
                 var serverDate = MC.util.unixtimeToTimePicker(serverTime, true);
                 var serverOffset = MC.util.getTimezoneId(window.timezoneOffset);
                 descriptionLabel.removeClass('hidden');
-                descriptionLabel.find('.serverTimeValue').text(kendo.format('{0:HH:mm} ({1})', serverDate, serverOffset));
+                descriptionLabel.find('.serverTimeValue').text(kendo.format('{0:HH:mm}', serverDate));
             }
             else {
                 descriptionLabel.addClass('hidden');

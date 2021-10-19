@@ -101,7 +101,7 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
         public void Can_GetHeaderWithTimezone()
         {
             string headerText = "IAM HEADER TEXT";
-            string expectedHTMLText = string.Format("<span data-tooltip-title=\"MC.util.getTimezoneText\">{0} (<span data-role=\"timezoneinfo\"></span>)</span>", headerText);
+            string expectedHTMLText = string.Format("<span data-tooltip-title=\"MC.util.getTimezoneText\">{0}</span>", headerText);
             Assert.IsNotNullOrEmpty(PageHelper.HeaderWithTimezone(headerText));
             Assert.AreEqual(expectedHTMLText, PageHelper.HeaderWithTimezone(headerText));
         }
