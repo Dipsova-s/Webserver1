@@ -103,7 +103,7 @@
         },
         getTimezoneInfoServer: function () {
             var serverInfo = kendo.timezone.windows_zones.filter(function (zone) {
-                return zone.other_zone === timezoneId && timezoneName.indexOf(zone.territory) !== -1;
+                return zone.other_zone === timezoneId;
             })[0];
 
             var info = {
@@ -129,7 +129,7 @@
         },
         getTimezoneText: function () {
             var timezoneInfo = MC.util.getTimezoneInfo(false);
-            return kendo.format('{0}, {1} ({2})', timezoneInfo.name, timezoneInfo.fullname, timezoneInfo.id);
+            return kendo.format('{0}, {1}', timezoneInfo.name, timezoneInfo.fullname);
         },
         readableDate: function (time) {
             time = parseInt(time / 1000);
@@ -160,13 +160,13 @@
             var container = $(target);
             var template = [
                 Localization.MC_ServerLocationLabel + ' <span class="serverLocation"></span><br />',
-                Localization.MC_UtcOffsetLabel + ' <span class="utcOffset"></span><span class="clock"></span>'
+                '<span class="utcOffset"></span><span class="clock"></span>'
             ].join('');
             container.html(template);
 
             // general
             var serverTimeInfo = MC.util.getTimezoneInfo(false);
-            var utcOffset = kendo.format('{0} {1} {2}', serverTimeInfo.id !== 'UTC' ? serverTimeInfo.id.replace('UTC', '') : '0', Localization.MC_Hours, serverTimeInfo.abbr);
+            var utcOffset = kendo.format('{0}', serverTimeInfo.abbr);
             container.find('.serverLocation').html(serverTimeInfo.location);
             container.find('.utcOffset').text(utcOffset);
 

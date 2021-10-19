@@ -221,7 +221,7 @@
                     dataItem: function () { return fileData }
                 }
             };
-            
+
             MC.util.showInnoweraDetails(e);
 
             expect(element.html()).toEqual(expected);
@@ -281,6 +281,14 @@
             MC.util.showExistTemplateInfo(e);
 
             expect(element.html()).toEqual('');
+        });
+    });
+
+    describe("getTimezoneText", function () {
+        it("Should return expected string", function () {
+            spyOn(MC.util, "getTimezoneInfo").and.returnValue({ name: "IST", fullname: "Indian standard time" })
+            var result = MC.util.getTimezoneText();
+            expect(result).toEqual("IST, Indian standard time");
         });
     });
 });
