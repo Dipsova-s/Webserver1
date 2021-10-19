@@ -9159,6 +9159,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delay to trigger tasks on new model [seconds].
+        /// </summary>
+        public static string MC_DelayToTriggerTaskOnNewModel {
+            get {
+                return ResourceManager.GetString("MC_DelayToTriggerTaskOnNewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete action: {reference}?.
         /// </summary>
         public static string MC_DeleteActionConfirm {
@@ -13119,6 +13128,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_SystemSettingsHelpDefaultPageSize {
             get {
                 return ResourceManager.GetString("MC_SystemSettingsHelpDefaultPageSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of seconds delay to trigger tasks associated with new model event..
+        /// </summary>
+        public static string MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel {
+            get {
+                return ResourceManager.GetString("MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel", resourceCulture);
             }
         }
         

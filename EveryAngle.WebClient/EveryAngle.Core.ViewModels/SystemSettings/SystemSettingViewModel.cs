@@ -110,6 +110,10 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("MC_LogLevel")]
         public string log_level { get; set; }
 
+        [JsonProperty(PropertyName = "delay_to_trigger_task_on_new_model")]
+        [LocalizedDisplayName("MC_DelayToTriggerTaskOnNewModel")]
+        public int delay_to_trigger_task_on_new_model { get; set; }
+
         public string ReFormatTrustedWebservers
         {
             get

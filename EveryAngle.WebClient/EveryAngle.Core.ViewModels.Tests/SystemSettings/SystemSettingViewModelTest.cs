@@ -21,6 +21,7 @@ namespace EveryAngle.Core.ViewModels.Tests
                 modelserver_check_seconds = 10,
                 modelserver_timeout = 30,
                 modelserver_metadata_timeout = 300,
+                delay_to_trigger_task_on_new_model = 10,
                 max_domainelements_for_search = 100,
                 default_cache_minutes = 10,
                 min_labelcategories_to_publish = 1,
@@ -51,6 +52,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.modelserver_check_seconds.GetType(), typeof(int));
             Assert.AreEqual(viewModel.modelserver_timeout.GetType(), typeof(int));
             Assert.AreEqual(viewModel.modelserver_metadata_timeout.GetType(), typeof(int));
+            Assert.AreEqual(viewModel.delay_to_trigger_task_on_new_model.GetType(), typeof(int));
             Assert.AreEqual(viewModel.max_domainelements_for_search.GetType(), typeof(int));
             Assert.AreEqual(viewModel.default_cache_minutes.GetType(), typeof(int));
             Assert.AreEqual(viewModel.min_labelcategories_to_publish.GetType(), typeof(int));
@@ -89,6 +91,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.IsTrue(viewModelSerialize.Contains("modelserver_check_seconds"));
             Assert.IsTrue(viewModelSerialize.Contains("modelserver_timeout"));
             Assert.IsTrue(viewModelSerialize.Contains("modelserver_metadata_timeout"));
+            Assert.IsTrue(viewModelSerialize.Contains("delay_to_trigger_task_on_new_model"));
             Assert.IsTrue(viewModelSerialize.Contains("max_domainelements_for_search"));
             Assert.IsTrue(viewModelSerialize.Contains("default_cache_minutes"));
             Assert.IsTrue(viewModelSerialize.Contains("min_labelcategories_to_publish"));

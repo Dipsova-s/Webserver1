@@ -235,6 +235,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             updatedSystemSettings.fallback_field_length = systemSettings.fallback_field_length;
             updatedSystemSettings.default_approval_state = systemSettings.default_approval_state;
             updatedSystemSettings.log_level = systemSettings.log_level;
+            updatedSystemSettings.delay_to_trigger_task_on_new_model = systemSettings.delay_to_trigger_task_on_new_model;
 
             updatedSystemSettings.EmailSettings.smtp_server = systemSettings.EmailSettings.smtp_server;
             updatedSystemSettings.EmailSettings.smtp_port = systemSettings.EmailSettings.smtp_port;
