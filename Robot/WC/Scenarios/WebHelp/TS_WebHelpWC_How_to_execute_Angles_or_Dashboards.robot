@@ -7,6 +7,7 @@ Screenshot "WC_How_to_execute_Angles_or_Dashboards" page
     Crop Execution Parameters Popup
 
 Crop Execution Parameters Popup
+    Wait Until Element Is Visible    ${lnkSearchResult}:eq(0)
     Click Link   ${lnkSearchResult}:eq(0)
     Wait Until Angle Execute Parameters Popup Loaded
     Update Popup Position    css=.popup-execution-parameter
