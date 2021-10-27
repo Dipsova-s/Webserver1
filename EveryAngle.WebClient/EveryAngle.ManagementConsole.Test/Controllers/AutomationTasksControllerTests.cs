@@ -321,7 +321,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // assert
             itemService.Verify(x => x.Get(
-                "fq=facetcat_itemtype:(facet_angle facet_template) AND facetcat_models:(EA2_800 IT4IT)&include_facets=false&offset=0&limit=30&caching=false&viewmode=basic&ids=angle123,angle456,angle789"
+                "fq=facetcat_itemtype:(facet_angle facet_template) AND facetcat_models:(EA2_800 IT4IT)&include_facets=false&offset=0&limit=30&caching=false&viewmode=basic&ids=angle123,angle456,angle789&can_see_scheduled_tasks=true"
                 ), Times.Once);
 
             Assert.AreEqual("angle123", result[0].id);

@@ -483,9 +483,9 @@ namespace EveryAngle.ManagementConsole.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ContentResult FindAngle(string angleUri)
+        public ContentResult FindAngle(string angleUri, bool canSeeScheduledtasks)
         {
-            return Content(GetAngle(angleUri).ToString(), "application/json");
+            return Content(GetAngle(angleUri, canSeeScheduledtasks).ToString(), "application/json");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -601,11 +601,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             return result;
         }
 
-        private JObject GetAngle(string angleUri)
+        private JObject GetAngle(string angleUri, bool canSeeScheduledtasks = true)
         {
             var userSettings = SessionHelper.GetUserSettings();
             var userLanguage = string.IsNullOrEmpty(userSettings.default_language) ? "en" : userSettings.default_language;
-            var angleUrl = string.Format("{0}?lang={1}", UrlHelper.GetRequestUrl(URLType.NOA) + angleUri, userLanguage);
+            var angleUrl = string.Format("{0}?lang={1}&can_see_scheduled_tasks={2}", UrlHelper.GetRequestUrl(URLType.NOA) + angleUri, userLanguage, canSeeScheduledtasks);
             var requestManager = RequestManager.Initialize(angleUrl);
             JObject output = requestManager.Run();
             var model = SessionHelper.GetModel(UrlHelper.GetRequestUrl(URLType.NOA) + output.SelectToken("model"));
@@ -828,7 +828,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             while (angles.Any())
             {
                 string angleIds = string.Join(",", angles.Take(30));
-                string query = $"fq=facetcat_itemtype:(facet_angle facet_template) AND facetcat_models:({modelIds})&include_facets=false&offset=0&limit=30&caching=false&viewmode=basic&ids={angleIds}";
+                string query = $"fq=facetcat_itemtype:(facet_angle facet_template) AND facetcat_models:({modelIds})&include_facets=false&offset=0&limit=30&caching=false&viewmode=basic&ids={angleIds}&can_see_scheduled_tasks=true";
                 items.AddRange(_itemService.Get(query));
                 angles = angles.Skip(30).ToList();
             }
