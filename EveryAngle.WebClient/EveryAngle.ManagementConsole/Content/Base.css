@@ -4704,6 +4704,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     padding-top: 2px;
     padding-bottom: 2px;
     margin-right: 0;
+    border: 0;
 }
 
 #AddActionPopup .btnLink:after {

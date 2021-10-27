@@ -1450,7 +1450,7 @@
                 $('#AddActionPopup .popupContent').scrollTop(0);
             }, 1);
         };
-        self.GetAngleByUri = function (uri) {
+        self.GetAngleByUri = function (uri, canSeeScheduledtasks) {
             if (!uri) {
                 self.CurrentAngle = null;
                 return $.when(null);
@@ -1462,7 +1462,7 @@
             return $.when(
                 MC.ajax.request({
                     url: self.FindAngleUri,
-                    parameters: { "angleUri": uri },
+                    parameters: { "angleUri": uri, "canSeeScheduledtasks": canSeeScheduledtasks },
                     type: 'GET'
                 }))
                 .done(function (data) {
@@ -1498,7 +1498,7 @@
                 jQuery('#approvalddl').data('kendoDropDownList').value(dataItem.approval_state);
 
                 if (dataItem.action_type === self.ACTION_TYPE_ID.DATASTORE) {
-                    self.GetAngleByUri(dataItem.AngleUri).done(function () {
+                    self.GetAngleByUri(dataItem.AngleUri, true).done(function () {
                         self.SetEditDatastoreActionType(dataItem);
                     });
                 }
@@ -1636,37 +1636,38 @@
             jQuery('#model_name').text(self.GetModelNameFromActionData(dataItem));
 
             // angle_id + display_id
-            var getAccessDeniedText = function (name) {
-                return kendo.format('{0} ({1})', name, Localization.MC_AccessDenied.toLowerCase());
-            };
-            var setDisplayInfo = function (dataSource, display, displayId, angleUri) {
+            var setDisplayInfo = function (dataSource, display, displayId) {
+
                 var ddlDisplays = $('#display_id').data('kendoDropDownList');
+
                 if (display && dataSource.length) {
-                    jQuery('#angle_id').val(display.uri);
-
                     ddlDisplays.setDataSource(dataSource);
-                    ddlDisplays.enable(true);
 
-                    // set link
-                    self.SetLinkToDisplay(display.uri, _self.modelId);
-                    self.SetDatastoreOnDisplayChange(display);
-                }
-                else {
-                    jQuery('#angle_id').val(angleUri);
+                    // check if current user can manage private items or can set action then enable otherwise disable
 
-                    dataSource.push({ id: displayId, name: getAccessDeniedText(displayId), display_type: 'no', uri: '' });
-                    ddlDisplays.setDataSource(dataSource);
-                    ddlDisplays.enable(false);
-
-                    // set link
-                    self.SetLinkToDisplay(null, null);
-                    self.SetDatastoreOnDisplayChange(null);
+                    var model = self.AllModels.findObject('id', _self.modelId);
+                    if (model) {
+                        var modelPrivilege = JSON.parse(self.ModelPrivileges).findObject('model', model.Uri);
+                        if (modelPrivilege && modelPrivilege.Privileges.manage_private_items || self.CanSetAction()) {
+                            jQuery('#angle_id').val(display.uri);
+                            ddlDisplays.enable(true);
+                            // set link
+                            self.SetLinkToDisplay(display.uri, _self.modelId);
+                            self.SetDatastoreOnDisplayChange(display);
+                        } else {
+                            ddlDisplays.enable(false);
+                            // set link
+                            self.SetLinkToDisplay(null, null);
+                            self.SetDatastoreOnDisplayChange(null);
+                        }
+                    }
                 }
                 ddlDisplays.value(displayId);
             };
             var angleId = self.GetArgumentValueByName(dataItem.arguments, 'angle_id');
             var displayId = self.GetArgumentValueByName(dataItem.arguments, 'display_id');
             var angleName = dataItem.angle_name || angleId;
+
             if (self.CurrentAngle) {
                 // set angle name
                 jQuery('#angle_name').text(angleName);
@@ -1675,17 +1676,10 @@
                 self.CurrentAngle.display_definitions.sortObject('name', -1, false);
 
                 // set info + link
-                setDisplayInfo(self.CurrentAngle.display_definitions, display, displayId, self.CurrentAngle.uri);
+                setDisplayInfo(self.CurrentAngle.display_definitions, display, displayId);
 
                 // parameterized
                 self.SetAngleParametersData(self.CurrentAngle, JSON.parse(JSON.stringify(dataItem.arguments)));
-            }
-            else {
-                // set angle name
-                jQuery('#angle_name').text(getAccessDeniedText(angleName));
-
-                // set info + link
-                setDisplayInfo([], null, displayId, null);
             }
 
             // condition operator
@@ -2498,7 +2492,7 @@
             ddlDisplays.enable(true);
 
             var deferred = jQuery.Deferred();
-            self.GetAngleByUri(angleUrl)
+            self.GetAngleByUri(angleUrl, false)
                 .done(function (data) {
                     _self.modelId = data.modelId;
 
