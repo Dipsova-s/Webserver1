@@ -24,6 +24,7 @@ ${chkDaySaturday}                  .checkbox [value=Sat]
 ${txtStartTime}                    input[name=StartTime]
 ${txtRestartDelay}                 input[name=RestartDelay]
 ${txtUntil}                        input[name=EndTime]
+${txtSAPDownloadMaxRunTime}        input[name=DownloadTimeStop]
 ${txtMaximumRunTime}               input[name=TimeStop]
 
 ${btnEditRefreshCycle}             .btnEdit
@@ -293,6 +294,10 @@ Page Should Contain Until Field
     Wait Until Page Contains Element    ${contentSectionInfo} ${txtUntil}
     Page Should Contain Element    ${contentSectionInfo} ${txtUntil}
 
+Page Should Contain SAP Download Max Run Time
+    Wait Until Page Contains Element    ${contentSectionInfo} ${txtSAPDownloadMaxRunTime}
+    Page Should Contain Element    ${contentSectionInfo} ${txtSAPDownloadMaxRunTime}
+    
 Page Should Contain Maximum Run Time Field
     Wait Until Page Contains Element    ${contentSectionInfo} ${txtMaximumRunTime}
     Page Should Contain Element    ${contentSectionInfo} ${txtMaximumRunTime}

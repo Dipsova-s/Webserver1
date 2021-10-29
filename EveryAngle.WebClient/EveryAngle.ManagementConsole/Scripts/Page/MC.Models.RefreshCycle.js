@@ -276,12 +276,18 @@
                 }
             }
 
+            // sap download maximum run time
+            if (jQuery.isNumeric(data.sap_download_max_run_time)) {
+                var downloadTimeStopPickerValue = MC.util.unixtimeToTimePicker(data.sap_download_max_run_time, true);
+                self.RefreshCycleForm.find('input[name="DownloadTimeStop"]').data('handler').value(downloadTimeStopPickerValue);
+            }
+
             // maximum run time
             if (jQuery.isNumeric(data.max_run_time)) {
                 var timeStopPickerValue = MC.util.unixtimeToTimePicker(data.max_run_time, true);
                 self.RefreshCycleForm.find('input[name="TimeStop"]').data('handler').value(timeStopPickerValue);
             }
-
+            
             // parameters [action list = 'tables']
             self.BindingSpecifyTablesDataToForm(data.SpecifyTables);
 
@@ -619,6 +625,7 @@
                 actions: [],
                 enabled: true,
                 triggers: [],
+                sap_download_max_run_time: 0,
                 max_run_time: 0,
                 uri: ''
             };
@@ -665,6 +672,7 @@
             var actionList = self.RefreshCycleForm.find('[name="Action"]');
             var actionListParams = self.RefreshCycleForm.find('[name^=Parameters]');
             var maxRuntime = self.RefreshCycleForm.find('[name^="TimeStop"]');
+            var sapDownloadMaxRunTime = self.RefreshCycleForm.find('[name^="DownloadTimeStop"]');
 
             actionModel.arguments.push(self.CreateArgumentModel('model', self.ModelId));
             actionModel.arguments.push(self.CreateArgumentModel('action_list', self.RefreshCycleForm.find('[name="Action"]').val()));
@@ -688,6 +696,9 @@
             taskModel.enabled = self.RefreshCycleForm.find('[name^="IsEnabled"]').is(':checked');
             taskModel.triggers.push(triggerData);
             taskModel.actions.push(actionModel);
+
+            if (sapDownloadMaxRunTime.val() !== '')
+                taskModel.sap_download_max_run_time = MC.util.timePickerToUnixTime(sapDownloadMaxRunTime.data('kendoTimePicker').value(), true);
 
             if (maxRuntime.val() !== '')
                 taskModel.max_run_time = MC.util.timePickerToUnixTime(maxRuntime.data('kendoTimePicker').value(), true);

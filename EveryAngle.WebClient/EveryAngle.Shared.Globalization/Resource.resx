@@ -6562,4 +6562,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel" xml:space="preserve">
     <value>The number of seconds delay to trigger tasks associated with new model event.</value>
   </data>
+  <data name="SAPDownloadMaxRunTime" xml:space="preserve">
+    <value>SAP download maximum run time</value>
+  </data>
 </root>

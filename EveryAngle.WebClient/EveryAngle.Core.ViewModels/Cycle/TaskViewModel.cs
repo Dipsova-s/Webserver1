@@ -216,6 +216,9 @@ namespace EveryAngle.Core.ViewModels.Cycle
         [DataMember]
         public UserDateViewModel changed { get; set; }
 
+        [JsonProperty(PropertyName = "sap_download_max_run_time")]
+        public int? sap_download_max_run_time { get; set; }
+
         [JsonProperty(PropertyName = "max_run_time")]
         public int? max_run_time { get; set; }
 
