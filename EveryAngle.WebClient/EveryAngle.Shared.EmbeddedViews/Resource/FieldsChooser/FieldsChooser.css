@@ -386,7 +386,9 @@
     text-overflow: ellipsis; }
   .fieldChooserGridContainer .loader-spinner-inline {
     margin: 0 auto;
-    display: block; }
+    display: block;
+    background-size: 10px 10px;
+    padding: 0.5em; }
   .fieldChooserGridContainer .readOnly {
     cursor: default; }
 

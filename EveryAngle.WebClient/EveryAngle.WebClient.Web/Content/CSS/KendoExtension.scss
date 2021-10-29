@@ -1575,10 +1575,11 @@ $tagtextbox-item-margin: 7px;
     }
 
     .k-i-loading {
-        margin: 0;
-        background-image: none;
-        right: 6px;
-        bottom: 10px;
+        width: 10px;
+        height: 10px;
+        padding: 0.5em;
+        background-size: 10px 10px;
+        margin-right: 5px;
     }
 
     .btn-search {

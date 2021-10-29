@@ -446,32 +446,24 @@ input[type="checkbox"]:not(:checked) + .label {
 .licensetable a:visited {
   color: #008E91; }
 
-.loader-spinner, .loader-spinner-inline, .k-loading-text, .k-treelist .k-i-loading {
+.loader-spinner, .loader-spinner-inline, .k-loading-text, .k-treelist .k-i-loading, .k-tagtextbox .k-i-loading, .k-autocomplete .k-i-loading, .k-multiselect .k-i-loading {
   margin: 0 auto;
   width: 40px;
   height: 40px;
   text-align: center;
   padding: 1em;
   vertical-align: top;
-  background: #ff4040;
+  background: url(../../content/externalresource/loading-spinner.svg), #ff4040;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
   border-radius: 50%; }
-  .loader-spinner svg, .loader-spinner-inline svg, .k-loading-text svg, .k-treelist .k-i-loading svg {
-    width: 30px;
-    height: 30px;
-    transform: rotate(180deg);
-    margin: 0 auto; }
-    .loader-spinner svg path, .loader-spinner-inline svg path, .k-loading-text svg path, .k-treelist .k-i-loading svg path, .loader-spinner svg rect, .loader-spinner-inline svg rect, .k-loading-text svg rect, .k-treelist .k-i-loading svg rect {
-      fill: #fff; }
   .loader-spinner-inline {
-    display: inline-block;
     width: 10px;
     height: 10px;
-    text-indent: inherit; }
-    .loader-spinner-inline svg {
-      width: 8px;
-      height: 8px;
-      padding-top: 6px;
-      margin: 0 auto; }
+    background-size: 10px 10px;
+    padding: 0.5em;
+    margin-right: 5px; }
 
 .loader-container {
   position: fixed;
@@ -528,26 +520,22 @@ input[type="checkbox"]:not(:checked) + .label {
   .k-loading-mask .k-loading-image, .k-loading-mask .k-loading-color {
     display: none; }
   .k-loading-mask .k-loading-text {
-    position: relative;
-    text-indent: inherit; }
+    position: relative; }
 
 .k-loading-small .k-loading-text {
-  display: inline-block;
   width: 10px;
   height: 10px; }
-  .k-loading-small .k-loading-text svg {
-    width: 8px;
-    height: 8px;
-    padding-top: 6px;
-    margin: 0 auto; }
 
 .k-loading-text {
   overflow: hidden; }
 
-.k-treelist .k-i-loading {
-  background-image: none;
-  background-position: unset;
+.k-treelist .k-i-loading, .k-tagtextbox .k-i-loading, .k-autocomplete .k-i-loading, .k-multiselect .k-i-loading {
   width: 10px;
   height: 10px;
-  border: 3px solid;
-  border-color: transparent; }
+  padding: 0.5em;
+  background-size: 10px 10px;
+  margin-right: 5px; }
+
+.k-autocomplete .k-i-loading, .k-multiselect .k-i-loading, .k-tagtextbox .k-i-loading {
+  top: 1px;
+  right: 1px; }

@@ -1761,12 +1761,14 @@ table.grid tbody td:first-child {
     content: "\e90b";
 }
 
-.gridToolbarFilter .loader-spinner-inline {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    margin-right: 0;
-}
+    .gridToolbarFilter .loader-spinner-inline {
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        background-size: 10px 10px;
+        padding: 0.5em;
+        margin-right: 5px;
+    }
 
 .gridContainer {
     clear: both;
