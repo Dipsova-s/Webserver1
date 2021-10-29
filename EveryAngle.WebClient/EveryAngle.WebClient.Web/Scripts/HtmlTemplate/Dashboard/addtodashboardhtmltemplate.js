@@ -21,7 +21,7 @@ var addToDashboardHtmlTemplate = function () {
     addToDashboardHtmlTemplate += "        <\/div>";
     addToDashboardHtmlTemplate += "        <div class=\"input\">";
     addToDashboardHtmlTemplate += "            <input id=\"dashboardDropdownlist\" class=\"k-dropdown\" \/>";
-    addToDashboardHtmlTemplate += "            <span class=\"loader-spinner-inline alwaysHide\">" + getLoadingIconSvg() + "</span>";
+    addToDashboardHtmlTemplate += "            <span class=\"loader-spinner-inline alwaysHide\"></span>";
     addToDashboardHtmlTemplate += "        <\/div>";
     addToDashboardHtmlTemplate += "    <\/div>";
     addToDashboardHtmlTemplate += "<\/div>";
