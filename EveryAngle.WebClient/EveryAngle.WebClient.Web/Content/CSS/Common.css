@@ -3481,7 +3481,7 @@ textarea.input-light {
     height: 100%;
     background-color: #fff;
     opacity: 0;
-    z-index: 2; }
+    z-index: -1; }
   .display-tab .btn {
     width: 20px;
     height: 20px;
