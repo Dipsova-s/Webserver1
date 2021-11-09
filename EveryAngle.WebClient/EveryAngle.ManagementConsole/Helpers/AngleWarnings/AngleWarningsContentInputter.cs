@@ -225,8 +225,15 @@ namespace EveryAngle.ManagementConsole.Helpers
                 itemSolver.ObjectClass = objectClass;
                 itemSolver.FieldOrClassToReplace = field;
 
-                itemSolver.NewFieldOrClass = objectClass == oldObject ? contentInput.NewFieldOrClass : oldObject + ClassFieldSeperator + contentInput.NewFieldOrClass;
-
+                // If new field is reference + field then just apply that, Jira M4-98249
+                if (contentInput.NewFieldOrClass.Contains("__"))
+                {
+                    itemSolver.NewFieldOrClass = contentInput.NewFieldOrClass;
+                }
+                else
+                {
+                    itemSolver.NewFieldOrClass = objectClass == oldObject ? contentInput.NewFieldOrClass : oldObject + ClassFieldSeperator + contentInput.NewFieldOrClass;
+                }
             }
            
             return itemSolver;

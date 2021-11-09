@@ -12,6 +12,12 @@ namespace EveryAngle.ManagementConsole.Helpers
         [Description("R2020SP3")] R2020SP3 = 203,
         [Description("R2020SP4")] R2020SP4 = 204,
         [Description("R2020SP5")] R2020SP5 = 205,
+        [Description("R2020SP6")] R2020SP6 = 206,
+        [Description("R2020SP7")] R2020SP7 = 207,
+        [Description("R2020SP8")] R2020SP8 = 208,
+        [Description("R2020SP9")] R2020SP9 = 209,
+        [Description("R2021")] R2021 = 210,
+        [Description("R2021SP1")] R2021SP1 = 211        
     }
    
 }
