@@ -16,6 +16,7 @@ function ListHandler(elementId, container) {
     self.ColumnDefinitions = {};
     self.FirstColumnWidth = 45;
     self.DefaultColumnWidth = 120;
+    self.AngleUrlFieldId = "angleurl";
     self.HasResult = ko.observable(false);
     self.ReadOnly = ko.observable(false);
     self.DashBoardMode = ko.observable(false);
@@ -537,6 +538,10 @@ function ListHandler(elementId, container) {
                 grid.element.find('tr').removeClass('k-row-selected');
             }
             grid.refresh();
+        });
+        grid.element.on('click', 'td .angleUrlLink', function (e) {
+            var lastIndex = e.currentTarget.baseURI.indexOf("/angle") - 3; //finding the index based on language. If english the uri will contain '/en' if dutch uri will contain '/nl' thus finding the correct index by substracting 3
+            WC.Utility.OpenUrlNewWindow(e.currentTarget.baseURI.substring(0, lastIndex) + e.currentTarget.innerText, '_blank');
         });
     };
     self.InitialGridCellTooltip = function () {
@@ -1070,6 +1075,11 @@ function ListHandler(elementId, container) {
         switch (field.fieldtype) {
             case enumHandlers.FIELDTYPE.BOOLEAN:
                 template = "#= window['" + self.ModelId + "'].GetFormatValue(null, data['" + fieldData + "']) #";
+                break;
+            case enumHandlers.FIELDTYPE.TEXT:
+                if (fieldId.indexOf(self.AngleUrlFieldId) !== -1) {
+                    template = "#= window['" + self.ModelId + "'].GetFormatValue('" + fieldId + "', data['" + fieldData + "']) #";
+                }
                 break;
             case enumHandlers.FIELDTYPE.DOUBLE:
             case enumHandlers.FIELDTYPE.INTEGER:
@@ -1631,6 +1641,9 @@ function ListHandler(elementId, container) {
             // boolean
             return self.GetFormatBooleanValue(cellValue);
         }
+        else if (fieldId.indexOf(self.AngleUrlFieldId) != -1) {
+            return cellValue ? self.GenerateUrl(cellValue) : '';
+        }
         else {
             // etc.
             var value = '';
@@ -1666,6 +1679,9 @@ function ListHandler(elementId, container) {
             return '';
         }
     };
+    self.GenerateUrl = function (uriValue) {
+        return "<a class='angleUrlLink' href='" + uriValue + "'>" + uriValue + "</a>";
+    }
 
     self.IsCopyText = false;
     self.MenuOptions;
