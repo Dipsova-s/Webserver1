@@ -349,5 +349,28 @@ describe("ListHandler", function () {
             expect(listHandler.LeftClickElement).toEqual(jasmine.objectContaining(context));
         });
     });
+    describe(".GetTemplateCellData", function () {
+        it("should get template for angleurl link element", function () {
+            var fieldData = "sampleData",fieldId = {
+                id: "angleurl",
+                fieldtype: "text"
+            }
+            var result = listHandler.GetTemplateCellData(fieldId, fieldData);
+            expect(result).toEqual("#= window['" + listHandler.ModelId + "'].GetFormatValue('" + fieldId.id + "', data['" + fieldData + "']) #");
+        });
+    });
+    describe(".GetFormatValue", function () {
+        it("should get angle url angle tag", function () {
+            var cellValue = "/sampleUrl", fieldId = "angleurl";
+             
+            var result = listHandler.GetFormatValue(fieldId, cellValue);
+            expect(result).toEqual("<a class='angleUrlLink' href='" + cellValue + "'>" + cellValue + "</a>");
+        });
+        it("should get cellvalue as null", function () {
+            var cellValue = null, fieldId = "angleurl";
+            var result = listHandler.GetFormatValue(fieldId, cellValue);
+            expect(result).toEqual('');
+        });
+    });
 });
 
