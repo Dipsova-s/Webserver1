@@ -175,7 +175,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                 result = false;
             }
 
-            if (solveItem.Fix == WarningFix.ReplaceClass && !_modelService.ClassIdExists(_model.ClassesUri.ToString(), solveItem.NewFieldOrClass, ref _cachedClasses))
+            if (solveItem.Fix == WarningFix.ReplaceClass && !_modelService.ClassIdExists(_model.ClassesUri.ToString() + $"?offset=0&limit=1000", solveItem.NewFieldOrClass, ref _cachedClasses))
             {
                 Log.SendWarning($"AWT:class {solveItem.NewFieldOrClass} does not exists.");
                 result = false;

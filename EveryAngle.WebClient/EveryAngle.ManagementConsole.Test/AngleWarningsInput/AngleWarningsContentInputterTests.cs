@@ -145,6 +145,29 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
+        public void AngleWarningsTool_M498249_FieldViaReferenceIsReplaced()
+        {
+            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+
+            List<string> csvData = new List<string>
+            {
+                "Replace Field,Replace Field,R2020SP5,WorkOrder,PRCTR,ProfitCenter__ProfitCenterID",
+            };
+
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+
+            contentInputter.TryReadInputList();
+
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Operation", "WorkOrder__PRCTR", null);
+
+            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
+            Assert.AreEqual("Operation", solveItem.ObjectClass);
+            Assert.AreEqual("WorkOrder__PRCTR", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("ProfitCenter__ProfitCenterID", solveItem.NewFieldOrClass);
+        }
+
+        [TestCase]
         public void AngleWarningsTool_GetSolveItem_ShouldSucceed()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
