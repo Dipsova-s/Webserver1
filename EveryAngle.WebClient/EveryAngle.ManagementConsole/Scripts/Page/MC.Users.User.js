@@ -89,7 +89,9 @@
             .done(function (data) {
                 ddlSystemProvider.show().removeAttr('disabled').empty();
                 jQuery.each(data.providers, function (k, v) {
-                    ddlSystemProvider.append('<option value="' + v.Users + '"' + ((v.Uri + '/').indexOf(data.default_provider + '/') !== -1 ? ' selected' : '') + '>(' + v.Id + ') ' + v.Description + '</option>');
+                    if (v.Type != "SAML") { //removed as part to M4-98217
+                        ddlSystemProvider.append('<option value="' + v.Users + '"' + ((v.Uri + '/').indexOf(data.default_provider + '/') !== -1 ? ' selected' : '') + '>(' + v.Id + ') ' + v.Description + '</option>');
+                    }
                 });
                 ddlSystemProvider.kendoDropDownList();;
             })
