@@ -677,12 +677,6 @@ function EnumHandlers() {
             { Id: '', Value: self.OPERATOR.BEFOREORON.Value, Text: self.OPERATOR.BEFOREORON.Text },
             { Id: '', Value: self.OPERATOR.AFTERORON.Value, Text: self.OPERATOR.AFTERORON.Text }
         ],
-        DATETWO: [
-            { Id: '', Value: self.OPERATOR.RELATIVEBEFORE.Value, Text: self.OPERATOR.RELATIVEBEFORE.Text },
-            { Id: '', Value: self.OPERATOR.RELATIVEAFTER.Value, Text: self.OPERATOR.RELATIVEAFTER.Text },
-            { Id: '', Value: self.OPERATOR.RELATIVEBETWEEN.Value, Text: self.OPERATOR.RELATIVEBETWEEN.Text },
-            { Id: '', Value: self.OPERATOR.NOTRELATIVEBETWEEN.Value, Text: self.OPERATOR.NOTRELATIVEBETWEEN.Text }
-        ],
         TIMEONE: [
             { Id: '', Value: self.OPERATOR.BEFORE.Value, Text: self.OPERATOR.BEFORE.Text },
             { Id: '', Value: self.OPERATOR.AFTER.Value, Text: self.OPERATOR.AFTER.Text },
