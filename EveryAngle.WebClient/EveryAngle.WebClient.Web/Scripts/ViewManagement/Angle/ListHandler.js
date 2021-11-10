@@ -96,7 +96,7 @@ function ListHandler(elementId, container) {
     self.GetGridObject = function () {
         return jQuery(self.ElementId).data(enumHandlers.KENDOUITYPE.GRID);
     };
-    self.GetListDisplay = function (scrollPosition, selectingRowId) {
+    self.GetListDisplay = function (scrollPosition, selectingRowId, isRemoveColumn) {
         self.OnRenderStart();
         self.CheckUpgradeDisplay()
             .done(function () {
@@ -110,13 +110,13 @@ function ListHandler(elementId, container) {
                 var scrollSettings = self.GetGridScrollSettings(scrollPosition);
 
                 // create container
-                self.PrepareGridContainer();
+                self.PrepareGridContainer(isRemoveColumn);
 
                 // save scroll settings
                 self.SetGridScrollSettingsData(scrollSettings);
 
                 // create grid
-                var grid = self.CreateGrid(scrollSettings);
+                var grid = self.CreateGrid(scrollSettings, isRemoveColumn);
 
                 // apply grid
                 self.ApplyGridDataSource(grid, scrollSettings.top, scrollSettings.row_height);
@@ -217,9 +217,10 @@ function ListHandler(elementId, container) {
             rowHeight = 26;
         return rowHeight;
     };
-    self.PrepareGridContainer = function () {
+    self.PrepareGridContainer = function (isRemoveColumn) {
         var container = self.GetContainer();
-        container
+        !isRemoveColumn &&
+            container
             .empty()
             .append('<div id="' + self.ElementId.substr(1) + '" class="grid widgetDisplay" />');
         if (self.ReadOnly()) {
@@ -227,8 +228,18 @@ function ListHandler(elementId, container) {
         }
         return container;
     };
-    self.CreateGrid = function () {
+    self.CreateGrid = function (scrollSettings, isRemoveColumn) {
         self.ColumnDefinitions = self.GetColumnDefinitions();
+        // M4-94496 - Just refresh when data is already present instead of getting it from server
+        if (isRemoveColumn) {
+            var grid = jQuery(self.ElementId)
+                .addClass(self.DashBoardMode() ? 'grid-custom-scroller' : '')
+                .data(enumHandlers.KENDOUITYPE.GRID);
+            grid.setOptions({ columns: self.GetTemplate(self.ColumnDefinitions) });
+            grid.refresh();
+            return grid;
+        }
+
         return jQuery(self.ElementId).addClass(self.DashBoardMode() ? 'grid-custom-scroller' : '')
             .kendoGrid(self.GetGridOptions(self.ColumnDefinitions))
             .data(enumHandlers.KENDOUITYPE.GRID);
@@ -344,7 +355,7 @@ function ListHandler(elementId, container) {
                         requestObject = GetDataFromWebService(requestUrl, query)
                             .done(function (result) {
                                 if (!jQuery.isEmptyObject(result)) {
-                                    var dataRows = self.GetDataRows(result.fields, result.rows);
+                                     var dataRows = self.GetDataRows(result.fields, result.rows);
 
                                     dataSourceTmp[page] = { total: result.header.total, data: dataRows };
                                     options.success(dataSourceTmp[page]);
@@ -1602,11 +1613,11 @@ function ListHandler(elementId, container) {
             }
             self.Models.Display.Data().fields.removeObject('field', fieldId, false);
             self.Models.Display.Data.commit();
-            
-            self.OnChanged(self.Models.Display.Data(), false,true);
+
+            self.OnChanged(self.Models.Display.Data(), false, true);
 
             var scrollSettings = self.GetGridScrollSettingsData();
-            self.GetListDisplay({ left: scrollSettings.left, top: scrollSettings.top }, self.SelectingRowId);
+            self.GetListDisplay({ left: scrollSettings.left, top: scrollSettings.top }, self.SelectingRowId, true);
         }
         else {
             popup.Alert(Localization.Warning_Title, Localization.Info_RequiredAtleastOneColumn);
