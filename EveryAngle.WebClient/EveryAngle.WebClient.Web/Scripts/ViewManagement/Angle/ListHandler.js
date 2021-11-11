@@ -232,18 +232,24 @@ function ListHandler(elementId, container) {
         self.ColumnDefinitions = self.GetColumnDefinitions();
         // M4-94496 - Just refresh when data is already present instead of getting it from server
         if (isRemoveColumn) {
-            var grid = jQuery(self.ElementId)
-                .addClass(self.DashBoardMode() ? 'grid-custom-scroller' : '')
-                .data(enumHandlers.KENDOUITYPE.GRID);
-            grid.setOptions({ columns: self.GetTemplate(self.ColumnDefinitions) });
-            grid.refresh();
-            return grid;
+           return self.refreshGridDataLocally();
         }
 
         return jQuery(self.ElementId).addClass(self.DashBoardMode() ? 'grid-custom-scroller' : '')
             .kendoGrid(self.GetGridOptions(self.ColumnDefinitions))
             .data(enumHandlers.KENDOUITYPE.GRID);
     };
+    self.refreshGridDataLocally = function () {
+        var grid = jQuery(self.ElementId)
+            .addClass(self.DashBoardMode() ? 'grid-custom-scroller' : '')
+            .data(enumHandlers.KENDOUITYPE.GRID);
+        grid.setOptions({ columns: self.GetTemplate(self.ColumnDefinitions) });
+        grid.refresh();
+        measurePerformance.SetEndTime();
+        self.OnRenderEnd();
+        return grid;
+    };
+
     self.GetQueryFieldUrl = function () {
         return self.Models.Result.Data().query_fields ? self.Models.Result.Data().query_fields : fieldsChooserModel.GetQueryFilterUri(1).url;
     };
