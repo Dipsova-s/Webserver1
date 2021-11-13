@@ -1279,7 +1279,7 @@
                     confirmMessage += createConfirmMessage(selectAction, dataItem, treeList);
 
                     if (dataItem.DataSecondLevel.HasDisplaysUsedInAutomationTasks) {
-                        automationTasksWarning = true; //dennis
+                        automationTasksWarning = true;
                     }
                 }
             });
@@ -1408,7 +1408,7 @@
                                 var actionArgument = self.CreateTaskActionArgument(action.Solution);
                                 var actionArgumentParameter = self.CreateActionParameter(action.Solution, action.DataItem, replaceValue);
                                 actionArgument = self.ClearUnusedActionArgumentParameter(actionArgument, actionArgumentParameter);
-
+                               
                                 action.TaskAction.arguments.push(actionArgument);
                                 task.actions.push(action.TaskAction);
                             })

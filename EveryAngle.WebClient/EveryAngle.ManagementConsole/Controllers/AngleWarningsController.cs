@@ -161,7 +161,11 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     dataSecondLevel.FieldType = field.fieldtype;
                 }
+
+                var thirdLevelData = GetAllThirdLevelData(dataSecondLevel.Uri);
+                dataSecondLevel.HasDisplaysUsedInAutomationTasks= thirdLevelData.Any(x => x.IsUsedInAutomationTask);
             }
+
             MapWarningSecondLevel(formData, data, angleWarningViewModelList, objectNameList, jumpNameList, fieldNameList, sourceList, warningType);
 
             result = new AngleWarningsDataSourceResult
@@ -171,6 +175,13 @@ namespace EveryAngle.ManagementConsole.Controllers
                 SolutionId = int.Parse(formData["id"])
             };
             return result;
+        }
+
+        public List<AngleWarningThirdLevelViewmodel> GetAllThirdLevelData(string uri)
+        {
+            string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + uri + "&" + UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
+            var angleWarningsResult = this._modelService.GetAngleWarningThirdLevel(requestUri);
+            return JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
         }
 
         private AngleWarningsDataSourceResult GetAngleWarningsThirdLevel(FormCollection formData, ModelViewModel model, string limitOffsetQueryString)

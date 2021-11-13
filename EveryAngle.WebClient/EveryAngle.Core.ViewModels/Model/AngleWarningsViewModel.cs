@@ -91,8 +91,6 @@ namespace EveryAngle.Core.ViewModels.Model
 
         [JsonProperty(PropertyName = "uri")]
         public string Uri { get; set; }
-
-        public bool HasDisplaysUsedInAutomationTasks { get; set; }
     }
 
     public class AngleWarningSecondLevelViewmodel
