@@ -91,6 +91,8 @@ namespace EveryAngle.Core.ViewModels.Model
 
         [JsonProperty(PropertyName = "uri")]
         public string Uri { get; set; }
+
+        public bool HasDisplaysUsedInAutomationTasks { get; set; }
     }
 
     public class AngleWarningSecondLevelViewmodel
@@ -111,6 +113,9 @@ namespace EveryAngle.Core.ViewModels.Model
         public string Field { get; set; }
 
         public string FieldType { get; set; }
+
+        [JsonProperty(PropertyName = "hasDisplaysUsedInAutomationTasks")]
+        public bool HasDisplaysUsedInAutomationTasks { get; set; }
     }
 
     public class AngleWarningThirdLevelViewmodel
@@ -126,6 +131,9 @@ namespace EveryAngle.Core.ViewModels.Model
 
         [JsonProperty(PropertyName = "display_uri")]
         public string DisplayUri { get; set; }
+
+        [JsonProperty(PropertyName = "isUsedInAutomationTask")]
+        public bool IsUsedInAutomationTask { get; set; }
 
         public string Type { get; set; }
     }

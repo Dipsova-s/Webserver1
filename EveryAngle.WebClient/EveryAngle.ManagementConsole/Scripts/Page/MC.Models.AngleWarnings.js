@@ -1265,6 +1265,7 @@
         // private method for prepare confirm message
         var prepareConfirmMessage = function (checkBoxs, treeList) {
             var confirmMessage = '';
+            var automationTasksWarning = false;
 
             $.each(checkBoxs, function (index, checkBox) {
                 // Get row (tr) from kendow grid, for get data item in grid data source (binding data response from AS)
@@ -1276,8 +1277,16 @@
                     // create confirm message
                     var selectAction = $('#action_' + checkBox.name.replace('solve_', ''));
                     confirmMessage += createConfirmMessage(selectAction, dataItem, treeList);
+
+                    if (dataItem.DataSecondLevel.HasDisplaysUsedInAutomationTasks) {
+                        automationTasksWarning = true; //dennis
+                    }
                 }
             });
+
+            if (automationTasksWarning) {
+                confirmMessage = 'WARNING! Some of the angles that will be solved are part of automation tasks. </p><p>' + confirmMessage;
+            }
 
             return confirmMessage;
         };
