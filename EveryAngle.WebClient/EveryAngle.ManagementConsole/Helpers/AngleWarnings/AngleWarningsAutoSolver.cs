@@ -159,6 +159,11 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                 return false;
             }
 
+            if (solveItem.Fix == WarningFix.RemoveColumn)
+            {
+                return true;
+            }
+
             bool result = true;
 
             if (solveItem.Fix == WarningFix.ReplaceField && !_modelService.FieldExists(_model.FieldsUri.ToString() + $"?classes={solveItem.ObjectClass}&offset=0&limit=9999", solveItem.NewFieldOrClass, ref _cachedFields))

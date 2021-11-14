@@ -133,6 +133,7 @@
     <Compile Include="AngleWarningsInput\AngleWarningsTaskCreatorTests.cs" />
     <Compile Include="AngleWarningsInput\AngleWarningsTestsHelper.cs" />
     <Compile Include="AngleWarningsInput\AngleWarningTaskActionTests.cs" />
+    <Compile Include="AngleWarningsInput\ArrayHelperTests.cs" />
     <Compile Include="AngleWarningsInput\ClassReferencesManagerTests.cs" />
     <Compile Include="App_Start\NinjectWebCommonTest.cs" />
     <Compile Include="Controllers\ActiveLanguageControllerTests.cs" />

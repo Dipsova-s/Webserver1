@@ -51,7 +51,35 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 
             modelService.SetReturnsDefault(true);
-            Assert.AreEqual(21, autoSolver.GetNumberOfSolvableFieldsViaInputFile(viewmodel));
+            Assert.AreEqual(28, autoSolver.GetNumberOfSolvableFieldsViaInputFile(viewmodel));
+            modelService.SetReturnsDefault(false);
+        }
+
+        [TestCase]
+        public void GetNumberOfSolvableFieldsViaInputFile_RemoveColumn_ShouldSucceed()
+        {
+            ItemSolver itemSolver = new ItemSolver
+            {
+                Fix = WarningFix.RemoveColumn
+            };
+
+            Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
+            contentInputter.Setup(x => x.TryReadInputList()).Returns(true);
+            contentInputter.Setup(x => x.GetSolveItem(It.IsAny<string>(), "WorkOrder", "SomeFieldToBeDeleted", null)).Returns(itemSolver);
+
+            modelService.Setup(x => x.GetAngleWarningFirstLevel(It.IsAny<string>())).Returns(AngleWarningsTestsHelper.GetFirstLevelWarningsJObject(2));
+            modelService.Setup(x => x.GetAngleWarningSecondLevel(It.IsAny<string>())).Returns(AngleWarningsTestsHelper.GetSecondLevelWarningsJObject(2));
+
+            AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
+            autoSolver.Initialize(sessionHelper.Object);
+
+            AngleWarningsController testingController;
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
+
+            AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
+
+            modelService.SetReturnsDefault(true);
+            Assert.AreEqual(7, autoSolver.GetNumberOfSolvableFieldsViaInputFile(viewmodel));
             modelService.SetReturnsDefault(false);
         }
 
@@ -137,6 +165,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             ItemSolver solveItem3 = new ItemSolver(WarningFix.ReplaceField, "R2020", "Batch", "FieldB", "FieldC");
             ItemSolver solveItem4 = new ItemSolver(WarningFix.ReplaceJump, "R2020", "InternalOrder", "InternalOrder", "WorkOrder");
             ItemSolver solveItem5 = new ItemSolver(WarningFix.ReplaceField, "R2020", "BillingDocumentItem", "Test_ref_Payer", "Payer__Description");
+            ItemSolver solveItem6 = new ItemSolver(WarningFix.RemoveColumn, "R2020", "WorkOrder", "SomeFieldToBeDeleted", "");
 
             contentInputter.Setup(x => x.GetSolveItem("unsupported_display_field", "Order", "FieldA", null)).Returns(solveItem1);
             contentInputter.Setup(x => x.GetSolveItem("unsupported_start_object", "InternalOrder", null, null)).Returns(solveItem2);
@@ -146,6 +175,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             contentInputter.Setup(x => x.GetSolveItem("unsupported_aggregration_field", "Batch", "FieldB", null)).Returns(solveItem3);
             contentInputter.Setup(x => x.GetSolveItem("unsupported_jump", "PurchaseOrderScheduleLine", null, "InternalOrder")).Returns(solveItem4);
             contentInputter.Setup(x => x.GetSolveItem("unsupported_display_field", "BillingDocumentItem", "Test_ref_Payer__Description", null)).Returns(solveItem5);
+            contentInputter.Setup(x => x.GetSolveItem("unsupported_display_field", "WorkOrder", "SomeFieldToBeDeleted", null)).Returns(solveItem6);
 
             modelService.Setup(x => x.GetAngleWarningFirstLevel(It.IsAny<string>())).Returns(AngleWarningsTestsHelper.GetFirstLevelWarningsJObject(2));
 

@@ -1,5 +1,6 @@
 ﻿using EveryAngle.Logging;
 using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
+using EveryAngle.ManagementConsole.Helpers.AngleWarnings.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,11 +54,21 @@ namespace EveryAngle.ManagementConsole.Helpers
                         continue;
                     }
 
-                    if (inputLine.Length < 6)
+                    if (inputLine.Length < 6 && warningFix != WarningFix.RemoveColumn)
                     {
                         throw new Exception("All row must have at least six columns.");
                     }
 
+                    if (inputLine.Length < 5 && warningFix == WarningFix.RemoveColumn)
+                    {
+                        throw new Exception("All row with 'Remove Column' must have at least five columns.");
+                    }
+
+                    if (warningFix == WarningFix.RemoveColumn)
+                    {
+                        ArrayHelper.AddElementToStringArray(ref inputLine, "");
+                    }
+                    
                     AddContentInputItem(warningFix, inputLine[2], inputLine[3], inputLine[4], inputLine[5]);
                 }
 
@@ -139,6 +150,13 @@ namespace EveryAngle.ManagementConsole.Helpers
                 return GetSolveItemFromJumpWarning(warning, objectClass, jump, itemSolver);
             }
 
+            if (InputContentMapper.Maps(WarningFix.RemoveColumn, warning))
+            {
+                CheckSolveItemRemoveColumn(objectClass, field, ref itemSolver);
+                if (itemSolver.Fix != WarningFix.NoFixAvailable)
+                    return itemSolver;
+            }
+
             if (InputContentMapper.Maps(WarningFix.ReplaceReference, warning))
             {
                 CheckSolveItemFromReferenceWarning(objectClass, field, ref itemSolver);
@@ -157,6 +175,21 @@ namespace EveryAngle.ManagementConsole.Helpers
             }
 
             return itemSolver;
+        }
+
+        private void CheckSolveItemRemoveColumn(string objectClass, string field, ref ItemSolver itemSolver)
+        {
+            AngleWarningsContentInput contentInput = ContentInputList.FirstOrDefault(x => x.Fix == WarningFix.RemoveColumn &&
+                                                                                     x.ObjectClass == objectClass &&
+                                                                                     x.FieldOrClassToReplace == field &&
+                                                                                     x.NewFieldOrClass == "");
+            if (contentInput != null)
+            {
+                itemSolver.Fix = WarningFix.RemoveColumn;
+                itemSolver.ObjectClass = objectClass;
+                itemSolver.FieldOrClassToReplace = field;
+                itemSolver.NewFieldOrClass = "";
+            }
         }
 
         private void CheckSolveItemFromReferenceWarning(string objectClass, string field, ref ItemSolver itemSolver)

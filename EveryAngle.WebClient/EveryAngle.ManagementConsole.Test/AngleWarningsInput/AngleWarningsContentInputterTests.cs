@@ -168,6 +168,30 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
+        public void AngleWarningsTool_DeleteField()
+        {
+            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+
+            List<string> csvData = new List<string>
+            {
+                "Remove column,Remove column,R2020SP5,WorkOrder,SomeFieldToBeDeleted",
+            };
+
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+
+            contentInputter.TryReadInputList();
+
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "WorkOrder", "SomeFieldToBeDeleted", null);
+
+            Assert.AreEqual(WarningFix.RemoveColumn, solveItem.Fix);
+            Assert.AreEqual("WorkOrder", solveItem.ObjectClass);
+            Assert.AreEqual("SomeFieldToBeDeleted", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("", solveItem.NewFieldOrClass);
+        }
+
+
+        [TestCase]
         public void AngleWarningsTool_GetSolveItem_ShouldSucceed()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
