@@ -19,10 +19,6 @@ BaseAdvanceFilterEditor.prototype.GetSupportArgumentTypes = function (operator) 
     if (WC.WidgetFilterHelper.IsListGroupOperator(operator))
         return [enumHandlers.FILTERARGUMENTTYPE.VALUE];
 
-/*    // relative operator, including argument = function because they can be transformed
-    if (self.IsRelativeOperator(operator))
-        return [enumHandlers.FILTERARGUMENTTYPE.VALUE, enumHandlers.FILTERARGUMENTTYPE.FUNCTION];*/
-
     if (WC.WidgetFilterHelper.IsEqualGroupOperator(operator)
     || WC.WidgetFilterHelper.IsBetweenGroupOperator(operator))
         return [enumHandlers.FILTERARGUMENTTYPE.VALUE, enumHandlers.FILTERARGUMENTTYPE.FIELD, enumHandlers.FILTERARGUMENTTYPE.FUNCTION];
@@ -539,17 +535,20 @@ BaseAdvanceFilterEditor.prototype.InitialSingleArgumentUI = function (container)
 // double argument
 BaseAdvanceFilterEditor.prototype.GetDoubleArgumentTemplate = function () {
     var self = this;
-    return [
-            self.GetArgumentRelativeTemplate('form-row-argument-from'),
-            self.GetArgumentRelativeTemplate('form-row-argument-to'),
-            self.GetArgumentPreviewTemplate()
+        return [
+            self.GetArgumentDefaultTemplate('form-row-argument-from'),
+            self.GetArgumentDefaultTemplate('form-row-argument-to'),
+            self.GetArgumentPreviewTemplate(),
+            self.GetArgumentIncludeEndDateTemplate()
         ].join('');
+  
 };
 BaseAdvanceFilterEditor.prototype.InitialDoubleArgumentUI = function (container) {
     var self = this;
     self.SetElementCssClass('filter-editor-double');
-    self.InitialRelativeArgumentUI(container.find('.form-row-argument-from'), 0);
-    self.InitialRelativeArgumentUI(container.find('.form-row-argument-to'), 1);
+    self.InitialArgumentUI(container.find('.form-row-argument-from'), 0);
+    self.InitialArgumentUI(container.find('.form-row-argument-to'), 1);
+ 
 };
 BaseAdvanceFilterEditor.prototype.AdjustDoubleArguments = function (args, argumentIndex) {
     var self = this;
