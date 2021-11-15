@@ -7,6 +7,7 @@
         self.ExecuteAutoAngleWarningsUrl = '';
         self.CheckExecuteAngleWarningsUrl = '';
         self.DeleteAngleWarningTaskUrl = '';
+        self.AreSomeAutoSolveAnglesPartOfAutomationTasksUrl = '';
         self.GetAllThirdLevelUrl = '';
         self.GetAllJumpsUrl = '';
         self.GetAngleWarningTaskHistoryUrl = '';
@@ -89,6 +90,7 @@
             self.ExecuteAutoAngleWarningsUrl = '';
             self.CheckExecuteAngleWarningsUrl = '';
             self.DeleteAngleWarningTaskUrl = '';
+            self.AreSomeAutoSolveAnglesPartOfAutomationTasksUrl = '';
             self.GetAllThirdLevelUrl = '';
             self.GetAllJumpsUrl = '';
             self.GetAngleWarningTaskHistoryUrl = '';
@@ -1491,15 +1493,23 @@
                 if (resolveWarningCount <= 0) {
                     clearInterval(fnCheckGetTaskInfo);
 
-                    // find last expanded item in grid
-                    //var lastItem = taskActions.findObject('Index', task.actions.length - 1);
-                    MC.util.showPopupConfirmation("Execute automatic warnings solving using the input file?", function () {
-                        executeAutoProcesses(task);
-                    }, null, 300, 150);
+                    var WarningText = 'WARNING! Some of the angles that will be solved are part of automation tasks. </p><p>';
+                    var ConfirmText = 'Execute automatic warnings solving using the input file?';
+
+                    MC.ajax.request({
+                        url: self.AreSomeAutoSolveAnglesPartOfAutomationTasksUrl,
+                        type: 'GET'
+                    }).then(function (data) {
+                        if (data == 1) {
+                            ConfirmText = WarningText + ConfirmText;
+                        } else { }
+                    }).then(function () {
+                        MC.util.showPopupConfirmation(ConfirmText, function () {
+                            executeAutoProcesses(task);
+                        }, null, 300, 200)
+                    });
                 }
             }, 100);
-
-
 
             return task;
         };

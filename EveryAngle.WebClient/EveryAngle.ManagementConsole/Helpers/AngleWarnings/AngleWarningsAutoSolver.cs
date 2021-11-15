@@ -27,6 +27,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
         private readonly IAngleWarningsContentInputter _contentInputter;
 
+        public static bool SomeAnglesPartOfAutomationTasks = false;
+
         public AngleWarningsAutoSolver(IModelService modelService, IAngleWarningsContentInputter angleWarningsContentInputter)
         {
             _modelService = modelService ?? throw new System.ArgumentNullException(nameof(modelService));
@@ -56,6 +58,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         public int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource)
         {
             int result = 0;
+
+            SomeAnglesPartOfAutomationTasks = false;
 
             if (_contentInputter.TryReadInputList())
             {
@@ -90,6 +94,15 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                 if (EntityExistsInModel(solveItem))
                 {
                     result += secondLevel.Count;
+
+                    // check automation tasks
+                    if (!SomeAnglesPartOfAutomationTasks)
+                    {
+                        var thirdLevelData = GetAllThirdLevelData(secondLevel.Uri);
+                        SomeAnglesPartOfAutomationTasks = thirdLevelData.Any(x => x.IsUsedInAutomationTask);
+                        if (SomeAnglesPartOfAutomationTasks)
+                            Log.Send("dennis:" + secondLevel.Uri);
+                    }
                 }
             }
 
@@ -220,6 +233,12 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             var angleWarningsResult3 = this._modelService.GetAngleWarningThirdLevel(requestUri);
                         
             return JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult3.SelectToken("data").ToString());
+        }
+        private List<AngleWarningThirdLevelViewmodel> GetAllThirdLevelData(string uri)
+        {
+            string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + uri + "&" + UtilitiesHelper.GetOffsetLimitQueryString(1, 1000);
+            var angleWarningsResult = this._modelService.GetAngleWarningThirdLevel(requestUri);
+            return JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
         }
 
     }

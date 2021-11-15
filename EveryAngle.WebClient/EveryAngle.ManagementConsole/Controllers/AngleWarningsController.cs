@@ -163,7 +163,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 }
 
                 var thirdLevelData = GetAllThirdLevelData(dataSecondLevel.Uri);
-                dataSecondLevel.HasDisplaysUsedInAutomationTasks= thirdLevelData.Any(x => x.IsUsedInAutomationTask);
+                dataSecondLevel.HasDisplaysUsedInAutomationTasks = thirdLevelData.Any(x => x.IsUsedInAutomationTask);
             }
 
             MapWarningSecondLevel(formData, data, angleWarningViewModelList, objectNameList, jumpNameList, fieldNameList, sourceList, warningType);
@@ -248,6 +248,12 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             var angleWarningTask = _modelService.GetTask(uri);
             return Json(angleWarningTask, JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public int AreSomeAutoSolveAnglesPartOfAutomationTasks()
+        {
+            return AngleWarningsAutoSolver.SomeAnglesPartOfAutomationTasks ? 1 : 0;
         }
 
         public ActionResult GetAngleWarningTaskHistory(string detailUri)
