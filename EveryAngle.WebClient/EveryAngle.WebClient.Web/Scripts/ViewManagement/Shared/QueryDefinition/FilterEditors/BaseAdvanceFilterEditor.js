@@ -10,26 +10,6 @@ BaseAdvanceFilterEditor.prototype.TransferArguments = function (prevOperator) {
     var supportArgumentTypes = self.GetSupportArgumentTypes(operator);
     var args = ko.toJS(self.Data.arguments());
 
-   /* // convert relative value to function
-    var isRelativeSource = self.IsRelativeOperator(prevOperator);
-    if (isRelativeSource) {
-        args = jQuery.map(args, function (argument) {
-            return self.ConvertRelativeToFunctionArgument(argument);
-        });
-    }
-
-    // transfering
-    var isRelativeTarget = self.IsRelativeOperator(operator);
-    args = jQuery.map(args, function (argument) {
-        if (jQuery.inArray(argument.argument_type, supportArgumentTypes) !== -1) {
-            if (isRelativeTarget) {
-                // convert to relative argument
-                argument = argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.FUNCTION ? self.ConvertFunctionToRelativeArgument(argument) : null;
-            }
-            return argument;
-        }
-    });*/
-
     // update to model
     args.splice(maxArguments, args.length);
     self.Data.arguments(args);
