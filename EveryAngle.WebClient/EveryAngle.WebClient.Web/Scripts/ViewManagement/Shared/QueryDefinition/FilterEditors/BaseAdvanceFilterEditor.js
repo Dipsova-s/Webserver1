@@ -9,8 +9,8 @@ BaseAdvanceFilterEditor.prototype.TransferArguments = function (prevOperator) {
     var operator = self.Data.operator();
     var supportArgumentTypes = self.GetSupportArgumentTypes(operator);
     var args = ko.toJS(self.Data.arguments());
-    
-    // convert relative value to function
+
+   /* // convert relative value to function
     var isRelativeSource = self.IsRelativeOperator(prevOperator);
     if (isRelativeSource) {
         args = jQuery.map(args, function (argument) {
@@ -28,7 +28,7 @@ BaseAdvanceFilterEditor.prototype.TransferArguments = function (prevOperator) {
             }
             return argument;
         }
-    });
+    });*/
 
     // update to model
     args.splice(maxArguments, args.length);
@@ -39,9 +39,9 @@ BaseAdvanceFilterEditor.prototype.GetSupportArgumentTypes = function (operator) 
     if (WC.WidgetFilterHelper.IsListGroupOperator(operator))
         return [enumHandlers.FILTERARGUMENTTYPE.VALUE];
 
-    // relative operator, including argument = function because they can be transformed
+/*    // relative operator, including argument = function because they can be transformed
     if (self.IsRelativeOperator(operator))
-        return [enumHandlers.FILTERARGUMENTTYPE.VALUE, enumHandlers.FILTERARGUMENTTYPE.FUNCTION];
+        return [enumHandlers.FILTERARGUMENTTYPE.VALUE, enumHandlers.FILTERARGUMENTTYPE.FUNCTION];*/
 
     if (WC.WidgetFilterHelper.IsEqualGroupOperator(operator)
     || WC.WidgetFilterHelper.IsBetweenGroupOperator(operator))
@@ -54,7 +54,7 @@ BaseAdvanceFilterEditor.prototype.UpdateDropdownOperator = function (hasTypeFunc
     var self = this;
     var operators = self.GetOperators();
     var operator = self.Data.operator();
-    if (hasTypeFunction || self.IsRelativeOperator(operator)) {
+    if (hasTypeFunction) {
         operators.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.BEFOREORON.Value);
         operators.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.AFTERORON.Value);
         if (operator === enumHandlers.OPERATOR.BEFOREORON.Value)
@@ -67,7 +67,6 @@ BaseAdvanceFilterEditor.prototype.UpdateDropdownOperator = function (hasTypeFunc
         var itemNotEqualTo = operators.findObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.NOTEQUALTO.Value);
         itemNotEqualTo.Text = enumHandlers.OPERATOR.ISNOTIN.Text;
     }
-    self.UpdateDropdownOperatorForRTMS(operators);
 
     // update to model
     self.Data.operator(operator);
@@ -77,17 +76,6 @@ BaseAdvanceFilterEditor.prototype.UpdateDropdownOperator = function (hasTypeFunc
     ddlOperator.setDataSource(operators);
     ddlOperator.value(operator);
     ddlOperator.refresh();
-};
-BaseAdvanceFilterEditor.prototype.UpdateDropdownOperatorForRTMS = function (ddlData) {
-    var self = this;
-    var model = modelsHandler.GetModelByUri(self.Handler.ModelUri);
-    var isRealTimeModel = aboutSystemHandler.IsRealTimeModel(model.id);
-    if (isRealTimeModel) {
-        ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.RELATIVEBEFORE.Value);
-        ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.RELATIVEAFTER.Value);
-        ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.RELATIVEBETWEEN.Value);
-        ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value);
-    }
 };
 BaseAdvanceFilterEditor.prototype.GetArgumentDefaultTemplate = function (rowClassName) {
     return [
@@ -275,18 +263,6 @@ BaseAdvanceFilterEditor.prototype.UpdateArgumentPreview = function () {
 BaseAdvanceFilterEditor.prototype.GetArgumentPreview = function (filedType) {
     var self = this;
     var data = self.Data.data();
-    if (self.IsRelativeOperator(data.operator)) {
-        // convert to function argument before getting a preview
-        var argumentMappers = {};
-        argumentMappers[enumHandlers.OPERATOR.RELATIVEBEFORE.Value] = enumHandlers.OPERATOR.BEFORE.Value;
-        argumentMappers[enumHandlers.OPERATOR.RELATIVEAFTER.Value] = enumHandlers.OPERATOR.AFTER.Value;
-        argumentMappers[enumHandlers.OPERATOR.RELATIVEBETWEEN.Value] = enumHandlers.OPERATOR.RELATIVEBETWEEN.Value;
-        argumentMappers[enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value] = enumHandlers.OPERATOR.NOTBETWEEN.Value;
-        data.operator = argumentMappers[data.operator];
-        jQuery.each(data.arguments, function (index, arg) {
-            data.arguments[index] = self.ConvertRelativeToFunctionArgument(arg);
-        });
-    }
     self.Handler.AdjustFilterArguments(data);
     var previewSettings = WC.WidgetFilterHelper.GetTranslatedSettings(data.arguments, data.operator, filedType, self.Handler.ModelUri);
     previewSettings.arguments.splice(0, 0, previewSettings.template);
@@ -468,10 +444,6 @@ BaseAdvanceFilterEditor.prototype.UpdateArgumentFieldUI = function (container, a
     container.find('.input-argument-field-value').text(text);
 };
 
-// relative operator
-BaseAdvanceFilterEditor.prototype.IsRelativeOperator = function (operator) {
-    return jQuery.inArray(operator, WC.WidgetFilterHelper.RelativeArguments) !== -1;
-};
 BaseAdvanceFilterEditor.prototype.GetArgumentRelativeTemplate = function (rowClassName) {
     return [
         '<div class="form-row form-row-argument ' + WC.Utility.ToString(rowClassName) + '">',
@@ -562,10 +534,6 @@ BaseAdvanceFilterEditor.prototype.UpdateRelativeArgumentUI = function (container
     // update blocker size/position
     self.Handler.TriggerUpdateBlockUI();
 };
-BaseAdvanceFilterEditor.prototype.ConvertRelativeToFunctionArgument = function (argument) {
-    var self = this;
-    return self.GetObjectArgumentFunction(enumHandlers.FILTERPERIODTYPES[0].Value, argument.value);
-};
 BaseAdvanceFilterEditor.prototype.ConvertFunctionToRelativeArgument = function (argument) {
     var self = this;
     var value = WC.WidgetFilterHelper.GetAdvanceArgumentValue(argument);
@@ -577,60 +545,31 @@ BaseAdvanceFilterEditor.prototype.ConvertFunctionToRelativeArgument = function (
 // single argument
 BaseAdvanceFilterEditor.prototype.GetSingleArgumentTemplate = function () {
     var self = this;
-    if (!self.IsRelativeOperator(self.Data.operator())) {
-        return [
-            self.GetArgumentDefaultTemplate(),
-            self.GetArgumentPreviewTemplate()
-        ].join('');
-    }
-    else {
-        return [
-            self.GetArgumentRelativeTemplate(),
-            self.GetArgumentPreviewTemplate()
-        ].join('');
-    }
+    return [
+        self.GetArgumentDefaultTemplate(),
+        self.GetArgumentPreviewTemplate()
+    ].join('');
 };
 BaseAdvanceFilterEditor.prototype.InitialSingleArgumentUI = function (container) {
     var self = this;
     self.SetElementCssClass('filter-editor-single');
-    if (!self.IsRelativeOperator(self.Data.operator())) {
-        self.InitialArgumentUI(container.find('.form-row-argument'), 0);
-    }
-    else {
-        self.InitialRelativeArgumentUI(container.find('.form-row-argument'), 0);
-    }
+    self.InitialArgumentUI(container.find('.form-row-argument'), 0);
 };
 
 // double argument
 BaseAdvanceFilterEditor.prototype.GetDoubleArgumentTemplate = function () {
     var self = this;
-    if (!self.IsRelativeOperator(self.Data.operator())) {
-        return [
-            self.GetArgumentDefaultTemplate('form-row-argument-from'),
-            self.GetArgumentDefaultTemplate('form-row-argument-to'),
-            self.GetArgumentPreviewTemplate(),
-            self.GetArgumentIncludeEndDateTemplate()
-        ].join('');
-    }
-    else {
-        return [
+    return [
             self.GetArgumentRelativeTemplate('form-row-argument-from'),
             self.GetArgumentRelativeTemplate('form-row-argument-to'),
             self.GetArgumentPreviewTemplate()
         ].join('');
-    }
 };
 BaseAdvanceFilterEditor.prototype.InitialDoubleArgumentUI = function (container) {
     var self = this;
     self.SetElementCssClass('filter-editor-double');
-    if (!self.IsRelativeOperator(self.Data.operator())) {
-        self.InitialArgumentUI(container.find('.form-row-argument-from'), 0);
-        self.InitialArgumentUI(container.find('.form-row-argument-to'), 1);
-    }
-    else {
-        self.InitialRelativeArgumentUI(container.find('.form-row-argument-from'), 0);
-        self.InitialRelativeArgumentUI(container.find('.form-row-argument-to'), 1);
-    }
+    self.InitialRelativeArgumentUI(container.find('.form-row-argument-from'), 0);
+    self.InitialRelativeArgumentUI(container.find('.form-row-argument-to'), 1);
 };
 BaseAdvanceFilterEditor.prototype.AdjustDoubleArguments = function (args, argumentIndex) {
     var self = this;

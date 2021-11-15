@@ -634,10 +634,6 @@ function EnumHandlers() {
         AFTER: { Text: Localization.OperatorIsAfter, Value: 'greater_than' },
         BEFOREORON: { Text: Localization.OperatorIsBeforeOrOn, Value: 'less_than_or_equal' },
         AFTERORON: { Text: Localization.OperatorIsAfterOrOn, Value: 'greater_than_or_equal' },
-        RELATIVEBEFORE: { Text: Localization.OperatorIsRelativeBefore, Value: 'relative_before' },
-        RELATIVEAFTER: { Text: Localization.OperatorIsRelativeAfter, Value: 'relative_after' },
-        RELATIVEBETWEEN: { Text: Localization.OperatorIsRelativeBetween, Value: 'relative_between' },
-        NOTRELATIVEBETWEEN: { Text: Localization.OperatorIsNotRelativeBetween, Value: 'not_relative_between' },
         BEFOREOREQUAL: { Text: Localization.OperatorIsBeforeOrOn, Value: 'less_than_or_equal' },
         AFTEROREQUAL: { Text: Localization.OperatorIsAfterOrOn, Value: 'greater_than_or_equal' }
     };
@@ -937,8 +933,6 @@ function EnumHandlers() {
         self.OPERATOR.GREATERTHAN.Value,
         self.OPERATOR.SMALLERTHANOREQUALTO.Value,
         self.OPERATOR.GREATERTHANOREQUALTO.Value,
-        self.OPERATOR.RELATIVEAFTER.Value,
-        self.OPERATOR.RELATIVEBEFORE.Value
     ];
     self.ListGroupOperator = [
         self.OPERATOR.INLIST.Value,
@@ -954,9 +948,7 @@ function EnumHandlers() {
     ];
     self.BetweenGroupOperator = [
         self.OPERATOR.BETWEEN.Value,
-        self.OPERATOR.NOTBETWEEN.Value,
-        self.OPERATOR.RELATIVEBETWEEN.Value,
-        self.OPERATOR.NOTRELATIVEBETWEEN.Value
+        self.OPERATOR.NOTBETWEEN.Value
     ];
 
     self.DAYOFWEEK = {
