@@ -1287,7 +1287,7 @@
             });
 
             if (automationTasksWarning) {
-                confirmMessage = 'WARNING! Some of the angles that will be solved are part of automation tasks. </p><p>' + confirmMessage;
+                confirmMessage = '<h3>WARNING! Some of the angles that will be solved are part of automation tasks.</h3><p>' + confirmMessage;
             }
 
             return confirmMessage;
@@ -1493,7 +1493,7 @@
                 if (resolveWarningCount <= 0) {
                     clearInterval(fnCheckGetTaskInfo);
 
-                    var WarningText = 'WARNING! Some of the angles that will be solved are part of automation tasks. </p><p>';
+                    var WarningText = '<h3>WARNING! Some of the angles that will be solved are part of automation tasks.</h3> </p>';
                     var ConfirmText = 'Execute automatic warnings solving using the input file?';
 
                     MC.ajax.request({
