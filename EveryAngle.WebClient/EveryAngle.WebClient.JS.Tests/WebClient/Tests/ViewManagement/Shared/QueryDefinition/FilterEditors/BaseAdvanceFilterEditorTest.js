@@ -60,6 +60,12 @@ describe("BaseAdvanceFilterEditor", function () {
                 arguments: ['value'],
                 expected:  ['value']
             },
+            {
+                operator_from: 'equal_to',
+                operator_to: 'has_value',
+                arguments: ['value'],
+                expected: []
+            },
             
             // double (between,..) -> xx
             {
