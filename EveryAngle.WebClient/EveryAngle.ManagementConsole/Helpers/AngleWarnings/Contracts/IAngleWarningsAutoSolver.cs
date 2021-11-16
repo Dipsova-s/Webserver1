@@ -1,5 +1,7 @@
-﻿using EveryAngle.WebClient.Service.Security;
+﻿using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.WebClient.Service.Security;
 using Kendo.Mvc.UI;
+using System.Collections.Generic;
 
 namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 {
@@ -8,5 +10,6 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         void Initialize(SessionHelper sessionHelper);
         string ExecuteAngleWarningsUsingInputFile(string modelId);
         int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource);
+        List<AngleWarningThirdLevelViewmodel> GetLevel3Warnings(AngleWarningSecondLevelViewmodel level2AngleWarning);
     }
 }

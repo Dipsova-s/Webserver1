@@ -28,6 +28,32 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
+        public void GetLevel3Warnings_ShouldSucceed()
+        {
+            Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
+
+            AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
+            autoSolver.Initialize(sessionHelper.Object);
+
+            AngleWarningSecondLevelViewmodel secondLevel;
+            secondLevel = new AngleWarningSecondLevelViewmodel
+            {
+                Count = 1,
+                Field = "FieldA",
+                Object = "ObjectA",
+                Uri = "uri"
+            };
+
+            JObject angleWarningsLevel3 = AngleWarningsTestsHelper.GetThirdLevelWarningsJObject(1);
+
+            modelService.Setup(x => x.GetAngleWarningThirdLevel(It.IsAny<string>())).Returns(angleWarningsLevel3);
+
+            List<AngleWarningThirdLevelViewmodel> listLevel3 = autoSolver.GetLevel3Warnings(secondLevel);
+
+            Assert.AreEqual("angleId1", listLevel3[0].AngleId);
+        }
+        
+        [TestCase]
         public void GetNumberOfSolvableFieldsViaInputFile__ShouldSucceed()
         {
             ItemSolver itemSolver = new ItemSolver

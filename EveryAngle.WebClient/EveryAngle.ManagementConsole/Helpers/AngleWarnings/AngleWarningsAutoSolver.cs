@@ -100,7 +100,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                     // check automation tasks
                     if (!SomeAnglesPartOfAutomationTasks)
                     {
-                        var thirdLevelData = GetAllThirdLevelData(secondLevel.Uri);
+                        var thirdLevelData = GetLevel3Warnings(secondLevel);
                         SomeAnglesPartOfAutomationTasks = thirdLevelData.Any(x => x.IsUsedInAutomationTask);
                     }
                 }
@@ -226,7 +226,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             return leve2AngleWarnings;
         }
 
-        private List<AngleWarningThirdLevelViewmodel> GetLevel3Warnings(AngleWarningSecondLevelViewmodel level2AngleWarning)
+        public List<AngleWarningThirdLevelViewmodel> GetLevel3Warnings(AngleWarningSecondLevelViewmodel level2AngleWarning)
         {
             string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _sessionHelper.SystemSettings.max_pagesize);
             string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + level2AngleWarning.Uri + "&" + limitOffsetQueryString;
@@ -234,12 +234,5 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                         
             return JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult3.SelectToken("data").ToString());
         }
-        private List<AngleWarningThirdLevelViewmodel> GetAllThirdLevelData(string uri)
-        {
-            string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + uri + "&" + UtilitiesHelper.GetOffsetLimitQueryString(1, 1000);
-            var angleWarningsResult = this._modelService.GetAngleWarningThirdLevel(requestUri);
-            return JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
-        }
-
     }
 }
