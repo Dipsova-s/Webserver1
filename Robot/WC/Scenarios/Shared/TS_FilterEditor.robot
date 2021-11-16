@@ -156,13 +156,11 @@ Verify Edit Filter Date Operator
     Verify Edit Filter Operator    2    is equal to            (Self) - Order Due Date is equal to Jan/30/2020  
     Verify Edit Filter Operator    2    is before              (Self) - Order Due Date is before Jan/30/2020
     Verify Edit Filter Operator    2    is between             (Self) - Order Due Date is between Jan/30/2020
-    Verify Edit Filter Operator    2    is relative before     (Self) - Order Due Date is relative before 0 days from actual date
 
 Verify Edit Filter DateTime Operator
     Verify Edit Filter Operator    3    is equal to            (Self) - TheDateTime is equal to  
     Verify Edit Filter Operator    3    is before              (Self) - TheDateTime is before
     Verify Edit Filter Operator    3    is between             (Self) - TheDateTime is between
-    Verify Edit Filter Operator    3    is relative before     (Self) - TheDateTime is relative before 0 days from actual date
 
 Verify Edit Filter Double Operator
     Verify Edit Filter Operator    4    is not empty           (Self) - Quantity is not empty   
