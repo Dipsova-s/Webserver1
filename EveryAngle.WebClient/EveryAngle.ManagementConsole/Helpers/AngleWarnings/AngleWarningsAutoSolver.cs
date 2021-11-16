@@ -7,6 +7,7 @@ using EveryAngle.WebClient.Service.Security;
 using Kendo.Mvc.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,7 +28,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
         private readonly IAngleWarningsContentInputter _contentInputter;
 
-        public static bool SomeAnglesPartOfAutomationTasks = false;
+        [ThreadStatic]
+        public static bool SomeAnglesPartOfAutomationTasks;
 
         public AngleWarningsAutoSolver(IModelService modelService, IAngleWarningsContentInputter angleWarningsContentInputter)
         {
