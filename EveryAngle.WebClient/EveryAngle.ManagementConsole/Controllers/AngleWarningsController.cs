@@ -142,6 +142,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             return result;
         }
 
+        [ExcludeFromCodeCoverage] //M4-98694
         private AngleWarningsDataSourceResult GetAngleWarningsSecondLevel(FormCollection formData, ModelViewModel model, string limitOffsetQueryString)
         {
             AngleWarningsDataSourceResult result;
