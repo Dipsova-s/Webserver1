@@ -207,6 +207,16 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual("EXIST", viewmodels.correlation_id);
         }
 
+        [Test]
+        public void Can_AreSomeAutoSolveAnglesPartOfAutomationTasks()
+        {
+            // execute
+            int result = _testingController.AreSomeAutoSolveAnglesPartOfAutomationTasks();
+
+            // assert
+            Assert.IsNotNull(result);
+        }
+
         [TestCase("/tasks/1")]
         public void Can_DeleteAngleWarningTask(string uri)
         {

@@ -102,8 +102,6 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                     {
                         var thirdLevelData = GetAllThirdLevelData(secondLevel.Uri);
                         SomeAnglesPartOfAutomationTasks = thirdLevelData.Any(x => x.IsUsedInAutomationTask);
-                        if (SomeAnglesPartOfAutomationTasks)
-                            Log.Send("dennis:" + secondLevel.Uri);
                     }
                 }
             }

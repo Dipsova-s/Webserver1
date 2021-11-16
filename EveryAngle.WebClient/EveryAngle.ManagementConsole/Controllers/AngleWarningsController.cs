@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -46,6 +47,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             _angleWarningsAutoSolver.Initialize(SessionHelper);
         }
 
+        [ExcludeFromCodeCoverage]
         public AngleWarningsController(
             IModelService modelService,
             IGlobalSettingService globalSettingService,
@@ -177,7 +179,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             return result;
         }
 
-        public List<AngleWarningThirdLevelViewmodel> GetAllThirdLevelData(string uri)
+        private List<AngleWarningThirdLevelViewmodel> GetAllThirdLevelData(string uri)
         {
             string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + uri + "&" + UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
             var angleWarningsResult = this._modelService.GetAngleWarningThirdLevel(requestUri);
