@@ -249,7 +249,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public int AreSomeAutoSolveAnglesPartOfAutomationTasks()
         {
-            return AngleWarningsAutoSolver.SomeAnglesPartOfAutomationTasks ? 1 : 0;
+            return _angleWarningsAutoSolver.AreSomeAnglesPartOfAutomationTasks() ? 1 : 0;
         }
 
         public ActionResult GetAngleWarningTaskHistory(string detailUri)

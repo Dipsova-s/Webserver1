@@ -28,8 +28,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
         private readonly IAngleWarningsContentInputter _contentInputter;
 
-        [ThreadStatic]
-        public static bool SomeAnglesPartOfAutomationTasks;
+        private bool SomeAnglesPartOfAutomationTasks;
 
         public AngleWarningsAutoSolver(IModelService modelService, IAngleWarningsContentInputter angleWarningsContentInputter)
         {
@@ -233,6 +232,11 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             var angleWarningsResult3 = this._modelService.GetAngleWarningThirdLevel(requestUri);
                         
             return JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult3.SelectToken("data").ToString());
+        }
+
+        public bool AreSomeAnglesPartOfAutomationTasks()
+        {
+            return SomeAnglesPartOfAutomationTasks;
         }
     }
 }

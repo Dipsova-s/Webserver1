@@ -11,5 +11,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         string ExecuteAngleWarningsUsingInputFile(string modelId);
         int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource);
         List<AngleWarningThirdLevelViewmodel> GetLevel3Warnings(AngleWarningSecondLevelViewmodel level2AngleWarning);
+
+        bool AreSomeAnglesPartOfAutomationTasks();
     }
 }

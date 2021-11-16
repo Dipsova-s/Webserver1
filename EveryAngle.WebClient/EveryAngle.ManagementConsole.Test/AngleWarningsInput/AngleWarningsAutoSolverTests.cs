@@ -28,6 +28,18 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
+        public void GetAreSomePartOfAutomationsTasks_ShouldReturnFalse()
+        {
+            Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
+            contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
+
+            AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
+            autoSolver.Initialize(sessionHelper.Object);
+
+            Assert.IsFalse(autoSolver.AreSomeAnglesPartOfAutomationTasks());
+        }
+
+        [TestCase]
         public void GetLevel3Warnings_ShouldSucceed()
         {
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
