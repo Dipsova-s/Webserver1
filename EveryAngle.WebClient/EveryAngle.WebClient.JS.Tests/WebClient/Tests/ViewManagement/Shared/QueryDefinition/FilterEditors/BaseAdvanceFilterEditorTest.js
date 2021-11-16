@@ -33,7 +33,6 @@ describe("BaseAdvanceFilterEditor", function () {
             return $.map(names, function (name) { return args[name]; });
         };
         beforeEach(function () {
-            args['value/relative'] = editor.GetObjectArgumentValue(10);
             args['value'] = editor.GetObjectArgumentValue(1000000);
             args['field'] = editor.GetObjectArgumentField('field');
             args['function/day'] = editor.GetObjectArgumentFunction('day', 10);
@@ -41,74 +40,7 @@ describe("BaseAdvanceFilterEditor", function () {
         });
 
         var tests = [
-            // relative -> xx
-            {
-                operator_from: 'relative_before',
-                operator_to: 'relative_after',
-                arguments: ['value/relative'],
-                expected: ['value/relative']
-            },
-            {
-                operator_from: 'relative_before',
-                operator_to: 'relative_between',
-                arguments: ['value/relative'],
-                expected: ['value/relative']
-            },
-            {
-                operator_from: 'relative_before',
-                operator_to: 'greater_than',
-                arguments: ['value/relative'],
-                expected: ['function/day']
-            },
-            {
-                operator_from: 'relative_before',
-                operator_to: 'between',
-                arguments: ['value/relative'],
-                expected: ['function/day']
-            },
-            {
-                operator_from: 'relative_before',
-                operator_to: 'in_set',
-                arguments: ['value/relative'],
-                expected: []
-            },
-            {
-                operator_from: 'relative_before',
-                operator_to: 'has_value',
-                arguments: ['value/relative'],
-                expected: []
-            },
-            {
-                operator_from: 'relative_between',
-                operator_to: 'relative_before',
-                arguments: ['value/relative', 'value/relative'],
-                expected: ['value/relative']
-            },
-            {
-                operator_from: 'relative_between',
-                operator_to: 'greater_than',
-                arguments: ['value/relative', 'value/relative'],
-                expected: ['function/day']
-            },
-            {
-                operator_from: 'relative_between',
-                operator_to: 'between',
-                arguments: ['value/relative', 'value/relative'],
-                expected: ['function/day', 'function/day']
-            },
-            {
-                operator_from: 'relative_between',
-                operator_to: 'in_set',
-                arguments: ['value/relative', 'value/relative'],
-                expected:  []
-            },
-            {
-                operator_from: 'relative_between',
-                operator_to: 'has_value',
-                arguments: ['value/relative', 'value/relative'],
-                expected: []
-            },
-
+           
             // single (equal_to,..) -> xx
             {
                 operator_from: 'equal_to',
@@ -128,31 +60,7 @@ describe("BaseAdvanceFilterEditor", function () {
                 arguments: ['value'],
                 expected:  ['value']
             },
-            {
-                operator_from: 'equal_to',
-                operator_to: 'has_value',
-                arguments: ['value'],
-                expected:  []
-            },
-            {
-                operator_from: 'equal_to',
-                operator_to: 'relative_between',
-                arguments: ['field'],
-                expected:  []
-            },
-            {
-                operator_from: 'equal_to',
-                operator_to: 'relative_between',
-                arguments: ['value'],
-                expected:  []
-            },
-            {
-                operator_from: 'equal_to',
-                operator_to: 'relative_between',
-                arguments: ['function/day'],
-                expected:  ['value/relative']
-            },
-
+            
             // double (between,..) -> xx
             {
                 operator_from: 'between',
@@ -168,48 +76,12 @@ describe("BaseAdvanceFilterEditor", function () {
             },
             {
                 operator_from: 'between',
-                operator_to: 'in_set',
-                arguments: ['value', 'field'],
-                expected:  ['value']
-            },
-            {
-                operator_from: 'between',
-                operator_to: 'in_set',
-                arguments: ['function/day', 'field'],
-                expected:  []
-            },
-            {
-                operator_from: 'between',
                 operator_to: 'has_value',
                 arguments: ['function/week', 'field'],
                 expected:  []
             },
-            {
-                operator_from: 'between',
-                operator_to: 'relative_between',
-                arguments: ['field', 'value'],
-                expected:  []
-            },
-            {
-                operator_from: 'between',
-                operator_to: 'relative_between',
-                arguments: ['function/day', 'function/day'],
-                expected:  ['value/relative', 'value/relative']
-            },
-
+            
             // multiple (in_set) -> xx
-            {
-                operator_from: 'in_set',
-                operator_to: 'relative_before',
-                arguments: ['value', 'value', 'value'],
-                expected:  []
-            },
-            {
-                operator_from: 'in_set',
-                operator_to: 'relative_between',
-                arguments: ['value', 'value', 'value'],
-                expected:  []
-            },
             {
                 operator_from: 'in_set',
                 operator_to: 'equal_to',
@@ -270,16 +142,6 @@ describe("BaseAdvanceFilterEditor", function () {
                 expected: ['value']
             },
             {
-                title: 'should get a support types for "relative_after" operator',
-                operator: 'relative_after',
-                expected: ['value', 'function']
-            },
-            {
-                title: 'should get a support types for "relative_between" operator',
-                operator: 'relative_between',
-                expected: ['value', 'function']
-            },
-            {
                 title: 'should get a support types for "equal_to" operator',
                 operator: 'equal_to',
                 expected: ['value', 'field', 'function']
@@ -317,7 +179,6 @@ describe("BaseAdvanceFilterEditor", function () {
             spyOn(dropdownHandler, 'value');
             spyOn(dropdownHandler, 'refresh');
             spyOn(WC.HtmlHelper, 'DropdownList').and.returnValue(dropdownHandler);
-            spyOn(editor, 'UpdateDropdownOperatorForRTMS');
             spyOn(editor, 'GetOperators').and.returnValue(ko.toJS(enumHandlers.QUERYSTEPOPERATOR.SIMPLIFYDATE));
         });
         var tests = [
@@ -363,30 +224,6 @@ describe("BaseAdvanceFilterEditor", function () {
                 expect(dropdownHandler.value).toHaveBeenCalled();
                 expect(dropdownHandler.refresh).toHaveBeenCalled();
             });
-        });
-    });
-
-    describe(".UpdateDropdownOperatorForRTMS", function () {
-        var data;
-        beforeEach(function () {
-            spyOn(modelsHandler, 'GetModelByUri').and.returnValue({ id: "EA2_800" });
-            data = ko.toJS(enumHandlers.QUERYSTEPOPERATOR.SIMPLIFYDATE);
-        });
-        it("should return dropdown list without relative filter when model is rtms", function () {
-            spyOn(aboutSystemHandler, 'IsRealTimeModel').and.returnValue(true);
-            var count = data.length;
-
-            // assert
-            editor.UpdateDropdownOperatorForRTMS(data);
-            expect(data.length).toEqual(12);
-        });
-        it("should return dropdown list with relative filter when model is not rtms", function () {
-            spyOn(aboutSystemHandler, 'IsRealTimeModel').and.returnValue(false);
-            var count = data.length;
-            
-            // assert
-            editor.UpdateDropdownOperatorForRTMS(data);
-            expect(data.length).toEqual(count);
         });
     });
 
@@ -805,26 +642,16 @@ describe("BaseAdvanceFilterEditor", function () {
     describe(".GetArgumentPreview", function () {
         beforeEach(function () {
             editor.Data.arguments([{}, {}]);
-            spyOn(editor, 'ConvertRelativeToFunctionArgument');
             spyOn(WC.WidgetFilterHelper, 'GetTranslatedSettings').and.returnValue({
                 template: '',
                 arguments: []
             });
         });
-        it("should get preview text for common operator", function () {
-            spyOn(editor, 'IsRelativeOperator').and.returnValue(false);
+       
+        it("should get argument preview text", function () {
             editor.GetArgumentPreview();
 
             // assert
-            expect(editor.ConvertRelativeToFunctionArgument).toHaveBeenCalledTimes(0);
-            expect(WC.WidgetFilterHelper.GetTranslatedSettings).toHaveBeenCalledTimes(1);
-        });
-        it("should get preview text for relative operator", function () {
-            spyOn(editor, 'IsRelativeOperator').and.returnValue(true);
-            editor.GetArgumentPreview();
-
-            // assert
-            expect(editor.ConvertRelativeToFunctionArgument).toHaveBeenCalledTimes(2);
             expect(WC.WidgetFilterHelper.GetTranslatedSettings).toHaveBeenCalledTimes(1);
         });
     });
@@ -1197,21 +1024,6 @@ describe("BaseAdvanceFilterEditor", function () {
         });
     });
 
-    describe(".ConvertRelativeToFunctionArgument", function () {
-        it("can convert relative to function argument", function () {
-            var argument = {
-                argument_type: 'value',
-                value: 10
-            };
-            var result = editor.ConvertRelativeToFunctionArgument(argument);
-
-            // assert
-            expect(result.argument_type).toEqual('function');
-            expect(result.parameters[0].value).toEqual('day');
-            expect(result.parameters[1].value).toEqual(10);
-        });
-    });
-
     describe(".ConvertFunctionToRelativeArgument", function () {
         it("can convert function to relative argument", function () {
             var argument = {
@@ -1246,18 +1058,7 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.GetArgumentRelativeTemplate).toHaveBeenCalledTimes(0);
             expect(editor.GetArgumentPreviewTemplate).toHaveBeenCalledTimes(1);
         });
-        it("should get template for relative operator", function () {
-            editor.Data.operator('relative_before');
-            var result = editor.GetSingleArgumentTemplate();
-
-            // assert
-            expect(result).toContain('template-relative');
-            expect(result).toContain('template-preview');
-            expect(editor.GetArgumentDefaultTemplate).toHaveBeenCalledTimes(0);
-            expect(editor.GetArgumentRelativeTemplate).toHaveBeenCalledTimes(1);
-            expect(editor.GetArgumentPreviewTemplate).toHaveBeenCalledTimes(1);
-        });
-    });
+     });
 
     describe(".InitialSingleArgumentUI", function () {
         beforeEach(function () {
@@ -1273,15 +1074,6 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.SetElementCssClass).toHaveBeenCalledTimes(1);
             expect(editor.InitialArgumentUI).toHaveBeenCalledTimes(1);
             expect(editor.InitialRelativeArgumentUI).toHaveBeenCalledTimes(0);
-        });
-        it("should get template for relative operator", function () {
-            editor.Data.operator('relative_before');
-            editor.InitialSingleArgumentUI($());
-
-            // assert
-            expect(editor.SetElementCssClass).toHaveBeenCalledTimes(1);
-            expect(editor.InitialArgumentUI).toHaveBeenCalledTimes(0);
-            expect(editor.InitialRelativeArgumentUI).toHaveBeenCalledTimes(1);
         });
     });
 
@@ -1305,19 +1097,6 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.GetArgumentPreviewTemplate).toHaveBeenCalledTimes(1);
             expect(editor.GetArgumentIncludeEndDateTemplate).toHaveBeenCalledTimes(1);
         });
-        it("should get template for relative operator", function () {
-            editor.Data.operator('relative_between');
-            var result = editor.GetDoubleArgumentTemplate();
-
-            // assert
-            expect(result).toContain('template-relative');
-            expect(result).toContain('template-preview');
-            expect(result).not.toContain('template-enddate');
-            expect(editor.GetArgumentDefaultTemplate).toHaveBeenCalledTimes(0);
-            expect(editor.GetArgumentRelativeTemplate).toHaveBeenCalledTimes(2);
-            expect(editor.GetArgumentPreviewTemplate).toHaveBeenCalledTimes(1);
-            expect(editor.GetArgumentIncludeEndDateTemplate).toHaveBeenCalledTimes(0);
-        });
     });
 
     describe(".InitialDoubleArgumentUI", function () {
@@ -1334,15 +1113,6 @@ describe("BaseAdvanceFilterEditor", function () {
             expect(editor.SetElementCssClass).toHaveBeenCalledTimes(1);
             expect(editor.InitialArgumentUI).toHaveBeenCalledTimes(2);
             expect(editor.InitialRelativeArgumentUI).toHaveBeenCalledTimes(0);
-        });
-        it("should get template for relative operator", function () {
-            editor.Data.operator('relative_between');
-            editor.InitialDoubleArgumentUI($());
-
-            // assert
-            expect(editor.SetElementCssClass).toHaveBeenCalledTimes(1);
-            expect(editor.InitialArgumentUI).toHaveBeenCalledTimes(0);
-            expect(editor.InitialRelativeArgumentUI).toHaveBeenCalledTimes(2);
         });
     });
 
