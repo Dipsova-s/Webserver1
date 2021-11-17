@@ -23,6 +23,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         private static readonly string[] ReplaceSublist_warnings = { "unsupported_jump" };
         private static readonly string[] ReplaceJump_warnings = { "unsupported_jump" };
 
+        private static readonly string[] RemoveColumn_warnings = { "unsupported_display_field" };
+
         public static bool Maps(WarningFix inputContentFix, string warning)
         {
             switch (inputContentFix)
@@ -42,6 +44,9 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                 case WarningFix.ReplaceJump:
                     return ReplaceJump_warnings.Contains(warning, StringComparer.InvariantCultureIgnoreCase);
 
+                case WarningFix.RemoveColumn:
+                    return RemoveColumn_warnings.Contains(warning, StringComparer.InvariantCultureIgnoreCase);
+
                 default:
                     return false;
             }
@@ -53,6 +58,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             {
                 case "replace field":
                     return WarningFix.ReplaceField;
+                case "remove column":
+                    return WarningFix.RemoveColumn;
                 case "replace class":
                     return WarningFix.ReplaceClass;
                 case "replace reference":

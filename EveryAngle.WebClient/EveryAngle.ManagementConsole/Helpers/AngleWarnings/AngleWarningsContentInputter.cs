@@ -1,5 +1,6 @@
 ﻿using EveryAngle.Logging;
 using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
+using EveryAngle.ManagementConsole.Helpers.AngleWarnings.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,11 +54,21 @@ namespace EveryAngle.ManagementConsole.Helpers
                         continue;
                     }
 
-                    if (inputLine.Length < 6)
+                    if (inputLine.Length < 6 && warningFix != WarningFix.RemoveColumn)
                     {
                         throw new Exception("All row must have at least six columns.");
                     }
 
+                    if (inputLine.Length < 5 && warningFix == WarningFix.RemoveColumn)
+                    {
+                        throw new Exception("All row with 'Remove Column' must have at least five columns.");
+                    }
+
+                    if (warningFix == WarningFix.RemoveColumn)
+                    {
+                        ArrayHelper.AddElementToStringArray(ref inputLine, "");
+                    }
+                    
                     AddContentInputItem(warningFix, inputLine[2], inputLine[3], inputLine[4], inputLine[5]);
                 }
 
@@ -139,13 +150,20 @@ namespace EveryAngle.ManagementConsole.Helpers
                 return GetSolveItemFromJumpWarning(warning, objectClass, jump, itemSolver);
             }
 
+            if (InputContentMapper.Maps(WarningFix.RemoveColumn, warning))
+            {
+                CheckSolveItemRemoveColumn(objectClass, field, ref itemSolver);
+                if (itemSolver.Fix != WarningFix.NoFixAvailable)
+                    return itemSolver;
+            }
+
             if (InputContentMapper.Maps(WarningFix.ReplaceReference, warning))
             {
                 CheckSolveItemFromReferenceWarning(objectClass, field, ref itemSolver);
                 if (itemSolver.Fix != WarningFix.NoFixAvailable)
                     return itemSolver;
             }
-                        
+
             if (InputContentMapper.Maps(WarningFix.ReplaceField, warning))
             {
                 return GetSolveItemFromFieldWarning(objectClass, field, itemSolver);
@@ -159,6 +177,21 @@ namespace EveryAngle.ManagementConsole.Helpers
             return itemSolver;
         }
 
+        private void CheckSolveItemRemoveColumn(string objectClass, string field, ref ItemSolver itemSolver)
+        {
+            AngleWarningsContentInput contentInput = ContentInputList.FirstOrDefault(x => x.Fix == WarningFix.RemoveColumn &&
+                                                                                     x.ObjectClass == objectClass &&
+                                                                                     x.FieldOrClassToReplace == field &&
+                                                                                     x.NewFieldOrClass == "");
+            if (contentInput != null)
+            {
+                itemSolver.Fix = WarningFix.RemoveColumn;
+                itemSolver.ObjectClass = objectClass;
+                itemSolver.FieldOrClassToReplace = field;
+                itemSolver.NewFieldOrClass = "";
+            }
+        }
+
         private void CheckSolveItemFromReferenceWarning(string objectClass, string field, ref ItemSolver itemSolver)
         {
             string oldReference = GetReferenceFromReferenceField(field);
@@ -167,6 +200,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             AngleWarningsContentInput contentInput = GetContentInputItemReference(objectClass, oldReference);
             if (contentInput != null)
             {
+                // New reference found, but maybe that has a field change
                 AngleWarningsContentInput contentInput2 = GetContentInputItemFieldChanged(contentInput.NewFieldOrClass, oldField);
                 if (contentInput2 != null)
                 {
@@ -180,7 +214,15 @@ namespace EveryAngle.ManagementConsole.Helpers
                     itemSolver.Fix = WarningFix.ReplaceField;
                     itemSolver.ObjectClass = objectClass;
                     itemSolver.FieldOrClassToReplace = field;
-                    itemSolver.NewFieldOrClass = contentInput.NewFieldOrClass + ClassFieldSeperator + oldField;
+
+                    if (contentInput.NewFieldOrClass.Equals("SELF", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        itemSolver.NewFieldOrClass = oldField;
+                    }
+                    else
+                    {
+                        itemSolver.NewFieldOrClass = contentInput.NewFieldOrClass + ClassFieldSeperator + oldField;
+                    }
                 }
             }
         }
@@ -204,13 +246,23 @@ namespace EveryAngle.ManagementConsole.Helpers
 
         private ItemSolver GetSolveItemFromFieldWarning(string objectClass, string field, ItemSolver itemSolver)
         {
+            // If the object in the angle is the same as the object in the Excel file, simply use that plain solution
+            itemSolver = GetSolveItemIfObjectsAreSame(objectClass, field, itemSolver);
+
+            if (itemSolver.Fix != WarningFix.NoFixAvailable)
+            {
+                return itemSolver;
+            }
+
             string oldObject = GetObjectFromField(objectClass, field);
             string oldField = GetFieldFromField(field);
 
+            // Check if we can find an Excel line with where the field of the object has been renamed.
             AngleWarningsContentInput contentInput = ContentInputList.FirstOrDefault(x => x.Fix == WarningFix.ReplaceField &&
-                                                                                     x.ObjectClass == oldObject &&
-                                                                                     x.FieldOrClassToReplace == oldField);
-            
+                                                                                          x.ObjectClass == oldObject &&
+                                                                                          x.FieldOrClassToReplace == oldField);
+
+            // If not, check if the object is a reference to another object and check for that object is the field has been renamed.
             if (contentInput == null)
             {
                 string referencedClass = _classReferencesManager.GetReferencedClass(oldObject);
@@ -218,7 +270,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                                                                     x.ObjectClass == referencedClass &&
                                                                     x.FieldOrClassToReplace == oldField);
             }
-            
+
             if (contentInput != null)
             {
                 itemSolver.Fix = contentInput.Fix;
@@ -235,7 +287,26 @@ namespace EveryAngle.ManagementConsole.Helpers
                     itemSolver.NewFieldOrClass = objectClass == oldObject ? contentInput.NewFieldOrClass : oldObject + ClassFieldSeperator + contentInput.NewFieldOrClass;
                 }
             }
-           
+
+            return itemSolver;
+        }
+
+        private ItemSolver GetSolveItemIfObjectsAreSame(string objectClass, string field, ItemSolver itemSolver)
+        {
+            AngleWarningsContentInput contentInput = ContentInputList.FirstOrDefault(x => x.Fix == WarningFix.ReplaceField &&
+                                                                         x.ObjectClass == objectClass &&
+                                                                         x.FieldOrClassToReplace == field);
+
+            if (contentInput != null)
+            {
+                itemSolver.Fix = contentInput.Fix;
+                itemSolver.ObjectClass = objectClass;
+                itemSolver.FieldOrClassToReplace = field;
+                itemSolver.NewFieldOrClass = contentInput.NewFieldOrClass;
+
+                return itemSolver;
+            }
+
             return itemSolver;
         }
 

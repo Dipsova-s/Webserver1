@@ -3,6 +3,7 @@
     public enum WarningFix
     {
         ReplaceField,
+        RemoveColumn,
         ReplaceClass,
         ReplaceReference,
         ReplaceSublist,

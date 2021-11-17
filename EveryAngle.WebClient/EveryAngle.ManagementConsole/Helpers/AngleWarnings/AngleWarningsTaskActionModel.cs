@@ -115,6 +115,18 @@
         public string[] Types { get; set; }
     }
 
+    public class RemoveColumn_ActionParameters : BaseActionParameter
+    {
+        [JsonProperty("objects")]
+        public string[] Objects { get; set; }
+
+        [JsonProperty("field")]
+        public string Field { get; set; }
+
+        [JsonProperty("types")]
+        public string[] Types { get; set; }
+    }
+
     public class ReplaceStartObject_ActionParameters : BaseActionParameter
     {
         [JsonProperty("objects")]
