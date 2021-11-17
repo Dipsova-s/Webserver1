@@ -31,7 +31,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                 throw new ArgumentException("should not be empty", nameof(fieldToReplace));
             }
 
-            if (string.IsNullOrEmpty(newField))
+            if (string.IsNullOrEmpty(newField) && fix != WarningFix.RemoveColumn)
             {
                 throw new ArgumentException("should not be empty", nameof(newField));
             }

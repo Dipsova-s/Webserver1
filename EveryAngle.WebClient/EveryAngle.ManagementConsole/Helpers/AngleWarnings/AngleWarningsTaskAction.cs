@@ -117,12 +117,45 @@ namespace EveryAngle.ManagementConsole.Helpers
                                                                    objects: new string[] { startObject });                
             }
 
+            if (solveItem.Fix == WarningFix.RemoveColumn)
+            {
+                actionValue = AddActionArgument_RemoveColumn(warningSolution: WarningSolution.RemoveColumn,
+                                                                   fieldToBeRemoved: oldField,
+                                                                   types: types,
+                                                                   objects: new string[] { startObject });
+            }
+
             if (actionValue != null)
             {
                 actionArgument.Value = actionValue;
 
                 AddArgumentToTask(actionArgument);
             }
+        }
+
+        private ActionValue AddActionArgument_RemoveColumn(WarningSolution warningSolution, string fieldToBeRemoved, string[] types, string[] objects)
+        {
+            ActionValue actionValue = new ActionValue
+            {
+                Action = ManagementConsoleEnumHelper.GetEnumDescription(warningSolution)
+            };
+
+            if (!types.Contains("unsupported_sorting_field"))
+            {
+                List<string> list = types.ToList();
+                list.Add("unsupported_sorting_field");
+                types = list.ToArray();
+            }
+
+            RemoveColumn_ActionParameters actionParameter = new RemoveColumn_ActionParameters
+            {
+                Field = fieldToBeRemoved,
+                Objects = objects,
+                Types = types
+            };
+           
+            actionValue.Parameter = actionParameter;
+            return actionValue;
         }
 
         private ActionValue AddActionArgument_ReplaceField(WarningSolution warningSolution, string field, string replaceWith, string[] types, string[] objects)

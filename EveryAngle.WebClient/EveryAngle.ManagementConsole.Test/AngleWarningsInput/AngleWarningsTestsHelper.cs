@@ -171,6 +171,15 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
                     Uri = ""
                 };
                 secondLevelList.Add(secondLevel);
+
+                secondLevel = new AngleWarningSecondLevelViewmodel
+                {
+                    Count = 1,
+                    Field = "SomeFieldToBeDeleted",
+                    Object = "WorkOrder",
+                    Uri = ""
+                };
+                secondLevelList.Add(secondLevel);
             }
 
             if (count == 3)
@@ -220,6 +229,19 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
                     Count = 2,
                     Field = "Order__FieldA",
                     Object = "Purchase",
+                    Uri = ""
+                };
+                secondLevelList.Add(secondLevel);
+            }
+
+            if (count == 6)
+            {
+                AngleWarningSecondLevelViewmodel secondLevel;
+                secondLevel = new AngleWarningSecondLevelViewmodel
+                {
+                    Count = 1,
+                    Field = "SomeFieldToBeDeleted",
+                    Object = "WorkOrder",
                     Uri = ""
                 };
                 secondLevelList.Add(secondLevel);
@@ -402,6 +424,43 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
               ""replace_with"": ""Payer__Description"",
               ""types"": [
                 ""unsupported_display_field""
+              ]
+            }
+          }
+        }
+      ],
+      ""notification"": null,
+      ""run_as_user"": null,
+      ""approval_state"": ""approved""
+    },
+{
+      ""action_type"": ""solve_angle_warnings"",
+      ""arguments"": [
+        {
+          ""name"": ""model"",
+          ""value"": ""EA2_800""
+        },
+        {
+          ""name"": ""target_ids"",
+          ""value"": [
+            {
+              ""angle_id"": ""angleId1"",
+              ""display_id"": ""displayId1""
+            }
+          ]
+        },
+        {
+          ""name"": ""action"",
+          ""value"": {
+            ""action"": ""remove_column"",
+            ""parameter"": {
+              ""objects"": [
+                ""WorkOrder""
+              ],
+              ""field"": ""SomeFieldToBeDeleted"",
+              ""types"": [
+                ""unsupported_display_field"",
+                ""unsupported_sorting_field""
               ]
             }
           }

@@ -293,6 +293,7 @@
     <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsAutoSolver.cs" />
     <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsContentInput.cs" />
     <Compile Include="Helpers\AngleWarnings\ClassReferencesManager.cs" />
+    <Compile Include="Helpers\AngleWarnings\Helpers\ArrayHelper.cs" />
     <Compile Include="Helpers\AngleWarnings\Helpers\InputContentMapper.cs" />
     <Compile Include="Helpers\AngleWarnings\Contracts\IClassReferencesManager.cs" />
     <Compile Include="Helpers\AngleWarnings\ItemSolver.cs" />
