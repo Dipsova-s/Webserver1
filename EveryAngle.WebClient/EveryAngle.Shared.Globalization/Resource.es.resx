@@ -6188,18 +6188,6 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="MC_AddValues" xml:space="preserve">
     <value>Add values</value>
   </data>
-  <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
-    <value>no es relativo entre</value>
-  </data>
-  <data name="OperatorIsRelativeAfter" xml:space="preserve">
-    <value>es relativo después</value>
-  </data>
-  <data name="OperatorIsRelativeBefore" xml:space="preserve">
-    <value>es relativo antes</value>
-  </data>
-  <data name="OperatorIsRelativeBetween" xml:space="preserve">
-    <value>es relativo entre</value>
-  </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
     <value>Debido a un error conocido, es posible que no funcione correctamente el desplazamiento cuando se ejecuta iOS 13. Póngase en contacto con el servicio de asistencia de Every Angle para obtener más información</value>
   </data>

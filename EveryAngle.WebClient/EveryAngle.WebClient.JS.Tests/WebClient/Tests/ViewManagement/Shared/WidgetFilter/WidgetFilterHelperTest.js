@@ -311,30 +311,6 @@ describe("WidgetFilterHelper", function () {
         });
 
 
-        it("should return 'RELATIVEBEFORE''s text if 'operator' is 'RELATIVEBEFORE'", function () {
-            var operator = enumHandlers.OPERATOR.RELATIVEBEFORE.Value,
-                fieldType = {};
-            expect(widgetFilterHelper.ConvertOperatorToCriteria(operator, fieldType)).toBe(enumHandlers.OPERATOR.RELATIVEBEFORE.Text);
-        });
-
-        it("should return 'RELATIVEAFTER''s text if 'operator' is 'RELATIVEAFTER'", function () {
-            var operator = enumHandlers.OPERATOR.RELATIVEAFTER.Value,
-                fieldType = {};
-            expect(widgetFilterHelper.ConvertOperatorToCriteria(operator, fieldType)).toBe(enumHandlers.OPERATOR.RELATIVEAFTER.Text);
-        });
-
-        it("should return 'RELATIVEBETWEEN''s text if 'operator' is 'RELATIVEBETWEEN'", function () {
-            var operator = enumHandlers.OPERATOR.RELATIVEBETWEEN.Value,
-                fieldType = {};
-            expect(widgetFilterHelper.ConvertOperatorToCriteria(operator, fieldType)).toBe(enumHandlers.OPERATOR.RELATIVEBETWEEN.Text);
-        });
-
-        it("should return 'NOTRELATIVEBETWEEN''s text if 'operator' is 'NOTRELATIVEBETWEEN'", function () {
-            var operator = enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value,
-                fieldType = {};
-            expect(widgetFilterHelper.ConvertOperatorToCriteria(operator, fieldType)).toBe(enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Text);
-        });
-
         it("should return 'INLIST''s text if 'operator' is 'INLIST'", function () {
             var operator = enumHandlers.OPERATOR.INLIST.Value,
                 fieldType = {};
@@ -424,7 +400,7 @@ describe("WidgetFilterHelper", function () {
     });
 
     describe(".IsBetweenArgumentComparable", function () {
-        var testOperators = ["between", "not_between", "relative_between", "not_relative_between"];
+        var testOperators = ["between", "not_between"];
         $.each(testOperators, function (indexOperator, operator) {
             it("should get 'true' if is '" + operator + "' operator, no type field and both are the same type", function () {
                 var validArguments = [
@@ -521,25 +497,6 @@ describe("WidgetFilterHelper", function () {
             var args = [];
             var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, args);
             var expected = '';
-            expect(result).toBe(expected);
-        });
-
-        it("should get empty if not date, datetime or period type", function () {
-            var fieldType = enumHandlers.FIELDTYPE.INTEGER;
-            var operator = enumHandlers.OPERATOR.RELATIVEAFTER.Value;
-            var args = [{ argument_type: 'value' }];
-            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, args);
-            var expected = '';
-            expect(result).toBe(expected);
-        });
-
-        it("should get 'DaysFromActualDate' if date or datetime type and relative operator", function () {
-            var fieldType = enumHandlers.FIELDTYPE.DATETIME;
-            var operator = enumHandlers.OPERATOR.RELATIVEAFTER.Value;
-            var args = [{ argument_type: 'value' }];
-            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, args);
-            var expected = ' ' + Localization.DaysFromActualDate;
-
             expect(result).toBe(expected);
         });
 
@@ -1248,8 +1205,6 @@ describe("WidgetFilterHelper", function () {
             { argsText: '0 day', operator: 'greater_than', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_After },
             { argsText: '0 day', operator: 'less_than', fieldType: 'date', expected: Localization.WidgetFilter_Preview_Before },
             { argsText: '0 day', operator: 'less_than', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_Before },
-            { argsText: '0 day', operator: 'relative_between', fieldType: 'date', expected: Localization.WidgetFilter_Preview_Between },
-            { argsText: '0 day', operator: 'relative_between', fieldType: 'datetime', expected: Localization.WidgetFilter_Preview_Between },
         ];
         $.each(tests2, function (index, test) {
             it("should get a translate settings for '" + test.fieldType + " " + test.operator + " " + test.argsText + "' as '" + test.expected + "'", function () {
