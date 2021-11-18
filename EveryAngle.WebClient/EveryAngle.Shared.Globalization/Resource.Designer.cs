@@ -15658,42 +15658,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to is not relative between.
-        /// </summary>
-        public static string OperatorIsNotRelativeBetween {
-            get {
-                return ResourceManager.GetString("OperatorIsNotRelativeBetween", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to is relative after.
-        /// </summary>
-        public static string OperatorIsRelativeAfter {
-            get {
-                return ResourceManager.GetString("OperatorIsRelativeAfter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to is relative before.
-        /// </summary>
-        public static string OperatorIsRelativeBefore {
-            get {
-                return ResourceManager.GetString("OperatorIsRelativeBefore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to is relative between.
-        /// </summary>
-        public static string OperatorIsRelativeBetween {
-            get {
-                return ResourceManager.GetString("OperatorIsRelativeBetween", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to is smaller than.
         /// </summary>
         public static string OperatorIsSmallerThan {

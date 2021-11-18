@@ -6221,18 +6221,6 @@ The following types are supported: Active Directory (AD), Active Directory Feder
   <data name="MC_AddValues" xml:space="preserve">
     <value>Add values</value>
   </data>
-  <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
-    <value>is not relative between</value>
-  </data>
-  <data name="OperatorIsRelativeAfter" xml:space="preserve">
-    <value>is relative after</value>
-  </data>
-  <data name="OperatorIsRelativeBefore" xml:space="preserve">
-    <value>is relative before</value>
-  </data>
-  <data name="OperatorIsRelativeBetween" xml:space="preserve">
-    <value>is relative between</value>
-  </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
     <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
   </data>
