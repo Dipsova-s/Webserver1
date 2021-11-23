@@ -7,6 +7,7 @@ using EveryAngle.WebClient.Service.Security;
 using Kendo.Mvc.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,6 +27,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         private Dictionary<string, List<string>> _cachedClasses;
 
         private readonly IAngleWarningsContentInputter _contentInputter;
+
+        private bool SomeAnglesPartOfAutomationTasks;
 
         public AngleWarningsAutoSolver(IModelService modelService, IAngleWarningsContentInputter angleWarningsContentInputter)
         {
@@ -53,9 +56,11 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             _model = model;
         }
 
-        public int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource)
+        public int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource, out int hasAutomationTasks)
         {
             int result = 0;
+
+            SomeAnglesPartOfAutomationTasks = false;
 
             if (_contentInputter.TryReadInputList())
             {
@@ -71,6 +76,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                     }
                 }
             }
+
+            hasAutomationTasks = SomeAnglesPartOfAutomationTasks ? 1 : 0;
 
             return result;
         }
@@ -90,10 +97,21 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                 if (EntityExistsInModel(solveItem))
                 {
                     result += secondLevel.Count;
+
+                    // check automation tasks
+                    if (!SomeAnglesPartOfAutomationTasks)
+                    {
+                        SomeAnglesPartOfAutomationTasks = CheckIfAngleIsPartOfAutomationTask(secondLevel);
+                    }
                 }
             }
 
             return result;
+        }
+
+        private bool CheckIfAngleIsPartOfAutomationTask(AngleWarningSecondLevelViewmodel secondLevel)
+        {
+            return GetLevel3Warnings(secondLevel).Any(x => x.IsUsedInAutomationTask);
         }
 
         public string ExecuteAngleWarningsUsingInputFile(string modelId)
@@ -213,7 +231,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             return leve2AngleWarnings;
         }
 
-        private List<AngleWarningThirdLevelViewmodel> GetLevel3Warnings(AngleWarningSecondLevelViewmodel level2AngleWarning)
+        public List<AngleWarningThirdLevelViewmodel> GetLevel3Warnings(AngleWarningSecondLevelViewmodel level2AngleWarning)
         {
             string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _sessionHelper.SystemSettings.max_pagesize);
             string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + level2AngleWarning.Uri + "&" + limitOffsetQueryString;
@@ -222,5 +240,9 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             return JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult3.SelectToken("data").ToString());
         }
 
+        public bool AreSomeAnglesPartOfAutomationTasks()
+        {
+            return SomeAnglesPartOfAutomationTasks;
+        }
     }
 }

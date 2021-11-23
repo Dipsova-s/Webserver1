@@ -77,7 +77,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Mock<IAngleWarningsAutoSolver> autoWarningsSolver = new Mock<IAngleWarningsAutoSolver>();
             autoWarningsSolver.Setup(x => x.ExecuteAngleWarningsUsingInputFile("EA_80")).Returns("{test}");
             autoWarningsSolver.Setup(x => x.ExecuteAngleWarningsUsingInputFile("ReturnEmpty")).Returns("");
-            autoWarningsSolver.Setup(x => x.GetNumberOfSolvableFieldsViaInputFile(It.IsAny<AngleWarningsDataSourceResult>())).Returns(88);
+
+            int hasAutomationTasks;
+            autoWarningsSolver.Setup(x => x.GetNumberOfSolvableFieldsViaInputFile(It.IsAny<AngleWarningsDataSourceResult>(), out hasAutomationTasks)).Returns(88);
             
             // assign to controller
             _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoWarningsSolver.Object, sessionHelper.Object);
@@ -205,6 +207,16 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.IsNotNull(viewmodels);
             Assert.AreEqual("1", viewmodels.id);
             Assert.AreEqual("EXIST", viewmodels.correlation_id);
+        }
+
+        [Test]
+        public void Can_AreSomeAutoSolveAnglesPartOfAutomationTasks()
+        {
+            // execute
+            int result = _testingController.AreSomeAutoSolveAnglesPartOfAutomationTasks();
+
+            // assert
+            Assert.IsNotNull(result);
         }
 
         [TestCase("/tasks/1")]
