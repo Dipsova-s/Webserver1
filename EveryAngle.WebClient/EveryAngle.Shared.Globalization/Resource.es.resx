@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+  <xsd:schema id="root" xmlns="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element msdata:IsDataSet="true" name="root">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element minOccurs="0" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
+                <xsd:element minOccurs="0" msdata:Ordinal="2" name="comment" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute msdata:Ordinal="1" name="name" type="xsd:string" use="required"/>
+              <xsd:attribute msdata:Ordinal="3" name="type" type="xsd:string"/>
+              <xsd:attribute msdata:Ordinal="4" name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -121,7 +121,7 @@
     <value>Agregar Filtro</value>
   </data>
   <data name="AddFollowUp" xml:space="preserve">
-    <value>Agregar Jump</value>
+    <value>Aplicar Jump</value>
   </data>
   <data name="AddToAngle" xml:space="preserve">
     <value>Agregar a Angle</value>
@@ -205,7 +205,7 @@
     <value>Crear un Angle nuevo</value>
   </data>
   <data name="CreateNewAngleDescription" xml:space="preserve">
-    <value />
+    <value/>
   </data>
   <data name="CreateNewAngleFromSelectedObjects" xml:space="preserve">
     <value>Crear Angle</value>
@@ -616,7 +616,7 @@
     <value>y</value>
   </data>
   <data name="AskForValueWhenTheAngleOpens" xml:space="preserve">
-    <value>Definir valor cuando se ejecuta el Angle</value>
+    <value>Definir valor al ejecutar el Angle</value>
   </data>
   <data name="AskForValueWhenTheDashboardOpens" xml:space="preserve">
     <value>Definir valor al ejecutar el Dashboard</value>
@@ -631,7 +631,7 @@
     <value>Copiar</value>
   </data>
   <data name="CellPopupMenuDrillDownTo" xml:space="preserve">
-    <value>Muestra de detalles en posición</value>
+    <value>Desglosar posición</value>
   </data>
   <data name="CellPopupMenuFilterThisColumn" xml:space="preserve">
     <value>Filtro rápido</value>
@@ -958,7 +958,7 @@
     <value>Muestra de detalles predeterminada</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>[None]</value>
+    <value>[Ninguno]</value>
   </data>
   <data name="ExcelTemplate" xml:space="preserve">
     <value>Plantilla Excel</value>
@@ -1114,16 +1114,16 @@
     <value>Área</value>
   </data>
   <data name="Chart_area2" xml:space="preserve">
-    <value>Área de almacén</value>
+    <value>Área apilada</value>
   </data>
   <data name="Chart_area3" xml:space="preserve">
-    <value>Área de almacén y columna almacenada</value>
+    <value>Área apilada y columna apilada</value>
   </data>
   <data name="Chart_bar1" xml:space="preserve">
     <value>Barra agrupada</value>
   </data>
   <data name="Chart_bar2" xml:space="preserve">
-    <value>Barra almacenada</value>
+    <value>Barra apilada</value>
   </data>
   <data name="Chart_bubble1" xml:space="preserve">
     <value>Burbuja</value>
@@ -1132,10 +1132,10 @@
     <value>Columna agrupada</value>
   </data>
   <data name="Chart_column2" xml:space="preserve">
-    <value>Columna almacenada</value>
+    <value>Columna apilada</value>
   </data>
   <data name="Chart_column3" xml:space="preserve">
-    <value>Columna y línea almacenadas</value>
+    <value>Columna apilada y línea</value>
   </data>
   <data name="Chart_donut1" xml:space="preserve">
     <value>Donut</value>
@@ -1144,10 +1144,10 @@
     <value>Línea</value>
   </data>
   <data name="Chart_line2" xml:space="preserve">
-    <value>Línea almacenada</value>
+    <value>Línea apilada</value>
   </data>
   <data name="Chart_line3" xml:space="preserve">
-    <value>Línea y área de almacén</value>
+    <value>Línea y área apilada</value>
   </data>
   <data name="Chart_pie1" xml:space="preserve">
     <value>Gráfico circular</value>
@@ -1273,7 +1273,7 @@
     <value>Agregar Filtro</value>
   </data>
   <data name="ListHeaderPopupFieldInfo" xml:space="preserve">
-    <value>Información de campo</value>
+    <value>Información de Campo</value>
   </data>
   <data name="ListHeaderPopupFormatFields" xml:space="preserve">
     <value>Campo de formato</value>
@@ -1336,7 +1336,7 @@
     <value>No hay ninguna película relacionada disponible.</value>
   </data>
   <data name="FollowupsButtonSubmit" xml:space="preserve">
-    <value>Ejecutar Jump seleccionado</value>
+    <value>Ejecutar Jump</value>
   </data>
   <data name="FollowupsWarningAngle" xml:space="preserve">
     <value>Se eliminarán todos los Displays</value>
@@ -1648,7 +1648,7 @@
     <value>Borre un campo del área de datos (eje vertical).</value>
   </data>
   <data name="Info_PleaseSelectMissingValueForFilters" xml:space="preserve">
-    <value>Seleccione un valor para este Filtro o elija “Definir valor cuando se ejecute el Display”.</value>
+    <value>Seleccione un valor para este Filtro o elija “Definir valor al ejecutar el Display”.</value>
   </data>
   <data name="Info_PleaseUseTextBelowToCopy" xml:space="preserve">
     <value>Utilice el texto siguiente para copiar</value>
@@ -1717,7 +1717,7 @@
     <value>Información</value>
   </data>
   <data name="Info_ValidatedAngleAdhocFilterWillRemovedAfterSaved" xml:space="preserve">
-    <value>El Angle se ha validad: todos los Filtros ad hoc se han borrado antes de guardar.</value>
+    <value>El Angle se ha validado: todos los Filtros ad hoc se han borrado antes de guardar.</value>
   </data>
   <data name="Warning_Title" xml:space="preserve">
     <value>Advertencia</value>
@@ -1780,7 +1780,7 @@
     <value>Los datos recibidos no están completos y no se pueden procesar.</value>
   </data>
   <data name="AskForValueWhenTheDisplayOpens" xml:space="preserve">
-    <value>Definir valor cuando se ejecuta el Display</value>
+    <value>Definir valor al ejecutar el Display</value>
   </data>
   <data name="DashboardChangeDisplays" xml:space="preserve">
     <value>Cambiar Displays</value>
@@ -2035,7 +2035,7 @@
     <value>Datastore plugin</value>
   </data>
   <data name="DataStores" xml:space="preserve">
-    <value>Almacenamientos de datos</value>
+    <value>Datastores</value>
   </data>
   <data name="MC_Datatype" xml:space="preserve">
     <value>Data type</value>
@@ -2053,16 +2053,16 @@
     <value>Predeterminado</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Use default] {0}</value>
+    <value>[Usar predeterminado] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
   </data>
   <data name="DefaultSettingsUnmentionedFields" xml:space="preserve">
-    <value>Configuración predeterminada para campos sin mencionar</value>
+    <value>Configuración predeterminada para campos no mencionados</value>
   </data>
   <data name="DefaultSettingsUnmentionedLabels" xml:space="preserve">
-    <value>Configuración predeterminada para etiquetas sin mencionar</value>
+    <value>Configuración predeterminada para etiquetas no mencionadas</value>
   </data>
   <data name="MC_DefaultSettingsUnmentionedObjects" xml:space="preserve">
     <value>Default settings for unmentioned objects</value>
@@ -3550,7 +3550,7 @@
     <value>Borrando widget...</value>
   </data>
   <data name="ProgressBar_DrillingDown" xml:space="preserve">
-    <value>Desglosando</value>
+    <value>Desglosar</value>
   </data>
   <data name="ProgressBar_ExecutingJump" xml:space="preserve">
     <value>Ejecutando Jump</value>
@@ -3829,7 +3829,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Buscar objeto...</value>
   </data>
   <data name="AboutEveryAngle" xml:space="preserve">
-    <value>Acerca de Magnitude Angles for SAP</value>
+    <value>Sobre Angles for SAP</value>
   </data>
   <data name="Helppage" xml:space="preserve">
     <value>Página de ayuda</value>
@@ -4856,8 +4856,8 @@ When this number of instances is reached, the import of a new instance will caus
 The minimum is 1.</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxDomainElementsSearch" xml:space="preserve">
-    <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values)  are retrieved when executing an Angle. 
-&lt;br&gt;
+    <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values) are retrieved when executing an Angle. 
+&lt;br/&gt;
 Use this setting to prevent the system from overloading, as many elements can exist in a domain (field).</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxPageSize" xml:space="preserve">
@@ -4964,7 +4964,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Cancelado por el usuario</value>
   </data>
   <data name="CopyAngleReport" xml:space="preserve">
-    <value>Copia del informe Angle</value>
+    <value>Informe copia de Angle</value>
   </data>
   <data name="CopyAngleReportHeader" xml:space="preserve">
     <value>Creación de Angles correcto {0} de {1}</value>
@@ -5003,13 +5003,13 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>El servidor de aplicaciones no ha devuelto datos correctos: faltan los campos de agregación</value>
   </data>
   <data name="Error_BaseAnglePropertyMissing" xml:space="preserve">
-    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos base_angle</value>
+    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos 'base_angle'</value>
   </data>
   <data name="Error_BaseClassesPropertyMissing" xml:space="preserve">
-    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos base_clases</value>
+    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos 'base_classes'</value>
   </data>
   <data name="Error_BaseDisplayPropertyMissing" xml:space="preserve">
-    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos base_display</value>
+    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos 'base_display'</value>
   </data>
   <data name="Error_FieldContainsInvalidArguments" xml:space="preserve">
     <value>El campo {0} contiene argumento(s) no válido(s)</value>
@@ -5021,7 +5021,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>El campo {0} no está disponible en objeto(s) {1}</value>
   </data>
   <data name="Error_FieldPropertyMissing" xml:space="preserve">
-    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta el campo de propiedad de la base de datos</value>
+    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta el propiedad de la base de datos 'field'</value>
   </data>
   <data name="Error_ObjectIsNotAvailable" xml:space="preserve">
     <value>El objeto {0} no está disponible</value>
@@ -5030,10 +5030,10 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Los objetos {0} no están disponibles</value>
   </data>
   <data name="Error_QueryBlockTypePropertyMissing" xml:space="preserve">
-    <value>El servidor de aplicaciones no ha devuelto datos correctos: la propiedad de la base de datos queryblock_type está vacía</value>
+    <value>El servidor de aplicaciones no ha devuelto datos correctos: la propiedad de la base de datos 'queryblock_type' está vacía</value>
   </data>
   <data name="Error_QueryStepsPropertyMissing" xml:space="preserve">
-    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos query_steps</value>
+    <value>El servidor de aplicaciones no ha devuelto datos correctos: falta la propiedad de la base de datos 'query_steps'</value>
   </data>
   <data name="Error_FollowupNotAvailableInObjects" xml:space="preserve">
     <value>El Jump {0} no está disponible en el(los) objeto(s) {1}</value>
@@ -5117,7 +5117,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Expand All</value>
   </data>
   <data name="Dashboard_WidgetNotExist" xml:space="preserve">
-    <value />
+    <value/>
   </data>
   <data name="MC_AngleWarningsConfirmHeader" xml:space="preserve">
     <value>{0}: All {1} items under {2}</value>
@@ -5159,7 +5159,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>El ID debería comenzar con [A-Z, a-z] seguido de [A-Z, a-z], [0-9] o [ _ ]</value>
   </data>
   <data name="Info_InvalidPackageVersion" xml:space="preserve">
-    <value>Introduzca un número válido.&lt;br/&gt;Utilice el formato N,N en el que N es un número.&lt;br/&gt;Por ejemplo, 1,0</value>
+    <value>Introduzca un número válido.&lt;br/&gt;Utilice el formato N.N en el que N es un número.&lt;br/&gt;Por ejemplo, 1.0</value>
   </data>
   <data name="MC_SwitchWhenPostprocessing_Description" xml:space="preserve">
     <value>When a Model Server has started and loaded the model, it will start caching and postprocessing a number of predefined fields. In a model environment with multiple Model Servers, this setting controls when the execution of queries will be switched to the Model Server with the newest data:
@@ -5185,7 +5185,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>All available languages are already active</value>
   </data>
   <data name="Info_SelectItemsContainTemplatesOrAngles" xml:space="preserve">
-    <value>Su selección contiene Templates y Dashboards.&lt;br/&gt;Estos no se pueden ejecutar como un Dashboard.&lt;br/&gt;&lt;br/&gt;Haga clic en Aceptar para ejecutar únicamente los Angles seleccionados como un Dashboard.</value>
+    <value>Su selección contiene Templates y/o Dashboards.&lt;br/&gt;Estos no se pueden ejecutar como un Dashboard.&lt;br/&gt;&lt;br/&gt;Haga clic en Aceptar para ejecutar únicamente los Angles seleccionados como un Dashboard.</value>
   </data>
   <data name="Info_AdvFilterSelectFilter" xml:space="preserve">
     <value>Seleccione un filtro de la lista.</value>
@@ -5336,13 +5336,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Widgets</value>
   </data>
   <data name="FormatSettingGeneralDate" xml:space="preserve">
-    <value>Significado de las notaciones: &lt;br/&gt;d = day; M = month; y = year</value>
+    <value>Significado de las notaciones: &lt;br/&gt;d = dia; M = mes; y = año</value>
   </data>
   <data name="FormatSettingGeneralDescription" xml:space="preserve">
-    <value>El formato general se aplica a los números, monedas y porcentajes.</value>
+    <value>El formato general se aplica a los Números, Monedas y Porcentajes.</value>
   </data>
   <data name="FormatSettingGeneralTime" xml:space="preserve">
-    <value>Significado de las notaciones: &lt;br/&gt;h = hour; m = minute; s = second&lt;br/&gt;tt = a.m. o p.m.&lt;br/&gt;h/H = 12/24 hour</value>
+    <value>Significado de las notaciones: &lt;br/&gt;h = hora; m = minuto; s = segundo&lt;br/&gt;tt = a.m. o p.m.&lt;br/&gt;h/H = 12/24 horas</value>
   </data>
   <data name="FormatSettingCurrencySymbol" xml:space="preserve">
     <value>Símbolo de la moneda</value>
@@ -5354,7 +5354,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>No volver a enviarme advertencias en esta sesión.</value>
   </data>
   <data name="AlertWarningFieldChooserSource" xml:space="preserve">
-    <value>Seleccionar campos de objetos referenciados provocará, en la mayoría de casos, que haya que contar las posiciones varias veces. Esto producirá resultados incorrectos.&lt;br/&gt;Asegúrese de seleccionar un campo correcto.</value>
+    <value>Seleccionar campos de objetos referenciados provocará, en la mayoría de casos, que posiciones se contarán varias veces. Esto producirá resultados incorrectos.&lt;br/&gt;Asegúrese de seleccionar un campo correcto.</value>
   </data>
   <data name="WarningExcelNotSupportedExportAsChart" xml:space="preserve">
     <value>El tipo de gráfico no es compatible para la exportación. Solo los datos se exportarán a Excel.</value>
@@ -5369,13 +5369,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>La opción de descargar el paquete no está disponible porque la selección contiene:</value>
   </data>
   <data name="AngleExport_TypePackage_WarningModel" xml:space="preserve">
-    <value>- Angles o Templates de diferentes modelos.</value>
+    <value>- Angles y/o Templates de diferentes modelos.</value>
   </data>
   <data name="AngleExport_TypePackage_WarningPrivate" xml:space="preserve">
-    <value>- Angles o Templates privados.</value>
+    <value>- Angles y/o Templates privados.</value>
   </data>
   <data name="AngleExport_WarningNoExportItem" xml:space="preserve">
-    <value>Los Dashboards no se pueden descargar. Asegúrese de seleccionar únicamente Angles y Templates.</value>
+    <value>Los Dashboards no se pueden descargar. Asegúrese de seleccionar únicamente Angles y/o Templates.</value>
   </data>
   <data name="AngleExport_DownloadAngleConfirmation" xml:space="preserve">
     <value>¿Está seguro de que desea descargar {0} Angles individuales?</value>
@@ -5384,7 +5384,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Cargar posiciones</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Cargar informe posiciones</value>
+    <value>Informe cargo de posiciones</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
     <value>Cargando posiciones</value>
@@ -5408,13 +5408,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Usar predeterminado</value>
   </data>
   <data name="ResolveAngleDisplay_UsedInAutomationTask" xml:space="preserve">
-    <value>El Angle y el Display se usan en la tarea de automatización.</value>
+    <value>El Angle/Display se usa en la Automation Task.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Delete" xml:space="preserve">
-    <value>El Angle/Display actual se utiliza en las siguientes tareas de automatización. Cargar el Angle/Display eliminará esta acción.&lt;br/&gt;Cuando no queden medidas, se eliminará la tarea.</value>
+    <value>El Angle/Display actual se utiliza en las siguientes Automation Tasks. Al actualizar el Angle/Display se eliminará esta acción.&lt;br/&gt;Cuando no queden acciones, se eliminará la tarea.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Update" xml:space="preserve">
-    <value>El Angle/Display actual se utiliza en las siguientes tareas de automatización. Al actualizar el Angle/Display se modificarán las medidas de la tarea y puede hacer que deje de funcionar.</value>
+    <value>El Angle/Display actual se utiliza en las siguientes Automation Tasks. Al actualizar el Angle/Display se modificarán las acciones de la tarea y puede hacer que deje de funcionar.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictQuestion_Delete" xml:space="preserve">
     <value>¿Está seguro de que desea eliminar este Angle o este Display?</value>
@@ -5459,7 +5459,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>No hay tareas disponibles en el sistema.</value>
   </data>
   <data name="DefaultDatastore" xml:space="preserve">
-    <value>Almacén de datos predeterminado</value>
+    <value>Datastore predeterminado</value>
   </data>
   <data name="MC_ShowWarningPopupCopyRole" xml:space="preserve">
     <value>The copied role will not contain sub roles</value>
@@ -5624,7 +5624,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Eliminación correcta de Dashboard/Angles: {0} de {1}</value>
   </data>
   <data name="Title_ReportDeleteItem" xml:space="preserve">
-    <value>Eliminar informe de Angle</value>
+    <value>Informe eliminación de Angle</value>
   </data>
   <data name="StatisticDateTime" xml:space="preserve">
     <value>en {0} a {1}</value>
@@ -5782,7 +5782,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Skip</value>
   </data>
   <data name="MessageAngleNeedsToBeReExecuted" xml:space="preserve">
-    <value>El modelo ha sido actualizado. Debe volver a ejecutar este Angle</value>
+    <value>El modelo ha sido actualizado. Debe volver a ejecutar este Angle.</value>
   </data>
   <data name="DashboardFilters_Description" xml:space="preserve">
     <value>Filtros activados</value>
@@ -5791,7 +5791,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Filtros</value>
   </data>
   <data name="ModelLabel_Down" xml:space="preserve">
-    <value> (abajo)</value>
+    <value> (down)</value>
   </data>
   <data name="ModelLabel_NoModelServer" xml:space="preserve">
     <value>Sin servidor de modelos</value>
@@ -6189,7 +6189,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Add values</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Debido a un error conocido, es posible que no funcione correctamente el desplazamiento cuando se ejecuta iOS 13. Póngase en contacto con el servicio de asistencia de Every Angle para obtener más información</value>
+    <value>Debido a un error conocido, es posible que no funcione correctamente el desplazamiento cuando se ejecuta iOS 13. Póngase en contacto con el servicio de asistencia de Magnitude para obtener más información.</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
@@ -6294,7 +6294,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>No se puede guardar</value>
   </data>
   <data name="MessageSaveQuestionAngleUsedInTask" xml:space="preserve">
-    <value>Ha realizado cambios en un Angle que se utiliza en las tareas de Automatización (IT MC Automation tasks). Esta acción podría provocar errores. &lt;br/&gt;&lt;br/&gt; ¿Desea continuar guardando los cambios?</value>
+    <value>Ha realizado cambios en un Angle que se utiliza en las Automation Tasks. Esta acción podría provocar errores. &lt;br/&gt;&lt;br/&gt; ¿Desea continuar guardando los cambios?</value>
   </data>
   <data name="FirstInQueueMessage" xml:space="preserve">
     <value>El servidor está ocupado. Hay {0} Angle más que se tiene que terminar antes. &lt;br/&gt;Espere.</value>
@@ -6374,7 +6374,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Sin sugerencias</value>
   </data>
   <data name="TagNew" xml:space="preserve">
-    <value>{0} (nueva etiqueta usuario)</value>
+    <value>{0} (nueva etiqueta de usuario)</value>
   </data>
   <data name="TagLabel" xml:space="preserve">
     <value>Etiquetas de usuario</value>
@@ -6401,7 +6401,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>[Single Action] </value>
   </data>
   <data name="SearchTagInputPlaceholder" xml:space="preserve">
-    <value>Buscar etiqueta</value>
+    <value>Buscar etiqueta de usuario</value>
   </data>
   <data name="SearchTagNoSuggestion" xml:space="preserve">
     <value>Sin resultados</value>
@@ -6496,7 +6496,7 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Sujeto a confirmación</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Al actualizar Displays utilizados en las Tareas de Automatización se modificará la acción y puede hacer que deje de funcionar.</value>
+    <value>Al actualizar Displays utilizados en las Automation Tasks se modificará la acción y puede hacer que deje de funcionar.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Ir a Tarea Programada</value>

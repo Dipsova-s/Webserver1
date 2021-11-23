@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+  <xsd:schema id="root" xmlns="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element msdata:IsDataSet="true" name="root">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element minOccurs="0" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
+                <xsd:element minOccurs="0" msdata:Ordinal="2" name="comment" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute msdata:Ordinal="1" name="name" type="xsd:string" use="required"/>
+              <xsd:attribute msdata:Ordinal="3" name="type" type="xsd:string"/>
+              <xsd:attribute msdata:Ordinal="4" name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -121,7 +121,7 @@
     <value>Voeg Filter toe</value>
   </data>
   <data name="AddFollowUp" xml:space="preserve">
-    <value>Voeg Jump toe</value>
+    <value>Jump Toepassen</value>
   </data>
   <data name="AddToAngle" xml:space="preserve">
     <value>Toevoegen aan Angle</value>
@@ -204,6 +204,9 @@
   <data name="CreateNewAngle" xml:space="preserve">
     <value>Nieuwe Angle maken</value>
   </data>
+  <data name="CreateNewAngleDescription" xml:space="preserve">
+    <value/>
+  </data>
   <data name="CreateNewAngleFromSelectedObjects" xml:space="preserve">
     <value>Maak Angle</value>
   </data>
@@ -238,7 +241,7 @@
     <value>Omschrijving</value>
   </data>
   <data name="DisplayDescription" xml:space="preserve">
-    <value>Omschrijving Display</value>
+    <value>Displayomschrijving</value>
   </data>
   <data name="DisplayDetails" xml:space="preserve">
     <value>Displaydetails</value>
@@ -438,6 +441,9 @@
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="Info_RequiredModel" xml:space="preserve">
+    <value>Model is required</value>
+  </data>
   <data name="Aggregation" xml:space="preserve">
     <value>Aggregatie</value>
   </data>
@@ -462,8 +468,8 @@
   <data name="AddColumn" xml:space="preserve">
     <value>Voeg kolom toe</value>
   </data>
-  <data name="AddField" xml:space="preserve">
-    <value>Voeg veld toe</value>
+  <data name="MC_AddField" xml:space="preserve">
+    <value>Add field</value>
   </data>
   <data name="AddToDashboard" xml:space="preserve">
     <value>Voeg toe aan Dashboard</value>
@@ -549,6 +555,9 @@
   <data name="AdvanceFilterUsageValidationChangeBy" xml:space="preserve">
     <value>Validatiewijziging door</value>
   </data>
+  <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
+    <value>items in</value>
+  </data>
   <data name="AngleDefinitionAreaSec" xml:space="preserve">
     <value>sec</value>
   </data>
@@ -592,7 +601,7 @@
     <value>Sorteren</value>
   </data>
   <data name="StartObject" xml:space="preserve">
-    <value>Startobject</value>
+    <value>Basisobject</value>
   </data>
   <data name="Tools" xml:space="preserve">
     <value>Acties</value>
@@ -610,7 +619,7 @@
     <value>Vraag naar waarde wanneer de Angle wordt uitgevoerd</value>
   </data>
   <data name="AskForValueWhenTheDashboardOpens" xml:space="preserve">
-    <value>Vraag naar waarde wanneer de Dashboard wordt uitgevoerd</value>
+    <value>Vraag naar waarde wanneer het Dashboard wordt uitgevoerd</value>
   </data>
   <data name="Before" xml:space="preserve">
     <value>Voor</value>
@@ -796,7 +805,7 @@
     <value>Percentages</value>
   </data>
   <data name="FormatSettingNoDecimal" xml:space="preserve">
-    <value>Geen decimaal</value>
+    <value>Geen</value>
   </data>
   <data name="SystemSettingLabelDefaultBusinessProcess" xml:space="preserve">
     <value>Standaard Bedrijfsproces</value>
@@ -817,7 +826,7 @@
     <value>Download Launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Om Go to SAP the kunnen gebruiken klikt u hier om de Go to SAP Launcher te downloaden en te installeren op uw systeem. </value>
+    <value>Om Go to SAP the kunnen gebruiken, klikt u hier om de Go to SAP Launcher te downloaden en te installeren op uw systeem. </value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Toon kleine Bedrijfsprocessenbalk</value>
@@ -958,7 +967,7 @@
     <value>Maak Angle</value>
   </data>
   <data name="InitialDropdownLabel" xml:space="preserve">
-    <value>-- Selecteer  --</value>
+    <value>-- Selecteer --</value>
   </data>
   <data name="Enum" xml:space="preserve">
     <value>Set</value>
@@ -994,7 +1003,7 @@
     <value>Er is een fout opgetreden tijdens het verwerken, neem contact op met de systeembeheerder.</value>
   </data>
   <data name="ErrorDisplayNotExistsThenGotoOtherDisplay" xml:space="preserve">
-    <value>Display bestaat niet. Klik OK om naar een bestaand Display te gaan.</value>
+    <value>Display bestaat niet. Klik OK om naar een bestaande Display te gaan.</value>
   </data>
   <data name="ErrorDisplayNotExistsThenGotoSearchPage" xml:space="preserve">
     <value>Display bestaat niet. Klik OK om terug te gaan naar de zoekpagina.</value>
@@ -1048,7 +1057,7 @@
     <value>Aantal</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Andere instellingen</value>
+    <value>Anders</value>
   </data>
   <data name="Preferred" xml:space="preserve">
     <value>Voorkeur</value>
@@ -1201,7 +1210,7 @@
     <value>Samenvatting publicatie</value>
   </data>
   <data name="MessageSaveRequiredPublishAngle" xml:space="preserve">
-    <value>Sla alle niet opgeslagen wijzigingen op vóór de publicatie van dit dashboard</value>
+    <value>Sla alle niet-opgeslagen wijzigingen op vóór de publicatie van deze Angle.</value>
   </data>
   <data name="FormatSettingNoFormat" xml:space="preserve">
     <value>Geen formaat</value>
@@ -1243,7 +1252,7 @@
     <value>Persoonlijke opmerking</value>
   </data>
   <data name="MassChangePublished" xml:space="preserve">
-    <value>Publiceren</value>
+    <value>Gepubliceerd</value>
   </data>
   <data name="MassChangeStarred" xml:space="preserve">
     <value>Gemarkeerd</value>
@@ -1253,15 +1262,6 @@
   </data>
   <data name="MassChangeValidated" xml:space="preserve">
     <value>Gevalideerd</value>
-  </data>
-  <data name="CompairCurrency" xml:space="preserve">
-    <value>Selecteer valuta</value>
-  </data>
-  <data name="CompairDate" xml:space="preserve">
-    <value>Selecteer datum</value>
-  </data>
-  <data name="CompairPeriod" xml:space="preserve">
-    <value>Selecteer periode</value>
   </data>
   <data name="CompareValue" xml:space="preserve">
     <value>Selecteer veld</value>
@@ -1276,7 +1276,7 @@
     <value>Veldinfo</value>
   </data>
   <data name="ListHeaderPopupFormatFields" xml:space="preserve">
-    <value>Veld formaat</value>
+    <value>Formaat veld</value>
   </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
@@ -1323,20 +1323,20 @@
   <data name="ShowFacetForAngleWarnings" xml:space="preserve">
     <value>Toon filter voor &lt;i class="iconWarning"&gt;&lt;/i&gt; Anglewaarschuwingen</value>
   </data>
-  <data name="WelcomeAllMoviesLink" xml:space="preserve">
-    <value>Bekijk alle gerelateerde video's (via help)</value>
-  </data>
-  <data name="WelcomeNoMovie" xml:space="preserve">
-    <value>Er is geen gerelateerde video beschikbaar</value>
-  </data>
   <data name="FollowupsHelpManyToOneRelation" xml:space="preserve">
     <value>Veel-op-éénrelatie</value>
   </data>
   <data name="FollowupsHelpProcessFlow" xml:space="preserve">
     <value>Procesmatig</value>
   </data>
+  <data name="WelcomeAllMoviesLink" xml:space="preserve">
+    <value>Bekijk alle gerelateerde video's (via help)</value>
+  </data>
+  <data name="WelcomeNoMovie" xml:space="preserve">
+    <value>Er is geen gerelateerde video beschikbaar</value>
+  </data>
   <data name="FollowupsButtonSubmit" xml:space="preserve">
-    <value>Voer geselecteerde Jump uit</value>
+    <value>Jump Uitvoeren</value>
   </data>
   <data name="FollowupsWarningAngle" xml:space="preserve">
     <value>Alle Displays worden verwijderd</value>
@@ -1378,13 +1378,13 @@
     <value>Zoeklabels</value>
   </data>
   <data name="MessageConfirmUnpublishDashboard" xml:space="preserve">
-    <value>Weet u zeker dat u de publicatie van dit Dashboard wilt opheffen?&lt;br&gt;U bent niet de maker van deze Dashboard, dus als u de publicatie opheft, heeft u niet langer toegang tot dit Dashboard.</value>
+    <value>Weet u zeker dat u de publicatie van dit Dashboard wilt opheffen?&lt;br&gt;U bent niet de maker van dit Dashboard, dus als u de publicatie opheft, heeft u niet langer toegang tot dit Dashboard.</value>
   </data>
   <data name="DonotHaveWCAndMCAuthrozation" xml:space="preserve">
-    <value>U heeft geen toestemming om de Web Client en de IT Management Console te gebruiken</value>
+    <value>U heeft geen toestemming om de Web Client en de IT Management Console te gebruiken.</value>
   </data>
   <data name="EditDashboard" xml:space="preserve">
-    <value>Dashboard bewerken</value>
+    <value>Wijzig Dashboard</value>
   </data>
   <data name="SaveDashboard" xml:space="preserve">
     <value>Dashboard opslaan</value>
@@ -1393,7 +1393,7 @@
     <value>Weet u zeker dat u de publicatie van deze Angle wilt opheffen?&lt;br&gt;U bent niet de maker van deze Angle, dus als u de publicatie opheft, heeft u niet langer toegang tot deze Angle.</value>
   </data>
   <data name="MessageSaveRequiredPublishDashboard" xml:space="preserve">
-    <value>Sla alle niet opgeslagen wijzgingen op voor u dit Dashboard publiceert</value>
+    <value>Sla alle niet-opgeslagen wijzgingen op voor u dit Dashboard publiceert.</value>
   </data>
   <data name="ViewCompactMode" xml:space="preserve">
     <value>Compacte modus</value>
@@ -1422,11 +1422,14 @@
   <data name="FindAngleResultCaseSensitive" xml:space="preserve">
     <value>Hoofdlettergevoelig</value>
   </data>
-  <data name="FindAngleResultForward" xml:space="preserve">
-    <value>Vooruit</value>
+  <data name="FindAngleResultDirection" xml:space="preserve">
+    <value>Richting</value>
   </data>
   <data name="FindAngleResultEntireScope" xml:space="preserve">
     <value>Volledig bereik</value>
+  </data>
+  <data name="FindAngleResultForward" xml:space="preserve">
+    <value>Vooruit</value>
   </data>
   <data name="FindAngleResultFromCursor" xml:space="preserve">
     <value>Vanaf de cursor</value>
@@ -1445,9 +1448,6 @@
   </data>
   <data name="FindAngleResultTextToFind" xml:space="preserve">
     <value>Te zoeken tekst:</value>
-  </data>
-  <data name="FindAngleResultDirection" xml:space="preserve">
-    <value>Richting</value>
   </data>
   <data name="ChartColumnArea" xml:space="preserve">
     <value>Serie</value>
@@ -1486,7 +1486,7 @@
     <value>Instellen als Angle</value>
   </data>
   <data name="MessageSaveQuestionPublish" xml:space="preserve">
-    <value>U hebt niet opgeslagen wijzigingen. Wilt u de wijzigingen opslaan en verdergaan met publiceren?</value>
+    <value>U hebt niet-opgeslagen wijzigingen. Wilt u de wijzigingen opslaan en verdergaan met publiceren?</value>
   </data>
   <data name="MessageSaveFollowupRequiredPublishAngle" xml:space="preserve">
     <value>Angledefinitie gewijzigd, een Jump is toegevoegd of verwijderd. Deze wijziging moet worden opgeslagen voordat de Angle kan worden gepubliceerd.</value>
@@ -1513,7 +1513,7 @@
     <value>Dashboard Displaydetails</value>
   </data>
   <data name="Info_AddedDisplayToDashboardSuccessfull" xml:space="preserve">
-    <value>Display is toegevoegd aan het Dashboard. &lt;br&gt;Klik &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;here&lt;/a&gt; om uw Dashboard te zien.</value>
+    <value>Display is toegevoegd aan het Dashboard. &lt;br&gt;Klik &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;hier&lt;/a&gt; om uw Dashboard te zien.</value>
   </data>
   <data name="Info_CannotSetFavoriteToAdhocAngle" xml:space="preserve">
     <value>Een ad-hoc Angle kan geen ster krijgen. U moet de Angle eerst opslaan.</value>
@@ -1534,10 +1534,10 @@
     <value>De Display bevat alleen ongeldige kolommen. Wijzig de Display.</value>
   </data>
   <data name="Info_TheFieldYouSelectedNotEnumeratedType" xml:space="preserve">
-    <value>Het door u geselecteerde veld is het juiste veldsoort. Selecteer een veld van het soort set.</value>
+    <value>Het door u geselecteerde veld heeft niet het juiste veldsoort. Selecteer een veld van het soort 'set'.</value>
   </data>
   <data name="Info_AddDisplayToDashboardSucceed" xml:space="preserve">
-    <value>Display is toegevoegd aan het Dashboard.&lt;br&gt;Klik &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;here&lt;/a&gt; om uw Dashboard te zien.</value>
+    <value>Display is toegevoegd aan het Dashboard. &lt;br&gt;Klik &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;hier&lt;/a&gt; om uw Dashboard te zien.</value>
   </data>
   <data name="Info_CannotHandleUnknownField" xml:space="preserve">
     <value>Kan onbekende veldsoort niet verwerken.&lt;br /&gt;Verwachtte een set maar de werkelijke veldsoort is {0}.&lt;br /&gt;&lt;a href={1} target="_blank"&gt;{2}&lt;/a&gt;</value>
@@ -1555,7 +1555,7 @@
     <value>Weet u zeker dat u {0} wilt verwijderen?</value>
   </data>
   <data name="Confirm_CreateNewFollowUp" xml:space="preserve">
-    <value>Het huidige Display zal wijzigen naar een nieuw Display met aanbevolen velden. &lt;br&gt;Weet u zeker dat u door wilt gaan?</value>
+    <value>De huidige Display zal worden gewijzigd in een nieuwe Display met aanbevolen velden. &lt;br&gt;Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="Confirm_DeleteAngle" xml:space="preserve">
     <value>Verwijder Angle:&lt;br /&gt; {0}?</value>
@@ -1579,7 +1579,7 @@
     <value>Selecteer minstens één item</value>
   </data>
   <data name="Info_CannotPublishedDashboardBecausePrivateAngleDisplay" xml:space="preserve">
-    <value>Het Dashboard kan niet worden gepubliceerd, omdat het Privédisplays bevat.&lt;br&gt;&lt;br&gt;Klik op OK om door te gaan naar de tab Definitie. Klik vervolgens op Ga naar Angle om toegang te krijgen tot de Display die je wilt publiceren.</value>
+    <value>Het Dashboard kan niet worden gepubliceerd, omdat het Privédisplays bevat.&lt;br&gt;&lt;br&gt;Klik op OK om door te gaan naar de tab Definitie. Klik vervolgens op Ga naar Angle om toegang te krijgen tot de Display die u wilt publiceren.</value>
   </data>
   <data name="Info_CannotSetPrivateDisplayToDefaultDisplay" xml:space="preserve">
     <value>Een Privédisplay kan niet worden ingesteld als Standaarddisplay</value>
@@ -1648,7 +1648,7 @@
     <value>Verwijder één veld uit het gegevensgebied (verticale as).</value>
   </data>
   <data name="Info_PleaseSelectMissingValueForFilters" xml:space="preserve">
-    <value>Selecteer een waarde voor dit Filter of kies 'Vraag naar waarde wanneer de Angle opent'.</value>
+    <value>Selecteer een waarde voor dit Filter of kies 'Vraag naar waarde wanneer de Angle wordt uitgevoerd'.</value>
   </data>
   <data name="Info_PleaseUseTextBelowToCopy" xml:space="preserve">
     <value>Gebruik onderstaande tekst om te kopiëren</value>
@@ -1687,7 +1687,7 @@
     <value>Een bellendiagram heeft een of twee velden in het gegevensgebied (verticale as) nodig.</value>
   </data>
   <data name="Info_RequiredLabelsForAngle" xml:space="preserve">
-    <value>Wijs publicatielabels toe voor categorieën die gemarkeerd zijn met een (*): &lt;ul&gt;{0}&lt;/ul&gt;</value>
+    <value>Wijs publicatielabels toe aan categorieën gemarkeerd met een (*): &lt;ul&gt;{0}&lt;/ul&gt;</value>
   </data>
   <data name="Info_RequiredNumberOrDateFieldForChart" xml:space="preserve">
     <value>getal- of datumveld nodig voor de categorieën (horizontale as).</value>
@@ -1780,7 +1780,7 @@
     <value>De ontvangen gegevens zijn incompleet en kunnen niet worden verwerkt.</value>
   </data>
   <data name="AskForValueWhenTheDisplayOpens" xml:space="preserve">
-    <value>Vraag naar waarde wanneer de Display opent</value>
+    <value>Vraag naar waarde wanneer de Display wordt uitgevoerd</value>
   </data>
   <data name="DashboardChangeDisplays" xml:space="preserve">
     <value>Wijzig Displays</value>
@@ -1824,6 +1824,9 @@
   <data name="TroubleShooting" xml:space="preserve">
     <value>Probleemoplossing</value>
   </data>
+  <data name="MC_Abbreviation" xml:space="preserve">
+    <value>Abbreviation</value>
+  </data>
   <data name="Access" xml:space="preserve">
     <value>Toegang</value>
   </data>
@@ -1836,6 +1839,21 @@
   <data name="AccessManagementFunctionality" xml:space="preserve">
     <value>Toegang tot managementfunctionaliteit</value>
   </data>
+  <data name="MC_AccessSetting" xml:space="preserve">
+    <value>Access setting</value>
+  </data>
+  <data name="MC_AccessToObjects" xml:space="preserve">
+    <value>Access to objects</value>
+  </data>
+  <data name="MC_AccessType" xml:space="preserve">
+    <value>Access type</value>
+  </data>
+  <data name="MC_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="MC_Actionlist" xml:space="preserve">
+    <value>Action list</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Acties</value>
   </data>
@@ -1845,14 +1863,29 @@
   <data name="Activated" xml:space="preserve">
     <value>Geactiveerd</value>
   </data>
+  <data name="MC_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="MC_ActiveForModel" xml:space="preserve">
+    <value>Active for model</value>
+  </data>
   <data name="ActiveVersion" xml:space="preserve">
     <value>Actieve versie</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Toevoegen</value>
   </data>
+  <data name="MC_AddLabelCategory" xml:space="preserve">
+    <value>Add label category</value>
+  </data>
+  <data name="MC_AddNewDatastore" xml:space="preserve">
+    <value>Add new datastore</value>
+  </data>
   <data name="AddNewIcon" xml:space="preserve">
     <value>Nieuw icoon toevoegen</value>
+  </data>
+  <data name="MC_AddNewObject" xml:space="preserve">
+    <value>Add new object</value>
   </data>
   <data name="AddRefreshCommand" xml:space="preserve">
     <value>Voeg ververscommando toe</value>
@@ -1860,11 +1893,20 @@
   <data name="Address" xml:space="preserve">
     <value>Adres</value>
   </data>
+  <data name="MC_AddRole" xml:space="preserve">
+    <value>Add role</value>
+  </data>
+  <data name="MC_AddTask" xml:space="preserve">
+    <value>Add task</value>
+  </data>
   <data name="AllAvailableRolesOn" xml:space="preserve">
     <value>Alle beschikbare rollen op</value>
   </data>
   <data name="AllEnabledSubRoles" xml:space="preserve">
     <value>Alle geactiveerde subrollen</value>
+  </data>
+  <data name="MC_AllIconsForPropertyType" xml:space="preserve">
+    <value>All icons for field type</value>
   </data>
   <data name="AllModules" xml:space="preserve">
     <value>Alle modules</value>
@@ -1872,14 +1914,44 @@
   <data name="Allow" xml:space="preserve">
     <value>Toestaan</value>
   </data>
+  <data name="MC_AllSystemRoles" xml:space="preserve">
+    <value>All system roles</value>
+  </data>
+  <data name="MC_AllUploadedPackages" xml:space="preserve">
+    <value>All uploaded packages</value>
+  </data>
   <data name="Angle" xml:space="preserve">
     <value>Angle</value>
   </data>
   <data name="Angles" xml:space="preserve">
     <value>Angles</value>
   </data>
+  <data name="MC_ApprovalState" xml:space="preserve">
+    <value>Approval state</value>
+  </data>
   <data name="Assign" xml:space="preserve">
     <value>Toewijzen</value>
+  </data>
+  <data name="MC_AssignedRoles" xml:space="preserve">
+    <value>Assigned roles</value>
+  </data>
+  <data name="MC_AttachLogfiles" xml:space="preserve">
+    <value>Attach logfiles</value>
+  </data>
+  <data name="MC_AttachResult" xml:space="preserve">
+    <value>Attach result</value>
+  </data>
+  <data name="MC_Authentication" xml:space="preserve">
+    <value>Authentication</value>
+  </data>
+  <data name="MC_AutocreateUsers" xml:space="preserve">
+    <value>Automatically create users</value>
+  </data>
+  <data name="MC_AutomationTasks" xml:space="preserve">
+    <value>Automation tasks</value>
+  </data>
+  <data name="MC_AvailableLanguages" xml:space="preserve">
+    <value>Available languages</value>
   </data>
   <data name="Bar" xml:space="preserve">
     <value>staaf</value>
@@ -1894,7 +1966,28 @@
     <value>Classif. karakter</value>
   </data>
   <data name="ClearAll" xml:space="preserve">
-    <value>Alles verwijderen</value>
+    <value>Alles wissen</value>
+  </data>
+  <data name="MC_CompanyInformation" xml:space="preserve">
+    <value>Company information</value>
+  </data>
+  <data name="MC_Condition" xml:space="preserve">
+    <value>Condition</value>
+  </data>
+  <data name="MC_Connected" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="MC_ConsoleSection" xml:space="preserve">
+    <value>Console section</value>
+  </data>
+  <data name="MC_ContentParameters" xml:space="preserve">
+    <value>Content parameters</value>
+  </data>
+  <data name="MC_ContentSettings" xml:space="preserve">
+    <value>Content settings</value>
+  </data>
+  <data name="MC_ContentType" xml:space="preserve">
+    <value>Content</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Kopiëren</value>
@@ -1908,8 +2001,14 @@
   <data name="Create" xml:space="preserve">
     <value>Aanmaken</value>
   </data>
+  <data name="MC_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
   <data name="CreatedOnModel" xml:space="preserve">
     <value>Aangemaakt op model</value>
+  </data>
+  <data name="MC_CreateNew" xml:space="preserve">
+    <value>Create new</value>
   </data>
   <data name="CreateNewModel" xml:space="preserve">
     <value>Nieuw model aanmaken</value>
@@ -1917,11 +2016,29 @@
   <data name="CreateNewRole" xml:space="preserve">
     <value>Nieuwe rol aanmaken</value>
   </data>
+  <data name="MC_CurrentAction" xml:space="preserve">
+    <value>Current action</value>
+  </data>
   <data name="CurrentTables" xml:space="preserve">
     <value>Huidige tabellen</value>
   </data>
+  <data name="MC_CustomCondition" xml:space="preserve">
+    <value>Custom condition</value>
+  </data>
+  <data name="MC_DataStore" xml:space="preserve">
+    <value>Datastore</value>
+  </data>
+  <data name="MC_DataStoreName" xml:space="preserve">
+    <value>Datastore name</value>
+  </data>
+  <data name="MC_DataStorePlugin" xml:space="preserve">
+    <value>Datastore plugin</value>
+  </data>
   <data name="DataStores" xml:space="preserve">
     <value>Datastores</value>
+  </data>
+  <data name="MC_Datatype" xml:space="preserve">
+    <value>Data type</value>
   </data>
   <data name="Day" xml:space="preserve">
     <value>Dag</value>
@@ -1938,11 +2055,29 @@
   <data name="Default_Placeholder" xml:space="preserve">
     <value>[Gebruik standaard] {0}</value>
   </data>
+  <data name="MC_DefaultRoles" xml:space="preserve">
+    <value>Default roles</value>
+  </data>
   <data name="DefaultSettingsUnmentionedFields" xml:space="preserve">
     <value>Standaard instellingen voor niet genoemde velden</value>
   </data>
   <data name="DefaultSettingsUnmentionedLabels" xml:space="preserve">
     <value>Standaard instellingen voor niet genoemde labels</value>
+  </data>
+  <data name="MC_DefaultSettingsUnmentionedObjects" xml:space="preserve">
+    <value>Default settings for unmentioned objects</value>
+  </data>
+  <data name="MC_DeletedLabels" xml:space="preserve">
+    <value>Deleted labels</value>
+  </data>
+  <data name="MC_Delta" xml:space="preserve">
+    <value>Delta</value>
+  </data>
+  <data name="MC_DeltaCondition" xml:space="preserve">
+    <value>Delta condition</value>
+  </data>
+  <data name="MC_DeltaDownload" xml:space="preserve">
+    <value>Delta download</value>
   </data>
   <data name="Deny" xml:space="preserve">
     <value>Weigeren</value>
@@ -1956,20 +2091,44 @@
   <data name="Display" xml:space="preserve">
     <value>Display</value>
   </data>
+  <data name="MC_Domain" xml:space="preserve">
+    <value>Domain</value>
+  </data>
   <data name="Done" xml:space="preserve">
     <value>Klaar</value>
   </data>
   <data name="Down" xml:space="preserve">
     <value>Inactief</value>
   </data>
+  <data name="MC_DownloadAllFields" xml:space="preserve">
+    <value>Download all fields</value>
+  </data>
+  <data name="MC_EAName" xml:space="preserve">
+    <value>EA name</value>
+  </data>
   <data name="Edit" xml:space="preserve">
-    <value>Wijzigen</value>
+    <value>Bewerken</value>
+  </data>
+  <data name="MC_EditLicense" xml:space="preserve">
+    <value>Edit license</value>
+  </data>
+  <data name="MC_EditTable" xml:space="preserve">
+    <value>Edit table</value>
+  </data>
+  <data name="MC_EightHours" xml:space="preserve">
+    <value>8 hours</value>
+  </data>
+  <data name="MC_EmailLog" xml:space="preserve">
+    <value>E-mail logfiles</value>
   </data>
   <data name="Empty" xml:space="preserve">
     <value>Leeg</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Geactiveerd</value>
+  </data>
+  <data name="MC_EnabledFor" xml:space="preserve">
+    <value>Enabled for</value>
   </data>
   <data name="EndTime" xml:space="preserve">
     <value>Eindtijd</value>
@@ -1980,11 +2139,20 @@
   <data name="Errors" xml:space="preserve">
     <value>Fouten</value>
   </data>
+  <data name="MC_ExpirationDate" xml:space="preserve">
+    <value>Expiration date</value>
+  </data>
   <data name="ExternalApps" xml:space="preserve">
     <value>Externe applicaties</value>
   </data>
   <data name="Extract" xml:space="preserve">
     <value>Extractie</value>
+  </data>
+  <data name="MC_ExtractingTables" xml:space="preserve">
+    <value>Extracting tables</value>
+  </data>
+  <data name="MC_Field" xml:space="preserve">
+    <value>Field</value>
   </data>
   <data name="FieldName" xml:space="preserve">
     <value>Veldnaam</value>
@@ -2001,6 +2169,9 @@
   <data name="FindAngle" xml:space="preserve">
     <value>Zoek Angle</value>
   </data>
+  <data name="MC_FourHours" xml:space="preserve">
+    <value>4 hours</value>
+  </data>
   <data name="Functionality" xml:space="preserve">
     <value>Functionaliteit</value>
   </data>
@@ -2016,8 +2187,14 @@
   <data name="ID" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="MC_ImportLabels" xml:space="preserve">
+    <value>Import labels</value>
+  </data>
   <data name="Inactive" xml:space="preserve">
     <value>Inactief</value>
+  </data>
+  <data name="MC_IncludedLabels" xml:space="preserve">
+    <value>Included labels</value>
   </data>
   <data name="IndexingTables" xml:space="preserve">
     <value>Tabellen indexeren</value>
@@ -2037,17 +2214,41 @@
   <data name="Instances" xml:space="preserve">
     <value>Instanties</value>
   </data>
+  <data name="MC_InstanceStatus" xml:space="preserve">
+    <value>Instance status</value>
+  </data>
+  <data name="MC_KeyField" xml:space="preserve">
+    <value>Key field</value>
+  </data>
   <data name="Label" xml:space="preserve">
     <value>label</value>
   </data>
   <data name="LabelCategoriesSetting" xml:space="preserve">
     <value>Labelcategorie instellingen</value>
   </data>
+  <data name="MC_Labels" xml:space="preserve">
+    <value>Labels</value>
+  </data>
+  <data name="MC_LanguageSettings" xml:space="preserve">
+    <value>Language settings</value>
+  </data>
+  <data name="MC_LargerIcon" xml:space="preserve">
+    <value>Large icon 32*32</value>
+  </data>
   <data name="LastChanges" xml:space="preserve">
     <value>Laatste wijzigingen</value>
   </data>
+  <data name="MC_Length" xml:space="preserve">
+    <value>Length</value>
+  </data>
   <data name="License" xml:space="preserve">
     <value>Licentie</value>
+  </data>
+  <data name="MC_LicensedApps" xml:space="preserve">
+    <value>Licensed applications</value>
+  </data>
+  <data name="MC_LicenseExpirationDate" xml:space="preserve">
+    <value>License expiration date</value>
   </data>
   <data name="LicenseId" xml:space="preserve">
     <value>Licentie-ID</value>
@@ -2088,17 +2289,38 @@
   <data name="ModelDate" xml:space="preserve">
     <value>Modeldatum</value>
   </data>
+  <data name="MC_ModelDescription" xml:space="preserve">
+    <value>Model description</value>
+  </data>
+  <data name="MC_ModelEnvironment" xml:space="preserve">
+    <value>Model environment</value>
+  </data>
+  <data name="MC_ModelID" xml:space="preserve">
+    <value>Model ID</value>
+  </data>
+  <data name="MC_ModelName" xml:space="preserve">
+    <value>Model name</value>
+  </data>
+  <data name="MC_ModelServer" xml:space="preserve">
+    <value>Model server</value>
+  </data>
   <data name="ModelSetup" xml:space="preserve">
     <value>Modelinstellingen</value>
   </data>
   <data name="ModelShortName" xml:space="preserve">
     <value>Korte naam model</value>
   </data>
+  <data name="MC_ModelSize" xml:space="preserve">
+    <value>Model size</value>
+  </data>
   <data name="ModelStatus" xml:space="preserve">
     <value>Modelstatus</value>
   </data>
   <data name="ModelTimestamp" xml:space="preserve">
     <value>Model timestamp</value>
+  </data>
+  <data name="MC_ModelType" xml:space="preserve">
+    <value>Model type</value>
   </data>
   <data name="ModifySetup" xml:space="preserve">
     <value>Instellingen aanpassen</value>
@@ -2115,11 +2337,20 @@
   <data name="NewRoleName" xml:space="preserve">
     <value>Nieuwe rolnaam</value>
   </data>
+  <data name="MC_NumberOfModelServers" xml:space="preserve">
+    <value>Number of Model Servers</value>
+  </data>
+  <data name="MC_NumberOfUsers" xml:space="preserve">
+    <value>Number of users</value>
+  </data>
   <data name="Object" xml:space="preserve">
     <value>Object</value>
   </data>
   <data name="Objects" xml:space="preserve">
     <value>Objecten</value>
+  </data>
+  <data name="MC_OneHour" xml:space="preserve">
+    <value>1 hour</value>
   </data>
   <data name="OpenModel" xml:space="preserve">
     <value>Model openen</value>
@@ -2136,14 +2367,23 @@
   <data name="Preview" xml:space="preserve">
     <value>Voorbeeld bekijken</value>
   </data>
+  <data name="MC_PrivilegesOnLabels" xml:space="preserve">
+    <value>Privileges on labels</value>
+  </data>
   <data name="Progress" xml:space="preserve">
     <value>Voortgang</value>
+  </data>
+  <data name="MC_PropertyType" xml:space="preserve">
+    <value>Field type</value>
   </data>
   <data name="Read" xml:space="preserve">
     <value>Lezen</value>
   </data>
   <data name="ReadyForQueries" xml:space="preserve">
     <value>Klaar voor filters</value>
+  </data>
+  <data name="MC_Recipients" xml:space="preserve">
+    <value>Recipients</value>
   </data>
   <data name="ReferencedObject" xml:space="preserve">
     <value>Object waarnaar wordt verwezen</value>
@@ -2166,23 +2406,44 @@
   <data name="Role" xml:space="preserve">
     <value>Rol</value>
   </data>
+  <data name="MC_RoleDescription" xml:space="preserve">
+    <value>Role description</value>
+  </data>
+  <data name="MC_Rolename" xml:space="preserve">
+    <value>Role name</value>
+  </data>
   <data name="Roles" xml:space="preserve">
     <value>Rollen</value>
+  </data>
+  <data name="MC_RoleSettings" xml:space="preserve">
+    <value>Role settings</value>
   </data>
   <data name="RunAsUser" xml:space="preserve">
     <value>Uitvoeren als gebruiker</value>
   </data>
+  <data name="MC_RunResult" xml:space="preserve">
+    <value>Run result</value>
+  </data>
   <data name="Select" xml:space="preserve">
     <value>Selecteer</value>
   </data>
+  <data name="MC_SelectTheFieldsToTable" xml:space="preserve">
+    <value>Select fields to add to the table</value>
+  </data>
   <data name="SenderEmailAccount" xml:space="preserve">
     <value>Afzender (e-mailaccount)</value>
+  </data>
+  <data name="MC_ServerSettings" xml:space="preserve">
+    <value>Server settings</value>
   </data>
   <data name="ServerStarted" xml:space="preserve">
     <value>Server gestart</value>
   </data>
   <data name="SetDefaultTo" xml:space="preserve">
     <value>Standaard instellen op</value>
+  </data>
+  <data name="MC_SetSelectedField" xml:space="preserve">
+    <value>Set selected field to</value>
   </data>
   <data name="SetUpANewModel" xml:space="preserve">
     <value>Een nieuw model instellen</value>
@@ -2193,6 +2454,9 @@
   <data name="Since" xml:space="preserve">
     <value>Sinds</value>
   </data>
+  <data name="MC_SmallIcon" xml:space="preserve">
+    <value>Small icon 16*16</value>
+  </data>
   <data name="StartServer" xml:space="preserve">
     <value>Start server</value>
   </data>
@@ -2202,11 +2466,29 @@
   <data name="StopServer" xml:space="preserve">
     <value>Stop server</value>
   </data>
+  <data name="MC_ShowComputedResultingRole" xml:space="preserve">
+    <value>Show resulting role</value>
+  </data>
+  <data name="MC_Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
   <data name="SubRoles" xml:space="preserve">
     <value>Subrollen</value>
   </data>
+  <data name="MC_Table" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="MC_TableGroup" xml:space="preserve">
+    <value>Table group</value>
+  </data>
+  <data name="MC_TablesAndFields" xml:space="preserve">
+    <value>Tables &amp; fields</value>
+  </data>
   <data name="Techn" xml:space="preserve">
     <value>Techn. naam</value>
+  </data>
+  <data name="MC_TestEmail" xml:space="preserve">
+    <value>Test email settings</value>
   </data>
   <data name="TestExtraction" xml:space="preserve">
     <value>Test extractie</value>
@@ -2223,11 +2505,23 @@
   <data name="Total" xml:space="preserve">
     <value>Totaal</value>
   </data>
+  <data name="MC_SubRolesHeader" xml:space="preserve">
+    <value>Subroles</value>
+  </data>
   <data name="Training" xml:space="preserve">
     <value>Training</value>
   </data>
   <data name="TreeList" xml:space="preserve">
     <value>structuurlijst</value>
+  </data>
+  <data name="MC_TwelveHours" xml:space="preserve">
+    <value>12 hours</value>
+  </data>
+  <data name="MC_TwentyFourHours" xml:space="preserve">
+    <value>24 hours</value>
+  </data>
+  <data name="MC_TwoHours" xml:space="preserve">
+    <value>2 hours</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Soort</value>
@@ -2235,8 +2529,17 @@
   <data name="Undefined" xml:space="preserve">
     <value>Niet gedefinieerd</value>
   </data>
+  <data name="MC_UnmentionedCurrencyFields" xml:space="preserve">
+    <value>By default, currency fields are</value>
+  </data>
+  <data name="MC_UnmentionedFields" xml:space="preserve">
+    <value>By default, fields are</value>
+  </data>
   <data name="UnmentionedLabels" xml:space="preserve">
     <value>Niet genoemde labels (erboven)</value>
+  </data>
+  <data name="MC_UnmentionedObjects" xml:space="preserve">
+    <value>By default, objects are</value>
   </data>
   <data name="Up" xml:space="preserve">
     <value>Actief</value>
@@ -2244,11 +2547,35 @@
   <data name="Update" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="MC_UploadCustomerLogo" xml:space="preserve">
+    <value>Upload customer logo</value>
+  </data>
   <data name="Uploaded" xml:space="preserve">
     <value>Geüpload</value>
   </data>
+  <data name="MC_Process" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="MC_DisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="MC_UploadIcon" xml:space="preserve">
+    <value>Upload icon</value>
+  </data>
+  <data name="MC_UploadLicense" xml:space="preserve">
+    <value>Upload license</value>
+  </data>
+  <data name="MC_UploadNewPackage" xml:space="preserve">
+    <value>Upload new package</value>
+  </data>
+  <data name="MC_Users" xml:space="preserve">
+    <value>users</value>
+  </data>
   <data name="Validate" xml:space="preserve">
     <value>Valideren</value>
+  </data>
+  <data name="MC_ValidForPrivilege" xml:space="preserve">
+    <value>Valid for privilege</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Versie</value>
@@ -2265,20 +2592,68 @@
   <data name="Write" xml:space="preserve">
     <value>Schrijven</value>
   </data>
+  <data name="MC_XtractorStarted" xml:space="preserve">
+    <value>EA ETL Sandbox started</value>
+  </data>
+  <data name="MC_AccessToModel" xml:space="preserve">
+    <value>Access to model</value>
+  </data>
+  <data name="MC_AddAttachment" xml:space="preserve">
+    <value>Add attachment</value>
+  </data>
+  <data name="MC_AddMyComment" xml:space="preserve">
+    <value>Add my comment</value>
+  </data>
   <data name="AllUsers" xml:space="preserve">
     <value>Alle gebruikers</value>
+  </data>
+  <data name="MC_Attachment" xml:space="preserve">
+    <value>Attachment</value>
+  </data>
+  <data name="MC_AuthenticationProvider" xml:space="preserve">
+    <value>Authentication provider</value>
   </data>
   <data name="BackToHome" xml:space="preserve">
     <value>Terug naar startpagina</value>
   </data>
+  <data name="MC_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="MC_Comments" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="MC_Cookie" xml:space="preserve">
+    <value>Cookie</value>
+  </data>
+  <data name="MC_DefaultBusinessProcesses" xml:space="preserve">
+    <value>Default Business Processes</value>
+  </data>
+  <data name="MC_EnabledUntil" xml:space="preserve">
+    <value>Enabled until</value>
+  </data>
   <data name="Euro" xml:space="preserve">
     <value>Euro</value>
+  </data>
+  <data name="MC_Explicit" xml:space="preserve">
+    <value>Explicit</value>
   </data>
   <data name="FourDecimal" xml:space="preserve">
     <value>4 decimalen</value>
   </data>
+  <data name="MC_FullName" xml:space="preserve">
+    <value>Full name</value>
+  </data>
+  <data name="MC_InclSubroles" xml:space="preserve">
+    <value>Include subrole</value>
+  </data>
+  <data name="MC_IPAddress" xml:space="preserve">
+    <value>IP address</value>
+  </data>
   <data name="LastLogin" xml:space="preserve">
     <value>Laatste keer ingelogd:</value>
+  </data>
+  <data name="MC_LongName" xml:space="preserve">
+    <value>Long name</value>
   </data>
   <data name="Maintenance" xml:space="preserve">
     <value>Onderhoud</value>
@@ -2304,6 +2679,36 @@
   <data name="SelectRolesToAssign" xml:space="preserve">
     <value>Selecteer toe te wijzen rollen</value>
   </data>
+  <data name="MC_Sessions" xml:space="preserve">
+    <value>Sessions</value>
+  </data>
+  <data name="MC_ShortName" xml:space="preserve">
+    <value>Short name</value>
+  </data>
+  <data name="MC_ShowInDays" xml:space="preserve">
+    <value>Show in days</value>
+  </data>
+  <data name="MC_ShowInDaysDDHH" xml:space="preserve">
+    <value>Show in days (DD:HH)</value>
+  </data>
+  <data name="MC_ShowInHours" xml:space="preserve">
+    <value>Show in hours</value>
+  </data>
+  <data name="MC_ShowInHoursHHMM" xml:space="preserve">
+    <value>Show in hours (HH:MM)</value>
+  </data>
+  <data name="MC_ShowInSeconds" xml:space="preserve">
+    <value>Show in seconds</value>
+  </data>
+  <data name="MC_ShowInWeeks" xml:space="preserve">
+    <value>Show in weeks</value>
+  </data>
+  <data name="MC_ShowInWeeksWWDD" xml:space="preserve">
+    <value>Show in weeks (WW:DD)</value>
+  </data>
+  <data name="MC_ShowRole" xml:space="preserve">
+    <value>Show role</value>
+  </data>
   <data name="SixDecimal" xml:space="preserve">
     <value>6 decimalen</value>
   </data>
@@ -2319,6 +2724,12 @@
   <data name="User" xml:space="preserve">
     <value>Gebruiker</value>
   </data>
+  <data name="MC_UserDefaultSettings" xml:space="preserve">
+    <value>User default settings</value>
+  </data>
+  <data name="MC_UserEnabled" xml:space="preserve">
+    <value>User enabled</value>
+  </data>
   <data name="Continuous" xml:space="preserve">
     <value>Doorlopend</value>
   </data>
@@ -2328,17 +2739,620 @@
   <data name="RestartDelay" xml:space="preserve">
     <value>Herstartvertraging</value>
   </data>
+  <data name="MC_Module_Column_Name" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="MC_Task_SendNotificationAfterFinished" xml:space="preserve">
+    <value>Send a notification after the task has finished</value>
+  </data>
+  <data name="MC_SupportsAppend" xml:space="preserve">
+    <value>Supports append</value>
+  </data>
+  <data name="MC_CheckDisplay" xml:space="preserve">
+    <value>Check Display</value>
+  </data>
+  <data name="MC_CheckAngle" xml:space="preserve">
+    <value>Check Angle</value>
+  </data>
+  <data name="MC_Validation_AlphaNumeric" xml:space="preserve">
+    <value>Please use only letters, numbers, and underscores</value>
+  </data>
+  <data name="MC_Validation_Integer" xml:space="preserve">
+    <value>Please use a positive or negative non-decimal number</value>
+  </data>
+  <data name="MC_Validation_LettersOnly" xml:space="preserve">
+    <value>Please use only letters</value>
+  </data>
+  <data name="MC_Validation_LettersWithBasicPunc" xml:space="preserve">
+    <value>Please use only letters and punctuation</value>
+  </data>
+  <data name="MC_Validation_NoWhiteSpace" xml:space="preserve">
+    <value>White space not allowed</value>
+  </data>
+  <data name="MC_Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="MC_Ajax_ControllerUndefined" xml:space="preserve">
+    <value>There is no options.url or href=\"url\" in your request.</value>
+  </data>
+  <data name="MC_Ajax_RequestTimeout" xml:space="preserve">
+    <value>Request timeout</value>
+  </data>
+  <data name="MC_Always" xml:space="preserve">
+    <value>Always</value>
+  </data>
+  <data name="MC_CheckChangePage" xml:space="preserve">
+    <value>You have made changes without saving. If you leave this page your changes will be lost.\nClick OK to continue or Cancel to stay on the current page.</value>
+  </data>
+  <data name="MC_Day" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="MC_DeleteTemplate" xml:space="preserve">
+    <value>Delete: {reference}?</value>
+  </data>
+  <data name="MC_Disabled" xml:space="preserve">
+    <value>disabled</value>
+  </data>
+  <data name="MC_enabled" xml:space="preserve">
+    <value>enabled</value>
+  </data>
+  <data name="MC_ErrorOccured" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
+  <data name="MC_ErrorReason" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MC_ErrorReason400" xml:space="preserve">
+    <value>Bad request</value>
+  </data>
+  <data name="MC_Exactly" xml:space="preserve">
+    <value>Exactly</value>
+  </data>
+  <data name="MC_ExecuteNow" xml:space="preserve">
+    <value>Execute now</value>
+  </data>
+  <data name="MC_Hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="MC_Hr" xml:space="preserve">
+    <value>hr</value>
+  </data>
+  <data name="MC_InternalError" xml:space="preserve">
+    <value>Internal error</value>
+  </data>
+  <data name="MC_LessThan" xml:space="preserve">
+    <value>Less than or equal to</value>
+  </data>
+  <data name="MC_ManualAbort" xml:space="preserve">
+    <value>Manual abort from IT Management Console</value>
+  </data>
+  <data name="MC_ManualExecute" xml:space="preserve">
+    <value>Manual execute from IT Management Console</value>
+  </data>
+  <data name="MC_Mins" xml:space="preserve">
+    <value>mins</value>
+  </data>
+  <data name="MC_MoreThan" xml:space="preserve">
+    <value>More than or equal to</value>
+  </data>
+  <data name="MC_Rejected" xml:space="preserve">
+    <value>rejected</value>
+  </data>
+  <data name="MC_Requested" xml:space="preserve">
+    <value>requested</value>
+  </data>
+  <data name="MC_UploadFileRunningPopup" xml:space="preserve">
+    <value>File upload is running.\nDo you want to cancel?</value>
+  </data>
+  <data name="MC_UploadInprogress" xml:space="preserve">
+    <value>Upload in progress...</value>
+  </data>
+  <data name="MC_UploadSuccessful" xml:space="preserve">
+    <value>Upload successful</value>
+  </data>
+  <data name="MC_Validation_Extension" xml:space="preserve">
+    <value>Please enter a value with a valid extension.</value>
+  </data>
   <data name="Info_MissingValueFilterIndex" xml:space="preserve">
     <value>Item {0}:</value>
+  </data>
+  <data name="MC_AbortedVideoPlayback" xml:space="preserve">
+    <value>[x]you aborted the video playback.</value>
+  </data>
+  <data name="MC_BrowserNotSupport" xml:space="preserve">
+    <value>Your browser does not support HTML5 video and canvas.</value>
+  </data>
+  <data name="MC_ConflictingModulesSelection" xml:space="preserve">
+    <value>Conflicting modules in selection. The following modules cannot be active simultaneously:</value>
+  </data>
+  <data name="MC_EnableSelectedModules" xml:space="preserve">
+    <value>To enable the selected modules, also the following modules need to be enabled:</value>
+  </data>
+  <data name="MC_ExtractionFailed" xml:space="preserve">
+    <value>Extraction failed</value>
+  </data>
+  <data name="MC_File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="MC_FollowingSecurablesNotExist" xml:space="preserve">
+    <value>The following items do not exist in the target model:</value>
+  </data>
+  <data name="MC_GenerateThumbnailsReport" xml:space="preserve">
+    <value>Generate thumbnails report</value>
+  </data>
+  <data name="MC_Generating" xml:space="preserve">
+    <value>Generating...</value>
+  </data>
+  <data name="MC_ImageExtractionFailed" xml:space="preserve">
+    <value>[x]image cannot be extracted from the video.</value>
+  </data>
+  <data name="MC_NotIncludeInModule" xml:space="preserve">
+    <value>(Not included in module)</value>
+  </data>
+  <data name="MC_RemovedFieldsList" xml:space="preserve">
+    <value>Removed the following fields:</value>
+  </data>
+  <data name="MC_RemovedIconsList" xml:space="preserve">
+    <value>Deleted the following icons:</value>
+  </data>
+  <data name="MC_RemovedLabels" xml:space="preserve">
+    <value>Removed labels</value>
+  </data>
+  <data name="MC_RemovedLabelsList" xml:space="preserve">
+    <value>Deleted the following labels:</value>
+  </data>
+  <data name="MC_RemovedLanguagesList" xml:space="preserve">
+    <value>The following languages will be removed:</value>
+  </data>
+  <data name="MC_RemovedObjects" xml:space="preserve">
+    <value>Removed objects</value>
+  </data>
+  <data name="MC_RemovedReferenceFields" xml:space="preserve">
+    <value>Removed reference fields</value>
+  </data>
+  <data name="MC_SuccessLowerCase" xml:space="preserve">
+    <value>success</value>
+  </data>
+  <data name="MC_ThumbUnknownError" xml:space="preserve">
+    <value>[x]an unknown error occurred.</value>
+  </data>
+  <data name="MC_UnRemovedFieldsList" xml:space="preserve">
+    <value>Failed to remove the following fields:</value>
+  </data>
+  <data name="MC_UnRemovedIconsList" xml:space="preserve">
+    <value>Failed to delete the following icons:</value>
+  </data>
+  <data name="MC_UnRemovedLabelsList" xml:space="preserve">
+    <value>Failed to delete the following labels:</value>
+  </data>
+  <data name="MC_UnRemovedLanguagesList" xml:space="preserve">
+    <value>Failed to remove the following languages:</value>
+  </data>
+  <data name="MC_VideoDownloadFail" xml:space="preserve">
+    <value>a network error caused the video download to fail.</value>
+  </data>
+  <data name="MC_VideoNotLoaded" xml:space="preserve">
+    <value>the video could not be loaded, either because the server or network failed or because the format is not supported.</value>
+  </data>
+  <data name="MC_VideoPlaybackAborted" xml:space="preserve">
+    <value>the video playback was aborted due to a corruption problem or because the video uses features your browser does not support.</value>
+  </data>
+  <data name="MC_VideoUnknownError" xml:space="preserve">
+    <value>an unknown error occurred.</value>
+  </data>
+  <data name="MC_AddAction" xml:space="preserve">
+    <value>Add action</value>
+  </data>
+  <data name="MC_EmailSettings" xml:space="preserve">
+    <value>Email settings</value>
+  </data>
+  <data name="MC_Read" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="MC_TaskDetaiObjects" xml:space="preserve">
+    <value>objects</value>
+  </data>
+  <data name="MC_TestConnection" xml:space="preserve">
+    <value>Test connection</value>
+  </data>
+  <data name="MC_Write" xml:space="preserve">
+    <value>Write</value>
+  </data>
+  <data name="MC_MailSettingsHelp" xml:space="preserve">
+    <value>&lt;b&gt;The following macro’s are available:&lt;/b&gt;
+                &lt;br&gt;&lt;br&gt;
+                &lt;table props="allow_pagebreak"&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{angleid}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the ID of the exported Angle.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{anglename}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the name of the exported Angle.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{anglename:normalized}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the normalized name of the exported Angle. When applied, all spaces and special characters used in the Angle name will be removed. A normalized name can for instance be used as file name.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{condition}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Condition for condition based automation task.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{conditionresult}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Condition result for condition based automation task.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{displayid}&lt;/p&gt;
+	&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the ID of the exported Display.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{displayname}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the name of the exported Display.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{displayname:normalized}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the normalized name of the exported Display. When applied, all spaces and special characters used in the Display name will be removed. A normalized name can for instance be used as file name.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{language}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Language of the exported data.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{model}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the ID of the model the Angle is part of.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{modeltimestamp}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the timestamp of the model the exported Angle is part of. {objectcount} Inserts the number of objects the Display contains.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{objectcount}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Amount of objects in the export.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{result}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the contents of the exported Display.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{rowsexported}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the number of rows exported for this Angle.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+	&lt;TR&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;{rowstotal}&lt;/p&gt;
+		&lt;/TD&gt;
+		&lt;TD ALIGN=left VALIGN=middle&gt;
+			&lt;p&gt;Inserts the number of rows available in the Display.&lt;/p&gt;
+		&lt;/TD&gt;
+	&lt;/TR&gt;
+&lt;/table&gt;</value>
+  </data>
+  <data name="MC_ErrorAndWarning" xml:space="preserve">
+    <value>Error and warning</value>
+  </data>
+  <data name="MC_NotImplemented" xml:space="preserve">
+    <value>Not implemented</value>
+  </data>
+  <data name="MC_Expires" xml:space="preserve">
+    <value>Expires</value>
+  </data>
+  <data name="MC_LicensedFor" xml:space="preserve">
+    <value>Licensed for</value>
+  </data>
+  <data name="MC_ModelShortName" xml:space="preserve">
+    <value>Model short name</value>
+  </data>
+  <data name="MC_NoData" xml:space="preserve">
+    <value>no data</value>
+  </data>
+  <data name="MC_Reload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="MC_Validation_TaskActionRequired" xml:space="preserve">
+    <value>The task must contain at least one action.</value>
+  </data>
+  <data name="MC_Validation_Accept" xml:space="preserve">
+    <value>Please enter a value with a valid MIME type.</value>
+  </data>
+  <data name="MC_Validation_AgentUrl" xml:space="preserve">
+    <value>Please enter a valid URL.</value>
+  </data>
+  <data name="MC_Validation_AngleDisplay" xml:space="preserve">
+    <value>Invalid Angle or Display URL.</value>
+  </data>
+  <data name="MC_Validation_DateITA" xml:space="preserve">
+    <value>Please enter a correct date</value>
+  </data>
+  <data name="MC_Validation_DateLocalized" xml:space="preserve">
+    <value>Please enter a correct date</value>
+  </data>
+  <data name="MC_Validation_DateNL" xml:space="preserve">
+    <value>Please enter a correct date</value>
+  </data>
+  <data name="MC_Validation_Email" xml:space="preserve">
+    <value>Please enter a valid email address</value>
+  </data>
+  <data name="MC_Validation_FieldId" xml:space="preserve">
+    <value>ID must start with a-z, A-Z and should contain only a-z, A-Z, 0-9, and '_'</value>
+  </data>
+  <data name="MC_Validation_IsAnsi" xml:space="preserve">
+    <value>Please enter ANSI characters</value>
+  </data>
+  <data name="MC_Validation_Packagename" xml:space="preserve">
+    <value>A valid package name should be &amp;lt;source&amp;gt;-&amp;lt;name&amp;gt;-&amp;lt;version&amp;gt;.eapackage</value>
+  </data>
+  <data name="MC_Validation_Pattern" xml:space="preserve">
+    <value>Invalid format</value>
+  </data>
+  <data name="MC_Validation_PhoneNumber" xml:space="preserve">
+    <value>Please enter a valid phone number</value>
+  </data>
+  <data name="MC_Validation_RequiredDefaultRoles" xml:space="preserve">
+    <value>Please select default roles</value>
+  </data>
+  <data name="MC_Validation_RequireFromGroup" xml:space="preserve">
+    <value>Please fill at least {0} of these fields.</value>
+  </data>
+  <data name="MC_Validation_SkipOrFillMinimum" xml:space="preserve">
+    <value>Please either skip these fields or fill at least {0} of them.</value>
+  </data>
+  <data name="MC_Validation_Time" xml:space="preserve">
+    <value>Please enter a valid time, between 00:00 and 23:59</value>
+  </data>
+  <data name="MC_Validation_Time12h" xml:space="preserve">
+    <value>Please enter a valid time in 12-hour am/pm format</value>
+  </data>
+  <data name="MC_Validation_TimeMinute" xml:space="preserve">
+    <value>Please enter a valid time, between 00:00 and 00:59</value>
+  </data>
+  <data name="MC_Validation_ValidActionEmail" xml:space="preserve">
+    <value>Please complete this email notification.</value>
+  </data>
+  <data name="MC_Validation_ValidDefaultPageSize" xml:space="preserve">
+    <value>Default page size must be equal or less than the maximum page size.</value>
+  </data>
+  <data name="MC_Privileges" xml:space="preserve">
+    <value>Privileges</value>
   </data>
   <data name="MessageModelIsNotAvailable" xml:space="preserve">
     <value>Model {0} is momenteel niet beschikbaar (status: {1}). Probeer het later nogmaals.</value>
   </data>
+  <data name="MC_AddRoles" xml:space="preserve">
+    <value>Add roles</value>
+  </data>
+  <data name="MC_ImportNewUsers" xml:space="preserve">
+    <value>Import new users</value>
+  </data>
+  <data name="MC_MassChangeUsers" xml:space="preserve">
+    <value>Mass change</value>
+  </data>
+  <data name="MC_RemoveRoles" xml:space="preserve">
+    <value>Remove roles</value>
+  </data>
+  <data name="MC_SetRoles" xml:space="preserve">
+    <value>Set roles</value>
+  </data>
+  <data name="MC_ImportUsersFailAddRoles" xml:space="preserve">
+    <value>User has been created but no the roles were assigned.</value>
+  </data>
+  <data name="MC_AddingUser" xml:space="preserve">
+    <value>Adding user</value>
+  </data>
+  <data name="MC_AddUserReportTitle" xml:space="preserve">
+    <value>Add users report</value>
+  </data>
   <data name="Info_WarningSelectExistingDashboard" xml:space="preserve">
     <value>Selecteer een Dashboard</value>
   </data>
+  <data name="MC_MassChangeReport" xml:space="preserve">
+    <value>Mass change report</value>
+  </data>
+  <data name="MC_Errors" xml:space="preserve">
+    <value>Errors</value>
+  </data>
+  <data name="MC_LicensedIPAddress" xml:space="preserve">
+    <value>Licensed IP address</value>
+  </data>
+  <data name="MC_ServiceAgreement" xml:space="preserve">
+    <value>Service agreement</value>
+  </data>
+  <data name="MC_AddUser" xml:space="preserve">
+    <value>Add user</value>
+  </data>
+  <data name="MC_AllModels" xml:space="preserve">
+    <value>All models</value>
+  </data>
+  <data name="MC_AllUsers" xml:space="preserve">
+    <value>All users</value>
+  </data>
+  <data name="MC_BusinessProcesses" xml:space="preserve">
+    <value>Business Processes</value>
+  </data>
+  <data name="MC_Communications" xml:space="preserve">
+    <value>Communications</value>
+  </data>
+  <data name="MC_CreateDatastore" xml:space="preserve">
+    <value>Create datastore</value>
+  </data>
+  <data name="MC_CreateNewLabelCategory" xml:space="preserve">
+    <value>Create new label category</value>
+  </data>
+  <data name="MC_CreateNewModel" xml:space="preserve">
+    <value>Create new model</value>
+  </data>
+  <data name="MC_CreateNewRole" xml:space="preserve">
+    <value>Create new role</value>
+  </data>
+  <data name="MC_CreateNewSystemRole" xml:space="preserve">
+    <value>Create new system role</value>
+  </data>
+  <data name="MC_CreateObject" xml:space="preserve">
+    <value>Create object</value>
+  </data>
+  <data name="MC_CreateTask" xml:space="preserve">
+    <value>Create task</value>
+  </data>
+  <data name="MC_CustomIcons" xml:space="preserve">
+    <value>Custom icons</value>
+  </data>
+  <data name="MC_EAXtractor" xml:space="preserve">
+    <value>EA ETL Sandbox</value>
+  </data>
+  <data name="MC_EditDatastore" xml:space="preserve">
+    <value>Edit datastore</value>
+  </data>
+  <data name="MC_EditLabelCategory" xml:space="preserve">
+    <value>Edit label category</value>
+  </data>
+  <data name="MC_EditModel" xml:space="preserve">
+    <value>Edit model</value>
+  </data>
+  <data name="MC_EditObject" xml:space="preserve">
+    <value>Edit object</value>
+  </data>
+  <data name="MC_EditRole" xml:space="preserve">
+    <value>Edit role</value>
+  </data>
+  <data name="MC_EditSystemRole" xml:space="preserve">
+    <value>Edit system role</value>
+  </data>
+  <data name="MC_EditTask" xml:space="preserve">
+    <value>Edit task</value>
+  </data>
+  <data name="MC_EditUser" xml:space="preserve">
+    <value>Edit user</value>
+  </data>
+  <data name="MC_GlobalSettings" xml:space="preserve">
+    <value>Global settings</value>
+  </data>
+  <data name="MC_LabelCategories" xml:space="preserve">
+    <value>Label categories</value>
+  </data>
+  <data name="MC_Languages" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="MC_License" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="MC_ModelServers" xml:space="preserve">
+    <value>Model servers</value>
+  </data>
+  <data name="MC_Modules" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="MC_Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="MC_Packages" xml:space="preserve">
+    <value>Packages</value>
+  </data>
+  <data name="MC_RefreshCycle" xml:space="preserve">
+    <value>Refresh cycle</value>
+  </data>
+  <data name="MC_Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="MC_RolesSettings" xml:space="preserve">
+    <value>Role settings</value>
+  </data>
+  <data name="MC_SystemLog" xml:space="preserve">
+    <value>System log</value>
+  </data>
+  <data name="MC_SystemRoles" xml:space="preserve">
+    <value>System roles</value>
+  </data>
+  <data name="MC_SystemSettings" xml:space="preserve">
+    <value>System settings</value>
+  </data>
+  <data name="MC_Tasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="MC_UserDefaults" xml:space="preserve">
+    <value>User defaults</value>
+  </data>
+  <data name="MC_UsersUpperCase" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="MC_WebServerSettings" xml:space="preserve">
+    <value>Web Server settings</value>
+  </data>
+  <data name="MC_WelcomePage" xml:space="preserve">
+    <value>Welcome page</value>
+  </data>
+  <data name="MC_Info_TestConnectionSuccess" xml:space="preserve">
+    <value>A connection was successfully established</value>
+  </data>
+  <data name="MC_Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
   <data name="Info_ChartCanHaveOnlyOneFieldInCategories" xml:space="preserve">
-    <value>Categorie en serie kan elk slechts een veld bevatten..</value>
+    <value>Categorie en serie kan elk slechts een veld bevatten.</value>
+  </data>
+  <data name="MC_LicensedExpiredOn" xml:space="preserve">
+    <value>License expired on</value>
+  </data>
+  <data name="MC_LicensedUntil" xml:space="preserve">
+    <value>Licensed until</value>
+  </data>
+  <data name="MC_Unlicensed" xml:space="preserve">
+    <value>Unlicensed</value>
   </data>
   <data name="WarningCategoriesOrSeriesInChartHadMoreThanOne" xml:space="preserve">
     <value>Grafiek kan niet gegenereerd worden omdat de categorie of serie meer dan een veld bevat. Verwijder een van de velden.</value>
@@ -2358,6 +3372,24 @@
   <data name="Info_ListDisplaysDeletedWhileProcess" xml:space="preserve">
     <value>De volgende Displays faalden tijdens de verwerking</value>
   </data>
+  <data name="MC_SystemLog_AppServer" xml:space="preserve">
+    <value>Application Server</value>
+  </data>
+  <data name="MC_SystemLog_ManagementConsole" xml:space="preserve">
+    <value>Management Console</value>
+  </data>
+  <data name="MC_SystemLog_WebClient" xml:space="preserve">
+    <value>Web Client</value>
+  </data>
+  <data name="MC_LogFile" xml:space="preserve">
+    <value>Logfile</value>
+  </data>
+  <data name="MC_LogSize" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="MC_LogTimestamp" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
   <data name="AngleDefinitionAreaMin" xml:space="preserve">
     <value>min</value>
   </data>
@@ -2367,11 +3399,20 @@
   <data name="Download" xml:space="preserve">
     <value>Downloaden</value>
   </data>
+  <data name="MC_UsersCount" xml:space="preserve">
+    <value>Users count</value>
+  </data>
   <data name="NameAsShowInPivot" xml:space="preserve">
     <value>Naam (zoals weergegeven in draaitabel)</value>
   </data>
   <data name="NameAsShowInChart" xml:space="preserve">
     <value>Naam (zoals weergegeven in grafiek)</value>
+  </data>
+  <data name="MC_Arguments" xml:space="preserve">
+    <value>Arguments</value>
+  </data>
+  <data name="MC_Report" xml:space="preserve">
+    <value>Report</value>
   </data>
   <data name="ExportCSVEnumFormatShortName" xml:space="preserve">
     <value>Korte naam</value>
@@ -2379,11 +3420,17 @@
   <data name="ExportCSVEnumFormatDisplay" xml:space="preserve">
     <value>Display</value>
   </data>
+  <data name="MC_Edit_Models" xml:space="preserve">
+    <value>Edit models</value>
+  </data>
+  <data name="MC_Setup_New_Model" xml:space="preserve">
+    <value>Set up a new model</value>
+  </data>
   <data name="ValidateExportExcel_SpecialCharacter" xml:space="preserve">
     <value>Waarde '{0}' voor instelling '{1}' mag geen speciale karakters bevatten ({2})</value>
   </data>
   <data name="AdhocEnableSummarySheet" xml:space="preserve">
-    <value>Niet beschikbaar voor ad-hoc weergave</value>
+    <value>Niet beschikbaar voor ad-hocweergave</value>
   </data>
   <data name="AllInSearchResult" xml:space="preserve">
     <value>Alles in zoekresultaat</value>
@@ -2393,6 +3440,12 @@
   </data>
   <data name="ValidationForRequired" xml:space="preserve">
     <value>{0} is vereist</value>
+  </data>
+  <data name="MC_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="MC_Validation_Attached_Comment" xml:space="preserve">
+    <value>Only the following extension types are allowed: .eapackage .bmp .csl .doc .docx .gif .htm .html .jpeg .jpg .pdf .png .txt .xls .xlsx .zip</value>
   </data>
   <data name="MaxNumberToExportThePackage" xml:space="preserve">
     <value>Het maximum aantal te selecteren Angles is {0}</value>
@@ -2410,7 +3463,7 @@
     <value>Deze Angle wordt uitgevoerd op de volgende set gegevens:</value>
   </data>
   <data name="PopupResultSummaryNote" xml:space="preserve">
-    <value>&lt;strong&gt;Note:&lt;/strong&gt; De downloaddatum &amp; -tijd worden herberekend naar de lokale datum &amp; tijd op uw computer.</value>
+    <value>&lt;strong&gt;Opmerking:&lt;/strong&gt; De downloaddatum &amp; -tijd worden herberekend naar de lokale datum &amp; tijd op uw computer.</value>
   </data>
   <data name="PopupResultSummaryResultInfo" xml:space="preserve">
     <value>Het resultaat van het toepassen van deze Angle op deze set gegevens is:</value>
@@ -2427,6 +3480,9 @@
   <data name="AngleDefinitionAreaObjects" xml:space="preserve">
     <value>Objecten</value>
   </data>
+  <data name="MC_EventLog" xml:space="preserve">
+    <value>Event log</value>
+  </data>
   <data name="DefaultFilterSuggestedStarred" xml:space="preserve">
     <value>Standaard geselecteerd in de veldkiezer</value>
   </data>
@@ -2435,6 +3491,9 @@
   </data>
   <data name="DefaultSuggestedfieldsLabel" xml:space="preserve">
     <value>Aanbevolen velden</value>
+  </data>
+  <data name="MC_PackagesHistory" xml:space="preserve">
+    <value>Packages history</value>
   </data>
   <data name="ProgressBar_ApplyDashboardDetails" xml:space="preserve">
     <value>Dashboarddetails toepassen</value>
@@ -2491,7 +3550,7 @@
     <value>Widget verwijderen...</value>
   </data>
   <data name="ProgressBar_DrillingDown" xml:space="preserve">
-    <value>Drildown uitvoeren</value>
+    <value>Drilldown uitvoeren</value>
   </data>
   <data name="ProgressBar_ExecutingJump" xml:space="preserve">
     <value>Jump uitvoeren</value>
@@ -2545,16 +3604,77 @@
     <value>Verwijderen</value>
   </data>
   <data name="NewAdhocFollowup" xml:space="preserve">
-    <value>Nieuwe  ad-hoc Jump</value>
+    <value>Nieuwe ad-hoc Jump</value>
   </data>
   <data name="Info_AngleNotExecuted" xml:space="preserve">
     <value>Angle wordt niet uitgevoerd</value>
   </data>
+  <data name="MC_ConfirmAddModel" xml:space="preserve">
+    <value>After adding a new model, you will be logged out and need to login again. Continue adding model '{0}'?</value>
+  </data>
+  <data name="MC_ConfirmChangePrivileges" xml:space="preserve">
+    <value>The last update has changed your privileges. Do you want to login again to update your privileges?</value>
+  </data>
+  <data name="MC_DeleteModel" xml:space="preserve">
+    <value>Delete model {0} ({1}) will terminate all active sessions. All users need to login again to update the existing models.
+Deleting this model will also delete all {2} Angles and {3} Dashboards created for this model and logout all {4} active user(s).
+Are you sure you want to delete this model?</value>
+  </data>
   <data name="AddToNewAngle" xml:space="preserve">
     <value>Toevoegen aan nieuwe Angle</value>
   </data>
+  <data name="MC_AddComment" xml:space="preserve">
+    <value>Add comment</value>
+  </data>
+  <data name="MC_EnterTextHere" xml:space="preserve">
+    <value>Enter text here...</value>
+  </data>
+  <data name="MC_NoComments" xml:space="preserve">
+    <value>No comment yet</value>
+  </data>
+  <data name="MC_SuggestedFields" xml:space="preserve">
+    <value>Suggested fields</value>
+  </data>
+  <data name="MC_ClearAllSuggestedFields" xml:space="preserve">
+    <value>Clear all suggested {0} fields</value>
+  </data>
+  <data name="MC_ClearAllSuggestedFields_Description" xml:space="preserve">
+    <value>This option clears the list of suggested fields for one or more objects.</value>
+  </data>
+  <data name="MC_ManageSuggestedFieldsObjects" xml:space="preserve">
+    <value>Manage suggested fields for objects</value>
+  </data>
+  <data name="MC_ManageSuggestedFieldsObjects_Description" xml:space="preserve">
+    <value>There are thousands of fields available to be used in Angles. To help users choose from this set the most interesting fields for different objects can be selected.
+            These fields are marked as a "Suggested field". Suggested fields are visible for users to select or deselect from their Angles and Displays.
+            There are four available options to set suggested fields for objects:</value>
+  </data>
+  <data name="MC_SetAllDefaultTemplateFieldsToSuggested" xml:space="preserve">
+    <value>Set all default Template fields to suggested {0}</value>
+  </data>
+  <data name="MC_SetAllDefaultTemplateFieldsToSuggested_Description" xml:space="preserve">
+    <value>Templates that are connected to an object in the object list, always have a Default Display and it can also include Filters. By selecting this option for one or more objects, the suggested fields are limited to all fields present in these Default Displays and Filters of that Template.</value>
+  </data>
+  <data name="MC_SetDefaultBasicListFieldsToSuggested" xml:space="preserve">
+    <value>Set default Basic List fields to suggested {0}</value>
+  </data>
+  <data name="MC_SetDefaultBasicListFieldsToSuggested_Description" xml:space="preserve">
+    <value>The default Template creates a Basic List Display when a new Angle is created by selecting an object from the object list. By selecting this option for one or more objects the suggested fields are limited to all fields present in this default Basic List of that object.</value>
+  </data>
+  <data name="MC_SetFields" xml:space="preserve">
+    <value>Set fields</value>
+  </data>
+  <data name="MC_ClearFields" xml:space="preserve">
+    <value>Clear fields</value>
+  </data>
+  <data name="MC_SetSuggestedFieldsForSingleObject" xml:space="preserve">
+    <value>Set suggested {0} fields for single object</value>
+  </data>
+  <data name="MC_SetSuggestedFieldsForSingleObject_Description" xml:space="preserve">
+    <value>This option sets the suggested fields for a single object. Individual fields can be selected and set to suggested fields for any chosen object.</value>
+  </data>
   <data name="FormatSettingDisplayUnits" xml:space="preserve">
-    <value>Weergave eenheden</value>
+    <value>Weergave-eenheden</value>
   </data>
   <data name="FormatSettingDisplayUnitsMillions" xml:space="preserve">
     <value>Miljoenen (M)</value>
@@ -2565,11 +3685,88 @@
   <data name="FormatSettingDisplayUnitsThousands" xml:space="preserve">
     <value>Duizenden (K)</value>
   </data>
+  <data name="MC_GeneralInformation" xml:space="preserve">
+    <value>General information</value>
+  </data>
+  <data name="MC_NumberOfObjectsHavingSugggestedFields" xml:space="preserve">
+    <value>Number of objects that have suggested fields:</value>
+  </data>
+  <data name="MC_NumberOfObjectsWithoutSuggestedFields" xml:space="preserve">
+    <value>Number of objects that do not have suggested fields:</value>
+  </data>
+  <data name="MC_SuggestedFieldsSettingsLastChanged" xml:space="preserve">
+    <value>Suggested fields settings last changed:</value>
+  </data>
+  <data name="MC_TotalNumberOfSuggestedFields" xml:space="preserve">
+    <value>Total number of suggested fields in the model:</value>
+  </data>
+  <data name="MC_DeleteRole" xml:space="preserve">
+    <value>Delete role {0} ({1}) will effect the current user session. There are {2} user(s) that have this role assigned.
+Are you sure you want to delete this role?</value>
+  </data>
   <data name="AddNote" xml:space="preserve">
     <value>Notitie toevoegen</value>
   </data>
+  <data name="MC_Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="MC_SetAllTemplateFieldsToSuggested" xml:space="preserve">
+    <value>Set all Template fields to suggested {0}</value>
+  </data>
+  <data name="MC_SetAllTemplateFieldsToSuggested_Description" xml:space="preserve">
+    <value>All existing Templates contain multiple Displays and Filters. By selecting this option for one or more objects the suggested fields are limited to all fields used in any related Template for that object.</value>
+  </data>
   <data name="AlertWarningCreatePopup" xml:space="preserve">
     <value>U heeft meer dan een object geselecteerd om te gebruiken in uw Angle. Dit kan ongewenste resultaten geven en is meestal niet nodig.</value>
+  </data>
+  <data name="MC_SetDefaultBasicFieldsToSuggestedForObject" xml:space="preserve">
+    <value>Set default basic fields to suggested {0} for the following objects:</value>
+  </data>
+  <data name="MC_ClearAllSuggestedFieldsForObject" xml:space="preserve">
+    <value>Clear all suggested {0} fields for the following objects:</value>
+  </data>
+  <data name="MC_SetAllDefaultTemplateFieldsToSuggestedConfirm" xml:space="preserve">
+    <value>All Displays and Filters in all existing Templates will be set to suggested.</value>
+  </data>
+  <data name="MC_SetAllDefaultTemplateFieldsToSuggesteForObject" xml:space="preserve">
+    <value>Set all default Template fields to suggested {0} for the following objects:</value>
+  </data>
+  <data name="MC_SetAllTemplateFieldsToSuggesteForObject" xml:space="preserve">
+    <value>Set all Template fields to suggested {0} for the following objects:</value>
+  </data>
+  <data name="MC_SetDefaultBasicListFieldsToSuggestedForObject" xml:space="preserve">
+    <value>Set default Basic List fields to suggested {0} for the following objects:</value>
+  </data>
+  <data name="MC_SetSuggestedFieldsForObject" xml:space="preserve">
+    <value>Set suggested {0} fields for object</value>
+  </data>
+  <data name="MC_CommentPlaceHolder" xml:space="preserve">
+    <value>Enter your comment here...</value>
+  </data>
+  <data name="MC_SingleObject_Instruction" xml:space="preserve">
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select an object in the list by clicking its checkbox. &lt;br&gt;&lt;br&gt;
+After selecting an object, click the Continue button to start setting the suggested fields for the selected object in the next window.&lt;/p&gt;</value>
+  </data>
+  <data name="MC_SelectTheObjects" xml:space="preserve">
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+  </data>
+  <data name="MC_BasicList_Instruction" xml:space="preserve">
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+  </data>
+  <data name="MC_ClearAll_Instruction" xml:space="preserve">
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which the suggested fields should be cleared. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+  </data>
+  <data name="MC_AllTemplate_Instruction" xml:space="preserve">
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all Displays and Filters in all existing Templates should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;After a selection of objects have been made, click on the Continue button for review.&lt;/p&gt;</value>
+  </data>
+  <data name="MC_Template_Instruction" xml:space="preserve">
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from all Displays and Filters in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+  </data>
+  <data name="MC_SetAllSuggest" xml:space="preserve">
+    <value>Suggest all</value>
+  </data>
+  <data name="MC_SetNoneSuggest" xml:space="preserve">
+    <value>Suggest none</value>
   </data>
   <data name="InfoAllowMoreDetailsPopup" xml:space="preserve">
     <value>Gebruikers beperken in het verkrijgen van meer details heeft het volgende effect: &lt;br&gt; 
@@ -2581,6 +3778,9 @@
   <data name="Infomation_Title" xml:space="preserve">
     <value>Informatie</value>
   </data>
+  <data name="MC_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
   <data name="DisplayType_chart" xml:space="preserve">
     <value>Grafiekdisplay</value>
   </data>
@@ -2590,17 +3790,50 @@
   <data name="DisplayType_pivot" xml:space="preserve">
     <value>Draaitabeldisplay</value>
   </data>
+  <data name="MC_CurrenciesFormat" xml:space="preserve">
+    <value>Currencies format</value>
+  </data>
+  <data name="MC_Millions" xml:space="preserve">
+    <value>Millions (M)</value>
+  </data>
+  <data name="MC_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="MC_NumbersFormat" xml:space="preserve">
+    <value>Numbers format</value>
+  </data>
+  <data name="MC_PercentagesFormat" xml:space="preserve">
+    <value>Percentages format</value>
+  </data>
+  <data name="MC_Thousands" xml:space="preserve">
+    <value>Thousands (K)</value>
+  </data>
+  <data name="MC_ThousandSeparator" xml:space="preserve">
+    <value>Thousands separator</value>
+  </data>
+  <data name="MC_RoleID" xml:space="preserve">
+    <value>Role ID</value>
+  </data>
   <data name="PopupConfirmDiscardChangeFieldSettingAndContinue" xml:space="preserve">
     <value>Wijzigingen aan {0} Display zijn niet toegepast.&lt;br&gt;Wijzigingen negeren en doorgaan?</value>
   </data>
+  <data name="MC_CheckAction" xml:space="preserve">
+    <value>Check action</value>
+  </data>
   <data name="ObjectList" xml:space="preserve">
     <value>Objectlijst</value>
+  </data>
+  <data name="MC_NotifyOnFail" xml:space="preserve">
+    <value>Notify on failure</value>
+  </data>
+  <data name="MC_NotifyOnSuccess" xml:space="preserve">
+    <value>Notify on success</value>
   </data>
   <data name="ClassChooserSearchPlaceholder" xml:space="preserve">
     <value>Zoek object...</value>
   </data>
   <data name="AboutEveryAngle" xml:space="preserve">
-    <value>Over Magnitude Angles for SAP</value>
+    <value>Over Angles for SAP</value>
   </data>
   <data name="Helppage" xml:space="preserve">
     <value>Helppagina</value>
@@ -2624,10 +3857,10 @@
     <value>5 decimalen</value>
   </data>
   <data name="ListFormatNumberFive" xml:space="preserve">
-    <value>5 decimalen</value>
+    <value>5</value>
   </data>
   <data name="ListFormatNumberThree" xml:space="preserve">
-    <value>3 decimalen</value>
+    <value>3</value>
   </data>
   <data name="ThreeDecimal" xml:space="preserve">
     <value>3 decimalen</value>
@@ -2640,6 +3873,12 @@
   </data>
   <data name="ProgressBar_CheckingJump" xml:space="preserve">
     <value>Jump Template controleren</value>
+  </data>
+  <data name="MC_SystemLog_ModelServer" xml:space="preserve">
+    <value>Model Server</value>
+  </data>
+  <data name="MC_EditComment" xml:space="preserve">
+    <value>Edit comment</value>
   </data>
   <data name="Error_Title" xml:space="preserve">
     <value>Fout</value>
@@ -2656,25 +3895,26 @@
   <data name="Unknown" xml:space="preserve">
     <value>Onbekend</value>
   </data>
+  <data name="MC_Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="MC_Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="MC_Basic" xml:space="preserve">
+    <value>Basic</value>
+  </data>
+  <data name="MC_Contributor" xml:space="preserve">
+    <value>Contributor</value>
+  </data>
   <data name="MC_ModelingWorkbench" xml:space="preserve">
     <value>Modeling Workbench</value>
   </data>
   <data name="MC_ModelingWorkbenchContent" xml:space="preserve">
     <value>Content</value>
   </data>
-  <data name="MC_ModelingWorkbenchDescription" xml:space="preserve">
-    <value>If this option is set to &lt;b&gt;Configure&lt;/b&gt;, users with this role:
-&lt;ul&gt;
-&lt;li&gt;may configure all restructure and template amendments&lt;/li&gt;
-&lt;li&gt;may configure tables and fields&lt;/li&gt;
-&lt;li&gt;may configure the activation tree&lt;/li&gt;
-&lt;li&gt;may not view or edit Standard Content or Customer Content&lt;/li&gt;
-&lt;li&gt;may not import or export Content files&lt;/li&gt;
-&lt;/ul&gt;
-If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full permission in the Modeling Workbench.</value>
-  </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>Voor de meest recente productinformatie,&lt;br&gt; bezoek onze website &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; </value>
+    <value>De meest recente productinformatie &lt;br&gt; vindt u op &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
     <value>Client:</value>
@@ -2694,14 +3934,692 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   <data name="SaveAsDashboard" xml:space="preserve">
     <value>Dashboard opslaan als...</value>
   </data>
+  <data name="MC_ShowConsolidatedRole" xml:space="preserve">
+    <value>Show consolidated role</value>
+  </data>
   <data name="Field" xml:space="preserve">
     <value>Veld</value>
   </data>
   <data name="Value" xml:space="preserve">
     <value>Waarde</value>
   </data>
+  <data name="MC_DebugLogging" xml:space="preserve">
+    <value>Debug logging</value>
+  </data>
+  <data name="MC_DeleteSession" xml:space="preserve">
+    <value>Delete session from user : {reference}?</value>
+  </data>
+  <data name="MC_AllObjects" xml:space="preserve">
+    <value>All objects</value>
+  </data>
+  <data name="MC_AllowImpersonation" xml:space="preserve">
+    <value>Allow impersonation</value>
+  </data>
+  <data name="MC_AllowListDisplays" xml:space="preserve">
+    <value>Allow List Displays</value>
+  </data>
+  <data name="MC_AllowMoreDetails" xml:space="preserve">
+    <value>Obtain more details</value>
+  </data>
+  <data name="MC_AllowRelatedReports" xml:space="preserve">
+    <value>Allow Related Reports</value>
+  </data>
+  <data name="MC_CreateAngle" xml:space="preserve">
+    <value>Create Angle</value>
+  </data>
+  <data name="MC_CreateTemplateAngle" xml:space="preserve">
+    <value>Create Template Angle</value>
+  </data>
+  <data name="MC_CurrentProgress" xml:space="preserve">
+    <value>Current progress</value>
+  </data>
+  <data name="MC_DeletedIconsTitle" xml:space="preserve">
+    <value>Deleted Icons</value>
+  </data>
+  <data name="MC_DeletedLanguagesTitle" xml:space="preserve">
+    <value>Deleted Languages</value>
+  </data>
+  <data name="MC_DeletedTableFieldsTitle" xml:space="preserve">
+    <value>Deleted Table Fields</value>
+  </data>
+  <data name="MC_DeleteRecipient" xml:space="preserve">
+    <value>Delete recipient: {reference}?</value>
+  </data>
+  <data name="MC_ExportData" xml:space="preserve">
+    <value>Export data</value>
+  </data>
+  <data name="MC_GoToSAP" xml:space="preserve">
+    <value>Go to SAP</value>
+  </data>
+  <data name="MC_ItemsAdded" xml:space="preserve">
+    <value>items added</value>
+  </data>
+  <data name="MC_Jump" xml:space="preserve">
+    <value>Execute Jump</value>
+  </data>
+  <data name="MC_ManagementAccess" xml:space="preserve">
+    <value>Management access</value>
+  </data>
+  <data name="MC_ScheduleAngles" xml:space="preserve">
+    <value>Schedule Angles</value>
+  </data>
+  <data name="MC_ManageModel" xml:space="preserve">
+    <value>Manage model</value>
+  </data>
+  <data name="MC_ManageSuggestedFieldsReport" xml:space="preserve">
+    <value>Manage suggested fields report</value>
+  </data>
+  <data name="MC_ManageSystem" xml:space="preserve">
+    <value>Manage system</value>
+  </data>
+  <data name="MC_ManageUsers" xml:space="preserve">
+    <value>Manage users</value>
+  </data>
+  <data name="MC_NotAvaliable" xml:space="preserve">
+    <value>Not Avaliable</value>
+  </data>
+  <data name="MC_RPCAllowed" xml:space="preserve">
+    <value>RPC allowed</value>
+  </data>
+  <data name="MC_SaveDisplay" xml:space="preserve">
+    <value>Save Display</value>
+  </data>
+  <data name="MC_SelectObject" xml:space="preserve">
+    <value>Select object</value>
+  </data>
+  <data name="MC_SetToNotSuggested" xml:space="preserve">
+    <value>, set to Not suggested</value>
+  </data>
+  <data name="MC_SetToSuggested" xml:space="preserve">
+    <value>, set to Suggested</value>
+  </data>
+  <data name="MC_SetValues" xml:space="preserve">
+    <value>Set values:</value>
+  </data>
+  <data name="MC_TaskFailed" xml:space="preserve">
+    <value>Task Failed.</value>
+  </data>
+  <data name="MC_TaskSuccess" xml:space="preserve">
+    <value>Task Success.</value>
+  </data>
+  <data name="MC_TestingConnection" xml:space="preserve">
+    <value>Testing connection...</value>
+  </data>
+  <data name="MC_TestResultFailure" xml:space="preserve">
+    <value>Test result failure</value>
+  </data>
+  <data name="MC_TestResultSuccessful" xml:space="preserve">
+    <value>Test result successful</value>
+  </data>
+  <data name="MC_TooTipRecipientsFailure" xml:space="preserve">
+    <value>Send notification on failure</value>
+  </data>
+  <data name="MC_TooTipRecipientsResult" xml:space="preserve">
+    <value>Send message with the result when all conditions are met</value>
+  </data>
+  <data name="MC_TooTipRecipientsSuccess" xml:space="preserve">
+    <value>Send notification on success</value>
+  </data>
+  <data name="MC_UseNonDefaultDisplaysAngles" xml:space="preserve">
+    <value>Use non-default Displays on Angles</value>
+  </data>
+  <data name="MC_ActiveDirectorySizeLimit" xml:space="preserve">
+    <value>Active directory size limit</value>
+  </data>
+  <data name="MC_Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="MC_AdvancedFilterSearch" xml:space="preserve">
+    <value>Advanced filter search</value>
+  </data>
+  <data name="MC_AllowEmptyReference" xml:space="preserve">
+    <value>Allow empty reference</value>
+  </data>
+  <data name="MC_AllowNonValidatedItems" xml:space="preserve">
+    <value>Show non-validated items</value>
+  </data>
+  <data name="MC_AssignFollowingRoles" xml:space="preserve">
+    <value>Assign the following roles</value>
+  </data>
+  <data name="MC_AssignTrustedWebservers" xml:space="preserve">
+    <value>Assign trusted webservers</value>
+  </data>
+  <data name="MC_AutoExecuteItemsLogin" xml:space="preserve">
+    <value>Auto-execute items on login</value>
+  </data>
+  <data name="MC_AutomaticallyCreateUsersFirstLogon" xml:space="preserve">
+    <value>Automatically create users at first logon</value>
+  </data>
+  <data name="MC_CacheValidity" xml:space="preserve">
+    <value>Cache validity</value>
+  </data>
+  <data name="MC_CategoryValidForPrivilege" xml:space="preserve">
+    <value>Category valid for privilege?</value>
+  </data>
+  <data name="MC_CheckExpiredSessions" xml:space="preserve">
+    <value>Check expired sessions minutes</value>
+  </data>
+  <data name="MC_City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="MC_CompressedListHeader" xml:space="preserve">
+    <value>Compressed list header</value>
+  </data>
+  <data name="MC_ConcurrentUsers" xml:space="preserve">
+    <value>Concurrent users</value>
+  </data>
+  <data name="MC_Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="MC_Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="MC_DateOrder" xml:space="preserve">
+    <value>Date Order</value>
+  </data>
+  <data name="MC_DateSeparator" xml:space="preserve">
+    <value>Date separator</value>
+  </data>
+  <data name="MC_DayFormat" xml:space="preserve">
+    <value>Day format</value>
+  </data>
+  <data name="MC_DecimalSeparator" xml:space="preserve">
+    <value>Decimal separator</value>
+  </data>
+  <data name="MC_DefaultMaxExportPageSize" xml:space="preserve">
+    <value>Default maximum export page size</value>
+  </data>
+  <data name="MC_DefaultPageSize" xml:space="preserve">
+    <value>Default page size</value>
+  </data>
+  <data name="MC_DefaultSettingBusinessProcesses" xml:space="preserve">
+    <value>Default setting for Business Processes</value>
+  </data>
+  <data name="MC_DefaultSettingCurrency" xml:space="preserve">
+    <value>Default setting for currency</value>
+  </data>
+  <data name="MC_DefaultSettingExportLines" xml:space="preserve">
+    <value>Default setting for export lines</value>
+  </data>
+  <data name="MC_DefaultSettingLanguage" xml:space="preserve">
+    <value>Default setting for language</value>
+  </data>
+  <data name="MC_DefaultSettingPeriod" xml:space="preserve">
+    <value>Default setting for period</value>
+  </data>
+  <data name="MC_DefaultSettingSet" xml:space="preserve">
+    <value>Default setting for set</value>
+  </data>
+  <data name="MC_DefaultStarredFields" xml:space="preserve">
+    <value>Default Starred Fields</value>
+  </data>
+  <data name="MC_DefaultSuggestedFields" xml:space="preserve">
+    <value>Default Suggested Fields</value>
+  </data>
+  <data name="MC_EFSRequired" xml:space="preserve">
+    <value>EFS Required</value>
+  </data>
+  <data name="MC_DisplayPrivateItem" xml:space="preserve">
+    <value>Manage private items</value>
+  </data>
+  <data name="MC_EmailAddress" xml:space="preserve">
+    <value>E-mail address</value>
+  </data>
+  <data name="MC_EmailServerPort" xml:space="preserve">
+    <value>E-mailserver port (SMTP Port)</value>
+  </data>
+  <data name="MC_EmailServerSMTP" xml:space="preserve">
+    <value>E-mailserver (SMTP)</value>
+  </data>
+  <data name="MC_Entries" xml:space="preserve">
+    <value>Entries</value>
+  </data>
+  <data name="MC_Environment" xml:space="preserve">
+    <value>Environment</value>
+  </data>
+  <data name="MC_FormatLocale" xml:space="preserve">
+    <value>Format locale</value>
+  </data>
+  <data name="MC_InstanceId" xml:space="preserve">
+    <value>Instance id</value>
+  </data>
+  <data name="MC_InstancesKeepPerModel" xml:space="preserve">
+    <value>Instances to keep per model</value>
+  </data>
+  <data name="MC_LabelCategory" xml:space="preserve">
+    <value>Label category</value>
+  </data>
+  <data name="MC_LicensedTo" xml:space="preserve">
+    <value>Licensed to</value>
+  </data>
+  <data name="MC_MaxDomainSizeSearch" xml:space="preserve">
+    <value>Max domain size for search</value>
+  </data>
+  <data name="MC_MaxExportRows" xml:space="preserve">
+    <value>Max Export Rows</value>
+  </data>
+  <data name="MC_MaxPageSize" xml:space="preserve">
+    <value>Max page size</value>
+  </data>
+  <data name="MC_MessageRecipients" xml:space="preserve">
+    <value>Message recipients (only comma-separated email addresses)</value>
+  </data>
+  <data name="MC_MinimumNumberPublishAngle" xml:space="preserve">
+    <value>Minimum number of label categories to publish angle</value>
+  </data>
+  <data name="MC_ModelServerMetadataTimeout" xml:space="preserve">
+    <value>Model server metadata timeout [seconds]</value>
+  </data>
+  <data name="MC_ModelserverTimeout" xml:space="preserve">
+    <value>Model server timeout [seconds]</value>
+  </data>
+  <data name="MC_MonthFormat" xml:space="preserve">
+    <value>Month format</value>
+  </data>
+  <data name="MC_NumberOfModels" xml:space="preserve">
+    <value>Number of models</value>
+  </data>
+  <data name="MC_PollModelserver" xml:space="preserve">
+    <value>Poll Model Server [seconds]</value>
+  </data>
+  <data name="MC_PublishDashboard" xml:space="preserve">
+    <value>Publish Dashboard</value>
+  </data>
+  <data name="MC_RequiredAnglePublishing" xml:space="preserve">
+    <value>Required at angle publishing?</value>
+  </data>
+  <data name="MC_SAPFieldsChooser" xml:space="preserve">
+    <value>SAP fields in chooser</value>
+  </data>
+  <data name="MC_SAPFieldsHeader" xml:space="preserve">
+    <value>SAP fields in header</value>
+  </data>
+  <data name="MC_Sender" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="MC_SenderEmailaccount" xml:space="preserve">
+    <value>Sender (E-mailaccount)</value>
+  </data>
+  <data name="MC_ServerVersion" xml:space="preserve">
+    <value>Server version</value>
+  </data>
+  <data name="MC_SessionHistory" xml:space="preserve">
+    <value>Session history [minutes]</value>
+  </data>
+  <data name="MC_SessionTimeout" xml:space="preserve">
+    <value>Session timeout [minutes]</value>
+  </data>
+  <data name="MC_SingleItemView" xml:space="preserve">
+    <value>Drilldown to item in a list Display</value>
+  </data>
+  <data name="MC_StatusSince" xml:space="preserve">
+    <value>Status since</value>
+  </data>
+  <data name="MC_TelephoneNumber" xml:space="preserve">
+    <value>Telephone number</value>
+  </data>
+  <data name="MC_TimeFormat" xml:space="preserve">
+    <value>Time format</value>
+  </data>
+  <data name="MC_TimeSeparator" xml:space="preserve">
+    <value>Time separator</value>
+  </data>
+  <data name="MC_Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="MC_UseSSL" xml:space="preserve">
+    <value>Use SSL</value>
+  </data>
+  <data name="MC_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="MC_WebClientLogin" xml:space="preserve">
+    <value>Login to Web Client</value>
+  </data>
+  <data name="MC_YearFormat" xml:space="preserve">
+    <value>Year format</value>
+  </data>
+  <data name="MC_FilterAtLeast2Characters" xml:space="preserve">
+    <value>Filter (at least 2 characters)</value>
+  </data>
+  <data name="MC_FilterCaseSensitive" xml:space="preserve">
+    <value>Filter with case sensitive</value>
+  </data>
+  <data name="MC_TextFormattingNotationHelpTitle" xml:space="preserve">
+    <value>Macro Help</value>
+  </data>
+  <data name="MC_ActionsList" xml:space="preserve">
+    <value>Actions list</value>
+  </data>
+  <data name="MC_AuthenticationProviders" xml:space="preserve">
+    <value>Authentication providers</value>
+  </data>
+  <data name="MC_Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="MC_CopyRole" xml:space="preserve">
+    <value>Copy role</value>
+  </data>
+  <data name="MC_DatastorePlugins" xml:space="preserve">
+    <value>Datastore Plugins</value>
+  </data>
+  <data name="MC_DeleteActionConfirm" xml:space="preserve">
+    <value>Delete action: {reference}?</value>
+  </data>
+  <data name="MC_DeleteFilterConfirm" xml:space="preserve">
+    <value>Delete Filter: {reference}?</value>
+  </data>
+  <data name="MC_DeleteIconConfirm" xml:space="preserve">
+    <value>Delete Icon: {reference}?</value>
+  </data>
+  <data name="MC_DeleteLabelCoonfirm" xml:space="preserve">
+    <value>Delete Label: {reference}?</value>
+  </data>
+  <data name="MC_DeleteLanguageConfirm" xml:space="preserve">
+    <value>Delete Language: {reference}?</value>
+  </data>
+  <data name="MC_DeleteModelConfirm" xml:space="preserve">
+    <value>Delete model {0} ({1})
+Deleting this model will also delete all {2} Angles and {3} Dashboards created for this model and logout all {4} active user(s).
+Are you sure you want to delete this model?</value>
+  </data>
+  <data name="MC_DeletePropertyConfirm" xml:space="preserve">
+    <value>Delete Property: {reference}?</value>
+  </data>
+  <data name="MC_DeleteRecipientsConfirm" xml:space="preserve">
+    <value>Delete recipients: {reference}?</value>
+  </data>
+  <data name="MC_DeleteReferenceFilter" xml:space="preserve">
+    <value>Delete Reference filter: {reference}?</value>
+  </data>
+  <data name="MC_DeleteReferenceFilterConfirm" xml:space="preserve">
+    <value>Delete Reference filter: {reference}?</value>
+  </data>
+  <data name="MC_DeleteRoleConfirm" xml:space="preserve">
+    <value>Delete role {0} ({1}) There are {2} user(s) that have this role assigned.
+Are you sure you want to delete this role?</value>
+  </data>
+  <data name="MC_DeleteSubRolesConfirm" xml:space="preserve">
+    <value>Delete Sub-roles: {reference}?</value>
+  </data>
+  <data name="MC_DeleteTaskConfirm" xml:space="preserve">
+    <value>Delete Task: {reference}?</value>
+  </data>
+  <data name="MC_ModulesValidation" xml:space="preserve">
+    <value>Modules validation</value>
+  </data>
+  <data name="MC_More" xml:space="preserve">
+    <value>more...</value>
+  </data>
+  <data name="MC_NewRole" xml:space="preserve">
+    <value>New role</value>
+  </data>
+  <data name="MC_SelectFields" xml:space="preserve">
+    <value>Select fields</value>
+  </data>
+  <data name="MC_SelectRolesAdd" xml:space="preserve">
+    <value>Select roles to add</value>
+  </data>
+  <data name="MC_TestEmailSettings" xml:space="preserve">
+    <value>Test email settings</value>
+  </data>
+  <data name="MC_TestEmailSettingsResult" xml:space="preserve">
+    <value>Test email settings result</value>
+  </data>
+  <data name="MC_UserNotHaveModelPrivileges" xml:space="preserve">
+    <value>User does not have any model privileges.</value>
+  </data>
   <data name="NumberDataRows" xml:space="preserve">
     <value>Aantal gegevensrijen</value>
+  </data>
+  <data name="MC_DeleteDataStoreConfirm" xml:space="preserve">
+    <value>Delete Data Store: {reference}?</value>
+  </data>
+  <data name="MC_DeleteFieldConfirm" xml:space="preserve">
+    <value>Delete Field: {reference}?</value>
+  </data>
+  <data name="MC_DeleteLabelCategoryConfirm" xml:space="preserve">
+    <value>Delete Label Category: {reference}?</value>
+  </data>
+  <data name="MC_DeletePackageConfirm" xml:space="preserve">
+    <value>Delete Package: {reference}?</value>
+  </data>
+  <data name="MC_DeleteSystemRoleConfirm" xml:space="preserve">
+    <value>Delete System Role: {reference}?</value>
+  </data>
+  <data name="MC_DeleteUserConfirm" xml:space="preserve">
+    <value>Delete User: {reference}?</value>
+  </data>
+  <data name="MC_NoAccess" xml:space="preserve">
+    <value>No Access</value>
+  </data>
+  <data name="MC_ManageModelDescription" xml:space="preserve">
+    <value>Allowed to manage the settings of this model within the IT Management Console​. Also allowed to create EA packages.</value>
+  </data>
+  <data name="MC_ObtainMoreDetailsDescription" xml:space="preserve">
+    <value>Restricting users to obtain more details will have the following effect:
+&lt;ul&gt;
+&lt;li&gt;Users are not allowed to add or remove fields in any Display&lt;/li&gt;
+&lt;li&gt;Users are not allowed to add, remove or update Filters&lt;/li&gt;
+&lt;li&gt;Users are not allowed to add or remove Jumps&lt;/li&gt;
+&lt;li&gt;Users are not allowed to drill down in any Display&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="MC_ShowAllPrivateItemsDescription" xml:space="preserve">
+    <value>Allowed to see all private Angles, Templates and Dashboards of other users​.</value>
+  </data>
+  <data name="MC_ModelingWorkbenchDescription" xml:space="preserve">
+    <value>If this option is set to &lt;b&gt;Configure&lt;/b&gt;, users with this role:
+&lt;ul&gt;
+&lt;li&gt;may configure all restructure and template amendments&lt;/li&gt;
+&lt;li&gt;may configure tables and fields&lt;/li&gt;
+&lt;li&gt;may configure the activation tree&lt;/li&gt;
+&lt;li&gt;may not view or edit Standard Content or Customer Content&lt;/li&gt;
+&lt;li&gt;may not import or export Content files&lt;/li&gt;
+&lt;/ul&gt;
+If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full permission in the Modeling Workbench.</value>
+  </data>
+  <data name="MC_ShowNonValidatedItemsDescription" xml:space="preserve">
+    <value>Allowed to see all non-validated Angles, Templates and Dashboards that are within the user's authorization.
+    When Show non-validated items is denied, a user also cannot create dashboards.</value>
+  </data>
+  <data name="MC_301MovedPermanently" xml:space="preserve">
+    <value>301 Moved Permanently</value>
+  </data>
+  <data name="MC_AccessDenied" xml:space="preserve">
+    <value>Access Denied</value>
+  </data>
+  <data name="MC_ActivateUpgradePackageTask" xml:space="preserve">
+    <value>Activate Upgrade Package Task</value>
+  </data>
+  <data name="MC_AnErrorOccured" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
+  <data name="MC_ItemSuccesfullyUpdated" xml:space="preserve">
+    <value>Item succesfully updated!</value>
+  </data>
+  <data name="MC_PackageFilenameCannotBeNull" xml:space="preserve">
+    <value>Package filename cannot be null.</value>
+  </data>
+  <data name="MC_PackageFilenameCannotContainWhitespace" xml:space="preserve">
+    <value>Package filename cannot contain whitespace.</value>
+  </data>
+  <data name="MC_PackageNameMustBeSpecified" xml:space="preserve">
+    <value>Package name must be specified.</value>
+  </data>
+  <data name="MC_PackageSourceMustBeSpecified" xml:space="preserve">
+    <value>Package source must be specified.</value>
+  </data>
+  <data name="MC_PackageVersionMustBeSpecified" xml:space="preserve">
+    <value>Package version must be specified.</value>
+  </data>
+  <data name="MC_PageNotFound" xml:space="preserve">
+    <value>Page not found</value>
+  </data>
+  <data name="MC_PleaseSelect" xml:space="preserve">
+    <value>Please Select</value>
+  </data>
+  <data name="MC_YourContactPage" xml:space="preserve">
+    <value>Your contact page.</value>
+  </data>
+  <data name="MC_AddFieldAccess" xml:space="preserve">
+    <value>Add field access</value>
+  </data>
+  <data name="MC_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="MC_AllFields" xml:space="preserve">
+    <value>All fields</value>
+  </data>
+  <data name="MC_AllFilters" xml:space="preserve">
+    <value>All filters</value>
+  </data>
+  <data name="MC_AllowAllNull" xml:space="preserve">
+    <value>Allow all null</value>
+  </data>
+  <data name="MC_AllowedClasses" xml:space="preserve">
+    <value>Allowed objects</value>
+  </data>
+  <data name="MC_AllowedFields" xml:space="preserve">
+    <value>Allowed fields</value>
+  </data>
+  <data name="MC_AllowPrivateAngles" xml:space="preserve">
+    <value>Allow Private Angles</value>
+  </data>
+  <data name="MC_Authorizations" xml:space="preserve">
+    <value>Authorizations</value>
+  </data>
+  <data name="MC_Classes" xml:space="preserve">
+    <value>Classes</value>
+  </data>
+  <data name="MC_CurrencyFieldsDefault" xml:space="preserve">
+    <value>All currency fields</value>
+  </data>
+  <data name="MC_DefaultClassAuthorization" xml:space="preserve">
+    <value>Default class authorization</value>
+  </data>
+  <data name="MC_DefaultLabelAuthorization" xml:space="preserve">
+    <value>Default label authorization</value>
+  </data>
+  <data name="MC_DeniedClasses" xml:space="preserve">
+    <value>Denied objects</value>
+  </data>
+  <data name="MC_DisallowedFields" xml:space="preserve">
+    <value>Denied fields</value>
+  </data>
+  <data name="MC_FieldAuthorizations" xml:space="preserve">
+    <value>Fields</value>
+  </data>
+  <data name="MC_FieldFilters" xml:space="preserve">
+    <value>Field filters</value>
+  </data>
+  <data name="MC_FieldsDefault" xml:space="preserve">
+    <value>All other fields</value>
+  </data>
+  <data name="MC_FieldvalueFilters" xml:space="preserve">
+    <value>Fieldvalue filters</value>
+  </data>
+  <data name="MC_Index" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="MC_LabelAuthorizations" xml:space="preserve">
+    <value>Labels</value>
+  </data>
+  <data name="MC_Model" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="MC_ModelAuthorization" xml:space="preserve">
+    <value>Model privilege</value>
+  </data>
+  <data name="MC_ObjectFilters" xml:space="preserve">
+    <value>Object filters</value>
+  </data>
+  <data name="MC_ReferenceFilters" xml:space="preserve">
+    <value>Reference filters</value>
+  </data>
+  <data name="MC_Subrole_Ids" xml:space="preserve">
+    <value>Subrole ids</value>
+  </data>
+  <data name="MC_SystemPrivileges" xml:space="preserve">
+    <value>System privileges</value>
+  </data>
+  <data name="MC_Uri" xml:space="preserve">
+    <value>Uri</value>
+  </data>
+  <data name="MC_UserCount" xml:space="preserve">
+    <value>User count</value>
+  </data>
+  <data name="MC_ModelserverAuthorization" xml:space="preserve">
+    <value>Model server authorization</value>
+  </data>
+  <data name="MC_ProfileCreatedOn" xml:space="preserve">
+    <value>Profile created on</value>
+  </data>
+  <data name="MC_ProfileId" xml:space="preserve">
+    <value>Profile ID</value>
+  </data>
+  <data name="MC_ProfileKey" xml:space="preserve">
+    <value>Profile key</value>
+  </data>
+  <data name="MC_DisallowedClasses" xml:space="preserve">
+    <value>Disallowed objects</value>
+  </data>
+  <data name="MC_AllowedAllNull" xml:space="preserve">
+    <value>Allowed all null</value>
+  </data>
+  <data name="MC_AllowedValues" xml:space="preserve">
+    <value>Allowed values</value>
+  </data>
+  <data name="MC_AllowedValuesName" xml:space="preserve">
+    <value>Allowed values name</value>
+  </data>
+  <data name="MC_AvailableClassesName" xml:space="preserve">
+    <value>Available Classes Name</value>
+  </data>
+  <data name="MC_ClassId" xml:space="preserve">
+    <value>Class ID</value>
+  </data>
+  <data name="MC_ClassName" xml:space="preserve">
+    <value>Class name</value>
+  </data>
+  <data name="MC_Deleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="MC_DisallowedValues" xml:space="preserve">
+    <value>Disallowed values</value>
+  </data>
+  <data name="MC_DisAllowedValuesName" xml:space="preserve">
+    <value>Disallowed values name</value>
+  </data>
+  <data name="MC_FieldId" xml:space="preserve">
+    <value>Field ID</value>
+  </data>
+  <data name="MC_FieldShortName" xml:space="preserve">
+    <value>Field short name</value>
+  </data>
+  <data name="MC_IsReferenceFilter" xml:space="preserve">
+    <value>Is reference filter</value>
+  </data>
+  <data name="MC_TargetClass" xml:space="preserve">
+    <value>Target class</value>
+  </data>
+  <data name="MC_TargetClassId" xml:space="preserve">
+    <value>Target class ID</value>
+  </data>
+  <data name="MC_TargetClassName" xml:space="preserve">
+    <value>Target class name</value>
+  </data>
+  <data name="MC_TargetClassShortName" xml:space="preserve">
+    <value>Target class short name</value>
+  </data>
+  <data name="MC_AllowedByThisRole" xml:space="preserve">
+    <value>Allowed by this role</value>
+  </data>
+  <data name="MC_DeniedByThisRole" xml:space="preserve">
+    <value>Denied by this role</value>
+  </data>
+  <data name="MC_UneffectedByThisRole" xml:space="preserve">
+    <value>Undefined by this role</value>
   </data>
   <data name="AdvanceFilterUsageOperatorAfter" xml:space="preserve">
     <value>Na</value>
@@ -2728,7 +4646,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Op</value>
   </data>
   <data name="AdvanceFilterUsageOperatorPrivate" xml:space="preserve">
-    <value>Privé</value>
+    <value>Persoonlijk</value>
   </data>
   <data name="AdvanceFilterUsageOperatorPublished" xml:space="preserve">
     <value>Gepubliceerd</value>
@@ -2737,22 +4655,10 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Kleinder dan</value>
   </data>
   <data name="AdvanceFilterUsageOperatorStarred" xml:space="preserve">
-    <value>Met ster</value>
+    <value>Gemarkeerd</value>
   </data>
   <data name="AdvanceFilterUsageOperatorValidated" xml:space="preserve">
     <value>Gevalideerd</value>
-  </data>
-  <data name="AdvanceFilterUsageTextFrom" xml:space="preserve">
-    <value>Van</value>
-  </data>
-  <data name="AdvanceFilterUsageTextTo" xml:space="preserve">
-    <value>Tot</value>
-  </data>
-  <data name="Color" xml:space="preserve">
-    <value>Kleur</value>
-  </data>
-  <data name="Opacity" xml:space="preserve">
-    <value>Dekking</value>
   </data>
   <data name="CompanyLogo" xml:space="preserve">
     <value>Bedrijfslogo</value>
@@ -2760,23 +4666,35 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   <data name="NoSearchResult" xml:space="preserve">
     <value>Er zijn geen zoekresultaten.</value>
   </data>
-  <data name="NumberSelectingItems" xml:space="preserve">
-    <value>{0} item(s) geselecteerd</value>
-  </data>
   <data name="Relevancy" xml:space="preserve">
     <value>Relevantie</value>
+  </data>
+  <data name="AdvanceFilterUsageTextFrom" xml:space="preserve">
+    <value>Van</value>
+  </data>
+  <data name="AdvanceFilterUsageTextTo" xml:space="preserve">
+    <value>Naar</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Dekking</value>
+  </data>
+  <data name="NumberSelectingItems" xml:space="preserve">
+    <value>{0} item(s) geselecteerd</value>
   </data>
   <data name="AllDecimals" xml:space="preserve">
     <value>Alle decimalen</value>
   </data>
   <data name="ChartAreaLabel" xml:space="preserve">
-    <value>Vlak</value>
+    <value>Gebied</value>
   </data>
   <data name="ChartBarLabel" xml:space="preserve">
     <value>Staaf</value>
   </data>
   <data name="ChartBubbleLabel" xml:space="preserve">
-    <value>Bel</value>
+    <value>Bellen</value>
   </data>
   <data name="ChartColumnLabel" xml:space="preserve">
     <value>Kolom</value>
@@ -2892,8 +4810,159 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   <data name="ResultStatusScheduled" xml:space="preserve">
     <value>Gepland</value>
   </data>
-  <data name="AbortStatus" xml:space="preserve">
-    <value>Afbreken</value>
+  <data name="MC_SystemSettingsHelpActiveDirectorySizeLimit" xml:space="preserve">
+    <value>The maximum number of users or user groups that are returned when querying an authentication provider. 
+&lt;br&gt;
+The number of users may be very large. Therefore, use this setting to limit the number of users requested per query to keep the load under control.
+&lt;br&gt;
+The value may not exceed 999.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpCheckExpiredSessionsMinutes" xml:space="preserve">
+    <value>The number of minutes after which the system will check if there are any inactive sessions. 
+&lt;br&gt;
+Example&lt;br&gt;
+If you set this setting to 2 minutes and the 'Session timeout' to 5 minutes, the system will check every 2 minutes if a session has been inactive for more than 5 minutes.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpDefaultExportMaxPageSize" xml:space="preserve">
+    <value>The maximum page size used when exporting to Excel or CSV.
+&lt;br&gt;
+The value may not exceed 999999.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpDefaultCacheMinutes" xml:space="preserve">
+    <value>The default time in minutes during which cached items remain valid. After this time, cached items will be removed from cache and will have to be loaded again.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpDefaultPageSize" xml:space="preserve">
+    <value>The default number of rows that is fetched when no page size is specified by the Application Server. You can leave this at its default value of 30.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpEmailPassword" xml:space="preserve">
+    <value>This password will be used when the SMTP server requires authentication.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpEmailSmtpPort" xml:space="preserve">
+    <value>The port number of the SMTP server.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpEmailSmtpSender" xml:space="preserve">
+    <value>The email address of the sender of the SMTP server.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpEmailSmtpServer" xml:space="preserve">
+    <value>The Fully qualified domain name (FQDN) of the SMTP server.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpEmailSmtpUseSsl" xml:space="preserve">
+    <value>Check this field to enable SSL.
+&lt;br&gt;
+When selected, the Application Server will connect to the SMTP server using the SSL protocol, which means authentication is done securely based on certificates.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpEmailUsername" xml:space="preserve">
+    <value>This username will be used when the SMTP server requires authentication.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpInstancesPerModel" xml:space="preserve">
+    <value>The number of model instances that are kept in the database (as history).&lt;br/&gt;
+When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted.&lt;br/&gt;
+The minimum is 1.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpMaxDomainElementsSearch" xml:space="preserve">
+    <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values) &#x00a0;are retrieved when executing an Angle. 
+&lt;br&gt;
+Use this setting to prevent the system from overloading, as many elements can exist in a domain (field).</value>
+  </data>
+  <data name="MC_SystemSettingsHelpMaxPageSize" xml:space="preserve">
+    <value>The maximum number of rows that is fetched when no page size is specified by the Application Server.
+You cannot change this setting.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpMinlabelcategoriesPublish" xml:space="preserve">
+    <value>Publishing an Angle or Dashboard is only allowed if the assigned privilege labels originate from at least this number of label categories. The minimum is 1, because the default label category Business Process is mandatory.
+&lt;br&gt;&lt;br&gt;
+Example: if you set the number of label categories to 2, users must assign at least 2 labels, and these labels must be in 2 different label categories.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpModelserverCheckSeconds" xml:space="preserve">
+    <value>The interval between automatic checks for the status of the Model Server by the Application Server.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpModelserverMetadataTimeout" xml:space="preserve">
+    <value>The number of seconds before a timeout occurs during retrieval of Model Server metadata by the Application Server.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpModelserverTimeout" xml:space="preserve">
+    <value>The number of seconds before a timeout occurs when the status of the Model Server has been requested by the Application Server.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpRememberExpiredSessionsMinutes" xml:space="preserve">
+    <value>The session history of an expired session will be saved during the specified number of minutes. After this time, the session history of an expired session will be deleted.</value>
+  </data>
+  <data name="MC_SystemSettingsHelpSessionExpiryMinutes" xml:space="preserve">
+    <value>The maximum number of minutes a user can remain logged in, while not being active. Users will be asked to login again when this time expires.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpApplicationTimeout" xml:space="preserve">
+    <value>When data is requested from the Application Server, a timeout will occur after this number of seconds. The user will have to request the data again.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpDashboardRefreshIntervalTime" xml:space="preserve">
+    <value>Interval between automatic check model instance on Dashboard page.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpEnableOptimizations" xml:space="preserve">
+    <value>This is a debug setting.
+&lt;br&gt;
+When selected, all javascript code is optimized and thus unreadable. 
+&lt;br&gt;
+When not selected, all javascript code is sent to the Web Client in a readable form and can be used for browser debugging.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpEnableSsl" xml:space="preserve">
+    <value>Use SSL encrypted connections for communication with the Application Server.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpGoogleAnalyticsCode" xml:space="preserve">
+    <value>The ID you receive from Google Analytics, when using this service. 
+&lt;br&gt;
+Leave this field empty if you do not use Google Analytics.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
+    <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
+The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
+  </data>
+  <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
+    <value>Invalid Google Analytics ID.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpMaxLogFileNumber" xml:space="preserve">
+    <value>The maximum number of .csl log files. When the number of log files exceeds this maximum, the oldest log file will be deleted.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpMaxLogFileSize" xml:space="preserve">
+    <value>The maximum size of a log file. When a log file size exceeds this maximum, logging will continue in a new log file.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpMaxNumberOfDashboard" xml:space="preserve">
+    <value>Maximum number of Angles that can be added to a Dashboard.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpMaxNumberOfMassChange" xml:space="preserve">
+    <value>The maximum number of items that can be selected for a mass change.
+&lt;br&gt;
+The maximum number is 1800.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpShowAngleAndDisplayID" xml:space="preserve">
+    <value>Angle, Display and Dashboard IDs are automatically generated. 
+&lt;br&gt;
+Check this field if you want to show these IDs in the General tab of the item details window and allow users to change these IDs.
+&lt;br&gt;
+Deselect this field if you do not want to show the IDs. Users will not be able to change them. This way the automatically generated IDs are always used.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpShowErrorSourceUri" xml:space="preserve">
+    <value>Select this field to show the URI of the request causing the error. The URI will be shown in the error popup window.</value>
+  </data>
+  <data name="MC_WebClientSettingsHelpTrustAllCertificate" xml:space="preserve">
+    <value>Ignore errors detected in SSL certificates received from the Application Server.</value>
+  </data>
+  <data name="MC_AllowImpersonationDescription" xml:space="preserve">
+    <value>User can impersonate other users. Used by the ZEA03n SAP transaction. Not allowed in combination with any other privileges.</value>
+  </data>
+  <data name="MC_ManagementAccessDescription" xml:space="preserve">
+    <value>Allowed to access the IT Management Console. Management access is allowed when one of the following privileges is assigned: "Manage system", "Manage users" or "Manage model".</value>
+  </data>
+  <data name="MC_ManageSystemDescription" xml:space="preserve">
+    <value>Allowed to manage the global settings, setting up a new model, manage automation tasks. For managing automation tasks, the model role privilege "Manage model" is also required.</value>
+  </data>
+  <data name="MC_ManageUserDescription" xml:space="preserve">
+    <value>Allowed to manage users within the system. For managing model roles, the model role privilege "Manage model" is required.</value>
+  </data>
+  <data name="MC_ScheduleAnglesDescription" xml:space="preserve">
+    <value>Allowed to create Automation Tasks and schedule Angles directly from the Webclient. For managing Datastores "Manage system is required"</value>
+  </data>
+  <data name="MC_ApplicationServer" xml:space="preserve">
+    <value>Application server</value>
+  </data>
+  <data name="MC_SystemSettingsHelpApplicationServer" xml:space="preserve">
+    <value>The URL that is used for internal communication with the Application Server. The URL and its port are set during installation and cannot be changed. </value>
   </data>
   <data name="CancelledByUser" xml:space="preserve">
     <value>Geannuleerd door gebruiker</value>
@@ -2903,6 +4972,9 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   </data>
   <data name="CopyAngleReportHeader" xml:space="preserve">
     <value>Angles maken geslaagd {0} van {1}</value>
+  </data>
+  <data name="CustomSortTitle" xml:space="preserve">
+    <value>Eigen sortering</value>
   </data>
   <data name="ErrorAngleNoDisplay" xml:space="preserve">
     <value>Angle heeft geen Display</value>
@@ -2916,23 +4988,32 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   <data name="Successful" xml:space="preserve">
     <value>Geslaagd</value>
   </data>
-  <data name="CustomSortTitle" xml:space="preserve">
-    <value>Aangepast sorteren</value>
-  </data>
   <data name="Info_FieldForbidden" xml:space="preserve">
     <value>Toegang tot veld {0} is geweigerd</value>
   </data>
+  <data name="MC_ClassReport" xml:space="preserve">
+    <value>Class Report</value>
+  </data>
+  <data name="MC_EnumReport" xml:space="preserve">
+    <value>Enum Report</value>
+  </data>
+  <data name="MC_GeneralReport" xml:space="preserve">
+    <value>General Report</value>
+  </data>
+  <data name="MC_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Error_AggregationFieldMissing" xml:space="preserve">
-    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de Aggregation velden ontbreken</value>
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de aggregatievelden ontbreken</value>
   </data>
   <data name="Error_BaseAnglePropertyMissing" xml:space="preserve">
-    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap base_angle ontbreekt</value>
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap 'base_angle' ontbreekt</value>
   </data>
   <data name="Error_BaseClassesPropertyMissing" xml:space="preserve">
-    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap base_classes ontbreekt</value>
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap 'base_classes' ontbreekt</value>
   </data>
   <data name="Error_BaseDisplayPropertyMissing" xml:space="preserve">
-    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap base_display ontbreekt</value>
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap 'base_display' ontbreekt</value>
   </data>
   <data name="Error_FieldContainsInvalidArguments" xml:space="preserve">
     <value>Veld {0} bevat ongeldig(e) argument(en)</value>
@@ -2944,7 +5025,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Veld {0} is niet beschikbaar in object(en) {1}</value>
   </data>
   <data name="Error_FieldPropertyMissing" xml:space="preserve">
-    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap field ontbreekt</value>
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap 'field' ontbreekt</value>
   </data>
   <data name="Error_ObjectIsNotAvailable" xml:space="preserve">
     <value>Object {0} is niet beschikbaar</value>
@@ -2953,19 +5034,133 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Objecten {0} zijn niet beschikbaar</value>
   </data>
   <data name="Error_QueryBlockTypePropertyMissing" xml:space="preserve">
-    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap queryblock_type is leeg</value>
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap 'queryblock_type' is leeg</value>
   </data>
   <data name="Error_QueryStepsPropertyMissing" xml:space="preserve">
-    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap query_steps ontbreekt</value>
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap 'query_steps' ontbreekt</value>
   </data>
   <data name="Error_FollowupNotAvailableInObjects" xml:space="preserve">
     <value>Jump {0} is niet beschikbaar in object(en) {1}</value>
   </data>
+  <data name="MC_AngleWarnings" xml:space="preserve">
+    <value>Angle warnings</value>
+  </data>
+  <data name="MC_OtherWarnings" xml:space="preserve">
+    <value>Other Errors and Warnings</value>
+  </data>
+  <data name="MC_UnsupportedAggregationField" xml:space="preserve">
+    <value>Pivot and Chart Displays with a non-existing value</value>
+  </data>
+  <data name="MC_UnsupportedDisplayField" xml:space="preserve">
+    <value>List Displays with a non-existing field</value>
+  </data>
+  <data name="MC_UnsupportedFilterField" xml:space="preserve">
+    <value>and Displays with non-existing filter fields</value>
+  </data>
+  <data name="MC_UnsupportedGroupingField" xml:space="preserve">
+    <value>Pivot and Chart Displays with a non-existing dimension</value>
+  </data>
+  <data name="MC_UnsupportedJump" xml:space="preserve">
+    <value>and Displays with non-existing Jump</value>
+  </data>
+  <data name="MC_UnsupportedSortingField" xml:space="preserve">
+    <value>List Displays with a non-existing sorting field</value>
+  </data>
+  <data name="MC_UnsupportedStartObject" xml:space="preserve">
+    <value>with non-existing start object</value>
+  </data>
+  <data name="MC_AngleWarnings_FilterPrivateItems" xml:space="preserve">
+    <value>Private items</value>
+  </data>
+  <data name="MC_AngleWarnings_FilterPublicItems" xml:space="preserve">
+    <value>Published items</value>
+  </data>
+  <data name="MC_AngleWarnings_FilterUserHint" xml:space="preserve">
+    <value>all users</value>
+  </data>
+  <data name="MC_AngleWarnings_FilterValidatedItems" xml:space="preserve">
+    <value>Include validated items</value>
+  </data>
+  <data name="MC_AngleWarnings_InfoContainErrorsWarnings" xml:space="preserve">
+    <value>containing errors/warnings</value>
+  </data>
+  <data name="MC_AngleWarnings_InfoTotalAngles" xml:space="preserve">
+    <value>Total number of Angles</value>
+  </data>
+  <data name="MC_AngleWarnings_InfoTotalDisplays" xml:space="preserve">
+    <value>Total number of Displays</value>
+  </data>
+  <data name="MC_AngleWarnings_InfoTotalErrors" xml:space="preserve">
+    <value>Total number of errors</value>
+  </data>
+  <data name="MC_AngleWarnings_InfoTotalWarnings" xml:space="preserve">
+    <value>Total number of warnings</value>
+  </data>
+  <data name="MC_AngleWarnings_WarningsSolvable" xml:space="preserve">
+    <value>Warnings solvable by input file</value>
+  </data>
+  <data name="MC_AngleWarnings_WarningsSolve" xml:space="preserve">
+    <value>Solve</value>
+  </data>
+  <data name="MC_AngleWarnings_InfoUniqueErrors" xml:space="preserve">
+    <value>unique errors</value>
+  </data>
+  <data name="MC_AngleWarnings_InfoUniqueWarnings" xml:space="preserve">
+    <value>unique warnings</value>
+  </data>
+  <data name="MC_Validation_UserNotExist" xml:space="preserve">
+    <value>User does not exist in the system</value>
+  </data>
+  <data name="MC_NoAction" xml:space="preserve">
+    <value>No action</value>
+  </data>
+  <data name="MC_SelectFieldHint" xml:space="preserve">
+    <value>Select a field...</value>
+  </data>
+  <data name="MC_SelectObjectHint" xml:space="preserve">
+    <value>Select an object...</value>
+  </data>
+  <data name="MC_CollapseAll" xml:space="preserve">
+    <value>Collapse All</value>
+  </data>
+  <data name="MC_ExpandAll" xml:space="preserve">
+    <value>Expand All</value>
+  </data>
   <data name="Dashboard_WidgetNotExist" xml:space="preserve">
-    <value />
+    <value/>
+  </data>
+  <data name="MC_AngleWarningsConfirmHeader" xml:space="preserve">
+    <value>{0}: All {1} items under {2}</value>
   </data>
   <data name="Info_GaugeChartIncorrectOrder" xml:space="preserve">
     <value>De waarden staan niet allemaal in oplopende of aflopende volgorde.</value>
+  </data>
+  <data name="MC_Assign" xml:space="preserve">
+    <value>Assign</value>
+  </data>
+  <data name="MC_Deny" xml:space="preserve">
+    <value>Deny</value>
+  </data>
+  <data name="MC_Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="MC_Undefined" xml:space="preserve">
+    <value>Undefined</value>
+  </data>
+  <data name="MC_Validate" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="MC_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="MC_AngeWarningsNoBeExecuted" xml:space="preserve">
+    <value>No action will be executed</value>
+  </data>
+  <data name="MC_AngeWarningsNoSolvableItemsFound" xml:space="preserve">
+    <value>Failure during solving. Some replacement fields or classes might not be available. Please check the general log</value>
+  </data>
+  <data name="MC_AngeWarningsNoItemSelect" xml:space="preserve">
+    <value>Please select at least one item</value>
   </data>
   <data name="Info_DisplaySortingReachedLimitation" xml:space="preserve">
     <value>Deze Angle kan niet gesorteerd worden. Het maximale aantal objecten dat gesorteerd kan worden is {0}</value>
@@ -2977,7 +5172,30 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>ID moet starten met [A-Z, a-z] gevolgd door [A-Z, a-z], [0-9] of [ _ ]</value>
   </data>
   <data name="Info_InvalidPackageVersion" xml:space="preserve">
-    <value>Ongeldige versie package</value>
+    <value>Voer een geldig nummer in.&lt;br&gt;Gebruik het formaat N.N waar N een nummer is.&lt;br&gt;Bijvoorbeeld 1.0</value>
+  </data>
+  <data name="MC_SwitchWhenPostprocessing_Description" xml:space="preserve">
+    <value>When a Model Server has started and loaded the model, it will start caching and postprocessing a number of predefined fields. In a model environment with multiple Model Servers, this setting controls when the execution of queries will be switched to the Model Server with the newest data:
+&lt;ul&gt;&lt;li&gt;When this setting is selected (default value) the queries will be switched to the Model Server when it starts caching and postprocessing.&lt;/li&gt;
+&lt;li&gt;When deselected the queries will only be switched to the Model Server when it has finished caching and postprocessing (this is particularly useful when caching and postprocessing have a heavy toll on the system).&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="MC_Event" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="MC_Schedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="MC_Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="MC_DisableSelectedModules" xml:space="preserve">
+    <value>To disable the selected modules, also the following modules need to be disabled:</value>
+  </data>
+  <data name="MC_IncludeInModule" xml:space="preserve">
+    <value>(Included in module)</value>
+  </data>
+  <data name="MC_AvailableLanguagesActive" xml:space="preserve">
+    <value>All available languages are already active</value>
   </data>
   <data name="Info_SelectItemsContainTemplatesOrAngles" xml:space="preserve">
     <value>Uw selectie bevat Templates en/of Dashboards.&lt;br&gt;Deze kunnen niet worden uitgevoerd als een Dashboard.&lt;br&gt;&lt;br&gt;Klik op OK om alleen de geselecteerde Angle(s) als Dashboard uit te voeren.</value>
@@ -2985,8 +5203,44 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   <data name="Info_AdvFilterSelectFilter" xml:space="preserve">
     <value>Selecteer een filter uit de lijst.</value>
   </data>
+  <data name="MC_WebClientSettingNote" xml:space="preserve">
+    <value>For the settings to become active, users need to clear the browser cache, or log out and log in again.</value>
+  </data>
   <data name="Info_OnlyDisplayWillBeCreated" xml:space="preserve">
-    <value>Alleen deze Display wordt toegevoegd aan uw nieuwe Angle</value>
+    <value>Alleen deze Display wordt toegevoegd aan uw nieuwe Angle.</value>
+  </data>
+  <data name="MC_AddNewAuthenticationProvider" xml:space="preserve">
+    <value>Add Authentication Provider</value>
+  </data>
+  <data name="MC_AuthenticationProviderTypes" xml:space="preserve">
+    <value>Authentication Provider Types</value>
+  </data>
+  <data name="MC_CreateAuthentication" xml:space="preserve">
+    <value>Create Authentication Provider</value>
+  </data>
+  <data name="MC_DeleteAuthenticationProviderConfirm" xml:space="preserve">
+    <value>Delete Authentication Provider: {reference}?</value>
+  </data>
+  <data name="MC_EditAuthentication" xml:space="preserve">
+    <value>Edit Authentication Provider</value>
+  </data>
+  <data name="MC_Identity" xml:space="preserve">
+    <value>Identity</value>
+  </data>
+  <data name="MC_IdentityProviderIssuer" xml:space="preserve">
+    <value>Identity provider issuer</value>
+  </data>
+  <data name="MC_IdentityProviderSingleSignOnUrl" xml:space="preserve">
+    <value>Identity provider single sign on URL</value>
+  </data>
+  <data name="MC_IdentityProviderCertificateString" xml:space="preserve">
+    <value>Identity provider certificate string</value>
+  </data>
+  <data name="MC_SyncRolesToGroups" xml:space="preserve">
+    <value>Sync roles to groups</value>
+  </data>
+  <data name="MC_Target" xml:space="preserve">
+    <value>Target</value>
   </data>
   <data name="Copied" xml:space="preserve">
     <value>Gekopieerd</value>
@@ -2994,17 +5248,17 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   <data name="PressControlCopy" xml:space="preserve">
     <value>Druk op CTRL+C om te kopiëren</value>
   </data>
+  <data name="MC_ServiceAgreementOnlyService" xml:space="preserve">
+    <value>Category</value>
+  </data>
   <data name="Not_Available" xml:space="preserve">
     <value>Niet beschikbaar</value>
   </data>
+  <data name="CellPopupSubMenuIsBetween" xml:space="preserve">
+    <value>Is tussen {0} en {1}</value>
+  </data>
   <data name="CopyDisplay" xml:space="preserve">
     <value>Display kopiëren</value>
-  </data>
-  <data name="Info_CannotPasteDisplayBecuaseAngleWarning" xml:space="preserve">
-    <value>Display kan niet worden gekopieerd, omdat de Angle waarschuwingen bevat.</value>
-  </data>
-  <data name="Info_DisplayCannotBeCopied" xml:space="preserve">
-    <value>Display kan niet worden geplakt.</value>
   </data>
   <data name="Info_DisplayHasBeenCopied" xml:space="preserve">
     <value>Display is gekopieerd.</value>
@@ -3012,25 +5266,31 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   <data name="PasteDisplay" xml:space="preserve">
     <value>Display plakken</value>
   </data>
+  <data name="Info_CannotPasteDisplayBecuaseAngleWarning" xml:space="preserve">
+    <value>Display kan niet worden gekopieerd, omdat de Angle waarschuwingen bevat.</value>
+  </data>
+  <data name="Info_DisplayCannotBeCopied" xml:space="preserve">
+    <value>Display kan niet worden geplakt.</value>
+  </data>
   <data name="TemplateHasNoValidDisplay" xml:space="preserve">
     <value>Template '{0}' kan niet worden uitgevoerd omdat het geen geldige Displays heeft.</value>
   </data>
   <data name="Info_DropFilterToAngleDefinition" xml:space="preserve">
     <value>Sleep hierheen om het filter naar de Angle te verplaatsen.</value>
   </data>
+  <data name="MC_ADFSRequires" xml:space="preserve">
+    <value>ADFS and SAML require the automatic creation of users</value>
+  </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
     <value>Filter naar Angle verplaatsen?&lt;br/&gt;
 Alle wijzigingen zullen meteen in de Angle worden opgeslagen.&lt;br/&gt;
 Wilt u doorgaan?</value>
   </data>
-  <data name="CellPopupSubMenuIsBetween" xml:space="preserve">
-    <value>Is tussen {0} en {1}</value>
-  </data>
   <data name="CellPopupSubMenuIsNotBetween" xml:space="preserve">
     <value>Is niet tussen {0} en {1} </value>
   </data>
   <data name="OtherBusinessProcess" xml:space="preserve">
-    <value>Overig</value>
+    <value>Anders</value>
   </data>
   <data name="Maximize" xml:space="preserve">
     <value>Maximaliseren</value>
@@ -3041,6 +5301,23 @@ Wilt u doorgaan?</value>
   <data name="To" xml:space="preserve">
     <value>tot</value>
   </data>
+  <data name="MC_MaxGeneralHistory" xml:space="preserve">
+    <value>Max retention time log tables [months]</value>
+  </data>
+  <data name="MC_SystemSettingsHelpMaxGeneralHistory" xml:space="preserve">
+    <value>The maximum retention time in months for system log records, which are saved in the database. Use this setting to clean up old system logs automatically. 
+&lt;br&gt;
+The value 0 means the setting is off, so the logs will not be cleaned up. The maximum value is 120 months.</value>
+  </data>
+  <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
+    <value>Lange naam</value>
+  </data>
+  <data name="MC_AllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>Enable Grouping in Pivot exports</value>
+  </data>
+  <data name="MC_SystemSettingsHelpAllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>When enabled, additional data groups are exported to support grouping in Excel.</value>
+  </data>
   <data name="MC_IncludeSelfInExportHeaders" xml:space="preserve">
     <value>Include Self in export headers</value>
   </data>
@@ -3048,9 +5325,6 @@ Wilt u doorgaan?</value>
     <value>Check this field to include 'Self' in the export headers. 
 &lt;br&gt;
 This setting is valid for both Export to Excel and Export to CSV, manually from the Web Client and automatically using an Automation Task.</value>
-  </data>
-  <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
-    <value>Lange naam</value>
   </data>
   <data name="AdvanceFilterUsageOperatorNotWarning" xml:space="preserve">
     <value>Bevat geen waarschuwingen</value>
@@ -3060,6 +5334,27 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
   </data>
   <data name="AdvanceFilterAll" xml:space="preserve">
     <value>Alle</value>
+  </data>
+  <data name="MC_AddMultiUsers" xml:space="preserve">
+    <value>Add Multi Users</value>
+  </data>
+  <data name="MC_AddSingleUser" xml:space="preserve">
+    <value>Add Single User</value>
+  </data>
+  <data name="MC_ChooseUserAddInRole" xml:space="preserve">
+    <value>Choose user(s) to add in role</value>
+  </data>
+  <data name="MC_ChooseUserRemoveFromRole" xml:space="preserve">
+    <value>Choose user(s) to remove from role</value>
+  </data>
+  <data name="MC_RemoveMultiUsers" xml:space="preserve">
+    <value>Remove Multi Users</value>
+  </data>
+  <data name="MC_RemoveSingleUser" xml:space="preserve">
+    <value>Remove Single User</value>
+  </data>
+  <data name="MC_Provider" xml:space="preserve">
+    <value>Provider</value>
   </data>
   <data name="Widgets" xml:space="preserve">
     <value>Widgets</value>
@@ -3074,7 +5369,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Wat de notaties betekenen: &lt;br/&gt;h = uur; m = minuut; s = seconde&lt;br/&gt;&lt;br/&gt;h/H = 12/24 uur</value>
   </data>
   <data name="FormatSettingCurrencySymbol" xml:space="preserve">
-    <value>Valuta symbool</value>
+    <value>Valutasymbool</value>
   </data>
   <data name="ClassChooser_StartWithBlankAngle" xml:space="preserve">
     <value>Start met lege Angle</value>
@@ -3113,7 +5408,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Items uploaden</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Upload items rapport</value>
+    <value>Raport Item uploaden</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
     <value>Items uploaden</value>
@@ -3134,22 +5429,28 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Items upload geslaagd {0} van {1}</value>
   </data>
   <data name="FormatSetting_UseDefault" xml:space="preserve">
-    <value>Gebruik default</value>
+    <value>Gebruik standaard</value>
   </data>
   <data name="ResolveAngleDisplay_UsedInAutomationTask" xml:space="preserve">
-    <value>Angle/Display wordt gebruikt in de geautomatiseerde taak.</value>
+    <value>Angle/Display wordt gebruikt in de Automation Task.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Delete" xml:space="preserve">
-    <value>De huidige Angle/Display wordt gebruikt in de volgende geautomatiseerde taken. Bij het updaten van de Angle/Display zal de actie worden verwijderd.&lt;br&gt;Indien er geen acties overblijven, zal de taak worden verwijderd.</value>
+    <value>De huidige Angle/Display wordt gebruikt in de volgende Automation Tasks. Bij het updaten van de Angle/Display zal de actie worden verwijderd.&lt;br&gt;Indien er geen acties overblijven, zal de taak worden verwijderd.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Update" xml:space="preserve">
-    <value>De huidige Angle/Display wordt gebruikt in de volgende geautomatiseerde taken. Bij het updaten van de Angle/Display zullen de taak acties worden gewijzigd. Hierdoor zou de taak kunnen mislukken.</value>
+    <value>De huidige Angle/Display wordt gebruikt in de volgende Automation Tasks. Bij het updaten van de Angle/Display zullen de Automation Task-acties worden gewijzigd. Hierdoor zou de taak kunnen mislukken.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictQuestion_Delete" xml:space="preserve">
     <value>Weet u zeker dat u deze Angle/Display wilt verwijderen?</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictQuestion_Update" xml:space="preserve">
     <value>Weet u zeker dat u deze Angle/Display wilt updaten?</value>
+  </data>
+  <data name="MC_StatusAndReport" xml:space="preserve">
+    <value>Status and reports</value>
+  </data>
+  <data name="MC_SendLogFrequencyInHours" xml:space="preserve">
+    <value>Send Logs Frequency [Hours]</value>
   </data>
   <data name="WidgetAngleName" xml:space="preserve">
     <value>Angle:</value>
@@ -3160,15 +5461,6 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
   <data name="DomainElementFilter" xml:space="preserve">
     <value>Zoek item...</value>
   </data>
-  <data name="MC_AllowEmptly" xml:space="preserve">
-    <value>Allow empty</value>
-  </data>
-  <data name="MC_ConfirmStartServer" xml:space="preserve">
-    <value>Start server {0}. Are you sure you want to start this server?</value>
-  </data>
-  <data name="MC_ConfirmStopServer" xml:space="preserve">
-    <value>Stop server {0}. Are you sure you want to stop this server?</value>
-  </data>
   <data name="ScheduleAngle" xml:space="preserve">
     <value>Plannen</value>
   </data>
@@ -3178,11 +5470,20 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
   <data name="ToOpenMC" xml:space="preserve">
     <value>&lt;strong&gt;Note: &lt;/strong&gt;Deze actie opent de IT Management Console.</value>
   </data>
+  <data name="MC_AllowEmptly" xml:space="preserve">
+    <value>Allow empty</value>
+  </data>
+  <data name="MC_ConfirmStartServer" xml:space="preserve">
+    <value>Start server {0}. Are you sure you want to start this server?</value>
+  </data>
+  <data name="MC_ConfirmStopServer" xml:space="preserve">
+    <value>Stop server {0}. Are you sure you want to stop this server?</value>
+  </data>
   <data name="NoTaskAvailable" xml:space="preserve">
     <value>Geen taken beschikbaar in het systeem.</value>
   </data>
   <data name="DefaultDatastore" xml:space="preserve">
-    <value>Standaard dataopslag</value>
+    <value>Standaard-datastore</value>
   </data>
   <data name="MC_ShowWarningPopupCopyRole" xml:space="preserve">
     <value>The copied role will not contain sub roles</value>
@@ -3347,13 +5648,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Verwijderen Dashboard/Angles geslaagd {0} van {1}</value>
   </data>
   <data name="Title_ReportDeleteItem" xml:space="preserve">
-    <value>Verwijder Anglerapport</value>
+    <value>Rapport Angle verwijderen</value>
   </data>
   <data name="StatisticDateTime" xml:space="preserve">
     <value>op {0} om {1}</value>
   </data>
   <data name="DataHeaders" xml:space="preserve">
-    <value>Data headers</value>
+    <value>Data koppen</value>
   </data>
   <data name="GrandTotal" xml:space="preserve">
     <value>Eindtotaal</value>
@@ -3374,10 +5675,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Select field to replace</value>
   </data>
   <data name="Confirm_SaveValidatedAngle" xml:space="preserve">
-    <value>U heeft een gevalideerde Angle aangepast. Wilt u doorgaan?</value>
+    <value>U heeft een gevalideerde Angle aangepast.&lt;br&gt;Wilt u doorgaan?</value>
   </data>
   <data name="Confirm_SaveValidatedDashboard" xml:space="preserve">
-    <value>U heeft een gevalideerd Dashboard aangepast. Wilt u doorgaan?</value>
+    <value>U heeft een gevalideerd Dashboard aangepast.&lt;br&gt;Wilt u doorgaan?</value>
   </data>
   <data name="MC_NoFieldAvailable" xml:space="preserve">
     <value>No field available</value>
@@ -3458,7 +5759,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Select model</value>
   </data>
   <data name="Private" xml:space="preserve">
-    <value>Privé</value>
+    <value>Persoonlijk</value>
   </data>
   <data name="Published" xml:space="preserve">
     <value>Gepubliceerd</value>
@@ -3507,17 +5808,17 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="MessageAngleNeedsToBeReExecuted" xml:space="preserve">
     <value>Het model is bijgewerkt. Voer deze Angle opnieuw uit.</value>
   </data>
-  <data name="ModelLabel_Down" xml:space="preserve">
-    <value> (down)</value>
-  </data>
-  <data name="ModelLabel_NoModelServer" xml:space="preserve">
-    <value>Geen Model Server</value>
-  </data>
   <data name="DashboardFilters_Description" xml:space="preserve">
     <value>Ingeschakelde filters</value>
   </data>
   <data name="DashboardFilters_Title" xml:space="preserve">
     <value>Filters</value>
+  </data>
+  <data name="ModelLabel_Down" xml:space="preserve">
+    <value> (down)</value>
+  </data>
+  <data name="ModelLabel_NoModelServer" xml:space="preserve">
+    <value>Geen Model Server</value>
   </data>
   <data name="ListHeaderPopupEditFilter" xml:space="preserve">
     <value>Wijzig Filter</value>
@@ -3543,17 +5844,146 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="Period_Unit_year" xml:space="preserve">
     <value>jaren</value>
   </data>
-  <data name="SinceLastRefresh" xml:space="preserve">
-    <value>{0}sinds laatste verversing</value>
-  </data>
   <data name="MC_ChangedTablesOnly" xml:space="preserve">
     <value>New and changed tables only</value>
   </data>
   <data name="MC_ChangedTablesOnly_Description" xml:space="preserve">
     <value>Select this option to extract only newly added and changed tables. This option cannot be used together with Delta.</value>
   </data>
+  <data name="MC_AccessRequestedPathDenied" xml:space="preserve">
+    <value>Access to the requested path denied</value>
+  </data>
+  <data name="SinceLastRefresh" xml:space="preserve">
+    <value>{0}sinds laatste verversing</value>
+  </data>
+  <data name="MC_CopyTask" xml:space="preserve">
+    <value>Copy task</value>
+  </data>
+  <data name="MC_NewTaskName" xml:space="preserve">
+    <value>New task name</value>
+  </data>
+  <data name="MC_ActionType_Datastore" xml:space="preserve">
+    <value>Datastore</value>
+  </data>
+  <data name="MC_ActionType_Script" xml:space="preserve">
+    <value>Program/script</value>
+  </data>
+  <data name="MC_TaskAction_ColumnAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="MC_TaskAction_ColumnAngle" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="MC_TaskAction_ColumnApprovalState" xml:space="preserve">
+    <value>Approval state</value>
+  </data>
+  <data name="MC_TaskAction_ColumnCondition" xml:space="preserve">
+    <value>Condition</value>
+  </data>
+  <data name="MC_TaskAction_ColumnDetail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="MC_TaskAction_ColumnDisplay" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="MC_TaskAction_ColumnModel" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="MC_TaskAction_TitleAddAction" xml:space="preserve">
+    <value>Add action</value>
+  </data>
+  <data name="MC_TaskAction_TitleEditAction" xml:space="preserve">
+    <value>Edit action</value>
+  </data>
+  <data name="MC_TaskCheckAction_Failure" xml:space="preserve">
+    <value>Action was validated, result Failure.</value>
+  </data>
+  <data name="MC_TaskCheckAction_Success" xml:space="preserve">
+    <value>Action was validated, result OK.</value>
+  </data>
+  <data name="MC_TaskEmail_TooltipFailure" xml:space="preserve">
+    <value>Send notification on failure</value>
+  </data>
+  <data name="MC_TaskEmail_TooltipResult" xml:space="preserve">
+    <value>Send message with the result when all conditions are met</value>
+  </data>
+  <data name="MC_TaskEmail_TooltipSuccess" xml:space="preserve">
+    <value>Send notification on success</value>
+  </data>
+  <data name="MC_TaskEvent_CurrentinstanceChanged" xml:space="preserve">
+    <value>When new model available</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionUsername" xml:space="preserve">
+    <value>The username of the Run user for the program/script.&lt;br&gt;
+This must be a valid Windows user with sufficient permissions.&lt;br&gt;
+Prefix the username with "domain\" to use a domain user.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionAbortWhenError" xml:space="preserve">
+    <value>When checked, the Task will fail when this action fails.&lt;br&gt;
+When unchecked, the Task will continue and complete itself when this action fails.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionParameters" xml:space="preserve">
+    <value>Add arguments to pass to the script.&lt;br&gt;
+The syntax depends on the type of script that is used in this action.&lt;br&gt;
+Use {alloutput} to pass a list of output files coming from other datastore actions in this task.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionPassword" xml:space="preserve">
+    <value>The password of the Run user for the program/script.&lt;br&gt;
+For security reasons, the password must always be reentered before saving the action.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionScript" xml:space="preserve">
+    <value>Select the program or script file for this action.&lt;br&gt;
+You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionExcelTemplate" xml:space="preserve">
+    <value>Select which Excel template to use for this export.&lt;br&gt;
+When you select "Use default", the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+You can also select a different Excel template from the list if you don't want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro's.</value>
+  </data>
+  <data name="MC_ScriptLocation" xml:space="preserve">
+    <value>Program/scripts folder</value>
+  </data>
+  <data name="MC_SystemSettingsHelpScriptLocation" xml:space="preserve">
+    <value>The location of the folder for program/script files for use in Automation Tasks. Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script. 
+&lt;br&gt;
+&lt;br&gt;
+Note: the specified location must be a full file path on the Application server.</value>
+  </data>
   <data name="ViewDisplaysMode" xml:space="preserve">
     <value>Displaymodus</value>
+  </data>
+  <data name="MC_Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="MC_Components" xml:space="preserve">
+    <value>Components</value>
+  </data>
+  <data name="MC_DeleteComponentConfirm" xml:space="preserve">
+    <value>Deleting a component can cause further operations to fail. Are you sure you want to delete this component?</value>
+  </data>
+  <data name="MC_NoModelsAvailable" xml:space="preserve">
+    <value>No models available</value>
+  </data>
+  <data name="MC_ResendLicense" xml:space="preserve">
+    <value>Resend license</value>
+  </data>
+  <data name="MC_Components_GridTitle" xml:space="preserve">
+    <value>All registered component services</value>
+  </data>
+  <data name="MC_DownloadMetadata" xml:space="preserve">
+    <value>Download metadata</value>
+  </data>
+  <data name="MC_LastEvent" xml:space="preserve">
+    <value>Last event</value>
+  </data>
+  <data name="MC_LastHeartbeat" xml:space="preserve">
+    <value>Last heartbeat</value>
+  </data>
+  <data name="MC_RegisteredOn" xml:space="preserve">
+    <value>Registered on</value>
+  </data>
+  <data name="MC_RegistrationId" xml:space="preserve">
+    <value>Registration ID</value>
   </data>
   <data name="ClearAdvancedFilters" xml:space="preserve">
     <value>Wis filter(s)</value>
@@ -3569,6 +5999,53 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   </data>
   <data name="Workbench" xml:space="preserve">
     <value>Modeling Workbench</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpAutoCreateUsers" xml:space="preserve">
+    <value>If this setting is selected, a new Every Angle user account is automatically created when a user from this authentication provider logs in to Every Angle for the first time. This Every Angle user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpContainer" xml:space="preserve">
+    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br&gt;
+In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
+An Active Directory browsing tool can help you find the correct DN syntax for the container. For example, LDAP Admin is a free Windows LDAP client that lets you browse the Active Directory and copy the DN. Example DN: &lt;strong&gt;CN=External Users, DC=Contoso, DC=com&lt;/strong&gt;</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpDefaultRoles" xml:space="preserve">
+    <value>These roles will be assigned to new user accounts from this authentication provider. Setting a default role is mandatory unless you use &lt;strong&gt;Sync roles to groups&lt;/strong&gt;. Click the cell to add or remove roles by selecting or deselecting roles in the drop-down list. The drop-down list contains all available system and model roles. Hover over a role to see which model it belongs to.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpDescription" xml:space="preserve">
+    <value>Enter a description for the authentication provider.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpDomain" xml:space="preserve">
+    <value>Enter the domain name of the active directory.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpId" xml:space="preserve">
+    <value>Enter an ID for the authentication provider. The ID is used by the Application Server for the authentication provider.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentity" xml:space="preserve">
+    <value>Enter the identity of the ADFS.&lt;br&gt;
+The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;address of service&amp;gt;, for example: https://ea2auth.&amp;lt;client-domain name&amp;gt;.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentityProviderIssuer" xml:space="preserve">
+    <value>Enter the SAML identity provider issuer.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentityProviderSingleSignOnUrl" xml:space="preserve">
+    <value>Enter the SAML identity provider single sign on URL.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentityProviderCertificateString" xml:space="preserve">
+    <value>Enter the SAML identity provider certificate string.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpProvider" xml:space="preserve">
+    <value>This setting indicates whether the authentication provider is an active provider or not.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpSyncRoles" xml:space="preserve">
+    <value>If this setting is selected, the Application Server will always check AD group membership when a user logs in. When an AD group exists as a role in Every Angle, this role will be assigned to the user during the session. Note that the group name may not contain any spaces.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpTarget" xml:space="preserve">
+    <value>Enter the target of the ADFS.&lt;br&gt;
+During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
+    <value>The type of the authentication provider.&lt;br&gt;
+The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML).</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
     <value>Notificaties</value>
@@ -3672,6 +6149,9 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="ValidateSetting_AngleNotValidated" xml:space="preserve">
     <value>Angle is niet gevalideerd</value>
   </data>
+  <data name="PrivilegeStatusDeny" xml:space="preserve">
+    <value>Weigeren</value>
+  </data>
   <data name="UploadDashboard_InvalidReferencedAngles" xml:space="preserve">
     <value>Dashboard kan niet worden geüpload zonder gerefereerde Angles. Zorg ervoor dat minimaal een van de gerefereerde Angles ook wordt geüpload. </value>
   </data>
@@ -3685,10 +6165,10 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Displays</value>
   </data>
   <data name="PublishSettings_WidgetsInvalid" xml:space="preserve">
-    <value>Dashboard kan niet worden gepubliceerd. Publiceer eerst alle Privédisplays</value>
+    <value>Dashboard kan niet worden gepubliceerd. Publiceer eerst alle Privédisplays.</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
-    <value>ga naar Displaydetails</value>
+    <value>Ga naar Displaydetails</value>
   </data>
   <data name="Ascending" xml:space="preserve">
     <value>oplopend</value>
@@ -3739,7 +6219,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Keer selectie om</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Een bekend probleem veroorzaakt wellicht onjuist scrollen met iOS 13. Neem contact op met Every Angle Support voor meer informatie.</value>
+    <value>Een bekend probleem veroorzaakt wellicht onjuist scrollen met iOS 13. Neem contact op met Magnitude Support voor meer informatie.</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
@@ -3756,14 +6236,6 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
       Magnitude Software en Every Angle zijn handelsmerken van Magnitude Software, Inc. Het Magnitude-logo en het Every Angle-logo en overige "Every Angle"-merkaanduidingen zijn handelsmerken van Magnitude Software, Inc.&lt;br/&gt;
       Alle overige bedrijfs- en productnamen die in document zijn vermeld, worden alleen gebruikt voor identificatiedoeleinden en kunnen handelsmerken of gedeponeerde handelsmerken zijn van hun respectieve eigenaren.
 </value>
-  </data>
-  <data name="MC_SystemSettingsHelpInstancesPerModel" xml:space="preserve">
-    <value>The number of model instances that are kept in the database (as history).&lt;br/&gt;
-When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted.&lt;br/&gt;
-The minimum is 1.</value>
-  </data>
-  <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
-    <value>items in</value>
   </data>
   <data name="MC_SystemLog_Repository" xml:space="preserve">
     <value>Repository</value>
@@ -3813,9 +6285,6 @@ The minimum is 1.</value>
   <data name="Toast_SetTemplateToAngle" xml:space="preserve">
     <value>'{0}' is ingesteld als Angle</value>
   </data>
-  <data name="ChartReferenceFieldName" xml:space="preserve">
-    <value>Referentielijn</value>
-  </data>
   <data name="NewDisplayType_chart" xml:space="preserve">
     <value>Grafiek</value>
   </data>
@@ -3830,6 +6299,9 @@ The minimum is 1.</value>
   </data>
   <data name="MoreActions" xml:space="preserve">
     <value>Meer acties</value>
+  </data>
+  <data name="ChartReferenceFieldName" xml:space="preserve">
+    <value>Referentielijn</value>
   </data>
   <data name="GoToSapNotAvailable" xml:space="preserve">
     <value>Geen transacties beschikbaar</value>
@@ -3867,7 +6339,7 @@ Wilt u doorgaan met het opslaan van uw wijzigingen?</value>
     <value>Het is druk op de server. Er staat nog {0} andere Angle in de wachtrij. &lt;br /&gt;Even geduld a.u.b.</value>
   </data>
   <data name="LaterInQueueMessage" xml:space="preserve">
-    <value>Het is druk op de server. Er staan nog {0} andere Angles in de wachtrij.  &lt;br /&gt;Even geduld a.u.b.</value>
+    <value>Het is druk op de server. Er staan nog {0} andere Angles in de wachtrij. &lt;br /&gt;Even geduld a.u.b.</value>
   </data>
   <data name="ExecutingAngleMessage" xml:space="preserve">
     <value>Angleresultaat wordt berekend</value>
@@ -3889,6 +6361,18 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_Validation_ExportPackageUrl" xml:space="preserve">
     <value>Invalid URL: selections from multiple models and Advanced filters are not allowed.</value>
   </data>
+  <data name="MC_AngleExports" xml:space="preserve">
+    <value>Angle exports</value>
+  </data>
+  <data name="MC_ExcelDefaults" xml:space="preserve">
+    <value>Excel defaults</value>
+  </data>
+  <data name="MC_ExcelTemplates" xml:space="preserve">
+    <value>Excel templates</value>
+  </data>
+  <data name="MC_UploadTemplate" xml:space="preserve">
+    <value>Upload template</value>
+  </data>
   <data name="DownloadAngle" xml:space="preserve">
     <value>Angle downloaden</value>
   </data>
@@ -3903,26 +6387,6 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="Support" xml:space="preserve">
     <value>Support</value>
-  </data>
-  <data name="MC_MaxGeneralHistory" xml:space="preserve">
-    <value>Max retention time log tables [months]</value>
-  </data>
-  <data name="MC_SystemSettingsHelpMaxGeneralHistory" xml:space="preserve">
-    <value>The maximum retention time in months for system log records, which are saved in the database. Use this setting to clean up old system logs automatically. 
-&lt;br&gt;
-The value 0 means the setting is off, so the logs will not be cleaned up. The maximum value is 120 months.</value>
-  </data>
-  <data name="MC_AngleExports" xml:space="preserve">
-    <value>Angle exports</value>
-  </data>
-  <data name="MC_ExcelDefaults" xml:space="preserve">
-    <value>Excel defaults</value>
-  </data>
-  <data name="MC_ExcelTemplates" xml:space="preserve">
-    <value>Excel templates</value>
-  </data>
-  <data name="MC_UploadTemplate" xml:space="preserve">
-    <value>Upload template</value>
   </data>
   <data name="MC_DeleteExcelConfirm" xml:space="preserve">
     <value>Delete Excel: {reference}?</value>
@@ -3960,12 +6424,6 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="IncludeEndDate" xml:space="preserve">
     <value>Inclusief einddatum</value>
   </data>
-  <data name="SearchTagInputPlaceholder" xml:space="preserve">
-    <value>Zoek op Tag</value>
-  </data>
-  <data name="SearchTagNoSuggestion" xml:space="preserve">
-    <value>Geen resultaten</value>
-  </data>
   <data name="MC_DefaultDatastoreName" xml:space="preserve">
     <value>Default datastore</value>
   </data>
@@ -3981,11 +6439,26 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="SingleActionExecute" xml:space="preserve">
     <value>[Enkele actie]</value>
   </data>
+  <data name="SearchTagInputPlaceholder" xml:space="preserve">
+    <value>Zoek op Tag</value>
+  </data>
+  <data name="SearchTagNoSuggestion" xml:space="preserve">
+    <value>Geen resultaten</value>
+  </data>
   <data name="MC_Items" xml:space="preserve">
     <value>Items</value>
   </data>
   <data name="Dashboards" xml:space="preserve">
     <value>Dashboards</value>
+  </data>
+  <data name="MC_ResultExportTypeWarning" xml:space="preserve">
+    <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
+  </data>
+  <data name="MC_FallbackFieldLength" xml:space="preserve">
+    <value>Fallback export field length</value>
+  </data>
+  <data name="MC_FallbackFieldLengthDescription" xml:space="preserve">
+    <value>Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
   <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
     <value>Run as user</value>
@@ -4002,6 +6475,10 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="OpenSidebar" xml:space="preserve">
     <value>Open zijpaneel</value>
   </data>
+  <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
+    <value>Specificeer in welke kolom de tijdstempel van het model moet worden toegevoegd.&lt;br&gt;
+Kies '1' voor de eerste kolom. Als de tijdstempel van het model niet nodig is, kies dan 'Geen'.</value>
+  </data>
   <data name="MC_Approved" xml:space="preserve">
     <value>approved</value>
   </data>
@@ -4017,7 +6494,7 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   <data name="MC_DefaultApprovalStateDescription" xml:space="preserve">
     <value>The default Approval state of newly added Actions in Automation tasks.
 Actions can only be executed when the Approval state is "approved".
-The "manage system" privileges is required to change the Approval state of an Action.</value>
+The "manage system" privilege is required to change the Approval state of an Action.</value>
   </data>
   <data name="AngleFilters" xml:space="preserve">
     <value>Angle Filters &amp; Jumps</value>
@@ -4040,10 +6517,6 @@ The "manage system" privileges is required to change the Approval state of an Ac
   <data name="DisplayGroupClose" xml:space="preserve">
     <value>Verberg groep</value>
   </data>
-  <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
-    <value>Specificeer in welke kolom de tijdstempel van het model moet worden toegevoegd.&lt;br&gt;
-Kies '1' voor de eerste kolom. Als de tijdstempel van het model niet nodig is, kies dan 'Geen'.</value>
-  </data>
   <data name="Tooltip_SwitchToAngleTab" xml:space="preserve">
     <value>Deze Filter/Jump wordt toegepast op Angleniveau. Klik om naar de tab Angle te gaan om hem te bewerken of te verwijderen</value>
   </data>
@@ -4053,11 +6526,17 @@ Kies '1' voor de eerste kolom. Als de tijdstempel van het model niet nodig is, k
   <data name="MassChangeStatusRemoveTag" xml:space="preserve">
     <value>Verwijder tag "{0}"</value>
   </data>
+  <data name="MC_LogLevel" xml:space="preserve">
+    <value>Log level (Application Server)</value>
+  </data>
+  <data name="MC_LogLevelDescription" xml:space="preserve">
+    <value>Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
+  </data>
   <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
     <value>Bevestiging vereist</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Als u Displays bewerkt die in geautomatiseerde taken gebruikt worden kan dit invloed hebben op de actie, en kan deze falen.</value>
+    <value>Als u Displays bewerkt die in Automation Task(s) worden gebruikt kan dit invloed hebben op de actie, en kan deze falen.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Ga naar de geplande taak</value>
