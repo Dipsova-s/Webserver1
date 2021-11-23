@@ -177,6 +177,7 @@
     <Compile Include="Services\LogFileReaderServiceTest.cs" />
     <Compile Include="Services\LogFileServiceTest.cs" />
     <Compile Include="Services\RepositoryLogServiceTest.cs" />
+    <Compile Include="Services\STSLogServiceTest.cs" />
     <Compile Include="UnitTestBase.cs" />
     <Compile Include="Helpers\LicenseHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

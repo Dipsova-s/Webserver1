@@ -8,6 +8,7 @@
         AppServer,
         ModelServer,
         Repository,
-        EventLog
+        EventLog,
+        STS
     }
 }

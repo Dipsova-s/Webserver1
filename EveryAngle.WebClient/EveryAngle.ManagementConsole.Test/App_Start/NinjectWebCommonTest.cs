@@ -50,6 +50,7 @@ namespace EveryAngle.ManagementConsole.Test.App_Start
             AddBind<IFileHelper, FileHelper>(kernel);
             AddBind<IAngleWarningsAutoSolver, AngleWarningsAutoSolver>(kernel);
             AddBind<IClassReferencesManager, ClassReferencesManager>(kernel);
+            AddBind<ISTSLogService, STSLogService>(kernel);
 
             NinjectWebCommon.RegisterServices(kernel.Object);
 

@@ -6553,4 +6553,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="SAPDownloadMaxRunTime" xml:space="preserve">
     <value>SAP download maximum run time</value>
   </data>
+  <data name="MC_SystemLog_STS" xml:space="preserve">
+    <value>STS</value>
+  </data>
 </root>

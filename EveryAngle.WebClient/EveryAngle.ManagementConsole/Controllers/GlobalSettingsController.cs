@@ -81,6 +81,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly ILogFileService logFileService;
         private readonly ILogFileReaderService logFileReaderService;
         private readonly IGlobalSettingsAppService systemSettingsService;
+        private readonly ISTSLogService stsLogService;
         #endregion
 
         public GlobalSettingsController(
@@ -90,11 +91,12 @@ namespace EveryAngle.ManagementConsole.Controllers
             IRepositoryLogService repositoryLogService,
             ILogFileService logFileService,
             ILogFileReaderService logFileReaderService,
-            IGlobalSettingsAppService systemSettingsService
+            IGlobalSettingsAppService systemSettingsService,
+            ISTSLogService stsLogService
             )
             : this(globalSettingService, modelService, userService, webClientConfigService,
-                  repositoryLogService, logFileService, logFileReaderService, 
-                  systemSettingsService, SessionHelper.Initialize())
+                  repositoryLogService, logFileService, logFileReaderService,
+                  systemSettingsService, stsLogService, SessionHelper.Initialize())
         {
         }
 
@@ -106,6 +108,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ILogFileService logFileService,
             ILogFileReaderService logFileReaderService,
             IGlobalSettingsAppService systemSettingsService,
+            ISTSLogService stsLogService,
             SessionHelper sessionHelper)
         {
             this.modelService = modelService;
@@ -116,6 +119,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             this.logFileService = logFileService;
             this.logFileReaderService = logFileReaderService;
             this.systemSettingsService = systemSettingsService;
+            this.stsLogService = stsLogService;
             SessionHelper = sessionHelper;
         }
 
@@ -933,7 +937,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             // model server log does not support sorting
             ViewBag.SortEnabled = !isModelServerLog;
 
-            SystemLogType[] clientOperations = new SystemLogType[] { SystemLogType.Repository };
+            SystemLogType[] clientOperations = new SystemLogType[] { SystemLogType.Repository, SystemLogType.STS };
             ViewBag.ServerOperation = !clientOperations.Contains(logType);
             ViewData["ModelsData"] = models;
 
@@ -988,6 +992,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             else if (logType == SystemLogType.Repository)
             {
                 files = repositoryLogService.Get().ToList();
+                total = files.Count();
+            }
+            else if (logType == SystemLogType.STS)
+            {
+                files = stsLogService.Get().ToList();
                 total = files.Count();
             }
 
@@ -1160,7 +1169,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             string target = "")
         {
             SystemLogType logType = GetSystemLogType(target);
-            bool isFileFromServer = logType == SystemLogType.AppServer || logType == SystemLogType.ModelServer || logType == SystemLogType.Repository;
+            bool isFileFromServer = logType == SystemLogType.AppServer || logType == SystemLogType.ModelServer || logType == SystemLogType.Repository || logType == SystemLogType.STS;
             if (fullPath.EndsWith("log"))
             {
                 var executeResult = isFileFromServer ? logFileReaderService.Get(UrlHelper.GetRequestUrl(URLType.NOA) + fullPath) : logFileReaderService.GetLogFileDetails(fullPath);
@@ -1186,7 +1195,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     fullPath = Path.Combine(logDirectory.FullName, fileInfo.Name);
                     logFileReaderService.CopyForLogFile(fileInfo.FullName, fullPath);
                 }
-                
+
                 ExecuteParameters para = GetExecuteParametersForCsl(fullPath, q, type, offset, limit);
 
                 ExecuteJsonResult executeResult = logFileService.GetJsonFromCsl(para);
@@ -1201,7 +1210,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     message = para.ExecutePath
                 }));
             }
-           
+
         }
 
         public ContentResult GetSystemlogByDetailsUri(
@@ -1250,7 +1259,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             if (logType == SystemLogType.AppServer
                 || logType == SystemLogType.ModelServer
-                || logType == SystemLogType.Repository)
+                || logType == SystemLogType.Repository
+                || logType == SystemLogType.STS)
             {
                 string requestUrl = UrlHelper.GetRequestUrl(URLType.NOA) + logFile;
                 FileViewModel viewModel = logFileService.Get(requestUrl);

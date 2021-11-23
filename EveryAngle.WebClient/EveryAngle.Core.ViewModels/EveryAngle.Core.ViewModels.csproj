@@ -129,7 +129,7 @@
     <Compile Include="Model\ModelSiteMapSlaveViewModel.cs" />
     <Compile Include="Model\ModelViewModel.cs" />
     <Compile Include="EAPackage\ExportSummaryFacetViewModel.cs" />
-    <Compile Include="Model\RepositoryLogViewModel.cs" />
+    <Compile Include="Model\ComponentLogViewModel.cs" />
     <Compile Include="Privilege\ModelPrivilegeViewModel.cs" />
     <Compile Include="Privilege\PrivilegesForModelViewModel.cs" />
     <Compile Include="Privilege\SystemPrivilegeViewModel.cs" />
