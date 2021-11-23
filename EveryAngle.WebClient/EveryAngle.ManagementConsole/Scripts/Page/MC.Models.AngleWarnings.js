@@ -7,6 +7,7 @@
         self.ExecuteAutoAngleWarningsUrl = '';
         self.CheckExecuteAngleWarningsUrl = '';
         self.DeleteAngleWarningTaskUrl = '';
+        self.AreSomeAutoSolveAnglesPartOfAutomationTasksUrl = '';
         self.GetAllThirdLevelUrl = '';
         self.GetAllJumpsUrl = '';
         self.GetAngleWarningTaskHistoryUrl = '';
@@ -89,6 +90,7 @@
             self.ExecuteAutoAngleWarningsUrl = '';
             self.CheckExecuteAngleWarningsUrl = '';
             self.DeleteAngleWarningTaskUrl = '';
+            self.AreSomeAutoSolveAnglesPartOfAutomationTasksUrl = '';
             self.GetAllThirdLevelUrl = '';
             self.GetAllJumpsUrl = '';
             self.GetAngleWarningTaskHistoryUrl = '';
@@ -289,6 +291,9 @@
             if (e.response) {
 
                 if (e.response.Summary) {
+
+                    var NumberOfSolvableFiles = 0;
+
                     $.each(e.response.Summary, function (name, value) {
                         if (name === 'WarningsSolvable') {
                             if (value === 0) {
@@ -298,9 +303,7 @@
                                 $('.btnSolveAutoWarnings').removeClass('disabled');
                             }
 
-                            $('.btnSolveAutoWarnings').text(function (i, text) {
-                                return 'Solve with forwarding rules (' + value + ')';
-                            });
+                            NumberOfSolvableFiles = value;
                         }
 
                         if (name === 'AnglesTotal') {
@@ -308,6 +311,17 @@
                             self.UpdateAnglesTotalLabel(label);
                         }
                         $('#' + name).text(kendo.toString(parseInt(value || 0, 10), 'n0'));
+                    });
+
+                    $.each(e.response.Summary, function (name, value) {
+                        if (name === 'AutoSolverHasDisplaysPartOfAutomationTasks') {
+                            $('.btnSolveAutoWarnings').text(function (i, text) {
+                                if (value == 1)
+                                    return 'Solve with forwarding rules (' + NumberOfSolvableFiles + ')!';
+                                else
+                                    return 'Solve with forwarding rules (' + NumberOfSolvableFiles + ')';
+                            });
+                        }
                     });
                 }
                 if (e.response.Solutions) {
@@ -1265,6 +1279,7 @@
         // private method for prepare confirm message
         var prepareConfirmMessage = function (checkBoxs, treeList) {
             var confirmMessage = '';
+            var automationTasksWarning = false;
 
             $.each(checkBoxs, function (index, checkBox) {
                 // Get row (tr) from kendow grid, for get data item in grid data source (binding data response from AS)
@@ -1276,8 +1291,16 @@
                     // create confirm message
                     var selectAction = $('#action_' + checkBox.name.replace('solve_', ''));
                     confirmMessage += createConfirmMessage(selectAction, dataItem, treeList);
+
+                    if (dataItem.DataSecondLevel.HasDisplaysUsedInAutomationTasks) {
+                        automationTasksWarning = true;
+                    }
                 }
             });
+
+            if (automationTasksWarning) {
+                confirmMessage = '<h3>WARNING! Some of the angles that will be solved are part of automation tasks.</h3><p>' + confirmMessage;
+            }
 
             return confirmMessage;
         };
@@ -1399,7 +1422,7 @@
                                 var actionArgument = self.CreateTaskActionArgument(action.Solution);
                                 var actionArgumentParameter = self.CreateActionParameter(action.Solution, action.DataItem, replaceValue);
                                 actionArgument = self.ClearUnusedActionArgumentParameter(actionArgument, actionArgumentParameter);
-
+                               
                                 action.TaskAction.arguments.push(actionArgument);
                                 task.actions.push(action.TaskAction);
                             })
@@ -1482,15 +1505,29 @@
                 if (resolveWarningCount <= 0) {
                     clearInterval(fnCheckGetTaskInfo);
 
-                    // find last expanded item in grid
-                    //var lastItem = taskActions.findObject('Index', task.actions.length - 1);
-                    MC.util.showPopupConfirmation("Execute automatic warnings solving using the input file?", function () {
-                        executeAutoProcesses(task);
-                    }, null, 300, 150);
+                    var WarningText = '';
+
+                    $('.btnSolveAutoWarnings').text(function (i, text) {
+                        if (text.includes('!'))
+                            WarningText = '<h3>WARNING! Some of the angles that will be solved are part of automation tasks.</h3> </p>';
+                    });
+
+                    var ConfirmText = WarningText + 'Execute automatic warnings solving using the input file?';
+
+                    MC.ajax.request({
+                        url: self.AreSomeAutoSolveAnglesPartOfAutomationTasksUrl,
+                        type: 'GET'
+                    }).then(function (data) {
+                        if (data == 1) {
+                            ConfirmText = WarningText + ConfirmText;
+                        } else { }
+                    }).then(function () {
+                        MC.util.showPopupConfirmation(ConfirmText, function () {
+                            executeAutoProcesses(task);
+                        }, null, 300, 200)
+                    });
                 }
             }, 100);
-
-
 
             return task;
         };

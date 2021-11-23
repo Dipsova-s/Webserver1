@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -46,6 +47,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             _angleWarningsAutoSolver.Initialize(SessionHelper);
         }
 
+        [ExcludeFromCodeCoverage]
         public AngleWarningsController(
             IModelService modelService,
             IGlobalSettingService globalSettingService,
@@ -99,7 +101,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             if (formData["level"] == "1")
             {
                 result = GetAngleWarningsFirstLevel(formData, model, limitOffsetQueryString);
-                result.Summary.WarningsSolvable = GetNumberOfSolvableFieldsViaInputFile(result);
+
+                result.Summary.WarningsSolvable = GetNumberOfSolvableFieldsViaInputFile(result, out int hasAutomationTasks);
+                result.Summary.AutoSolverHasDisplaysPartOfAutomationTasks = hasAutomationTasks;
             }
             else if (formData["level"] == "2")
             {
@@ -113,9 +117,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        private int GetNumberOfSolvableFieldsViaInputFile(AngleWarningsDataSourceResult dataSource)
+        private int GetNumberOfSolvableFieldsViaInputFile(AngleWarningsDataSourceResult dataSource, out int hasAutomationTasks)
         {
-            return _angleWarningsAutoSolver.GetNumberOfSolvableFieldsViaInputFile(dataSource);
+            return _angleWarningsAutoSolver.GetNumberOfSolvableFieldsViaInputFile(dataSource, out hasAutomationTasks);
         }
 
         private AngleWarningsDataSourceResult GetAngleWarningsFirstLevel(FormCollection formData, ModelViewModel model, string limitOffsetQueryString)
@@ -140,6 +144,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             return result;
         }
 
+        [ExcludeFromCodeCoverage] //M4-98694
         private AngleWarningsDataSourceResult GetAngleWarningsSecondLevel(FormCollection formData, ModelViewModel model, string limitOffsetQueryString)
         {
             AngleWarningsDataSourceResult result;
@@ -161,7 +166,11 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     dataSecondLevel.FieldType = field.fieldtype;
                 }
+
+                var thirdLevelData = _angleWarningsAutoSolver.GetLevel3Warnings(dataSecondLevel);
+                dataSecondLevel.HasDisplaysUsedInAutomationTasks = thirdLevelData.Any(x => x.IsUsedInAutomationTask);
             }
+
             MapWarningSecondLevel(formData, data, angleWarningViewModelList, objectNameList, jumpNameList, fieldNameList, sourceList, warningType);
 
             result = new AngleWarningsDataSourceResult
@@ -237,6 +246,12 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             var angleWarningTask = _modelService.GetTask(uri);
             return Json(angleWarningTask, JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public int AreSomeAutoSolveAnglesPartOfAutomationTasks()
+        {
+            return _angleWarningsAutoSolver.AreSomeAnglesPartOfAutomationTasks() ? 1 : 0;
         }
 
         public ActionResult GetAngleWarningTaskHistory(string detailUri)
