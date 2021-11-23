@@ -42,6 +42,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 logFileService.Object,
                 logFileReaderService.Object,
                 systemSettingsService.Object,
+                stsLogService.Object,
                 sessionHelper.Object
             );
         }
@@ -94,6 +95,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase(SystemLogType.ManagementConsole)]
         [TestCase(SystemLogType.AppServer)]
         [TestCase(SystemLogType.ModelServer)]
+        [TestCase(SystemLogType.STS)]
         public void SystemLog_Should_RunClientOperationsWithLogViewer_When_LogTypeIs(SystemLogType logType)
         {
             sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>());
@@ -101,7 +103,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             PartialViewResult view = _testingController.SystemLog(target, string.Empty, string.Empty) as PartialViewResult;
 
             Assert.NotNull(view);
-            if (logType == SystemLogType.Repository)
+            if (logType == SystemLogType.Repository || logType == SystemLogType.STS)
             {
                 Assert.IsFalse(view.ViewBag.ServerOperation);
             }
@@ -120,7 +122,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [Test]
         public void ReadAllFolders_Should_ReturnFileFromRepositoryLogService_When_LogTypeIsRepository()
         {
-            dynamic file = new RepositoryLogViewModel
+            dynamic file = new ComponentLogViewModel
             {
                 size = 512,
                 file = "test.log",
@@ -145,6 +147,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase(SystemLogType.AppServer)]
         [TestCase(SystemLogType.ModelServer)]
         [TestCase(SystemLogType.Repository)]
+        [TestCase(SystemLogType.STS)]
         public void GetSystemLogFile_Should_DownloadFileLogService_When_LogTypeIsInList(SystemLogType systemLogType)
         {
             string testFilePath = $"{AppDomain.CurrentDomain.SetupInformation.ApplicationBase}/Controllers/TestFiles/test.log";
@@ -213,7 +216,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 repositoryLogService.Object,
                 logFileService.Object,
                 logFileReaderService.Object,
-                systemSettingsService.Object);
+                systemSettingsService.Object,
+                stsLogService.Object);
             Assert.NotNull(testController);   
         }
 

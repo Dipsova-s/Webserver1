@@ -51,6 +51,7 @@
     <Compile Include="Services\IPackageService.cs" />
     <Compile Include="Services\IRepositoryLogService.cs" />
     <Compile Include="Services\ICopyrightService.cs" />
+    <Compile Include="Services\ISTSLogService.cs" />
     <Compile Include="Services\ISystemScriptService.cs" />
     <Compile Include="Services\IGlobalSettingsAppService.cs" />
     <Compile Include="Services\ITaskService.cs" />

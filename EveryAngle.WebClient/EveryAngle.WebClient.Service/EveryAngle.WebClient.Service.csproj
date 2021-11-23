@@ -247,6 +247,7 @@
     <Compile Include="ApiServices\FacetService.cs" />
     <Compile Include="ApiServices\PackageService.cs" />
     <Compile Include="ApiServices\RepositoryLogService.cs" />
+    <Compile Include="ApiServices\STSLogService.cs" />
     <Compile Include="ApiServices\SystemScriptService.cs" />
     <Compile Include="ApiServices\TaskService.cs" />
     <Compile Include="ApiServices\DirectoryService.cs" />

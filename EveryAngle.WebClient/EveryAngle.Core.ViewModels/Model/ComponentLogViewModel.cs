@@ -2,7 +2,7 @@
 
 namespace EveryAngle.Core.ViewModels.Model
 {
-    public class RepositoryLogViewModel
+    public class ComponentLogViewModel
     {
         [JsonProperty(PropertyName = "file")]
         public string file { get; set; }

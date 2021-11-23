@@ -161,7 +161,8 @@ namespace EveryAngle.ManagementConsole.Models
                             new SiteMap { Id = "SystemlogManagementConsole", Name = Resource.MC_SystemLog_ManagementConsole, Uri = "~/GlobalSettings/SystemLog", HashPath = "GlobalSettings/Systemlog/SystemlogManagementConsole", Parameters = new { target = SystemLogType.ManagementConsole.ToString() } },
                             new SiteMap { Id = "SystemlogWebClient", Name = Resource.MC_SystemLog_WebClient, Uri = "~/GlobalSettings/SystemLog", HashPath = "GlobalSettings/Systemlog/SystemlogWebClient", Parameters = new { target = SystemLogType.WebClient.ToString() } },
                             new SiteMap { Id = "ModelServer", Name = Resource.MC_SystemLog_ModelServer, Uri = "~/GlobalSettings/SystemLog", HashPath = "GlobalSettings/Systemlog/ModelServer", Parameters = new { target = SystemLogType.ModelServer.ToString() }},
-                            new SiteMap { Id = "Repository", Name = Resource.MC_SystemLog_Repository, Uri = "~/GlobalSettings/SystemLog", HashPath  ="GlobalSettings/Systemlog/Repository", Parameters = new { target = SystemLogType.Repository.ToString() } }
+                            new SiteMap { Id = "Repository", Name = Resource.MC_SystemLog_Repository, Uri = "~/GlobalSettings/SystemLog", HashPath  ="GlobalSettings/Systemlog/Repository", Parameters = new { target = SystemLogType.Repository.ToString() } },
+                            new SiteMap { Id = "STS", Name = Resource.MC_SystemLog_STS, Uri = "~/GlobalSettings/SystemLog", HashPath  ="GlobalSettings/Systemlog/STS", Parameters = new { target = SystemLogType.STS.ToString() } }
                         }
                     },
                     new SiteMap

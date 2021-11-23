@@ -6544,4 +6544,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Go to scheduled task</value>
   </data>
+  <data name="MC_SystemLog_STS" xml:space="preserve">
+    <value>STS</value>
+  </data>
 </root>

@@ -6,25 +6,27 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace EveryAngle.ManagementConsole.Test.Services
 {
-    [TestFixture(Category = "MC")]
-    public class RepositoryLogServiceTest
+    [TestFixture]
+    public class STSLogServiceTest
     {
-        private Mock<RepositoryLogService> _service;
+        private Mock<STSLogService> _service;
 
         [SetUp]
         public void SetUp()
         {
-            _service = new Mock<RepositoryLogService>();
+            _service = new Mock<STSLogService>();
         }
 
         [Test]
         public void Get_Should_ReturnData_When_Call()
         {
             _service
-                .Setup(x => x.GetItems<ComponentLogViewModel>("repository/logfiles", "logfiles"))
+                .Setup(x => x.GetItems<ComponentLogViewModel>("sts/logfiles", "logfiles"))
                 .Returns(new List<ComponentLogViewModel>
                 {
                     new ComponentLogViewModel
@@ -32,7 +34,7 @@ namespace EveryAngle.ManagementConsole.Test.Services
                         file = "filename.log",
                         size = 512,
                         modified = DateTime.Today.Ticks,
-                        uri = "/repository/filename.log"
+                        uri = "/sts/filename.log"
                     }
                 });
 
@@ -45,7 +47,8 @@ namespace EveryAngle.ManagementConsole.Test.Services
             Assert.AreEqual(file.Size, 512);
             Assert.AreEqual(file.Name, "filename.log");
             Assert.AreEqual(file.Modified, DateTime.Today.Ticks);
-            Assert.AreEqual(file.FullPath, "/repository/filename.log");
+            Assert.AreEqual(file.FullPath, "/sts/filename.log");
         }
-    }
+    
+}
 }
