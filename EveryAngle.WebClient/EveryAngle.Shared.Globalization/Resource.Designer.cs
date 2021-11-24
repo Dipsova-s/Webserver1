@@ -8653,6 +8653,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy action to task.
+        /// </summary>
+        public static string MC_CopyAction {
+            get {
+                return ResourceManager.GetString("MC_CopyAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy command.
         /// </summary>
         public static string MC_CopyCommand {
@@ -12350,6 +12359,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_SelectRunTime {
             get {
                 return ResourceManager.GetString("MC_SelectRunTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select task.
+        /// </summary>
+        public static string MC_SelectTask {
+            get {
+                return ResourceManager.GetString("MC_SelectTask", resourceCulture);
             }
         }
         

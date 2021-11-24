@@ -299,6 +299,28 @@ namespace EveryAngle.ManagementConsole.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult CopyAction(string taskUri, string actiondata)
+        {
+            TaskViewModel task = GetTask(taskUri);
+            VerifyPriviledge(task);
+            TaskAction action = JsonConvert.DeserializeObject<TaskAction>(actiondata);
+
+            string createActionUri = task.ActionsUri.AbsolutePath.TrimStart('/');
+            _taskService.CreateTaskAction(createActionUri, action);
+
+            return new JsonResult
+            {
+                Data = new
+                {
+                    success = true,
+                    message = Resource.MC_ItemSuccesfullyUpdated,
+                    parameters = new { tasksUri = task.Uri.ToString() }
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult CheckTaskAction(string taskUri, string ActionData)
         {
             return new ContentResult
@@ -494,6 +516,18 @@ namespace EveryAngle.ManagementConsole.Controllers
             var requestManager = RequestManager.Initialize(testconnectionUri);
 
             return requestManager.Run(Method.POST, jsonData);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult GetExistingTasks()
+        {
+            string fullTasksUri = string.Format("tasks?types=export_angle_to_datastore&offset=0&limit={0}", MaxPageSize);
+            var tasks = _taskService.GetTasks(fullTasksUri);
+            return new JsonResult
+            {
+                Data = tasks,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         [ValidateInput(false)]
