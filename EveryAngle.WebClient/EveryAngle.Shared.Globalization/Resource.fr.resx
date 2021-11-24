@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+  <xsd:schema id="root" xmlns="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element msdata:IsDataSet="true" name="root">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element minOccurs="0" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
+                <xsd:element minOccurs="0" msdata:Ordinal="2" name="comment" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute msdata:Ordinal="1" name="name" type="xsd:string" use="required"/>
+              <xsd:attribute msdata:Ordinal="3" name="type" type="xsd:string"/>
+              <xsd:attribute msdata:Ordinal="4" name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -121,7 +121,7 @@
     <value>Ajouter Filtre</value>
   </data>
   <data name="AddFollowUp" xml:space="preserve">
-    <value>Ajouter Jump</value>
+    <value>Appliquer le Jump</value>
   </data>
   <data name="AddToAngle" xml:space="preserve">
     <value>Ajouter à Angle</value>
@@ -181,10 +181,10 @@
     <value>Nom de la société</value>
   </data>
   <data name="CreateFromSchemaDetailedDescription" xml:space="preserve">
-    <value>Le diagramme d'objets montre les objets les plus importants d'un Processus Métier et leurs sous-relations de manière schématique. Lorsque vous sélectionnez un objet depuis le diagramme, un Angle de Template sera exécuté. Cet Angle peut ensuite être ajusté et enregistré comme un autre Angle.</value>
+    <value>Le Diagramme d'objets montre les objets les plus importants d'un Processus Métier et leurs sous-relations de manière schématique. Lorsque vous sélectionnez un objet depuis le diagramme, un Angle de Template sera exécuté. Cet Angle peut ensuite être ajusté et enregistré comme un autre Angle.</value>
   </data>
   <data name="CreateFromSchemaDetailed" xml:space="preserve">
-    <value>Avancé : Sélectionner un Angle de Template du diagramme d'objets</value>
+    <value>Avancé : Sélectionner un Angle de Template du Diagramme d'objets</value>
   </data>
   <data name="CreateFromObjectsDescription" xml:space="preserve">
     <value>La Liste d'objets est une vue d'ensemble de tous les objets disponibles dans un Processus Métier sans relations. Vous pouvez sélectionner un ou plusieurs objets et créer un Angle sur la base de cette sélection.</value>
@@ -196,16 +196,16 @@
     <value>Créé par</value>
   </data>
   <data name="CreateFromSchemaSimpleDescription" xml:space="preserve">
-    <value>Le diagramme d'activité montre de manière schématique les activités les plus importantes du processus métier et leurs sous-fonctions. Lorsque vous sélectionnez une activité depuis le diagramme, un Angle de Template sera exécuté. Cet Angle peut ensuite être ajusté et enregistré comme un autre Angle.</value>
+    <value>Le Diagramme d'activité montre de manière schématique les activités les plus importantes du processus métier et leurs sous-fonctions. Lorsque vous sélectionnez une activité depuis le diagramme, un Angle de Template sera exécuté. Cet Angle peut ensuite être ajusté et enregistré comme un autre Angle.</value>
   </data>
   <data name="CreateFromSchemaSimple" xml:space="preserve">
-    <value>Basique : Sélectionner un Angle de Template du diagramme d'activités</value>
+    <value>Basique : Sélectionner un Angle de Template du Diagramme d'activités</value>
   </data>
   <data name="CreateNewAngle" xml:space="preserve">
     <value>Créer nouvel Angle</value>
   </data>
   <data name="CreateNewAngleDescription" xml:space="preserve">
-    <value />
+    <value/>
   </data>
   <data name="CreateNewAngleFromSelectedObjects" xml:space="preserve">
     <value>Créer Angle</value>
@@ -826,7 +826,7 @@
     <value>Télécharger Launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Pour utiliser Go to SAP, cliquez pour télécharger et installer le lanceur Go to SAP sur votre poste de travail.</value>
+    <value>Pour utiliser Go to SAP, cliquez pour télécharger et installer le Launcher Go to SAP sur votre poste de travail.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Afficher petite barre des Processus Métier</value>
@@ -931,7 +931,7 @@
     <value>L'élément demandé est introuvable.</value>
   </data>
   <data name="DrilldownErrorNoIDField" xml:space="preserve">
-    <value>L'élement demandé ne dispose pas de champ d'ID.</value>
+    <value>L'élément demandé ne dispose pas de champ d'ID.</value>
   </data>
   <data name="DrilldownErrorPrimaryDataNotFound" xml:space="preserve">
     <value>L'ID {ID} du type d'objet {ObjectType} n'existe pas.</value>
@@ -1336,7 +1336,7 @@
     <value>Aucun film associé n'est disponible.</value>
   </data>
   <data name="FollowupsButtonSubmit" xml:space="preserve">
-    <value>Exécuter le Jump sélectionné</value>
+    <value>Exécuter le Jump</value>
   </data>
   <data name="FollowupsWarningAngle" xml:space="preserve">
     <value>Tous les Displays seront supprimés</value>
@@ -1468,7 +1468,7 @@
     <value>Zone de ligne</value>
   </data>
   <data name="ExecutionPopupChangeAngle" xml:space="preserve">
-    <value>Modifier paramètres de l'Angle</value>
+    <value>Modifier les paramètres de l'Angle</value>
   </data>
   <data name="ExecutionPopupChangeDisplay" xml:space="preserve">
     <value>Modifier les paramètres du Display</value>
@@ -1540,7 +1540,7 @@
     <value>Le Display a été ajouté au Dashboard.&lt;br/&gt;Cliquez &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;ici&lt;/a&gt; pour consulter votre Dashboard.</value>
   </data>
   <data name="Info_CannotHandleUnknownField" xml:space="preserve">
-    <value>Type de fichier inconnu non pris en charge.&lt;br/&gt;Le système attend un jeu, mais le type de champ réel est {0}.&lt;br/&gt;&lt;a href="{1}" target="_blank"&gt;{2}&lt;/a&gt;</value>
+    <value>Type de fichier inconnu non pris en charge.&lt;br/&gt;Le système attend un jeu, mais le type de champ réel est {0}.&lt;br/&gt;&lt;a href={1} target="_blank"&gt;{2}&lt;/a&gt;</value>
   </data>
   <data name="Info_NoFieldTypeTextInResult" xml:space="preserve">
     <value>Aucun résultat pour le type de champ \"text\".</value>
@@ -2053,7 +2053,7 @@
     <value>Par défaut</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Use default] {0}</value>
+    <value>[Utiliser valeur par défaut] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
@@ -4756,7 +4756,7 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Défini sur « Non favori »</value>
   </data>
   <data name="MassChangeStatusNotValidated" xml:space="preserve">
-    <value>Défini sur « non validé »</value>
+    <value>Défini sur « Non validé »</value>
   </data>
   <data name="MassChangeStatusPrivate" xml:space="preserve">
     <value>Défini sur « Privé »</value>
@@ -5117,7 +5117,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Expand All</value>
   </data>
   <data name="Dashboard_WidgetNotExist" xml:space="preserve">
-    <value />
+    <value/>
   </data>
   <data name="MC_AngleWarningsConfirmHeader" xml:space="preserve">
     <value>{0}: All {1} items under {2}</value>
@@ -5185,7 +5185,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>All available languages are already active</value>
   </data>
   <data name="Info_SelectItemsContainTemplatesOrAngles" xml:space="preserve">
-    <value>Votre sélection contient des Templates et / ou Dashboards.&lt;br/&gt;Ceux-ci ne peuvent pas être exécutés en tant que Dashboard.&lt;br/&gt;&lt;br/&gt;Cliquez sur OK pour exécuter les Angles sélectionnés en tant que Dashboard.</value>
+    <value>Votre sélection contient des Templates et / ou Dashboards.&lt;br/&gt;Ceux-ci ne peuvent pas être exécutés en tant que Dashboard.&lt;br/&gt;&lt;br&gt;Cliquez sur OK pour exécuter les Angles sélectionnés en tant que Dashboard.</value>
   </data>
   <data name="Info_AdvFilterSelectFilter" xml:space="preserve">
     <value>Veuillez sélectionner un filtre dans la liste.</value>
@@ -5408,13 +5408,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Utiliser valeur par défaut</value>
   </data>
   <data name="ResolveAngleDisplay_UsedInAutomationTask" xml:space="preserve">
-    <value>L'Angle / le Display est utilisé dans la tâche d'automatisation.</value>
+    <value>L'Angle / le Display est utilisé dans l'automation task.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Delete" xml:space="preserve">
-    <value>L'Angle/le Display courant est employé dans la tâche d'automatisation suivante. La mise à jour de l'Angle/du Display supprimera cette action.&lt;br/&gt;La tâche sera supprimée lorsqu'il ne restera plus d'actions.</value>
+    <value>L'Angle/le Display courant est employé dans l'automation task suivant. La mise à jour de l'Angle/du Display supprimera cette action.&lt;br&gt;La tâche sera supprimée lorsqu'il ne restera plus d'actions.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Update" xml:space="preserve">
-    <value>L'Angle/le Display courant est employé dans la tâche d'automatisation suivante. La mise à jour de l'Angle/du Display modifiera une ou plusieurs actions de cette tâche et risque de causer son échec.</value>
+    <value>L'Angle/le Display courant est employé dans l'automation task suivant. La mise à jour de l'Angle/du Display modifiera une ou plusieurs actions de cette tâche et risque de causer son échec.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictQuestion_Delete" xml:space="preserve">
     <value>Êtes-vous sûr de vouloir supprimer cet Angle / Display ?</value>
@@ -5791,7 +5791,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Filtres</value>
   </data>
   <data name="ModelLabel_Down" xml:space="preserve">
-    <value> (bas)</value>
+    <value> (inactif)</value>
   </data>
   <data name="ModelLabel_NoModelServer" xml:space="preserve">
     <value>Pas de Serveur d'Instance</value>
@@ -6084,7 +6084,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Dépublication...</value>
   </data>
   <data name="Button_Validate" xml:space="preserve">
-    <value>Valider</value>
+    <value>Validé</value>
   </data>
   <data name="Button_Validated" xml:space="preserve">
     <value>Validé</value>
@@ -6189,7 +6189,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Add values</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>En raison d'un problème connu, le défilement peut ne pas fonctionner correctement sous iOS 13. Veuillez contacter Every Angle Support pour plus d'informations.</value>
+    <value>En raison d'un problème connu, le défilement peut ne pas fonctionner correctement sous iOS 13. Veuillez contacter Magnitude Support pour plus d'informations.</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
@@ -6496,7 +6496,7 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Confirmation requise</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>La mise à jour de Displays utilisés dans des tâches d'automatisation modifiera l'action et risque de causer son échec.</value>
+    <value>La mise à jour de Displays utilisés dans des automation tasks modifiera l'action et risque de causer son échec.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Aller à la tâche programmée</value>
