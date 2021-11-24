@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+  <xsd:schema id="root" xmlns="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element msdata:IsDataSet="true" name="root">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element minOccurs="0" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
+                <xsd:element minOccurs="0" msdata:Ordinal="2" name="comment" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute msdata:Ordinal="1" name="name" type="xsd:string" use="required"/>
+              <xsd:attribute msdata:Ordinal="3" name="type" type="xsd:string"/>
+              <xsd:attribute msdata:Ordinal="4" name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -121,7 +121,7 @@
     <value>Filter hinzufügen</value>
   </data>
   <data name="AddFollowUp" xml:space="preserve">
-    <value>Jump hinzufügen</value>
+    <value>Jump anwenden</value>
   </data>
   <data name="AddToAngle" xml:space="preserve">
     <value>Zum Angle hinzufügen</value>
@@ -205,7 +205,7 @@
     <value>Neuen Angle erstellen</value>
   </data>
   <data name="CreateNewAngleDescription" xml:space="preserve">
-    <value />
+    <value/>
   </data>
   <data name="CreateNewAngleFromSelectedObjects" xml:space="preserve">
     <value>Angle erstellen</value>
@@ -805,7 +805,7 @@
     <value>Prozentsätze</value>
   </data>
   <data name="FormatSettingNoDecimal" xml:space="preserve">
-    <value>Keine</value>
+    <value>Kein</value>
   </data>
   <data name="SystemSettingLabelDefaultBusinessProcess" xml:space="preserve">
     <value>Standard-Geschäftsprozess</value>
@@ -1321,7 +1321,7 @@
     <value>Display bearbeiten</value>
   </data>
   <data name="ShowFacetForAngleWarnings" xml:space="preserve">
-    <value>Filter für &lt;i class="iconWarning"&gt;&lt;/i&gt; Angle-Warnmeldungen anzeigen</value>
+    <value>Symbol für &lt;i class="iconWarning"&gt;&lt;/i&gt; Angle-Warnmeldungen anzeigen</value>
   </data>
   <data name="FollowupsHelpManyToOneRelation" xml:space="preserve">
     <value>Viele-zu-Einer-Relation</value>
@@ -1336,7 +1336,7 @@
     <value>Es ist kein Film verfügbar.</value>
   </data>
   <data name="FollowupsButtonSubmit" xml:space="preserve">
-    <value>Ausgewählten Jump ausführen</value>
+    <value>Jump ausführen</value>
   </data>
   <data name="FollowupsWarningAngle" xml:space="preserve">
     <value>Alle Displays werden gelöscht</value>
@@ -1351,7 +1351,7 @@
     <value>Vorherige</value>
   </data>
   <data name="FollowupsRightText" xml:space="preserve">
-    <value>Nächste</value>
+    <value>Weiter</value>
   </data>
   <data name="FollowupsUpText" xml:space="preserve">
     <value>Referenzen</value>
@@ -1405,7 +1405,7 @@
     <value>Private Angles sind nicht in dem Paket enthalten.</value>
   </data>
   <data name="SaveAngleAs" xml:space="preserve">
-    <value>Speichern als...</value>
+    <value>Angle speichern als...</value>
   </data>
   <data name="CellPopupSubMenuAfter" xml:space="preserve">
     <value>Nach</value>
@@ -2053,7 +2053,7 @@
     <value>Standard</value>
   </data>
   <data name="Default_Placeholder" xml:space="preserve">
-    <value>[Use default] {0}</value>
+    <value>[Standard verwenden] {0}</value>
   </data>
   <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
@@ -3910,7 +3910,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Content</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>Für die aktuellsten Produktinformationen&lt;br/&gt; besuchen Sie uns unter &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
+    <value>Die aktuellsten Produktinformationen&lt;br/&gt; finden Sie auf &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;</value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
     <value>Client:</value>
@@ -4856,7 +4856,7 @@ When this number of instances is reached, the import of a new instance will caus
 The minimum is 1.</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxDomainElementsSearch" xml:space="preserve">
-    <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values)  are retrieved when executing an Angle. 
+    <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values) are retrieved when executing an Angle. 
 &lt;br&gt;
 Use this setting to prevent the system from overloading, as many elements can exist in a domain (field).</value>
   </data>
@@ -5117,7 +5117,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Expand All</value>
   </data>
   <data name="Dashboard_WidgetNotExist" xml:space="preserve">
-    <value />
+    <value/>
   </data>
   <data name="MC_AngleWarningsConfirmHeader" xml:space="preserve">
     <value>{0}: All {1} items under {2}</value>
@@ -5408,13 +5408,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Standard verwenden</value>
   </data>
   <data name="ResolveAngleDisplay_UsedInAutomationTask" xml:space="preserve">
-    <value>Angle/Display wird in der Automatisierungsaufgabe verwendet.</value>
+    <value>Angle/Display wird in dem Automation Task verwendet.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Delete" xml:space="preserve">
-    <value>Der/das aktuelle Angle/Display wird in der/den folgenden Automatisierungsaufgabe(n) verwendet. Eine Aktualisierung des Angles/Displays löscht diese Aktion.&lt;br/&gt;Wenn keine Aktionen mehr vorhanden sind, wird die Aufgabe gelöscht.</value>
+    <value>Der/das aktuelle Angle/Display wird in dem/den folgenden Automation Task(s) verwendet. Eine Aktualisierung des Angles/Displays löscht diese Aktion.&lt;br/&gt;Wenn keine Aktionen mehr vorhanden sind, wird die Aufgabe gelöscht.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Update" xml:space="preserve">
-    <value>Der/das aktuelle Angle/Display wird in der/den folgenden Automatisierungsaufgabe(n) verwendet. Eine Aktualisierung des Angles/Displays verändert diese Aufgabenaktion(en) und verursacht möglicherweise Störungen.</value>
+    <value>Der/das aktuelle Angle/Display wird in dem/den folgenden Automation Task(s) verwendet. Eine Aktualisierung des Angles/Displays verändert die Aktion(en) dieses/dieser Automation Task(s) und verursacht möglicherweise Störungen.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictQuestion_Delete" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie diesen/dieses Angle/Display wirklich löschen möchten?</value>
@@ -5459,7 +5459,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Keine Aufgaben im System verfügbar.</value>
   </data>
   <data name="DefaultDatastore" xml:space="preserve">
-    <value>Standard-Datenspeicher</value>
+    <value>Standard-Datastore</value>
   </data>
   <data name="MC_ShowWarningPopupCopyRole" xml:space="preserve">
     <value>The copied role will not contain sub roles</value>
@@ -6189,7 +6189,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Add values</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Aufgrund eines bekannten Problems funktioniert der Bildlauf möglicherweise nicht korrekt, wenn iOS 13 läuft. Bitte kontaktieren Sie den Support von Every Angle für weitere Informationen.</value>
+    <value>Aufgrund eines bekannten Problems funktioniert der Bildlauf möglicherweise nicht korrekt, wenn iOS 13 läuft. Bitte kontaktieren Sie den Support von Magnitude für weitere Informationen.</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
@@ -6294,7 +6294,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Speichern nicht möglich</value>
   </data>
   <data name="MessageSaveQuestionAngleUsedInTask" xml:space="preserve">
-    <value>Sie haben Änderungen an einem Angle vorgenommen, der in Automatisierungsaufgaben verwendet wird. Dies kann Fehler verursachen. &lt;br/&gt;&lt;br/&gt; Möchten Sie mit dem Speichern der Änderungen fortfahren?</value>
+    <value>Sie haben Änderungen an einem Angle vorgenommen, der in Automation Tasks verwendet wird. Dies kann Fehler verursachen. &lt;br/&gt;&lt;br/&gt; Möchten Sie mit dem Speichern der Änderungen fortfahren?</value>
   </data>
   <data name="FirstInQueueMessage" xml:space="preserve">
     <value>Der Server ist ausgelastet. Es muss zunächst noch {0} weiterer Angle fertiggestellt werden. &lt;br/&gt;Bitte warten Sie.</value>
@@ -6496,7 +6496,7 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Bestätigung erforderlich</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Die Aktualisierung von Displays, die in (einer) Automatisierungsaufgabe(n) verwendet werden, verändert die Aktion und kann dazu führen, dass sie fehlschlägt.</value>
+    <value>Die Aktualisierung von Displays, die in (einem) Automation Task(s) verwendet werden, verändert die Aktion und kann dazu führen, dass sie fehlschlägt.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Zur geplanten Aufgabe wechseln</value>
