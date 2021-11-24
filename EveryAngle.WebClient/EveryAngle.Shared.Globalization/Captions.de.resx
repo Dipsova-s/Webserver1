@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+  <xsd:schema id="root" xmlns="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element msdata:IsDataSet="true" name="root">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element minOccurs="0" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
+                <xsd:element minOccurs="0" msdata:Ordinal="2" name="comment" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute msdata:Ordinal="1" name="name" type="xsd:string" use="required"/>
+              <xsd:attribute msdata:Ordinal="3" name="type" type="xsd:string"/>
+              <xsd:attribute msdata:Ordinal="4" name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -307,7 +307,7 @@
     <value>Anschließend nach:</value>
   </data>
   <data name="MassChange_BP_Tab_Title" xml:space="preserve">
-    <value>Business Process</value>
+    <value>Geschäftsprozess</value>
   </data>
   <data name="MassChange_Category_Title" xml:space="preserve">
     <value>Kategorie</value>
@@ -331,13 +331,13 @@
     <value>Such-Labels</value>
   </data>
   <data name="Page_Angle_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - Angle-Seite</value>
+    <value>Magnitude Angles for SAP – Angle-Seite</value>
   </data>
   <data name="Page_Dashboard_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - Dashboard-Seite</value>
+    <value>Magnitude Angles for SAP – Dashboard-Seite</value>
   </data>
   <data name="Page_Search_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - Such-Seite</value>
+    <value>Magnitude Angles for SAP – Suche-Seite</value>
   </data>
   <data name="Popup_Followup_Title" xml:space="preserve">
     <value>Wählen Sie einen Jump zur Anwendung</value>
@@ -511,7 +511,7 @@
     <value>Information</value>
   </data>
   <data name="Label_ActionDropdown_CreateChart" xml:space="preserve">
-    <value>Chart erstellen</value>
+    <value>Diagramm erstellen</value>
   </data>
   <data name="Label_ActionDropdown_CreateList" xml:space="preserve">
     <value>Liste erstellen</value>
@@ -712,7 +712,7 @@
     <value>Maßnahmeneigentümer</value>
   </data>
   <data name="ResolveAngleDisplay_TaskDatastore" xml:space="preserve">
-    <value>Aktionsdatenspeicher</value>
+    <value>Aktions-Datastore</value>
   </data>
   <data name="ResolveAngleDisplay_TaskName" xml:space="preserve">
     <value>Aufgabe</value>
@@ -721,7 +721,7 @@
     <value>Aufgabe löschen</value>
   </data>
   <data name="FormatSetting_None" xml:space="preserve">
-    <value>Keine</value>
+    <value>Kein</value>
   </data>
   <data name="WidgetFilter_ArgumentAdvance" xml:space="preserve">
     <value>Erweitert</value>
@@ -784,7 +784,7 @@
     <value>Errors and warnings</value>
   </data>
   <data name="Label_CSV_Export_ModelDate_None" xml:space="preserve">
-    <value>Keine</value>
+    <value>Kein</value>
   </data>
   <data name="Label_CSV_Export_ModelDate_Placeholder" xml:space="preserve">
     <value>Spalte auswählen</value>
@@ -808,7 +808,7 @@
     <value>Oben/links</value>
   </data>
   <data name="Title_AggregationChart" xml:space="preserve">
-    <value>Diagrammoptionen</value>
+    <value>Diagramm-Optionen</value>
   </data>
   <data name="Title_AggregationPivot" xml:space="preserve">
     <value>Pivot-Optionen</value>
