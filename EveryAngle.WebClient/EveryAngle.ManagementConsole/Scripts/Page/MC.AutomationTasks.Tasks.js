@@ -40,6 +40,11 @@
         self.CanScheduleAngles = '';
         self.IsTaskOwner = '';
         self.DefaultApprovalState = '';
+        self.AllTaskUri = '';
+        self.SelectedTaskUriUri = '';
+        self.CopyActionUri = '';
+        self.SelectedAction = '';
+
         self.Status = {
             NotStarted: 'notstarted',
             Running: 'running',
@@ -278,7 +283,7 @@
             MC.util.massReport.setStatus(Localization.MC_CurrentProgress, Localization.ProgressExecuting, '');
 
             var action = jQuery('#TaskActionsGrid').data("kendoGrid").dataSource.getByUid(uid);
-            var task = {};      
+            var task = {};
             task.delete_after_completion = true;
             task.start_immediately = true;
             task.actions = [action];
@@ -337,7 +342,7 @@
                                 MC.util.massReport.reports[0] = '<li class="success">' + Localization.MC_TaskSuccess + '</li>';
                                 deferred.resolve(data, status);
                             }
-                            else if (taskStatus === self.Status.Failed || taskStatus === self.Status.Cancelled ) {
+                            else if (taskStatus === self.Status.Failed || taskStatus === self.Status.Cancelled) {
                                 MC.util.massReport.reports[0] = '<li class="fail">' + self.Status + '</li>';
                                 deferred.resolve(data, status);
                             }
@@ -774,7 +779,7 @@
             return columns;
         };
 
-        self.ActionButtonTemplate = function(data){
+        self.ActionButtonTemplate = function (data) {
             var template = '';
             var isEditMode = false;
             if (self.TaskUri != null && self.TaskUri != '') {
@@ -783,6 +788,7 @@
             var canScheduleTask = self.CanManageSystem || self.CanScheduleAngles && self.IsTaskOwner;
             if (canScheduleTask || (self.CanScheduleAngles && self.CurrentUser === data.run_as_user)) {
                 template += "<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('" + data.uid + "', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Localization.Edit + "</a>";
+                template += "<a href=\"#popupCopyAction\" onclick=\"MC.AutomationTasks.Tasks.CopyActionPopup('" + self.TaskUri + "', '" + data.uid + "')\" data-role=\"mcPopup\" title=\"" + Localization.MC_CopyAction + "\" data-width=\"500\" data-min-height=\"180\" data-min-width=\"475\" class=\"btn btnCopy" + (isEditMode ? "" : " alwaysHidden") + "\" >" + Localization.Copy + "</a>";
                 template += "<a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('" + data.uid + "')\" class=\"btn btn btnExecute" + (isEditMode ? "" : " alwaysHidden") + "\">" + Localization.MC_ExecuteNow + "</a>";
                 template += "<a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= " + data.uid + "\"}\\' data-delete-template=\"" + Localization.MC_DeleteFieldConfirm + "\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">" + Localization.Delete + "</a>";
             }
@@ -2358,8 +2364,7 @@
                 $('#linkDisplay').removeAttr('href').addClass('disabled');
             }
         };
-        self.SetDatastoreOnDisplayChange = function (display)
-        {
+        self.SetDatastoreOnDisplayChange = function (display) {
             var ddlDatastore = $('#datastore').data('kendoDropDownList');
             var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
             ddlDatastore.enable(self.ConfigureDefaultTemplateFile(display, ddlExcelTemplate));
@@ -2994,6 +2999,126 @@
                     $('#table_name').addClass('table_name');
                 }
             }, 100);
+        };
+
+        self.CopyActionPopup = function (taskUri, uid) {
+            MC.ui.popup('setScrollable', {
+                element: '#popupCopyAction'
+            });
+
+            var win = $('#popupCopyAction').data('kendoWindow');
+            win.setOptions({
+                resizable: false,
+                actions: ["Close"]
+            });
+            self.SetSelectedActionBasedOnUid(uid);
+            MC.ajax.request({
+                url: self.AllTaskUri,
+                type: 'Get'
+            })
+                .done(function (data) {
+                    self.CreateCopyTasksDropdown(data, taskUri);
+                    MC.form.validator.init('#formCopyAction');
+                    $('#formCopyAction').submit(function (e) {
+                        $('#popupCopyAction .btnSubmit').trigger('click');
+                        e.preventDefault();
+                    });
+                });
+
+        }
+        self.CreateCopyTasksDropdown = function (data, taskUri) {
+            var taskDatasources = [];
+            self.SelectedTaskUri = taskUri;
+
+            jQuery.each(data, function (_key, value) {
+                taskDatasources.push({ id: value.Uri, text: value.name });
+            });
+
+            $('#taskAvailableToCopy').kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "id",
+                dataSource: taskDatasources,
+                change: self.CopyTaskDropdownChanged,
+                value: self.SelectedTaskUri
+            });
+        };
+
+        self.CopyAction = function () {
+            if (!jQuery('#formCopyAction').valid())
+                return;
+
+            var taskUri = self.SelectedTaskUri;
+            var actionData = self.GetCopyActionData(self.SelectedAction);
+
+            if (taskUri === self.TaskUri) {
+                self.AddAdocCopyAction(actionData);
+                jQuery('#popupCopyAction').data('kendoWindow').close();
+            }
+            else {
+                MC.ajax
+                    .request({
+                        url: self.CopyActionUri,
+                        parameters: { taskUri: taskUri, actiondata: JSON.stringify(actionData) },
+                        type: 'POST'
+                    })
+                    .done(function () {
+                        jQuery('#popupCopyAction').data('kendoWindow').close();
+                    })
+                    .error(function () {
+                        $('#popupCopyAction .btnClose').trigger('click');
+                    });
+            }
+        };
+
+        self.CopyTaskDropdownChanged = function (e) {
+            self.SelectedTaskUri = e.sender.value();
+        };
+
+        self.AddAdocCopyAction = function (currentActionData) {
+            var kendoGrid = $('#TaskActionsGrid').data('kendoGrid');
+            var datasource = kendoGrid.dataSource;
+
+            currentActionData.order = datasource.data().length;
+
+            if (currentActionData.run_as_user === "") {
+                currentActionData.run_as_user = null;
+            }
+            currentActionData.is_edited = true;
+            datasource.add(currentActionData);
+        };
+
+        self.SetSelectedActionBasedOnUid = function (uid) {
+            var action = jQuery('#TaskActionsGrid').data("kendoGrid").dataSource.getByUid(uid);
+            self.SelectedAction = action;
+        };
+
+        self.GetCopyActionData = function(currentActionData) {
+            var actionData = {};
+            actionData.run_as_user = currentActionData.run_as_user;
+            actionData.action_type = currentActionData.action_type;
+            actionData.approval_state = currentActionData.approval_state;
+
+            // general
+            if (actionData.action_type === self.ACTION_TYPE_ID.DATASTORE) {
+
+                actionData.AngleUri = currentActionData.AngleUri;
+                actionData.angle_name = currentActionData.angle_name;
+                actionData.display_name = currentActionData.display_name;
+                actionData.display_uri = currentActionData.display_uri;
+                actionData.arguments = currentActionData.arguments;
+            }
+            else {
+                actionData.Angle = null;
+                actionData.angle_name = '';
+                actionData.display_name = '';
+                actionData.display_uri = '';
+                actionData.arguments = currentActionData.arguments;
+            }
+
+            // notification
+            actionData.notification = currentActionData.notification;
+
+            return actionData;
         };
     };
 

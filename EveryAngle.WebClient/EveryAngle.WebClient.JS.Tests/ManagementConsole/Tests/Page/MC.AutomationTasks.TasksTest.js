@@ -1,4 +1,5 @@
 ﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.AutomationTasks.Tasks.js" />
+/// <chutzpah_reference path="/../../Dependencies/custom/MC.ui.popup.js" />
 
 describe("MC.AutomationTasks.Tasks", function () {
 
@@ -296,7 +297,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             };
             automationTask.CanManageSystem = true;
             var template = automationTask.ActionButtonTemplate(data);
-            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">Edit<\/a><a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('undefined')\" class=\"btn btn btnExecute alwaysHidden\">Execute now<\/a><a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= undefined\"}\\' data-delete-template=\"Delete Field: {reference}?\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">Delete<\/a>");
+            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">Edit<\/a><a href=\"#popupCopyAction\" onclick=\"MC.AutomationTasks.Tasks.CopyActionPopup('', 'undefined')\" data-role=\"mcPopup\" title=\"undefined\" data-width=\"500\" data-min-height=\"180\" data-min-width=\"475\" class=\"btn btnCopy alwaysHidden\" >Copy</a><a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('undefined')\" class=\"btn btn btnExecute alwaysHidden\">Execute now<\/a><a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= undefined\"}\\' data-delete-template=\"Delete Field: {reference}?\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">Delete<\/a>");
         });
         it("Show all button if user has schedule angle privilege and task owner", function () {
             // prepare
@@ -307,7 +308,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             automationTask.CanScheduleAngles = true;
             automationTask.IsTaskOwner = true;
             var template = automationTask.ActionButtonTemplate(data);
-            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">Edit<\/a><a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('undefined')\" class=\"btn btn btnExecute alwaysHidden\">Execute now<\/a><a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= undefined\"}\\' data-delete-template=\"Delete Field: {reference}?\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">Delete<\/a>");
+            expect(template).toContain("<a href=\"#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup('undefined', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">Edit<\/a><a href=\"#popupCopyAction\" onclick=\"MC.AutomationTasks.Tasks.CopyActionPopup('', 'undefined')\" data-role=\"mcPopup\" title=\"undefined\" data-width=\"500\" data-min-height=\"180\" data-min-width=\"475\" class=\"btn btnCopy alwaysHidden\" >Copy</a><a onclick=\"MC.AutomationTasks.Tasks.ExecuteAdhocTaskAction('undefined')\" class=\"btn btn btnExecute alwaysHidden\">Execute now<\/a><a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"= undefined\"}\\' data-delete-template=\"Delete Field: {reference}?\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">Delete<\/a>");
         });
         it("Show only view button and disabled delete button if user has only schedule angle privilege", function () {
             // prepare
@@ -1064,4 +1065,146 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(ui.trigger).not.toHaveBeenCalled();
         });
     });
+
+    describe(".CopyActionPopup", function () {
+        it("should call the popup and make request", function () {
+            spyOn(MC.ui, 'popup');
+            var handler = {
+                setOptions: function () { },
+            };
+            var doneHandler = { done: function () { return true; } }
+            spyOn($.fn, 'data').and.returnValue(handler);
+            spyOn(MC.ajax, 'request').and.returnValue(doneHandler);
+            spyOn(automationTask, 'SetSelectedActionBasedOnUid');
+            automationTask.CopyActionPopup("", "");
+            expect(MC.ui.popup).toHaveBeenCalled();
+            expect(MC.ajax.request).toHaveBeenCalled();
+            expect(automationTask.SetSelectedActionBasedOnUid).toHaveBeenCalled();
+        });
+    });
+
+    describe(".SetSelectedActionBasedOnUid", function () {
+        it("should set SelectedAction", function () {
+            var returnedValue = "Value has been set";
+            var handler = {
+                dataSource: {
+                    getByUid: function () {
+                        return returnedValue;
+                    }
+                }
+            };
+            spyOn($.fn, 'data').and.returnValue(handler);
+            automationTask.SetSelectedActionBasedOnUid("");
+            expect(automationTask.SelectedAction).toEqual(returnedValue);
+        });
+    });
+
+    describe(".CreateCopyTasksDropdown", function () {
+        it("should create copy tasks dropdown", function () {
+            var taskUrl = "/sampletask", data = [
+                { Uri: "/sampleUrl", name: "Sample" }
+            ];
+            spyOn($.fn, 'kendoDropDownList');
+            automationTask.CreateCopyTasksDropdown(data, taskUrl);
+            expect(automationTask.SelectedTaskUri).toEqual(taskUrl);
+            expect($.fn.kendoDropDownList).toHaveBeenCalled();
+        });
+    });
+
+    describe(".CopyAction", function () {
+
+        it("should not perform copy function for invalid copy", function () {
+            spyOn($.fn, 'valid').and.returnValue(false);
+            spyOn(automationTask, 'AddAdocCopyAction');
+            spyOn(MC.ajax, 'request');
+            automationTask.CopyAction();
+            expect(automationTask.AddAdocCopyAction).not.toHaveBeenCalled();
+            expect(MC.ajax.request).not.toHaveBeenCalled();
+        });
+
+        it("should perform adoc copy action when selected task is same as current task", function () {
+            var handler = { close: $.noop };
+            spyOn($.fn, 'valid').and.returnValue(true);
+            spyOn($.fn, 'data').and.returnValue(handler);
+            spyOn(automationTask, 'AddAdocCopyAction');
+            spyOn(automationTask, 'GetCopyActionData');
+            automationTask.SelectedTaskUri = "/sampleTaskUri";
+            automationTask.TaskUri = "/sampleTaskUri"
+            automationTask.CopyAction();
+            expect(automationTask.AddAdocCopyAction).toHaveBeenCalled();
+        });
+
+        it("should perform copy action for valid task", function () {
+            spyOn($.fn, 'valid').and.returnValue(true);
+            automationTask.SelectedTaskUri = "/sampleSelectedTaskUri";
+            automationTask.TaskUri = "/sampleTaskUri"
+            spyOn(automationTask, 'AddAdocCopyAction');
+            spyOn(automationTask, 'GetCopyActionData');
+            var handler = { done: function () { return { error: function () { return true; } }; } };
+            spyOn(MC.ajax, 'request').and.returnValue(handler);
+            automationTask.CopyAction();
+            expect(MC.ajax.request).toHaveBeenCalled();
+        });
+    });
+
+    describe(".CopyTaskDropdownChanged", function () {
+        it("should update SelectedTaskUri", function () {
+            var senderValue = {
+                sender: { value: function () { return "This value is set" } }
+            };
+            automationTask.CopyTaskDropdownChanged(senderValue);
+            expect(automationTask.SelectedTaskUri).toEqual(senderValue.sender.value());
+        });
+    });
+
+    describe(".GetCopyActionData", function () {
+        it("should update action data object when action type is export_angle_to_datastore", function () {
+            var currentActionData = {
+                run_as_user: "run as user",
+                action_type: "export_angle_to_datastore",
+                approval_state: "approval_state",
+                AngleUri: "AngleUri",
+                angle_name: "angle_name",
+                display_name: "display_name",
+                display_uri: "display_uri",
+                arguments: "arguments",
+                notification: "notification"
+            }
+            var actionData = automationTask.GetCopyActionData(currentActionData);
+            expect(actionData.run_as_user).toEqual(currentActionData.run_as_user);
+            expect(actionData.action_type).toEqual(currentActionData.action_type);
+            expect(actionData.approval_state).toEqual(currentActionData.approval_state);
+            expect(actionData.AngleUri).toEqual(currentActionData.AngleUri);
+            expect(actionData.angle_name).toEqual(currentActionData.angle_name);
+            expect(actionData.display_uri).toEqual(currentActionData.display_uri);
+            expect(actionData.display_name).toEqual(currentActionData.display_name);
+            expect(actionData.arguments).toEqual(currentActionData.arguments);
+            expect(actionData.notification).toEqual(currentActionData.notification);
+        });
+
+        it("should update action data object when action type is not export_angle_to_datastore", function () {
+            var currentActionData = {
+                run_as_user: "run as user",
+                action_type: "action type",
+                approval_state: "approval_state",
+                angle_name: "",
+                display_name: "",
+                display_uri: "",
+                arguments: "arguments",
+                notification: "notification",
+                Angle: null
+            }
+            var actionData = automationTask.GetCopyActionData(currentActionData);
+            expect(actionData.run_as_user).toEqual(currentActionData.run_as_user);
+            expect(actionData.action_type).toEqual(currentActionData.action_type);
+            expect(actionData.approval_state).toEqual(currentActionData.approval_state);
+            expect(actionData.Angle).toEqual(currentActionData.Angle);
+            expect(actionData.angle_name).toEqual(currentActionData.angle_name);
+            expect(actionData.display_uri).toEqual(currentActionData.display_uri);
+            expect(actionData.display_name).toEqual(currentActionData.display_name);
+            expect(actionData.arguments).toEqual(currentActionData.arguments);
+            expect(actionData.notification).toEqual(currentActionData.notification);
+        });
+    });
+
 });

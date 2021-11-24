@@ -10,6 +10,7 @@ using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.ManagementConsole.Controllers;
 using EveryAngle.WebClient.Domain.Constants;
 using Moq;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -797,6 +798,70 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             List<DataStoresViewModel> resultData = result.Data as List<DataStoresViewModel>;
             Assert.AreEqual(resultData[0], data);
 
+        }
+
+        [Test]
+        public void Can_GetExistingTasks()
+        {
+            List<TaskViewModel> tasks = new List<TaskViewModel>();
+            tasks.Add(new TaskViewModel
+            {
+                actions = new List<TaskAction>
+                {
+                    new TaskAction
+                    {
+                        arguments = new List<Core.ViewModels.Cycle.Argument>
+                        {
+                            new Core.ViewModels.Cycle.Argument
+                            {
+                                name = "model",
+                                value = "EA2_800"
+                            }
+                        }
+                    }
+                }
+            });
+            var uri = "tasks?types=export_angle_to_datastore&offset=0&limit=300";
+            taskService.Setup(x => x.GetTasks(uri)).Returns(tasks);
+            var result = _testingController.GetExistingTasks();
+
+            //assert
+            taskService.Verify(m => m.GetTasks(uri), Times.Once);
+            Assert.NotNull(result);
+        }
+
+        [Test]
+        public void Can_CopyAction()
+        {
+            string data = "{'run_as_user':null,'action_type':'export_angle_to_datastore','approval_state':'approved','AngleUri':'/models/1/angles/183','angle_name':'Based on Template \\'Address\\'','display_name':'Check 2: Without Street','display_uri':'','arguments':[{'name':'datastore','value':'Export_to_Excel_Default'},{'name':'model','value':'EA2_800'},{'name':'angle_id','value':'a919385888f81d7873682637236538702'},{'name':'display_id','value':'d4302735411acc8b30d9d637236538705'}],'notification':null}";
+            TaskAction action = JsonConvert.DeserializeObject<TaskAction>(data);
+            TaskViewModel mockObject = new TaskViewModel
+            {
+                ActionsUri= new Uri("task/1/action", UriKind.Relative),
+                Uri=new Uri("task/1",UriKind.Relative),
+                actions = new List<TaskAction>
+                {
+                    new TaskAction
+                    {
+                        arguments = new List<Core.ViewModels.Cycle.Argument>
+                        {
+                            new Core.ViewModels.Cycle.Argument
+                            {
+                                name = "model",
+                                value = "EA2_800"
+                            }
+                        }
+                    }
+                }
+            };
+            modelService.Setup(x => x.GetTask(It.IsAny<string>())).Returns(mockObject);
+            taskService.Setup(x => x.CreateTaskAction("task/1/action", It.IsAny<TaskAction>()));
+            var result = _testingController.CopyAction("task/1",data);
+
+            //assert
+            modelService.Verify(m => m.GetTask(It.IsAny<string>()), Times.Once);
+            taskService.Verify(m => m.CreateTaskAction("task/1/action", It.IsAny<TaskAction>()), Times.Once);
+            Assert.NotNull(result);
         }
         #endregion
     }
