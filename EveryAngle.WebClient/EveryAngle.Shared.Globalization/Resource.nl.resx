@@ -555,9 +555,6 @@
   <data name="AdvanceFilterUsageValidationChangeBy" xml:space="preserve">
     <value>Validatiewijziging door</value>
   </data>
-  <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
-    <value>items in</value>
-  </data>
   <data name="AngleDefinitionAreaSec" xml:space="preserve">
     <value>sec</value>
   </data>
