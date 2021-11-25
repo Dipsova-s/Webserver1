@@ -94,8 +94,8 @@ Expand Section Panel: Display Filters & Jumps
     Expand Section Panel  ${divDisplayDefinitionHeader}
 
 Expand Section Panel: Display Aggregation
-    ${exists}  Is Element Visible  ${divDisplayAggregationHeader}
-    Run Keyword If  ${exists} == ${True}  Expand Section Panel  ${divDisplayAggregationHeader}
+    ${displayAggregationExists}   Is Element Visible   ${divDisplayAggregationHeader}
+    Run Keyword If  ${displayAggregationExists} == ${True}  Expand Section Panel  ${divDisplayAggregationHeader}
 
 Expand Section Panel: Display Description
     Expand Section Panel  ${divDisplayDescriptionHeader}
@@ -110,8 +110,8 @@ Collapse Section Panel: Display Filters & Jumps
     Collapse Section Panel  ${divDisplayDefinitionHeader}
 
 Collapse Section Panel: Display Aggregation
-    ${exists}  Is Element Visible  ${divDisplayAggregationHeader}
-    Run Keyword If  ${exists} == ${True}  Collapse Section Panel  ${divDisplayAggregationHeader}
+    ${displayAggregationExists}   Is Element Visible   ${divDisplayAggregationHeader}
+    Run Keyword If  ${displayAggregationExists} == ${True}  Collapse Section Panel  ${divDisplayAggregationHeader}
 
 Collapse Section Panel: Display Description
     Collapse Section Panel  ${divDisplayDescriptionHeader}

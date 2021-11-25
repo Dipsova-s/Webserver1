@@ -27,8 +27,9 @@ Check If Angle Or Display Has Execute Parameters From Angle Page Then Execute Th
     Run Keyword If    ${statusWarningPopup} == True    Click Submit Angle Execution Parameters
 
 Check If Angle Or Display Has Execute Parameters Then Execute The Popup
-    ${pageTitle}    Get Page Title
-    Run Keyword If    '${pageTitle}' == '${searchPageTitle}'    Check If Angle Or Display Has Execute Parameters From Search Page Then Execute The Popup
+    Sleep   ${TIMEOUT_GENERAL}
+    ${statusWarningPopup} =  Is Element Visible   ${btnSubmitExecuteParameters}
+    Run Keyword If    ${statusWarningPopup} == True   Check If Angle Or Display Has Execute Parameters From Search Page Then Execute The Popup
     ...    ELSE    Check If Angle Or Display Has Execute Parameters From Angle Page Then Execute The Popup
 
 Add Compare Filter From Angle Execution Parameters Popup
