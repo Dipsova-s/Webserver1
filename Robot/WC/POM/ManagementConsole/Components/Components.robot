@@ -16,9 +16,9 @@ Check System Components
     Page Should Contain Element         ${trComponent}:contains(ModelRepositoryService) .btnDelete:not(.disabled)
     Page Should Contain Element         ${trComponent}:contains(ModelRepositoryService) .btnDownload.disabled
     Page Should Contain Element         ${trComponent}:contains(ModelRepositoryService) .btnInfo.disabled
-    Page Should Contain Element         ${trComponent}:contains(ClassicModelQueryService) .btnInfo:not(.disabled)
-    Page Should Contain Element         ${trComponent}:contains(ClassicModelQueryService) .btnDownload:not(.disabled)
-    Page Should Contain Element         ${trComponent}:contains(ClassicModelQueryService) .btnDelete:not(.disabled)
+    Page Should Contain Element         ${trComponent}:contains(RealtimeModelQueryService):contains(EA2_800) .btnInfo:not(.disabled)
+    Page Should Contain Element         ${trComponent}:contains(RealtimeModelQueryService):contains(EA2_800) .btnDownload:not(.disabled)
+    Page Should Contain Element         ${trComponent}:contains(RealtimeModelQueryService):contains(EA2_800) .btnDelete:not(.disabled)
     Page Should Contain Element         ${trComponent}:contains(ModelAgentService) .btnInfo.disabled
     Page Should Contain Element         ${trComponent}:contains(ModelAgentService) .btnDownload.disabled
     Page Should Contain Element         ${trComponent}:contains(ModelAgentService) .btnDelete:not(.disabled)
@@ -57,15 +57,15 @@ Click on Close button in Component Info popup
 Click on Action drop down and select Info option for Model query service Component
     Wait Until Element Exist And Visible  ${trComponent}
     Click Element   ${trComponent}
-    Click Show Action Dropdown In Grid By Name   ClassicModelQueryService   ${trComponent}
-    Click Main Action In Grid By Name   ClassicModelQueryService  ${trComponent}  ${btnComponentInfo}
+    Click Show Action Dropdown In Grid By Names   RealtimeModelQueryService     EA2_800   ${trComponent}
+    Click Main Action In Grid By Names   RealtimeModelQueryService      EA2_800  ${trComponent}  ${btnComponentInfo}
     Wait Progress Bar Closed
     Wait Until Ajax Complete
     Wait until page contains Element    ${tblmodelServerPopup}
 
 Click on Action drop down for the component in component page
-    [Arguments]     ${componentName}
-    Click Show Action Dropdown In Grid By Name   ${componentName}   ${trComponent}
+    [Arguments]     ${componentName}    ${modelId}
+    Click Show Action Dropdown In Grid By Names   ${componentName}      ${modelId}   ${trComponent}
 
 Verify the component action drop down options state for the component
     [Arguments]     ${componentName}
