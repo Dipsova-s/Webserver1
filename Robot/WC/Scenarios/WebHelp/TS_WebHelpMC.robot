@@ -103,16 +103,15 @@ Crop Edit Automation Task Page
     Click Button To Add New Task
     Click Add Action Button
     Resize Kendo Popup height To    650
-    Drag And Drop By Offset    jquery=#AddActionPopup ~ .k-resize-n    0    -40
     Input Task Action Angle Url  ${displayUri}
     Select Dropdown Datastore    Export to CSV - Default
     Scroll Vertical To Element    jquery=#AddActionPopup .popupContent    jquery=#AddActionPopup .contentSectionInfo:eq(1)
     Input Datastore Filename    test_csv
     Select Datastore Append Result
     Crop WebHelp Image    MC_AutoTask_MacroField.png    jquery=#DatastoreSettings .dataSettings:eq(0)
+    Scroll Vertical    jquery=#AddActionPopup .popupContent    2000
     Enable Send Email Notification
     Enable Send Email Attach result
-    Scroll Vertical    jquery=#AddActionPopup .popupContent    2000
     Add Task Action Email Notification    m.smith@everyangle.org    Select    Unselect    Unselect
     Input Task Action Email Description    <p>New daily export of {anglename}</p><p>Model timestamp: {modeltimestamp}</p><p>Displayname: {displayname}</p>
     Crop WebHelp Image With Dimensions    MC_AutoTask_MacroExample.png    jquery=#AddActionPopup .popupContent    0    2    700    600

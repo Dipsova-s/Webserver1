@@ -38,7 +38,7 @@ ${txtSearchInput}           css=#SearchInput
 
 #Toggle panel
 ${divBusinessProcessPanel}      css=#facetcat_bp
-${divGeneralPanel}              css=#facetcat_itemtype
+${divGeneralPanel}              css=#facetcat_models
 ${divAngleTypePanel}            css=#facetcat_AngleType
 ${divAnglePurposePanel}         css=#facetcat_AnglePurpose
 
