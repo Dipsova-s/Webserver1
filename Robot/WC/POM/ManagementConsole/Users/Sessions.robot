@@ -31,7 +31,11 @@ Wait Until Sessions Grid Is Ready
     Wait Until Ajax Complete
     Wait Until Page Does Not Contain Element    css=#SessionsGrid .k-loading-mask
 
-Wait Until Sessions Page Is Ready
+Wait Until Sesions Grid Main Content Is Loaded
+    Wait Until Page Does Not Contain Element    css=.loader-container alwaysHidden   
+
+Wait Until Sessions Page Is Ready    
+    Wait Until Sesions Grid Main Content Is Loaded
     Wait Until Page Contains    Sessions
     Wait Until Page Contains Element     ${tblSessionsGrid}
     Wait MC Progress Bar Closed
