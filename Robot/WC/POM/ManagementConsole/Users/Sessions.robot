@@ -12,6 +12,7 @@ Enter Text in Sessions filter page
     [Arguments]     ${filterText}
     Input Text      ${txtSessionsFilter}      ${filterText}
     Wait Until Sessions Page Is Ready
+    Sleep    ${TIMEOUT_LARGEST}
 
 Verify the User Sessions Filtered with Text
     [Arguments]     ${filterText}
@@ -29,14 +30,10 @@ Verify the User Sessions Filtered with no Text
 
 Wait Until Sessions Grid Is Ready
     Wait Until Ajax Complete
-    Wait Until Page Does Not Contain Element    css=#SessionsGrid .k-loading-mask
-
-Wait Until Sessions Grid Main Content Is Loaded
-    Wait Until Page Does Not Contain Element    css=.loader-container alwaysHidden   
+    Wait Until Page Does Not Contain Element    css=#SessionsGrid .k-loading-mask   
 
 Wait Until Sessions Page Is Ready
     Wait Until Page Contains    Sessions
     Wait Until Page Contains Element     ${tblSessionsGrid}
     Wait MC Progress Bar Closed
-    Wait Until Sessions Grid Is Ready    
-    Wait Until Sessions Grid Main Content Is Loaded
+    Wait Until Sessions Grid Is Ready
