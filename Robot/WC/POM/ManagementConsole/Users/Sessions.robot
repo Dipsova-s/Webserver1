@@ -2,6 +2,7 @@
 ${tblSessionsGrid}      //div[@id='SessionsGrid']
 ${txtSessionsFilter}        css=#AllSessionsGridFilterBox
 ${gridSessionsTable}        css=.k-scrollbar-vertical
+${gridRows}                 css=#SessionsGrid .k-grid-content tr
 
 *** Keywords ***
 Go to Sessions page in MC
@@ -12,15 +13,15 @@ Enter Text in Sessions filter page
     [Arguments]     ${filterText}
     Input Text      ${txtSessionsFilter}      ${filterText}
     Wait Until Sessions Page Is Ready
-    Sleep    ${TIMEOUT_LARGEST}
 
 Verify the User Sessions Filtered with Text
     [Arguments]     ${filterText}
     Enter Text in Sessions filter page      ${filterText}
-    @{rowList}  Get Grid Column Texts  css=#SessionsGrid .k-grid-content tr  1
+    @{rowList}  Get Grid Column Texts    ${gridRows}    1
     ${rowCount}  Get Element Count  css=#SessionsGrid .k-grid-content tr
-    :For    ${index}      IN RANGE    0   ${rowCount-1}
-    \       Should Contain      @{rowList}[${index}]    ${filterText}   ignore_case=True
+    :For    ${index}      IN RANGE    1   ${rowCount+1}
+    \       Scroll Element Into View    ${gridRows}:nth-child(${index})
+    \       Should Contain      ${rowList}[${index}]    ${filterText}   ignore_case=True
 
 Verify the User Sessions Filtered with no Text
     ${randomString}     Generate Random String   12    [UPPER]
