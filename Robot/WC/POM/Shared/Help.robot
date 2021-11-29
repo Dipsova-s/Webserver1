@@ -22,7 +22,7 @@ Click on Support Button
     Custom click element  ${SupportButton}
 
 Validate user is redirected to online support portal
-    Select Window   title=Support - Technical support, portal login, documentation | Magnitude   timeout=15s
+    Switch Window   Support - Technical support, portal login, documentation - Magnitude
     Wait Until Axios Complete
     ${SupportUrl}=  Get Location
     should contain  ${SupportUrl}   https://www.magnitude.com/support
