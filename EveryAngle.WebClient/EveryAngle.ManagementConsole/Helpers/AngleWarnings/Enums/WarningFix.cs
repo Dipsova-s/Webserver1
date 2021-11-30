@@ -6,7 +6,6 @@
         RemoveColumn,
         ReplaceClass,
         ReplaceReference,
-        ReplaceSublist,
         ReplaceJump,
         NotSupportedMethod,
         NoFixAvailable

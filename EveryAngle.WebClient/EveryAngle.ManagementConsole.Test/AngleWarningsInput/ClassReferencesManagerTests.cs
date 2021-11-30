@@ -9,7 +9,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
     public class ClassReferencesManagerTests : UnitTestBase
     {
         [TestCase]
-        public void GetReferencedClass_Succeeds()
+        public void AWT_GetReferencedClass_Succeeds()
         {
             List<FieldSourceViewModel> fieldSources = new List<FieldSourceViewModel>();
             FieldSourceViewModel fieldSourceViewModel = new FieldSourceViewModel
@@ -35,7 +35,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
-        public void FieldSourceNotFound_ShouldReturnEmpty()
+        public void AWT_FieldSourceNotFound_ShouldReturnEmpty()
         {
             List<FieldSourceViewModel> fieldSources = new List<FieldSourceViewModel>();
             FieldSourceViewModel fieldSourceViewModel = new FieldSourceViewModel
@@ -61,7 +61,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
-        public void ReferencedClassNotFound_ShouldReturnEmpty()
+        public void AWT_ReferencedClassNotFound_ShouldReturnEmpty()
         {
             List<FieldSourceViewModel> fieldSources = new List<FieldSourceViewModel>();
             FieldSourceViewModel fieldSourceViewModel = new FieldSourceViewModel

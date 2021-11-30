@@ -16,7 +16,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void AngleWarningsTaskCreator_ShouldReturnCorrectJsonTask()
+        public void AWT_TaskCreator_ShouldReturnCorrectJsonTask()
         {
             string modelName = "EA2_800";
 
@@ -53,7 +53,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void AngleWarningsTaskCreator_ShouldThrowExceptions()
+        public void AWT_TaskCreator_ShouldThrowException()
         {
             Assert.Throws<ArgumentException>(() => new AngleWarningsTaskAction(null));
         }
