@@ -14,7 +14,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
     public class AngleWarningsFileReaderTests: UnitTestBase
     {
         [TestCase]
-        public void ReadInputList_Excel_Succeeds()
+        public void AWT_ReadInputList_ShouldSucceed()
         {
             Mock<IFileHelper> fileHelper = new Mock<IFileHelper>();
 
@@ -45,7 +45,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         
 
         [TestCase]
-        public void ReadInputList_FileDoesNotExists_GiveException()
+        public void AWT_ReadInputList_FileDoesNotExists_ShouldGiveException()
         {
             Mock<IFileHelper> fileHelper = new Mock<IFileHelper>();
             fileHelper.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
@@ -55,7 +55,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
-        public void ReadInputList_NoFileGiven_GiveException()
+        public void AWT_ReadInputList_NoFileGiven_ShouldGiveException()
         {
             Mock<IFileHelper> fileHelper = new Mock<IFileHelper>();
             IAngleWarningsFileReader angleWarningsFileReader = new AngleWarningsFileReader(fileHelper.Object);
@@ -63,6 +63,8 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             ConfigurationManager.AppSettings.Set("AngleWarningsContentInputFile", null);
 
             Assert.That(() => angleWarningsFileReader.ReadContentInputExcelFileFromDisk(), Throws.TypeOf<ArgumentNullException>());
+
+            ConfigurationManager.AppSettings.Set("AngleWarningsContentInputFile", @"c:\temp\inputfile.xlsx");
         }
     }
 }

@@ -6,7 +6,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
     public class ArrayHelperTests : UnitTestBase
     {
         [TestCase]
-        public void AddElement_ShouldSucceed()
+        public void ArrayHelper_AddElement_ShouldSucceed()
         {
             string[] stringArray = new string[5] { "0", "1", "2", "3", "4"};
 

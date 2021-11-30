@@ -16,7 +16,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
     public class AngleWarningsAutoSolverTests : UnitTestBase
     {
         [TestCase]
-        public void GetNumberOfSolvableFieldsViaInputFile_NoInputFile_ShouldReturn0()
+        public void AWT_GetNrOfSolvableFieldsViaInputFile_NoInputFile_ShouldReturn_0()
         {
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
             contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
@@ -28,45 +28,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
-        public void GetAreSomePartOfAutomationsTasks_ShouldReturnFalse()
-        {
-            Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
-            contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
-
-            AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
-
-            Assert.IsFalse(autoSolver.AreSomeAnglesPartOfAutomationTasks());
-        }
-
-        [TestCase]
-        public void GetLevel3Warnings_ShouldSucceed()
-        {
-            Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
-
-            AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
-
-            AngleWarningSecondLevelViewmodel secondLevel;
-            secondLevel = new AngleWarningSecondLevelViewmodel
-            {
-                Count = 1,
-                Field = "FieldA",
-                Object = "ObjectA",
-                Uri = "uri"
-            };
-
-            JObject angleWarningsLevel3 = AngleWarningsTestsHelper.GetThirdLevelWarningsJObject(1);
-
-            modelService.Setup(x => x.GetAngleWarningThirdLevel(It.IsAny<string>())).Returns(angleWarningsLevel3);
-
-            List<AngleWarningThirdLevelViewmodel> listLevel3 = autoSolver.GetLevel3Warnings(secondLevel);
-
-            Assert.AreEqual("angleId1", listLevel3[0].AngleId);
-        }
-        
-        [TestCase]
-        public void GetNumberOfSolvableFieldsViaInputFile__ShouldSucceed()
+        public void AWT_GetNumberOfSolvableFieldsViaInputFile__ShouldSucceed()
         {
             ItemSolver itemSolver = new ItemSolver
             {
@@ -124,7 +86,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         [TestCase(WarningFix.ReplaceJump)]
         [TestCase(WarningFix.ReplaceField)]
         [TestCase(WarningFix.ReplaceClass)]
-        public void GetNumberOfSolvableFieldsViaInputFile__EntityExistsShouldReturnFalse(WarningFix warningFix)
+        public void AWT_GetNumberOfSolvableFieldsViaInputFile__EntityExistsShouldReturnFalse(WarningFix warningFix)
         {
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
             contentInputter.Setup(x => x.TryReadInputList()).Returns(true);
@@ -148,7 +110,45 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
-        public void AutoSolver_WithInvalidFileOrNoModelId_ShouldFail()
+        public void AWT_GetAreSomePartOfAutomationsTasks_ShouldReturn_False()
+        {
+            Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
+            contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
+
+            AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
+            autoSolver.Initialize(sessionHelper.Object);
+
+            Assert.IsFalse(autoSolver.AreSomeAnglesPartOfAutomationTasks());
+        }
+
+        [TestCase]
+        public void AWT_GetLevel3Warnings_ShouldSucceed()
+        {
+            Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
+
+            AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
+            autoSolver.Initialize(sessionHelper.Object);
+
+            AngleWarningSecondLevelViewmodel secondLevel;
+            secondLevel = new AngleWarningSecondLevelViewmodel
+            {
+                Count = 1,
+                Field = "FieldA",
+                Object = "ObjectA",
+                Uri = "uri"
+            };
+
+            JObject angleWarningsLevel3 = AngleWarningsTestsHelper.GetThirdLevelWarningsJObject(1);
+
+            modelService.Setup(x => x.GetAngleWarningThirdLevel(It.IsAny<string>())).Returns(angleWarningsLevel3);
+
+            List<AngleWarningThirdLevelViewmodel> listLevel3 = autoSolver.GetLevel3Warnings(secondLevel);
+
+            Assert.AreEqual("angleId1", listLevel3[0].AngleId);
+        }
+        
+        [TestCase]
+        public void AWT_WithInvalidFileOrNoModelId_ShouldFail()
         {
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
             contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
@@ -161,7 +161,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
-        public void AutoSolverRun_MultipleTargets()
+        public void AWT_Test_Warnings_With_MultipleTargets()
         {
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
             contentInputter.Setup(x => x.TryReadInputList()).Returns(true);
@@ -191,7 +191,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
-        public void CompleteAutoSolverRun()
+        public void AWT_CompleteAutoSolverRun()
         {
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
             contentInputter.Setup(x => x.TryReadInputList()).Returns(true);

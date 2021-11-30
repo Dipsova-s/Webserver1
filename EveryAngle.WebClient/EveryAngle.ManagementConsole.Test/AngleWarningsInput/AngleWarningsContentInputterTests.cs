@@ -11,7 +11,16 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
     public class AngleWarningsContentInputterTests : UnitTestBase
     {
         [TestCase]
-        public void AngleWarningsTool_TryReadInputList_ShouldSucceed()
+        public void AWT_ContentInputter_Initialize()
+        {
+            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+
+            contentInputter.Initialize(@"\fieldsourcesuri", @"\classesuri");
+        }
+
+        [TestCase]
+        public void AWT_TryReadInputList_ShouldSucceed()
         {
             List<string> csvData = new List<string>
             {
@@ -45,7 +54,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void AngleWarningsTool_ReadInputListFromDisk_Fails()
+        public void AWT_ReadInputListFromDisk_ShouldFail()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Throws<FileNotFoundException>();
@@ -56,7 +65,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void AngleWarningsTool_ReadInputListFromDisk_IgnoreUnsupported()
+        public void AWT_ReadInputListFromDisk_IgnoreUnsupported()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
 
@@ -76,7 +85,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase("Replace field,Replace field,C,D,E")]
         [TestCase("Replace field,Replace field,C,D")]
 
-        public void AngleWarningsTool_TryReadInputList_InvalidNrColumns_ShouldFail(string inputColumns)
+        public void AWT_TryReadInputList_InvalidNrColumns_ShouldFail(string inputColumns)
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
 
@@ -92,7 +101,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void GetSolveItem_ShouldReturnNoFixAvailable()
+        public void AWT_GetSolveItem_ShouldReturnNoFixAvailable()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
 
@@ -118,7 +127,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         [TestCase("unsupported_display_field","Order", "Field1", "Field4")]
         [TestCase("unsupported_start_object", "Class1", "Class1", "Class4")]
-        public void AngleWarningsTool_Recursiveness_ShouldSucceed(string warning, string objectClass, string oldField, string expectedNewField)
+        public void AWT_Recursiveness_ShouldSucceed(string warning, string objectClass, string oldField, string expectedNewField)
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
 
@@ -144,23 +153,124 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual(expectedNewField, contentInput.NewFieldOrClass);
         }
 
-        [TestCase]
-        public void AngleWarningsTool_M498249_FieldViaReferenceIsReplaced()
+        public AngleWarningsContentInputter GetMockedExcelListReader()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
 
             List<string> csvData = new List<string>
             {
-                "Replace Field,Replace Field,R2020SP5,WorkOrder,PRCTR,ProfitCenter__ProfitCenterID",
+                "Replace class,Replace class,R2020SP5,CustomerNew,CustomerNew,Customer",
+                "Replace class,Replace class,R2020SP4,CustomerOld,CustomerOld,CustomerNew",
+
+                "Replace Field,Replace Field,R2020SP5,Customer,NameOld,Name",
+                "Replace Field,Replace Field,R2020SP5,Customer,Address__City,City",
+
+                "Replace Field,Replace Field,R2020SP5,Customer,City3,Address__City2",
+                "Replace Field,Replace Field,R2020SP4,Customer,City2,City3",
+                "Replace Field,Replace Field,R2020SP1,Customer,City,City2",
+
+                "Replace Reference,Replace Reference,R2020SP5,Customer,AddressOld,Address",
+
+                "Replace Sublist,Replace Sublist,R2020SP5,PurchaseOrderLine,Controllings,ControllingAreas",
+                "Replace Sublist,Replace Sublist,R2020SP4,PurchaseOrderLine,ControllingAreaOlds,Controllings",
+
+                "Replace Reference,Replace Reference,R2020SP5,Customer,Address,Self",
+                "Remove column,Remove column,R2020SP5,WorkOrder,SomeFieldToBeDeleted",
+                "Replace Field,Replace Field,R2020SP5,WorkOrder,PRCTR,ProfitCenter__ProfitCenterID"
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
             fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
 
             contentInputter.TryReadInputList();
 
-            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Operation", "WorkOrder__PRCTR", null);
+            return contentInputter;
+        }
 
+        [TestCase]
+        public void AWT_SolveItem_ReplaceClass()
+        {
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
+                       
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_start_object", "CustomerOld", "CustomerOld", null);
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceClass, solveItem.Fix);
+            Assert.AreEqual("CustomerOld", solveItem.ObjectClass);
+            Assert.AreEqual("CustomerOld", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Customer", solveItem.NewFieldOrClass);
+        }
+
+        [TestCase] 
+        public void AWT_SolveItem_ReplaceField()
+        {
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
+
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "NameOld", null);
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
+            Assert.AreEqual("Customer", solveItem.ObjectClass);
+            Assert.AreEqual("NameOld", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Name", solveItem.NewFieldOrClass);
+        }
+
+        [TestCase]
+        public void AWT_SolveItem_ReplaceField_ReplaceReferenceWithField()
+        {
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
+
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "Address__City", null);
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
+            Assert.AreEqual("Customer", solveItem.ObjectClass);
+            Assert.AreEqual("Address__City", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("City", solveItem.NewFieldOrClass);
+        }
+
+        [TestCase]
+        public void AWT_SolveItem_ReplaceField_ReplaceFieldWithReferencedField()
+        {
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
+
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "City", null);
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
+            Assert.AreEqual("Customer", solveItem.ObjectClass);
+            Assert.AreEqual("City", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Address__City2", solveItem.NewFieldOrClass);
+        }
+
+        [TestCase]
+        public void AWT_SolveItem_ReplaceReference_ReplaceReference()
+        {
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
+
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "AddressOld__Country", null);
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
+            Assert.AreEqual("Customer", solveItem.ObjectClass);
+            Assert.AreEqual("AddressOld__Country", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Address__Country", solveItem.NewFieldOrClass);
+
+            // Act
+            solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Operation", "WorkOrder__PRCTR", null);
+
+            // Assert
             Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
             Assert.AreEqual("Operation", solveItem.ObjectClass);
             Assert.AreEqual("WorkOrder__PRCTR", solveItem.FieldOrClassToReplace);
@@ -168,68 +278,63 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void AngleWarningsTool_M498584_ReferenceDeleted_ReplacedBySelf()
+        public void AWT_SolveItem_ReplaceReference_ReplaceReferenceWithSelf()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
 
-            List<string> csvData = new List<string>
-            {
-                "Replace Reference,Replace Reference,R2020SP5,AutomationTasksActions,ActionArgument_TaskAction,Self",
-            };
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "Address__Name", null);
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
-
-            contentInputter.TryReadInputList();
-
-            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "AutomationTasksActions", "ActionArgument_TaskAction__RandomField", null);
-
+            // Assert
             Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
-            Assert.AreEqual("AutomationTasksActions", solveItem.ObjectClass);
-            Assert.AreEqual("ActionArgument_TaskAction__RandomField", solveItem.FieldOrClassToReplace);
-            Assert.AreEqual("RandomField", solveItem.NewFieldOrClass);
+            Assert.AreEqual("Customer", solveItem.ObjectClass);
+            Assert.AreEqual("Address__Name", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Name", solveItem.NewFieldOrClass);
         }
 
         [TestCase]
-        public void AngleWarningsTool_M498584_BluntlyReplaceWhenObjectsAreSame()
+        public void AWT_SolveItem_ReplaceReference_ReplaceJump()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
 
-            List<string> csvData = new List<string>
-            {
-                "Replace Field,Replace Field,R2020SP5,PlanOrder,CompanyCodeSupplyingPlant__CompanyCodeID,CompanyCodeSupplyingPlant",
-            };
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_jump", "Customer", null, "AddressOld");
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
-
-            contentInputter.TryReadInputList();
-
-            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "PlanOrder", "CompanyCodeSupplyingPlant__CompanyCodeID", null);
-
-            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
-            Assert.AreEqual("PlanOrder", solveItem.ObjectClass);
-            Assert.AreEqual("CompanyCodeSupplyingPlant__CompanyCodeID", solveItem.FieldOrClassToReplace);
-            Assert.AreEqual("CompanyCodeSupplyingPlant", solveItem.NewFieldOrClass);
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceJump, solveItem.Fix);
+            Assert.AreEqual("Customer", solveItem.ObjectClass);
+            Assert.AreEqual("AddressOld", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Address", solveItem.NewFieldOrClass);
         }
 
         [TestCase]
-        public void AngleWarningsTool_DeleteField()
+        public void AWT_SolveItem_ReplaceReference_ReplaceJump_Sublist()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
 
-            List<string> csvData = new List<string>
-            {
-                "Remove column,Remove column,R2020SP5,WorkOrder,SomeFieldToBeDeleted",
-            };
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_jump", "PurchaseOrderLine", null, "ControllingAreaOlds");
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceJump, solveItem.Fix);
+            Assert.AreEqual("PurchaseOrderLine", solveItem.ObjectClass);
+            Assert.AreEqual("ControllingAreaOlds", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("ControllingAreas", solveItem.NewFieldOrClass);
+        }
+       
+        [TestCase]
+        public void AWT_SolveItem_RemoveColumn()
+        {
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
 
-            contentInputter.TryReadInputList();
-
+            // Act
             ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "WorkOrder", "SomeFieldToBeDeleted", null);
 
+            // Assert
             Assert.AreEqual(WarningFix.RemoveColumn, solveItem.Fix);
             Assert.AreEqual("WorkOrder", solveItem.ObjectClass);
             Assert.AreEqual("SomeFieldToBeDeleted", solveItem.FieldOrClassToReplace);
@@ -237,95 +342,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void AngleWarningsTool_GetSolveItem_ShouldSucceed()
-        {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
-
-            List<string> csvData = new List<string>
-            {
-                "Replace Field,Replace Field,R2020SP5,Order,Field1,Field2",
-                "Replace class,Replace class,R2020SP5,Order1,Order1,Order2",
-                "Replace reference,Replace reference,R2020SP5,Order1,Order1,Order2",
-                "Replace Field,Replace Field,R2020SP1,Order,Field3,Field4",
-                "Replace reference,Replace reference,R2020SP1,BillingDocumentItem,Test_ref_Payer,Payer",
-                "Replace sublist,Replace sublist,R2020SP1,BillingDocumentItem,Test_ref_Payers,Payers",
-                "Replace Field,Replace Field,R2020SP1,Material,Material123,Material"
-            };
-
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
-
-            contentInputter.TryReadInputList();
-
-            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Order", "Field1", null);
-
-            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
-            Assert.AreEqual("Order", solveItem.ObjectClass);
-            Assert.AreEqual("Field1", solveItem.FieldOrClassToReplace);
-            Assert.AreEqual("Field2", solveItem.NewFieldOrClass);
-
-            solveItem = contentInputter.GetSolveItem("unsupported_start_object", "Order1", "Order1", null);
-
-            Assert.AreEqual(WarningFix.ReplaceClass, solveItem.Fix);
-            Assert.AreEqual("Order1", solveItem.ObjectClass);
-            Assert.AreEqual("Order1", solveItem.FieldOrClassToReplace);
-            Assert.AreEqual("Order2", solveItem.NewFieldOrClass);
-
-            solveItem = contentInputter.GetSolveItem("unsupported_jump", "Order1", "Order1", "Order1");
-
-            Assert.AreEqual(WarningFix.ReplaceJump, solveItem.Fix);
-            Assert.AreEqual("Order1", solveItem.ObjectClass);
-            Assert.AreEqual("Order1", solveItem.FieldOrClassToReplace);
-            Assert.AreEqual("Order2", solveItem.NewFieldOrClass);
-
-            solveItem = contentInputter.GetSolveItem("unsupported_display_field", "BillingDocumentItem", "Test_ref_Payer__testField", null);
-
-            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
-            Assert.AreEqual("BillingDocumentItem", solveItem.ObjectClass);
-            Assert.AreEqual("Test_ref_Payer__testField", solveItem.FieldOrClassToReplace);
-            Assert.AreEqual("Payer__testField", solveItem.NewFieldOrClass);
-
-            solveItem = contentInputter.GetSolveItem("unsupported_jump", "BillingDocumentItem", null, "Test_ref_Payer");
-
-            Assert.AreEqual(WarningFix.ReplaceJump, solveItem.Fix);
-            Assert.AreEqual("BillingDocumentItem", solveItem.ObjectClass);
-            Assert.AreEqual("Test_ref_Payer", solveItem.FieldOrClassToReplace);
-            Assert.AreEqual("Payer", solveItem.NewFieldOrClass);
-
-            solveItem = contentInputter.GetSolveItem("unsupported_jump", "BillingDocumentItem", null, "Test_ref_Payers");
-
-            Assert.AreEqual(WarningFix.ReplaceJump, solveItem.Fix);
-            Assert.AreEqual("BillingDocumentItem", solveItem.ObjectClass);
-            Assert.AreEqual("Test_ref_Payers", solveItem.FieldOrClassToReplace);
-            Assert.AreEqual("Payers", solveItem.NewFieldOrClass);
-
-            solveItem = contentInputter.GetSolveItem("unsupported_display_field", "PurchaseOrderLine", "Material__Material123", null);
-            Assert.AreEqual("Material__Material", solveItem.NewFieldOrClass);
-        }
-
-        [TestCase]
-        public void AngleWarningsTool_GetSolveItem_ShouldSucceed_2()
-        {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
-
-            List<string> csvData = new List<string>
-            {
-                "Replace reference,Replace reference,R2020SP1,BillingDocumentItem,Reference_old_2,BillingDocumentHeader",
-                "Replace Field,Replace Field,R2020SP1,BillingDocumentHeader,Display_old_1,DocumentCurrency",
-                "Replace Field,Replace Field,R2020SP1,BillingDocumentHeader,Display_old_2,CreationDate"
-            };
-
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
-
-            contentInputter.TryReadInputList();
-
-            AngleWarningsContentInput contentInput = contentInputter.GetSolveItem("unsupported_display_field", "BillingDocumentItem", "Reference_old_2__Display_old_1", null);
-            Assert.AreEqual("BillingDocumentHeader__DocumentCurrency", contentInput.NewFieldOrClass);
-        }
-
-        [TestCase]
-        public void AngleWarningsTool_GetSolveItem_Reference()
+        public void AWT_SolveItem_FieldChangedInOriginalClass()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
             classReferencesManager.Setup(x => x.GetReferencedClass(It.IsAny<string>())).Returns("Customer");
@@ -345,7 +362,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void AngleWarningsTool_GetSolveItem_InvalidWarningsShouldReturnNoFixAvailable()
+        public void AWT_GetSolveItem_InvalidWarningsShouldReturnNoFixAvailable()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
             AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
@@ -355,17 +372,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
-        public void AngleWarningsTool_ContentInputter_Initialize()
-        {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-
-            contentInputter.Initialize(@"\fieldsourcesuri", @"\classesuri");
-        }
-
-        [TestCase]
         [Ignore] // Not yet implemented, appserver cant handle two base classes
-        public void GetSolveItem_TwoBaseClasses()
+        public void AWT_GetSolveItem_TwoBaseClasses()
         {
             Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
 

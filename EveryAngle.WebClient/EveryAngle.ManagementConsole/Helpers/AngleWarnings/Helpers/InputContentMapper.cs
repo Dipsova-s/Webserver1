@@ -37,9 +37,6 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
                 case WarningFix.ReplaceReference:
                     return ReplaceReference_warnings.Contains(warning, StringComparer.InvariantCultureIgnoreCase);
-
-                case WarningFix.ReplaceSublist:
-                    return ReplaceSublist_warnings.Contains(warning, StringComparer.InvariantCultureIgnoreCase);
                 
                 case WarningFix.ReplaceJump:
                     return ReplaceJump_warnings.Contains(warning, StringComparer.InvariantCultureIgnoreCase);
@@ -65,7 +62,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                 case "replace reference":
                     return WarningFix.ReplaceReference;
                 case "replace sublist":
-                    return WarningFix.ReplaceSublist;
+                    return WarningFix.ReplaceJump;
                 default:
                     return WarningFix.NotSupportedMethod;
             }
