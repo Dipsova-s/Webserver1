@@ -2,8 +2,6 @@
 Screenshot "WC_Filter_Pane" page
     Go to Search Page
 
-    Crop Business Process Filters
-
     Crop Item Type Filters
     Crop Characteristic Filters
 
@@ -49,9 +47,10 @@ Crop Item Type Filters
     ...         $('.label[alt="facet_template"] .filter-name').width() + 25,
     ...         $('.label[alt="facet_dashboard"] .filter-name').width() + 25,
     ...     ];
-    Crop WebHelp Image With Dimensions  WC_EA_filter.png  css=#facetcat_itemtype_Checkbox  23  15  @{sizes}[0]  18  ${False}
-    Crop WebHelp Image With Dimensions  WC_Template_filter.png  css=#facetcat_itemtype_Checkbox  23  42  @{sizes}[1]  18  ${False}
-    Crop WebHelp Image With Dimensions  WC_Dashboard_filter.png  css=#facetcat_itemtype_Checkbox  23  72  @{sizes}[2]  18  ${False}
+    Scroll Element into View   css=#facetcat_itemtype_Checkbox
+    Crop WebHelp Image With Dimensions  WC_EA_filter.png  css=#facetcat_itemtype_Checkbox  23  9  @{sizes}[0]  17  ${False}  
+    Crop WebHelp Image With Dimensions  WC_Template_filter.png  css=#facetcat_itemtype_Checkbox  23  39  @{sizes}[1]  18  ${False}
+    Crop WebHelp Image With Dimensions  WC_Dashboard_filter.png  css=#facetcat_itemtype_Checkbox  23  69  @{sizes}[2]  18  ${False}
 
 
 Crop Characteristic Filters
@@ -65,11 +64,12 @@ Crop Characteristic Filters
     ...         $('.label[alt="facet_has_warnings"] .filter-name').width() + 25,
     ...         $('.label[alt="facet_isstarred"] .filter-name').width() + 25
     ...     ];
-    Crop WebHelp Image With Dimensions  WC_Private_filter.png  css=#facetcat_characteristics_Checkbox  23  15  @{sizes}[0]  20
-    Crop WebHelp Image With Dimensions  WC_private_display.png  css=#facetcat_characteristics_Checkbox  23  42  @{sizes}[1]  20
-    Crop WebHelp Image With Dimensions  WC_Validated_filter.png  css=#facetcat_characteristics_Checkbox  23  72  @{sizes}[2]  20
-    Crop WebHelp Image With Dimensions  WC_Warning_filter.png  css=#facetcat_characteristics_Checkbox  23  102  @{sizes}[3]  20
-    Crop WebHelp Image With Dimensions  WC_Starred_filter.png  css=#facetcat_characteristics_Checkbox  23  132  @{sizes}[3]  20
+    Scroll Element into View   css=#facetcat_characteristics_Checkbox
+    Crop WebHelp Image With Dimensions  WC_Private_filter.png  css=#facetcat_characteristics_Checkbox  23  10  @{sizes}[0]  20
+    Crop WebHelp Image With Dimensions  WC_private_display.png  css=#facetcat_characteristics_Checkbox  23  38  @{sizes}[1]  20
+    Crop WebHelp Image With Dimensions  WC_Validated_filter.png  css=#facetcat_characteristics_Checkbox  23  68  @{sizes}[2]  20
+    Crop WebHelp Image With Dimensions  WC_Warning_filter.png  css=#facetcat_characteristics_Checkbox  23  98  @{sizes}[3]  20
+    Crop WebHelp Image With Dimensions  WC_Starred_filter.png  css=#facetcat_characteristics_Checkbox  24  127  @{sizes}[3]  20
 
 Crop Additional Filters
     ${widthFilters}   ${heightFilters}      Get Element Size    css=#LeftMenu .facetFilter
