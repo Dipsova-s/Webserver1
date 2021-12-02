@@ -29,7 +29,8 @@ Crop Suggested Filter
 
 Crop Remove List Display Column
     ${width}    ${height}    Get Element Size    css=#AngleGrid
-    Drag WebHelp Element To Location    jquery=#AngleGrid    jquery=#AngleGrid [data-field="Material__Material"]    left=20    top=-80
+    Drag WebHelp Element To Location    jquery=#AngleGrid   jquery=#AngleGrid [data-field="Material__Material"]    left=20    top=-90
+    Sleep  3s
     Crop WebHelp Image With Dimensions  WC_drop.png  css=#MainContainer    0    0    ${width}    323
     Clear Dragging WebHelp Element    jquery=#AngleGrid
 

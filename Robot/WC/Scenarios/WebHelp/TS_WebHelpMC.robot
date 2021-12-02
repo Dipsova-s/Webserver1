@@ -23,7 +23,7 @@ Set WebHelp Username
 Crop Overview Page
     Highlight WebHelp Element    css=#topWrapper        text=1    fontSize=45px    fontWeight=normal
     Highlight WebHelp Element    css=#sideContent       text=2    fontSize=45px    fontWeight=normal
-    Highlight WebHelp Element    css=#mainContainer     text=3    fontSize=45px    fontWeight=normal
+    Highlight WebHelp Element    css=#mainContent     text=3    fontSize=45px    fontWeight=normal
     Set WebHelp Username
     Execute JavaScript    var breadcrumbHeight=$('#breadcrumb').height();var box3=$('[robot-box]').eq(2);box3.css('top', box3.offset().top-breadcrumbHeight).css('height', box3.outerHeight()+breadcrumbHeight);
     Crop WebHelp Image    MC_Overview.png    css=body

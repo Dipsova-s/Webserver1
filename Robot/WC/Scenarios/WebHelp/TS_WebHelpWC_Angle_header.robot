@@ -38,7 +38,7 @@ Crop Save Action Buttons
     Click Display Tab
     Select Checkbox Execute On Login
     Sleep  ${TIMEOUT_LARGEST}
-    Crop WebHelp Image With Dimensions  WC_Button_Save_Active.png       css=#AngleSavingWrapper .savable   3   3   110   22
+    Crop WebHelp Image With Dimensions  WC_Button_Save_Active.png       css=#AngleSavingWrapper .savable   3   3   155   22
     Unselect Checkbox Execute On Login
 
 Crop Create New Display Button

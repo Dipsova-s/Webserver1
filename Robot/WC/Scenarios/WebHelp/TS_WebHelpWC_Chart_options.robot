@@ -4,9 +4,9 @@ Screenshot "WC_Chart_options" page
 
     Find Angle By ID Then Execute The First Angle    ${AngleId}
     Click Display Tab
-
-    Crop Chart Type
+ 
     Crop Chart Option Button
+    Crop Chart Type
     Crop Checkbox Blue Checked 
     Crop Checkbox Unchecked
     Crop Sort Icons
@@ -30,12 +30,14 @@ Crop Chart Type
 
 Crop Chart Option Button
     Crop WebHelp Image  WC_Icon_ChartOptions.png  css=.section-aggregation .action-options  ${False}
-
+    
 Crop Checkbox Blue Checked 
+    Scroll Element into View  jquery=.query-aggregation-data .count-field-wrapper
     Select Checkbox  jquery=.query-aggregation-data .count-field-wrapper input
     Crop WebHelp Image With Dimensions  WC_checkbox_blue_checked.png  jquery=.query-aggregation-data .count-field-wrapper  0    0   17    17  ${False}
 
 Crop Checkbox Unchecked
+    Scroll Element into View  jquery=.query-aggregation-data .count-field-wrapper
     Unselect Checkbox  jquery=.query-aggregation-data .count-field-wrapper input
     Crop WebHelp Image With Dimensions  WC_checkbox_unchecked.png  jquery=.query-aggregation-data .count-field-wrapper  0    0   17    17  ${False}
 
@@ -73,8 +75,10 @@ Crop Reference line Icon
     Crop WebHelp Image  WC_Icon_Reference_Line.png  jquery=.query-aggregation-data .item-aggregation:eq(1) .action-reference-line   ${False}
 
 Crop Apply Chart Button
+    Scroll Element into View   jquery=.section-aggregation .btn-save
     Crop WebHelp Image  WC_Button_Apply_Inactive.png  jquery=.section-aggregation .btn-save
     Change Chart To Column Cluster
+    Scroll Element into View   jquery=.section-aggregation .btn-save
     Crop WebHelp Image  WC_Button_Apply_Active.png  jquery=.section-aggregation .btn-save
     Click Undo field Settings
 
