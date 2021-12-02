@@ -1956,6 +1956,10 @@ function ListHandler(elementId, container) {
 
                         listDrilldownHandler.Drilldown(dataItem);
                         break;
+                    case 'viewsublistitems':
+                       // todo - manisha: add jump show popup function
+                        anglePageHandler.ShowAddFollowupPopup();
+                        break;
                     case 'copy':
                         self.OnContentCopy();
                         break;
@@ -2107,6 +2111,14 @@ function ListHandler(elementId, container) {
                 name: Localization.CellPopupMenuGotoSAP,
                 icon: 'icon-sap',
                 items: [],
+                disabled: function () {
+                    return false;
+                }
+            },
+            viewsublistitems: {
+                // todo - manisha: add the name to resources file
+                name: 'View Sublist Items',
+                icon: 'icon-jump',
                 disabled: function () {
                     return false;
                 }
