@@ -270,7 +270,7 @@ function ResultHandler(displayHandler) {
             executionInfo.ObjectCount,
             Localization.AngleDefinitionAreaItemsIn
         ].join(' ');
-        var responseTimeText = self.GetExecutionTimeText(measurePerformance.ElapsedTime(), 0);
+        var responseTimeText = self.GetExecutionTimeText(executionInfo.ExecutionTime, 0);
 
         return kendo.format('{0},{1} {2} {3}',
             modelText,
