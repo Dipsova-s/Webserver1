@@ -58,9 +58,9 @@
     min-width: 571px !important;
     max-width: 571px !important;
     min-height: 288px !important;
-    max-height: 288px !important;
+    max-height: 330px !important;
     width: 571px;
-    height: 288px;
+    height: 330px;
 }
 
 .popupAboutResultSummary .k-window-title {
@@ -924,5 +924,8 @@
     border-color: #ff0000 !important;
 }
 
-
+.popupModelParameters,
+.description-editor-popup {
+    height: 625px !important;
+}
 

@@ -1082,12 +1082,11 @@ div.tagsinput .not_valid {
 }
 
 .k-window {
-    padding-top: 66px !important;
     border-radius: 2px;
 }
 
 .k-window-titlebar {
-    height: 45px;
+    height: 65px;
     border-bottom: 1px solid #e6e6e6;
     border-radius: 2px 2px 0 0;
     background-color: #fff;
@@ -1107,6 +1106,7 @@ div.tagsinput .not_valid {
 }
 
 .k-window-titlebar .k-window-actions {
+    position: absolute;
     top: 25px;
     right: 17px;
 }

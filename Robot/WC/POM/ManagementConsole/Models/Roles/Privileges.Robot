@@ -23,7 +23,7 @@ ${showConsolidatedPopUp}                xpath=//div[@id='ConsoliDatedRolePopup']
 ${sectionPrivileges}                    xpath=//span[contains(text(),'Privileges')]//parent::div/..
 ${sectionModelingWorkbench}             xpath=//span[contains(text(),'Modeling Workbench')]
 ${btnOkShowConsolidateRolePopUp}        xpath=//div[@id='ConsoliDatedRolePopup']/div[2]/a[contains(text(),'OK')]
-${btnCloseShowConsolidateRolePopup}     xpath=//span[@id='ConsoliDatedRolePopup_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@title='Close']
+${btnCloseShowConsolidateRolePopup}     xpath=//span[@id='ConsoliDatedRolePopup_wnd_title']/..//div/a[@class='k-button k-flat k-button-icon k-window-action']/span[@title='Close']
 
 *** Keywords ***
 Click Deny Exprot Data

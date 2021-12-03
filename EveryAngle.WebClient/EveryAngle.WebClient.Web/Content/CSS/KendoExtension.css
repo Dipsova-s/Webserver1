@@ -490,7 +490,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 
 .k-window-with-buttons {
   padding-bottom: 49px;
-  margin-top: -35px; }
+  margin-top: -8px; }
 
 .k-window.k-state-focused {
   border-color: #c1c1c1;
@@ -515,8 +515,10 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
   cursor: move; }
 
 .k-window-titlebar .k-window-actions {
+  position: absolute;
   right: 13px;
-  top: 9px; }
+  top: 9px;
+  margin-right: 2px; }
 
 .k-window-titlebar .k-window-action {
   height: 14px;

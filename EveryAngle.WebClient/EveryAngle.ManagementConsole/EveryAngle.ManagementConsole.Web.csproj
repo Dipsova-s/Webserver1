@@ -70,8 +70,8 @@
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="Kendo.Mvc, Version=2020.1.219.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\lib\net45\Kendo.Mvc.dll</HintPath>
+    <Reference Include="Kendo.Mvc, Version=2021.3.1109.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\lib\net45\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -326,43 +326,43 @@
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\**">
       <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Default\**">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Content\kendo\2021.3.1109\Default\**">
       <Link>Content\KendoUI\Default\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\fonts\glyphs\**">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Content\kendo\2021.3.1109\fonts\glyphs\**">
       <Link>Content\KendoUI\fonts\glyphs\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\textures\**">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Content\kendo\2021.3.1109\textures\**">
       <Link>Content\KendoUI\textures\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.common.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Content\kendo\2021.3.1109\kendo.common.min.*">
       <Link>Content\KendoUI\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.default.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Content\kendo\2021.3.1109\kendo.default.min.*">
       <Link>Content\KendoUI\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.de.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Scripts\kendo\2021.3.1109\cultures\kendo.culture.de.min.*">
       <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.en.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Scripts\kendo\2021.3.1109\cultures\kendo.culture.en.min.*">
       <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.es.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Scripts\kendo\2021.3.1109\cultures\kendo.culture.es.min.*">
       <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.fr.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Scripts\kendo\2021.3.1109\cultures\kendo.culture.fr.min.*">
       <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.nl.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Scripts\kendo\2021.3.1109\cultures\kendo.culture.nl.min.*">
       <Link>Scripts\KendoUI\cultures\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.all.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Scripts\kendo\2021.3.1109\kendo.all.min.*">
       <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.aspnetmvc.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Scripts\kendo\2021.3.1109\kendo.aspnetmvc.min.*">
       <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.timezones.min.*">
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2021.3.1109\resources\Scripts\kendo\2021.3.1109\kendo.timezones.min.*">
       <Link>Scripts\KendoUI\%(Filename)%(Extension)</Link>
     </Content>
     <Content Include="bin\Template\Xslt\*" />

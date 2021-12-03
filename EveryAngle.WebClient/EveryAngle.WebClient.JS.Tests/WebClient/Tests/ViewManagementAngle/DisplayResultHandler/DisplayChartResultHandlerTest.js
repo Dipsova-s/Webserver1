@@ -447,7 +447,7 @@ describe("DisplayChartResultHandler", function () {
         beforeEach(function () {
             spyOn($.fn, 'kendoPercentageTextBox');
             spyOn($.fn, 'kendoNumericTextBox');
-            spyOn($.fn, 'kendoCustomColorPicker');
+            spyOn($.fn, 'kendoColorPicker');
         });
         it('should initial gauge UI (percentage)', function () {
             // prepare
@@ -457,7 +457,7 @@ describe("DisplayChartResultHandler", function () {
             // assert
             expect($.fn.kendoPercentageTextBox).toHaveBeenCalledTimes(6);
             expect($.fn.kendoNumericTextBox).toHaveBeenCalledTimes(0);
-            expect($.fn.kendoCustomColorPicker).toHaveBeenCalledTimes(5);
+            expect($.fn.kendoColorPicker).toHaveBeenCalledTimes(5);
         });
         it('should initial gauge UI (others)', function () {
             // prepare
@@ -467,7 +467,7 @@ describe("DisplayChartResultHandler", function () {
             // assert
             expect($.fn.kendoPercentageTextBox).toHaveBeenCalledTimes(0);
             expect($.fn.kendoNumericTextBox).toHaveBeenCalledTimes(6);
-            expect($.fn.kendoCustomColorPicker).toHaveBeenCalledTimes(5);
+            expect($.fn.kendoColorPicker).toHaveBeenCalledTimes(5);
         });
     });
 

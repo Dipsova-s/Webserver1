@@ -1,6 +1,6 @@
 *** Variables ***
 ${divAddjumpPopup}          css=#popupFollowup
-${btnCloseAddjumpPopup}     //span[@id='popupFollowup_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
+${btnCloseAddjumpPopup}     //span[@id='popupFollowup_wnd_title']/..//div/a[@class='k-button k-flat k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${btnSubmitAddJump}         css=.popupFollowup .btn-primary
 ${gridJumpReferences}       css=#popupFollowup .followupBlock.up
 ${gridJumpLists}            css=#popupFollowup .followupBlock.down

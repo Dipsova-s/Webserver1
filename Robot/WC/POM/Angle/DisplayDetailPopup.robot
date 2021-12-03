@@ -13,7 +13,7 @@ ${tabDisplayStatistic}     css=#DisplayStatistic
 
 #Generic
 ${btnSaveDisplay}    btn-popupDisplayDetail1
-${btnCloseDisplayDetailPopup}     //div[@id='popupDisplayDetail']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
+${btnCloseDisplayDetailPopup}     //div[@id='popupDisplayDetail']/..//div/a[@class='k-button k-flat k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${btnCloseJumpNotification}       btn-popupNotification0
 ${btnSubmitJumpConfirmation}      btn-popupNotification1
 

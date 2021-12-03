@@ -1,7 +1,7 @@
 *** Variables ***
 ${divPublishingPopup}       css=#popupPublishSettings
 ${pgbPublishingPopup}       css=#popupPublishSettings .k-loading-mask
-${btnClosePublishPopup}     //span[@id='popupPublishSettings_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
+${btnClosePublishPopup}     //span[@id='popupPublishSettings_wnd_title']/..//div/a[@class='k-button k-flat k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${btnSavePublishSettings}   css=#SavePublishSettingsButton
 ${btnPublishAngle}          css=#PublishButton
 ${btnUnpublishAngle}        css=#UnpublishButton
