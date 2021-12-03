@@ -550,8 +550,16 @@
                 $('#TimePicker2').kendoTimePicker();
                 $('#TimePicker22').kendoTimePicker();
 
-                $('#ColorPicker1').kendoColorPicker({ value: '#ff0000' });
-                $('#ColorPicker11').kendoColorPicker({ value: '#0000ff' });
+                $('#ColorPicker1').kendoColorPicker({
+                    value: "#ff0000",
+                    input: false,
+                    view: "palette",
+                    views: ["gradient", "palette"] });
+                $('#ColorPicker11').kendoColorPicker({
+                    value: "#0000ff",
+                    input: false,
+                    view: "palette",
+                    views: ["gradient", "palette"] });
                 $('#ColorPicker2').kendoCustomColorPicker({ value: '#ff0000' });
                 $('#ColorPicker22').kendoCustomColorPicker({ value: '#0000ff' });
             });

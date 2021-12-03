@@ -48,7 +48,7 @@
             MC.ui.popup('setScrollable', {
                 element: '#popupDescriptionTemplate',
                 getHeight: function (win) {
-                    return Math.min(win.element.find('.popupContent').height('auto').outerHeight(), 400);
+                    return Math.min(win.element.find('.popupContent').height('auto').outerHeight() + win.element.find('.popupToolbar').outerHeight(), 400);
                 },
                 onResize: function (win) {
                     win.wrapper.height(win.element.find('.popupContent').height() + win.element.find('.popupToolbar').outerHeight() + 40);

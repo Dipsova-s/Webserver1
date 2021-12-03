@@ -8,7 +8,7 @@ ${trRowComment}         css=#GridComment .k-grid-content tr
 ${ActionEditBtn}        //div[@id='contentSectionComment']//table//tbody/tr[1]//div[@class='btnGroupInner']/a[1]
 ${ActionDeleteBtn}      //div[@id='contentSectionComment']//table//tbody/tr[1]//div[@class='btnGroupInner']/a[2]
 ${DeleteConfirmBtn}     //a[@class='btn btnPrimary btnSubmit']
-${CloseCommentBox}      //span[@id='popupCommentForm_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close']/..
+${CloseCommentBox}      //span[@id='popupCommentForm_wnd_title']/..//div/a[@class='k-button k-flat k-button-icon k-window-action']/span[@class='k-icon k-i-close']/..
 
 
 *** Keywords ***

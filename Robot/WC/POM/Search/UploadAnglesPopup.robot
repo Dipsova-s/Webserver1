@@ -3,7 +3,7 @@ ${divItemInfoPopup}                 css=#popupImportAngle
 ${ddlModelImportAngle}              css=#ddlModelImportAngle_ddlWrapper
 ${fileUploadAngles}                 css=#ImportAngle
 ${divPopupUploadReport}             css=#popupCompleteUploadReport
-${btnCloseUploadAnglesReport}       //span[@id='popupCompleteUploadReport_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
+${btnCloseUploadAnglesReport}       //span[@id='popupCompleteUploadReport_wnd_title']/..//div/a[@class='k-button k-flat k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 
 *** Keywords ***
 Wait Upload Angles Popup Loaded

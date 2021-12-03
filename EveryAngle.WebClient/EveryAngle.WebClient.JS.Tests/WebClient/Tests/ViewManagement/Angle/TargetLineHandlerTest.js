@@ -196,11 +196,11 @@ describe("TargetLineHandler", function () {
             targetlinehadler.Details({
                 targetlinedetails: { color: null }
             });
-            spyOn($.fn, 'kendoCustomColorPicker');
+            spyOn($.fn, 'kendoColorPicker');
 
             targetlinehadler.SetColorPicker();
 
-            expect($.fn.kendoCustomColorPicker).toHaveBeenCalled();
+            expect($.fn.kendoColorPicker).toHaveBeenCalled();
         });
     });
     describe(".SetOpacityStatus", function () {

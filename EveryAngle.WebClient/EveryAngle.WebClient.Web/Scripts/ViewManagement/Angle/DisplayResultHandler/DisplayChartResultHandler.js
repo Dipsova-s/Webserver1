@@ -234,13 +234,16 @@ function DisplayChartResultHandler(displayHandler) {
 
         // colors
         for (var j = 1; j <= 5; j++) {
-            _self.$container.find('[name="gauge-color' + j + '"]').kendoCustomColorPicker({
+            _self.$container.find('[name="gauge-color' + j + '"]').kendoColorPicker({
                 value: settings.colors[j - 1],
                 change: jQuery.proxy(self.SetGaugeColor, self, j - 1),
                 messages: {
                     apply: Localization.Ok,
                     cancel: Localization.Cancel
-                }
+                },
+                input: false,
+                view: "palette",
+                views: ["gradient", "palette"]
             });
         }
     };

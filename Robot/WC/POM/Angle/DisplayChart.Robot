@@ -7,6 +7,8 @@ ${divChartTooltip}              .k-chart-tooltip
 ${liSecondLegend}               jquery=.k-legend-custom li[data-index="1"]
 ${divNavigatorWrapper}          css=#ChartWrapper .navigatorWrapper
 ${btnNavigator}                 css=#ChartWrapper .toggleButton
+${btnColorPickerCancel}         css=.k-coloreditor-cancel
+${divColorPicker}               css=.k-flatcolorpicker
 ${btnClearAllRefLine}           xpath=//span[text()='Clear all']/../../a[@id='btn-popupReferenceLine1']
 ${InputFieldFrom}               xpath=(//div[text()='From']/..//input[contains(@class,'k-input')])[1]
 ${FromLabel}                    xpath=//div[text()='From']
@@ -18,7 +20,7 @@ ${UnitSelectorValueOfFROM}      xpath=//div[text()='From']/..//span[@class='k-in
 
 ${ColorLocator}                 xpath=//div[text()='Color']/../../..//div[@id='ReferenceLabel']
 ${OpacityLocator}               xpath=//div[text()='Opacity']/../../..//div[@id='ReferenceLabel']
-${Colordropdown}                xpath=//div[text()='Color']/..//span[@class='k-icon k-i-arrow-60-down icon icon-caret-down']
+${Colordropdown}                xpath=//div[text()='Color']/..//span[@class='k-icon k-i-arrow-s k-i-arrow-60-down icon icon-caret-down']
 ${LocatorColorInColorSelector}  xpath=//span[@class='k-selected-color']
 ${InputFieldOpacity}            xpath=//div[text()='Opacity']/..//input[@class='k-formatted-value eaText k-input']
 *** Keywords ***
@@ -77,9 +79,9 @@ Enter Numbers in TO text field
     ${ValueInTo}=  Get value  ${InputFieldTo}
     Run Keyword if   "${ValueInTo}"!=""    Run keywords  Press Keys  	${InputFieldTo}   CTRL+a+DELETE  AND  Custom click element   ${FromLabel}
     Input Text    ${InputFieldTo}    ${Numbers}
-    Custom click element   ${FromLabel}  
+    Custom click element   ${FromLabel}
 
-Click on 'Clear all' Button
+Click on 'Clear all' Button 
     Wait Until Element Is Enabled  ${btnClearAllRefLine}  timeout=50s  error='Clear all' Button is not Enabled
     Custom click element  ${btnClearAllRefLine}
 
@@ -143,6 +145,8 @@ Validate selected color appears in Color selector
     sleep  1s
     ${ColorInColorSelector}=  Get Element Attribute  ${LocatorColorInColorSelector}  style
     Should Contain   ${ColorInColorSelector}   ${Colorcode}  msg=Selected color ${Colorcode} did NOT appear in Color selector
+    Click Element   ${btnColorPickerCancel}
+    Wait Until Element Is Not Visible    ${divColorPicker}  
     
 Validate default color should be black
     ${dColorInColorSelector}=  Get Element Attribute  ${LocatorColorInColorSelector}  style

@@ -52,7 +52,7 @@ function ImportAngleHandler() {
         var popupName = 'ImportAngle',
             popupSettings = {
                 width: 420,
-                height: 150,
+                height: 188,
                 minHeight: 150,
                 title: Localization.UploadAngles,
                 html: self.UploadAngleTemplate,

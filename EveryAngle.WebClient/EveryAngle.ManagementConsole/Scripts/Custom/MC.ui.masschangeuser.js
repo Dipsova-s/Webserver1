@@ -573,7 +573,7 @@
         self.CreateReportPopup = function (reports) {
             var dfd = jQuery.Deferred();
 
-            var popupHeight = 140;
+            var popupHeight = 245;
             var heightIncrement = 30;
 
             var reportPopup = jQuery(self.reportPopupId);

@@ -12,7 +12,7 @@ ${trObjectsDescriptionFromList}                 jquery=#ObjectsGrid .k-grid-cont
 ${lbNumberOfObjectBusinessProcess}              classTotals
 ${divBusinessProcess}                           css=#CreateAngleByObjectBusinessProcess .businessProcesses
 ${chkSkipTemplate}                              SkipTemplate
-${btnCloseCreateAnglePopUp}                     //span[@id='popupCreateNewAngleOption_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
+${btnCloseCreateAnglePopUp}                     //span[@id='popupCreateNewAngleOption_wnd_title']/..//div/a[@class='k-button k-flat k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${downArrowBPMoreItems}                         css=#CreateAngleByObjectBusinessProcess .businessProcesses  .businessProcessesItemMore
 
 *** Keywords ***

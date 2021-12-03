@@ -97,7 +97,7 @@ function TargetLineHandler(queryDefinitionHandler, aggregation, field) {
         var fieldDetails = self.Details();
         var fromValue = $("#ReferenceFromValue").data('handler').value();
         var toValue = $("#ReferenceToValue").data('handler').value();
-        var color = $("#ReferenceColor").data('kendoCustomColorPicker').value();
+        var color = $("#ReferenceColor").data('handler').value();
         var opacity = $("#ReferenceOpacity").data('handler').value();
         var formatType = self.QueryDefinitionHandler.GetAggregationDataType(self.Aggregation, self.Field.fieldtype);
         if (formatType === enumHandlers.FIELDTYPE.TIME) {
@@ -160,13 +160,16 @@ function TargetLineHandler(queryDefinitionHandler, aggregation, field) {
         var fieldDetails = self.Details();
         var color = fieldDetails.targetlinedetails.color || self.defaultSettings.color;
 
-        $('.popup' + _self.popupName).find('#ReferenceColor').kendoCustomColorPicker({
+        $('.popup' + _self.popupName).find('#ReferenceColor').kendoColorPicker({
             value: color,
             change: self.ButtonStatus,
             messages: {
                 apply: Localization.Ok,
                 cancel: Localization.Cancel
-            }
+            },
+            input: false,
+            view: "palette",
+            views: ["gradient", "palette"]
         });
     };
 
@@ -197,7 +200,7 @@ function TargetLineHandler(queryDefinitionHandler, aggregation, field) {
         var label = $('.popup' + _self.popupName).find('#ReferenceLabel');       
         var fromTextBox = self.Field.fieldtype === enumHandlers.FIELDTYPE.PERIOD ? $("#ReferenceFromValue").data('handler').numericTextbox : $("#ReferenceFromValue").data('handler');
         var toTextBox = self.Field.fieldtype === enumHandlers.FIELDTYPE.PERIOD ? $("#ReferenceToValue").data('handler').numericTextbox : $("#ReferenceToValue").data('handler');
-        var colorPicker = $("#ReferenceColor").data('kendoCustomColorPicker');
+        var colorPicker = $("#ReferenceColor").data('handler');
         var opacityTextBox = $("#ReferenceOpacity").data('handler');
         self.ButtonStatus();
         fromTextBox.element.val().length ? label.removeClass('disabled') : label.addClass('disabled');
@@ -210,7 +213,7 @@ function TargetLineHandler(queryDefinitionHandler, aggregation, field) {
         var targetlinedetails = {};
         var fromValue = $("#ReferenceFromValue").data('handler');
         var toValue = $("#ReferenceToValue").data('handler');
-        var color = $("#ReferenceColor").data('kendoCustomColorPicker');
+        var color = $("#ReferenceColor").data('handler');
         var opacity = $("#ReferenceOpacity").data('handler');
         if (self.Field.fieldtype === enumHandlers.FIELDTYPE.TIME) {
             var fromvalue = fromValue.element.val();
@@ -306,7 +309,7 @@ function TargetLineHandler(queryDefinitionHandler, aggregation, field) {
             return;
         $("#ReferenceFromValue").data('handler').value(null);
         $("#ReferenceToValue").data('handler').value(null);
-        $("#ReferenceColor").data('kendoCustomColorPicker').value(self.defaultSettings.color);
+        $("#ReferenceColor").data('handler').value(self.defaultSettings.color);
         $("#ReferenceOpacity").data('handler').value(self.defaultSettings.opacity);
         self.CheckInputReferenceTo();
     };

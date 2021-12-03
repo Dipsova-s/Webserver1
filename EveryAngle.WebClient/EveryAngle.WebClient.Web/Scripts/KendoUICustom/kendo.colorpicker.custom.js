@@ -22,11 +22,7 @@
                 '<tfoot>',
                     '<tr>',
                         '<td colspan="' + that.options.columns + '"></td>',
-                    '</td>',
-                    '<tr>',
-                        '<td class="k-item k-color-preview"></td>',
-                        '<td class="k-buttons" colspan="' + (that.options.columns - 1) + '"><a class="k-button">' + that.options.messages.more_button + '</a></td>',
-                    '</tr>',
+                '</td>',
                 '</tfoot>'
             ].join(''));
 
@@ -35,12 +31,6 @@
                 height: that.options.tileSize - 1
             };
             that._previewElement = tfoot.find('.k-item').css(size).on('click', false);
-            tfoot.find('.k-buttons').css('height', size.height);
-            tfoot.find('.k-button')
-                .css('line-height', (size.height - 4) + 'px')
-                .on('click', function () {
-                    showMoreColor(that);
-                });
             popup.element.find('table').append(tfoot);
         }
 
@@ -225,13 +215,12 @@
                 '#a349a4', '#fff200', '#b5e61d',
                 '#3f48cc', '#00a2e8', '#99d9ea'
             ],
-            messages: {
-                more_button: 'More',
-                more_title: 'Color'
-            },
             preview: true,
             columns: 3,
-            tileSize: 27
+            tileSize: 27,
+            input: false,
+            view: "palette",
+            views: ["gradient","palette"]
         }
 
     });
