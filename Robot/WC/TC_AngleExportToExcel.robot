@@ -64,18 +64,19 @@ Verify Export To Excel From Action Menu
     Reload Angle Page
     Selected Excel Template Should Be       ${newExcelTemplateName1}
 
-Verify Export Item Drilldown To Excel From Action Menu
-    ${angleName}  Set Variable  Angle For General Test
-    Search Angle From Search Page And Execute Angle    ${angleName}
-    Check If Angle Or Display Has A Warning Then Close The Popup
-    Click Drilldown To Item By Name    IDES Consumer Products
-    Select Filter "Reference" On Drilldown To Item
-    Click Angle Dropdown To Export Drilldown To Excel
-    Wait Progress Bar Closed
-    Select Excel Template in Export to Excel Pop up To  ${defaultExcelTemplateName}
-    Click Export Drilldown To Excel Button
-    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
-    Wait Until Export Excel Popup Close
+# Will be enabled in M4-99070
+# Verify Export Item Drilldown To Excel From Action Menu
+#     ${angleName}  Set Variable  Angle For General Test
+#     Search Angle From Search Page And Execute Angle    ${angleName}
+#     Check If Angle Or Display Has A Warning Then Close The Popup
+#     Click Drilldown To Item By Name    IDES Consumer Products
+#     Select Filter "Reference" On Drilldown To Item
+#     Click Angle Dropdown To Export Drilldown To Excel
+#     Wait Progress Bar Closed
+#     Select Excel Template in Export to Excel Pop up To  ${defaultExcelTemplateName}
+#     Click Export Drilldown To Excel Button
+#     Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
+#     Wait Until Export Excel Popup Close
 
 Verify Error Message If A Filename Is Too Long
     [Tags]  TC_C230013

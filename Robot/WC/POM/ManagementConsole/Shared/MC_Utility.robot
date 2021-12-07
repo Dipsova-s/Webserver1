@@ -53,6 +53,13 @@ Click Show Action Dropdown In Grid By Name
     Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name})
     Click Element At Coordinates   ${trRowInGrid}:contains(${name}) ${btnAction}    10    0
 
+Click Show Action Dropdown In Grid By Names
+    [Arguments]    ${name1}     ${name2}    ${trRowInGrid}
+    Wait Until Page Contains Element    ${trRowInGrid}:contains(${name1}):contains(${name2}) ${btnAction}
+    Scroll Horizontal  ${scrollBarHorizontalGrid}  2000
+    Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name1}):contains(${name2})
+    Click Element At Coordinates   ${trRowInGrid}:contains(${name1}):contains(${name2}) ${btnAction}    10    0
+
 Click Show Action Dropdown In Grid By Index
     [Arguments]    ${index}    ${trRowInGrid}
     Wait Until Page Contains Element    ${trRowInGrid}:eq(${index}) ${btnAction}
@@ -66,6 +73,13 @@ Click Main Action In Grid By Name
     Scroll Horizontal  ${scrollBarHorizontalGrid}  2000
     Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name})
     Click Element    ${trRowInGrid}:contains(${name}) ${btnAction}
+
+Click Main Action In Grid By Names
+    [Arguments]    ${name1}     ${name2}    ${trRowInGrid}    ${btnAction}
+    Wait Until Page Contains Element    ${trRowInGrid}:contains(${name1}):contains(${name2}) ${btnAction}
+    Scroll Horizontal  ${scrollBarHorizontalGrid}  2000
+    Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name1}):contains(${name2})
+    Click Element    ${trRowInGrid}:contains(${name1}):contains(${name2}) ${btnAction}
 
 Click Action In Grid By Name
     [Arguments]    ${name}    ${trRowInGrid}    ${btnAction}

@@ -57,8 +57,8 @@ Click Second Object from List
     Click Object From List    1
 
 Click N Objects From list
-    [Arguments]    ${n}
-    : FOR    ${INDEX}    IN RANGE    0    ${n}
+    [Arguments]    ${n}    ${offset}=0
+    : FOR    ${INDEX}    IN RANGE    ${offset}    ${n}+${offset}
     \   Click Object From List     ${INDEX}
 
 Click Create New Angle from Object List Button

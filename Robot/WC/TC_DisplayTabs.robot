@@ -35,7 +35,7 @@ Remember Changes When Switch Display
     ...              Risk/Cover area: Changing and saving Displays
     [Tags]  acc_wc  TC_C219259  TC_C230315
     ${angleName}  Set Variable  [ROBOT] Test Remember Changes When Switch Display
-    Create Angle From Object List And Save    PD    ${angleName}
+    Create Angle From Object List And Save    PD    ${angleName}    1
     Click Display Tab
 
     Log  Update list Display

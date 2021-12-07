@@ -11,14 +11,13 @@ Test Status And Report Button On Model Page
     [Tags]              TC_C657
     Go To EA2_800 Models Page
     Verify Status And Report Button
-    Verify Model Server Report Filter    WAERS__TCURC
-    Verify Popup Stop Server
+    # Verify Model Server Report Filter    WAERS__TCURC
 
-Test Start/Stop Model Server Button
+Test Reload Model Server Button
     [Documentation]     To verify the start and stop button displayed for the selected model server in model server overview page. Medium criticality
     [Tags]              TC_C657
     Go To EA2_800 Models Page
-    Verify Start/Stop Model Server Button
+    Verify Reload Model Server Button
 
 Verify the Model options displayed for selected Model server in Management console Models Page
     [Documentation]     To verify all the model options displayed in right side page as link for the selected model server and the options page are redirected upon clicking the model options. Medium criticality.

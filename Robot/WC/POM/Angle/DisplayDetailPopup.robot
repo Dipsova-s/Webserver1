@@ -55,9 +55,10 @@ Confirm To Move Filter To Angle Definition
     Wait Until Page Contains    Confirmation
     Wait Until Element Is Visible    ${btnSubmitFilterConfirmation}
     Click Element    ${btnSubmitFilterConfirmation}
-    Sleep    ${TIMEOUT_GENERAL}
+    Sleep    ${TIMEOUT_GENERAL}    
     Wait Until Ajax Complete
     Wait Display Executed
+    Wait Progress Bar Closed
 
 Confirm To Move Filter To Angle Definition With Adhoc Jump
     Wait Until Page Contains    Confirmation

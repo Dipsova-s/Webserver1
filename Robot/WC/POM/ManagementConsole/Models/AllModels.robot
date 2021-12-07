@@ -11,7 +11,7 @@ ${btnCreateModels}                      jquery=#mainContent .btnAdd:contains(Set
 ${btnConfirmationModels}                jquery=#popupConfirmation
 ${btnSubmitConfirm}                     .btnSubmit
 
-${btnEA2800InFo}                        jquery=.modelInfoInstance a[data-title="Model server"]
+${btnEA2800InFo}                        jquery=.modelInfoInstance a[data-title="HanaServer"]
 ${btnEA2800XtractorInFo}                jquery=.modelInfoInstance a[data-title="EA ETL Sandbox"]
 ${btnCloseModelPopUp}                   jquery=.k-window-actions a:eq(5)
 ${btnStopServer}                        jquery=.modelInfoInstance .btn:eq(1)
@@ -175,7 +175,7 @@ Click on Angle Warnings model option
 Click on Content parameters model option
     Page Should Contain Element    ${lnkContentParametersModelOption}
     Click Element        ${lnkContentParametersModelOption}
-    Wait until page contains    Enterprise configuration
+    Wait until page contains    Database Manager
     
 Click on Label model option
     Page Should Contain Element    ${lnkLabelsModelOption}

@@ -20,11 +20,11 @@ Verify the Info popup for the applicable components
     Check Info popup displayed for Extraction Service
     Click on Close button in Component Info popup
     Click on Action drop down and select Info option for Model query service Component
-    Verify the model server Info popup in Components page  WAERS__TCURC
-    Click on Close button in Component Info popup
+    # Verify the model server Info popup in Components page  WAERS__TCURC
+    # Click on Close button in Component Info popup
 
 Verify the action drop down option Download metadata displayed based on the status of components
     [Documentation]     This test case will verify the Information popup for the applicable components in components page. Medium criticality.
     [Tags]  TC_C68707
-    Click on Action drop down for the component in component page   ClassicModelQueryService
-    Verify the component action drop down options state for the component     ClassicModelQueryService
+    Click on Action drop down for the component in component page   RealtimeModelQueryService   EA2_800
+    Verify the component action drop down options state for the component     RealtimeModelQueryService

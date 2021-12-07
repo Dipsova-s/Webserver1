@@ -39,13 +39,14 @@ Verify Add A Duplicate Field To Display List Test
     Element Should Contain    ${headerLastColumn}    Service Level
     [Teardown]    Back To Search And Delete Angle Are Created    ${TEST_RE_ADD_FIELD_TO_DISPLAY_LIST}
 
-Verify Goto SAP Option
-    [Tags]  acc_wc_aci
-    Create Angle From All Object List And Save    PD    ${TEST_GOTO_SAP_OPTION}
-    @{rowNumbers}    Create List    2    4
-    @{fields}    Create List    ObjectType    ID    Vendor__Vendor    Vendor__Description    PurchasingDocumentCategory    CompanyCode__CompanyCode    PurchaseOrganization__PurchaseOrganization    ExecutionStatus    CreationDate    DeliveryStatus    OrderedValue    BKGRP
-    Check Goto SAP Transaction With Multiple Rows    ${fields}    ${rowNumbers}
-    [Teardown]    Back To Search And Delete Angle Are Created    ${TEST_GOTO_SAP_OPTION}
+# Will be enabled in M4-90963
+# Verify Goto SAP Option
+#     [Tags]  acc_wc_aci
+#     Create Angle From All Object List And Save    PD    ${TEST_GOTO_SAP_OPTION}
+#     @{rowNumbers}    Create List    2    4
+#     @{fields}    Create List    ObjectType    ID    Vendor__Vendor    Vendor__Description    PurchasingDocumentCategory    CompanyCode__CompanyCode    PurchaseOrganization__PurchaseOrganization    ExecutionStatus    CreationDate    DeliveryStatus    OrderedValue    BKGRP
+#     Check Goto SAP Transaction With Multiple Rows    ${fields}    ${rowNumbers}
+#     [Teardown]    Back To Search And Delete Angle Are Created    ${TEST_GOTO_SAP_OPTION}
 
 Verify Single Item Drilldown
     [Tags]      TC_C202356
@@ -57,7 +58,7 @@ Verify Single Item Drilldown
     Click Item Link
 
     Create New List Display on Angle Page
-    Click Drilldown To Item By Name    PD Schedule Line (Purchase Document Schedule Line)
+    Click Drilldown To Item By Name    PD Header (Purchase Document Header)
     Page Should Contain Drilldown Label
     Click Item Link
     Delete Current Display

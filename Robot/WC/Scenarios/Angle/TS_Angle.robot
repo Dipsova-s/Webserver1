@@ -4,12 +4,12 @@ Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
 
 *** Keywords ***
 Create Adhoc Angle From N Object List
-    [Arguments]   ${objectName}    ${angleName}    ${n}=0
+    [Arguments]   ${objectName}    ${angleName}    ${n}=0    ${offset}=0
     Open Create Angle By Object List Popup
     Fill In Search Create Angle By Object List Popup    ${objectName}
     ${numberOfObjects}    Run Keyword If    ${n} == 0    Get Element Count    ${chkObjectsFromList}
     ...                   ELSE    Set Variable    ${n}
-    Click N Objects From List    ${numberOfObjects}
+    Click N Objects From List    ${numberOfObjects}    ${offset}
     Click Create New Angle from Object List Button
     Wait Angle Page Document Loaded
     Open Side Panel
@@ -42,16 +42,16 @@ Execute Blank Adhoc Angle From One Object
     Open All Display Groups
 
 Create Adhoc Angle From Object List
-    [Arguments]   ${objectName}    ${angleName}
-    Create Adhoc Angle From N Object List    ${objectName}    ${angleName}    2
+    [Arguments]   ${objectName}    ${angleName}    ${offset}=0
+    Create Adhoc Angle From N Object List    ${objectName}    ${angleName}    2    ${offset}
 
 Create Adhoc Angle From All Object List
     [Arguments]   ${objectName}    ${angleName}
     Create Adhoc Angle From N Object List    ${objectName}    ${angleName}
 
 Create Angle From Object List And Save
-    [Arguments]   ${objectName}    ${angleName}
-    Create Adhoc Angle From Object List   ${objectName}    ${angleName}
+    [Arguments]   ${objectName}    ${angleName}    ${offset}=0
+    Create Adhoc Angle From Object List   ${objectName}    ${angleName}    ${offset}
     Click Save Angle
 
 Create Angle From All Object List And Save

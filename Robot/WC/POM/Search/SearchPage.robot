@@ -77,7 +77,7 @@ ${chkFacetCanManage}        css=#facet_can_manage
 ${lblCountCanManage}        css=#facet_can_manage + .label > .name
 
 ${chkFacetModel}            css=#facetcat_models_Checkbox input:first-child
-${lblCountModel}            css=#facetcat_models_Checkbox .name:first-child
+${lblCountModel}            css=#facetcat_models_Checkbox .name
 
 #Business process filter
 ${divBusinessprocessP2P}            css=#P2P

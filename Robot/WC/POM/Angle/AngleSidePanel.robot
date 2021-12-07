@@ -162,6 +162,7 @@ Click Display Tab
     [Arguments]  ${expandAll}=${True}
     Click Element  ${tabDisplay}
     Run Keyword If  ${expandAll}==${True}  Expand All Display Section Panels
+    Wait Until Ajax Complete
 
 Verify Newly Created Display
     [Arguments]     ${displaytype}

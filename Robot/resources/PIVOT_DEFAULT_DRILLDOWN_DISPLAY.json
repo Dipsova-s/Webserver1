@@ -203,9 +203,6 @@
                                 "operator": "in_set",
                                 "arguments": [
                                     {
-                                        "argument_type": "value"
-                                    },
-                                    {
                                         "argument_type": "value",
                                         "value": "0001"
                                     },

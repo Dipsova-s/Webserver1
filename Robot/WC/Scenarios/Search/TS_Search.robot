@@ -114,6 +114,7 @@ Open Angle From First Angle in Search Page
     Sleep    2s
     Wait Angle Page Document Loaded
     Wait Until Page Contains    ${angleName}
+    Wait Until Ajax Complete
 
 Execute First Search Item In Edit Mode
     Click First Item Info Button
