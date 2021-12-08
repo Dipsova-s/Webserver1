@@ -3,6 +3,7 @@ ${filterOperatorSelector}                   .query-operator[data-role=dropdownli
 ${ddOperatorDropdownList}                   css=.k-dropdown.query-operator
 ${btnSubmitFilter}                          css=#btn-popupListFilter1
 ${btnCancelFilter}                          css=#btn-popupListFilter0
+${operatorDropdown}                         css=.k-dropdown.query-operator .k-state-border-down
 
 *** Keywords ***
 Open Operator Dropdown List
@@ -12,7 +13,7 @@ Open Operator Dropdown List
 
 Close Operator Dropdown List
     Click Element    ${ddOperatorDropdownList}
-    Sleep    ${TIMEOUT_DROPDOWN}
+    Wait Until Page Does Not Contain Element    ${operatorDropdown}
 
 Choose Filter Operator By Id
     [Arguments]   ${id}

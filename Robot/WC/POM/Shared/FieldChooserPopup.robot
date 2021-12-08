@@ -3,7 +3,7 @@ ${txtFitlerAvailableProperties}    txtFitlerAvailableProperties
 ${btnFitlerAvailableProperties}    btnFitlerAvailableProperties
 ${btnSubmitFieldChooser}    css=#btn-popupFieldChooser0 > span
 ${tblFieldList}    jquery=#DisplayPropertiesGrid .k-grid-content
-${pgbFieldChooser}    jquery=#DisplayPropertiesGrid .k-loading-mask
+${pgbpopupFieldChooser}    css=#popupFieldChooser .k-loading-mask
 ${popupFieldChooser}    css=#popupFieldChooser
 ${fieldChooserContent}   css=.fieldChooserContent
 ${btnCloseFieldChooser}    css=#popupFieldChooser_wnd_title + .k-window-actions .k-window-action[aria-label="Close"]
