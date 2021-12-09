@@ -94,7 +94,7 @@ function ItemDownloadHandler() {
         progressbarModel.IsCancelPopup = false;
         progressbarModel.EndProgressBar();
         self.DownloadItemDoneCallback();
-        $('.downloadIframe') && $('.downloadIframe').remove();
+        $('.downloadUsingAnchor') && $('.downloadUsingAnchor').remove();
     };
     self.DownloadItemDoneCallback = jQuery.noop;
     // EOF: Methods
