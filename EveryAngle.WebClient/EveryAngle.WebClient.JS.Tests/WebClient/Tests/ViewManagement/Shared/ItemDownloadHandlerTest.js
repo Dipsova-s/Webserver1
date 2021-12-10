@@ -152,8 +152,8 @@ describe("ItemDownloadHandler", function () {
             expect(progressbarModel.EndProgressBar).toHaveBeenCalled();
             expect(itemDownloadHandler.DownloadItemDoneCallback).toHaveBeenCalled();
         });
-        it("iframe in the body should be 0", function () {
-            $('<iframe class="downloadIframe"/>')
+        it("anchor tag for download in the body should be 0", function () {
+            $('<a class="downloadUsingAnchor" download/>')
                 .attr('src', '')
                 .appendTo('body');
             progressbarModel.IsCancelPopup = true;
@@ -161,8 +161,8 @@ describe("ItemDownloadHandler", function () {
             spyOn(itemDownloadHandler, 'DownloadItemDoneCallback');
 
             itemDownloadHandler.DownloadItemDone();
-            var iframeCount = $('body').find('.downloadIframe').length;
-            expect(iframeCount).toBe(0);
+            var anchorCount = $('body').find('.downloadUsingAnchor').length;
+            expect(anchorCount).toBe(0);
         });
     });
 

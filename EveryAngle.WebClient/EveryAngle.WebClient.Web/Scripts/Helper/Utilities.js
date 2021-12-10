@@ -156,14 +156,16 @@
         else
             window.location = url;
     };
-    window.WC.Utility.DownloadFile = function (url,useFrame) {
+    window.WC.Utility.DownloadFile = function (url,useAnchor) {
         var queryStringSymbol = url.indexOf('?') !== -1 ? '&' : '?';
         var downloadUrl = url + queryStringSymbol + ValidationRequestService.getVerificationTokenAsQueryString();
-        if (useFrame === true) {
-            $('<iframe class="downloadIframe"/>')
-                .hide()
-                .attr('src', downloadUrl)
-                .appendTo('body');
+        if (useAnchor === true) {
+            var element = document.createElement('a');
+            element.className = 'downloadUsingAnchor';
+            element.setAttribute('href', downloadUrl);
+            element.setAttribute('download', '');
+            document.body.appendChild(element);
+            element.click();
         }
         else {
             WC.Utility.RedirectUrl(downloadUrl);
