@@ -462,8 +462,8 @@ function WidgetFilterHelper() {
 
     self.GetDefaultModelDataDate = function (modelUri) {
         var date;
-        if (resultModel.Data() && resultModel.Data().modeldata_timestamp) {
-            date = WC.DateHelper.UnixTimeToLocalDate(resultModel.Data().modeldata_timestamp);
+        if (resultModel.Data() && resultModel.Data().original_modeldata_timestamp) {
+            date = new Date(resultModel.Data().original_modeldata_timestamp);
         }
         else {
             var currentInstance = modelCurrentInstanceHandler.GetCurrentModelInstance(modelUri);
