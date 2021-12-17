@@ -111,6 +111,7 @@
     <Compile Include="Model\ActionListViewModel.cs" />
     <Compile Include="Model\AgentModelInfoViewModel.cs" />
     <Compile Include="Model\AgentViewModel.cs" />
+    <Compile Include="Model\AngleWarningsFileViewModel.cs" />
     <Compile Include="Model\BaseViewModel.cs" />
     <Compile Include="Model\ClassViewModel.cs" />
     <Compile Include="Model\AngleWarningsViewModel.cs" />

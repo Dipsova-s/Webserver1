@@ -236,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregation\AggregationService.cs" />
+    <Compile Include="ApiServices\AngleWarningsFileService.cs" />
     <Compile Include="ApiServices\AutomationTaskService.cs" />
     <Compile Include="ApiServices\CommentService.cs" />
     <Compile Include="ApiServices\BaseService.cs" />

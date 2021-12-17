@@ -59,6 +59,15 @@
     </script>
 
 @{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        EnableTemplate = "<div class=\"field fieldFile\"><input type=\"file\" name=\"file\" id=\"file\" size=\"60\" onchange=\"MC.Models.AngleWarnings.SaveAngleWarningFile(event)\" data-role=\"uploader\" data-rule-extension=\"xlsx|xlsm\"  data-msg-extension=\""+ Resource.MC_InvalidExcelFile + "\" data-rule-excel_no_whitespace=\"true\" data-text-browse=\"" + Resource.MC_UploadTemplate + "\" /></div>",
+        DisableTemplate = "<div class=\"field fieldFile\"><input type=\"file\" name=\"file\" id=\"file\" size=\"60\" data-rule-extension=\"xlsx|xlsm\"  data-msg-extension=\"" + Resource.MC_InvalidExcelFile + "\" data-rule-excel_no_whitespace=\"true\" data-text-browse=\"" + Resource.MC_UploadTemplate + "\" disabled=\"disabled\"/></div>",
+        Type = PageToolbarButtonType.Upload,
+        Privilege = PrivilegeType.System
+    });
+
     @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
     {
         new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
@@ -111,6 +120,15 @@
                     </label>
 
                     <a class="btn btnPrimary btnSearch" id="ButtonSearch" onclick="MC.Models.AngleWarnings.SearchAngleWarnings()">@Resource.Ok</a>
+
+                    <label>
+                        <a href="@Url.Action("UploadAngleWarningFile", "AngleWarningsFile")" data-role="validator" enctype="multipart/form-data" id="UploadAngleWarningFile">
+                            Upload
+                            @{
+                                @Html.RenderPageToolbarBottom(buttons)
+                            }
+                        </a>
+                    </label>
                 </p>
             </div>
         </div>

@@ -41,6 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IAngleWarningsFileService.cs" />
     <Compile Include="Services\IComponentService.cs" />
     <Compile Include="Services\IFileTemplateService.cs" />
     <Compile Include="Services\IItemService.cs" />
