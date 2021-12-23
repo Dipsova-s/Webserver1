@@ -1,32 +1,41 @@
 ﻿using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels.Model;
-using System;
+using System.Net;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Web;
+using System;
+using System.Web.UI.WebControls;
 
 namespace EveryAngle.WebClient.Service.ApiServices
 {
-    public class AngleWarningsFileService : BaseService, IAngleWarningsFileService
+    public class AngleWarningsFileService : IAngleWarningsFileService
     {
-        #region Constant
+        public AngleWarningsFileViewModel Download() {
+            string angleWarningFileFolder = ConfigurationManager.AppSettings.Get("AngleWarningFileFolder");
+            string[] files = Directory.GetFiles(angleWarningFileFolder + "/");
+            // remove the extension 
+            var dotIndex = files[0].LastIndexOf('.');
+            string folderPath = files[0].Remove(dotIndex, files[0].Length - dotIndex);
+            string[] splitPath = folderPath.Split('/');
+            string fileName = splitPath[splitPath.Length - 1];
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tools\\Data", fileName + ".xlsx");
 
-        private const string IAngleWarningsFile_URI = "system/file?fileType=AngleWarning";
-        private const string IAngleWarningsFileUpload_URI = "system/file?fileType=AngleWarning&replaceFlag=true";
-
-        #endregion
-
-        public new IEnumerable<AngleWarningsFileViewModel> Get()
-        {
-            string uri = IAngleWarningsFile_URI;
-            IEnumerable<AngleWarningsFileViewModel> viewModels = GetItems<AngleWarningsFileViewModel>(uri, "files");
-            return viewModels;
-        }
-
-        public void Upload(byte[] templateFile, string fileName)
-        {
-            Upload(IAngleWarningsFileUpload_URI, templateFile, fileName);
+            HttpResponse response = HttpContext.Current.Response;
+            response.BufferOutput = true;
+            response.ContentType = "application/octet-stream; charset=UTF-8";
+            response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName + ".xlsx" + ";");
+            response.ContentEncoding = Encoding.UTF8;
+            response.HeaderEncoding = Encoding.UTF8;
+            response.TransmitFile(path);
+            return new AngleWarningsFileViewModel
+            {
+                FileName = fileName
+            };
         }
     }
 }

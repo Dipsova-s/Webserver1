@@ -1885,7 +1885,15 @@
                 self.CloseFieldChooser();
             }
         };
-        /* end - fields chooser */
+    /* end - fields chooser */
+
+        self.DownloadAngleWarningFile = function (e, obj) {
+            if (!$(obj).hasClass('disabled')) {
+                MC.util.download(obj.href);
+            }
+            MC.util.preventDefault(e);
+        };
+
         self.UploadAngleWarningFile = function () {
             if (!Modernizr.xhr2)
                 MC.ui.loading.setUpload(null);

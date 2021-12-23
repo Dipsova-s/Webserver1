@@ -15,5 +15,7 @@ namespace EveryAngle.Core.ViewModels.Model
 
         [JsonProperty(PropertyName = "uri")]
         public string Uri { get; set; }
+
+        public string FileName { get; set; }
     }
 }
