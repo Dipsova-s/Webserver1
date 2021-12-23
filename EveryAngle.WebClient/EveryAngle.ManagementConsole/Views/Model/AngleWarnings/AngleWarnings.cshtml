@@ -6,7 +6,7 @@
     string webClientAngleUrl = PageHelper.GetWebclientUrl();
 }
 
-    <script>
+<script>
    MC.util.loadScript([
         {
             test: window.BusinessProcessesViewModel && window.FieldsChooserModel,
@@ -56,50 +56,36 @@
             }
         }
     ]);
-    </script>
+</script>
 
-@{
-    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
-    buttons.Add(new PageToolbarButtonModel
-    {
-        EnableTemplate = "<div class=\"field fieldFile\"><input type=\"file\" name=\"file\" id=\"file\" size=\"60\" onchange=\"MC.Models.AngleWarnings.SaveAngleWarningFile(event)\" data-role=\"uploader\" data-rule-extension=\"xlsx|xlsm\"  data-msg-extension=\""+ Resource.MC_InvalidExcelFile + "\" data-rule-excel_no_whitespace=\"true\" data-text-browse=\"" + Resource.MC_UploadTemplate + "\" /></div>",
-        DisableTemplate = "<div class=\"field fieldFile\"><input type=\"file\" name=\"file\" id=\"file\" size=\"60\" data-rule-extension=\"xlsx|xlsm\"  data-msg-extension=\"" + Resource.MC_InvalidExcelFile + "\" data-rule-excel_no_whitespace=\"true\" data-text-browse=\"" + Resource.MC_UploadTemplate + "\" disabled=\"disabled\"/></div>",
-        Type = PageToolbarButtonType.Upload,
-        Privilege = PrivilegeType.System
-    });
-
-    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
-    {
-        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
-    })
-}
 
 <div class="content pageAngleWarnings">
-    <form id="FormSearchAngleWarnings" data-role="validator">
-        <div class="contentSection contentSectionInfo">
-            <div class="contentSectionInfoItem">
-                <p>
-                    <label>
-                        <input type="checkbox" name="include_public" id="include_public" checked="checked" />
-                        <span class="label">@Resource.MC_AngleWarnings_FilterPublicItems</span>
-                    </label>
+    <div>
+        <form id="FormSearchAngleWarnings" data-role="validator">
+            <div class="contentSection contentSectionInfo">
+                <div class="contentSectionInfoItem">
+                    <p>
+                        <label>
+                            <input type="checkbox" name="include_public" id="include_public" checked="checked" />
+                            <span class="label">@Resource.MC_AngleWarnings_FilterPublicItems</span>
+                        </label>
 
-                    <label>
-                        <input type="checkbox" name="include_private" id="include_private" checked="checked" />
-                        <span class="label">@Resource.MC_AngleWarnings_FilterPrivateItems</span>
-                    </label>
+                        <label>
+                            <input type="checkbox" name="include_private" id="include_private" checked="checked" />
+                            <span class="label">@Resource.MC_AngleWarnings_FilterPrivateItems</span>
+                        </label>
 
-                    <label>
-                        <input type="checkbox" name="include_validated" id="include_validated" checked="checked" />
-                        <span class="label">@Resource.MC_AngleWarnings_FilterValidatedItems</span>
-                    </label>
-                    
-                    <label>                    
-                        <input type="text" id="item_type" name="item_type" />                      
-                    </label>
+                        <label>
+                            <input type="checkbox" name="include_validated" id="include_validated" checked="checked" />
+                            <span class="label">@Resource.MC_AngleWarnings_FilterValidatedItems</span>
+                        </label>
 
-                    <label>
-                        @(Html.Kendo().AutoComplete()
+                        <label>
+                            <input type="text" id="item_type" name="item_type" />
+                        </label>
+
+                        <label>
+                            @(Html.Kendo().AutoComplete()
                             .Name("created_by")
                             .HtmlAttributes(new { @class = "existing_username" })
                             .DataTextField("Id")
@@ -117,22 +103,20 @@
                                 })
                                 .ServerFiltering(true)
                             ))
-                    </label>
+                        </label>
 
-                    <a class="btn btnPrimary btnSearch" id="ButtonSearch" onclick="MC.Models.AngleWarnings.SearchAngleWarnings()">@Resource.Ok</a>
+                        <a class="btn btnPrimary btnSearch" id="ButtonSearch" onclick="MC.Models.AngleWarnings.SearchAngleWarnings()">@Resource.Ok</a>
 
-                    <label>
-                        <a href="@Url.Action("UploadAngleWarningFile", "AngleWarningsFile")" data-role="validator" enctype="multipart/form-data" id="UploadAngleWarningFile">
-                            Upload
-                            @{
-                                @Html.RenderPageToolbarBottom(buttons)
-                            }
-                        </a>
-                    </label>
-                </p>
+
+                    </p>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+        <form action="@Url.Action("UploadAngleWarningFile", "AngleWarningsFile")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
+            <a href="" onclick="document.getElementById('upload').click(); return false" id="UploadAngleWarningFile">Upload</a>
+            <input type="file" name="file" id="upload" size="60" onchange="MC.Models.AngleWarnings.SaveAngleWarningFile(event)" hidden />
+        </form>
+    </div>
     <hr />
 
     <div id="AngleWarningSearchResults">

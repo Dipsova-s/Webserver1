@@ -1,6 +1,7 @@
 ﻿using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.WebClient.Service.Security;
+using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -35,18 +36,17 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 if (file.ContentLength > 0)
                 {
-                    var excelFile = ExcelTemplateHelper.Parse(file.FileName);
-                    if (excelFile.IsValid())
-                    {
-                        MemoryStream target = new MemoryStream();
-                        file.InputStream.CopyTo(target);
+                    var path = string.Format("{0}\\Data\\TempWarning", AppDomain.CurrentDomain.BaseDirectory);
 
-                        angleWarningsExcelService.Upload(target.ToArray(), file.FileName);
-                        return JsonHelper.GetJsonStringResult(true, null,
-                            null, MessageType.DEFAULT, null);
+                    DirectoryInfo directoryInfo = new DirectoryInfo(path);
+                    if (!directoryInfo.Exists)
+                    {
+                        directoryInfo = Directory.CreateDirectory(directoryInfo.FullName);
                     }
-                    return JsonHelper.GetJsonStringResult(false, null,
-                        excelFile.ErrorMessage, MessageType.DEFAULT, null);
+                    file.SaveAs(Path.Combine(path,file.FileName));
+
+                    return JsonHelper.GetJsonStringResult(true, null,
+                        null, MessageType.DEFAULT, null);
                 }
                 return JsonHelper.GetJsonStringResult(false, null,
                     null, MessageType.REQUIRE_EXCEL, null);

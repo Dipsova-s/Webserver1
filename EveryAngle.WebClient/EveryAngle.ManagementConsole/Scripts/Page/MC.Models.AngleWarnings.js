@@ -1891,13 +1891,14 @@
                 MC.ui.loading.setUpload(null);
 
             var fncheck = null;
-            var xhr = MC.util.ajaxUpload('#UploadAngleWarningFile', {
+            var xhr = MC.util.ajaxUpload('#UploadExcelTemplateFileForm', {
                 loader: false,
                 timeout: 300000,
                 progress: function (e) {
                     MC.ui.loading.setUploadStatus(e.percent);
                 },
-                successCallback: function () {
+                successCallback: function (data) {
+                    var a = data;
                     // upload success or error occured
                     jQuery(MC.ui.loading.loaderCloseButton)
                         .off('click.close')
@@ -1914,9 +1915,10 @@
                         MC.ui.loading.clearUpload();
                         MC.ajax.reloadMainContent();
                     }, 1);
+                    
                 },
                 completeCallback: function () {
-                    MC.util.ajaxUploadClearInput('#file');
+                    MC.util.ajaxUploadClearInput('#upload');
                 }
             });
 
@@ -1925,17 +1927,17 @@
         }  
 
         self.SaveAngleWarningFile = function () {
-            if (!jQuery('#UploadAngleWarningFile').valid()) {
-                jQuery('#UploadAngleWarningFile .error:first').focus();
+            if (!jQuery('#UploadExcelTemplateFileForm').valid()) {
+                jQuery('#UploadExcelTemplateFileForm .error:first').focus();
                 return false;
             }
-            var fileLocation = jQuery('#file').val();
+            var fileLocation = jQuery('#upload').val();
             if (!fileLocation)
                 return false;
                         
             var fileName = fileLocation.split("\\").pop();
             if (fileName !== "") {
-                        self.UploadExcelFile();
+                self.UploadAngleWarningFile();
             }
         };
     }
