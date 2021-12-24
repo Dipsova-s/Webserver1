@@ -675,8 +675,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        #endregion
-
         private void VerifyArbitraryPathTraversal(FileInfo fileInfo)
         {
             string angleWarningFileFolder = GetAngleWarningPath(Path.GetDirectoryName(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile")));
@@ -713,17 +711,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             return targetFolder;
         }
-
-        private bool VerifyFileExtension(string fileName)
-        {
-            var whitelistFileExtension = new[] { ".xlsx", ".xlsm" };
-
-            if (!whitelistFileExtension.Contains(fileName))
-            {
-                return false;
-            }
-            return true;
-        }
+        #endregion
     }
 
     public enum WarningType
