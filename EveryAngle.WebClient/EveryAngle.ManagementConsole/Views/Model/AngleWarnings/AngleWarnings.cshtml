@@ -118,7 +118,7 @@
                 Forwarding rules last updated:
             </span>
             <span class="label" id="uploadedDateTimeStamp">
-                10:00AM
+                @ViewBag.LastModified
             </span>
             <input type="hidden" value=@ViewBag.FilePath id="DownloadAngleWarningFile1" />
             <a id="DownloadAngleWarningFile" onclick="MC.Models.AngleWarnings.DownloadAngleWarningFile(event,this)">

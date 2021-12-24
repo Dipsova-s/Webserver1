@@ -83,6 +83,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.CanAccessViaWebClient = SessionHelper.Session.IsValidToAccessWebClient(modelUri).ToString().ToLowerInvariant();
             ViewBag.ClientSettings = SessionHelper.CurrentUser.Settings.client_settings;
             ViewBag.FilePath = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
+            FileInfo fileInfo = new FileInfo(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile"));
+            ViewBag.LastModified = fileInfo.LastWriteTime;
 
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
             var fieldCategory = _globalSettingService.GetFieldCategories(SessionHelper.Version.GetEntryByName("field_categories").Uri +
@@ -289,12 +291,28 @@ namespace EveryAngle.ManagementConsole.Controllers
                     var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
 
                     FileInfo fileInfo = new FileInfo(path);
+
                     VerifyArbitraryPathTraversal(fileInfo);
 
                     file.SaveAs(Path.Combine(path));
 
-                    return JsonHelper.GetJsonStringResult(true, null,
-                        null, MessageType.DEFAULT, null);
+                    DirectoryInfo directoryInfo = new DirectoryInfo(path);
+                    var a = directoryInfo.LastWriteTimeUtc;
+
+                    var result = new JsonResult
+                    {
+                        Data = new 
+                        {
+                            success = true,
+                            LastModified= fileInfo.LastWriteTime.ToString()
+                        },
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                    };
+                    ContentResult content = new ContentResult();
+                    content.ContentType = "text/plain";
+                    content.ContentEncoding = Encoding.UTF8;
+                    content.Content = JsonConvert.SerializeObject(result.Data);
+                    return content;
                 }
                 return JsonHelper.GetJsonStringResult(false, null,
                     null, MessageType.REQUIRE_EXCEL, null);
@@ -324,7 +342,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             FileInfo fileInfo = new FileInfo(logFile);
 
             VerifyArbitraryPathTraversal(fileInfo);
-            VerifyFileExtension(fileInfo);
 
             fileBytes = System.IO.File.ReadAllBytes(logFile);
             fileName = fileInfo.Name;
@@ -697,18 +714,15 @@ namespace EveryAngle.ManagementConsole.Controllers
             return targetFolder;
         }
 
-        private void VerifyFileExtension(FileInfo fileInfo)
+        private bool VerifyFileExtension(string fileName)
         {
             var whitelistFileExtension = new[] { ".xlsx", ".xlsm" };
 
-            if (!whitelistFileExtension.Contains(fileInfo.Extension))
+            if (!whitelistFileExtension.Contains(fileName))
             {
-                throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
-                {
-                    reason = HttpStatusCode.Forbidden.ToString(),
-                    message = Resource.MC_AccessRequestedPathDenied
-                }));
+                return false;
             }
+            return true;
         }
     }
 

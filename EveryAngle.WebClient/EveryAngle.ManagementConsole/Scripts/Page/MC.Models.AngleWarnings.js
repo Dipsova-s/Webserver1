@@ -1912,7 +1912,6 @@
                     MC.ui.loading.setUploadStatus(e.percent);
                 },
                 successCallback: function (data) {
-                    var a = data;
                     // upload success or error occured
                     jQuery(MC.ui.loading.loaderCloseButton)
                         .off('click.close')
@@ -1929,7 +1928,7 @@
                         MC.ui.loading.clearUpload();
                         MC.ajax.reloadMainContent();
                     }, 1);
-                    
+                    $('#uploadedDateTimeStamp').text(data.LastModified);
                 },
                 completeCallback: function () {
                     MC.util.ajaxUploadClearInput('#upload');
@@ -1951,7 +1950,13 @@
                         
             var fileName = fileLocation.split("\\").pop();
             if (fileName !== "") {
-                self.UploadAngleWarningFile();
+                var isExcel = fileName.endsWith('.xlsx') || fileName.endsWith('.xlsm');
+                if (isExcel)
+                    self.UploadAngleWarningFile();
+                else {
+                    MC.util.showPopupAlert("This is not excel file");
+                    MC.util.ajaxUploadClearInput("#upload");
+                }
             }
         };
     }
