@@ -95,7 +95,6 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<IAngleWarningsAutoSolver>().To<AngleWarningsAutoSolver>();
             kernel.Bind<IClassReferencesManager>().To<ClassReferencesManager>();
             kernel.Bind<ISTSLogService>().To<STSLogService>();
-            kernel.Bind<IAngleWarningsFileService>().To<AngleWarningsFileService>();
         }
     }
 }

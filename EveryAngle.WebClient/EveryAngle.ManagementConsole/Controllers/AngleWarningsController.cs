@@ -11,9 +11,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -79,6 +82,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.MaxDomainElementsForSearch = SessionHelper.SystemSettings.max_domainelements_for_search;
             ViewBag.CanAccessViaWebClient = SessionHelper.Session.IsValidToAccessWebClient(modelUri).ToString().ToLowerInvariant();
             ViewBag.ClientSettings = SessionHelper.CurrentUser.Settings.client_settings;
+            ViewBag.FilePath = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
 
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
             var fieldCategory = _globalSettingService.GetFieldCategories(SessionHelper.Version.GetEntryByName("field_categories").Uri +
@@ -127,10 +131,10 @@ namespace EveryAngle.ManagementConsole.Controllers
             AngleWarningsDataSourceResult result;
             string requestUri = model.angle_warnings_summary.ToString() + string.Format("?include_public={0}&include_private={1}&include_validated={2}&include_angles={3}&include_templates={4}&created_by={5}&" + limitOffsetQueryString, formData["include_public"], formData["include_private"], formData["include_validated"], formData["include_angles"], formData["include_templates"], formData["created_by"]);
             var angleWarningsResult = this._modelService.GetAngleWarningFirstLevel(requestUri);
-            
+
             AngleWarningsAutoSolver.SetFirstLevelWarnings(angleWarningsResult);
             AngleWarningsAutoSolver.SetModel(model);
-            
+
             var data = JsonConvert.DeserializeObject<List<AngleWarningFirstLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
 
             var angleWarningViewModelList = new List<AngleWarningsViewModel>();
@@ -224,7 +228,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             try
             {
                 json = _angleWarningsAutoSolver.ExecuteAngleWarningsUsingInputFile(modelId);
-                
+
                 if (json == "")
                 {
                     throw new Exception("Angle warnings solve request is empty.");
@@ -234,7 +238,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 throw new Exception($"Unable to construct automatic solving request: {e.Message}");
             }
-            
+
             var version = SessionHelper.Version;
             var angleWarningTask = _modelService.CreateTask(version.GetEntryByName("tasks").Uri.ToString(), json);
             var executionTask = _modelService.CreateTask($"{angleWarningTask.Uri}/execution", "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
@@ -273,6 +277,59 @@ namespace EveryAngle.ManagementConsole.Controllers
             var data = JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
 
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult UploadAngleWarningFile(FormCollection formCollection, HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
+
+                    FileInfo fileInfo = new FileInfo(path);
+                    VerifyArbitraryPathTraversal(fileInfo);
+
+                    file.SaveAs(Path.Combine(path));
+
+                    return JsonHelper.GetJsonStringResult(true, null,
+                        null, MessageType.DEFAULT, null);
+                }
+                return JsonHelper.GetJsonStringResult(false, null,
+                    null, MessageType.REQUIRE_EXCEL, null);
+            }
+            catch (HttpException ex)
+            {
+                HttpContext.Response.AddHeader("Content-Type", "text/html; charset=utf-8");
+                HttpContext.Response.AddHeader("X-Requested-With", "XMLHttpRequest");
+
+                var error = ex.Message;
+                if (ex.Source != "EveryAngle.WebClient.Service" || error == "")
+                {
+                    return JsonHelper.GetJsonStringResult(false, ex.GetHttpCode(), null,
+                        MessageType.DEFAULT, null);
+                }
+                return JsonHelper.GetJsonStringResult(false, ex.GetHttpCode(), error,
+                    MessageType.DEFAULT, null);
+            }
+        }
+
+        public FileResult GetAngleWarningFile(string fullPath)
+        {
+            string logFile = Base64Helper.Decode(fullPath);
+            string fileName;
+            byte[] fileBytes;
+
+            FileInfo fileInfo = new FileInfo(logFile);
+
+            VerifyArbitraryPathTraversal(fileInfo);
+            VerifyFileExtension(fileInfo);
+
+            fileBytes = System.IO.File.ReadAllBytes(logFile);
+            fileName = fileInfo.Name;
+
+            return File(fileBytes, MediaTypeNames.Application.Octet, fileName);
         }
 
         #endregion
@@ -602,6 +659,57 @@ namespace EveryAngle.ManagementConsole.Controllers
         }
 
         #endregion
+
+        private void VerifyArbitraryPathTraversal(FileInfo fileInfo)
+        {
+            string angleWarningFileFolder = GetAngleWarningPath(Path.GetDirectoryName(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile")));
+            string fullPathLogFileFolder = Path.GetFullPath(angleWarningFileFolder);
+            DirectoryInfo angleWarningDirectoryInfo = new DirectoryInfo(fullPathLogFileFolder);
+
+            if (!fileInfo.FullName.StartsWith(angleWarningDirectoryInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
+                {
+                    reason = HttpStatusCode.Forbidden.ToString(),
+                    message = Resource.MC_AccessRequestedPathDenied
+                }));
+            }
+        }
+
+        private string GetAngleWarningPath(string angleWarningFileFolder)
+        {
+            string targetFolder;
+
+            if (Path.IsPathRooted(angleWarningFileFolder))
+            {
+                targetFolder = angleWarningFileFolder;
+
+                if (!Directory.Exists(Path.GetFullPath(angleWarningFileFolder)))
+                {
+                    Directory.CreateDirectory(Path.GetFullPath(angleWarningFileFolder));
+                }
+            }
+            else
+            {
+                targetFolder = string.Format(@"~{0}", Path.GetDirectoryName(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile")));
+            }
+
+            return targetFolder;
+        }
+
+        private void VerifyFileExtension(FileInfo fileInfo)
+        {
+            var whitelistFileExtension = new[] { ".xlsx", ".xlsm" };
+
+            if (!whitelistFileExtension.Contains(fileInfo.Extension))
+            {
+                throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
+                {
+                    reason = HttpStatusCode.Forbidden.ToString(),
+                    message = Resource.MC_AccessRequestedPathDenied
+                }));
+            }
+        }
     }
 
     public enum WarningType

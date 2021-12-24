@@ -35,6 +35,7 @@
         self.ElementTarget = null;
         self.ModelData = null;
         self.ClientSettings = '';
+        self.DownloadUri = '';
 
         self.WARNINGTYPE = {
             OBJECT: 'unsupported_start_object',
@@ -117,6 +118,7 @@
             self.FieldCategoriesData = [];
             self.ElementTarget = null;
             self.ModelData = null;
+            self.DownloadUri = '';
 
             jQuery.extend(self, data || {});
 
@@ -1887,11 +1889,15 @@
         };
     /* end - fields chooser */
 
-        self.DownloadAngleWarningFile = function (e, obj) {
-            if (!$(obj).hasClass('disabled')) {
-                MC.util.download(obj.href);
+        self.DownloadAngleWarningFile = function () {
+            var fullPath = $('#DownloadAngleWarningFile1').val();
+            if (fullPath) {
+                // Encode the String
+                fullPath = jQuery.base64.encode(fullPath);
+
+                var url = kendo.format('{0}?fullPath={1}', self.DownloadUri, fullPath);
+                MC.util.download(url);
             }
-            MC.util.preventDefault(e);
         };
 
         self.UploadAngleWarningFile = function () {

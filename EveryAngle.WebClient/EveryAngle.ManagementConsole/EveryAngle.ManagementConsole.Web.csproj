@@ -251,7 +251,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActiveLanguageController.cs" />
     <Compile Include="Controllers\AngleExportsController.cs" />
-    <Compile Include="Controllers\AngleWarningsFileController.cs" />
     <Compile Include="Controllers\AutomationTasksController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommentController.cs" />

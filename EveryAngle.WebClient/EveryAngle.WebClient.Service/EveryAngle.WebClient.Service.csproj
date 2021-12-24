@@ -236,13 +236,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregation\AggregationService.cs" />
-    <Compile Include="ApiServices\AngleWarningsFileService.cs" />
     <Compile Include="ApiServices\AutomationTaskService.cs" />
     <Compile Include="ApiServices\CommentService.cs" />
     <Compile Include="ApiServices\BaseService.cs" />
     <Compile Include="ApiServices\ComponentService.cs" />
     <Compile Include="ApiServices\ExcelTemplatesService.cs" />
-    <Compile Include="ApiServices\IAngleWarningsFileService.cs" />
     <Compile Include="ApiServices\ItemService.cs" />
     <Compile Include="ApiServices\LogFileService.cs" />
     <Compile Include="ApiServices\ModelAgentService.cs" />

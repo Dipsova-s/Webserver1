@@ -48,6 +48,7 @@
                     FieldCategoriesData: @Html.Raw(ViewData["fieldCategories"] == null ? "[]" : ViewData["fieldCategories"]),
                     FieldCategoriesIconPath: '@VirtualPathUtility.ToAbsolute("~/UploadedResources/FieldCategoryIcons/")',
                     ResourceIconPath: '@VirtualPathUtility.ToAbsolute("~/content/externalresource/")',
+                    DownloadUri: '@Url.Action("GetAngleWarningFile", "AngleWarnings")'
                 });
                 MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
                 MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
@@ -113,10 +114,11 @@
             </div>
         </form>
         <div>
-        <a href="@Url.Content("~/AngleWarningsFile/DownloadFile")" id="DownloadAngleWarningFile" onclick="MC.Models.AngleWarnings.DownloadAngleWarningFile(event,this)">
+            <input type="hidden" value=@ViewBag.FilePath id="DownloadAngleWarningFile1"/>
+        <a id="DownloadAngleWarningFile" onclick="MC.Models.AngleWarnings.DownloadAngleWarningFile(event,this)">
             Download
         </a>
-        <form action="@Url.Action("UploadAngleWarningFile", "AngleWarningsFile")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
+        <form action="@Url.Action("UploadAngleWarningFile", "AngleWarnings")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
             <a href="" onclick="document.getElementById('upload').click(); return false" id="UploadAngleWarningFile">Upload</a>
             <input type="file" name="file" id="upload" size="60" onchange="MC.Models.AngleWarnings.SaveAngleWarningFile(event)" hidden />
         </form>
