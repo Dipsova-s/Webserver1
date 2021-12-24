@@ -113,15 +113,21 @@
                 </div>
             </div>
         </form>
-        <div>
-            <input type="hidden" value=@ViewBag.FilePath id="DownloadAngleWarningFile1"/>
-        <a id="DownloadAngleWarningFile" onclick="MC.Models.AngleWarnings.DownloadAngleWarningFile(event,this)">
-            Download
-        </a>
-        <form action="@Url.Action("UploadAngleWarningFile", "AngleWarnings")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
-            <a href="" onclick="document.getElementById('upload').click(); return false" id="UploadAngleWarningFile">Upload</a>
-            <input type="file" name="file" id="upload" size="60" onchange="MC.Models.AngleWarnings.SaveAngleWarningFile(event)" hidden />
-        </form>
+        <div class="downloadUploadAngleWarnings">
+            <span class="label">
+                Forwarding rules last updated:
+            </span>
+            <span class="label" id="uploadedDateTimeStamp">
+                10:00AM
+            </span>
+            <input type="hidden" value=@ViewBag.FilePath id="DownloadAngleWarningFile1" />
+            <a id="DownloadAngleWarningFile" onclick="MC.Models.AngleWarnings.DownloadAngleWarningFile(event,this)">
+                Download
+            </a>
+            <form action="@Url.Action("UploadAngleWarningFile", "AngleWarnings")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
+                <a href="" onclick="document.getElementById('upload').click(); return false" id="UploadAngleWarningFile">Upload</a>
+                <input type="file" name="file" id="upload" size="60" onchange="MC.Models.AngleWarnings.SaveAngleWarningFile(event)" hidden />
+            </form>
         </div>
     </div>
     <hr />
