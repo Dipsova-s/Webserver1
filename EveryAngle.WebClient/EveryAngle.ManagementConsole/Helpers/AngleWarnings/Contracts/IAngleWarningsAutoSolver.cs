@@ -9,6 +9,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
     {
         void Initialize(SessionHelper sessionHelper);
         string ExecuteAngleWarningsUsingInputFile(string modelId);
+        bool ReturnReadExcelHeaderColumnResult(string filePath);
         int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource, out int hasAutomationTasks);
         List<AngleWarningThirdLevelViewmodel> GetLevel3Warnings(AngleWarningSecondLevelViewmodel level2AngleWarning);
 

@@ -56,6 +56,11 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             _model = model;
         }
 
+        public bool ReturnReadExcelHeaderColumnResult(string filePath)
+        {
+            return _contentInputter.TryReadInputColumnHeaders(filePath);
+        }
+
         public int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource, out int hasAutomationTasks)
         {
             int result = 0;

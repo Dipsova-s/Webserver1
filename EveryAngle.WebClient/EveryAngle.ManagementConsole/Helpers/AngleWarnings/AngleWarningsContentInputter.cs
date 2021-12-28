@@ -34,6 +34,38 @@ namespace EveryAngle.ManagementConsole.Helpers
             ContentInputList.Add(new AngleWarningsContentInput(fix, version, objectClass, fieldToReplace, newField));
         }
 
+        public bool TryReadInputColumnHeaders(string filePath)
+        {
+            bool succeeded = true;
+            List<string> expected = new List<string>{ "Type", "AWT Method", "Version", "Class", "Technical name Old / action", "Technical name New" };
+
+            try
+            {
+                List<string> csvHeaderData = _angleWarningsFileReader.ReadContentExcelColumnHeaders(filePath);
+                string[] inputLine= { };
+
+                for (int i= 0; i < csvHeaderData.Count(); i++)
+                {
+                    inputLine = csvHeaderData[i].Split(',');
+                }
+
+                for (int j = 0; j < inputLine.Length; j++) 
+                {
+                    if (inputLine[j] != expected.ElementAt(j))
+                    {
+                        succeeded = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.SendWarning("Angle warnings, reading input file column headers failed: {0}", ex.Message);
+                succeeded = false;
+            }
+
+            return succeeded;
+        }
+
         public bool TryReadInputList()
         {
             bool succeeded = true;

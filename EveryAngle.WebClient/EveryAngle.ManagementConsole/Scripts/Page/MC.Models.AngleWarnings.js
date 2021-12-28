@@ -1904,7 +1904,7 @@
             if (!Modernizr.xhr2)
                 MC.ui.loading.setUpload(null);
 
-            var fncheck = null;
+            var fnCheck = null;
             var xhr = MC.util.ajaxUpload('#UploadExcelTemplateFileForm', {
                 loader: false,
                 timeout: 300000,
@@ -1928,7 +1928,12 @@
                         MC.ui.loading.clearUpload();
                         MC.ajax.reloadMainContent();
                     }, 1);
-                    $('#uploadedDateTimeStamp').text(data.LastModified);
+                    if (data.status === 2) {
+                        clearTimeout(fnCheck);
+                        MC.util.showPopupAlert("This is not a valid content excel file.");
+                    }                        
+                    else
+                        $('#uploadedDateTimeStamp').text(data.LastModified);
                 },
                 completeCallback: function () {
                     MC.util.ajaxUploadClearInput('#upload');
@@ -1954,7 +1959,7 @@
                 if (isExcel)
                     self.UploadAngleWarningFile();
                 else {
-                    MC.util.showPopupAlert("This is not excel file");
+                    MC.util.showPopupAlert("This is not an excel file.");
                     MC.util.ajaxUploadClearInput("#upload");
                 }
             }

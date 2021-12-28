@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -291,28 +292,52 @@ namespace EveryAngle.ManagementConsole.Controllers
                     var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
 
                     FileInfo fileInfo = new FileInfo(path);
+                    ContentResult content = new ContentResult();
 
                     VerifyArbitraryPathTraversal(fileInfo);
+                    var tempFolder = CreateTemporaryFolder();
+                    var tempPath = Path.Combine(tempFolder, file.FileName);
+                    file.SaveAs(tempPath);
+                    FileInfo fInfo = new FileInfo(tempPath);
 
-                    file.SaveAs(Path.Combine(path));
-
-                    DirectoryInfo directoryInfo = new DirectoryInfo(path);
-                    var a = directoryInfo.LastWriteTimeUtc;
-
-                    var result = new JsonResult
+                    if (_angleWarningsAutoSolver.ReturnReadExcelHeaderColumnResult(tempPath))
                     {
-                        Data = new 
+                        file.SaveAs(Path.Combine(path));
+
+                        fInfo.Delete();
+                        Directory.Delete(tempFolder);
+
+                        var modelUri = SessionHelper.GetModelServersUri();
+                        var model = SessionHelper.GetModel(modelUri);
+                        var readAngleWarningsCtrl = new AngleWarningsController(_modelService, _globalSettingService, _angleWarningsAutoSolver);
+                        readAngleWarningsCtrl.ControllerContext = ControllerContext;
+                        readAngleWarningsCtrl.RedirectToAction("ReadAngleWarnings", "AngleWarnings", model);
+
+                        DirectoryInfo directoryInfo = new DirectoryInfo(path);
+                        var a = directoryInfo.LastWriteTimeUtc;
+
+                        var result = new JsonResult
                         {
-                            success = true,
-                            LastModified= fileInfo.LastWriteTime.ToString()
-                        },
-                        JsonRequestBehavior = JsonRequestBehavior.AllowGet
-                    };
-                    ContentResult content = new ContentResult();
-                    content.ContentType = "text/plain";
-                    content.ContentEncoding = Encoding.UTF8;
-                    content.Content = JsonConvert.SerializeObject(result.Data);
-                    return content;
+                            Data = new
+                            {
+                                success = true,
+                                LastModified = fileInfo.LastWriteTime.ToString()
+                            },
+                            JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                        };
+                        
+                        content.ContentType = "text/plain";
+                        content.ContentEncoding = Encoding.UTF8;
+                        content.Content = JsonConvert.SerializeObject(result.Data);
+
+                        return content;
+                    }
+
+                    fInfo.Delete();
+                    Directory.Delete(tempFolder);
+
+                    return JsonHelper.GetJsonStringResult(true, 2,
+                    null, MessageType.REQUIRE_EXCEL, null);
                 }
                 return JsonHelper.GetJsonStringResult(false, null,
                     null, MessageType.REQUIRE_EXCEL, null);
@@ -710,6 +735,17 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
 
             return targetFolder;
+        }
+
+        private string CreateTemporaryFolder()
+        {
+            var filePath = Path.GetDirectoryName(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile"));
+            var tempPath = Path.Combine(filePath, "Temp");
+            if (!Directory.Exists(tempPath))
+            {
+                Directory.CreateDirectory(tempPath);
+            }
+            return tempPath;
         }
         #endregion
     }
