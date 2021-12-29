@@ -298,20 +298,12 @@ namespace EveryAngle.ManagementConsole.Controllers
                     var tempFolder = CreateTemporaryFolder();
                     var tempPath = Path.Combine(tempFolder, file.FileName);
                     file.SaveAs(tempPath);
-                    FileInfo fInfo = new FileInfo(tempPath);
 
                     if (_angleWarningsAutoSolver.ReturnReadExcelHeaderColumnResult(tempPath))
                     {
                         file.SaveAs(Path.Combine(path));
 
-                        fInfo.Delete();
-                        Directory.Delete(tempFolder);
-
-                        var modelUri = SessionHelper.GetModelServersUri();
-                        var model = SessionHelper.GetModel(modelUri);
-                        var readAngleWarningsCtrl = new AngleWarningsController(_modelService, _globalSettingService, _angleWarningsAutoSolver);
-                        readAngleWarningsCtrl.ControllerContext = ControllerContext;
-                        readAngleWarningsCtrl.RedirectToAction("ReadAngleWarnings", "AngleWarnings", model);
+                        Directory.Delete(tempFolder, true);
 
                         DirectoryInfo directoryInfo = new DirectoryInfo(path);
                         var a = directoryInfo.LastWriteTimeUtc;
@@ -333,8 +325,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                         return content;
                     }
 
-                    fInfo.Delete();
-                    Directory.Delete(tempFolder);
+                    Directory.Delete(tempFolder, true);
 
                     return JsonHelper.GetJsonStringResult(true, 2,
                     null, MessageType.REQUIRE_EXCEL, null);
