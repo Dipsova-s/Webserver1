@@ -1927,7 +1927,7 @@
                     fnCheck = setTimeout(function () {
                         MC.ui.loading.clearUpload();
                     }, 1);
-                    if (data.isInvalid === true) {
+                    if (data.isInvalid) {
                         MC.util.showPopupAlert(Localization.InvalidContentExcelFile);
                     }
                     else {
