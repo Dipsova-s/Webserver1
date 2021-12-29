@@ -59,6 +59,12 @@
     ]);
 </script>
 
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
 
 <div class="content pageAngleWarnings">
     <div>
@@ -101,9 +107,9 @@
                                 .Read(read =>
                                 {
                                     read.Action("ReadUsers", "Users").Data(@<text>function(){ return MC.Models.AngleWarnings.GetFilterUserQuery(); }</text>);
-                                })
-                                .ServerFiltering(true)
-                            ))
+})
+.ServerFiltering(true)
+))
                         </label>
 
                         <a class="btn btnPrimary btnSearch" id="ButtonSearch" onclick="MC.Models.AngleWarnings.SearchAngleWarnings()">@Resource.Execute</a>
@@ -188,24 +194,24 @@
                     .DataSource(dataSource => dataSource
                         .Events(e => e
                             .RequestStart(@<text>
-                function(e) {
-                                    MC.Models.AngleWarnings.PrepareAngleWarningQuery(e)
-                                }
+                                        function(e) {
+                                        MC.Models.AngleWarnings.PrepareAngleWarningQuery(e)
+                                        }
                             </text>)
-                            .RequestEnd(@<text>
-                function(e) {
-                                    MC.Models.AngleWarnings.ApplyAngleWarningsInfo(e)
-                                }
-                            </text>))
-                        .Read(read => read.Action("ReadAngleWarnings", "AngleWarnings", new { modelUri = ViewBag.ModelUri }))
-                        .Model(m =>
-                        {
-                            m.Id(f => f.fakeId);
-                            m.ParentId(f => f.ParentId);
-                            m.Field(f => f.Name);
-                        })
-                    )
-                    .AutoBind(false)
+                     .RequestEnd(@<text>
+                            function(e) {
+                            MC.Models.AngleWarnings.ApplyAngleWarningsInfo(e)
+                            }
+                    </text>))
+         .Read(read => read.Action("ReadAngleWarnings", "AngleWarnings", new { modelUri = ViewBag.ModelUri }))
+         .Model(m =>
+         {
+             m.Id(f => f.fakeId);
+             m.ParentId(f => f.ParentId);
+             m.Field(f => f.Name);
+         })
+     )
+     .AutoBind(false)
 
                 )
             </div>
