@@ -1926,16 +1926,13 @@
 
                     fnCheck = setTimeout(function () {
                         MC.ui.loading.clearUpload();
-                        MC.ajax.reloadMainContent();
                     }, 1);
-                    if (data.status === 2) {
-                        clearTimeout(fnCheck);
+                    if (data.isInvalid === true) {
                         MC.util.showPopupAlert(Localization.InvalidContentExcelFile);
                     }
                     else {
-                        $('#uploadedDateTimeStamp').text(data.LastModified);
-                        clearTimeout(fnCheck);
                         self.SearchAngleWarnings();
+                        $('#uploadedDateTimeStamp').text(data.LastModified);
                     }                        
                 },
                 completeCallback: function () {

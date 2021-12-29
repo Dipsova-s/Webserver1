@@ -309,8 +309,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                     Directory.Delete(tempFolder, true);
 
-                    return JsonHelper.GetJsonStringResult(true, 2,
-                    null, MessageType.REQUIRE_EXCEL, null);
+                    return GetJsonStringResult(fileInfo, true);
                 }
                 return JsonHelper.GetJsonStringResult(false, null,
                     null, MessageType.REQUIRE_EXCEL, null);
@@ -721,7 +720,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             return tempPath;
         }
 
-        private ContentResult GetJsonStringResult(FileInfo fileInfo)
+        private ContentResult GetJsonStringResult(FileInfo fileInfo, bool isInValid=false)
         {
             ContentResult content = new ContentResult();
             var result = new JsonResult
@@ -729,7 +728,8 @@ namespace EveryAngle.ManagementConsole.Controllers
                 Data = new
                 {
                     success = true,
-                    LastModified = fileInfo.LastWriteTime.ToString()
+                    LastModified = fileInfo.LastWriteTime.ToString(),
+                    isInvalid = isInValid
                 },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
