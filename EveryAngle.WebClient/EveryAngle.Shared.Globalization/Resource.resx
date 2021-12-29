@@ -6562,4 +6562,10 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_SelectTask" xml:space="preserve">
     <value>Select task</value>
   </data>
+  <data name="InvalidContentExcelFile" xml:space="preserve">
+    <value>This is not a valid content excel file</value>
+  </data>
+  <data name="InvalidFile" xml:space="preserve">
+    <value>This is not an excel file</value>
+  </data>
 </root>

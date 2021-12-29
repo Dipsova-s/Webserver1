@@ -71,8 +71,9 @@ namespace EveryAngle.ManagementConsole.Helpers
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("Error occured during conversion of excel to a datatable: {0}", ex.Message));
+                throw new InvalidOperationException(string.Format("Error occured during conversion of excel to a datatable: {0}", ex.Message));
             }
+
             return dataTable;
         }
 

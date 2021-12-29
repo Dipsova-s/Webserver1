@@ -292,7 +292,6 @@ namespace EveryAngle.ManagementConsole.Controllers
                     var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
 
                     FileInfo fileInfo = new FileInfo(path);
-                    ContentResult content = new ContentResult();
 
                     VerifyArbitraryPathTraversal(fileInfo);
                     var tempFolder = CreateTemporaryFolder();
@@ -305,24 +304,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                         Directory.Delete(tempFolder, true);
 
-                        DirectoryInfo directoryInfo = new DirectoryInfo(path);
-                        var a = directoryInfo.LastWriteTimeUtc;
-
-                        var result = new JsonResult
-                        {
-                            Data = new
-                            {
-                                success = true,
-                                LastModified = fileInfo.LastWriteTime.ToString()
-                            },
-                            JsonRequestBehavior = JsonRequestBehavior.AllowGet
-                        };
-                        
-                        content.ContentType = "text/plain";
-                        content.ContentEncoding = Encoding.UTF8;
-                        content.Content = JsonConvert.SerializeObject(result.Data);
-
-                        return content;
+                        return GetJsonStringResult(fileInfo);
                     }
 
                     Directory.Delete(tempFolder, true);
@@ -737,6 +719,26 @@ namespace EveryAngle.ManagementConsole.Controllers
                 Directory.CreateDirectory(tempPath);
             }
             return tempPath;
+        }
+
+        private ContentResult GetJsonStringResult(FileInfo fileInfo)
+        {
+            ContentResult content = new ContentResult();
+            var result = new JsonResult
+            {
+                Data = new
+                {
+                    success = true,
+                    LastModified = fileInfo.LastWriteTime.ToString()
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+            content.ContentType = "text/plain";
+            content.ContentEncoding = Encoding.UTF8;
+            content.Content = JsonConvert.SerializeObject(result.Data);
+
+            return content;
         }
         #endregion
     }

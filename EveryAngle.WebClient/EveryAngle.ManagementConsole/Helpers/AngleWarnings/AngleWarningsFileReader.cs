@@ -20,7 +20,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         {
             if (file is null)
             {
-                throw new ArgumentNullException("Setting AngleWarningsContentInputFile not found.", nameof(file));
+                throw new ArgumentNullException(nameof(file), "Setting AngleWarningsContentInputFile not found.");
             }
 
             if (!_fileHelper.FileExists(file))

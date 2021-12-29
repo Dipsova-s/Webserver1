@@ -44,7 +44,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                 List<string> csvHeaderData = _angleWarningsFileReader.ReadContentExcelColumnHeaders(filePath);
                 string[] inputLine= { };
 
-                for (int i= 0; i < csvHeaderData.Count(); i++)
+                for (int i= 0; i < csvHeaderData.Count; i++)
                 {
                     inputLine = csvHeaderData[i].Split(',');
                 }

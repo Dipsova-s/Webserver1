@@ -1930,7 +1930,7 @@
                     }, 1);
                     if (data.status === 2) {
                         clearTimeout(fnCheck);
-                        MC.util.showPopupAlert("This is not a valid content excel file.");
+                        MC.util.showPopupAlert(Localization.InvalidContentExcelFile);
                     }
                     else {
                         $('#uploadedDateTimeStamp').text(data.LastModified);
@@ -1962,7 +1962,7 @@
                 if (isExcel)
                     self.UploadAngleWarningFile();
                 else {
-                    MC.util.showPopupAlert("This is not an excel file.");
+                    MC.util.showPopupAlert(Localization.InvalidFile);
                     MC.util.ajaxUploadClearInput("#upload");
                 }
             }
