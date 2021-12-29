@@ -1931,9 +1931,12 @@
                     if (data.status === 2) {
                         clearTimeout(fnCheck);
                         MC.util.showPopupAlert("This is not a valid content excel file.");
-                    }                        
-                    else
+                    }
+                    else {
                         $('#uploadedDateTimeStamp').text(data.LastModified);
+                        clearTimeout(fnCheck);
+                        self.SearchAngleWarnings();
+                    }                        
                 },
                 completeCallback: function () {
                     MC.util.ajaxUploadClearInput('#upload');
