@@ -291,25 +291,22 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
 
-                    FileInfo fileInfo = new FileInfo(path);
-
-                    VerifyArbitraryPathTraversal(fileInfo);
-                    var tempFolder = CreateTemporaryFolder();
+                    var tempFolder = GetAngleWarningPath(Path.Combine(Path.GetDirectoryName(path), "Temp"));
                     var tempPath = Path.Combine(tempFolder, file.FileName);
                     file.SaveAs(tempPath);
 
+                    bool isInvalid = true;
+                    FileInfo fileInfo = null;
                     if (_angleWarningsAutoSolver.ReturnReadExcelHeaderColumnResult(tempPath))
                     {
                         file.SaveAs(Path.Combine(path));
 
-                        Directory.Delete(tempFolder, true);
-
-                        return GetJsonStringResult(fileInfo);
+                        fileInfo = new FileInfo(path);
+                        isInvalid = false;
                     }
 
                     Directory.Delete(tempFolder, true);
-
-                    return GetJsonStringResult(fileInfo, true);
+                    return GetJsonStringResult(fileInfo, isInvalid);
                 }
                 return JsonHelper.GetJsonStringResult(false, null,
                     null, MessageType.REQUIRE_EXCEL, null);
@@ -709,17 +706,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             return targetFolder;
         }
 
-        private string CreateTemporaryFolder()
-        {
-            var filePath = Path.GetDirectoryName(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile"));
-            var tempPath = Path.Combine(filePath, "Temp");
-            if (!Directory.Exists(tempPath))
-            {
-                Directory.CreateDirectory(tempPath);
-            }
-            return tempPath;
-        }
-
         private ContentResult GetJsonStringResult(FileInfo fileInfo, bool isInValid=false)
         {
             ContentResult content = new ContentResult();
@@ -728,7 +714,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 Data = new
                 {
                     success = true,
-                    LastModified = fileInfo.LastWriteTime.ToString(),
+                    LastModified = fileInfo?.LastWriteTime.ToString(),
                     isInvalid = isInValid
                 },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
