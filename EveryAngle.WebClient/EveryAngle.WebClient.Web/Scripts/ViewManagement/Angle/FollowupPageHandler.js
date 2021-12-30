@@ -23,6 +23,7 @@ function FollowupPageHandler() {
     self.ShowPopup = function (option, title) {
         self.ListDrilldown = typeof option === 'undefined' ? false : option.ListDrilldown || false;
         self.IsAdHocFollowup = typeof option === 'undefined' ? false : option.IsAdhoc || false;
+        self.IsSplittedSublistFollowup = typeof option === 'undefined' ? false : option.IsSplittedSublist || false;
         if (self.IsAdHocFollowup) {
             fieldsChooserHandler.PopupConfig = enumHandlers.ANGLEPOPUPTYPE.DISPLAY;
         }
@@ -282,6 +283,7 @@ function FollowupPageHandler() {
             grid.__helpLoaded = true;
         }
 
+        // todo manisha - execute jump on click of a followupcell
         // click handler
         grid.content.on('click', 'tr', function (e) {
 
@@ -445,10 +447,18 @@ function FollowupPageHandler() {
 
         // add jump & execute
         var displayHandler = anglePageHandler.HandlerDisplay.Clone();
+        if (self.IsSplittedSublistFollowup) {
+            // todo: manisha - 
+            displayHandler.QueryDefinitionHandler.Save = jQuery.proxy(displayHandler.SaveQueryDefinition, displayHandler);
+            displayHandler.QueryDefinitionHandler.Save.call();
+            return;
+        }
+
         displayHandler.QueryDefinitionHandler.AddJump(followup);
         var jump = displayHandler.QueryDefinitionHandler.GetLastJump();
         jump.is_adhoc_filter = true;
         jump.is_adhoc(true);
+        if (self.IsSplittedSublistFollowup) jump.is_splitted_sublist = true;
         var jumpIndex = displayHandler.QueryDefinitionHandler.Data.indexOf(jump);
         if (self.ListDrilldown) {
             // add more filters for a single drilldown
@@ -480,17 +490,26 @@ function FollowupPageHandler() {
                 jQuery.each(jumpDisplay.query_blocks, function (index, block) {
                     jumpDisplay.query_blocks[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
                 });
-                displayModel.CreateTempDisplay(jumpDisplay.display_type, jumpDisplay)
+                displayModel.CreateTempDisplay(jumpDisplay.display_type, jumpDisplay, null, self.IsSplittedSublistFollowup)
                     .done(function (data) {
+                        var newData = data;
+
                         fieldSettingsHandler.ClearFieldSettings();
+
+                        if (self.IsSplittedSublistFollowup) {
+                           // newData = jQuery.extend({}, WC.ModelHelper.ExtendDisplayData(displayHandler.GetData(), displayHandler.AngleHandler.GetData()), data);
+                            newData.is_splitted_sublist = true;
+                            displayHandler.UpdateAdhocFunction(newData.uri, newData);
+                            return;
+                        }
 
                         anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
 
                         // initial data for drilldown
-                        displayModel.LoadSuccess(data);
+                        displayModel.LoadSuccess(newData);
                         
                         // redirect to display
-                        displayModel.GotoTemporaryDisplay(data.uri);
+                        displayModel.GotoTemporaryDisplay(newData.uri);
                     });
             });
     };

@@ -602,7 +602,9 @@ function AnglePageHandler() {
     };
     self.SetWrapperHeight = function () {
         var wraperHeight = WC.Window.Height;
+        // todo: manisha (Set the wrapper height based on condition)
         wraperHeight -= jQuery('.mainDisplayWrapper').offset().top;
+        wraperHeight /= 2;
 
         jQuery('.mainDisplayWrapper, .mainDisplayWrapper .displayArea').height(wraperHeight);
 
@@ -973,6 +975,7 @@ function AnglePageHandler() {
 
         fieldSettingsHandler.ClearFieldSettings();
         jQuery('#AngleTableWrapper').removeClass('hiddenContent');
+        jQuery('#AngleSublistTableWrapper').removeClass('hiddenContent');
         jQuery('#AngleGrid .k-virtual-scrollable-wrap').scrollLeft(0);
 
         self.IsExecuted = false;
@@ -1935,6 +1938,36 @@ function AnglePageHandler() {
             return;
         });
     }
+
+    // Angle Page Splitter
+    self.CreateSplitter = function (structure) {
+        var container = jQuery('#AngleTableWrapper');
+        var panes = [{
+            min: "40%",
+            size: "40%"
+        },
+        {
+            min: "40%",
+            size: "40%"
+        }];
+        var setResizingEvents = function (resizable) {
+            // bind resizing panel
+            resizable.bind('start', function () {
+                container.addClass('resizing widget-resizing');
+            });
+            resizable.bind('resizeend', function () {
+                container.removeClass('resizing widget-resizing');
+            });
+        };
+
+        var splitter = container.kendoSplitter({
+            orientation: 'vertical',
+            panes: panes
+        }).data(enumHandlers.KENDOUITYPE.SPLITTER);
+
+        splitter.bind('resize', self.SplitterResized);
+        setResizingEvents(splitter.resizing._resizable);
+    };
 }
 
 var anglePageHandler = new AnglePageHandler();

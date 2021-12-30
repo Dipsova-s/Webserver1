@@ -236,7 +236,7 @@ function AngleActionMenuHandler(base) {
     self.ShowExportCsvPopup = function () {
         exportHandler.ShowExportPopup({ ExportType: enumHandlers.ANGLEACTION.EXPORTTOCSV.Id, DisplayType: displayModel.Data().display_type });
     };
-    self.ShowAddFollowupPopup = function () {
+    self.ShowAddFollowupPopup = function (ShowSplittedSublist) {
         var options = {};
         if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
             options.ListDrilldown = true;
@@ -244,6 +244,8 @@ function AngleActionMenuHandler(base) {
         else {
             options.IsAdhoc = true;
         }
+
+        if (ShowSplittedSublist) options.IsSplittedSublist = true;
         self.HandlerDisplay.QueryDefinitionHandler.ShowAddJumpPopup(options);
     };
     self.Download = function () {

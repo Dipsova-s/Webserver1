@@ -339,14 +339,15 @@ function DisplayModel(model) {
                 self.LoadSuccess(data);
             });
     };
-    self.CreateTempDisplay = function (displayType, displayObject, angleData) {
+    self.CreateTempDisplay = function (displayType, displayObject, angleData, isSplittedSublist) {
         angleData = angleData || angleInfoModel.Data() || {};
         var angleUri = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE) || angleData.uri || '';
         var newDisplay = jQuery.GUID();
         var display = {};
         display.id = 'd' + newDisplay.replace(/-/g, '');
         display.display_type = displayType || null;
-        display.uri = angleUri + '/displays/' + newDisplay;
+        if (!isSplittedSublist)
+            display.uri = angleUri + '/displays/' + newDisplay;
         display.is_angle_default = false;
         display.authorizations = self.GetDefaultAdhocAuthorization(angleData);
 
@@ -361,6 +362,8 @@ function DisplayModel(model) {
         };
         display.is_public = false;
         display.is_adhoc = true;
+        if (displayObject.query_blocks[0].query_steps[0].is_splitted_sublist)
+            display.is_splitted_sublist = true;
         var currentUser = userModel.Data();
         display.created = {
             user: currentUser.uri,
@@ -619,6 +622,8 @@ function DisplayModel(model) {
             // allow one adhoc Display
             data = {};
             data[display] = value || {};
+
+            // todo manisha: check if it's splittedSublist, create splitted view
         }
 
         self.TemporaryDisplay(data);

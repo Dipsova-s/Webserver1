@@ -27,7 +27,9 @@ function ListHandler(elementId, container) {
         Result: resultModel
     };
     self.Container = typeof container === 'undefined' ? '#AngleTableWrapper' : container;
+    self.SublistContainer = typeof container === 'undefined' ? '#AngleSublistTableWrapper' : container;
     self.ElementId = typeof elementId === 'undefined' ? '#AngleGrid' : elementId;
+    self.SublistElementId = typeof SublistElementId === 'undefined' ? '#AngleSublistGrid' : SublistElementId;
     self.ModelId = 'list_' + self.ElementId.substr(1);
     window[self.ModelId] = self;
     self.SelectingRowId = null;
@@ -90,7 +92,12 @@ function ListHandler(elementId, container) {
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
-    self.GetContainer = function () {
+    self.GetContainer = function (isSplittedSublist=true) {
+
+        if (isSplittedSublist) {
+            return jQuery(self.SublistContainer);
+        }
+
         return jQuery(self.Container);
     };
     self.GetGridObject = function () {
@@ -217,12 +224,15 @@ function ListHandler(elementId, container) {
             rowHeight = 26;
         return rowHeight;
     };
-    self.PrepareGridContainer = function (isRemoveColumn) {
+    self.PrepareGridContainer = function (isRemoveColumn, isSplittedSublist = true) {
         var container = self.GetContainer();
+        if (isSplittedSublist) self.ElementId = "#AngleSublistGrid";
+
         !isRemoveColumn &&
             container
             .empty()
             .append('<div id="' + self.ElementId.substr(1) + '" class="grid widgetDisplay" />');
+
         if (self.ReadOnly()) {
             jQuery(self.ElementId).addClass('readOnlyMode');
         }
@@ -1171,6 +1181,9 @@ function ListHandler(elementId, container) {
             if (containerId === 'AngleTableWrapper') {
                 parent = container;
             }
+            else if (containerId === 'AngleSublistTableWrapper') {
+                parent = container;
+            }
             else {
                 parent = container.parent();
             }
@@ -1957,8 +1970,7 @@ function ListHandler(elementId, container) {
                         listDrilldownHandler.Drilldown(dataItem);
                         break;
                     case 'viewsublistitems':
-                       // todo - manisha: add jump show popup function
-                        anglePageHandler.ShowAddFollowupPopup();
+                        anglePageHandler.ShowAddFollowupPopup(true);
                         break;
                     case 'copy':
                         self.OnContentCopy();
