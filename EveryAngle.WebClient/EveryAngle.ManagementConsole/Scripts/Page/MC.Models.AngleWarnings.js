@@ -1900,6 +1900,11 @@
             }
         };
 
+        self.OnClickUploadLink = function () {
+            $('#upload').click();
+            return false;
+        }
+
         self.UploadAngleWarningFile = function () {
             if (!Modernizr.xhr2)
                 MC.ui.loading.setUpload(null);
@@ -1928,7 +1933,7 @@
                         MC.ui.loading.clearUpload();
                     }, 1);
                     if (data.isInvalid) {
-                        MC.util.showPopupAlert(Localization.InvalidContentExcelFile);
+                        MC.util.showPopupAlert(Localization.MC_InvalidContentExcelFile);
                     }
                     else {
                         self.SearchAngleWarnings();
@@ -1959,7 +1964,7 @@
                 if (isExcel)
                     self.UploadAngleWarningFile();
                 else {
-                    MC.util.showPopupAlert(Localization.InvalidFile);
+                    MC.util.showPopupAlert(Localization.MC_InvalidFile);
                     MC.util.ajaxUploadClearInput("#upload");
                 }
             }

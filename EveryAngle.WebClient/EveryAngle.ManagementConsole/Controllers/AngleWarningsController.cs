@@ -287,29 +287,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             try
             {
-                if (file.ContentLength > 0)
-                {
-                    var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
-
-                    var tempFolder = GetAngleWarningPath(Path.Combine(Path.GetDirectoryName(path), "Temp"));
-                    var tempPath = Path.Combine(tempFolder, file.FileName);
-                    file.SaveAs(tempPath);
-
-                    bool isInvalid = true;
-                    FileInfo fileInfo = null;
-                    if (_angleWarningsAutoSolver.ReturnReadExcelHeaderColumnResult(tempPath))
-                    {
-                        file.SaveAs(Path.Combine(path));
-
-                        fileInfo = new FileInfo(path);
-                        isInvalid = false;
-                    }
-
-                    Directory.Delete(tempFolder, true);
-                    return GetJsonStringResult(fileInfo, isInvalid);
-                }
-                return JsonHelper.GetJsonStringResult(false, null,
-                    null, MessageType.REQUIRE_EXCEL, null);
+                return _angleWarningsAutoSolver.ReadExcelHeaderColumnResult(file);
             }
             catch (HttpException ex)
             {
@@ -327,20 +305,10 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        public FileResult GetAngleWarningFile(string fullPath)
+        public FileContentResult GetAngleWarningFile(string fullPath)
         {
-            string logFile = Base64Helper.Decode(fullPath);
-            string fileName;
-            byte[] fileBytes;
-
-            FileInfo fileInfo = new FileInfo(logFile);
-
-            VerifyArbitraryPathTraversal(fileInfo);
-
-            fileBytes = System.IO.File.ReadAllBytes(logFile);
-            fileName = fileInfo.Name;
-
-            return File(fileBytes, MediaTypeNames.Application.Octet, fileName);
+            FileViewModel viewModel = _angleWarningsAutoSolver.GetDownloadAngleWarningFile(fullPath);
+            return File(viewModel.FileBytes, MediaTypeNames.Application.Octet, viewModel.FileName);
         }
 
         #endregion
@@ -669,63 +637,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        private void VerifyArbitraryPathTraversal(FileInfo fileInfo)
-        {
-            string angleWarningFileFolder = GetAngleWarningPath(Path.GetDirectoryName(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile")));
-            string fullPathLogFileFolder = Path.GetFullPath(angleWarningFileFolder);
-            DirectoryInfo angleWarningDirectoryInfo = new DirectoryInfo(fullPathLogFileFolder);
 
-            if (!fileInfo.FullName.StartsWith(angleWarningDirectoryInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
-            {
-                throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
-                {
-                    reason = HttpStatusCode.Forbidden.ToString(),
-                    message = Resource.MC_AccessRequestedPathDenied
-                }));
-            }
-        }
-
-        private string GetAngleWarningPath(string angleWarningFileFolder)
-        {
-            string targetFolder;
-
-            if (Path.IsPathRooted(angleWarningFileFolder))
-            {
-                targetFolder = angleWarningFileFolder;
-
-                if (!Directory.Exists(Path.GetFullPath(angleWarningFileFolder)))
-                {
-                    Directory.CreateDirectory(Path.GetFullPath(angleWarningFileFolder));
-                }
-            }
-            else
-            {
-                targetFolder = string.Format(@"~{0}", Path.GetDirectoryName(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile")));
-            }
-
-            return targetFolder;
-        }
-
-        private ContentResult GetJsonStringResult(FileInfo fileInfo, bool isInValid=false)
-        {
-            ContentResult content = new ContentResult();
-            var result = new JsonResult
-            {
-                Data = new
-                {
-                    success = true,
-                    LastModified = fileInfo?.LastWriteTime.ToString(),
-                    isInvalid = isInValid
-                },
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-
-            content.ContentType = "text/plain";
-            content.ContentEncoding = Encoding.UTF8;
-            content.Content = JsonConvert.SerializeObject(result.Data);
-
-            return content;
-        }
         #endregion
     }
 

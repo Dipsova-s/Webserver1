@@ -6098,24 +6098,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is not a valid content excel file.
-        /// </summary>
-        public static string InvalidContentExcelFile {
-            get {
-                return ResourceManager.GetString("InvalidContentExcelFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This is not an excel file.
-        /// </summary>
-        public static string InvalidFile {
-            get {
-                return ResourceManager.GetString("InvalidFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invert selection.
         /// </summary>
         public static string InvertSelection {
@@ -7816,6 +7798,51 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_AngleWarningsConfirmHeader {
             get {
                 return ResourceManager.GetString("MC_AngleWarningsConfirmHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string MC_AngleWarningsFileDownload {
+            get {
+                return ResourceManager.GetString("MC_AngleWarningsFileDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        public static string MC_AngleWarningsFileUpload {
+            get {
+                return ResourceManager.GetString("MC_AngleWarningsFileUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forwarding rules last updated:.
+        /// </summary>
+        public static string MC_AngleWarningsForwardingRulesLastUpdated {
+            get {
+                return ResourceManager.GetString("MC_AngleWarningsForwardingRulesLastUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angle warnings.
+        /// </summary>
+        public static string MC_AngleWarningsHeading {
+            get {
+                return ResourceManager.GetString("MC_AngleWarningsHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select and execute filters to view Angle warnings.
+        /// </summary>
+        public static string MC_AngleWarningsSubHeading {
+            get {
+                return ResourceManager.GetString("MC_AngleWarningsSubHeading", resourceCulture);
             }
         }
         
@@ -10634,6 +10661,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is not a valid content excel file.
+        /// </summary>
+        public static string MC_InvalidContentExcelFile {
+            get {
+                return ResourceManager.GetString("MC_InvalidContentExcelFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid file format. Please select a valid Excel file.
         /// </summary>
         public static string MC_InvalidExcelFile {
@@ -10648,6 +10684,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_InvalidExcelFileName {
             get {
                 return ResourceManager.GetString("MC_InvalidExcelFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is not an excel file.
+        /// </summary>
+        public static string MC_InvalidFile {
+            get {
+                return ResourceManager.GetString("MC_InvalidFile", resourceCulture);
             }
         }
         

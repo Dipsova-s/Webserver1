@@ -67,74 +67,80 @@
 }
 
 <div class="content pageAngleWarnings">
-    <div>
-        <form id="FormSearchAngleWarnings" data-role="validator">
-            <div class="contentSection contentSectionInfo">
-                <div class="contentSectionInfoItem">
-                    <p>
-                        <label>
-                            <input type="checkbox" name="include_public" id="include_public" checked="checked" />
-                            <span class="label">@Resource.MC_AngleWarnings_FilterPublicItems</span>
-                        </label>
+    <div class="headerAngleWarnings">
+        <span class="label">
+            @Resource.MC_AngleWarningsFileHeading
+        </span>
+    </div>
+    <div class="subHeaderAngleWarnings">
+            @Resource.MC_AngleWarningsFileSubHeading
+    </div>
+    <form id="FormSearchAngleWarnings" data-role="validator">
+        <div class="contentSection contentSectionInfo">
+            <div class="contentSectionInfoItem">
+                <p>
+                    <label>
+                        <input type="checkbox" name="include_public" id="include_public" checked="checked" />
+                        <span class="label">@Resource.MC_AngleWarnings_FilterPublicItems</span>
+                    </label>
 
-                        <label>
-                            <input type="checkbox" name="include_private" id="include_private" checked="checked" />
-                            <span class="label">@Resource.MC_AngleWarnings_FilterPrivateItems</span>
-                        </label>
+                    <label>
+                        <input type="checkbox" name="include_private" id="include_private" checked="checked" />
+                        <span class="label">@Resource.MC_AngleWarnings_FilterPrivateItems</span>
+                    </label>
 
-                        <label>
-                            <input type="checkbox" name="include_validated" id="include_validated" checked="checked" />
-                            <span class="label">@Resource.MC_AngleWarnings_FilterValidatedItems</span>
-                        </label>
+                    <label>
+                        <input type="checkbox" name="include_validated" id="include_validated" checked="checked" />
+                        <span class="label">@Resource.MC_AngleWarnings_FilterValidatedItems</span>
+                    </label>
 
-                        <label>
-                            <input type="text" id="item_type" name="item_type" />
-                        </label>
+                    <label>
+                        <input type="text" id="item_type" name="item_type" />
+                    </label>
 
-                        <label>
-                            @(Html.Kendo().AutoComplete()
-                            .Name("created_by")
-                            .HtmlAttributes(new { @class = "existing_username" })
-                            .DataTextField("Id")
-                            .Filter("contains")
-                            .IgnoreCase(true)
-                            .Placeholder(Resource.MC_AngleWarnings_FilterUserHint)
-                            .MinLength(1)
-                            .DataSource(source => source
-                                .Events(e => e
-                                    .RequestStart("onKendoGridPagingStart")
-                                )
-                                .Read(read =>
-                                {
-                                    read.Action("ReadUsers", "Users").Data(@<text>function(){ return MC.Models.AngleWarnings.GetFilterUserQuery(); }</text>);
+                    <label>
+                        @(Html.Kendo().AutoComplete()
+                        .Name("created_by")
+                        .HtmlAttributes(new { @class = "existing_username" })
+                        .DataTextField("Id")
+                        .Filter("contains")
+                        .IgnoreCase(true)
+                        .Placeholder(Resource.MC_AngleWarnings_FilterUserHint)
+                        .MinLength(1)
+                        .DataSource(source => source
+                            .Events(e => e
+                                .RequestStart("onKendoGridPagingStart")
+                            )
+                            .Read(read =>
+                            {
+                                read.Action("ReadUsers", "Users").Data(@<text>function(){ return MC.Models.AngleWarnings.GetFilterUserQuery(); }</text>);
 })
 .ServerFiltering(true)
 ))
-                        </label>
+                    </label>
 
-                        <a class="btn btnPrimary btnSearch" id="ButtonSearch" onclick="MC.Models.AngleWarnings.SearchAngleWarnings()">@Resource.Execute</a>
+                    <a class="btn btnPrimary btnSearch" id="ButtonSearch" onclick="MC.Models.AngleWarnings.SearchAngleWarnings()">@Resource.Execute</a>
 
 
-                    </p>
-                </div>
+                </p>
             </div>
-        </form>
-        <div class="downloadUploadAngleWarnings">
-            <span class="label">
-                Forwarding rules last updated:
-            </span>
-            <span class="label" id="uploadedDateTimeStamp">
-                @ViewBag.LastModified
-            </span>
-            <input type="hidden" value=@ViewBag.FilePath id="DownloadAngleWarningFile1" />
-            <a id="DownloadAngleWarningFile" onclick="MC.Models.AngleWarnings.DownloadAngleWarningFile(event,this)">
-                Download
-            </a>
-            <form action="@Url.Action("UploadAngleWarningFile", "AngleWarnings")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
-                <a href="" onclick="document.getElementById('upload').click(); return false" id="UploadAngleWarningFile">Upload</a>
-                <input type="file" name="file" id="upload" size="60" onchange="MC.Models.AngleWarnings.SaveAngleWarningFile(event)" hidden />
-            </form>
         </div>
+    </form>
+    <div class="downloadUploadAngleWarnings">
+        <span class="label">
+            @Resource.MC_AngleWarningsForwardingRulesLastUpdated
+        </span>
+        <span class="label" id="uploadedDateTimeStamp">
+            @ViewBag.LastModified
+        </span>
+        <input type="hidden" value=@ViewBag.FilePath id="DownloadAngleWarningFile1" />
+        <a id="DownloadAngleWarningFile" onclick="MC.Models.AngleWarnings.DownloadAngleWarningFile(event,this)">
+            @Resource.MC_AngleWarningsFileDownload
+        </a>
+        <form action="@Url.Action("UploadAngleWarningFile", "AngleWarnings")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
+            <a onclick="MC.Models.AngleWarnings.OnClickUploadLink(event,this)" id="UploadAngleWarningFile">@Resource.MC_AngleWarningsFileUpload</a>
+            <input type="file" name="file" id="upload" size="60" onchange="MC.Models.AngleWarnings.SaveAngleWarningFile(event)" hidden />
+        </form>
     </div>
     <hr />
 
@@ -198,20 +204,20 @@
                                         MC.Models.AngleWarnings.PrepareAngleWarningQuery(e)
                                         }
                             </text>)
-                     .RequestEnd(@<text>
-                            function(e) {
-                            MC.Models.AngleWarnings.ApplyAngleWarningsInfo(e)
-                            }
-                    </text>))
-         .Read(read => read.Action("ReadAngleWarnings", "AngleWarnings", new { modelUri = ViewBag.ModelUri }))
-         .Model(m =>
-         {
-             m.Id(f => f.fakeId);
-             m.ParentId(f => f.ParentId);
-             m.Field(f => f.Name);
-         })
-     )
-     .AutoBind(false)
+              .RequestEnd(@<text>
+                    function(e) {
+                    MC.Models.AngleWarnings.ApplyAngleWarningsInfo(e)
+                    }
+            </text>))
+.Read(read => read.Action("ReadAngleWarnings", "AngleWarnings", new { modelUri = ViewBag.ModelUri }))
+.Model(m =>
+{
+m.Id(f => f.fakeId);
+m.ParentId(f => f.ParentId);
+m.Field(f => f.Name);
+})
+)
+.AutoBind(false)
 
                 )
             </div>

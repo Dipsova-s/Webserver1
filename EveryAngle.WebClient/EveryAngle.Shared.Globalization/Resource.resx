@@ -6562,10 +6562,25 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_SelectTask" xml:space="preserve">
     <value>Select task</value>
   </data>
-  <data name="InvalidContentExcelFile" xml:space="preserve">
+  <data name="MC_AngleWarningsFileDownload" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="MC_AngleWarningsFileUpload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="MC_AngleWarningsForwardingRulesLastUpdated" xml:space="preserve">
+    <value>Forwarding rules last updated:</value>
+  </data>
+  <data name="MC_AngleWarningsHeading" xml:space="preserve">
+    <value>Angle warnings</value>
+  </data>
+  <data name="MC_AngleWarningsSubHeading" xml:space="preserve">
+    <value>Select and execute filters to view Angle warnings</value>
+  </data>
+  <data name="MC_InvalidContentExcelFile" xml:space="preserve">
     <value>This is not a valid content excel file</value>
   </data>
-  <data name="InvalidFile" xml:space="preserve">
+  <data name="MC_InvalidFile" xml:space="preserve">
     <value>This is not an excel file</value>
   </data>
 </root>

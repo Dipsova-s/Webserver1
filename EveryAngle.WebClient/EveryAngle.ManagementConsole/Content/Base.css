@@ -3933,6 +3933,16 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     margin-right: 0;
 }
 
+.headerAngleWarnings span.label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.subHeaderAngleWarnings {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
 .downloadUploadAngleWarnings {
     display: flex;
 }

@@ -10,6 +10,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 {
@@ -56,9 +58,14 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             _model = model;
         }
 
-        public bool ReturnReadExcelHeaderColumnResult(string filePath)
+        public ActionResult ReadExcelHeaderColumnResult(HttpPostedFileBase file)
         {
-            return _contentInputter.TryReadInputColumnHeaders(filePath);
+            return _contentInputter.ReturnReadExcelHeaderColumnResult(file);
+        }
+
+        public FileViewModel GetDownloadAngleWarningFile(string fullPath)
+        {
+            return _contentInputter.DownloadAngleWarningFile(fullPath);
         }
 
         public int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource, out int hasAutomationTasks)
@@ -74,7 +81,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                     if (angleViewModel.DataFirstLevel.Count > 0)
                     {
                         string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _sessionHelper.SystemSettings.max_pagesize);
-                        string requestUri = UrlHelper.GetRequestUrl(URLType.NOA) + angleViewModel.Uri + "&" + limitOffsetQueryString;
+                        string requestUri = Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + angleViewModel.Uri + "&" + limitOffsetQueryString;
                         JObject angleWarningsResult = _modelService.GetAngleWarningSecondLevel(requestUri);
 
                         result += CountFieldMatches(angleViewModel.DataFirstLevel.Id, angleWarningsResult);
