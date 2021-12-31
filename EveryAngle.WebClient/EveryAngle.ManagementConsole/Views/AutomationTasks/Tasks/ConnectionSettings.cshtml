@@ -1,0 +1,45 @@
+﻿@model EveryAngle.Core.ViewModels.Model.ModelServerSettings
+@using EveryAngle.Shared.Globalization
+
+@if (Model.SettingList.FirstOrDefault().Id == "connection_folder")
+{
+    <div class="connection_settings contentSectionInfoItem" id="CheckOutputFolder">
+        <h5 style="font-size: 14px">@Model.SettingsGroup.FirstOrDefault().Name</h5>
+        <div class="contentSectionInfoItem" id="row-@Resource.MC_DatastoreFolder.Replace(" ",string.Empty)">
+            <label data-role="tooltip">@Resource.MC_DatastoreFolder</label>
+            <p>
+                @(Html.TextBox(@Model.SettingList.FirstOrDefault().Id+ "_intial", @Model.SettingList.FirstOrDefault().Value, new { @class = "text autosyncinput", @data_setting_type = "text", @data_type = "textbox",@readonly= "readonly" }))
+                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                <textarea class="alwaysHidden"><pre>@Resource.MC_DatastoreFolderDescription</pre></textarea>
+            </p>
+        </div>
+        <div class="contentSectionInfoItem" id="row-@Resource.MC_ActionSubfolder.Replace(" ",string.Empty)">
+            <label data-role="tooltip">@Resource.MC_ActionSubfolder</label>
+            <p>
+                @(Html.TextBox("action_subfolder", "", new { @class = "text autosyncinput", @data_setting_type = "text", @data_type = "textbox", @onkeyup = "MC.AutomationTasks.Tasks.UpdateOutputFolder(this,'"+ @Model.SettingList.FirstOrDefault().Id + "')" }))
+                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                <textarea class="alwaysHidden"><pre>@Resource.MC_ActionSubfolderDescription</pre></textarea>
+            </p>
+        </div>
+        <div class="contentSectionInfoItem connection_folder" id="row-@Model.SettingList.FirstOrDefault().Id">
+            <label data-role="tooltip">@Model.SettingList.FirstOrDefault().Name</label>
+            <p>
+                @(Html.TextBox(@Model.SettingList.FirstOrDefault().Id, @Model.SettingList.FirstOrDefault().Value, new { @class = "text autosyncinput", @data_setting_type = "text", @data_type = "textbox",@readonly= "readonly" }))
+                @if (@Model.SettingList.FirstOrDefault().Description != null)
+                {
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                    <textarea class="alwaysHidden"><pre>@Model.SettingList.FirstOrDefault().Description</pre></textarea>
+                }
+            </p>
+        </div>
+
+        <div class="contentSectionInfoItem" id="row-test-connection">
+            <label>&nbsp;</label>
+            <p>
+                <a id="btnTestConnection" class="btn btnPrimary" onclick="MC.AutomationTasks.Tasks.TestConnection()">@Resource.MC_TestConnection</a><br />
+                <span class="statusInfo"></span>
+            </p>
+        </div>
+        <hr class="last" />
+    </div>
+}

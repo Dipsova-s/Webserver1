@@ -41,7 +41,8 @@
                 IsTaskOwner: @Convert.ToString(@ViewBag.IsTaskOwner).ToLowerInvariant(),
                 DefaultApprovalState: '@ViewBag.DefaultApprovalState',
                 AllTaskUri: '@Url.Action("GetExistingTasks", "AutomationTasks")',
-                CopyActionUri: '@Url.Action("CopyAction", "AutomationTasks")'
+                CopyActionUri: '@Url.Action("CopyAction", "AutomationTasks")',
+                TestConnectionUri: '@Url.Action("TestActionConnection", "AutomationTasks")'
             });
               MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
               MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',

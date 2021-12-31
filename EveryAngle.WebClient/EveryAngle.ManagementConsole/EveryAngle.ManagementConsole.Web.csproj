@@ -928,6 +928,7 @@
     <Content Include="Views\AngleExports\ExcelTemplates.cshtml" />
     <Content Include="Views\AngleExports\ExcelTemplatesGrid.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ModelTimestampTemplate.cshtml" />
+    <Content Include="Views\AutomationTasks\Tasks\ConnectionSettings.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

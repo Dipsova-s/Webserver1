@@ -15,6 +15,38 @@
 
 })(window, window.Number);
 
+//String
+(function (window, String) {
+
+    "use strict";
+
+    if (!String.prototype.startsWith) {
+        // String.startsWith: has string start with searchString or not
+        // @params
+        // - searchString, substring to find
+        // - position, from position of the string(Optional)
+        // @return - true or false
+        String.prototype.startsWith = function (searchString, position) {
+            return this.substr(position || 0, searchString.length) === searchString;
+        };
+    }
+
+    if (!String.prototype.endsWith) {
+        // String.endsWith: has string end with searchString or not
+        // @params
+        // - searchString, substring to find
+        // - position, from position of the string(Optional)
+        // @return - true or false
+        String.prototype.endsWith = function (searchString, position) {
+            if (position === undefined || position > this.length) {
+                position = this.length;
+            }
+            return this.substring(position - searchString.length, position) === searchString;
+        };
+    }
+
+})(window, window.String);
+
 // Array
 (function (window, Array) {
 
@@ -438,8 +470,8 @@
             return window.storagePrefix + excludeKey;
         });
         return typeof key === 'string' &&
-                        key.indexOf(window.storagePrefix) === 0 &&
-                        excludeKeys.indexOf(key) === -1;
+            key.indexOf(window.storagePrefix) === 0 &&
+            excludeKeys.indexOf(key) === -1;
     };
     var removeAll = function (storage, excludeKeys) {
         jQuery.each(storage, function (key) {
