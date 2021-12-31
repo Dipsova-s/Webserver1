@@ -23,7 +23,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             _fileHelper = fileHelper ?? throw new ArgumentNullException(nameof(fileHelper));
         }
 
-        public FileInfo ReadExcelHeaderColumnResult(HttpPostedFileBase file, out bool isInvalid)
+        public FileInfo UploadAngleWarningsFile(HttpPostedFileBase file, out bool isInvalid)
         {
             var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
 
@@ -45,7 +45,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             return fileInfo;
         }        
 
-        public FileViewModel DownloadAngleWarningFile(string fullPath) 
+        public FileViewModel DownloadAngleWarningsFile(string fullPath) 
         {
             string file = Base64Helper.Decode(fullPath);
             string fileName;

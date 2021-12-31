@@ -1,6 +1,5 @@
 using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels.Model;
-using EveryAngle.Logging;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 using EveryAngle.Shared.Globalization;
@@ -16,7 +15,6 @@ using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
@@ -294,7 +292,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 if (file.ContentLength > 0)
                 {
-                    FileInfo fileInfo = _angleWarningsFileManager.ReadExcelHeaderColumnResult(file, out bool isInvalid);
+                    FileInfo fileInfo = _angleWarningsFileManager.UploadAngleWarningsFile(file, out bool isInvalid);
                     return GetJsonStringResult(fileInfo, isInvalid);
                 }
                 return JsonHelper.GetJsonStringResult(false, null,
@@ -318,7 +316,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public FileContentResult GetAngleWarningFile(string fullPath)
         {
-            FileViewModel viewModel = _angleWarningsFileManager.DownloadAngleWarningFile(fullPath);
+            FileViewModel viewModel = _angleWarningsFileManager.DownloadAngleWarningsFile(fullPath);
             return File(viewModel.FileBytes, MediaTypeNames.Application.Octet, viewModel.FileName);
         }
 

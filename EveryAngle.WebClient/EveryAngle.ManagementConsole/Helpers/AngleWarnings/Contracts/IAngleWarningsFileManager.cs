@@ -7,8 +7,8 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 {
     public interface IAngleWarningsFileManager
     {
-        FileInfo ReadExcelHeaderColumnResult(HttpPostedFileBase file, out bool isInvalid);
-        FileViewModel DownloadAngleWarningFile(string fullPath);
+        FileInfo UploadAngleWarningsFile(HttpPostedFileBase file, out bool isInvalid);
+        FileViewModel DownloadAngleWarningsFile(string fullPath);
         List<string> ReadContentInputExcelFileFromDisk();
     }
 }
