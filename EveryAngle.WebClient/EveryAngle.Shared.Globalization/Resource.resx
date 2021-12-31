@@ -6553,4 +6553,16 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_SelectTask" xml:space="preserve">
     <value>Select task</value>
   </data>
+  <data name="MC_DatastoreFolder" xml:space="preserve">
+    <value>Datastore folder</value>
+  </data>
+  <data name="MC_ActionSubfolder" xml:space="preserve">
+    <value>Action subfolder</value>
+  </data>
+  <data name="MC_DatastoreFolderDescription" xml:space="preserve">
+    <value>Path derived as configured in the datastore.</value>
+  </data>
+  <data name="MC_ActionSubfolderDescription" xml:space="preserve">
+    <value>Addition to the datastore path than can be added for this specific action.</value>
+  </data>
 </root>

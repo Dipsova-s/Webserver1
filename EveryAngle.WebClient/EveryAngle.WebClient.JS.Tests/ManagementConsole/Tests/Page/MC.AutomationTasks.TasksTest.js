@@ -293,7 +293,7 @@ describe("MC.AutomationTasks.Tasks", function () {
         it("Show all button if user has manage system privilege", function () {
             // prepare
             var data = {
-                run_as_user:'test'
+                run_as_user: 'test'
             };
             automationTask.CanManageSystem = true;
             var template = automationTask.ActionButtonTemplate(data);
@@ -830,7 +830,7 @@ describe("MC.AutomationTasks.Tasks", function () {
 
         it("should set display excel template and call AddDisplayExcelTemplate", function () {
             // Prepare
-            var display = { display_details : '{ "excel_template": "excel_template_00.xlsx" }' };
+            var display = { display_details: '{ "excel_template": "excel_template_00.xlsx" }' };
 
             var result = automationTask.ConfigureDefaultTemplateFile(display, null);
 
@@ -844,7 +844,7 @@ describe("MC.AutomationTasks.Tasks", function () {
 
         it("should reset display excel template and call RemoveDisplayExcelTemplate", function () {
             // Prepare
-            var display = { display_details : '{}' };
+            var display = { display_details: '{}' };
 
             var result = automationTask.ConfigureDefaultTemplateFile(display, null);
 
@@ -856,7 +856,7 @@ describe("MC.AutomationTasks.Tasks", function () {
 
         it("should reset display excel template and call RemoveDisplayExcelTemplate when display_detail is undefined", function () {
             // Prepare
-            var display = { };
+            var display = {};
 
             var result = automationTask.ConfigureDefaultTemplateFile(display, null);
 
@@ -1004,7 +1004,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             ddlElement = $('<div id="datastore"><input id="model_timestamp_index"/></div>').data('kendoDropDownList', {
                 value: $.noop,
                 dataItem: ko.observableArray([
-                    { id: 'Datastore_test1', value:'Datastore_test1' },
+                    { id: 'Datastore_test1', value: 'Datastore_test1' },
                     { Code: 'Datastore_test2', value: 'Datastore_test2' }
                 ])
             }).appendTo('body');
@@ -1016,7 +1016,7 @@ describe("MC.AutomationTasks.Tasks", function () {
         afterEach(function () {
             ddlElement.remove();
         });
-        it("When display type is chart or pivot model_timestamp_index value should be -1", function () {           
+        it("When display type is chart or pivot model_timestamp_index value should be -1", function () {
             spyOn(automationTask, "IsChartOrPivot").and.returnValue(true);
             spyOn(automationTask, "IsExcelDataStore").and.returnValue(true);
             spyOn($.fn, 'hide').and.returnValue($.noop);
@@ -1207,4 +1207,67 @@ describe("MC.AutomationTasks.Tasks", function () {
         });
     });
 
+    describe(".UpdateOutputFolderfield", function () {
+        var grid;
+        beforeEach(function () {
+            grid = $('<div><input type="text" id="connection_folder_intial" value="C:\\test\\"> <input type="text" id="action_subfolder"> <input type="text" id="connection_folder"> </div>')
+            grid.appendTo('body');
+        });
+        afterEach(function () {
+            grid.remove();
+        });
+
+        it("Output folder should contains combined value", function () {
+            automationTask.UpdateOutputFolderfield("IN", "connection_folder");
+            var output = $('#connection_folder').val();
+            expect(output).toEqual("C:\\test\\IN");
+        });
+
+        it("Output folder should contains combined value with \\", function () {
+            automationTask.UpdateOutputFolderfield("\IN", "connection_folder");
+            var output = $('#connection_folder').val();
+            expect(output).toEqual("C:\\test\\IN");
+        });
+    });
+
+    describe(".UpdateSubFolderField", function () {
+        var grid;
+        beforeEach(function () {            
+            grid = $('<div><input type="text" id="connection_folder_intial" value="C:\\test"> <input type="text" id="action_subfolder"> <input type="text" id="connection_folder"> </div>')
+            grid.appendTo('body');
+        });
+        afterEach(function () {
+            grid.remove();
+        });
+
+        it("SubFolder should be updated based on argument", function () {
+            var arg = {
+                name: "action_subfolder",
+                value: "\\IN"
+            };
+            spyOn(automationTask, "UpdateOutputFolderfield");
+
+            //call
+            automationTask.UpdateSubFolderField(arg);
+
+            var subfolder = $('#action_subfolder').val();
+            expect(subfolder).toEqual("\\IN");
+            expect(automationTask.UpdateOutputFolderfield).toHaveBeenCalledWith("\\IN", "connection_folder");
+        });
+
+        it("Datatstore folder should be removed when updating subfolder", function () {
+            var arg = {
+                name: "action_subfolder",
+                value: "C:\\test\\IN"
+            };
+            spyOn(automationTask, "UpdateOutputFolderfield");
+
+            //call
+            automationTask.UpdateSubFolderField(arg);
+
+            var subfolder = $('#action_subfolder').val();
+            expect(subfolder).toEqual("\\IN");
+            expect(automationTask.UpdateOutputFolderfield).toHaveBeenCalledWith("\\IN", "connection_folder");
+        });
+    });
 });

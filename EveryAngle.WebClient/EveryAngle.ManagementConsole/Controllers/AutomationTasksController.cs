@@ -19,6 +19,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -380,9 +381,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/AutomationTasks/DataStores/EditDatastore.cshtml", dataStore);
         }
 
-        public ActionResult EditDefaultDatastore(string plugin,bool AutomationTask)
+        public ActionResult EditDefaultDatastore(string plugin, bool AutomationTask)
         {
-            List<DataStoresViewModel> dataStores = GetAllDatastore(plugin,AutomationTask);
+            List<DataStoresViewModel> dataStores = GetAllDatastore(plugin, AutomationTask);
             ViewBag.DatastoreDetails = dataStores;
             ViewBag.isSupportAutomateTask = AutomationTask;
             DataStoresViewModel defaultDataStore = dataStores.FirstOrDefault(x => x.is_default);
@@ -403,9 +404,9 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             List<DataStoresViewModel> excelDatastore = GetAllDatastore("msexcel");
             List<DataStoresViewModel> excelDatastores = new List<DataStoresViewModel>();
-            foreach(DataStoresViewModel datastore in excelDatastore)
+            foreach (DataStoresViewModel datastore in excelDatastore)
             {
-                DataStoresViewModel dataStoreDetails = GetDataStoreViewModel(datastore.Uri.ToString(),"", "msexcel");
+                DataStoresViewModel dataStoreDetails = GetDataStoreViewModel(datastore.Uri.ToString(), "", "msexcel");
                 string templatefile = dataStoreDetails.data_settings.SettingList.FirstOrDefault(x => x.Id.Equals("template_file")).Value.ToString();
                 if (templatefile.Equals(fileName))
                 {
@@ -516,6 +517,15 @@ namespace EveryAngle.ManagementConsole.Controllers
             var requestManager = RequestManager.Initialize(testconnectionUri);
 
             return requestManager.Run(Method.POST, jsonData);
+        }
+        
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ExcludeFromCodeCoverage] // This functions has direct call to RequestManager 
+        public JObject TestActionConnection(string plugin, string jsonData)
+        {
+            var datastorePlugins = GetDatastorePlugins(false);
+            var testconnectionUri = datastorePlugins.FirstOrDefault(x => x.Item3 == plugin).Item1 + "/check_connection";
+            return TestDataStoreConnection(testconnectionUri, jsonData);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -680,7 +690,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             return availableDataStores;
         }
 
-        private List<DataStoresViewModel> GetAllDatastore(string plugin,bool AutomationTask=true)
+        private List<DataStoresViewModel> GetAllDatastore(string plugin, bool AutomationTask = true)
         {
             List<DataStoresViewModel> dataStore = GetAllDataStores();
             List<DataStoresViewModel> data = AutomationTask ? dataStore.FindAll(x => x.datastore_plugin == plugin) : dataStore.FindAll(x => x.datastore_plugin == plugin && x.is_default);
