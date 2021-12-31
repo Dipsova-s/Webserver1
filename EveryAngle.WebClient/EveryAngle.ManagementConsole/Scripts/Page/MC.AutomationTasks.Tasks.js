@@ -5,6 +5,7 @@
         _self.canSetAction = false;
         _self.uid = null;
         _self.modelId = null;
+        _self.fnCheck = null;
 
         var self = this;
 
@@ -44,6 +45,8 @@
         self.SelectedTaskUriUri = '';
         self.CopyActionUri = '';
         self.SelectedAction = '';
+        self.TestConnectionUri = '';
+        self.CurrentDatastorePlugin = '';
 
         self.Status = {
             NotStarted: 'notstarted',
@@ -937,6 +940,7 @@
                     MC.ui.percentage();
                     MC.ui.modeltimestamp();
                     MC.ui.autosyncinput();
+                    self.CurrentDatastorePlugin = self.DataStoreValues.findObject("Uri", dataItem.Uri).datastore_plugin;
 
                     var ddlExcelTemplate = $('#template_file').data('kendoDropDownList');
                     if (ddlExcelTemplate) {
@@ -980,6 +984,9 @@
             }
             else if (settingType === 'text') {
                 input.val(arg.value);
+                if (arg.name === "action_subfolder") {
+                    self.UpdateSubFolderField(arg);
+                }
             }
         };
         self.SetDatastoreSettingMaxRowsToExportValue = function (integerInput, value) {
@@ -995,6 +1002,16 @@
         };
         self.GetDataStoreSettings = function () {
             var datastoreData = [];
+
+            jQuery('.connection_settings input[type!="hidden"]').each(function (index, input) {
+                var setting = self.GetDataStoreSettingInfo(jQuery(input));
+                if (setting.type && setting.id && setting.id === "action_subfolder" && setting.value && !datastoreData.hasObject('id', setting.id)) {
+                    datastoreData.push({
+                        "name": setting.id,
+                        "value": setting.value.startsWith("\\") ? setting.value : "\\" + setting.value
+                    });
+                }
+            });
 
             jQuery('.dataSettings input[type!="hidden"]').each(function (index, input) {
                 var setting = self.GetDataStoreSettingInfo(jQuery(input));
@@ -3092,7 +3109,7 @@
             self.SelectedAction = action;
         };
 
-        self.GetCopyActionData = function(currentActionData) {
+        self.GetCopyActionData = function (currentActionData) {
             var actionData = {};
             actionData.run_as_user = currentActionData.run_as_user;
             actionData.action_type = currentActionData.action_type;
@@ -3119,6 +3136,81 @@
             actionData.notification = currentActionData.notification;
 
             return actionData;
+        };
+
+        self.TestConnection = function () {
+            var btnTestConnection = $('#btnTestConnection');
+            if (btnTestConnection.hasClass('disabled'))
+                return;
+
+            btnTestConnection.addClass('disabled');
+            jQuery('#row-test-connection .statusInfo').text(Localization.MC_TestingConnection);
+
+            var deferred = jQuery.Deferred();
+            disableLoading();
+            MC.ajax
+                .request({
+                    url: self.TestConnectionUri,
+                    parameters: {
+                        "plugin": self.CurrentDatastorePlugin,
+                        'jsonData': JSON.stringify(self.GetTestConnectionData())
+                    },
+                    type: 'POST'
+                })
+                .done(function () {
+                    jQuery('#row-test-connection .statusInfo').text(Localization.MC_Info_TestConnectionSuccess);
+                    deferred.resolve();
+                })
+                .fail(function (xhr, status, error) {
+                    jQuery('#row-test-connection .statusInfo').text(JSON.parse(xhr.responseText).message);
+                    MC.ajax.setErrorDisable(xhr, status, error, deferred);
+                })
+                .always(function () {
+                    btnTestConnection.removeClass('disabled');
+                });
+
+            deferred.promise();
+        };
+        self.GetTestConnectionData = function () {
+            var data = self.GetSettingsData('.contentSectionInfoItem .connection_folder');
+            return { setting_list: data };
+        };
+        self.GetSettingsData = function (container) {
+            var datastoreData = [];
+
+            jQuery(container).find('input[type != "hidden"]').each(function (index, input) {
+                var setting = self.GetDataStoreSettingInfo(jQuery(input));
+                if (setting.type && setting.id && !datastoreData.hasObject('id', setting.id)) {
+                    datastoreData.push({
+                        "id": setting.id,
+                        "value": setting.value,
+                        "type": setting.type
+                    });
+                }
+            });
+
+            return datastoreData;
+        };
+
+        self.UpdateOutputFolder = function (e, settingId) {
+            _self.fnCheck && clearTimeout(_self.fnCheck);
+            _self.fnCheck = setTimeout(function () {
+                self.UpdateOutputFolderfield(e.value, settingId);
+            }, 500);
+
+        };
+
+        self.UpdateOutputFolderfield = function (subfoldervalue, settingId) {
+            var ouputFolderInput = $('#' + settingId), datastoreOutputFolderValue = $("#" + settingId + "_intial").val(), outputfolderValue = "";
+            var seperator = subfoldervalue.startsWith("\\") || datastoreOutputFolderValue.endsWith("\\") ? "" : "\\";
+            outputfolderValue = datastoreOutputFolderValue + seperator + subfoldervalue;
+            ouputFolderInput.val(outputfolderValue);
+        };
+
+        self.UpdateSubFolderField = function (arg) {
+            subfolderValue = arg.value.replace($('#connection_folder_intial').val(), "");
+            $('#action_subfolder').val(subfolderValue);
+            self.UpdateOutputFolderfield(subfolderValue, "connection_folder");
         };
     };
 

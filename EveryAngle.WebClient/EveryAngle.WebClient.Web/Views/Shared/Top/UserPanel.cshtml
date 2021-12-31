@@ -1,83 +1,83 @@
 ﻿@using EveryAngle.Shared.Globalization;
-<div id="UserPanel">
-    <ul>
-        <li class="disabled">
-            <a id="NotificationsFeed" 
-               data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.NotificationsFeed_Updates"
-               href="javascript:void(0)">
-            </a>
-        </li>
+    <div id="UserPanel">
+        <ul>
+            <li class="disabled">
+                <a id="NotificationsFeed"
+                   data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.NotificationsFeed_Updates"
+                   href="javascript:void(0)">
+                </a>
+            </li>
 
-        <li>
-            <a id="Help" onclick="userSettingsView.ToggleMenuHelp();">
-                <span id="HelpIcon" 
-                      data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.Help"
-                      class="icon"></span>
-            </a>
-        </li>
+            <li>
+                <a id="Help" onclick="userSettingsView.ToggleMenuHelp();">
+                    <span id="HelpIcon"
+                          data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.Help"
+                          class="icon"></span>
+                </a>
+            </li>
 
-        <li>
-            <a id="Settings" onclick="userSettingsView.ToggleSettings();">
-                <span id="SettingsIcon" 
-                      data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.Settings"
-                      class="icon icon-gear"></span>
-            </a>
-        </li>
+            <li>
+                <a id="Settings" onclick="userSettingsView.ToggleSettings();">
+                    <span id="SettingsIcon"
+                          data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.Settings"
+                          class="icon icon-gear"></span>
+                </a>
+            </li>
 
-        <li>
-            <a id="UserControl" onclick="userSettingsView.ToggleMenu();"
-               data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.MoreActions">
-                <span id="UserControlName" 
-                      class="textEllipsis"></span>
-                <i class="icon icon-chevron-down"></i>
-            </a>
-        </li>
-    </ul>
+            <li>
+                <a id="UserControl" onclick="userSettingsView.ToggleMenu();"
+                   data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.MoreActions">
+                    <span id="UserControlName"
+                          class="textEllipsis"></span>
+                    <i class="icon icon-chevron-down"></i>
+                </a>
+            </li>
+        </ul>
 
-    <div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu">
-        <div class="k-window-content k-content">
-            @{
-                string administratorPath = EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("ManagementConsoleUrl");
-                if (!administratorPath.StartsWith("http"))
-                {
-                    administratorPath = Url.Content("~/") + administratorPath;
+        <div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu">
+            <div class="k-window-content k-content">
+                @{
+                    string administratorPath = EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("ManagementConsoleUrl");
+                    if (!administratorPath.StartsWith("http"))
+                    {
+                        administratorPath = Url.Content("~/") + administratorPath;
+                    }
+                    <a class="actionDropdownItem btnMC" target="_blank" href="@administratorPath.ToLower()" onclick="userSettingsView.HideAllMenus()"><span data-bind="text: Localization.SearchPageManagementConsole"></span></a>
                 }
-                <a class="actionDropdownItem btnMC" target="_blank" href="@administratorPath.ToLower()"><span data-bind="text: Localization.SearchPageManagementConsole"></span></a>
-            }
-            @{
-                string workbenchUri = @Url.Content("~/Component/GoToModellingWorkbench");
-            }
-            <a id="btnWorkbench" class="actionDropdownItem btnWorkbench" href="@workbenchUri" target="_blank">
-                <span data-bind="text: Localization.Workbench"></span>
-            </a>
-            <a class="actionDropdownItem btnChangePassword" onclick="userPasswordHandler.ShowPopup()"><span data-bind="text: Localization.ChangePassword"></span></a>
-            <a class="actionDropdownItem btnLogout" onclick="WC.Authentication.Logout()"><span data-bind="text: Localization.Logout"></span></a>
-        </div>
-    </div>
-
-    <div class="k-window-titleless k-window-custom k-window-arrow-n popupHelpMenu" id="HelpMenu">
-        <div class="k-window-content k-content">
-            @{
-                string webLanguage = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
-                string helpUri = string.Format("~/data/help/{0}/UUID-c553e180-7b42-eaf7-41b5-534d2a32a3bc.html", webLanguage);
-                string supportUri = "https://magnitude.com/online-support/";
-            }
-            <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span data-bind="text: Localization.Helppage"></span></a>
-            <a class="actionDropdownItem btnModelParameters" onclick="helpPopupPageHandler.ShowModelParameterPopup()"><span data-bind="text: Localization.ModelParameters"></span></a>
-            <a class="actionDropdownItem btnAbout" onclick="aboutSystemHandler.ShowAboutSystemPopup()"><span data-bind="html: Localization.AboutEveryAngle"></span></a>
-            <a class="actionDropdownItem btnSupport" target="_blank" href="@Url.Content(supportUri)"><span data-bind="text: Localization.Support"></span></a>
-        </div>
-    </div>
-
-    <div class="k-window-titleless k-window-custom k-window-arrow-n popupNotificationsFeedMenu" id="NotificationsFeedMenu">
-        <div class="k-window-content k-content notificationsFeed">
-            <div class="header">
-            </div>
-            <div class="content">
-            </div>
-            <div class="footer">
+                @{
+                    string workbenchUri = @Url.Content("~/Component/GoToModellingWorkbench");
+                }
+                <a id="btnWorkbench" class="actionDropdownItem btnWorkbench" href="@workbenchUri" target="_blank" onclick="userSettingsView.HideAllMenus()">
+                    <span data-bind="text: Localization.Workbench"></span>
+                </a>
+                <a class="actionDropdownItem btnChangePassword" onclick="userPasswordHandler.ShowPopup()"><span data-bind="text: Localization.ChangePassword"></span></a>
+                <a class="actionDropdownItem btnLogout" onclick="WC.Authentication.Logout()"><span data-bind="text: Localization.Logout"></span></a>
             </div>
         </div>
-    </div>
 
-</div> 
+        <div class="k-window-titleless k-window-custom k-window-arrow-n popupHelpMenu" id="HelpMenu">
+            <div class="k-window-content k-content">
+                @{
+                    string webLanguage = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+                    string helpUri = string.Format("~/data/help/{0}/UUID-c553e180-7b42-eaf7-41b5-534d2a32a3bc.html", webLanguage);
+                    string supportUri = "https://magnitude.com/online-support/";
+                }
+                <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span data-bind="text: Localization.Helppage"></span></a>
+                <a class="actionDropdownItem btnModelParameters" onclick="helpPopupPageHandler.ShowModelParameterPopup()"><span data-bind="text: Localization.ModelParameters"></span></a>
+                <a class="actionDropdownItem btnAbout" onclick="aboutSystemHandler.ShowAboutSystemPopup()"><span data-bind="html: Localization.AboutEveryAngle"></span></a>
+                <a class="actionDropdownItem btnSupport" target="_blank" href="@Url.Content(supportUri)"><span data-bind="text: Localization.Support"></span></a>
+            </div>
+        </div>
+
+        <div class="k-window-titleless k-window-custom k-window-arrow-n popupNotificationsFeedMenu" id="NotificationsFeedMenu">
+            <div class="k-window-content k-content notificationsFeed">
+                <div class="header">
+                </div>
+                <div class="content">
+                </div>
+                <div class="footer">
+                </div>
+            </div>
+        </div>
+
+    </div> 

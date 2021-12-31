@@ -1,6 +1,9 @@
 ﻿@model EveryAngle.Core.ViewModels.DataStore.DataStoresViewModel
 @using EveryAngle.Shared.Globalization
 
+@if(Model.connection_settings != null){
+    Html.RenderPartial("~/Views/AutomationTasks/Tasks/ConnectionSettings.cshtml", Model.connection_settings);
+}
 @if(Model.data_settings != null)
 {
 

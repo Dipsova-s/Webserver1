@@ -7055,6 +7055,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action subfolder.
+        /// </summary>
+        public static string MC_ActionSubfolder {
+            get {
+                return ResourceManager.GetString("MC_ActionSubfolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Addition to the datastore path than can be added for this specific action..
+        /// </summary>
+        public static string MC_ActionSubfolderDescription {
+            get {
+                return ResourceManager.GetString("MC_ActionSubfolderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Datastore.
         /// </summary>
         public static string MC_ActionType_Datastore {
@@ -8910,6 +8928,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_DataStore {
             get {
                 return ResourceManager.GetString("MC_DataStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datastore folder.
+        /// </summary>
+        public static string MC_DatastoreFolder {
+            get {
+                return ResourceManager.GetString("MC_DatastoreFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path derived as configured in the datastore..
+        /// </summary>
+        public static string MC_DatastoreFolderDescription {
+            get {
+                return ResourceManager.GetString("MC_DatastoreFolderDescription", resourceCulture);
             }
         }
         
