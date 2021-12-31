@@ -45,7 +45,7 @@ namespace EveryAngle.ManagementConsole.Test.App_Start
             AddBind<IGlobalSettingsAppService, GlobalSettingsAppService>(kernel);
             AddBind<ICopyrightService, CopyrightService>(kernel);
             AddBind<IFileTemplateService, ExcelTemplatesService>(kernel);
-            AddBind<IAngleWarningsFileReader, AngleWarningsFileReader>(kernel);
+            AddBind<IAngleWarningsFileManager, AngleWarningsFileManager>(kernel);
             AddBind<IAngleWarningsContentInputter, AngleWarningsContentInputter> (kernel);
             AddBind<IFileHelper, FileHelper>(kernel);
             AddBind<IAngleWarningsAutoSolver, AngleWarningsAutoSolver>(kernel);

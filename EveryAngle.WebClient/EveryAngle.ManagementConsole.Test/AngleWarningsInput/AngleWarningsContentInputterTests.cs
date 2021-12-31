@@ -13,8 +13,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase]
         public void AWT_ContentInputter_Initialize()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
 
             contentInputter.Initialize(@"\fieldsourcesuri", @"\classesuri");
         }
@@ -32,9 +32,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace Reference,Replace Reference,R2019,Order,FieldCOld,FieldDNew"
             };
 
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
                     
             bool succeeded = contentInputter.TryReadInputList();
 
@@ -56,10 +56,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase]
         public void AWT_ReadInputListFromDisk_ShouldFail()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Throws<FileNotFoundException>();
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Throws<FileNotFoundException>();
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
 
             Assert.IsFalse(contentInputter.TryReadInputList());
         }
@@ -67,7 +67,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase]
         public void AWT_ReadInputListFromDisk_IgnoreUnsupported()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
 
             List<string> csvData = new List<string>
             {
@@ -75,8 +75,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Add filters,Unsupported,R2020SP4,D,E,F"
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Assert.IsTrue(contentInputter.TryReadInputList());
             Assert.AreEqual(contentInputter.ContentInputList.Count, 1);
@@ -87,15 +87,15 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         public void AWT_TryReadInputList_InvalidNrColumns_ShouldFail(string inputColumns)
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
 
             List<string> csvData = new List<string>
             {
                 inputColumns
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Assert.IsFalse(contentInputter.TryReadInputList());
         }
@@ -103,15 +103,15 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase]
         public void AWT_GetSolveItem_ShouldReturnNoFixAvailable()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
 
             List<string> csvData = new List<string>
             {
                 "Replace field,Replace field,R2020SP3,Order,Field1,Field2",
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Assert.IsTrue(contentInputter.TryReadInputList());
 
@@ -129,7 +129,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase("unsupported_start_object", "Class1", "Class1", "Class4")]
         public void AWT_Recursiveness_ShouldSucceed(string warning, string objectClass, string oldField, string expectedNewField)
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
 
             List<string> csvData = new List<string>
             {
@@ -142,8 +142,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace class,Replace class,R2020SP1,Class1,Class1,Class2",
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Assert.IsTrue(contentInputter.TryReadInputList());
 
@@ -155,7 +155,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         public AngleWarningsContentInputter GetMockedExcelListReader()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
 
             List<string> csvData = new List<string>
             {
@@ -179,9 +179,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace Field,Replace Field,R2020SP5,WorkOrder,PRCTR,ProfitCenter__ProfitCenterID"
             };
 
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
 
             contentInputter.TryReadInputList();
 
@@ -344,7 +344,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase]
         public void AWT_SolveItem_FieldChangedInOriginalClass()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
             classReferencesManager.Setup(x => x.GetReferencedClass(It.IsAny<string>())).Returns("Customer");
 
             List<string> csvData = new List<string>
@@ -352,8 +352,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace Field,Replace Field,R2020SP1,Customer,Name,NewName"
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             contentInputter.TryReadInputList();
 
@@ -364,8 +364,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase]
         public void AWT_GetSolveItem_InvalidWarningsShouldReturnNoFixAvailable()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, classReferencesManager.Object);
 
             AngleWarningsContentInput contentInput = contentInputter.GetSolveItem("invalid_display_field", "BillingDocumentItem", "Payer__Name", null);
             Assert.AreEqual(WarningFix.NoFixAvailable, contentInput.Fix);
@@ -375,15 +375,15 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [Ignore] // Not yet implemented, appserver cant handle two base classes
         public void AWT_GetSolveItem_TwoBaseClasses()
         {
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
 
             List<string> csvData = new List<string>
             {
                 "Replace Reference,Replace Reference,R2020SP1,BillingDocumentItem,Reference_old_1,Customer",
             };
 
-            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, null);
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileManager.Object, null);
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             contentInputter.TryReadInputList();
 

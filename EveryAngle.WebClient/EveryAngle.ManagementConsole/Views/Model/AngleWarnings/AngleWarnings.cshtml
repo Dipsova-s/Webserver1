@@ -69,11 +69,11 @@
 <div class="content pageAngleWarnings">
     <div class="headerAngleWarnings">
         <span class="label">
-            @Resource.MC_AngleWarningsFileHeading
+            @Resource.MC_AngleWarnings
         </span>
     </div>
     <div class="subHeaderAngleWarnings">
-            @Resource.MC_AngleWarningsFileSubHeading
+            @Resource.MC_AngleWarningsSubHeading
     </div>
     <form id="FormSearchAngleWarnings" data-role="validator">
         <div class="contentSection contentSectionInfo">
@@ -135,10 +135,10 @@
         </span>
         <input type="hidden" value=@ViewBag.FilePath id="DownloadAngleWarningFile1" />
         <a id="DownloadAngleWarningFile" onclick="MC.Models.AngleWarnings.DownloadAngleWarningFile(event,this)">
-            @Resource.MC_AngleWarningsFileDownload
+            @Resource.Download
         </a>
         <form action="@Url.Action("UploadAngleWarningFile", "AngleWarnings")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
-            <a onclick="MC.Models.AngleWarnings.OnClickUploadLink(event,this)" id="UploadAngleWarningFile">@Resource.MC_AngleWarningsFileUpload</a>
+            <a onclick="MC.Models.AngleWarnings.OnClickUploadLink(event,this)" id="UploadAngleWarningFile">@Resource.Upload</a>
             <input type="file" name="file" id="upload" size="60" onchange="MC.Models.AngleWarnings.SaveAngleWarningFile(event)" hidden />
         </form>
     </div>

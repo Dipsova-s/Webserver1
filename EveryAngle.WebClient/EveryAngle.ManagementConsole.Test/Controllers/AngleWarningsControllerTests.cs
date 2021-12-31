@@ -80,9 +80,12 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             int hasAutomationTasks;
             autoWarningsSolver.Setup(x => x.GetNumberOfSolvableFieldsViaInputFile(It.IsAny<AngleWarningsDataSourceResult>(), out hasAutomationTasks)).Returns(88);
-            
+
+            FileHelper fileHelper = new FileHelper();
+            AngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper);
+
             // assign to controller
-            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoWarningsSolver.Object, sessionHelper.Object);
+            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoWarningsSolver.Object, angleWarningsFileManager, sessionHelper.Object);
         }
 
         #endregion
@@ -101,12 +104,12 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             userViewModel.Settings = GetMockViewModel<UserSettingsViewModel>();
             sessionHelper.Setup(x => x.CurrentUser).Returns(userViewModel);
 
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            Mock<IAngleWarningsFileManager> fileManager = new Mock<IAngleWarningsFileManager>();
 
             List<string> csvData = new List<string>();
             csvData.Add("Field__A,Field__B");
             csvData.Add("Field__C,Field__D");
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            fileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
             contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
@@ -114,8 +117,11 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
             autoSolver.Initialize(sessionHelper.Object);
 
+            FileHelper fileHelper = new FileHelper();
+            AngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper);
+
             // execute
-            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
+            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager, sessionHelper.Object);
             ActionResult result = _testingController.GetAngleWarnings(modelUri, modelId);
 
             // assert

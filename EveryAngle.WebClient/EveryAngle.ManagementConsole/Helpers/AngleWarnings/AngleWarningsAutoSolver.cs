@@ -10,8 +10,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 {
@@ -56,16 +54,6 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         public static void SetModel(ModelViewModel model)
         {
             _model = model;
-        }
-
-        public ActionResult ReadExcelHeaderColumnResult(HttpPostedFileBase file)
-        {
-            return _contentInputter.ReturnReadExcelHeaderColumnResult(file);
-        }
-
-        public FileViewModel GetDownloadAngleWarningFile(string fullPath)
-        {
-            return _contentInputter.DownloadAngleWarningFile(fullPath);
         }
 
         public int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource, out int hasAutomationTasks)

@@ -11,7 +11,7 @@ using System.Text;
 
 namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
 {
-    public class AngleWarningsFileReaderTests: UnitTestBase
+    public class AngleWarningsFileManagerTests: UnitTestBase
     {
         [TestCase]
         public void AWT_ReadInputList_ShouldSucceed()
@@ -37,8 +37,8 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
 
             fileHelper.Setup(x => x.ReadExcel(It.IsAny<string>(), It.IsAny<string>(), 1)).Returns(dataTable);
 
-            IAngleWarningsFileReader angleWarningsFileReader = new AngleWarningsFileReader(fileHelper.Object);
-            List<string> contentInput = angleWarningsFileReader.ReadContentInputExcelFileFromDisk();
+            IAngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper.Object);
+            List<string> contentInput = angleWarningsFileManager.ReadContentInputExcelFileFromDisk();
 
             Assert.AreEqual(csvData, contentInput[0]);
         }
@@ -49,20 +49,20 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         {
             Mock<IFileHelper> fileHelper = new Mock<IFileHelper>();
             fileHelper.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
-            IAngleWarningsFileReader angleWarningsFileReader = new AngleWarningsFileReader(fileHelper.Object);
+            IAngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper.Object);
 
-            Assert.That(() => angleWarningsFileReader.ReadContentInputExcelFileFromDisk(), Throws.TypeOf<FileNotFoundException>());
+            Assert.That(() => angleWarningsFileManager.ReadContentInputExcelFileFromDisk(), Throws.TypeOf<FileNotFoundException>());
         }
 
         [TestCase]
         public void AWT_ReadInputList_NoFileGiven_ShouldGiveException()
         {
             Mock<IFileHelper> fileHelper = new Mock<IFileHelper>();
-            IAngleWarningsFileReader angleWarningsFileReader = new AngleWarningsFileReader(fileHelper.Object);
+            IAngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper.Object);
 
             ConfigurationManager.AppSettings.Set("AngleWarningsContentInputFile", null);
 
-            Assert.That(() => angleWarningsFileReader.ReadContentInputExcelFileFromDisk(), Throws.TypeOf<ArgumentNullException>());
+            Assert.That(() => angleWarningsFileManager.ReadContentInputExcelFileFromDisk(), Throws.TypeOf<ArgumentNullException>());
 
             ConfigurationManager.AppSettings.Set("AngleWarningsContentInputFile", @"c:\temp\inputfile.xlsx");
         }

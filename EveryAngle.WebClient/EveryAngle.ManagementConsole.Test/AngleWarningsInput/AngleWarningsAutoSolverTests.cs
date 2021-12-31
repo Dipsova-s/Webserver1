@@ -45,8 +45,11 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
             autoSolver.Initialize(sessionHelper.Object);
 
+            FileHelper fileHelper = new FileHelper();
+            AngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper);
+
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager, sessionHelper.Object);
 
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 
@@ -73,8 +76,11 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
             autoSolver.Initialize(sessionHelper.Object);
 
+            FileHelper fileHelper = new FileHelper();
+            AngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper);
+
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager, sessionHelper.Object);
 
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 
@@ -97,8 +103,11 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
             autoSolver.Initialize(sessionHelper.Object);
 
+            FileHelper fileHelper = new FileHelper();
+            AngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper);
+
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager, sessionHelper.Object);
 
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 
@@ -179,8 +188,11 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
             autoSolver.Initialize(sessionHelper.Object);
 
+            FileHelper fileHelper = new FileHelper();
+            AngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper);
+
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager, sessionHelper.Object);
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 
             JObject actualJObject = JObject.Parse(autoSolver.ExecuteAngleWarningsUsingInputFile("EA2_800"));
@@ -231,8 +243,11 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
             autoSolver.Initialize(sessionHelper.Object);
 
+            FileHelper fileHelper = new FileHelper();
+            AngleWarningsFileManager angleWarningsFileManager = new AngleWarningsFileManager(fileHelper);
+
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager, sessionHelper.Object);
 
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 

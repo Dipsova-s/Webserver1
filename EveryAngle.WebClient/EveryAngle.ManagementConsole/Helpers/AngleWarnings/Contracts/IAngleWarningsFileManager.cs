@@ -1,13 +1,13 @@
 ﻿using EveryAngle.Core.ViewModels.Model;
 using System.Collections.Generic;
+using System.IO;
 using System.Web;
-using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 {
-    public interface IAngleWarningsFileReader
+    public interface IAngleWarningsFileManager
     {
-        ActionResult ReturnReadExcelHeaderColumnResult(HttpPostedFileBase file);
+        FileInfo ReadExcelHeaderColumnResult(HttpPostedFileBase file, out bool isInvalid);
         FileViewModel DownloadAngleWarningFile(string fullPath);
         List<string> ReadContentInputExcelFileFromDisk();
     }

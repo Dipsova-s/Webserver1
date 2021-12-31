@@ -10,46 +10,39 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Web;
-using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 {
-    public class AngleWarningsFileReader : IAngleWarningsFileReader
+    public class AngleWarningsFileManager : IAngleWarningsFileManager
     {
         private readonly IFileHelper _fileHelper;
 
-        public AngleWarningsFileReader(IFileHelper fileHelper)
+        public AngleWarningsFileManager(IFileHelper fileHelper)
         {
             _fileHelper = fileHelper ?? throw new ArgumentNullException(nameof(fileHelper));
         }
 
-        public ActionResult ReturnReadExcelHeaderColumnResult(HttpPostedFileBase file)
+        public FileInfo ReadExcelHeaderColumnResult(HttpPostedFileBase file, out bool isInvalid)
         {
-                if (file.ContentLength > 0)
-                {
-                    var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
+            var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
 
-                    var tempFolder = GetAngleWarningPath(Path.Combine(Path.GetDirectoryName(path), "Temp"));
-                    var tempPath = Path.Combine(tempFolder, file.FileName);
-                    file.SaveAs(tempPath);
+            var tempFolder = GetAngleWarningPath(Path.Combine(Path.GetDirectoryName(path), "Temp"));
+            var tempPath = Path.Combine(tempFolder, file.FileName);
+            file.SaveAs(tempPath);
 
-                    bool isInvalid = true;
-                    FileInfo fileInfo = null;
-                    if (TryReadInputColumnHeaders(tempPath))
-                    {
-                        file.SaveAs(Path.Combine(path));
+            isInvalid = true;
+            FileInfo fileInfo = null;
+            if (TryReadInputColumnHeaders(tempPath))
+            {
+                file.SaveAs(Path.Combine(path));
 
-                        fileInfo = new FileInfo(path);
-                        isInvalid = false;
-                    }
+                fileInfo = new FileInfo(path);
+                isInvalid = false;                
+            }
 
-                    Directory.Delete(tempFolder, true);
-                    return GetJsonStringResult(fileInfo, isInvalid);
-                }
-                return JsonHelper.GetJsonStringResult(false, null,
-                    null, MessageType.REQUIRE_EXCEL, null);
+            Directory.Delete(tempFolder, true);
+            return fileInfo;
         }        
 
         public FileViewModel DownloadAngleWarningFile(string fullPath) 
@@ -174,27 +167,6 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             }
 
             return targetFolder;
-        }
-
-        private ContentResult GetJsonStringResult(FileInfo fileInfo, bool isInValid = false)
-        {
-            ContentResult content = new ContentResult();
-            var result = new JsonResult
-            {
-                Data = new
-                {
-                    success = true,
-                    LastModified = fileInfo?.LastWriteTime.ToString(),
-                    isInvalid = isInValid
-                },
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-
-            content.ContentType = "text/plain";
-            content.ContentEncoding = Encoding.UTF8;
-            content.Content = JsonConvert.SerializeObject(result.Data);
-
-            return content;
         }
 
         private void VerifyArbitraryPathTraversal(FileInfo fileInfo)

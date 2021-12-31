@@ -7802,38 +7802,11 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download.
-        /// </summary>
-        public static string MC_AngleWarningsFileDownload {
-            get {
-                return ResourceManager.GetString("MC_AngleWarningsFileDownload", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Upload.
-        /// </summary>
-        public static string MC_AngleWarningsFileUpload {
-            get {
-                return ResourceManager.GetString("MC_AngleWarningsFileUpload", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Forwarding rules last updated:.
         /// </summary>
         public static string MC_AngleWarningsForwardingRulesLastUpdated {
             get {
                 return ResourceManager.GetString("MC_AngleWarningsForwardingRulesLastUpdated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Angle warnings.
-        /// </summary>
-        public static string MC_AngleWarningsHeading {
-            get {
-                return ResourceManager.GetString("MC_AngleWarningsHeading", resourceCulture);
             }
         }
         
@@ -10661,7 +10634,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is not a valid content excel file.
+        ///   Looks up a localized string similar to This is not a valid content Excel file.
         /// </summary>
         public static string MC_InvalidContentExcelFile {
             get {
@@ -10684,15 +10657,6 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_InvalidExcelFileName {
             get {
                 return ResourceManager.GetString("MC_InvalidExcelFileName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This is not an excel file.
-        /// </summary>
-        public static string MC_InvalidFile {
-            get {
-                return ResourceManager.GetString("MC_InvalidFile", resourceCulture);
             }
         }
         
@@ -18345,6 +18309,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Update {
             get {
                 return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        public static string Upload {
+            get {
+                return ResourceManager.GetString("Upload", resourceCulture);
             }
         }
         

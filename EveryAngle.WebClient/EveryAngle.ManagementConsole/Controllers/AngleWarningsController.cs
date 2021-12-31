@@ -32,6 +32,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly IModelService _modelService;
         private readonly IGlobalSettingService _globalSettingService;
         private readonly IAngleWarningsAutoSolver _angleWarningsAutoSolver;
+        private readonly IAngleWarningsFileManager _angleWarningsFileManager;
 
         #endregion
 
@@ -41,11 +42,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService modelService,
             IGlobalSettingService globalSettingService,
             IAngleWarningsAutoSolver angleWarningsAutoSolver,
+            IAngleWarningsFileManager angleWarningsFileManager,
             SessionHelper sessionHelper)
         {
             _modelService = modelService;
             _globalSettingService = globalSettingService;
             _angleWarningsAutoSolver = angleWarningsAutoSolver;
+            _angleWarningsFileManager = angleWarningsFileManager;
             SessionHelper = sessionHelper;
 
             _angleWarningsAutoSolver.Initialize(SessionHelper);
@@ -55,11 +58,13 @@ namespace EveryAngle.ManagementConsole.Controllers
         public AngleWarningsController(
             IModelService modelService,
             IGlobalSettingService globalSettingService,
-            IAngleWarningsAutoSolver angleWarningsAutoSolver)
+            IAngleWarningsAutoSolver angleWarningsAutoSolver,
+            IAngleWarningsFileManager angleWarningsFileManager)
         {
             _modelService = modelService;
             _globalSettingService = globalSettingService;
             _angleWarningsAutoSolver = angleWarningsAutoSolver;
+            _angleWarningsFileManager = angleWarningsFileManager;
 
             _angleWarningsAutoSolver.Initialize(SessionHelper);
         }
@@ -287,7 +292,13 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             try
             {
-                return _angleWarningsAutoSolver.ReadExcelHeaderColumnResult(file);
+                if (file.ContentLength > 0)
+                {
+                    FileInfo fileInfo = _angleWarningsFileManager.ReadExcelHeaderColumnResult(file, out bool isInvalid);
+                    return GetJsonStringResult(fileInfo, isInvalid);
+                }
+                return JsonHelper.GetJsonStringResult(false, null,
+                    null, MessageType.REQUIRE_EXCEL, null);
             }
             catch (HttpException ex)
             {
@@ -307,7 +318,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public FileContentResult GetAngleWarningFile(string fullPath)
         {
-            FileViewModel viewModel = _angleWarningsAutoSolver.GetDownloadAngleWarningFile(fullPath);
+            FileViewModel viewModel = _angleWarningsFileManager.DownloadAngleWarningFile(fullPath);
             return File(viewModel.FileBytes, MediaTypeNames.Application.Octet, viewModel.FileName);
         }
 
@@ -637,7 +648,26 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
+        private ContentResult GetJsonStringResult(FileInfo fileInfo, bool isInValid = false)
+        {
+            ContentResult content = new ContentResult();
+            var result = new JsonResult
+            {
+                Data = new
+                {
+                    success = true,
+                    LastModified = fileInfo?.LastWriteTime.ToString(),
+                    isInvalid = isInValid
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
 
+            content.ContentType = "text/plain";
+            content.ContentEncoding = Encoding.UTF8;
+            content.Content = JsonConvert.SerializeObject(result.Data);
+
+            return content;
+        }
         #endregion
     }
 

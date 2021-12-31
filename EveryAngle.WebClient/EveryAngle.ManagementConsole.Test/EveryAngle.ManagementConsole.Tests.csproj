@@ -129,7 +129,7 @@
     <Compile Include="AngleWarningsInput\AngleWarningsAutoSolverTests.cs" />
     <Compile Include="AngleWarningsInput\AngleWarningsContentInputterTests.cs" />
     <Compile Include="AngleWarningsInput\AngleWarningsContentInputTests.cs" />
-    <Compile Include="AngleWarningsInput\AngleWarningsFileReaderTests.cs" />
+    <Compile Include="AngleWarningsInput\AngleWarningsFileManagerTests.cs" />
     <Compile Include="AngleWarningsInput\AngleWarningsTaskCreatorTests.cs" />
     <Compile Include="AngleWarningsInput\AngleWarningsTestsHelper.cs" />
     <Compile Include="AngleWarningsInput\AngleWarningTaskActionTests.cs" />

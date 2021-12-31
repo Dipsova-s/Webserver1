@@ -1964,7 +1964,7 @@
                 if (isExcel)
                     self.UploadAngleWarningFile();
                 else {
-                    MC.util.showPopupAlert(Localization.MC_InvalidFile);
+                    MC.util.showPopupAlert(Localization.MC_InvalidExcelFile);
                     MC.util.ajaxUploadClearInput("#upload");
                 }
             }
