@@ -35,6 +35,10 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             FileInfo fileInfo = null;
             if (TryReadInputColumnHeaders(tempPath))
             {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
                 file.SaveAs(Path.Combine(path));
 
                 fileInfo = new FileInfo(path);
