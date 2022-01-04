@@ -104,7 +104,7 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy.cmd"; DestDir: "
 ;Diagrams
 Source: "Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
 ;Content Input File for fixing angle warnings
-Source: "Content\AngleWarningsList.xlsx"; DestDir: "{code:IISPhysicalPath|Admin\UploadedResources\AngleWarnings}"; Flags: ignoreversion skipifsourcedoesntexist; Components: webclient
+Source: "Content\AngleWarningsList.xlsx"; DestDir: "{code:IISPhysicalPath|admin\UploadedResources\AngleWarnings}"; Flags: ignoreversion skipifsourcedoesntexist; Components: webclient
 ;ManagementConsole
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
@@ -974,11 +974,11 @@ begin
   end;
 
   // Check the existence of the Angle Warnings Content Input File
-  if FileExists(IISPhysicalPath('Admin\UploadedResources\AngleWarnings') + '\AngleWarningsList.xlsx') then
+  if FileExists(IISPhysicalPath('admin\UploadedResources\AngleWarnings') + '\AngleWarningsList.xlsx') then
   begin
-    Log('Angle warnings input file found in Admin\UploadedResources\AngleWarnings folder.');
+    Log('Angle warnings input file found in admin\UploadedResources\AngleWarnings folder.');
     // Do not log the location of file yet, that will come in later pbi
-    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', IISPhysicalPath('Admin\UploadedResources\AngleWarnings') + '\AngleWarningsList.xlsx');
+    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', IISPhysicalPath('admin\UploadedResources\AngleWarnings') + '\AngleWarningsList.xlsx');
   end;
 
   ManagementConsoleConfig := MergeAppSettings(ManagementConsoleConfig, NewMCConfig);
