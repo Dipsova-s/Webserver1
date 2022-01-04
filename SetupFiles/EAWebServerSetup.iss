@@ -104,7 +104,7 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy.cmd"; DestDir: "
 ;Diagrams
 Source: "Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
 ;Content Input File for fixing angle warnings
-Source: "Content\AngleWarningsList.xlsx"; DestDir: "{code:DataPath|IISPhysicalPath + 'admin\UploadedResources\AngleWarnings'}"; Flags: ignoreversion skipifsourcedoesntexist
+Source: "Content\AngleWarningsList.xlsx"; DestDir: "{src}"; Flags: ignoreversion skipifsourcedoesntexist overwritereadonly deleteafterinstall
 ;ManagementConsole
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
@@ -1502,6 +1502,19 @@ begin
   CopyFiles(Source, Target, '*.jpg'); 
 end;
 
+procedure CopyAngleWarningsFile(IISPhysicalPath: string);
+var
+  Source,
+  Target: string;
+begin
+  Source := ExpandConstant('{src}');
+  Target := IISPhysicalPath + 'admin\UploadedResources\AngleWarnings'
+  CreateDir(Target);
+  if FileExists(Source + '\AngleWarningsList.xlsx') then
+    CopyFiles(Source, Target, '.xlsx');
+    CopyFiles(Source, Target, '.xlsm');
+end;
+
 procedure InstallSAPLauncher(IISPhysicalPath: string);
 var
   Source,
@@ -1664,6 +1677,9 @@ begin
   ShowProgressAndText(80, msg1, 'Installing {#coTrainingMovies}');
   if MoviesSelected then
     InstallMovies(IISPhysicalPath);
+
+  // Copy Angle Warnings File
+    CopyAngleWarningsFile(IISPhysicalPath);
 
   // Copy SAP launcher
   InstallSAPLauncher(IISPhysicalPath);
