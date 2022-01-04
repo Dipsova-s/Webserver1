@@ -104,7 +104,7 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy.cmd"; DestDir: "
 ;Diagrams
 Source: "Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
 ;Content Input File for fixing angle warnings
-Source: "Content\AngleWarningsList.xlsx"; DestDir: "{code:IISPhysicalPath|admin\UploadedResources\AngleWarnings}"; Flags: ignoreversion skipifsourcedoesntexist; Components: webclient
+Source: "Content\AngleWarningsList.xlsx"; DestDir: "{code:IISPhysicalPath|admin\UploadedResources\AngleWarnings}"; Flags: ignoreversion skipifsourcedoesntexist
 ;ManagementConsole
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
