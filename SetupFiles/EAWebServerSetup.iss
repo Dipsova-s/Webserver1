@@ -39,6 +39,7 @@ var
 function LogFolder: string; // Used in Tools.iss ?
 begin
   Result := ExpandConstant('{code:DataPath|Log}'); 
+  Log(Result);
 end;
 #include "fixfonts.iss"
 #include "tools.iss"
@@ -1507,10 +1508,8 @@ var
   Source,
   Target: string;
 begin
-  SourceOne := ExpandConstant('{code:DataPath|Tools\Data}');
   Source := DataPath('Tools\Data');
   Target := IISPhysicalPath + 'admin\UploadedResources\AngleWarnings'
-  Log(SourceOne);
   Log(Source);
   Log(Target);
   CreateDir(Target);
