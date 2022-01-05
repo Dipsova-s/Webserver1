@@ -78,6 +78,7 @@ Write All Angles in Search Result to Test File
 
 Find And Execute Angle
     [Arguments]    ${angleId}    ${angleUri}    ${angleName}
+    Wait Search Page Document Loaded
     Search Filter By Query String    ids=${angleId}
     Click Link Item From Search Result By Item Uri: ${angleUri}
     ${isBackToSearch}  Check If Template Can Be Used
