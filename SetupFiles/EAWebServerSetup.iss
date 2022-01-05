@@ -975,11 +975,11 @@ begin
   end;
 
   // Check the existence of the Angle Warnings Content Input File
-  if FileExists(IISPhysicalPath + 'admin\UploadedResources\AngleWarnings' + '\AngleWarningsList.xlsx') then
+  if FileExists(IISPhysicalPath + '\admin\UploadedResources\AngleWarnings' + '\AngleWarningsList.xlsx') then
   begin
     Log('Angle warnings input file found in admin\UploadedResources\AngleWarnings folder.');
     // Do not log the location of file yet, that will come in later pbi
-    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', IISPhysicalPath + 'admin\UploadedResources\AngleWarnings' + '\AngleWarningsList.xlsx');
+    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', IISPhysicalPath + '\admin\UploadedResources\AngleWarnings' + '\AngleWarningsList.xlsx');
   end;
 
   ManagementConsoleConfig := MergeAppSettings(ManagementConsoleConfig, NewMCConfig);
@@ -1509,7 +1509,7 @@ var
   Target: string;
 begin
   Source := DataPath('Tools\Data');
-  Target := IISPhysicalPath + 'admin\UploadedResources\AngleWarnings\';
+  Target := IISPhysicalPath + '\admin\UploadedResources\AngleWarnings\';
   Log('this is source path:' + Source);
   Log('this is target path:' + Target);
   CreateDir(Target);
