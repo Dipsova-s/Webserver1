@@ -1507,8 +1507,12 @@ var
   Source,
   Target: string;
 begin
-  Source := ExpandConstant('{code:DataPath|Tools\Data}');
+  SourceOne := ExpandConstant('{code:DataPath|Tools\Data}');
+  Source := DataPath('Tools\Data');
   Target := IISPhysicalPath + 'admin\UploadedResources\AngleWarnings'
+  Log(SourceOne);
+  Log(Source);
+  Log(Target);
   CreateDir(Target);
   if FileExists(Source + '\AngleWarningsList.xlsx') then
     CopyFiles(Source, Target, '.xlsx');
