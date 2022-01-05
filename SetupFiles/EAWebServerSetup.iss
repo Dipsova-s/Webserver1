@@ -104,7 +104,7 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy.cmd"; DestDir: "
 ;Diagrams
 Source: "Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
 ;Content Input File for fixing angle warnings
-Source: "Content\AngleWarningsList.xlsx"; DestDir: "{src}"; Flags: ignoreversion skipifsourcedoesntexist overwritereadonly deleteafterinstall
+Source: "Content\AngleWarningsList.xlsx"; DestDir: "code:DataPath|Tools\Data"; Flags: ignoreversion skipifsourcedoesntexist; Components: webclient
 ;ManagementConsole
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
@@ -1507,7 +1507,7 @@ var
   Source,
   Target: string;
 begin
-  Source := ExpandConstant('{src}');
+  Source := ExpandConstant('{code:DataPath|Tools\Data}');
   Target := IISPhysicalPath + 'admin\UploadedResources\AngleWarnings'
   CreateDir(Target);
   if FileExists(Source + '\AngleWarningsList.xlsx') then
