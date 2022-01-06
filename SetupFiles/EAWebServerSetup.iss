@@ -1514,8 +1514,8 @@ begin
   Log('this is target path:' + Target);
   CreateDir(Target);
   if FileExists(Source + '\AngleWarningsList.xlsx') then
-    CopyFiles(Source, Target, '.xlsx');
-    CopyFiles(Source, Target, '.xlsm');
+    CopyFiles(Source, Target, '*.xlsx');
+    CopyFiles(Source, Target, '*.xlsm');
 end;
 
 procedure InstallSAPLauncher(IISPhysicalPath: string);
