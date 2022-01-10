@@ -3451,8 +3451,10 @@ textarea.input-light {
   width: auto;
   flex-shrink: 0; }
 
-.popup-execution-parameter .col-angle-object .btn-info {
-  margin-right: 5px; }
+.popup-execution-parameter .col-angle-object {
+  font-weight: normal; }
+  .popup-execution-parameter .col-angle-object .btn-info {
+    margin-right: 5px; }
 
 .popup-execution-parameter .row-definition .col-definition {
   flex: 1 1 100%;
@@ -3462,6 +3464,15 @@ textarea.input-light {
 
 .popup-execution-parameter .btn-wrapper {
   display: none; }
+
+.popup-execution-parameter .accrodion-bg-white {
+  background: white; }
+
+.popup-execution-parameter .angelStartObject {
+  margin-left: auto;
+  display: inline-flex; }
+  .popup-execution-parameter .angelStartObject .startObjectText {
+    padding-right: 5px; }
 
 /* .display-tabs
 ===================================== */

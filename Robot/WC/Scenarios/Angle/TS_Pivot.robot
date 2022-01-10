@@ -8,7 +8,7 @@ ${TEST_VERIFY_PIVOT_DISPLAY_NAME}               Test Pivot 1
 ${TEST_VERIFY_PIVOT_PERCENTAGE_DISPLAY_NAME}    Test Pivot Percentage
 
 *** Keywords ***
-Pivot Settings Subtotal / Percentages Column / Alias Name / Field Icons / Collapse
+Pivot Settings Subtotal / Percentages Column / Alias Name / Field Icons / Collapse     
     # Setup
     Go To Pivot Test Display
     Pivot Should Have Field Icons
@@ -75,7 +75,7 @@ Pivot Percentages
     Click Apply Field Setting Inside Pivot Options Popup
     ${rowData}    Get Pivot Cell Value By Column Index And Row Index    0    0
     ${rowDataTotal}    Get Pivot Total Cell Value By Row Index    0
-    ${rowDataPercentage}     Get Pivot Percentages Summary Cell Value By Row Index And Column Index    0    0
+    ${rowDataPercentage}     Get Pivot Percentages Summary Cell Value By Row Index And Column Index    0   0
     ${result}    Execute Javascript    return WC.FormatHelper.GetFormattedValue('percentage', ${rowData}/${rowDataTotal}) == '${rowDataPercentage}'
     Should Be True    ${result}
 
@@ -193,5 +193,5 @@ Pivot Should Sort By Summary Correctly
     ${dataCount}    Get Length    ${data}
     ${previousValue}    Convert To Integer    10000000
     : FOR    ${value}    IN    @{data}
-    \    Should Be True    ${previousValue} >= ${value}
+    \    Should Be True    ${previousValue} <= ${value}
     \    ${previousValue}    Convert To Integer    ${value}

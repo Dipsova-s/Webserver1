@@ -188,6 +188,7 @@ Select Dropdown By Selector
     ${jquerySelector}    Get JQuery Selector    ${selectItem}
     Execute Javascript    $('${jquerySelector}').parents('ul:first').scrollTop($('${jquerySelector}').parent().position().top)
     Sleep            ${TIMEOUT_DROPDOWN}
+    Wait Until Element Is Visible     ${selectItem}
     Click Element    ${selectItem}
     ${isDropdownVisible}    Is Element Visible    ${selectItem}
     Run Keyword If    ${isDropdownVisible} == True    Wait Until Dropdown Disappears    ${selectItem}
@@ -201,6 +202,7 @@ Wait Until Dropdown Disappears
 
 Select Dropdown By Text
     [Arguments]  ${selectElement}    ${text}
+    Wait Until Element Is Visible   ${selectElement}
     Select Dropdown By Selector    ${selectElement}    jquery=span[data-text="${text}"]:visible
 
 Select Dropdown By InnerText

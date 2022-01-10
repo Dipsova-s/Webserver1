@@ -114,9 +114,8 @@ Verify Correct Filter Value Updated On Excel Export For Execution Parameters
     Upload Item And Check From Search Result  ANGLE_ExecutionParametersBehavior.angle.json    EA2_800    ${angleName}
     Click Link Item From Search Result Not Execute Popup    ${angleName}
     Wait Until Angle Execute Parameters Popup Loaded
-    Input Filter Input Text In List  0  2
-    Switch To Display Parameters
-    Input Filter Input Text In List  0  31
+    Input Angle Section Filter Text In List  0  2
+    Input Display Section Filter Text In List  0  31
     Click Submit Angle Execution Parameters
     ${expectedAngleFilterResult}=      Get Angle Filters
     ${expectedDisplayFilterResult}=     Get Display Filters

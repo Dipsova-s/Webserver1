@@ -1,7 +1,7 @@
 *** Variables ***
 ${divExecuteParametersPopup}     css=#PopupExecutionParameter
 ${pgbExecuteParameters}          css=#PopupExecutionParameter > div.k-loading-mask
-${btnSubmitExecuteParameters}    css=#btn-PopupExecutionParameter3
+${btnSubmitExecuteParameters}    css=#btn-PopupExecutionParameter1
 ${searchPageTitle}               Magnitude Angles for SAP - Search page
 
 *** Keywords ***

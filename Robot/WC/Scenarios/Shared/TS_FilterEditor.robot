@@ -46,7 +46,7 @@ ${txtCurrencyAfterEditValue}            (Self) - Ordered Value is greater than 2
 ${txtDateAfterEditValue}                (Self) - Order Due Date is after this day(s)
 ${txtDateTimeAfterEditValue}            (Self) - TheDateTime is after this day(s)  
 ${txtDoubleAfterEditValue}              (Self) - Quantity is greater than 1
-${txtEnumerateAfterEditValue}           (Self) - Delivery Reliability is in list (Late, Delivered on time) 
+${txtEnumerateAfterEditValue}           (Self) - Delivery Reliability is in list
 ${txtIntAfterEditValue}                 (Self) - Number of Material Plant Data is greater than 1
 ${txtPercentageAfterEditValue}          (Self) - Delivery Reliability As Percentage is greater than 1 %
 ${txtPeriodAfterEditValue}              (Self) - Calculated Delay is greater than 1 day(s)
@@ -272,7 +272,8 @@ Verify Edit Enumerate Filter Value
     Click Edit Filter    5
     Set Editor Index    5 
     Select Checkbox Enum List   3
-    Filter Display Name Should Contains     ${txtEnumerateAfterEditValue}     
+    Filter Display Name Should Contains     ${txtEnumerateAfterEditValue}
+    # Wait Until Page Contains    ${txtEnumerateAfterEditValue}    60s
     Check Apply Button On Edit Filter
 
 Verify Edit Int Filter Value

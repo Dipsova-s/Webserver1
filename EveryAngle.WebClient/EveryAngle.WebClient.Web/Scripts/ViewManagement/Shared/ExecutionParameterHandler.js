@@ -24,9 +24,10 @@ function ExecutionParameterHandler(angle, display) {
         _self.isSubmit = false;
         var popupSettings = {
             title: Localization.ExecutionPopupExecutionParameters,
-            width: 600,
             minWidth: 500,
-            height: 530,
+            minHeight: 530,
+            width: 810,
+            height: 710,
             element: '#PopupExecutionParameter',
             html: executeParameterHtmlTemplate(),
             className: 'popup-execution-parameter',
@@ -69,29 +70,7 @@ function ExecutionParameterHandler(angle, display) {
                 position: 'right'
             },
             {
-                text: Localization.ExecutionPopupChangeAngle,
-                click: function (e, obj) {
-                    if (popup.CanButtonExecute(obj)) {
-                        self.ToggleParameters(e.kendoWindow, false);
-                    }
-                },
-                className: 'btnChangeAngleParameters alwaysHide executing',
-                isPrimary: true,
-                position: 'right'
-            },
-            {
-                text: Localization.ExecutionPopupChangeDisplay,
-                click: function (e, obj) {
-                    if (popup.CanButtonExecute(obj)) {
-                        self.ToggleParameters(e.kendoWindow, true);
-                    }
-                },
-                className: 'btnChangeDisplayParameters alwaysHide executing',
-                isPrimary: true,
-                position: 'right'
-            },
-            {
-                text: Localization.Ok,
+                text: Localization.Execute,
                 click: function (e, obj) {
                     if (popup.CanButtonExecute(obj)) {
                         _self.isSubmit = true;
@@ -124,6 +103,17 @@ function ExecutionParameterHandler(angle, display) {
 
         // objects
         self.SetAngleClassesHtml(e.sender.element.find('.col-angle-object'), self.WidgetFilterAngle.GetBaseClasses());
+        self.SetAngleIconClassesHtml(e.sender.element.find('.col-angle-icon'));
+        //set angle name
+        e.sender.element.find('.col-angle-name').text(self.GetAngleName());
+    };
+    self.GetAngleName = function () {
+        return self.Angle.name || WC.Utility.GetDefaultMultiLangText(self.Angle.multi_lang_name);
+    }
+    self.SetAngleIconClassesHtml = function (target) {
+        var iconClass = self.Angle.is_template ? " icon-template" : " icon-angle"
+        var iconElement = "<i class='icon" + iconClass + "'></i>";
+        target.append(iconElement);
     };
     self.SetAngleClassesHtml = function (target, classes) {
         var format = classes.length > 1 ? enumHandlers.FRIENDLYNAMEMODE.SHORTNAME : enumHandlers.FRIENDLYNAMEMODE.LONGNAME;
@@ -157,8 +147,14 @@ function ExecutionParameterHandler(angle, display) {
         queryDefinitionHandler.ApplyHandler(e.sender.element.find('.section-display'), '.col-display-definition');
         self.WidgetFilterDisplay = queryDefinitionHandler;
 
-        // set display name
+        self.SetDisplayClassesHtml(e.sender.element.find('.col-display-icon'));
+        //set display name
         e.sender.element.find('.col-display-name').text(self.GetDisplayName());
+    };
+    self.SetDisplayClassesHtml = function (target) {
+        var DisplayTypeClassName = ' icon-' + self.Display.display_type;
+        var iconElement = '<i class="icon' + DisplayTypeClassName + '"></i>';
+        target.append(iconElement);
     };
     self.GetDisplayName = function () {
         return self.Display.name || WC.Utility.GetDefaultMultiLangText(self.Display.multi_lang_name);
@@ -167,7 +163,7 @@ function ExecutionParameterHandler(angle, display) {
         var isAngleParameterized = self.Angle && self.Angle.is_parameterized;
         var isDisplayParameterized = self.Display && self.Display.is_parameterized;
         if (self.AngleEnable && isAngleParameterized && isDisplayParameterized) {
-            self.ToggleParameters(e.sender, false);
+            self.ShowAngleDisplaySections(e.sender.element);
         }
         else if (self.AngleEnable && self.WidgetFilterAngle && isAngleParameterized) {
             self.ShowAngleSection(e.sender.element);
@@ -184,6 +180,11 @@ function ExecutionParameterHandler(angle, display) {
     };
     self.ShowDisplaySection = function (container) {
         container.find('.section-angle').hide();
+        container.find('.section-display').show();
+        kendo.resize(container);
+    };
+    self.ShowAngleDisplaySections = function (container) {
+        container.find('.section-angle').show();
         container.find('.section-display').show();
         kendo.resize(container);
     };
@@ -224,19 +225,7 @@ function ExecutionParameterHandler(angle, display) {
                     return jQuery.when();
             });
     };
-    self.ToggleParameters = function (sender, isShowDisplay) {
-        if (isShowDisplay) {
-            sender.wrapper.find('.btnChangeAngleParameters').removeClass('alwaysHide');
-            sender.wrapper.find('.btnChangeDisplayParameters').addClass('alwaysHide');
-            self.ShowDisplaySection(sender.element);
-        }
-        else {
-            sender.wrapper.find('.btnChangeAngleParameters').addClass('alwaysHide');
-            sender.wrapper.find('.btnChangeDisplayParameters').removeClass('alwaysHide');
-            self.ShowAngleSection(sender.element);
-        }
-    };
-
+    
     self.ExecutionParameters = function (e) {
         if (e.sender.wrapper.find('.k-window-buttons .btn').hasClass('executing'))
             return;
@@ -287,7 +276,7 @@ function ExecutionParameterHandler(angle, display) {
         }
         return postOptions;
     };
-
+    
     // override this method to do execution
     self.SubmitExecutionParameters = jQuery.noop;
     self.CancelExecutionParameters = jQuery.noop;

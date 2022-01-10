@@ -3,7 +3,7 @@ ${queryOperatorInput}           .query-operator .k-input
 ${argumentInputValue}           .input-argument-value.k-input
 ${argumentInputType}            .input-argument-type .k-input
 ${argumentInputPeriodValue}     .k-periodpicker-control .k-formatted-value.k-input
-${filterDisplayName}            .item-header.displayNameContainer .textEllipsis
+${filterDisplayName}            .item-header.displayNameContainer .name-inner
 ${btnIncreaseValue}             .filter-editor-arguments .icon-caret-right
 ${btnIncreaseNumberValue}       .filter-editor-arguments .icon-caret-up
 ${textInputValue}               .input-argument-typing

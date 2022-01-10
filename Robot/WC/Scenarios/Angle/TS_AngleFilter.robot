@@ -169,6 +169,7 @@ List Filter Percentage Result Should Be True
 
 List Filter Text Result Should Be True
     [Arguments]  ${datafield}    ${compareoption}    ${expect}
+    Sleep  10s
     ${compareValue} =     Get Cell Value From List Display    ${datafield}
     Should Be True    '${comparevalue}'${compareoption}'${expect}'
 
