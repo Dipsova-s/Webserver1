@@ -69,7 +69,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                     if (angleViewModel.DataFirstLevel.Count > 0)
                     {
                         string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _sessionHelper.SystemSettings.max_pagesize);
-                        string requestUri = UrlHelper.GetRequestUrl(URLType.NOA) + angleViewModel.Uri + "&" + limitOffsetQueryString;
+                        string requestUri = Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + angleViewModel.Uri + "&" + limitOffsetQueryString;
                         JObject angleWarningsResult = _modelService.GetAngleWarningSecondLevel(requestUri);
 
                         result += CountFieldMatches(angleViewModel.DataFirstLevel.Id, angleWarningsResult);

@@ -14,7 +14,9 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using static EveryAngle.ManagementConsole.Controllers.AngleWarningsController;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
@@ -82,7 +84,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             autoWarningsSolver.Setup(x => x.GetNumberOfSolvableFieldsViaInputFile(It.IsAny<AngleWarningsDataSourceResult>(), out hasAutomationTasks)).Returns(88);
             
             // assign to controller
-            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoWarningsSolver.Object, sessionHelper.Object);
+            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoWarningsSolver.Object, angleWarningsFileManager.Object, sessionHelper.Object);
+            _testingController.ControllerContext = new ControllerContext(contextBase.Object, new RouteData(), _testingController);
         }
 
         #endregion
@@ -101,21 +104,19 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             userViewModel.Settings = GetMockViewModel<UserSettingsViewModel>();
             sessionHelper.Setup(x => x.CurrentUser).Returns(userViewModel);
 
-            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
-
             List<string> csvData = new List<string>();
             csvData.Add("Field__A,Field__B");
             csvData.Add("Field__C,Field__D");
-            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+            angleWarningsFileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
             contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
             autoSolver.Initialize(sessionHelper.Object);
-
+            
             // execute
-            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
+            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, sessionHelper.Object);
             ActionResult result = _testingController.GetAngleWarnings(modelUri, modelId);
 
             // assert
@@ -271,6 +272,62 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.IsNotNull(result.Data);
             Assert.AreEqual(JsonRequestBehavior.AllowGet, result.JsonRequestBehavior);
             Assert.IsNotNull(viewmodels);
+        }
+
+        [Test]
+        public void Should_Call_UploadAngleWarningFile()
+        {
+            var file = new Mock<HttpPostedFileBase>();
+            bool isInvalid = true;
+            file.Setup(x => x.FileName).Returns("TestFile.xlsx");
+            file.Setup(x => x.ContentLength).Returns(5);
+            _testingController.UploadAngleWarningFile(It.IsAny<FormCollection>(), file.Object);
+            angleWarningsFileManager.Verify(m => m.UploadAngleWarningsFile(file.Object, out isInvalid), Times.Once);
+        }
+
+        [Test]
+        public void UploadAngleWarningFile_Should_Fail_When_File_Empty()
+        {
+            var file = new Mock<HttpPostedFileBase>();
+            file.Setup(x => x.FileName).Returns("TestFile.xlsx");
+            file.Setup(x => x.ContentLength).Returns(0);
+            var returnValue = _testingController.UploadAngleWarningFile(It.IsAny<FormCollection>(), file.Object);
+            Assert.IsNotNull(returnValue);
+            Assert.IsTrue(((ContentResult)returnValue).Content.Contains("\"success\":false"));
+        }
+
+        [Test]
+        public void UploadAngleWarningFile_Should_Fail_With_Exception_Thrown_For_Webclient_Service()
+        {
+            var file = new Mock<HttpPostedFileBase>();
+            bool isInvalid = false;
+            file.Setup(x => x.ContentLength).Throws(new HttpException("Exception thrown") { Source = "EveryAngle.WebClient.Service" });
+
+            angleWarningsFileManager.Setup(x => x.UploadAngleWarningsFile(file.Object, out isInvalid));
+            var returnValue = _testingController.UploadAngleWarningFile(It.IsAny<FormCollection>(), file.Object);
+            Assert.IsNotNull(returnValue);
+            Assert.IsTrue(((ContentResult)returnValue).Content.Contains("\"success\":false"));
+        }
+
+        [Test]
+        public void UploadAngleWarningFile_Should_Fail_With_Exception_Thrown_For_Other_Service()
+        {
+            var file = new Mock<HttpPostedFileBase>();
+            bool isInvalid = false;
+            file.Setup(x => x.ContentLength).Throws(new HttpException("Exception thrown") { Source = "TestSource" });
+            angleWarningsFileManager.Setup(x => x.UploadAngleWarningsFile(file.Object, out isInvalid));
+            var returnValue = _testingController.UploadAngleWarningFile(It.IsAny<FormCollection>(), file.Object);
+            Assert.IsNotNull(returnValue);
+            Assert.IsTrue(((ContentResult)returnValue).Content.Contains("\"success\":false"));
+        }
+
+        [Test]
+        public void Should_Call_DownloadAngleWarningFile()
+        {
+            angleWarningsFileManager.Setup(x => x.DownloadAngleWarningsFile(It.IsAny<string>()))
+                .Returns(new FileViewModel { FileName = "test.xlsx", FileBytes = new byte[0] });
+            _testingController.GetAngleWarningFile(It.IsAny<string>());
+            angleWarningsFileManager.Verify(m => m.DownloadAngleWarningsFile(It.IsAny<string>()), Times.Once);
         }
 
         #endregion

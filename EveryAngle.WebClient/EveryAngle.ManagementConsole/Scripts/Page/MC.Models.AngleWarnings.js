@@ -35,6 +35,7 @@
         self.ElementTarget = null;
         self.ModelData = null;
         self.ClientSettings = '';
+        self.DownloadUri = '';
 
         self.WARNINGTYPE = {
             OBJECT: 'unsupported_start_object',
@@ -117,6 +118,7 @@
             self.FieldCategoriesData = [];
             self.ElementTarget = null;
             self.ModelData = null;
+            self.DownloadUri = '';
 
             jQuery.extend(self, data || {});
 
@@ -1885,7 +1887,88 @@
                 self.CloseFieldChooser();
             }
         };
-        /* end - fields chooser */
+    /* end - fields chooser */
+
+        self.DownloadAngleWarningFile = function () {
+            var fullPath = $('#DownloadAngleWarningFile1').val();
+            if (fullPath) {
+                // Encode the String
+                fullPath = jQuery.base64.encode(fullPath);
+
+                var url = kendo.format('{0}?fullPath={1}', self.DownloadUri, fullPath);
+                MC.util.download(url);
+            }
+        };
+
+        self.OnClickUploadLink = function () {
+            $('#upload').click();
+            return false;
+        }
+
+        self.UploadAngleWarningFile = function () {
+            if (!Modernizr.xhr2)
+                MC.ui.loading.setUpload(null);
+
+            var fnCheck = null;
+            var xhr = MC.util.ajaxUpload('#UploadExcelTemplateFileForm', {
+                loader: false,
+                timeout: 300000,
+                progress: function (e) {
+                    MC.ui.loading.setUploadStatus(e.percent);
+                },
+                successCallback: function (data) {
+                    // upload success or error occured
+                    jQuery(MC.ui.loading.loaderCloseButton)
+                        .off('click.close')
+                        .one('click.close', function () {
+                            clearTimeout(fnCheck);
+                            MC.ui.loading.clearUpload();
+                            MC.ajax.reloadMainContent();
+                        });
+
+                    MC.ui.loading.setUploadStatus(100);
+                    MC.ui.loading.type = MC.ui.loading.TYPE.normal;
+
+                    fnCheck = setTimeout(function () {
+                        MC.ui.loading.clearUpload();
+                    }, 1);
+                    if (data.isInvalid) {
+                        MC.util.showPopupAlert(Localization.MC_InvalidContentExcelFile);
+                    }
+                    else {
+                        self.SearchAngleWarnings();
+                        $('#uploadedDateTimeStamp').text(data.LastModified);
+                    }                        
+                },
+                completeCallback: function () {
+                    MC.util.ajaxUploadClearInput('#upload');
+                }
+            });
+
+            if (Modernizr.xhr2)
+                MC.ui.loading.setUpload(xhr);
+        }  
+
+        self.SaveAngleWarningFile = function () {
+            if (!jQuery('#UploadExcelTemplateFileForm').valid()) {
+                jQuery('#UploadExcelTemplateFileForm .error:first').focus();
+                return false;
+            }
+            var fileLocation = jQuery('#upload').val();
+            if (!fileLocation)
+                return false;
+                        
+            var fileName = fileLocation.split("\\").pop();
+            if (fileName !== "") {
+                var isExcel = fileName.endsWith('.xlsx') || fileName.endsWith('.xlsm');
+                if (isExcel)
+                    self.UploadAngleWarningFile();
+                else {
+                    MC.util.showPopupAlert(Localization.MC_InvalidExcelFile);
+                    MC.util.ajaxUploadClearInput("#upload");
+                }
+            }
+        };
     }
 
     win.MC.Models = models || {};

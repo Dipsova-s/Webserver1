@@ -72,6 +72,7 @@
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UtilModelServerInfoTest.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.Models.AngleWarningsTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.AuthenticationTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.BusinessProcessesTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.SystemlogTest.js" />

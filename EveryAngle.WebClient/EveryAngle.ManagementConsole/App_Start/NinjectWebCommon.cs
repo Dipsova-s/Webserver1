@@ -89,7 +89,7 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<IGlobalSettingsAppService>().To<GlobalSettingsAppService>();
             kernel.Bind<ICopyrightService>().To<CopyrightService>();
             kernel.Bind<IFileTemplateService>().To<ExcelTemplatesService>();
-            kernel.Bind<IAngleWarningsFileReader>().To<AngleWarningsFileReader>();
+            kernel.Bind<IAngleWarningsFileManager>().To<AngleWarningsFileManager>();
             kernel.Bind<IAngleWarningsContentInputter>().To<AngleWarningsContentInputter>();
             kernel.Bind<IFileHelper>().To<FileHelper>();
             kernel.Bind<IAngleWarningsAutoSolver>().To<AngleWarningsAutoSolver>();
