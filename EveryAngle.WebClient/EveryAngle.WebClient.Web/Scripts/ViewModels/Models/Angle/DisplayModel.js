@@ -339,15 +339,14 @@ function DisplayModel(model) {
                 self.LoadSuccess(data);
             });
     };
-    self.CreateTempDisplay = function (displayType, displayObject, angleData, isSplittedSublist) {
+    self.CreateTempDisplay = function (displayType, displayObject, angleData) {
         angleData = angleData || angleInfoModel.Data() || {};
         var angleUri = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE) || angleData.uri || '';
         var newDisplay = jQuery.GUID();
         var display = {};
         display.id = 'd' + newDisplay.replace(/-/g, '');
         display.display_type = displayType || null;
-        if (!isSplittedSublist)
-            display.uri = angleUri + '/displays/' + newDisplay;
+        display.uri = angleUri + '/displays/' + newDisplay;
         display.is_angle_default = false;
         display.authorizations = self.GetDefaultAdhocAuthorization(angleData);
 

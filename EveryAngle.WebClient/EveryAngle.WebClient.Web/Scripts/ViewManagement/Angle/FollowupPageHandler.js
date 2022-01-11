@@ -447,13 +447,6 @@ function FollowupPageHandler() {
 
         // add jump & execute
         var displayHandler = anglePageHandler.HandlerDisplay.Clone();
-        if (self.IsSplittedSublistFollowup) {
-            // todo: manisha - 
-            displayHandler.QueryDefinitionHandler.Save = jQuery.proxy(displayHandler.SaveQueryDefinition, displayHandler);
-            displayHandler.QueryDefinitionHandler.Save.call();
-            return;
-        }
-
         displayHandler.QueryDefinitionHandler.AddJump(followup);
         var jump = displayHandler.QueryDefinitionHandler.GetLastJump();
         jump.is_adhoc_filter = true;
@@ -496,20 +489,19 @@ function FollowupPageHandler() {
 
                         fieldSettingsHandler.ClearFieldSettings();
 
-                        if (self.IsSplittedSublistFollowup) {
-                           // newData = jQuery.extend({}, WC.ModelHelper.ExtendDisplayData(displayHandler.GetData(), displayHandler.AngleHandler.GetData()), data);
-                            newData.is_splitted_sublist = true;
-                            displayHandler.UpdateAdhocFunction(newData.uri, newData);
-                            return;
-                        }
-
-                        anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
+                        anglePageHandler.HandlerAngle.AddDisplay(data, null, true, data.is_splitted_sublist);
 
                         // initial data for drilldown
                         displayModel.LoadSuccess(newData);
+
+                        if (self.IsSplittedSublistFollowup) {
+                            newData.is_splitted_sublist = true;
+                            anglePageRetainUrlModel.ApplyChanges('', true, data.uri);
+                            return;
+                        }
                         
                         // redirect to display
-                        displayModel.GotoTemporaryDisplay(newData.uri);
+                        displayModel.GotoTemporaryDisplay(data.uri);
                     });
             });
     };

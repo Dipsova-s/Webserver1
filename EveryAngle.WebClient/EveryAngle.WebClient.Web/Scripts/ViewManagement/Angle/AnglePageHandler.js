@@ -602,9 +602,9 @@ function AnglePageHandler() {
     };
     self.SetWrapperHeight = function () {
         var wraperHeight = WC.Window.Height;
-        // todo: manisha (Set the wrapper height based on condition)
         wraperHeight -= jQuery('.mainDisplayWrapper').offset().top;
-        wraperHeight /= 2;
+        if (self.isSplittedScreen)
+            wraperHeight /= 2;
 
         jQuery('.mainDisplayWrapper, .mainDisplayWrapper .displayArea').height(wraperHeight);
 
@@ -819,9 +819,11 @@ function AnglePageHandler() {
             return true;
         }
     };
-    self.SetDisplay = function () {
+    self.SetDisplay = function (subListUri) {
         // set Display
         var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
+        if (self.isSplittedScreen)
+            displayParameter = subListUri;
         var display = self.HandlerAngle.GetDisplay(displayParameter);
         if (!display) {
             self.HandleNoneExistDisplay();
@@ -953,7 +955,7 @@ function AnglePageHandler() {
         }
         return true;
     };
-    self.ExecuteAngle = function () {
+    self.ExecuteAngle = function (subListUri) {
         self.ClearResultErrorXhr();
         WC.Ajax.AbortAll();
 
@@ -1010,7 +1012,7 @@ function AnglePageHandler() {
                     self.CheckDisplay()
                     && self.CheckNewAngle()
                     && self.CheckTemplate()
-                    && self.SetDisplay()
+                    && self.SetDisplay(subListUri)
                     && self.CheckAdhocFilters()
                     && self.CheckExecutionParameters()
                 );
@@ -1157,7 +1159,7 @@ function AnglePageHandler() {
                 if (self.IsEditMode())
                     self.ApplyAngleAndDisplayWithoutResult(displayModel.Data());
                 else if (renderNewResult)
-                    resultModel.ApplyResult();
+                    resultModel.ApplyResult(self.isSplittedScreen);
                 else
                     self.ApplyExecutionAngle();
                 self.HandlerAngle.InitialLabel(jQuery('.section-labels'));

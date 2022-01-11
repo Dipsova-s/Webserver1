@@ -358,7 +358,7 @@ function AngleHandler(model) {
     self.GetCurrentDisplay = function () {
         return _self.currentDisplay;
     };
-    self.AddDisplay = function (data, result, isAdhoc) {
+    self.AddDisplay = function (data, result, isAdhoc, isSplittedScreen) {
         // check the same Angle uri
         var displayUri = WC.Utility.ToString(data.uri);
         if (displayUri.indexOf(self.Data().uri) === -1)
@@ -379,8 +379,15 @@ function AngleHandler(model) {
             // update raw Angle data
             self.SetRawDisplay(displayHandler.GetData());
         }
-        if (!self.GetDisplay(displayHandler.Data().uri))
-            self.Displays.push(displayHandler);
+        if (!self.GetDisplay(displayHandler.Data().uri)) {
+           /* if (!isSplittedScreen) {
+                // todo manisha - Add it to local Storage and retrieve it where needed
+            }
+            else {*/
+                self.Displays.push(displayHandler);
+           /* }*/
+        }
+            
     };
     self.RemoveDisplay = function (uri) {
         // remove from source

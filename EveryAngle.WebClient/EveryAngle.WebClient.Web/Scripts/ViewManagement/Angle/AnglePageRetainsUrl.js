@@ -41,10 +41,11 @@ function AnglePageRetainUrlModel() {
             }
         }
     };
-    self.ApplyChanges = function (lastUrl) {
+    self.ApplyChanges = function (lastUrl, isSplittedSublist, subListUri) {
         self.LastUri = lastUrl;
+        anglePageHandler.isSplittedScreen = isSplittedSublist;
         anglePageHandler.SetWrapperHeight();
-        anglePageHandler.ExecuteAngle(false);
+        anglePageHandler.ExecuteAngle(subListUri);
     };
     /*EOF: Model Methods*/
 }

@@ -474,7 +474,7 @@ function ResultViewModel() {
             };
         }
     };
-    self.ApplyResult = function () {
+    self.ApplyResult = function (isSplittedScreen) {
         switch (displayModel.Data().display_type) {
             case enumHandlers.DISPLAYTYPE.PIVOT:
                 pivotPageHandler.HasResult(true);
@@ -490,7 +490,7 @@ function ResultViewModel() {
             case enumHandlers.DISPLAYTYPE.LIST:
                 listHandler.HasResult(true);
                 listHandler.ReadOnly(false);
-                listHandler.GetListDisplay(true);
+                listHandler.GetListDisplay(true, null, null, isSplittedScreen);
                 progressbarModel.EndProgressBar();
                 break;
             default:

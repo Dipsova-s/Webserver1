@@ -92,9 +92,9 @@ function ListHandler(elementId, container) {
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
-    self.GetContainer = function (isSplittedSublist=true) {
+    self.GetContainer = function () {
 
-        if (isSplittedSublist) {
+        if (self.isSplittedScreen) {
             return jQuery(self.SublistContainer);
         }
 
@@ -103,7 +103,8 @@ function ListHandler(elementId, container) {
     self.GetGridObject = function () {
         return jQuery(self.ElementId).data(enumHandlers.KENDOUITYPE.GRID);
     };
-    self.GetListDisplay = function (scrollPosition, selectingRowId, isRemoveColumn) {
+    self.GetListDisplay = function (scrollPosition, selectingRowId, isRemoveColumn, isSplittedScreen) {
+        self.isSplittedScreen = isSplittedScreen;
         self.OnRenderStart();
         self.CheckUpgradeDisplay()
             .done(function () {
@@ -224,9 +225,9 @@ function ListHandler(elementId, container) {
             rowHeight = 26;
         return rowHeight;
     };
-    self.PrepareGridContainer = function (isRemoveColumn, isSplittedSublist = true) {
+    self.PrepareGridContainer = function (isRemoveColumn) {
         var container = self.GetContainer();
-        if (isSplittedSublist) self.ElementId = "#AngleSublistGrid";
+        if (self.isSplittedScreen) self.ElementId = "#AngleSublistGrid";
 
         !isRemoveColumn &&
             container
