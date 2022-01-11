@@ -1,4 +1,5 @@
-﻿using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
+﻿using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 
 namespace EveryAngle.ManagementConsole.Helpers
 {

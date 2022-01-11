@@ -281,11 +281,11 @@
     </Compile>
     <Compile Include="Helpers\AngleWarnings\AngleWarningsAutoSolver.cs" />
     <Compile Include="Helpers\AngleWarnings\AngleWarningsContentInputter.cs" />
-    <Compile Include="Helpers\AngleWarnings\AngleWarningsFileReader.cs" />
+    <Compile Include="Helpers\AngleWarnings\AngleWarningsFileManager.cs" />
     <Compile Include="Helpers\AngleWarnings\AngleWarningsContentInput.cs" />
     <Compile Include="Helpers\AngleWarnings\AngleWarningsTaskAction.cs" />
     <Compile Include="Helpers\AngleWarnings\AngleWarningsTaskActionModel.cs" />
-    <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsFileReader.cs" />
+    <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsFileManager.cs" />
     <Compile Include="Helpers\AngleWarnings\Contracts\IAngleWarningsContentInputter.cs" />
     <Compile Include="Helpers\AngleWarnings\Enums\EAVersion.cs" />
     <Compile Include="Helpers\AngleWarnings\Enums\WarningSolution.cs" />

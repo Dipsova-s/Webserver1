@@ -6,7 +6,7 @@
     string webClientAngleUrl = PageHelper.GetWebclientUrl();
 }
 
-    <script>
+<script>
    MC.util.loadScript([
         {
             test: window.BusinessProcessesViewModel && window.FieldsChooserModel,
@@ -48,6 +48,7 @@
                     FieldCategoriesData: @Html.Raw(ViewData["fieldCategories"] == null ? "[]" : ViewData["fieldCategories"]),
                     FieldCategoriesIconPath: '@VirtualPathUtility.ToAbsolute("~/UploadedResources/FieldCategoryIcons/")',
                     ResourceIconPath: '@VirtualPathUtility.ToAbsolute("~/content/externalresource/")',
+                    DownloadUri: '@Url.Action("GetAngleWarningFile", "AngleWarnings")'
                 });
                 MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
                 MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
@@ -56,7 +57,7 @@
             }
         }
     ]);
-    </script>
+</script>
 
 @{
     @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
@@ -66,6 +67,14 @@
 }
 
 <div class="content pageAngleWarnings">
+    <div class="headerAngleWarnings">
+        <span class="label">
+            @Resource.MC_AngleWarnings
+        </span>
+    </div>
+    <div class="subHeaderAngleWarnings">
+            @Resource.MC_AngleWarningsSubHeading
+    </div>
     <form id="FormSearchAngleWarnings" data-role="validator">
         <div class="contentSection contentSectionInfo">
             <div class="contentSectionInfoItem">
@@ -84,37 +93,55 @@
                         <input type="checkbox" name="include_validated" id="include_validated" checked="checked" />
                         <span class="label">@Resource.MC_AngleWarnings_FilterValidatedItems</span>
                     </label>
-                    
-                    <label>                    
-                        <input type="text" id="item_type" name="item_type" />                      
+
+                    <label>
+                        <input type="text" id="item_type" name="item_type" />
                     </label>
 
                     <label>
                         @(Html.Kendo().AutoComplete()
-                            .Name("created_by")
-                            .HtmlAttributes(new { @class = "existing_username" })
-                            .DataTextField("Id")
-                            .Filter("contains")
-                            .IgnoreCase(true)
-                            .Placeholder(Resource.MC_AngleWarnings_FilterUserHint)
-                            .MinLength(1)
-                            .DataSource(source => source
-                                .Events(e => e
-                                    .RequestStart("onKendoGridPagingStart")
-                                )
-                                .Read(read =>
-                                {
-                                    read.Action("ReadUsers", "Users").Data(@<text>function(){ return MC.Models.AngleWarnings.GetFilterUserQuery(); }</text>);
-                                })
-                                .ServerFiltering(true)
-                            ))
+                        .Name("created_by")
+                        .HtmlAttributes(new { @class = "existing_username" })
+                        .DataTextField("Id")
+                        .Filter("contains")
+                        .IgnoreCase(true)
+                        .Placeholder(Resource.MC_AngleWarnings_FilterUserHint)
+                        .MinLength(1)
+                        .DataSource(source => source
+                            .Events(e => e
+                                .RequestStart("onKendoGridPagingStart")
+                            )
+                            .Read(read =>
+                            {
+                                read.Action("ReadUsers", "Users").Data(@<text>function(){ return MC.Models.AngleWarnings.GetFilterUserQuery(); }</text>);
+})
+.ServerFiltering(true)
+))
                     </label>
 
-                    <a class="btn btnPrimary btnSearch" id="ButtonSearch" onclick="MC.Models.AngleWarnings.SearchAngleWarnings()">@Resource.Ok</a>
+                    <a class="btn btnPrimary btnSearch" id="ButtonSearch" onclick="MC.Models.AngleWarnings.SearchAngleWarnings()">@Resource.Execute</a>
+
+
                 </p>
             </div>
         </div>
     </form>
+    <div class="downloadUploadAngleWarnings">
+        <span class="label">
+            @Resource.MC_AngleWarningsForwardingRulesLastUpdated
+        </span>
+        <span class="label" id="uploadedDateTimeStamp">
+            @ViewBag.LastModified
+        </span>
+        <input type="hidden" value=@ViewBag.FilePath id="DownloadAngleWarningFile1" />
+        <a id="DownloadAngleWarningFile" onclick="MC.Models.AngleWarnings.DownloadAngleWarningFile(event,this)">
+            @Resource.Download
+        </a>
+        <form action="@Url.Action("UploadAngleWarningFile", "AngleWarnings")" data-role="validator" enctype="multipart/form-data" id="UploadExcelTemplateFileForm" method="post">
+            <a onclick="MC.Models.AngleWarnings.OnClickUploadLink(event,this)" id="UploadAngleWarningFile">@Resource.Upload</a>
+            <input type="file" name="file" id="upload" size="60" onchange="MC.Models.AngleWarnings.SaveAngleWarningFile(event)" hidden />
+        </form>
+    </div>
     <hr />
 
     <div id="AngleWarningSearchResults">
@@ -173,24 +200,24 @@
                     .DataSource(dataSource => dataSource
                         .Events(e => e
                             .RequestStart(@<text>
-                function(e) {
-                                    MC.Models.AngleWarnings.PrepareAngleWarningQuery(e)
-                                }
+                                        function(e) {
+                                        MC.Models.AngleWarnings.PrepareAngleWarningQuery(e)
+                                        }
                             </text>)
-                            .RequestEnd(@<text>
-                function(e) {
-                                    MC.Models.AngleWarnings.ApplyAngleWarningsInfo(e)
-                                }
-                            </text>))
-                        .Read(read => read.Action("ReadAngleWarnings", "AngleWarnings", new { modelUri = ViewBag.ModelUri }))
-                        .Model(m =>
-                        {
-                            m.Id(f => f.fakeId);
-                            m.ParentId(f => f.ParentId);
-                            m.Field(f => f.Name);
-                        })
-                    )
-                    .AutoBind(false)
+              .RequestEnd(@<text>
+                    function(e) {
+                    MC.Models.AngleWarnings.ApplyAngleWarningsInfo(e)
+                    }
+            </text>))
+.Read(read => read.Action("ReadAngleWarnings", "AngleWarnings", new { modelUri = ViewBag.ModelUri }))
+.Model(m =>
+{
+m.Id(f => f.fakeId);
+m.ParentId(f => f.ParentId);
+m.Field(f => f.Name);
+})
+)
+.AutoBind(false)
 
                 )
             </div>

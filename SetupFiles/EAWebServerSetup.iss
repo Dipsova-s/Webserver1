@@ -974,11 +974,11 @@ begin
   end;
 
   // Check the existence of the Angle Warnings Content Input File
-  if FileExists(DataPath('Tools\Data') + '\AngleWarningsList.xlsx') then
+  if FileExists(IISPhysicalPath + '\admin\UploadedResources\AngleWarnings' + '\AngleWarningsList.xlsx') then
   begin
-    Log('Angle warnings input file found in Tools\Data folder.');
+    Log('Angle warnings input file found in admin\UploadedResources\AngleWarning folder.');
     // Do not log the location of file yet, that will come in later pbi
-    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', DataPath('Tools\Data') + '\AngleWarningsList.xlsx');
+    setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', IISPhysicalPath + '\admin\UploadedResources\AngleWarnings' + '\AngleWarningsList.xlsx');
   end;
 
   ManagementConsoleConfig := MergeAppSettings(ManagementConsoleConfig, NewMCConfig);
@@ -1502,6 +1502,19 @@ begin
   CopyFiles(Source, Target, '*.jpg'); 
 end;
 
+procedure CopyAngleWarningsFile(IISPhysicalPath: string);
+var
+  Source,
+  Target: string;
+begin
+  Source := DataPath('Tools\Data');
+  Target := IISPhysicalPath + '\admin\UploadedResources\AngleWarnings\';
+  CreateDir(Target);
+  if FileExists(Source + '\AngleWarningsList.xlsx') then
+    CopyFiles(Source, Target, '*.xlsx');
+    CopyFiles(Source, Target, '*.xlsm');
+end;
+
 procedure InstallSAPLauncher(IISPhysicalPath: string);
 var
   Source,
@@ -1664,6 +1677,9 @@ begin
   ShowProgressAndText(80, msg1, 'Installing {#coTrainingMovies}');
   if MoviesSelected then
     InstallMovies(IISPhysicalPath);
+
+  // Copy Angle Warnings File
+  CopyAngleWarningsFile(IISPhysicalPath);
 
   // Copy SAP launcher
   InstallSAPLauncher(IISPhysicalPath);

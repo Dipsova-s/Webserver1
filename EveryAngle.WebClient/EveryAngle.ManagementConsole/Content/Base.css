@@ -3933,6 +3933,45 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     margin-right: 0;
 }
 
+.headerAngleWarnings span.label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.subHeaderAngleWarnings {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.downloadUploadAngleWarnings {
+    display: flex;
+}
+
+.downloadUploadAngleWarnings span:nth-child(2) {
+    margin-right: 20px;
+}
+
+.downloadUploadAngleWarnings span.label {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.downloadUploadAngleWarnings a {
+    margin-right: 10px;
+}
+
+.downloadUploadAngleWarnings a {
+    font-size: 12px;
+    letter-spacing: 0.25px;
+    color: #25cad2;
+    filter: brightness(0.98);
+    text-decoration: none;
+}
+
+.downloadUploadAngleWarnings a:active, .downloadUploadAngleWarnings a:hover {
+    text-decoration: underline
+}
+
 /* .pageTablesFields
 ================================== */
 .pageTablesFields .contentSectionGrid {

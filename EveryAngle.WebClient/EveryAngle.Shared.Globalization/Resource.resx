@@ -6565,4 +6565,16 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_ActionSubfolderDescription" xml:space="preserve">
     <value>Addition to the datastore path than can be added for this specific action.</value>
   </data>
+  <data name="MC_AngleWarningsForwardingRulesLastUpdated" xml:space="preserve">
+    <value>Forwarding rules last updated:</value>
+  </data>
+  <data name="MC_AngleWarningsSubHeading" xml:space="preserve">
+    <value>Select and execute filters to view Angle warnings</value>
+  </data>
+  <data name="MC_InvalidContentExcelFile" xml:space="preserve">
+    <value>This is not a valid content Excel file</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
 </root>

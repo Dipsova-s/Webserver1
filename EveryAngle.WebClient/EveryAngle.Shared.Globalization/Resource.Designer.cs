@@ -7820,6 +7820,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forwarding rules last updated:.
+        /// </summary>
+        public static string MC_AngleWarningsForwardingRulesLastUpdated {
+            get {
+                return ResourceManager.GetString("MC_AngleWarningsForwardingRulesLastUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select and execute filters to view Angle warnings.
+        /// </summary>
+        public static string MC_AngleWarningsSubHeading {
+            get {
+                return ResourceManager.GetString("MC_AngleWarningsSubHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application server.
         /// </summary>
         public static string MC_ApplicationServer {
@@ -10639,6 +10657,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_InternalError {
             get {
                 return ResourceManager.GetString("MC_InternalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is not a valid content Excel file.
+        /// </summary>
+        public static string MC_InvalidContentExcelFile {
+            get {
+                return ResourceManager.GetString("MC_InvalidContentExcelFile", resourceCulture);
             }
         }
         
@@ -18291,6 +18318,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Update {
             get {
                 return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        public static string Upload {
+            get {
+                return ResourceManager.GetString("Upload", resourceCulture);
             }
         }
         

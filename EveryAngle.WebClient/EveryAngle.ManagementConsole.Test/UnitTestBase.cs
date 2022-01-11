@@ -9,6 +9,7 @@ using EveryAngle.Core.ViewModels.Directory;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.SystemSettings;
 using EveryAngle.Core.ViewModels.Users;
+using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 using EveryAngle.ManagementConsole.Models;
 using EveryAngle.Shared.Helpers;
@@ -58,6 +59,7 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<IFileTemplateService> excelTemplateService = new Mock<IFileTemplateService>();
         protected readonly Mock<IClassReferencesManager> classReferencesManager = new Mock<IClassReferencesManager>();
         protected readonly Mock<ISTSLogService> stsLogService = new Mock<ISTSLogService>();
+        protected readonly Mock<IAngleWarningsFileManager> angleWarningsFileManager = new Mock<IAngleWarningsFileManager>();
 
         #endregion
 

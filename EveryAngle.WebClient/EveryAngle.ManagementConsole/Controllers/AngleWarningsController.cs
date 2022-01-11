@@ -1,6 +1,5 @@
 using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels.Model;
-using EveryAngle.Logging;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 using EveryAngle.Shared.Globalization;
@@ -11,9 +10,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
-using System.Net;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -28,6 +30,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly IModelService _modelService;
         private readonly IGlobalSettingService _globalSettingService;
         private readonly IAngleWarningsAutoSolver _angleWarningsAutoSolver;
+        private readonly IAngleWarningsFileManager _angleWarningsFileManager;
 
         #endregion
 
@@ -37,11 +40,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService modelService,
             IGlobalSettingService globalSettingService,
             IAngleWarningsAutoSolver angleWarningsAutoSolver,
+            IAngleWarningsFileManager angleWarningsFileManager,
             SessionHelper sessionHelper)
         {
             _modelService = modelService;
             _globalSettingService = globalSettingService;
             _angleWarningsAutoSolver = angleWarningsAutoSolver;
+            _angleWarningsFileManager = angleWarningsFileManager;
             SessionHelper = sessionHelper;
 
             _angleWarningsAutoSolver.Initialize(SessionHelper);
@@ -51,11 +56,13 @@ namespace EveryAngle.ManagementConsole.Controllers
         public AngleWarningsController(
             IModelService modelService,
             IGlobalSettingService globalSettingService,
-            IAngleWarningsAutoSolver angleWarningsAutoSolver)
+            IAngleWarningsAutoSolver angleWarningsAutoSolver,
+            IAngleWarningsFileManager angleWarningsFileManager)
         {
             _modelService = modelService;
             _globalSettingService = globalSettingService;
             _angleWarningsAutoSolver = angleWarningsAutoSolver;
+            _angleWarningsFileManager = angleWarningsFileManager;
 
             _angleWarningsAutoSolver.Initialize(SessionHelper);
         }
@@ -79,6 +86,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.MaxDomainElementsForSearch = SessionHelper.SystemSettings.max_domainelements_for_search;
             ViewBag.CanAccessViaWebClient = SessionHelper.Session.IsValidToAccessWebClient(modelUri).ToString().ToLowerInvariant();
             ViewBag.ClientSettings = SessionHelper.CurrentUser.Settings.client_settings;
+            ViewBag.FilePath = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
+            FileInfo fileInfo = new FileInfo(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile"));
+            ViewBag.LastModified = fileInfo.LastWriteTime;
 
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
             var fieldCategory = _globalSettingService.GetFieldCategories(SessionHelper.Version.GetEntryByName("field_categories").Uri +
@@ -127,10 +137,10 @@ namespace EveryAngle.ManagementConsole.Controllers
             AngleWarningsDataSourceResult result;
             string requestUri = model.angle_warnings_summary.ToString() + string.Format("?include_public={0}&include_private={1}&include_validated={2}&include_angles={3}&include_templates={4}&created_by={5}&" + limitOffsetQueryString, formData["include_public"], formData["include_private"], formData["include_validated"], formData["include_angles"], formData["include_templates"], formData["created_by"]);
             var angleWarningsResult = this._modelService.GetAngleWarningFirstLevel(requestUri);
-            
+
             AngleWarningsAutoSolver.SetFirstLevelWarnings(angleWarningsResult);
             AngleWarningsAutoSolver.SetModel(model);
-            
+
             var data = JsonConvert.DeserializeObject<List<AngleWarningFirstLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
 
             var angleWarningViewModelList = new List<AngleWarningsViewModel>();
@@ -224,7 +234,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             try
             {
                 json = _angleWarningsAutoSolver.ExecuteAngleWarningsUsingInputFile(modelId);
-                
+
                 if (json == "")
                 {
                     throw new Exception("Angle warnings solve request is empty.");
@@ -234,7 +244,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 throw new Exception($"Unable to construct automatic solving request: {e.Message}");
             }
-            
+
             var version = SessionHelper.Version;
             var angleWarningTask = _modelService.CreateTask(version.GetEntryByName("tasks").Uri.ToString(), json);
             var executionTask = _modelService.CreateTask($"{angleWarningTask.Uri}/execution", "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
@@ -273,6 +283,41 @@ namespace EveryAngle.ManagementConsole.Controllers
             var data = JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
 
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult UploadAngleWarningFile(FormCollection formCollection, HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    FileInfo fileInfo = _angleWarningsFileManager.UploadAngleWarningsFile(file, out bool isInvalid);
+                    return GetJsonStringResult(fileInfo, isInvalid);
+                }
+                return JsonHelper.GetJsonStringResult(false, null,
+                    null, MessageType.REQUIRE_EXCEL, null);
+            }
+            catch (HttpException ex)
+            {
+                HttpContext.Response.AddHeader("Content-Type", "text/html; charset=utf-8");
+                HttpContext.Response.AddHeader("X-Requested-With", "XMLHttpRequest");
+
+                var error = ex.Message;
+                if (ex.Source != "EveryAngle.WebClient.Service" || error == "")
+                {
+                    return JsonHelper.GetJsonStringResult(false, ex.GetHttpCode(), null,
+                        MessageType.DEFAULT, null);
+                }
+                return JsonHelper.GetJsonStringResult(false, ex.GetHttpCode(), error,
+                    MessageType.DEFAULT, null);
+            }
+        }
+
+        public FileContentResult GetAngleWarningFile(string fullPath)
+        {
+            FileViewModel viewModel = _angleWarningsFileManager.DownloadAngleWarningsFile(fullPath);
+            return File(viewModel.FileBytes, MediaTypeNames.Application.Octet, viewModel.FileName);
         }
 
         #endregion
@@ -601,6 +646,26 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
+        private ContentResult GetJsonStringResult(FileInfo fileInfo, bool isInValid = false)
+        {
+            ContentResult content = new ContentResult();
+            var result = new JsonResult
+            {
+                Data = new
+                {
+                    success = true,
+                    LastModified = fileInfo?.LastWriteTime.ToString(),
+                    isInvalid = isInValid
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+            content.ContentType = "text/plain";
+            content.ContentEncoding = Encoding.UTF8;
+            content.Content = JsonConvert.SerializeObject(result.Data);
+
+            return content;
+        }
         #endregion
     }
 

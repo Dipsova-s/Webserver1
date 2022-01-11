@@ -1,4 +1,5 @@
-﻿using EveryAngle.Logging;
+﻿using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.Logging;
 using EveryAngle.ManagementConsole.Helpers.AngleWarnings;
 using EveryAngle.ManagementConsole.Helpers.AngleWarnings.Helpers;
 using System;
@@ -10,15 +11,15 @@ namespace EveryAngle.ManagementConsole.Helpers
     public class AngleWarningsContentInputter : IAngleWarningsContentInputter
     {
         private const string ClassFieldSeperator = "__";
-        private readonly IAngleWarningsFileReader _angleWarningsFileReader;
+        private readonly IAngleWarningsFileManager _angleWarningsFileManager;
 
         private readonly IClassReferencesManager _classReferencesManager;
 
         public List<AngleWarningsContentInput> ContentInputList;
 
-        public AngleWarningsContentInputter(IAngleWarningsFileReader angleWarningsFileReader, IClassReferencesManager classReferencesManager)
+        public AngleWarningsContentInputter(IAngleWarningsFileManager angleWarningsFileManager, IClassReferencesManager classReferencesManager)
         {
-            _angleWarningsFileReader = angleWarningsFileReader ?? throw new System.ArgumentNullException(nameof(angleWarningsFileReader));
+            _angleWarningsFileManager = angleWarningsFileManager ?? throw new System.ArgumentNullException(nameof(angleWarningsFileManager));
             _classReferencesManager = classReferencesManager ?? throw new System.ArgumentNullException(nameof(classReferencesManager));
 
             ContentInputList = new List<AngleWarningsContentInput>();
@@ -34,6 +35,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             ContentInputList.Add(new AngleWarningsContentInput(fix, version, objectClass, fieldToReplace, newField));
         }
 
+
         public bool TryReadInputList()
         {
             bool succeeded = true;
@@ -42,7 +44,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             {
                 ContentInputList.Clear();
 
-                List<string> csvData = _angleWarningsFileReader.ReadContentInputExcelFileFromDisk();
+                List<string> csvData = _angleWarningsFileManager.ReadContentInputExcelFileFromDisk();
 
                 foreach (string line in csvData)
                 {
