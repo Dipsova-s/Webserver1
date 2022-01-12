@@ -175,7 +175,7 @@ window.SearchPageHandler = function () {
                     query[name] = WC.Utility.UrlParameter(name);
                 }
             });
-            window.location.replace(WC.Utility.GetSearchPageUri(query));
+            WC.Utility.RedirectUrlQuery(WC.Utility.GetSearchPageUri(query));
             return;
         }
 

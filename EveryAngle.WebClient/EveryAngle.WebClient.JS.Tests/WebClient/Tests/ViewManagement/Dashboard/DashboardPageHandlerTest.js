@@ -685,7 +685,7 @@ describe("DashboardPageHandler", function () {
             spyOn(dashboardPageHandler.DashboardModel, 'SetData');
             spyOn(jQuery, 'localStorage').and.returnValue({});
             spyOn(jQuery, 'storageWatcher');
-            spyOn(WC.Utility, 'RedirectUrl');
+            spyOn(WC.Utility, 'RedirectUrlQuery');
             dashboardPageHandler.CreateDashboard({});
 
             // assert
@@ -694,7 +694,7 @@ describe("DashboardPageHandler", function () {
             expect(dashboardPageHandler.DashboardModel.SetData).toHaveBeenCalled();
             expect(jQuery.localStorage).toHaveBeenCalled();
             expect(jQuery.storageWatcher).toHaveBeenCalled();
-            expect(WC.Utility.RedirectUrl).toHaveBeenCalled();
+            expect(WC.Utility.RedirectUrlQuery).toHaveBeenCalled();
         });
     });
 

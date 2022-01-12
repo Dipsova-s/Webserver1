@@ -503,7 +503,7 @@ function AnglePageHandler() {
     };
     self.Redirect = function (displayId) {
         var redirectUrl = self.GetRedirectUrl(displayId);
-        WC.Utility.RedirectUrl(redirectUrl);
+        WC.Utility.RedirectUrlQuery(redirectUrl, true);
     };
     self.GetRedirectUrl = function (displayId) {
         var display = self.HandlerAngle.Displays.findObject('Data', function (data) { return data().id() === displayId; })
@@ -649,7 +649,7 @@ function AnglePageHandler() {
             var angleParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
             var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
             var query = self.CreateAngleQuery([enumHandlers.ANGLEPARAMETER.EDITID]);
-            window.location.replace(WC.Utility.GetAnglePageUri(angleParameter, displayParameter, query));
+            WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(angleParameter, displayParameter, query));
             return false;
         }
 
@@ -671,7 +671,7 @@ function AnglePageHandler() {
                 var angleParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
                 var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
                 var query = self.CreateAngleQuery([enumHandlers.ANGLEPARAMETER.STARTTIMES]);
-                window.location.replace(WC.Utility.GetAnglePageUri(angleParameter, displayParameter, query));
+                WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(angleParameter, displayParameter, query));
                 return false;
             }
             else {
@@ -797,7 +797,7 @@ function AnglePageHandler() {
             if (displayObject) {
                 // another query
                 var query = self.CreateAngleQuery([]);
-                window.location.replace(WC.Utility.GetAnglePageUri(angleParameter, displayObject.uri, query));
+                WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(angleParameter, displayObject.uri, query));
             }
             else {
                 self.BackToSearch(false);
@@ -811,7 +811,7 @@ function AnglePageHandler() {
             // no Display then use a default Display
             if (!displayObject) {
                 var defaultQuery = self.CreateAngleQuery([]);
-                window.location.replace(WC.Utility.GetAnglePageUri(angleParameter, enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT, defaultQuery));
+                WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(angleParameter, enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT, defaultQuery));
                 return false;
             }
             return true;
@@ -836,7 +836,7 @@ function AnglePageHandler() {
             var createAngleQuery = self.CreateAngleQuery([enumHandlers.ANGLEPARAMETER.CREATENEW]);
             var angleParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
             var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
-            window.location.replace(WC.Utility.GetAnglePageUri(angleParameter, displayParameter, createAngleQuery));
+            WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(angleParameter, displayParameter, createAngleQuery));
             return false;
         }
         return true;
@@ -860,7 +860,7 @@ function AnglePageHandler() {
 
                 // if ok then redirect to an adhoc Angle/Display
                 var templateQuery = self.CreateAngleQuery([enumHandlers.ANGLEPARAMETER.TEMPLATE]);
-                window.location.replace(WC.Utility.GetAnglePageUri(templateInfo.angle, templateInfo.display, templateQuery));
+                WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(templateInfo.angle, templateInfo.display, templateQuery));
             }
             return false;
         }
@@ -938,7 +938,7 @@ function AnglePageHandler() {
             var angleParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
             var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
             var targetQuery = self.CreateAngleQuery([enumHandlers.ANGLEPARAMETER.TARGET]);
-            window.location.replace(WC.Utility.GetAnglePageUri(angleParameter, displayParameter, targetQuery));
+            WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(angleParameter, displayParameter, targetQuery));
 
             setTimeout(function () {
                 // open angle popup
@@ -1512,7 +1512,7 @@ function AnglePageHandler() {
                 // default display
                 var defaultDisplay = self.HandlerAngle.GetDefaultDisplay();
                 var query = self.CreateAngleQuery([enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN]);
-                window.location.replace(WC.Utility.GetAnglePageUri(self.HandlerAngle.Data().uri, defaultDisplay.Data().uri, query));
+                WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(self.HandlerAngle.Data().uri, defaultDisplay.Data().uri, query));
             }
             else {
                 self.ApplyExecutionAngle();

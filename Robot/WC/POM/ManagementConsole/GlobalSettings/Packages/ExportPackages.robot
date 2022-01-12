@@ -29,7 +29,7 @@ ${txtVersionValue}                                              1.0
 ${radioBtnCreatePkgByUrl}                                      xpath=//div[@class='packageSelection']/div/p/label/input[@value='URL']
 ${txtPackageExportUrl}                                         xpath=//input[@name='package_export_url']
 ${chkExportPackageCheck}                                       xpath=//a[@id='ExportPackageCheckButton']
-${exportPackageUrl}                                            https://nl-vrushali.eatestad.local/vrushali_master/en/search/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(S2D)%20AND%20facetcat_itemtype:(facet_angle)%20AND%20facetcat_models:(EA2_800)
+${exportPackageUrl}                                            https://testserver.local/edition_name/en/search/searchpage?sort=name&dir=asc&fq=facetcat_bp:(S2D)%20AND%20facetcat_itemtype:(facet_angle)%20AND%20facetcat_models:(EA2_800)
 *** Keywords ***
 Wait Until Export Package Popup Is Ready
     Wait Until Page Contains    Create package

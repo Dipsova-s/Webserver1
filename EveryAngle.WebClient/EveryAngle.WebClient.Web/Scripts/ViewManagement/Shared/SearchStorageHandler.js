@@ -51,7 +51,7 @@ function SearchStorageHandler() {
     self.GetSearchUrl = function () {
         // get back to search url
         var query = self.Get(self.Id);
-        return searchPageUrl + (query ? '#' + query : '');
+        return searchPageUrl + (query ? query.substr(query.indexOf('?')) : '');
     };
     self.UpdateId = function () {
         var value = self.GetUrl();

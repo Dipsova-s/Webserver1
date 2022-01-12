@@ -185,13 +185,14 @@ function DashboardPageHandler() {
                 .change(function (event) {
                     self.IsInitialRetainUrl = true;
                     if (event.value !== '/') {
-                        var hashUrl = '#' + event.value;
-                        if (self.LastUri && self.LastUri !== hashUrl) {
+                        var index = event.value.indexOf('?');
+                        var queryStringUrl = (event.value).substr(index);
+                        if (self.LastUri && self.LastUri !== queryStringUrl) {
                             progressbarModel.ReferenceUri = '';
                         }
 
-                        if (self.LastUri !== hashUrl) {
-                            self.LastUri = hashUrl;
+                        if (self.LastUri !== queryStringUrl) {
+                            self.LastUri = queryStringUrl;
 
                             self.ExecuteDashboard();
                         }
@@ -369,7 +370,7 @@ function DashboardPageHandler() {
                     query[name] = WC.Utility.UrlParameter(name);
                 }
             });
-            window.location.replace(WC.Utility.GetDashboardPageUri(dashboardUri, query));
+            WC.Utility.RedirectUrlQuery(WC.Utility.GetDashboardPageUri(dashboardUri, query));
             return;
         }
 
@@ -448,7 +449,7 @@ function DashboardPageHandler() {
                 var isShowExecutionParametersPopup = !isEditMode && !self.QueryDefinitionHandler.IsExecutedParameters && executionInfo.query_steps.length;
 
                 if (isNew) {
-                    window.location.replace(WC.Utility.GetDashboardPageUri(dashboardUri));
+                    WC.Utility.RedirectUrlQuery(WC.Utility.GetDashboardPageUri(dashboardUri));
                     return jQuery.when(false);
                 }
                 else if (isShowExecutionParametersPopup) {
@@ -2045,7 +2046,7 @@ function DashboardPageHandler() {
 
                 // redirect to the creating dashboard
                 self.CheckBeforeRender = true;
-                WC.Utility.RedirectUrl(WC.Utility.GetDashboardPageUri(response.uri), true);
+                WC.Utility.RedirectUrlQuery(WC.Utility.GetDashboardPageUri(response.uri), true);
             });
     };
     self.UpdateDashboard = function (data) {
@@ -2138,7 +2139,7 @@ function DashboardPageHandler() {
         self.UpdateModel(dashboard, true);
         self.EnsureMinimizeWidget();
         self.CheckBeforeRender = true;
-        window.location.replace(WC.Utility.GetDashboardPageUri(dashboard.uri));
+        WC.Utility.RedirectUrlQuery(WC.Utility.GetDashboardPageUri(dashboard.uri));
     };
     self.CloneData = function () {
         return self.DashboardModel.GetData();

@@ -233,11 +233,12 @@
         
         var tests = [
             { url: 'http://example.com', name: 'test', expected: '' },
-            { url: 'http://example.com?testxx=1&xxtest=2&test=3', name: 'test', expected: '' },
-            { url: '#/?testxx=1&xxtest=2&test=3', name: 'testxx', expected: '1' },
-            { url: '#/?testxx=1&xxtest=2&test=3', name: 'xxtest', expected: '2' },
-            { url: '#/?testxx=1&xxtest=2&test=3', name: 'test', expected: '3' },
-            { url: '/?model=/models/1&id=EA_PROPERTY_DeliveryReliability', name: 'model', expected: '/models/1' }
+            { url: 'http://example.com?testxx=1&xxtest=2&test=3', name: 'test1', expected: '' },
+            { url: 'http://example.com#/?testxx=1&xxtest=2&test=3', name: 'test', expected: '3' },
+            { url: '?testxx=1&xxtest=2&test=3', name: 'testxx', expected: '1' },
+            { url: '?testxx=1&xxtest=2&test=3', name: 'xxtest', expected: '2' },
+            { url: '?testxx=1&xxtest=2&test=3', name: 'test', expected: '3' },
+            { url: '?model=/models/1&id=EA_PROPERTY_DeliveryReliability', name: 'model', expected: '/models/1' }
         ];
 
         $.each(tests, function (index, test) {

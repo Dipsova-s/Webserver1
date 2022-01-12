@@ -17,10 +17,10 @@ function SearchRetainUrlViewModel() {
                     jQuery('#MainContainer').data('address', true);
                 })
                 .change(function () {
-                    if (self.LastUri && self.LastUri !== location.hash) {
+                    if (self.LastUri && self.LastUri !== location.search) {
                         progressbarModel.ReferenceUri = '';
                     }
-                    self.LastUri = location.hash;
+                    self.LastUri = location.search;
 
                     self.IsInitial = true;
                     self.UriChange();

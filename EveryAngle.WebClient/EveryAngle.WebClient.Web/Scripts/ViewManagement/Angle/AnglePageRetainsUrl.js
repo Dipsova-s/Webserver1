@@ -31,13 +31,14 @@ function AnglePageRetainUrlModel() {
     self.OnUriChange = function (event) {
         self.IsInitial = true;
         if (event.value !== '/') {
-            var hashUrl = '#' + event.value;
-            if (self.LastUri && self.LastUri !== hashUrl) {
+            var index = event.value.indexOf('?');
+            var queryStringUrl = (event.value).substr(index);
+            if (self.LastUri && self.LastUri !== queryStringUrl) {
                 progressbarModel.ReferenceUri = '';
             }
 
-            if (self.LastUri !== hashUrl) {
-                self.ApplyChanges(hashUrl);
+            if (self.LastUri !== queryStringUrl) {
+                self.ApplyChanges(queryStringUrl);
             }
         }
     };

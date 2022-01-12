@@ -10,7 +10,7 @@ function SearchQueryViewModel() {
             isRelevancy = false;
 
         var query = self.GetSearchQueryFromUI(isRelevancy);
-        $.address.value('?' + query);
+        $.address.queryString(query);
     };
 
     self.GetParams = function () {
