@@ -380,12 +380,13 @@ function AngleHandler(model) {
             self.SetRawDisplay(displayHandler.GetData());
         }
         if (!self.GetDisplay(displayHandler.Data().uri)) {
-           /* if (!isSplittedScreen) {
-                // todo manisha - Add it to local Storage and retrieve it where needed
-            }
-            else {*/
+            if (!isSplittedScreen) {
                 self.Displays.push(displayHandler);
-           /* }*/
+            }
+            else {
+                // todo manisha - Add it to local Storage and retrieve it where needed
+                self.SublistDisplay = displayHandler;
+            }
         }
             
     };

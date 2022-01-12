@@ -361,7 +361,7 @@ function DisplayModel(model) {
         };
         display.is_public = false;
         display.is_adhoc = true;
-        if (displayObject.query_blocks[0].query_steps[0].is_splitted_sublist)
+        if (displayObject.query_blocks[0].query_steps[0].is_splitted_sublist) // todo manisha - Change the condition based on the jumpQuery
             display.is_splitted_sublist = true;
         var currentUser = userModel.Data();
         display.created = {

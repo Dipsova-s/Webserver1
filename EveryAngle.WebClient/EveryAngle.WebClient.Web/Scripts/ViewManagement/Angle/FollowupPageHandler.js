@@ -485,20 +485,18 @@ function FollowupPageHandler() {
                 });
                 displayModel.CreateTempDisplay(jumpDisplay.display_type, jumpDisplay, null, self.IsSplittedSublistFollowup)
                     .done(function (data) {
-                        var newData = data;
+
+                        if (self.IsSplittedSublistFollowup) {
+                            anglePageRetainUrlModel.ApplyChanges('', true);
+                            return;
+                        }
 
                         fieldSettingsHandler.ClearFieldSettings();
 
-                        anglePageHandler.HandlerAngle.AddDisplay(data, null, true, data.is_splitted_sublist);
+                        anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
 
                         // initial data for drilldown
-                        displayModel.LoadSuccess(newData);
-
-                        if (self.IsSplittedSublistFollowup) {
-                            newData.is_splitted_sublist = true;
-                            anglePageRetainUrlModel.ApplyChanges('', true, data.uri);
-                            return;
-                        }
+                        displayModel.LoadSuccess(data);
                         
                         // redirect to display
                         displayModel.GotoTemporaryDisplay(data.uri);

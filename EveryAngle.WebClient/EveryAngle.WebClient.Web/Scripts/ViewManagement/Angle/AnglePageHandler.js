@@ -729,7 +729,7 @@ function AnglePageHandler() {
             });
             jQuery.each(adhocDisplays, function (displayUri, displayData) {
                 if (!self.HandlerAngle.GetRawDisplay(displayUri) && !self.HandlerAngle.GetDisplay(displayUri))
-                    self.HandlerAngle.AddDisplay(displayData, results[displayUri], true);
+                    self.HandlerAngle.AddDisplay(displayData, results[displayUri], true, displayData.is_splitted_sublist);
             });
             return jQuery.when(data);
         };
@@ -819,12 +819,12 @@ function AnglePageHandler() {
             return true;
         }
     };
-    self.SetDisplay = function (subListUri) {
+    self.SetDisplay = function () {
         // set Display
         var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
-        if (self.isSplittedScreen)
-            displayParameter = subListUri;
         var display = self.HandlerAngle.GetDisplay(displayParameter);
+        if (self.isSplittedScreen)
+            display = self.HandlerAngle.SublistDisplay;
         if (!display) {
             self.HandleNoneExistDisplay();
             return false;
@@ -955,7 +955,7 @@ function AnglePageHandler() {
         }
         return true;
     };
-    self.ExecuteAngle = function (subListUri) {
+    self.ExecuteAngle = function () {
         self.ClearResultErrorXhr();
         WC.Ajax.AbortAll();
 
@@ -1012,7 +1012,7 @@ function AnglePageHandler() {
                     self.CheckDisplay()
                     && self.CheckNewAngle()
                     && self.CheckTemplate()
-                    && self.SetDisplay(subListUri)
+                    && self.SetDisplay()
                     && self.CheckAdhocFilters()
                     && self.CheckExecutionParameters()
                 );
