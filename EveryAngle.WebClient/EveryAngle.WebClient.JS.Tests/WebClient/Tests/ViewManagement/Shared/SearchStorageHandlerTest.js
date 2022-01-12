@@ -83,11 +83,11 @@ describe("SearchStorageHandler", function () {
 
     describe(".GetSearchUrl", function () {
         it("should get search url with hash", function () {
-            spyOn(searchStorageHandler, 'Get').and.returnValue('/fq=test');
+            spyOn(searchStorageHandler, 'Get').and.returnValue('?fq=test');
             var result = searchStorageHandler.GetSearchUrl();
 
             // assert
-            expect(result).toEqual('/en/search/searchpage#/fq=test');
+            expect(result).toEqual('/en/search/searchpage?fq=test');
         });
 
         it("should get search url without hash", function () {

@@ -153,8 +153,21 @@
     window.WC.Utility.RedirectUrl = function (url, replace) {
         if (replace === true)
             window.location.replace(url);
-        else
+        else 
             window.location = url;
+    };
+    window.WC.Utility.RedirectUrlQuery = function (url, pushState) {
+        //Most browsers currently ignore title parameter[the second parameter], although they may use it in the future.
+        //Passing the empty string here should be safe against future changes to the method.
+        //Alternatively, you could pass a short title for the state to which you're moving. 
+        //If you don't need the title to be changed you could use document.title
+        //For more info https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
+        if (pushState) {
+            window.history.pushState({}, '', url);
+        }
+        else {
+            window.history.replaceState({}, '', url);
+        }
     };
     window.WC.Utility.DownloadFile = function (url,useAnchor) {
         var queryStringSymbol = url.indexOf('?') !== -1 ? '&' : '?';
@@ -183,9 +196,9 @@
     };
     window.WC.Utility.GetQueryStringValue = function (url, name) {
         var queryValue = '';
-        var urlIndex = url.indexOf('/?');
+        var urlIndex = url.indexOf('?');
         if (urlIndex !== -1) {
-            url = url.substr(urlIndex + 2);
+            url = url.substr(urlIndex + 1);
             var params = url.split('&');
             var queryName = name + '=';
             jQuery.each(params, function (i, value) {
@@ -198,7 +211,7 @@
         return queryValue;
     };
     window.WC.Utility.GetSearchPageUri = function (query) {
-        return searchPageUrl + '#/?' + unescape(jQuery.param(query));
+        return searchPageUrl + '?' + unescape(jQuery.param(query));
     };
     window.WC.Utility.GetAnglePageUri = function (angleUri, displayUri, query) {
         var params = {};
@@ -211,7 +224,7 @@
         queryString = queryString.replace(/\+/g, ' ');
         queryString = unescape(queryString);
 
-        return anglePageUrl + '#/?' + queryString;
+        return anglePageUrl + '?' + queryString;
     };
     window.WC.Utility.GetDashboardPageUri = function (dashboardUri, query) {
         var params = {};
@@ -223,7 +236,7 @@
         queryString = queryString.replace(/\+/g, ' ');
         queryString = unescape(queryString);
 
-        return dashboardPageUrl + '#/?' + queryString;
+        return dashboardPageUrl + '?' + queryString;
     };
     window.WC.Utility.IsAbsoluteUrl = function (url) {
         var regexp = new RegExp('^(?:[a-z]+:)?//', 'i');

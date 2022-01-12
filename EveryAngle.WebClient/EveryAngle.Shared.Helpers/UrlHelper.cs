@@ -92,12 +92,18 @@ namespace EveryAngle.Shared.Helpers
 
         public static string GetLoginPath(bool forceToWC)
         {
+            return GetLoginPath(forceToWC, null);
+        }
+        public static string GetLoginPath(bool forceToWC, string url)
+        {
             string redirectResult;
 #if DEVMODE
             redirectResult = "~/security/index?redirect=/home/index";
 #else
             string path = HttpContext.Current.Request.ApplicationPath.ToLower();
-            redirectResult = path.Replace("/admin", "") + "/?redirect=" + (forceToWC ? path.Replace("/admin", "") : path);
+            string redirectUrlOrPath = string.IsNullOrEmpty(url) ? path : url;
+            string redirectPath = forceToWC ? path.Replace("/admin", "") : redirectUrlOrPath;
+            redirectResult = path.Replace("/admin", "") + "/?redirect=" + redirectPath;
 #endif
             redirectResult = redirectResult.Replace("//", "/");
             return redirectResult;

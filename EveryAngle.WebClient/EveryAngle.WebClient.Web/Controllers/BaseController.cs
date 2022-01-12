@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Configuration;
@@ -109,14 +110,16 @@ namespace EveryAngle.WebClient.Web.Controllers
         {
             var result = filterContext.HttpContext.Request.GetOwinContext().AuthenticateAsyncFromCookies();
             var token = result.Result?.GetAccessToken();
+            var url = filterContext.HttpContext.Request.Url.AbsolutePath + filterContext.HttpContext.Request.Url.Query;
+            SessionHelper sessionHelper = SessionHelper.Initialize();
 
-            if (!string.IsNullOrWhiteSpace(token) && SessionHelper.Initialize().CurrentUser != null)
+            if (!string.IsNullOrWhiteSpace(token) && sessionHelper.CurrentUser != null)
             {
                 return true;
             }
 
-            SessionHelper.Initialize().DestroyAllSession();
-            filterContext.Result = new RedirectResult(EveryAngle.Shared.Helpers.UrlHelper.GetLoginPath());
+            sessionHelper.DestroyAllSession();
+            filterContext.Result = new RedirectResult(EveryAngle.Shared.Helpers.UrlHelper.GetLoginPath(false,url));
 
             return false;
         }

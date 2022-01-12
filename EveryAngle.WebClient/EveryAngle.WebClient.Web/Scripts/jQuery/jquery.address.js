@@ -44,6 +44,9 @@
         _supportsState = function () {
             return (_h.pushState && _opts.state !== UNDEFINED);
         },
+        _supportsStateForQuerystring = function () {
+            return _h.pushState;
+        },
         _hrefState = function () {
             return ('/' + _l.pathname.replace(new RegExp(_opts.state), '') +
                 _l.search + (_hrefHash() ? '#' + _hrefHash() : '')).replace(_re, '/');
@@ -52,8 +55,15 @@
             var index = _l.href.indexOf('#');
             return index != -1 ? _l.href.substr(index + 1) : '';
         },
+        _hrefQuery = function () {
+            var hashIndex = _l.href.indexOf('#'), index = _l.href.indexOf('?');
+            if (hashIndex !== -1) {
+                return _hrefHash();
+            }
+            return index !== -1 ? '/' + _l.href.substr(index) : '';
+        },
         _href = function () {
-            return _supportsState() ? _hrefState() : _hrefHash();
+            return _supportsState() ? _hrefState() : _hrefQuery();
         },
         _window = function () {
             try {
@@ -465,6 +475,13 @@
                         if (_supportsState()) {
                             _h[_opts.history ? 'pushState' : 'replaceState']({}, '',
                                     _opts.state.replace(/\/$/, '') + (_value === '' ? '/' : _value));
+                        } else if (_supportsStateForQuerystring()) {
+                            var index = _value.indexOf('?');
+                            var path = _l.pathname.replace(/\/$/, '') + (_value === '' ? '/' : _value.substr(index));
+                            if (_value.indexOf('#') !== -1) {
+                                _l.hash = '#'; //removing hash value.
+                            }
+                            _h[_opts.history ? 'pushState' : 'replaceState']({ pathname: path }, '', path);
                         } else {
                             _silent = TRUE;
                             if (_webkit) {

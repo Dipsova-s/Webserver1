@@ -629,7 +629,7 @@ function DisplayModel(model) {
 
         if (typeof redirectDisplayUri !== 'undefined') {
             var query = anglePageHandler.CreateAngleQuery([]);
-            window.location.replace(WC.Utility.GetAnglePageUri(angleInfoModel.Data().uri, redirectDisplayUri, query));
+            WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(angleInfoModel.Data().uri, redirectDisplayUri, query));
         }
     };
     self.GotoTemporaryDisplay = function (display, query, isOpenNewWindow) {
@@ -643,7 +643,7 @@ function DisplayModel(model) {
             WC.Utility.OpenUrlNewWindow(redirectUrl);
         }
         else {
-            WC.Utility.RedirectUrl(redirectUrl);
+            WC.Utility.RedirectUrlQuery(redirectUrl, true);
         }
     };
     self.IsDisplayWithoutUri = function (displayUri) {

@@ -66,7 +66,7 @@ describe("AngleBreadcrumbHandler", function () {
                 enumHandlers.ANGLEPARAMETER.EDITMODE
             ]);
             var result = angleBreadcrumbHandlerTest.GetAngleUrl();
-            expect(result).toEqual(anglePageUrl + '#/?angle=/angles/1&display=/angles/1/displays/1&editmode=true');
+            expect(result).toEqual(anglePageUrl + '?angle=/angles/1&display=/angles/1/displays/1&editmode=true');
         });
     });
 
