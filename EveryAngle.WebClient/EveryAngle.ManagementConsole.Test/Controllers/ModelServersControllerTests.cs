@@ -50,7 +50,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             ExtractorViewModel modelServerViewModel = result.Model as ExtractorViewModel;
             Assert.AreEqual(expectedResult, modelServerViewModel.IsBusy);
         }
-
+        
         [TestCase(true, 4)]
         [TestCase(false, 1)]
         public void Should_GetAllModelServerReport_When_ItHasBeenUsed(bool hasReportUri, int totalReportTreeView)

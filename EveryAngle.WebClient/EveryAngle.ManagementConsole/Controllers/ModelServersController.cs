@@ -49,12 +49,18 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetAllModelServerReport(string modelServerUri, bool isCurrentInstance)
         {
             ModelServerViewModel modelServerViewModel = _modelService.GetModelServer(modelServerUri);
-
-            ListViewModel<ModelServerReportViewModel> modelServerReportListView = new ListViewModel<ModelServerReportViewModel>();
-            string modelServerReportUri = modelServerViewModel?.reports?.ToString();
             
-            if(!string.IsNullOrEmpty(modelServerReportUri))
-                modelServerReportListView = _modelService.GetReports(modelServerReportUri);
+            ListViewModel<ModelServerReportViewModel> modelServerReportListView = new ListViewModel<ModelServerReportViewModel>();
+            string modelServerReportUri = modelServerViewModel?.reports?.ToString();        
+            try
+            {
+                if(!string.IsNullOrEmpty(modelServerReportUri))
+                    modelServerReportListView = _modelService.GetReports(modelServerReportUri);
+            }
+            catch 
+            {
+                 //Do nothing
+            }
 
             IList<TreeViewItemModel> treeListView = GetModelServerReportTreeViewItemModel(modelServerReportListView);
 
