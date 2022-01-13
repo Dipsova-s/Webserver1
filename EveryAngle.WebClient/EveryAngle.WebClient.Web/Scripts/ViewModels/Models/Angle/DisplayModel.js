@@ -339,7 +339,7 @@ function DisplayModel(model) {
                 self.LoadSuccess(data);
             });
     };
-    self.CreateTempDisplay = function (displayType, displayObject, angleData) {
+    self.CreateTempDisplay = function (displayType, displayObject, angleData, isSplittedScreen) {
         angleData = angleData || angleInfoModel.Data() || {};
         var angleUri = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE) || angleData.uri || '';
         var newDisplay = jQuery.GUID();
@@ -361,7 +361,7 @@ function DisplayModel(model) {
         };
         display.is_public = false;
         display.is_adhoc = true;
-        if (displayObject.query_blocks[0].query_steps[0].is_splitted_sublist) // todo manisha - Change the condition based on the jumpQuery
+        if (isSplittedScreen) // todo manisha - Change the condition based on the jumpQuery
             display.is_splitted_sublist = true;
         var currentUser = userModel.Data();
         display.created = {
@@ -371,7 +371,8 @@ function DisplayModel(model) {
         };
 
         // set temporary display to localStorage
-        self.SetTemporaryDisplay(display.uri, display);
+        // if (!isSplittedScreen && !display.is_splitted_sublist)
+            self.SetTemporaryDisplay(display.uri, display);
 
         // add angle in case temporary angle
         if (angleInfoModel.IsTemporaryAngle(angleUri)) {

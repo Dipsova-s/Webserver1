@@ -729,7 +729,7 @@ function AnglePageHandler() {
             });
             jQuery.each(adhocDisplays, function (displayUri, displayData) {
                 if (!self.HandlerAngle.GetRawDisplay(displayUri) && !self.HandlerAngle.GetDisplay(displayUri))
-                    self.HandlerAngle.AddDisplay(displayData, results[displayUri], true, displayData.is_splitted_sublist);
+                    self.HandlerAngle.AddDisplay(displayData, results[displayUri], true, self.isSplittedScreen);
             });
             return jQuery.when(data);
         };
