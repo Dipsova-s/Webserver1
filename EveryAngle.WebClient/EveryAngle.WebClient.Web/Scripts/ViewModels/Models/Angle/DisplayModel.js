@@ -13,6 +13,8 @@ function DisplayModel(model) {
     self.IsDefault = ko.protectedObservable(false);
     self.TemporaryDisplayName = 'temp_displays';
     self.TemporaryDisplay = ko.observable(null);
+    self.TemporarySublistDisplayName = 'temp_sublist_displays';
+    self.TemporarySublistDisplay = ko.observable(null);
     self.DisplayId = ko.protectedObservable('');
     self.DisplayInfo = {
         Displays: ko.observableArray([])
@@ -372,7 +374,7 @@ function DisplayModel(model) {
 
         // set temporary display to localStorage
         // if (!isSplittedScreen && !display.is_splitted_sublist)
-            self.SetTemporaryDisplay(display.uri, display);
+        self.SetTemporaryDisplay(display.uri, display, isSplittedScreen);
 
         // add angle in case temporary angle
         if (angleInfoModel.IsTemporaryAngle(angleUri)) {
@@ -611,23 +613,30 @@ function DisplayModel(model) {
             return jQuery.when(defaultFields);
         }
     };
-    self.SetTemporaryDisplay = function (display, value) {
-        var data = self.TemporaryDisplay() || {};
-        if (value === null) {
-            angleInfoModel.Data().display_definitions.removeObject('uri', display);
-            angleInfoModel.Data.commit();
-            delete data[display];
-        }
-        else {
-            // allow one adhoc Display
-            data = {};
-            data[display] = value || {};
+    self.SetTemporaryDisplay = function (display, value, isSplittedScreen) {
+        if (!isSplittedScreen) {
+            var data = self.TemporaryDisplay() || {};
+            if (value === null) {
+                angleInfoModel.Data().display_definitions.removeObject('uri', display);
+                angleInfoModel.Data.commit();
+                delete data[display];
+            }
+            else {
+                // allow one adhoc Display
+                data = {};
+                data[display] = value || {};
+            }
 
-            // todo manisha: check if it's splittedSublist, create splitted view
+            self.TemporaryDisplay(data);
+            jQuery.localStorage(self.TemporaryDisplayName, data);
+        } else {
+            var data = {};
+            if (value !== null) {
+                data[display] = value || {};
+            }
+            self.TemporarySublistDisplay(data);
+            jQuery.localStorage(self.TemporarySublistDisplayName, data);
         }
-
-        self.TemporaryDisplay(data);
-        jQuery.localStorage(self.TemporaryDisplayName, data);
     };
     self.DeleteTemporaryDisplay = function (display, redirectDisplayUri) {
         self.SetTemporaryDisplay(display, null);

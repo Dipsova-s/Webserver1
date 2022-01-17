@@ -27,9 +27,7 @@ function ListHandler(elementId, container) {
         Result: resultModel
     };
     self.Container = typeof container === 'undefined' ? '#AngleTableWrapper' : container;
-    self.SublistContainer = typeof container === 'undefined' ? '#AngleSublistTableWrapper' : container;
     self.ElementId = typeof elementId === 'undefined' ? '#AngleGrid' : elementId;
-    self.SublistElementId = typeof SublistElementId === 'undefined' ? '#AngleSublistGrid' : SublistElementId;
     self.ModelId = 'list_' + self.ElementId.substr(1);
     window[self.ModelId] = self;
     self.SelectingRowId = null;
@@ -93,18 +91,12 @@ function ListHandler(elementId, container) {
 
     /*BOF: Model Methods*/
     self.GetContainer = function () {
-
-        if (self.isSplittedScreen) {
-            return jQuery(self.SublistContainer);
-        }
-
         return jQuery(self.Container);
     };
     self.GetGridObject = function () {
         return jQuery(self.ElementId).data(enumHandlers.KENDOUITYPE.GRID);
     };
-    self.GetListDisplay = function (scrollPosition, selectingRowId, isRemoveColumn, isSplittedScreen) {
-        self.isSplittedScreen = isSplittedScreen;
+    self.GetListDisplay = function (scrollPosition, selectingRowId, isRemoveColumn) {
         self.OnRenderStart();
         self.CheckUpgradeDisplay()
             .done(function () {
@@ -227,7 +219,6 @@ function ListHandler(elementId, container) {
     };
     self.PrepareGridContainer = function (isRemoveColumn) {
         var container = self.GetContainer();
-        if (self.isSplittedScreen) self.ElementId = "#AngleSublistGrid";
 
         !isRemoveColumn &&
             container

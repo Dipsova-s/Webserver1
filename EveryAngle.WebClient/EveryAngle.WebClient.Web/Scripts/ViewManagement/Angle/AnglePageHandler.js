@@ -723,14 +723,20 @@ function AnglePageHandler() {
     self.LoadAngle = function (uri) {
         var loadAdhocDisplays = function (data) {
             var adhocDisplays = displayModel.TemporaryDisplay() || {};
+            var adhocSublistDisplays = displayModel.TemporarySublistDisplay() || {};
             var results = {};
             jQuery.each(self.HandlerAngle.Displays, function (index, display) {
                 results[display.Data().uri] = display.ResultHandler.GetData();
             });
             jQuery.each(adhocDisplays, function (displayUri, displayData) {
                 if (!self.HandlerAngle.GetRawDisplay(displayUri) && !self.HandlerAngle.GetDisplay(displayUri))
-                    self.HandlerAngle.AddDisplay(displayData, results[displayUri], true, self.isSplittedScreen);
+                    self.HandlerAngle.AddDisplay(displayData, results[displayUri], true);
             });
+            if (self.isSplittedScreen)
+                jQuery.each(adhocSublistDisplays, function (displayUri, displayData) {
+                    if (!self.HandlerAngle.GetRawDisplay(displayUri) && !self.HandlerAngle.GetDisplay(displayUri))
+                        self.HandlerAngle.AddDisplay(displayData, results[displayUri], true, self.isSplittedScreen);
+                });
             return jQuery.when(data);
         };
         var load = function () {
@@ -761,6 +767,7 @@ function AnglePageHandler() {
                     });
             }
         };
+       
         return load()
             .then(loadAdhocDisplays)
             .then(function (data) {

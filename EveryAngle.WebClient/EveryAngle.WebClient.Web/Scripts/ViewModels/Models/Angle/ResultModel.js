@@ -488,9 +488,16 @@ function ResultViewModel() {
                 chartHandler.GetChartDisplay();
                 break;
             case enumHandlers.DISPLAYTYPE.LIST:
-                listHandler.HasResult(true);
-                listHandler.ReadOnly(false);
-                listHandler.GetListDisplay(true, null, null, isSplittedScreen);
+                if (isSplittedScreen) {
+                    var model = new ListHandler('#AngleSublistGrid', '#AngleSublistTableWrapper');
+                    model.HasResult(true);
+                    model.ReadOnly(false);
+                    model.GetListDisplay(true, null, null);
+                } else {
+                    listHandler.HasResult(true);
+                    listHandler.ReadOnly(false);
+                    listHandler.GetListDisplay(true, null, null);
+                }
                 progressbarModel.EndProgressBar();
                 break;
             default:
