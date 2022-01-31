@@ -37,7 +37,7 @@ Crop Remove List Display Column
 Crop Add Filter Panel
     Click Header by Data Field Angle Grid List Display    Quantity
     Click Show Add Filter Popup From List Header Column
-    Crop WebHelp Image  WC_AddFilter.png  css=#TabContentDisplay .section-definition
+    Crop WebHelp Image  WC_AddFilter.png  css=#TabContentDisplay .query-definition .editmode
     Click Undo Filters And Jumps
 
 Crop Open Filter List Button
