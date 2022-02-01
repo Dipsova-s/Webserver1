@@ -1,6 +1,7 @@
 var resultModel = new ResultViewModel();
+var resultModelForSplitScreen = new ResultViewModel();
 
-function ResultViewModel() {
+function ResultViewModel(elementId, container, customDisplayQueryBlockModel, customlistHandler) {//DisplayFieldModel is needed or not check
     "use strict";
 
     var self = this;
@@ -17,15 +18,26 @@ function ResultViewModel() {
     self.TemporaryAnglePosted = true;
     self.LastRenderInfo = {};
     self.CustomProgressbar = false;
+    self.Container = typeof container === 'undefined' ? '#AngleTableWrapper' : container;//have to update default value
+    self.ElementId = typeof elementId === 'undefined' ? '#AngleGrid' : elementId;
+    self.DisplayModel = {};
+    self.DisplayQueryBlockModel = {};
+    self.ListHandler = {};
+    
+    //var listHandler = new listHandler() if elementId, container are present
+    //var displayQueryBlockModel = //assign
+
     //EOF: View model properties
 
     //BOF: View model methods
     self.PostResult = function (options) {
         self.PostingOptions(options);
+        self.DisplayModel = anglePageHandler.isSplittedScreen ? displayModelForSplitScreen : displayModel;
+        self.DisplayQueryBlockModel = anglePageHandler.isSplittedScreen ? displayQueryBlockModelForSplitScreen : displayQueryBlockModel;
         var settings =
             jQuery.extend({
                 // string, post uri
-                uri: directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.RESULTS) + '?redirect=no',
+                uri: directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.RESULTS) + '?redirect=no',//have to check if need to parameterized
 
                 // array, add queryblocks to settings.data
                 customQueryBlocks: [],
@@ -34,7 +46,7 @@ function ResultViewModel() {
                 angleQuery: angleQueryStepModel.ExcuteParameters(),
 
                 // json, extend to base_display, e.g. { step_type: 'aa', fields: 'bb' }
-                displayQuery: displayQueryBlockModel.ExcuteParameters(),
+                displayQuery: self.DisplayQueryBlockModel.ExcuteParameters(),
 
                 // bool, use execute_steps
                 useExecuteStep: false,
@@ -43,13 +55,13 @@ function ResultViewModel() {
                 customExecuteStep: null,
 
                 // default current display
-                currentDisplay: displayModel.Data(),
+                currentDisplay: self.DisplayModel.Data(),
 
                 // force to use this query
                 customQueryDefinition: []
             }, options);
 
-        var currentDisplayQueryBlocks = displayQueryBlockModel.CollectQueryBlocks();
+        var currentDisplayQueryBlocks = self.DisplayQueryBlockModel.CollectQueryBlocks();
         var isTempAngle = angleInfoModel.IsTemporaryAngle(angleInfoModel.Data().uri);
 
         // custom query case: drilldown
@@ -106,10 +118,10 @@ function ResultViewModel() {
                         ]
                     };
 
-                    if (displayModel.Data().uri_template) {
+                    if (self.DisplayModel.Data().uri_template) {
                         settings.data.query_definition.push({
                             queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY,
-                            base_display: displayModel.Data().uri_template
+                            base_display: self.DisplayModel.Data().uri_template
                         });
                     }
                 }
@@ -119,13 +131,13 @@ function ResultViewModel() {
             // - has display
             // - saved display or unsave display & angle is_template & never post result
             // - customQueryBlocks not null (check for pivot grant totals drilldown)
-            var checkDisplay = settings.currentDisplay && (!displayModel.IsTemporaryDisplay() || displayModel.IsTemporaryDisplay() && !self.TemporaryAnglePosted);
+            var checkDisplay = settings.currentDisplay && (!self.DisplayModel.IsTemporaryDisplay() || self.DisplayModel.IsTemporaryDisplay() && !self.TemporaryAnglePosted);
             if (checkDisplay) {
                 var hasCustomQueryBlocks = settings.customQueryBlocks && settings.customQueryBlocks.length;
                 if (!hasCustomQueryBlocks || jQuery.deepCompare(settings.currentDisplay.query_blocks, settings.customQueryBlocks, false, false)) {
                     settings.data.query_definition.push({
                         queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY,
-                        base_display: displayModel.IsTemporaryDisplay(settings.currentDisplay.uri) ? displayModel.Data().uri_template : settings.currentDisplay.uri
+                        base_display: self.DisplayModel.IsTemporaryDisplay(settings.currentDisplay.uri) ? self.DisplayModel.Data().uri_template : settings.currentDisplay.uri
                     });
                 }
                 else {
@@ -187,7 +199,7 @@ function ResultViewModel() {
             }
             else {
                 // when is unsave display & temp-angle is posted then always send the queryblocks
-                if (self.TemporaryAnglePosted && displayModel.IsTemporaryDisplay() && currentDisplayQueryBlocks.length)
+                if (self.TemporaryAnglePosted && self.DisplayModel.IsTemporaryDisplay() && currentDisplayQueryBlocks.length)
                     settings.data.query_definition.push(currentDisplayQueryBlocks[0]);
             }
 
@@ -308,7 +320,9 @@ function ResultViewModel() {
         errorHandlerModel.ShowAreaError(element, message, callback);
     };
     self.LoadSuccess = function (data) {
-        if (displayModel.Data() === null) {
+        self.DisplayModel = displayModel;
+        self.DisplayQueryBlockModel = displayQueryBlockModel;
+        if (self.DisplayModel.Data() === null) {
             data.display_type = null;
             data.display_uri = null;
             data.display_fields = [];
@@ -317,12 +331,12 @@ function ResultViewModel() {
             data.posted_display = [];
         }
         else {
-            data.display_type = displayModel.Data().display_type;
-            data.display_uri = displayModel.Data().uri;
-            data.display_fields = displayModel.Data().fields;
+            data.display_type = self.DisplayModel.Data().display_type;
+            data.display_uri = self.DisplayModel.Data().uri;
+            data.display_fields = self.DisplayModel.Data().fields;
             data.angle_uri = angleInfoModel.Data().uri;
             data.posted_angle = ko.toJS(angleInfoModel.Data().query_definition);
-            data.posted_display = displayQueryBlockModel.CollectQueryBlocks();
+            data.posted_display = self.DisplayQueryBlockModel.CollectQueryBlocks();
         }
 
         self.RequestUri = data.uri;
@@ -467,15 +481,18 @@ function ResultViewModel() {
         return jQuery.when(self.RequestResult(request), self.RequestDataField());
     };
     self.SetLatestRenderInfo = function () {
-        if (displayModel.Data()) {
+        self.DisplayModel = displayModel;
+
+        if (self.DisplayModel.Data()) {
             self.LastRenderInfo = {
-                display_type: displayModel.Data().display_type,
+                display_type: self.DisplayModel.Data().display_type,
                 result_uri: self.Data().uri
             };
         }
     };
     self.ApplyResult = function (isSplittedScreen) {
-        switch (displayModel.Data().display_type) {
+        self.ListHandler = listHandler;
+        switch (self.DisplayModel.Data().display_type) {
             case enumHandlers.DISPLAYTYPE.PIVOT:
                 pivotPageHandler.HasResult(true);
                 pivotPageHandler.ReadOnly(false);
@@ -489,14 +506,14 @@ function ResultViewModel() {
                 break;
             case enumHandlers.DISPLAYTYPE.LIST:
                 if (isSplittedScreen) {
-                    var model = new ListHandler('#AngleSublistGrid', '#AngleSublistTableWrapper');
+                    var model = new ListHandler('#AngleSublistGrid', '#AngleSublistTableWrapper', resultModelForSplitScreen, displayModelForSplitScreen, displayQueryBlockModelForSplitScreen);
                     model.HasResult(true);
                     model.ReadOnly(false);
                     model.GetListDisplay(true, null, null);
                 } else {
-                    listHandler.HasResult(true);
-                    listHandler.ReadOnly(false);
-                    listHandler.GetListDisplay(true, null, null);
+                    self.ListHandler.HasResult(true);
+                    self.ListHandler.ReadOnly(false);
+                    self.ListHandler.GetListDisplay(true, null, null);
                 }
                 progressbarModel.EndProgressBar();
                 break;
@@ -511,7 +528,7 @@ function ResultViewModel() {
         if (status === null) {
             errorHandlerModel.Enable(true);
             if (window.anglePageHandler)
-                anglePageHandler.ApplyAngleAndDisplayWithoutResult(displayModel.Data());
+                anglePageHandler.ApplyAngleAndDisplayWithoutResult(self.DisplayModel.Data());
             errorHandlerModel.ShowCustomError(Localization.ErrorPostResultFinishWithUnknown);
         }
         else if (xhr.status === 404) {
@@ -527,7 +544,7 @@ function ResultViewModel() {
                         anglePageHandler.HandleNoneExistDisplay();
                 }
                 else if (response && /^\/?displays\/\d+$/.test(response.message)) {
-                    angleInfoModel.Data().display_definitions.removeObject('uri', displayModel.Data().uri);
+                    angleInfoModel.Data().display_definitions.removeObject('uri', self.DisplayModel.Data().uri);
                     angleInfoModel.Data.commit();
                     if (window.anglePageHandler)
                         anglePageHandler.HandleNoneExistDisplay();
@@ -552,6 +569,7 @@ function ResultViewModel() {
         return displayField.length > 0 ? displayField[0] : null;
     };
     self.LoadResultFields = function (isPostResult) {
+        self.DisplayModel = displayModel;
         if (typeof isPostResult === 'undefined')
             isPostResult = true;
 
@@ -565,8 +583,8 @@ function ResultViewModel() {
         }
 
         // get followups from display
-        if (displayModel.Data()) {
-            var displayMetadata = WC.ModelHelper.GetAllMetadata(displayModel.Data());
+        if (self.DisplayModel.Data()) {
+            var displayMetadata = WC.ModelHelper.GetAllMetadata(self.DisplayModel.Data());
             jQuery.merge(followupIds, displayMetadata.followups);
         }
 
@@ -603,7 +621,7 @@ function ResultViewModel() {
 
         return jQuery.when(
             loadCurrentModelInstance(),
-            angleInfoModel.LoadMetadata(angleInfoModel.Data(), displayModel.Data()),
+            angleInfoModel.LoadMetadata(angleInfoModel.Data(), self.DisplayModel.Data()),
             modelFollowupsHandler.LoadFollowupsByIds(followupIds, angleInfoModel.Data().model),
             loadDataFields()
         )

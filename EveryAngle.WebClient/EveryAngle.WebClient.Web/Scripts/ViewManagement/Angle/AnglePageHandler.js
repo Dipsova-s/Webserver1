@@ -406,10 +406,16 @@ function AnglePageHandler() {
 
                 querySteps.push(data);
             });
-
+            var updateQueryBlocks;
             // update to old query steps model
-            var updateQueryBlocks = displayQueryBlockModel.CollectQueryBlocks(querySteps);
-            displayQueryBlockModel.SetDisplayQueryBlock(updateQueryBlocks);
+            if (self.isSplittedScreen) {
+                updateQueryBlocks = displayQueryBlockModelForSplitScreen.CollectQueryBlocks(querySteps);
+                displayQueryBlockModelForSplitScreen.SetDisplayQueryBlock(updateQueryBlocks);
+            }
+            else {
+                updateQueryBlocks = displayQueryBlockModel.CollectQueryBlocks(querySteps);
+                displayQueryBlockModel.SetDisplayQueryBlock(updateQueryBlocks);
+            }
 
             //M4-64003: Remove "Save" from Apply button in Display details
             //Update the definition object with the recent updated
@@ -1063,11 +1069,22 @@ function AnglePageHandler() {
                     // back from list-drilldown
                     if (jQuery('html').hasClass('listDrilldown')) {
                         if (displayData.results && displayData.results.posted_display) {
-                            resultModel.LoadSuccess(displayData.results);
-                            resultModel.Data(displayData.results);
+                            if (self.isSplittedScreen) {
+                                resultModelForSplitScreen.LoadSuccess(displayData.results);
+                                resultModelForSplitScreen.Data(displayData.results);
+                            }
+                            else {
+                                resultModel.LoadSuccess(displayData.results);
+                                resultModel.Data(displayData.results);
+                            }
                         }
                         else {
-                            resultModel.ClearResult();
+                            if (self.isSplittedScreen) {
+                                resultModelForSplitScreen.ClearResult();
+                            }
+                            else {
+                                resultModel.ClearResult();
+                            }
                         }
                     }
                     jQuery('html').removeClass('listDrilldown');
@@ -1084,11 +1101,22 @@ function AnglePageHandler() {
                         filter.is_adhoc = true;
                         filter.is_adhoc_filter = true;
                         filter.is_dashboard_filter = true;
-                        displayQueryBlockModel.QuerySteps.push(new WidgetFilterModel(filter));
-                        displayQueryBlockModel.TempQuerySteps.push(new WidgetFilterModel(filter));
+                        if (self.isSplittedScreen) {
+                            displayQueryBlockModelForSplitScreen.QuerySteps.push(new WidgetFilterModel(filter));
+                            displayQueryBlockModelForSplitScreen.TempQuerySteps.push(new WidgetFilterModel(filter));
+                        }
+                        else {
+                            displayQueryBlockModel.QuerySteps.push(new WidgetFilterModel(filter));
+                            displayQueryBlockModel.TempQuerySteps.push(new WidgetFilterModel(filter));
+                        }
                         self.HandlerDisplay.QueryDefinitionHandler.AddQueryFilter(filter);
                     });
-                    displayQueryBlockModel.SetDisplayQueryBlock(displayQueryBlockModel.CollectQueryBlocks());
+                    if (self.isSplittedScreen) {
+                        displayQueryBlockModelForSplitScreen.SetDisplayQueryBlock(displayQueryBlockModel.CollectQueryBlocks());
+                    }
+                    else {
+                        displayQueryBlockModel.SetDisplayQueryBlock(displayQueryBlockModel.CollectQueryBlocks());
+                    }
                     self.AdhocFilters = [];
                     self.HandlerDisplay.ExecuteQueryDefinition(QueryDefinitionHandler.ExecuteAction.Adhoc);
                     return;
@@ -1165,14 +1193,35 @@ function AnglePageHandler() {
 
                 if (self.IsEditMode())
                     self.ApplyAngleAndDisplayWithoutResult(displayModel.Data());
-                else if (renderNewResult)
-                    resultModel.ApplyResult(self.isSplittedScreen);
+                else if (renderNewResult) {
+                    if (self.isSplittedScreen) {
+                        resultModelForSplitScreen.ApplyResult(self.isSplittedScreen);
+                    }
+                    else {
+                        resultModel.ApplyResult(self.isSplittedScreen);
+                    }
+                }
                 else
                     self.ApplyExecutionAngle();
                 self.HandlerAngle.InitialLabel(jQuery('.section-labels'));
             }
         }, 10);
     };
+    self.handlesublist = function () {
+        var adhocSublistDisplays = displayModel.TemporarySublistDisplay() || {}; var results = {};
+        jQuery.each(adhocSublistDisplays, function (displayUri, displayData) {
+            if (!self.HandlerAngle.GetRawDisplay(displayUri) && !self.HandlerAngle.GetDisplay(displayUri))
+                self.HandlerAngle.AddDisplay(displayData, results[displayUri], true, self.isSplittedScreen);
+        });
+        //create new displaymodel and load data 
+
+        //eg: displayModel.LoadSuccess(display.GetData());
+        //create new displayQueryBlockModel and load data
+        //create new resultodel
+        //Call applychanges
+
+    };
+
     self.HandleExecutionFailure = function (message, redirectUrl) {
         popup.CloseAll();
         popup.Alert(Localization.Warning_Title, message);
@@ -1318,7 +1367,12 @@ function AnglePageHandler() {
                     display_type: displayModel.Data().display_type,
                     result_uri: resultModel.Data() ? resultModel.Data().uri : ''
                 };
-                resultModel.LoadSuccess(data);
+                if (self.isSplittedScreen) {
+                    resultModelForSplitScreen.LoadSuccess(data);
+                }
+                else {
+                    resultModel.LoadSuccess(data);
+                }
                 renderNewResult = !self.CheckBeforeRender || JSON.stringify(currentRenderInfo) !== JSON.stringify(resultModel.LastRenderInfo);
                 self.CheckBeforeRender = false;
                 return resultModel.LoadResultFields(true);

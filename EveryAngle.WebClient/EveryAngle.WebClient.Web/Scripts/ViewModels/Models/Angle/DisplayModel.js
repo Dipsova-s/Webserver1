@@ -1,4 +1,5 @@
 var displayModel = new DisplayModel();
+var displayModelForSplitScreen = new DisplayModel();
 
 function DisplayModel(model) {
     "use strict";
@@ -47,10 +48,18 @@ function DisplayModel(model) {
         return jQuery.when(data);
     };
     self.UpdateDisplayQuerySteps = function (data) {
-        if (typeof displayQueryBlockModel !== 'undefined') {
-            // query steps
-            displayQueryBlockModel.SetDisplayQueryBlock(data.query_blocks);
-            displayQueryBlockModel.UpdateExecutionParameters();
+        if (typeof displayQueryBlockModel !== 'undefined' || typeof displayQueryBlockModelForSplitScreen !== 'undefined') {
+            if (anglePageHandler.isSplittedScreen) {
+                // query steps
+                displayQueryBlockModelForSplitScreen.SetDisplayQueryBlock(data.query_blocks);
+                displayQueryBlockModelForSplitScreen.UpdateExecutionParameters();
+            }
+            else
+            {
+                // query steps
+                displayQueryBlockModel.SetDisplayQueryBlock(data.query_blocks);
+                displayQueryBlockModel.UpdateExecutionParameters();
+            }
         }
     };
     self.UpdatePublicationsWatcher = function (state) {
@@ -757,7 +766,12 @@ function DisplayModel(model) {
         }];
         if (!querySteps.length) {
             drillDownQueryBlock = [];
-            displayQueryBlockModel.QuerySteps([]);
+            if (anglePageHandler.isSplittedScreen) {
+                displayQueryBlockModelForSplitScreen.QuerySteps([]);
+            }
+            else {
+                    displayQueryBlockModel.QuerySteps([]);
+                }
         }
 
         var drillDownDisplay = handler.Models.Angle.Data().display_definitions.findObject('id', displayDetails.drilldown_display);
@@ -790,9 +804,15 @@ function DisplayModel(model) {
                     jQuery(handler.Container).busyIndicator(true);
                     return jQuery.when(handler.Models.Result.PostExecutionSteps(option.customExecuteStep))
                         .then(function (response) {
-                            resultModel.LoadSuccess(response);
-                            resultModel.CustomProgressbar = jQuery.noop;
-                            return resultModel.GetResult(response.uri);
+                            if (self.isSplittedScreen) {
+                                resultModelForSplitScreen.LoadSuccess(response);
+                                resultModelForSplitScreen.CustomProgressbar = jQuery.noop;
+                            }
+                            else {
+                                resultModel.LoadSuccess(response);
+                                resultModel.CustomProgressbar = jQuery.noop;
+                            }
+                            return self.isSplittedScreen ? resultModelForSplitScreen.GetResult(response.uri) : resultModel.GetResult(response.uri);
                         });
                 }
                 else {
@@ -857,7 +877,12 @@ function DisplayModel(model) {
 
                                 // initial data for drilldown
                                 self.LoadSuccess(data);
-                                resultModel.LoadSuccess(resultData);
+                                if (self.isSplittedScreen) {
+                                    resultModelForSplitScreen.LoadSuccess(resultData);
+                                }
+                                else {
+                                    resultModel.LoadSuccess(resultData);
+                                }
 
                                 // save history
                                 data.results = ko.toJS(resultModel.Data());

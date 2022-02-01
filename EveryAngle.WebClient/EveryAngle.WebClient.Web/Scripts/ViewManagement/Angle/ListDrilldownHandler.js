@@ -232,7 +232,12 @@ function ListDrilldownHandler() {
     };
     self.ApplyResult = function (pkData, listDrilldownKey, result) {
         window.ListDrilldownCache[listDrilldownKey] = ko.toJS(result);
-        resultModel.LoadSuccess(result);
+        if (self.isSplittedScreen) {
+            resultModelForSplitScreen.LoadSuccess(result);
+        }
+        else {
+            resultModel.LoadSuccess(result);
+        }
         self.Render(pkData, false);
         anglePageHandler.ApplyExecutionAngle();
     };

@@ -467,6 +467,7 @@ function FollowupPageHandler() {
                     edit_mode: false
                 };
                 displayHandler.QueryDefinitionHandler.InsertQueryFilter(data, jumpIndex);
+                //self.handlesublist()//see position
                 jumpIndex++;
             });
         }
@@ -488,6 +489,7 @@ function FollowupPageHandler() {
 
                         if (self.IsSplittedSublistFollowup) {
                             anglePageRetainUrlModel.ApplyChanges('', true);
+                            displayModelForSplitScreen.LoadSuccess(data);
                             return;
                         }
 
