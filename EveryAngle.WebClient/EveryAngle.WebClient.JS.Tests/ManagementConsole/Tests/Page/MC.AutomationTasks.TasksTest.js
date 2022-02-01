@@ -1207,6 +1207,7 @@ describe("MC.AutomationTasks.Tasks", function () {
         });
     });
 
+<<<<<<< HEAD
     describe(".UpdateOutputFolderfield", function () {
         var grid;
         beforeEach(function () {
@@ -1270,4 +1271,6 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(automationTask.UpdateOutputFolderfield).toHaveBeenCalledWith("\\IN", "connection_folder");
         });
     });
+=======
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
 });

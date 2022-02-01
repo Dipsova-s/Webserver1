@@ -59,7 +59,10 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<IFileTemplateService> excelTemplateService = new Mock<IFileTemplateService>();
         protected readonly Mock<IClassReferencesManager> classReferencesManager = new Mock<IClassReferencesManager>();
         protected readonly Mock<ISTSLogService> stsLogService = new Mock<ISTSLogService>();
+<<<<<<< HEAD
         protected readonly Mock<IAngleWarningsFileManager> angleWarningsFileManager = new Mock<IAngleWarningsFileManager>();
+=======
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
 
         #endregion
 

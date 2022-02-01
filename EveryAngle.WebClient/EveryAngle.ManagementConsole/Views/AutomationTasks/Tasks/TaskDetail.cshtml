@@ -439,3 +439,22 @@
         <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
     </div>
 </div>
+
+<div class="popup" id="popupCopyAction">
+    <div class="popupContent">
+        <form id="formCopyAction" data-role="validator">
+            <div class="contentSection contentSectionInfo">                
+                <div class="contentSectionInfoItem">
+                    <label style="font-weight: bold;">@Resource.MC_SelectTask</label>
+                    <p>
+                        <select id="taskAvailableToCopy"></select>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnSubmit" onclick="MC.AutomationTasks.Tasks.CopyAction(event, this)">@Resource.Ok</a>
+        <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>

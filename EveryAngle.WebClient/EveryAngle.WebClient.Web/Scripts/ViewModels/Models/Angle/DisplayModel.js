@@ -1,4 +1,5 @@
 var displayModel = new DisplayModel();
+var displayModelForSplitScreen = new DisplayModel();
 
 function DisplayModel(model) {
     "use strict";
@@ -13,6 +14,8 @@ function DisplayModel(model) {
     self.IsDefault = ko.protectedObservable(false);
     self.TemporaryDisplayName = 'temp_displays';
     self.TemporaryDisplay = ko.observable(null);
+    self.TemporarySublistDisplayName = 'temp_sublist_displays';
+    self.TemporarySublistDisplay = ko.observable(null);
     self.DisplayId = ko.protectedObservable('');
     self.DisplayInfo = {
         Displays: ko.observableArray([])
@@ -45,10 +48,18 @@ function DisplayModel(model) {
         return jQuery.when(data);
     };
     self.UpdateDisplayQuerySteps = function (data) {
-        if (typeof displayQueryBlockModel !== 'undefined') {
-            // query steps
-            displayQueryBlockModel.SetDisplayQueryBlock(data.query_blocks);
-            displayQueryBlockModel.UpdateExecutionParameters();
+        if (typeof displayQueryBlockModel !== 'undefined' || typeof displayQueryBlockModelForSplitScreen !== 'undefined') {
+            if (anglePageHandler.isSplittedScreen) {
+                // query steps
+                displayQueryBlockModelForSplitScreen.SetDisplayQueryBlock(data.query_blocks);
+                displayQueryBlockModelForSplitScreen.UpdateExecutionParameters();
+            }
+            else
+            {
+                // query steps
+                displayQueryBlockModel.SetDisplayQueryBlock(data.query_blocks);
+                displayQueryBlockModel.UpdateExecutionParameters();
+            }
         }
     };
     self.UpdatePublicationsWatcher = function (state) {
@@ -339,7 +350,7 @@ function DisplayModel(model) {
                 self.LoadSuccess(data);
             });
     };
-    self.CreateTempDisplay = function (displayType, displayObject, angleData) {
+    self.CreateTempDisplay = function (displayType, displayObject, angleData, isSplittedScreen) {
         angleData = angleData || angleInfoModel.Data() || {};
         var angleUri = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE) || angleData.uri || '';
         var newDisplay = jQuery.GUID();
@@ -361,6 +372,8 @@ function DisplayModel(model) {
         };
         display.is_public = false;
         display.is_adhoc = true;
+        if (isSplittedScreen) // todo manisha - Change the condition based on the jumpQuery
+            display.is_splitted_sublist = true;
         var currentUser = userModel.Data();
         display.created = {
             user: currentUser.uri,
@@ -369,7 +382,8 @@ function DisplayModel(model) {
         };
 
         // set temporary display to localStorage
-        self.SetTemporaryDisplay(display.uri, display);
+        // if (!isSplittedScreen && !display.is_splitted_sublist)
+        self.SetTemporaryDisplay(display.uri, display, isSplittedScreen);
 
         // add angle in case temporary angle
         if (angleInfoModel.IsTemporaryAngle(angleUri)) {
@@ -608,21 +622,30 @@ function DisplayModel(model) {
             return jQuery.when(defaultFields);
         }
     };
-    self.SetTemporaryDisplay = function (display, value) {
-        var data = self.TemporaryDisplay() || {};
-        if (value === null) {
-            angleInfoModel.Data().display_definitions.removeObject('uri', display);
-            angleInfoModel.Data.commit();
-            delete data[display];
-        }
-        else {
-            // allow one adhoc Display
-            data = {};
-            data[display] = value || {};
-        }
+    self.SetTemporaryDisplay = function (display, value, isSplittedScreen) {
+        if (!isSplittedScreen) {
+            var data = self.TemporaryDisplay() || {};
+            if (value === null) {
+                angleInfoModel.Data().display_definitions.removeObject('uri', display);
+                angleInfoModel.Data.commit();
+                delete data[display];
+            }
+            else {
+                // allow one adhoc Display
+                data = {};
+                data[display] = value || {};
+            }
 
-        self.TemporaryDisplay(data);
-        jQuery.localStorage(self.TemporaryDisplayName, data);
+            self.TemporaryDisplay(data);
+            jQuery.localStorage(self.TemporaryDisplayName, data);
+        } else {
+            var data = {};
+            if (value !== null) {
+                data[display] = value || {};
+            }
+            self.TemporarySublistDisplay(data);
+            jQuery.localStorage(self.TemporarySublistDisplayName, data);
+        }
     };
     self.DeleteTemporaryDisplay = function (display, redirectDisplayUri) {
         self.SetTemporaryDisplay(display, null);
@@ -743,7 +766,12 @@ function DisplayModel(model) {
         }];
         if (!querySteps.length) {
             drillDownQueryBlock = [];
-            displayQueryBlockModel.QuerySteps([]);
+            if (anglePageHandler.isSplittedScreen) {
+                displayQueryBlockModelForSplitScreen.QuerySteps([]);
+            }
+            else {
+                    displayQueryBlockModel.QuerySteps([]);
+                }
         }
 
         var drillDownDisplay = handler.Models.Angle.Data().display_definitions.findObject('id', displayDetails.drilldown_display);
@@ -776,9 +804,15 @@ function DisplayModel(model) {
                     jQuery(handler.Container).busyIndicator(true);
                     return jQuery.when(handler.Models.Result.PostExecutionSteps(option.customExecuteStep))
                         .then(function (response) {
-                            resultModel.LoadSuccess(response);
-                            resultModel.CustomProgressbar = jQuery.noop;
-                            return resultModel.GetResult(response.uri);
+                            if (self.isSplittedScreen) {
+                                resultModelForSplitScreen.LoadSuccess(response);
+                                resultModelForSplitScreen.CustomProgressbar = jQuery.noop;
+                            }
+                            else {
+                                resultModel.LoadSuccess(response);
+                                resultModel.CustomProgressbar = jQuery.noop;
+                            }
+                            return self.isSplittedScreen ? resultModelForSplitScreen.GetResult(response.uri) : resultModel.GetResult(response.uri);
                         });
                 }
                 else {
@@ -843,7 +877,12 @@ function DisplayModel(model) {
 
                                 // initial data for drilldown
                                 self.LoadSuccess(data);
-                                resultModel.LoadSuccess(resultData);
+                                if (self.isSplittedScreen) {
+                                    resultModelForSplitScreen.LoadSuccess(resultData);
+                                }
+                                else {
+                                    resultModel.LoadSuccess(resultData);
+                                }
 
                                 // save history
                                 data.results = ko.toJS(resultModel.Data());

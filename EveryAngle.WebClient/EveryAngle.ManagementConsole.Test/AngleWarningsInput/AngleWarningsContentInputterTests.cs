@@ -13,7 +13,12 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase]
         public void AWT_ContentInputter_Initialize()
         {
+<<<<<<< HEAD
             AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(angleWarningsFileManager.Object, classReferencesManager.Object);
+=======
+            Mock<IAngleWarningsFileReader> fileReader = new Mock<IAngleWarningsFileReader>();
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
 
             contentInputter.Initialize(@"\fieldsourcesuri", @"\classesuri");
         }
@@ -171,14 +176,21 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 "Replace Field,Replace Field,R2020SP5,WorkOrder,PRCTR,ProfitCenter__ProfitCenterID"
             };
 
+<<<<<<< HEAD
             angleWarningsFileManager.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
 
             AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(angleWarningsFileManager.Object, classReferencesManager.Object);
+=======
+            fileReader.Setup(x => x.ReadContentInputExcelFileFromDisk()).Returns(csvData);
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
+
+            AngleWarningsContentInputter contentInputter = new AngleWarningsContentInputter(fileReader.Object, classReferencesManager.Object);
 
             contentInputter.TryReadInputList();
 
             return contentInputter;
         }
+<<<<<<< HEAD
 
         [TestCase]
         public void AWT_SolveItem_ReplaceClass()
@@ -196,6 +208,25 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual("Customer", solveItem.NewFieldOrClass);
         }
 
+=======
+
+        [TestCase]
+        public void AWT_SolveItem_ReplaceClass()
+        {
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
+                       
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_start_object", "CustomerOld", "CustomerOld", null);
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceClass, solveItem.Fix);
+            Assert.AreEqual("CustomerOld", solveItem.ObjectClass);
+            Assert.AreEqual("CustomerOld", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Customer", solveItem.NewFieldOrClass);
+        }
+
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
         [TestCase] 
         public void AWT_SolveItem_ReplaceField()
         {
@@ -233,6 +264,11 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         {
             // Prepare
             AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
+<<<<<<< HEAD
+
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "City", null);
+=======
 
             // Act
             ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "City", null);
@@ -240,6 +276,24 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             // Assert
             Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
             Assert.AreEqual("Customer", solveItem.ObjectClass);
+            Assert.AreEqual("City", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Address__City2", solveItem.NewFieldOrClass);
+        }
+
+        [TestCase]
+        public void AWT_SolveItem_ReplaceReference_ReplaceReference()
+        {
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
+
+            // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "AddressOld__Country", null);
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
+            Assert.AreEqual("Customer", solveItem.ObjectClass);
+<<<<<<< HEAD
             Assert.AreEqual("City", solveItem.FieldOrClassToReplace);
             Assert.AreEqual("Address__City2", solveItem.NewFieldOrClass);
         }
@@ -271,11 +325,45 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         [TestCase]
         public void AWT_SolveItem_ReplaceReference_ReplaceReferenceWithSelf()
+=======
+            Assert.AreEqual("AddressOld__Country", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Address__Country", solveItem.NewFieldOrClass);
+
+            // Act
+            solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Operation", "WorkOrder__PRCTR", null);
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
+            Assert.AreEqual("Operation", solveItem.ObjectClass);
+            Assert.AreEqual("WorkOrder__PRCTR", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("ProfitCenter__ProfitCenterID", solveItem.NewFieldOrClass);
+        }
+
+        [TestCase]
+        public void AWT_SolveItem_ReplaceReference_ReplaceReferenceWithSelf()
         {
             // Prepare
             AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
 
             // Act
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "Address__Name", null);
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceField, solveItem.Fix);
+            Assert.AreEqual("Customer", solveItem.ObjectClass);
+            Assert.AreEqual("Address__Name", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Name", solveItem.NewFieldOrClass);
+        }
+
+        [TestCase]
+        public void AWT_SolveItem_ReplaceReference_ReplaceJump()
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
+        {
+            // Prepare
+            AngleWarningsContentInputter contentInputter = GetMockedExcelListReader();
+
+            // Act
+<<<<<<< HEAD
             ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_display_field", "Customer", "Address__Name", null);
 
             // Assert
@@ -302,6 +390,18 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase]
+=======
+            ItemSolver solveItem = contentInputter.GetSolveItem("unsupported_jump", "Customer", null, "AddressOld");
+
+            // Assert
+            Assert.AreEqual(WarningFix.ReplaceJump, solveItem.Fix);
+            Assert.AreEqual("Customer", solveItem.ObjectClass);
+            Assert.AreEqual("AddressOld", solveItem.FieldOrClassToReplace);
+            Assert.AreEqual("Address", solveItem.NewFieldOrClass);
+        }
+
+        [TestCase]
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
         public void AWT_SolveItem_ReplaceReference_ReplaceJump_Sublist()
         {
             // Prepare

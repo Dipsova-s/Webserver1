@@ -149,6 +149,14 @@
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpActiveDirectorySizeLimit</textarea>
                 </p>
             </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.delay_to_trigger_task_on_new_model)
+                <p>
+                    @Html.Kendo().NumericTextBoxFor(model => model.delay_to_trigger_task_on_new_model).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel</textarea>
+                </p>
+            </div>
         </div>
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.AngleExport</h2>

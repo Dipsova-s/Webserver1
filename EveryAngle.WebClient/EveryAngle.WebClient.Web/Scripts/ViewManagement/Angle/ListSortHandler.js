@@ -175,7 +175,12 @@ function ListSortHandler() {
             WC.Page.Stop();
             self.QuerySteps(oldSort);
             displayModel.LoadSuccess(oldDisplay);
-            resultModel.LoadSuccess(oldResult);
+            if (self.isSplittedScreen) {
+                resultModelForSplitScreen.LoadSuccess(oldResult);
+            }
+            else {
+                resultModel.LoadSuccess(oldResult);
+            }
             anglePageHandler.HandlerDisplay.ResultHandler.Cancel();
             self.UpdateQueryDefinition();
             anglePageHandler.HandlerDisplay.SetPostResultData(oldResult);

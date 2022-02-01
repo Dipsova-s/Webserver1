@@ -1,4 +1,5 @@
 var displayQueryBlockModel = new DisplayQueryBlockModel();
+var displayQueryBlockModelForSplitScreen = new DisplayQueryBlockModel();
 
 function DisplayQueryBlockModel(model) {
     "use strict";

@@ -23,6 +23,7 @@ function FollowupPageHandler() {
     self.ShowPopup = function (option, title) {
         self.ListDrilldown = typeof option === 'undefined' ? false : option.ListDrilldown || false;
         self.IsAdHocFollowup = typeof option === 'undefined' ? false : option.IsAdhoc || false;
+        self.IsSplittedSublistFollowup = typeof option === 'undefined' ? false : option.IsSplittedSublist || false;
         if (self.IsAdHocFollowup) {
             fieldsChooserHandler.PopupConfig = enumHandlers.ANGLEPOPUPTYPE.DISPLAY;
         }
@@ -282,6 +283,7 @@ function FollowupPageHandler() {
             grid.__helpLoaded = true;
         }
 
+        // todo manisha - execute jump on click of a followupcell
         // click handler
         grid.content.on('click', 'tr', function (e) {
 
@@ -449,6 +451,7 @@ function FollowupPageHandler() {
         var jump = displayHandler.QueryDefinitionHandler.GetLastJump();
         jump.is_adhoc_filter = true;
         jump.is_adhoc(true);
+        if (self.IsSplittedSublistFollowup) jump.is_splitted_sublist = true;
         var jumpIndex = displayHandler.QueryDefinitionHandler.Data.indexOf(jump);
         if (self.ListDrilldown) {
             // add more filters for a single drilldown
@@ -464,6 +467,7 @@ function FollowupPageHandler() {
                     edit_mode: false
                 };
                 displayHandler.QueryDefinitionHandler.InsertQueryFilter(data, jumpIndex);
+                //self.handlesublist()//see position
                 jumpIndex++;
             });
         }
@@ -480,8 +484,15 @@ function FollowupPageHandler() {
                 jQuery.each(jumpDisplay.query_blocks, function (index, block) {
                     jumpDisplay.query_blocks[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
                 });
-                displayModel.CreateTempDisplay(jumpDisplay.display_type, jumpDisplay)
+                displayModel.CreateTempDisplay(jumpDisplay.display_type, jumpDisplay, null, self.IsSplittedSublistFollowup)
                     .done(function (data) {
+
+                        if (self.IsSplittedSublistFollowup) {
+                            anglePageRetainUrlModel.ApplyChanges('', true);
+                            displayModelForSplitScreen.LoadSuccess(data);
+                            return;
+                        }
+
                         fieldSettingsHandler.ClearFieldSettings();
 
                         anglePageHandler.HandlerAngle.AddDisplay(data, null, true);

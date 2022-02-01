@@ -144,6 +144,13 @@
             .HtmlAttributes(new { @class = "columnEndTime columnDate" })
             .Width(95);
 
+        columns.Bound(model => model.sap_download_max_run_time)
+            .Title(Resource.SAPDownloadMaxRunTime)
+            .ClientTemplate("<span>#= MC.util.getDisplayTimeUTC(data.sap_download_max_run_time) #</span>")
+            .HeaderHtmlAttributes(new { @class = "columnTimeStop columnDate" })
+            .HtmlAttributes(new { @class = "columnTimeStop columnDate" })
+            .Width(95);
+
         columns.Bound(model => model.max_run_time)
             .Title(Resource.MaxRunTime)
             .ClientTemplate("<span>#= MC.util.getDisplayTimeUTC(data.max_run_time) #</span>")

@@ -140,6 +140,7 @@
             var fallbackFieldLength = $('#fallback_field_length').val();
             var defaultApprovalState = $('#default_approval_state').val();
             var logLevel = $('#log_level').val();
+            var delayToTriggerTaskOnNewModel = $('#delay_to_trigger_task_on_new_model').val();
 
             var emailSettings = {
                 "smtp_server": smtpServer,
@@ -175,7 +176,8 @@
                 'script_location': scriptLocation,
                 'fallback_field_length': fallbackFieldLength,
                 'default_approval_state': defaultApprovalState,
-                'log_level': logLevel
+                'log_level': logLevel,
+                'delay_to_trigger_task_on_new_model': delayToTriggerTaskOnNewModel
             };
 
             return {

@@ -351,7 +351,11 @@ describe("ListHandler", function () {
     });
     describe(".GetTemplateCellData", function () {
         it("should get template for angleurl link element", function () {
+<<<<<<< HEAD
             var fieldData = "sampleData",fieldId = {
+=======
+            var fieldData = "sampleData", fieldId = {
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
                 id: "angleurl",
                 fieldtype: "text"
             }
@@ -362,12 +366,20 @@ describe("ListHandler", function () {
     describe(".GetFormatValue", function () {
         it("should get angle url angle tag", function () {
             var cellValue = "/sampleUrl", fieldId = "angleurl";
+<<<<<<< HEAD
              
+=======
+
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
             var result = listHandler.GetFormatValue(fieldId, cellValue);
             expect(result).toEqual("<a class='angleUrlLink' href='" + cellValue + "'>" + cellValue + "</a>");
         });
         it("should get cellvalue as null", function () {
             var cellValue = null, fieldId = "angleurl";
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
             var result = listHandler.GetFormatValue(fieldId, cellValue);
             expect(result).toEqual('');
         });

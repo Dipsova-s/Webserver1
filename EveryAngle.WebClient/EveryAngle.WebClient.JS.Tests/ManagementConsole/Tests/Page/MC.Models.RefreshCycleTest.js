@@ -64,15 +64,16 @@ describe("MC.Models.RefreshCycle", function () {
 
         // arrange
         var tests = [{
-            name: 'should call unixtimeToTimePicker 4 times when it has the valid time value',
-            expectedResult: 4,
+            name: 'should call unixtimeToTimePicker 5 times when it has the valid time value',
+            expectedResult: 5,
             parameters: {
                 RefreshCycleTrigger: {
                     "start_time": 0,
                     "restart_delay": 1,
                     "end_time": 2
                 },
-                max_run_time: 3
+                max_run_time: 3,
+                sap_download_max_run_time: 4
             }
         }, {
             name: 'should not call unixtimeToTimePicker when it has the invalid time value',
@@ -83,7 +84,8 @@ describe("MC.Models.RefreshCycle", function () {
                     "restart_delay": undefined,
                     "end_time": undefined
                 },
-                max_run_time: null
+                max_run_time: null,
+                sap_download_max_run_time: null
             }
         }];
 

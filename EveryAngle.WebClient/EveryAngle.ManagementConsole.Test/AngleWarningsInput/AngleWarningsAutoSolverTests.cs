@@ -74,7 +74,11 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             autoSolver.Initialize(sessionHelper.Object);
 
             AngleWarningsController testingController;
+<<<<<<< HEAD
             testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, sessionHelper.Object);
+=======
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, sessionHelper.Object);
+>>>>>>> origin/feature/M4-97187-poc-show-items-from-sublist-in-a-splitscreen
 
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 

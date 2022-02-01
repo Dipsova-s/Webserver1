@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -9222,6 +9222,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delay to trigger tasks on new model [seconds].
+        /// </summary>
+        public static string MC_DelayToTriggerTaskOnNewModel {
+            get {
+                return ResourceManager.GetString("MC_DelayToTriggerTaskOnNewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete action: {reference}?.
         /// </summary>
         public static string MC_DeleteActionConfirm {
@@ -13213,6 +13222,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The number of seconds delay to trigger tasks associated with new model event..
+        /// </summary>
+        public static string MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel {
+            get {
+                return ResourceManager.GetString("MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This password will be used when the SMTP server requires authentication..
         /// </summary>
         public static string MC_SystemSettingsHelpEmailPassword {
@@ -17139,6 +17157,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string RunningRealTime {
             get {
                 return ResourceManager.GetString("RunningRealTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAP download maximum run time.
+        /// </summary>
+        public static string SAPDownloadMaxRunTime {
+            get {
+                return ResourceManager.GetString("SAPDownloadMaxRunTime", resourceCulture);
             }
         }
         

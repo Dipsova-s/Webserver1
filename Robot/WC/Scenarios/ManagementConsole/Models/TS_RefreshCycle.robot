@@ -83,5 +83,6 @@ Check Field Elements
     Page Should Contain Continuous Field
     Page Should Contain Restart Delay Field
     Page Should Contain Until Field
+    Page Should Contain SAP Download Max Run Time
     Page Should Contain Maximum Run Time Field
     Page Should Contain Enabled Field

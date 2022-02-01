@@ -540,6 +540,18 @@ namespace EveryAngle.ManagementConsole.Controllers
             };
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult GetExistingTasks()
+        {
+            string fullTasksUri = string.Format("tasks?types=export_angle_to_datastore&offset=0&limit={0}", MaxPageSize);
+            var tasks = _taskService.GetTasks(fullTasksUri);
+            return new JsonResult
+            {
+                Data = tasks,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         [ValidateInput(false)]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveAutomateTask(string taskUri, string taskData, string deleteActionData)

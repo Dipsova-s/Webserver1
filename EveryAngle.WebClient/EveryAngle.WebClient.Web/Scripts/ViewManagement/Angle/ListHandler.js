@@ -1,4 +1,4 @@
-function ListHandler(elementId, container) {
+function ListHandler(elementId, container, customResultModel, customDisplayModel, customDisplayQueryBlockModel) {
     "use strict";
 
     var self = this;
@@ -20,11 +20,14 @@ function ListHandler(elementId, container) {
     self.HasResult = ko.observable(false);
     self.ReadOnly = ko.observable(false);
     self.DashBoardMode = ko.observable(false);
+    self.DisplayModel = typeof customDisplayModel === 'undefined' ? displayModel : customDisplayModel;
+    self.DisplayQueryBlockModel = typeof customDisplayQueryBlockModel === 'undefined' ? displayQueryBlockModel : customDisplayQueryBlockModel;
+    self.ResultModel = typeof customResultModel === 'undefined' ? resultModel : customResultModel;
     self.Models = {
         Angle: angleInfoModel,
-        Display: displayModel,
-        DisplayQueryBlock: displayQueryBlockModel,
-        Result: resultModel
+        Display: self.DisplayModel,
+        DisplayQueryBlock: self.DisplayQueryBlockModel,
+        Result: self.ResultModel
     };
     self.Container = typeof container === 'undefined' ? '#AngleTableWrapper' : container;
     self.ElementId = typeof elementId === 'undefined' ? '#AngleGrid' : elementId;
@@ -228,7 +231,7 @@ function ListHandler(elementId, container) {
         }
         return container;
     };
-    self.CreateGrid = function (scrollSettings, isRemoveColumn) {
+    self.CreateGrid = function () {
         self.ColumnDefinitions = self.GetColumnDefinitions();
         // M4-94496 - Just refresh when data is already present instead of getting it from server
         if (isRemoveColumn) {
@@ -1171,6 +1174,9 @@ function ListHandler(elementId, container) {
             if (containerId === 'AngleTableWrapper') {
                 parent = container;
             }
+            else if (containerId === 'AngleSublistTableWrapper') {
+                parent = container;
+            }
             else {
                 parent = container.parent();
             }
@@ -1595,14 +1601,14 @@ function ListHandler(elementId, container) {
         var grid = self.GetGridObject();
         if (grid.columns.length > 2) {
             if (self.Models.Display.Data().fields.hasObject('field', fieldId, false)) {
-                var sortingStep = displayQueryBlockModel.QuerySteps().findObject('step_type', enumHandlers.FILTERTYPE.SORTING);
+                var sortingStep = self.DisplayQueryBlockModel.QuerySteps().findObject('step_type', enumHandlers.FILTERTYPE.SORTING);
                 if (sortingStep && sortingStep.sorting_fields && sortingStep.sorting_fields.hasObject('field_id', fieldId, false)) {
-                    displayQueryBlockModel.QuerySteps.remove(sortingStep);
+                    self.DisplayQueryBlockModel.QuerySteps.remove(sortingStep);
                 }
 
-                sortingStep = displayQueryBlockModel.TempQuerySteps().findObject('step_type', enumHandlers.FILTERTYPE.SORTING);
+                sortingStep = self.DisplayQueryBlockModel.TempQuerySteps().findObject('step_type', enumHandlers.FILTERTYPE.SORTING);
                 if (sortingStep && sortingStep.sorting_fields && sortingStep.sorting_fields.hasObject('field_id', fieldId, false)) {
-                    displayQueryBlockModel.TempQuerySteps.remove(sortingStep);
+                    self.DisplayQueryBlockModel.TempQuerySteps.remove(sortingStep);
                 }
 
                 sortingStep = listSortHandler.QuerySteps().findObject('step_type', enumHandlers.FILTERTYPE.SORTING);
@@ -1956,6 +1962,9 @@ function ListHandler(elementId, container) {
 
                         listDrilldownHandler.Drilldown(dataItem);
                         break;
+                    case 'viewsublistitems':
+                        anglePageHandler.ShowAddFollowupPopup(true);
+                        break;
                     case 'copy':
                         self.OnContentCopy();
                         break;
@@ -2107,6 +2116,14 @@ function ListHandler(elementId, container) {
                 name: Localization.CellPopupMenuGotoSAP,
                 icon: 'icon-sap',
                 items: [],
+                disabled: function () {
+                    return false;
+                }
+            },
+            viewsublistitems: {
+                // todo - manisha: add the name to resources file
+                name: 'View Sublist Items',
+                icon: 'icon-jump',
                 disabled: function () {
                     return false;
                 }
@@ -2490,7 +2507,7 @@ function ListHandler(elementId, container) {
         // create for chart/pivot
         var display = self.Models.Display.GenerateDefaultData(displayType, fieldId, defaultBucket, fieldDetails);
         display.fields[0].multi_lang_alias = displayField.multi_lang_alias;
-        var currentBlocks = displayQueryBlockModel.CollectQueryBlocks();
+        var currentBlocks = self.DisplayQueryBlockModel.CollectQueryBlocks();
 
         // display name
         display.multi_lang_name[0].text = self.Models.Display.GetAdhocDisplayName(display.multi_lang_name[0].text);

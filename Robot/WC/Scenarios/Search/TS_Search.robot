@@ -108,6 +108,7 @@ Search Angle From Search Page And Execute Angle
     [Arguments]    ${keyword}
     Search By Text And Expect In Search Result    ${keyword}
     Open Angle From First Angle in Search Page    ${keyword}
+    Check If Angle Or Display Has A Warning Then Close The Popup
 
 Open Angle From First Angle in Search Page
     [Arguments]    ${angleName}
