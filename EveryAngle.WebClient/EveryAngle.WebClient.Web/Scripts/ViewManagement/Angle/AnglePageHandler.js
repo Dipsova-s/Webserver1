@@ -446,7 +446,9 @@ function AnglePageHandler() {
         }
         self.HandlerDisplay.SetData(displayData);
         self.HandlerDisplay.QueryDefinitionHandler.InitialAggregation();
-        displayModel.LoadSuccess(displayData);
+        var DisplayModel = self.HandlerDisplay.IsSplitDisplay() ? displayModelForSplitScreen : displayModel;
+
+        DisplayModel.LoadSuccess(displayData);
 
         !isRemoveColoumn && self.ApplyExecutionAngle();
     };
@@ -843,7 +845,9 @@ function AnglePageHandler() {
             return false;
         }
         self.SetHandlerDisplay(display);
-        displayModel.LoadSuccess(display.GetData());
+        var DisplayModel = self.HandlerDisplay.IsSplitDisplay() ? displayModelForSplitScreen : displayModel;
+
+        DisplayModel.LoadSuccess(display.GetData());
         return true;
     };
     self.CheckNewAngle = function () {

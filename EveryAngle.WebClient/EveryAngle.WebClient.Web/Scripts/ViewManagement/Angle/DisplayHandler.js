@@ -587,8 +587,9 @@ function DisplayHandler(model, parent) {
         return self.UpdateModel(newData, false);
     };
     self.UpdateModel = function (data, updateRaw) {
+        var DisplayModel = self.IsSplitDisplay() ? displayModelForSplitScreen : displayModel;
         // update to old view model
-        displayModel.LoadSuccess(data);
+        DisplayModel.LoadSuccess(data);
 
         if (WC.ModelHelper.IsAdhocUri(data.uri)) {
             // update adhoc to local storage
@@ -628,6 +629,9 @@ function DisplayHandler(model, parent) {
     };
     self.IsUsedInTask = function () {
         return self.Data().used_in_task;
+    };
+    self.IsSplitDisplay = function () {
+        return self.Data().is_splitted_sublist;
     };
 
     // constructor

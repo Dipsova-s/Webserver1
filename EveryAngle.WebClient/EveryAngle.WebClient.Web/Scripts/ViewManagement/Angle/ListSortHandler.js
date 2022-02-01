@@ -174,7 +174,9 @@ function ListSortHandler() {
         progressbarModel.CancelFunction = function () {
             WC.Page.Stop();
             self.QuerySteps(oldSort);
-            displayModel.LoadSuccess(oldDisplay);
+            var DisplayModel = anglePageHandler.HandlerDisplay.IsSplitDisplay() ? displayModelForSplitScreen : displayModel;
+
+            DisplayModel.LoadSuccess(oldDisplay);
             if (self.isSplittedScreen) {
                 resultModelForSplitScreen.LoadSuccess(oldResult);
             }

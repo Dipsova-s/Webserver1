@@ -32,8 +32,8 @@ function ResultViewModel(elementId, container, customDisplayQueryBlockModel, cus
     //BOF: View model methods
     self.PostResult = function (options) {
         self.PostingOptions(options);
-        self.DisplayModel = anglePageHandler.isSplittedScreen ? displayModelForSplitScreen : displayModel;
-        self.DisplayQueryBlockModel = anglePageHandler.isSplittedScreen ? displayQueryBlockModelForSplitScreen : displayQueryBlockModel;
+        self.DisplayModel = anglePageHandler.HandlerDisplay.IsSplitDisplay() ? displayModelForSplitScreen : displayModel;
+        self.DisplayQueryBlockModel = anglePageHandler.HandlerDisplay.IsSplitDisplay() ? displayQueryBlockModelForSplitScreen : displayQueryBlockModel;
         var settings =
             jQuery.extend({
                 // string, post uri
@@ -320,8 +320,8 @@ function ResultViewModel(elementId, container, customDisplayQueryBlockModel, cus
         errorHandlerModel.ShowAreaError(element, message, callback);
     };
     self.LoadSuccess = function (data) {
-        self.DisplayModel = displayModel;
-        self.DisplayQueryBlockModel = displayQueryBlockModel;
+        self.DisplayModel = anglePageHandler.HandlerDisplay.IsSplitDisplay() ? displayModelForSplitScreen : displayModel;
+        self.DisplayQueryBlockModel = anglePageHandler.HandlerDisplay.IsSplitDisplay() ? displayQueryBlockModelForSplitScreen : displayQueryBlockModel;
         if (self.DisplayModel.Data() === null) {
             data.display_type = null;
             data.display_uri = null;
@@ -481,7 +481,7 @@ function ResultViewModel(elementId, container, customDisplayQueryBlockModel, cus
         return jQuery.when(self.RequestResult(request), self.RequestDataField());
     };
     self.SetLatestRenderInfo = function () {
-        self.DisplayModel = displayModel;
+        self.DisplayModel = anglePageHandler.HandlerDisplay.IsSplitDisplay() ? displayModelForSplitScreen : displayModel;
 
         if (self.DisplayModel.Data()) {
             self.LastRenderInfo = {
@@ -569,7 +569,7 @@ function ResultViewModel(elementId, container, customDisplayQueryBlockModel, cus
         return displayField.length > 0 ? displayField[0] : null;
     };
     self.LoadResultFields = function (isPostResult) {
-        self.DisplayModel = displayModel;
+        self.DisplayModel = anglePageHandler.HandlerDisplay.IsSplitDisplay() ? displayModelForSplitScreen : displayModel;
         if (typeof isPostResult === 'undefined')
             isPostResult = true;
 
