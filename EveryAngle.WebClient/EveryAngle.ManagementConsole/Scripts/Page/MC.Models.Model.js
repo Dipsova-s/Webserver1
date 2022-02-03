@@ -64,6 +64,10 @@
                     }
                 });
         };
+        self.UseRefreshChange = function () {
+            var checkbox = $("input[name='use_refresh']");
+            checkbox.val(checkbox.is(':checked'));
+        };
         self.UpdateModelIdAsText = function (dropdown, text) {
             var container = dropdown.parent();
             container.empty().text(text).css('min-height', '30px');

@@ -14203,6 +14203,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Angles Engine for Refresh.
+        /// </summary>
+        public static string MC_UseRefresh {
+            get {
+                return ResourceManager.GetString("MC_UseRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User enabled.
         /// </summary>
         public static string MC_UserEnabled {

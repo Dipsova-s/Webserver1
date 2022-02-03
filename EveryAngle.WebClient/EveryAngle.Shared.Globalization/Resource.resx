@@ -5179,6 +5179,9 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
 &lt;ul&gt;&lt;li&gt;When this setting is selected (default value) the queries will be switched to the Model Server when it starts caching and postprocessing.&lt;/li&gt;
 &lt;li&gt;When deselected the queries will only be switched to the Model Server when it has finished caching and postprocessing (this is particularly useful when caching and postprocessing have a heavy toll on the system).&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
+  <data name="MC_UseRefresh" xml:space="preserve">
+    <value>Use Angles Engine for Refresh</value>
+  </data>
   <data name="MC_Event" xml:space="preserve">
     <value>Event</value>
   </data>

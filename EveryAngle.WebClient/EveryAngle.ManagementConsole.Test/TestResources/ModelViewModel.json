@@ -7,6 +7,7 @@
         "uri": "/models/1",
         "modelserver_settings": "/models/1/modelserver_settings",
         "environment": "Test environment..",
+        "use_refresh":  true,
         "switch_when_postprocessing": true,
         "is_postprocessing": false,
         "licensed_apps": [
@@ -54,6 +55,7 @@
         "uri": "/models/14",
         "modelserver_settings": "/models/14/modelserver_settings",
         "environment": "EA4IT environment..",
+        "use_refresh":  false,
         "switch_when_postprocessing": true,
         "is_postprocessing": false,
         "licensed_apps": [],

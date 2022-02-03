@@ -42,6 +42,8 @@ namespace EveryAngle.Core.ViewModels.Model
 
         public string short_name { get; set; }
 
+        public bool use_refresh { get; set; }
+
         public string long_name { get; set; }
 
         public string abbreviation { get; set; }

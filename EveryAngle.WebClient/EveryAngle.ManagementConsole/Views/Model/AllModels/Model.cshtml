@@ -52,6 +52,10 @@
                 <label>@Resource.MC_ModelEnvironment:</label>
                 <p>@Html.TextBoxFor(model => model.environment, new { @name = "environment", maxlength = 50 })</p>
             </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_UseRefresh</label>
+                <p><input type="checkbox" name="use_refresh" onclick="MC.Models.Model.UseRefreshChange()" @(Model.use_refresh ? "checked" : string.Empty) @(!ViewBag.IsCreateNewModel ? "disabled" : string.Empty)/><span class="label"></span></p>
+            </div>
             @if (!ViewBag.IsCreateNewModel)
             {
                 <input type="hidden" name="Uri" value="@Model.Uri" />
