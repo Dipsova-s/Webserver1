@@ -8,7 +8,6 @@ namespace EveryAngle.WebClient.Service.ApiServices
         #region Constant
 
         private const string RELOAD_URI = "{0}/reload";
-        private const string KILLSAPJOBS_URI = "{0}/killsapjobs";
 
         #endregion
 
@@ -21,12 +20,6 @@ namespace EveryAngle.WebClient.Service.ApiServices
         {
             string reloadUri = string.Format(RELOAD_URI, agentUri);
             Update(reloadUri);
-        }
-
-        public void KillSapJob(string agentUri, string data)
-        {
-            string killSapJobUri = string.Format(KILLSAPJOBS_URI, agentUri);
-            Create<dynamic>(killSapJobUri, data);
         }
     }
 }

@@ -22,12 +22,10 @@ namespace EveryAngle.ManagementConsole.Controllers
     public class ModelServersController : BaseController
     {
         private readonly IModelService _modelService;
-        private readonly IModelAgentService _modelAgentService;
 
-        public ModelServersController(IModelService service, IModelAgentService modelAgentService)
+        public ModelServersController(IModelService service)
         {
             _modelService = service;
-            _modelAgentService = modelAgentService;
         }
 
         #region "Public"
@@ -98,7 +96,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 try
                 {
                     ModelViewModel model = SessionHelper.Models.FirstOrDefault(x => x.Uri == modelServer.model);
-                    _modelAgentService.KillSapJob(model.Agent.ToString(), body);
+                    _modelService.KillSapJob(model.Uri.ToString(), body);
                     Log.SendInfo("[KillSapJobs] Success");
                 }
                 catch (Exception ex)

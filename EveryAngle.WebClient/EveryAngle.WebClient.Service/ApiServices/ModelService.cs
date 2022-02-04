@@ -29,6 +29,8 @@ namespace EveryAngle.WebClient.Service.ApiServices
     [ExcludeFromCodeCoverage]
     public class ModelService : IModelService
     {
+        private const string KILLSAPJOBS_URI = "{0}/killsapjobs";
+
         public string WebServiceUri { get; set; }
 
         public object category { get; set; }
@@ -883,5 +885,16 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return fields.fields.Any(x => x.id.Equals(field, StringComparison.OrdinalIgnoreCase));
         }
 
+        public void KillSapJob(string modelUri, string data)
+        {
+            string killSapJobUri = string.Format(KILLSAPJOBS_URI, modelUri);
+            var requestManager = RequestManager.Initialize(killSapJobUri);
+            var jsonResult = requestManager.Run(Method.POST, data);
+
+            if (requestManager.ResponseStatus != HttpStatusCode.OK)
+            {
+                throw new HttpException(jsonResult.ToString());
+            }
+        }
     }
 }

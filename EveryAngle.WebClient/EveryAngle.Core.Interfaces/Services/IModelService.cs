@@ -114,5 +114,7 @@ namespace EveryAngle.Core.Interfaces.Services
         bool FieldExists(string uri, string field, ref Dictionary<string, FieldViewModel> cachedFields);
 
         List<FieldSourceViewModel> GetFieldSources(string uri);
+
+        void KillSapJob(string modelUri, string data);
     }
 }
