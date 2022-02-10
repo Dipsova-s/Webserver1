@@ -1,6 +1,7 @@
 using EveryAngle.Shared.Helpers;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace EveryAngle.Core.ViewModels.Users
 {
@@ -39,5 +40,8 @@ namespace EveryAngle.Core.ViewModels.Users
 
         [JsonProperty(PropertyName = "is_enabled")]
         public virtual bool IsEnabled { get; set; }
+
+        [JsonProperty(PropertyName = "assigned_roles")]
+        public IList<AssignedRoleViewModel> assignedRoles;
     }
 }
