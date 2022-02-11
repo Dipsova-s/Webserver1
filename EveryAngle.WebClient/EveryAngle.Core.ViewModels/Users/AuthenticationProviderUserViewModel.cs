@@ -41,7 +41,7 @@ namespace EveryAngle.Core.ViewModels.Users
         [JsonProperty(PropertyName = "is_enabled")]
         public virtual bool IsEnabled { get; set; }
 
-        [JsonProperty(PropertyName = "assigned_roles")]
-        public IList<AssignedRoleViewModel> assignedRoles;
+        [JsonProperty(PropertyName = "AssignedRoles")]
+        public IList<AssignedRoleViewModel> AssignedRoles { get; set; }
     }
 }

@@ -218,7 +218,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             // set enable to model
             AuthenticationProviderUserViewModel enableUser = _userService.GetUserAuthentication(userUri);
             enableUser.IsEnabled = true;
-            enableUser.assignedRoles = JsonConvert.DeserializeObject<List<AssignedRoleViewModel>>(rolesData);
+            enableUser.AssignedRoles = JsonConvert.DeserializeObject<List<AssignedRoleViewModel>>(rolesData);
 
             // enable a user
             string updateResult = _userService.UpdateUser(enableUser.Uri.ToString(), JsonConvert.SerializeObject(enableUser));
