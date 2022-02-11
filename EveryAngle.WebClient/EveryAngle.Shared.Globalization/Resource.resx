@@ -6568,11 +6568,16 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_ActionSubfolder" xml:space="preserve">
     <value>Action subfolder</value>
   </data>
+  <data name="MC_OutputFolderDescription" xml:space="preserve">
+    <value>This field shows a preview of the full path of the location, where the output of this action will be saved. </value>
+  </data>
   <data name="MC_DatastoreFolderDescription" xml:space="preserve">
-    <value>Path derived as configured in the datastore.</value>
+    <value>This is the path that is connected to a specific Datastores. &lt;br&gt;
+- You can edit this path at Angle exports → Datastores.</value>
   </data>
   <data name="MC_ActionSubfolderDescription" xml:space="preserve">
-    <value>Addition to the datastore path than can be added for this specific action.</value>
+    <value>This is an optional subfolder to extend the Datastore path, where you want to save the output of this action.
+     Consequently, you can use different subfolders for different actions while reusing the same datastore.</value>
   </data>
   <data name="MC_AngleWarningsForwardingRulesLastUpdated" xml:space="preserve">
     <value>Forwarding rules last updated:</value>
