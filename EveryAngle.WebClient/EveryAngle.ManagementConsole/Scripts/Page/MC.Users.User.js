@@ -301,7 +301,8 @@
 
                 self.InitialGridSelectedUser();
                 self.InitialImportUserButtons();
-                
+                self.InitialImportUsersPageRoles();
+
             }, 1);
         };
         self.ImportUserGridDataBound = function (e) {
@@ -361,6 +362,10 @@
             MC.form.clean();
 
             var data = self.GetImportUsersData();
+            if (data.roles && !data.roles.length && !$('#formUserInfo').valid()) {
+                $("#UserRoles").siblings().first().addClass("error");
+                return;
+            }
 
             if (data.users.length) {
                 var userGrid = $('#SelectedUserGrid').data('kendoGrid');
@@ -860,6 +865,17 @@
             }
         };
 
+        self.InitialImportUsersPageRoles = function () {
+            var ddlUserRoles = $('#UserRoles').data('kendoMultiSelect');
+            ddlUserRoles.bind("change", self.OnRoleChange);
+            $('#UserRoles').attr("data-msg-required", Localization.MC_Validation_UserRolesRequired);
+        };
+
+        self.OnRoleChange = function (e) {
+            if ($("#UserRoles").siblings().first().hasClass("error")) {
+                $("#UserRoles").siblings().first().removeClass("error");
+            }
+        };
         /* begin - edit user page */
     }
 
