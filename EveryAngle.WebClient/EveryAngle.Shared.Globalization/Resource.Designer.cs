@@ -14581,7 +14581,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user must contain at least one role..
+        ///   Looks up a localized string similar to Please specify at least one role..
         /// </summary>
         public static string MC_Validation_UserRolesRequired {
             get {
