@@ -86,20 +86,20 @@
                 url: self.GetSystemProviderUri,
                 type: 'GET'
             })
-            .done(function (data) {
-                ddlSystemProvider.show().removeAttr('disabled').empty();
-                jQuery.each(data.providers, function (k, v) {
-                    if (v.Type != "SAML") { //removed as part to M4-98217
-                        ddlSystemProvider.append('<option value="' + v.Users + '"' + ((v.Uri + '/').indexOf(data.default_provider + '/') !== -1 ? ' selected' : '') + '>(' + v.Id + ') ' + v.Description + '</option>');
-                    }
+                .done(function (data) {
+                    ddlSystemProvider.show().removeAttr('disabled').empty();
+                    jQuery.each(data.providers, function (k, v) {
+                        if (v.Type != "SAML") { //removed as part to M4-98217
+                            ddlSystemProvider.append('<option value="' + v.Users + '"' + ((v.Uri + '/').indexOf(data.default_provider + '/') !== -1 ? ' selected' : '') + '>(' + v.Id + ') ' + v.Description + '</option>');
+                        }
+                    });
+                    ddlSystemProvider.kendoDropDownList();;
+                })
+                .always(function () {
+                    setTimeout(function () {
+                        MC.ui.popup('requestEnd');
+                    }, 100);
                 });
-                ddlSystemProvider.kendoDropDownList();;
-            })
-            .always(function () {
-                setTimeout(function () {
-                    MC.ui.popup('requestEnd');
-                }, 100);
-            });
         };
         self.ClearUsersGridSelection = function () {
             self.UserGridSelection.ClearSelection();
@@ -146,18 +146,18 @@
                     url: self.GetRolesIDUri,
                     type: 'get'
                 })
-                .done(function (data) {
-                    self.AllRoles = data.slice();
+                    .done(function (data) {
+                        self.AllRoles = data.slice();
 
-                    ddlMassChangeUsersRole.dataSource.data(self.AllRoles.slice());
+                        ddlMassChangeUsersRole.dataSource.data(self.AllRoles.slice());
 
-                    ddlMassChangeUsersRole.enable(true);
-                })
-                .always(function () {
-                    setTimeout(function () {
-                        MC.ui.popup('requestEnd');
-                    }, 500);
-                });
+                        ddlMassChangeUsersRole.enable(true);
+                    })
+                    .always(function () {
+                        setTimeout(function () {
+                            MC.ui.popup('requestEnd');
+                        }, 500);
+                    });
             }
         };
         self.SetRequiredRoles = function (element) {
@@ -220,12 +220,12 @@
                         parameters: { userUri: userUri, assignRoleData: JSON.stringify(assignRoles) },
                         type: 'POST'
                     })
-                    .done(function () {
-                        MC.util.massReport.onDone(arguments, deferred, Localization.Username, fullName, reportIndex);
-                    })
-                    .fail(function () {
-                        MC.util.massReport.onFail(arguments, deferred, Localization.Username, fullName, reportIndex);
-                    });
+                        .done(function () {
+                            MC.util.massReport.onDone(arguments, deferred, Localization.Username, fullName, reportIndex);
+                        })
+                        .fail(function () {
+                            MC.util.massReport.onFail(arguments, deferred, Localization.Username, fullName, reportIndex);
+                        });
 
                     return deferred.promise();
                 };
@@ -254,15 +254,15 @@
                         element: obj,
                         type: 'Delete'
                     })
-                    .done(function () {
-                        var grid = jQuery('#UsersGrid').data('kendoGrid');
-                        if (grid) {
-                            grid.dataSource.read();
-                        }
-                    })
-                    .always(function () {
-                        self.ClearUsersGridSelection();
-                    });
+                        .done(function () {
+                            var grid = jQuery('#UsersGrid').data('kendoGrid');
+                            if (grid) {
+                                grid.dataSource.read();
+                            }
+                        })
+                        .always(function () {
+                            self.ClearUsersGridSelection();
+                        });
                 });
             }
             MC.util.preventDefault(e);
@@ -364,10 +364,8 @@
             var data = self.GetImportUsersData();
             if (data.roles && !data.roles.length && !$('#formUserInfo').valid()) {
                 $("#UserRoles").siblings().first().addClass("error");
-                return;
             }
-
-            if (data.users.length) {
+            else if (data.users.length) {
                 var userGrid = $('#SelectedUserGrid').data('kendoGrid');
                 var userGridData = JSON.parse(JSON.stringify(userGrid.dataSource.data())) || [];
                 var getUsername = function (index) {
@@ -396,13 +394,13 @@
                         type: 'PUT',
                         parameters: { userUri: userUri, rolesData: JSON.stringify(postData) }
                     })
-                    .done(function () {
-                        self.SelectedAvailableUsers = [];
-                        MC.util.massReport.onDone(arguments, deferred, Localization.MC_AddingUser, username, reportIndex);
-                    })
-                    .fail(function () {
-                        MC.util.massReport.onFail(arguments, deferred, Localization.MC_AddingUser, username, reportIndex);
-                    });
+                        .done(function () {
+                            self.SelectedAvailableUsers = [];
+                            MC.util.massReport.onDone(arguments, deferred, Localization.MC_AddingUser, username, reportIndex);
+                        })
+                        .fail(function () {
+                            MC.util.massReport.onFail(arguments, deferred, Localization.MC_AddingUser, username, reportIndex);
+                        });
 
                     return deferred.promise();
                 };
@@ -699,8 +697,8 @@
                     var roleData;
                     var roleId = $.trim(row.children('td:first').text());
                     var modelId = $.trim(row.children('td:eq(5)').text()) === "" ?
-                                  $.trim(row.children('td:eq(3)').text()) :
-                                  $.trim(row.children('td:eq(5)').text());
+                        $.trim(row.children('td:eq(3)').text()) :
+                        $.trim(row.children('td:eq(5)').text());
                     if (modelId !== 'No Data' || !modelId) {
                         roleData = { "role_id": roleId, "model_id": modelId };
                     }
@@ -732,18 +730,18 @@
                 parameters: { rolesData: JSON.stringify(data.rolesData), userData: JSON.stringify(data.userData), userUri: data.userUri },
                 type: 'POST'
             })
-            .done(function (response) {
-                if (response.session_needs_update) {
-                    MC.util.showPopupConfirmation(Localization.MC_ConfirmChangePrivileges, function () {
-                        jQuery('#logoutForm').submit();
-                    }, function () {
+                .done(function (response) {
+                    if (response.session_needs_update) {
+                        MC.util.showPopupConfirmation(Localization.MC_ConfirmChangePrivileges, function () {
+                            jQuery('#logoutForm').submit();
+                        }, function () {
+                            location.hash = self.AllUserPageUri;
+                        });
+                    }
+                    else {
                         location.hash = self.AllUserPageUri;
-                    });
-                }
-                else {
-                    location.hash = self.AllUserPageUri;
-                }
-            });
+                    }
+                });
         };
 
         self.AddSelectedUsers = function () {
