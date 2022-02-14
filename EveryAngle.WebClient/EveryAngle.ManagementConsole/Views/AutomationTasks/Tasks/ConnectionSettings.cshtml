@@ -28,7 +28,7 @@
                 @if (@Model.SettingList.FirstOrDefault().Description != null)
                 {
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
-                    <textarea class="alwaysHidden"><pre>@Resource.MC_OutputFolderDescription</pre></textarea>
+                    <textarea class="alwaysHidden"><pre>@Model.SettingList.FirstOrDefault().Description</pre></textarea>
                 }
             </p>
         </div>
