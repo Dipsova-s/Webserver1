@@ -34,7 +34,7 @@
 }
 
 <div class="content pageUser pageUserImport">
-    <form id="formUserInfo" data-role="validator">
+    <form id="formRoleSelector" data-role="validator">
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.MC_ImportUser_Add_Users</h2>
             <div class="contentSectionInfoItem contentSectionInfoItemRole">
@@ -42,7 +42,7 @@
                 <p>
                     @(Html.Kendo().MultiSelect()
                                 .Name("UserRoles")
-                                .HtmlAttributes(new { @required = "required" })
+                                .HtmlAttributes(new { @required = "required", @title = Resource.MC_Validation_UserRolesRequired })
                                 .DataValueField("Value")
                                 .DataTextField("Text")
                                 .ItemTemplate("<span data-tooltip-title=\"#: Tooltip #\">#: Text # </span>")
