@@ -6587,6 +6587,9 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="Upload" xml:space="preserve">
     <value>Upload</value>
   </data>
+  <data name="MC_Validation_UserRolesRequired" xml:space="preserve">
+    <value>Please specify at least one role.</value>
+  </data>
   <data name="MC_OutputFolderDescription" xml:space="preserve">
     <value>This field shows a preview of the full path of the location, where the output of this action will be saved. </value>
   </data>

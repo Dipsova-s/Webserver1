@@ -14592,6 +14592,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please specify at least one role..
+        /// </summary>
+        public static string MC_Validation_UserRolesRequired {
+            get {
+                return ResourceManager.GetString("MC_Validation_UserRolesRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please complete this email notification..
         /// </summary>
         public static string MC_Validation_ValidActionEmail {
