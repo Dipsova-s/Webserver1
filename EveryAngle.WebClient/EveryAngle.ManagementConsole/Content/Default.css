@@ -344,7 +344,8 @@ button:disabled {
 
 input.error,
 select.error,
-textarea.error {
+textarea.error,
+div.error {
     border-color: #c33 !important;
     color: #c33;
 }

@@ -34,23 +34,25 @@
 }
 
 <div class="content pageUser pageUserImport">
-    <div class="contentSection contentSectionInfo">
-        <h2>@Resource.MC_ImportUser_Add_Users</h2>
-        <div class="contentSectionInfoItem contentSectionInfoItemRole">
-            <label>@Resource.MC_SetRoles</label>
-            <p>
-                @(Html.Kendo().MultiSelect()
+    <form id="formRoleSelector" data-role="validator">
+        <div class="contentSection contentSectionInfo">
+            <h2>@Resource.MC_ImportUser_Add_Users</h2>
+            <div class="contentSectionInfoItem contentSectionInfoItemRole">
+                <label>@Resource.MC_SetRoles</label>
+                <p>
+                    @(Html.Kendo().MultiSelect()
                                 .Name("UserRoles")
+                                .HtmlAttributes(new { @required = "required", @title = Resource.MC_Validation_UserRolesRequired })
                                 .DataValueField("Value")
                                 .DataTextField("Text")
                                 .ItemTemplate("<span data-tooltip-title=\"#: Tooltip #\">#: Text # </span>")
                                 .TagTemplate("<span title=\"#: Tooltip #\">#: Text #</span>")
                                 .Value(ViewBag.DefaultRoles)
                                 .BindTo(ViewBag.SystemRoles))
-            </p>
+                </p>
+            </div>
         </div>
-    </div>
-
-    @{Html.RenderAction("RenderImportUserGrid", "Users", new { uri = ViewBag.SystemAuthenticationProviderUri });}
+    </form>
+        @{Html.RenderAction("RenderImportUserGrid", "Users", new { uri = ViewBag.SystemAuthenticationProviderUri });}
 </div>
 <!--/.content-->

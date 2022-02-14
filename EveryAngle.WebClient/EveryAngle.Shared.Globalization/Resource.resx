@@ -6580,4 +6580,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="Upload" xml:space="preserve">
     <value>Upload</value>
   </data>
+  <data name="MC_Validation_UserRolesRequired" xml:space="preserve">
+    <value>Please specify at least one role.</value>
+  </data>
 </root>
