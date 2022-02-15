@@ -7064,7 +7064,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Addition to the datastore path than can be added for this specific action..
+        ///   Looks up a localized string similar to This is an optional subfolder to extend the Datastore path, where you want to save the output of this action. Consequently, you can use different subfolders for different actions while reusing the same datastore..
         /// </summary>
         public static string MC_ActionSubfolderDescription {
             get {
@@ -8941,7 +8941,8 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path derived as configured in the datastore..
+        ///   Looks up a localized string similar to This is the path that is connected to a specific Datastores. &lt;br&gt;
+        ///- You can edit this path at Angle exports → Datastores..
         /// </summary>
         public static string MC_DatastoreFolderDescription {
             get {
@@ -11711,6 +11712,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_OtherWarnings {
             get {
                 return ResourceManager.GetString("MC_OtherWarnings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field shows a preview of the full path of the location, where the output of this action will be saved. .
+        /// </summary>
+        public static string MC_OutputFolderDescription {
+            get {
+                return ResourceManager.GetString("MC_OutputFolderDescription", resourceCulture);
             }
         }
         
