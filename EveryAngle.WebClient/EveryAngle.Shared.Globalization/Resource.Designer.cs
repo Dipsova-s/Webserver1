@@ -7064,8 +7064,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is an optional subfolder to extend the Datastore path, where you want to save the output of this action.
-        ///     Consequently, you can use different subfolders for different actions while reusing the same datastore..
+        ///   Looks up a localized string similar to This is an optional subfolder to extend the Datastore path, where you want to save the output of this action. Consequently, you can use different subfolders for different actions while reusing the same datastore..
         /// </summary>
         public static string MC_ActionSubfolderDescription {
             get {
@@ -8929,6 +8928,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_DataStore {
             get {
                 return ResourceManager.GetString("MC_DataStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This datastore cannot be made default.
+        /// </summary>
+        public static string MC_DataStoreCannotBeDefault {
+            get {
+                return ResourceManager.GetString("MC_DataStoreCannotBeDefault", resourceCulture);
             }
         }
         

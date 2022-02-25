@@ -6593,4 +6593,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_OutputFolderDescription" xml:space="preserve">
     <value>This field shows a preview of the full path of the location, where the output of this action will be saved. </value>
   </data>
+  <data name="MC_DataStoreCannotBeDefault" xml:space="preserve">
+    <value>This datastore cannot be made default</value>
+  </data>
 </root>

@@ -743,8 +743,6 @@ namespace EveryAngle.ManagementConsole.Controllers
                 AddFileDetailsToDatastore(dataStore);
             }
 
-            ClearConnectionPasswordValue(dataStore);
-
             #region view bags
             ViewBag.DatastorePlugin = datastorePlugin != null
                 ? datastorePlugin.description
@@ -761,19 +759,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         private void AddFileDetailsToDatastore(DataStoresViewModel datastore)
         {
             datastore.data_settings.SettingList.Find(x => x.Id == "template_file").FileDataOptions = _fileTemplateService.Get().ToList();
-        }
-
-        internal void ClearConnectionPasswordValue(DataStoresViewModel dataStore)
-        {
-            if (dataStore.connection_settings != null && dataStore.connection_settings.SettingList != null)
-            {
-                Setting connectionPassword = dataStore.connection_settings.SettingList
-                                            .FirstOrDefault(x => DatastoreSettingConstant.ConnectionPasswordId.Equals(x.Id));
-
-                if (connectionPassword != null)
-                    connectionPassword.Value = string.Empty;
-            }
-
         }
 
         /// <summary>

@@ -5043,6 +5043,11 @@ a.mailto {
     margin-top: 3px;
 }
 
+.pageDatastoreEdit .datastoreDefaultStatusInfo {
+    color: #c33 !important;
+    display: none;
+}
+
 .pageDatastoreEdit .innowera-processes {
     margin-left: 330px;
 }

@@ -68,7 +68,7 @@
                     if (ViewBag.isSupportAutomateTask && Model.is_default && (Model.datastore_plugin.Equals("csv") || Model.datastore_plugin.Equals("msexcel")))
                     {
                         <label>@Resource.MC_DefaultDatastoreName:</label>
-                        <p>
+                        <p id="row-default-datastore">
                             @(Html.Kendo().DropDownListFor(model => model.Uri)
                                                                                   .DataValueField("Uri")
                                                                                   .DataTextField("name")
@@ -81,6 +81,7 @@
                                                                                 </text>))
                             )
 
+                            <span class="datastoreDefaultStatusInfo statusInfo">@Resource.MC_DataStoreCannotBeDefault</span>
                         </p>
                     }
                     else
@@ -104,17 +105,19 @@
     @{
         if (Model.connection_settings != null)
         {
-            <div class="connection_settings" id="CheckOutputFolder">
-                @{Html.RenderPartial("~/Views/Shared/Plugins.cshtml", Model.connection_settings, new ViewDataDictionary { { "page", "DataStore" } });}
-                <div class="contentSectionInfoItem" id="row-test-connection">
-                    <label>&nbsp;</label>
-                    <p>
-                        <a id="btnTestConnection" class="btn" onclick="MC.AutomationTasks.DataStores.TestConnection()">@Resource.MC_TestConnection</a><br />
-                        <span class="statusInfo"></span>
-                    </p>
+            <form id="formConnectionString" data-role="validator">
+                <div class="connection_settings" id="CheckOutputFolder">
+                    @{Html.RenderPartial("~/Views/Shared/Plugins.cshtml", Model.connection_settings, new ViewDataDictionary { { "page", "DataStore" } });}
+                    <div class="contentSectionInfoItem" id="row-test-connection">
+                        <label>&nbsp;</label>
+                        <p>
+                            <a id="btnTestConnection" class="btn" onclick="MC.AutomationTasks.DataStores.TestConnection()">@Resource.MC_TestConnection</a><br />
+                            <span class="statusInfo"></span>
+                        </p>
+                    </div>
+                    <hr class="last" />
                 </div>
-                <hr class="last" />
-            </div>
+            </form>
         }
         if (Model.data_settings != null)
         {
