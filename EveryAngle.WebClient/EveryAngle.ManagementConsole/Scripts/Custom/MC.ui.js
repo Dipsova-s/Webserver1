@@ -909,6 +909,10 @@
                     MC.util.showExistTemplateInfo(obj);
                 }
             }
+            else if (id === "preferred_storage") {
+                MC.AutomationTasks.DataStores.ShowHideConnectionSettings(obj);
+            }
+
         },
         isKendoTypeSetting: function (type) {
             var kendoTypes = ['enum', 'currency_symbol', 'percentage', 'double', 'integer'];

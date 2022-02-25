@@ -226,28 +226,6 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 x.GetTask(taskUri));
         }
 
-        [TestCase("password", "")]
-        [TestCase("", "")]
-        public void Should_ClearConnectionPasswordField_When_HasValue(string passwordValue, string expectedValue)
-        {
-            Mock<DataStoresViewModel> mockDataStore = new Mock<DataStoresViewModel>();
-            Mock<ModelServerSettings> mockConnectionSettings = new Mock<ModelServerSettings>();
-            List<Setting> settings = new List<Setting>
-            {
-                new Setting
-                {
-                    Id = DatastoreSettingConstant.ConnectionPasswordId,
-                    Value = passwordValue
-                }
-            };
-            mockConnectionSettings.SetupGet(x => x.SettingList).Returns(settings);
-            mockDataStore.SetupGet(x => x.connection_settings).Returns(mockConnectionSettings.Object);
-            _testingController.ClearConnectionPasswordValue(mockDataStore.Object);
-
-            Assert.IsTrue(
-                ((string)mockDataStore.Object.connection_settings.SettingList.FirstOrDefault(x => x.Id == DatastoreSettingConstant.ConnectionPasswordId).Value) == expectedValue);
-        }
-
         [Test]
         [ExpectedException(typeof(HttpException))]
         public void VerifyPriviledge_ThrowsHttpException_WhenModelPrivilegeHasNoManageModel()

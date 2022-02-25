@@ -14,7 +14,19 @@
         self.isSupportAutomateTask = '';
         self.EditDefaultCsvDatastoreUri = '';
         self.EditDefaultExcelDatastoreUri = '';
-
+        self.canDatastoreBeDefault = true;
+        self.Awss3StorageId = "awss3";
+        self.awss3ElementArray = [
+            '#row-aws_s3_region',
+            '#row-aws_s3_bucket',
+            '#row-aws_s3_upload_folder',
+            '#row-aws_s3_access_key',
+            '#row-aws_s3_secret_key',
+        ];
+        self.localFolderElementArray = [
+            '#row-connection_folder',
+            '#row-test-connection'
+        ];
         self.InitialAllDataStores = function (data) {
             self.DataStoresUri = '';
             self.DatastoreUri = '';
@@ -72,6 +84,7 @@
                 });
                 self.SetDatastoreFieldsValidation();
             }, 1);
+            self.ShowHideConnectionSettingsForDefaultDatastore();
         };
 
         self.SetDatastoreFieldsValidation = function () {
@@ -146,7 +159,7 @@
         self.GetSettingInfo = function (input) {
             var setting = { 'id': input.attr('id'), 'value': null, 'type': input.data('setting-type') };
             if (MC.ui.isKendoTypeSetting(setting.type)) {
-                setting.value = input.data('handler').value();
+                setting.value = input.data('handler') && input.data('handler').value();
             }
             else if (setting.type === 'boolean') {
                 setting.value = input.is(':checked');
@@ -167,8 +180,8 @@
 
             var isDatastoreFormValid = !$('#formAddDatastore').length || $('#formAddDatastore').valid();
             var isDataSettingsFormValid = !$('#data_settings').length || $('#data_settings').valid();
-
-            if (!isDatastoreFormValid || !isDataSettingsFormValid) {
+            
+            if (!isDatastoreFormValid || !isDataSettingsFormValid || !self.ValidateRequiredFieldsNotBlank('.connection_settings')) {
                 $('.pageDatastore .error:first').focus();
                 return false;
             }
@@ -252,6 +265,8 @@
             return { setting_list: data };
         };
         self.GetDatastoreSetting = function () {
+            jQuery('#row-default-datastore .datastoreDefaultStatusInfo').hide();
+            self.canDatastoreBeDefault = true;
             return MC.ajax
                 .request({
                     url: self.DefaultDatastoreUri,
@@ -263,8 +278,15 @@
                     type: 'POST'
                 })
                 .done(function (result) {
+                    jQuery.each(result.connection_settings.SettingList, function (_index, element) {
+                        if (element.Id === "preferred_storage" && element.Value !== "localfolder") {
+                            self.canDatastoreBeDefault = false;
+                            jQuery('#row-default-datastore .datastoreDefaultStatusInfo').css('display', 'block').addClass('error');//Datastores' which have preferred storage location other than local folder can be made default
+                        }
+                    });
                     self.SetData(result);
                     self.DatastoreUri = result.Uri;
+                    self.ShowHideConnectionSettingsForDefaultDatastore();
                 });
         };
         self.SetData = function (result) {
@@ -288,6 +310,16 @@
                 }
             });
         };
+        self.ValidateRequiredFieldsNotBlank = function (container) {
+            var isValid = true;
+            !$('#formConnectionString').valid() && jQuery(container).find("input:visible").each(function (index, input) {
+                if (!input.value) {
+                    jQuery(input).addClass('error');
+                    isValid = false;
+                }
+            });
+            return isValid && self.canDatastoreBeDefault;
+        };
         self.SetSettingInfo = function (input, data) {
             var setting = { 'type': input.data('setting-type') };
             var type = ["enum", "currency_symbol", "percentage", "integer"];
@@ -299,6 +331,35 @@
             }
             else {
                 input.val(data);
+            }
+        };
+        self.ShowHideConnectionSettingsForDefaultDatastore = function () {
+            var selectedStoreageId = jQuery("#preferred_storage").val();
+            self.GetData().datastore.is_default ? jQuery("#row-preferred_storage").hide() : jQuery("#row-preferred_storage").show();
+            selectedStoreageId === self.Awss3StorageId ? self.ShowHideConnectionSettingsGeneral(self.awss3ElementArray, self.localFolderElementArray) : self.ShowHideConnectionSettingsGeneral(self.localFolderElementArray, self.awss3ElementArray);
+        };
+        self.ShowHideConnectionSettingsGeneral = function (showArray, hideArray) {
+            jQuery.each(showArray, function (_index, element) {
+                $(element).show()
+                $(element).find("input:visible").show().addClass("required");
+
+            });
+            jQuery.each(hideArray, function (_index,element) {
+                $(element).hide();
+                $(element).find("input:visible").hide().removeClass("required");
+            });
+            $('#row-action_subfolder').hide();
+        };
+        
+        self.ShowHideConnectionSettings = function (obj) {
+            var preferredStorage = obj.sender.dataItem();
+            if (typeof preferredStorage === 'undefined')
+                return;
+            if (preferredStorage.id === self.Awss3StorageId) {
+                self.ShowHideConnectionSettingsGeneral(self.awss3ElementArray, self.localFolderElementArray);
+            }
+            else {
+                self.ShowHideConnectionSettingsGeneral(self.localFolderElementArray, self.awss3ElementArray);
             }
         };
 

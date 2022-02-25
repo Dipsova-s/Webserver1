@@ -61,15 +61,15 @@
                     <h2>@Resource.MC_CreateNew @Resource.MC_DataStore</h2>
                 }
             }
-            <div class="contentSectionInfoItem">
-                <input type="hidden" name="id" value="@Model.id" />
-                <input type="hidden" name="datastore_plugin" value="@Model.datastore_plugin" />
-                @{
-                    if (ViewBag.isSupportAutomateTask && Model.is_default && (Model.datastore_plugin.Equals("csv") || Model.datastore_plugin.Equals("msexcel")))
-                    {
-                        <label>@Resource.MC_DefaultDatastoreName:</label>
-                        <p>
-                            @(Html.Kendo().DropDownListFor(model => model.Uri)
+        <div class="contentSectionInfoItem">
+            <input type="hidden" name="id" value="@Model.id" />
+            <input type="hidden" name="datastore_plugin" value="@Model.datastore_plugin" />
+            @{
+                if (ViewBag.isSupportAutomateTask && Model.is_default && (Model.datastore_plugin.Equals("csv") || Model.datastore_plugin.Equals("msexcel")))
+                {
+                    <label>@Resource.MC_DefaultDatastoreName:</label>
+                    <p id="row-default-datastore">
+                        @(Html.Kendo().DropDownListFor(model => model.Uri)
                                                                                   .DataValueField("Uri")
                                                                                   .DataTextField("name")
                                                                                   .BindTo((System.Collections.IEnumerable)ViewData["DatastoreDetails"])
@@ -81,22 +81,23 @@
                                                                                 </text>))
                             )
 
-                        </p>
-                    }
-                    else
+                        <span class="datastoreDefaultStatusInfo statusInfo">@Resource.MC_DataStoreCannotBeDefault</span>
+                    </p>
+                }
+                else
+                {
+                    <label>@Resource.MC_DataStoreName:</label>
+                    <p>@Html.TextBoxFor(model => model.name, new { @class = "required", @name = "name", maxlength = 25 })</p>
+                    if (ViewBag.isSupportAutomateTask)
                     {
-                        <label>@Resource.MC_DataStoreName:</label>
-                        <p>@Html.TextBoxFor(model => model.name, new { @class = "required", @name = "name", maxlength = 25 })</p>
-                        if (ViewBag.isSupportAutomateTask)
-                        {
-                            <div class="contentSectionInfoItem">
-                                <label>@Resource.MC_DataStorePlugin:</label>
-                                <p>@ViewBag.DatastorePlugin</p>
-                            </div>
-                        }
+                        <div class="contentSectionInfoItem">
+                            <label>@Resource.MC_DataStorePlugin:</label>
+                            <p>@ViewBag.DatastorePlugin</p>
+                        </div>
                     }
                 }
-            </div>
+            }
+        </div>
         </div>
         <!--/.contentSectionInfo-->
         <hr />
@@ -104,6 +105,7 @@
     @{
         if (Model.connection_settings != null)
         {
+            <form id="formConnectionString" data-role="validator"> 
             <div class="connection_settings" id="CheckOutputFolder">
                 @{Html.RenderPartial("~/Views/Shared/Plugins.cshtml", Model.connection_settings, new ViewDataDictionary { { "page", "DataStore" } });}
                 <div class="contentSectionInfoItem" id="row-test-connection">
@@ -115,6 +117,7 @@
                 </div>
                 <hr class="last" />
             </div>
+            </form>
         }
         if (Model.data_settings != null)
         {

@@ -1,4 +1,6 @@
-﻿describe("MC.ui.js", function () {
+﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.AutomationTasks.Datastores.js" />
+
+describe("MC.ui.js", function () {
     describe("MC.ui.percentage", function () {
         beforeEach(function () {
             spyOn($.fn, 'kendoPercentageTextBox');
@@ -71,6 +73,17 @@
             expect(MC.util.showInnoweraDetails).toHaveBeenCalled();
         });
 
+        it("should call ShowHideConnectionSettings if id is preferred_storage", function () {
+            // prepare
+            spyOn(MC.AutomationTasks.DataStores, 'ShowHideConnectionSettings').and.callFake($.noop);
+
+            // act
+            MC.ui.enumSettingChange({ sender: { element: { attr: function () { return "preferred_storage" } } } });
+
+            // assert
+            expect(MC.AutomationTasks.DataStores.ShowHideConnectionSettings).toHaveBeenCalled();
+        });
+
         it("should show exist template info if id is template_file and page is Add/Edit Action", function () {
             // prepare
             var element = $('<div id=\"DatastoreSettings\"><div id=\"template_file\"/></div>').appendTo('body');
@@ -108,7 +121,7 @@
 
             // assert
             expect(MC.util.showPopupAlert).not.toHaveBeenCalled();
-        });
+        });        
     });
 
     describe("MC.ui.isKendoTypeSetting", function () {

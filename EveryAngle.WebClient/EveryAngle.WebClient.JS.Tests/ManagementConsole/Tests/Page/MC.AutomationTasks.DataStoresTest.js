@@ -77,4 +77,42 @@ describe("MC.AutomationTasks.DataStores", function () {
             expect(MC.ajax.request).toHaveBeenCalled();
         });
     });
+    describe(".ShowHideConnectionSettings", function () {
+        it("Should not hide or show connectionsettings when id is undefined", function () {
+            var data = {
+                sender: {
+                    dataItem: function () {
+                        return undefined;
+                    }
+                }
+            };
+            spyOn(automationDatastore, "ShowHideConnectionSettingsGeneral");
+            automationDatastore.ShowHideConnectionSettings(data);
+            expect(automationDatastore.ShowHideConnectionSettingsGeneral).not.toHaveBeenCalled();
+        });
+        it("Should show awss3 connectionsettings when id is awss3", function () {
+            var data = {
+                sender: {
+                    dataItem: function () {
+                        return { id: automationDatastore.Awss3StorageId};
+                    }
+                }
+            };
+            spyOn(automationDatastore, "ShowHideConnectionSettingsGeneral");
+            automationDatastore.ShowHideConnectionSettings(data);
+            expect(automationDatastore.ShowHideConnectionSettingsGeneral).toHaveBeenCalled();
+        });
+        it("Should show localfolder connectionsettings when id is localfolder", function () {
+            var data = {
+                sender: {
+                    dataItem: function () {
+                        return { id: "localfolder"};
+                    }
+                }
+            };
+            spyOn(automationDatastore, "ShowHideConnectionSettingsGeneral");
+            automationDatastore.ShowHideConnectionSettings(data);
+            expect(automationDatastore.ShowHideConnectionSettingsGeneral).toHaveBeenCalled();
+        });
+    });
 });

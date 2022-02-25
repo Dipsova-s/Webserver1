@@ -8932,6 +8932,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This datastore cannot be made default.
+        /// </summary>
+        public static string MC_DataStoreCannotBeDefault {
+            get {
+                return ResourceManager.GetString("MC_DataStoreCannotBeDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Datastore folder.
         /// </summary>
         public static string MC_DatastoreFolder {
