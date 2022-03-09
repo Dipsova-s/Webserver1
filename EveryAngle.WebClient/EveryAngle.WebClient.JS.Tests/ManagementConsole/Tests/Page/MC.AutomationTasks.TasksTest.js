@@ -1210,7 +1210,7 @@ describe("MC.AutomationTasks.Tasks", function () {
     describe(".UpdateOutputFolderfield", function () {
         var grid;
         beforeEach(function () {
-            grid = $('<div><input type="text" id="connection_folder_intial" value="C:\\test\\"> <input type="text" id="action_subfolder"> <input type="text" id="connection_folder"> </div>')
+            grid = $('<div><input type="text" id="connection_folder_intial" value="C:\\test\\"> <input type="text" id="action_subfolder"> <input type="text" id="connection_folder_Output_Folder"> </div>')
             grid.appendTo('body');
         });
         afterEach(function () {
@@ -1219,13 +1219,13 @@ describe("MC.AutomationTasks.Tasks", function () {
 
         it("Output folder should contains combined value", function () {
             automationTask.UpdateOutputFolderfield("IN", "connection_folder");
-            var output = $('#connection_folder').val();
+            var output = $('#connection_folder_Output_Folder').val();
             expect(output).toEqual("C:\\test\\IN");
         });
 
         it("Output folder should contains combined value with \\", function () {
             automationTask.UpdateOutputFolderfield("\IN", "connection_folder");
-            var output = $('#connection_folder').val();
+            var output = $('#connection_folder_Output_Folder').val();
             expect(output).toEqual("C:\\test\\IN");
         });
     });
@@ -1233,7 +1233,7 @@ describe("MC.AutomationTasks.Tasks", function () {
     describe(".UpdateSubFolderField", function () {
         var grid;
         beforeEach(function () {            
-            grid = $('<div><input type="text" id="connection_folder_intial" value="C:\\test"> <input type="text" id="action_subfolder"> <input type="text" id="connection_folder"> </div>')
+            grid = $('<div><input type="text" id="connection_folder_intial" value="C:\\test"> <input type="text" id="action_subfolder"> <input type="text" id="connection_folder"> </div><input id="settingId" name="settingId" type="hidden" value="connection_folder">')
             grid.appendTo('body');
         });
         afterEach(function () {
@@ -1268,6 +1268,23 @@ describe("MC.AutomationTasks.Tasks", function () {
             var subfolder = $('#action_subfolder').val();
             expect(subfolder).toEqual("\\IN");
             expect(automationTask.UpdateOutputFolderfield).toHaveBeenCalledWith("\\IN", "connection_folder");
+        });
+    });
+    describe(".GetDatastoreId", function () {
+        it("Should return blank when datastore uri is blank", function () {
+            spyOn(automationTask, 'GetDatastoreUri').and.returnValue('');
+            var result = automationTask.GetDatastoreId();
+            expect(result).toEqual('');
+        });
+        it("Should return 0 when datastore uri is null", function () {
+            spyOn(automationTask, 'GetDatastoreUri').and.returnValue(null);
+            var result = automationTask.GetDatastoreId();
+            expect(result).toEqual('');
+        });
+        it("Should return 3 when datastore uri is system/3", function () {
+            spyOn(automationTask, 'GetDatastoreUri').and.returnValue('system/3');
+            var result = automationTask.GetDatastoreId();
+            expect(result).toEqual('3');
         });
     });
 });

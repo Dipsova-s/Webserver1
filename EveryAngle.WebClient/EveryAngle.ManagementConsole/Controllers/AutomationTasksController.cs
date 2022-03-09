@@ -521,10 +521,11 @@ namespace EveryAngle.ManagementConsole.Controllers
         
         [AcceptVerbs(HttpVerbs.Post)]
         [ExcludeFromCodeCoverage] // This functions has direct call to RequestManager 
-        public JObject TestActionConnection(string plugin, string jsonData)
+        public JObject TestActionConnection(string plugin, string datastoreId, string jsonData)
         {
             var datastorePlugins = GetDatastorePlugins(false);
-            var testconnectionUri = datastorePlugins.FirstOrDefault(x => x.Item3 == plugin).Item1 + "/check_connection";
+            string querystring = string.IsNullOrEmpty(datastoreId) ? "" : "?datastoreId=" + datastoreId;
+            var testconnectionUri = datastorePlugins.FirstOrDefault(x => x.Item3 == plugin).Item1 + "/check_connection" + querystring;
             return TestDataStoreConnection(testconnectionUri, jsonData);
         }
 
