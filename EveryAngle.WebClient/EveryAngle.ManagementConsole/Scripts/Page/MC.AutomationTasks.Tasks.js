@@ -3153,6 +3153,7 @@
                     url: self.TestConnectionUri,
                     parameters: {
                         "plugin": self.CurrentDatastorePlugin,
+                        "datastoreId": self.GetDatastoreId(),
                         'jsonData': JSON.stringify(self.GetTestConnectionData())
                     },
                     type: 'POST'
@@ -3171,9 +3172,36 @@
 
             deferred.promise();
         };
+        self.GetDatastoreUri = function () {
+            return $('#datastore').data('kendoDropDownList') && $('#datastore').data('kendoDropDownList').dataItem() && $('#datastore').data('kendoDropDownList').dataItem().Uri;
+        };
+        self.GetDatastoreId = function () {
+            var datastoreId = '', datastoreUri = self.GetDatastoreUri();
+            if (datastoreUri) {
+                var str = datastoreUri;
+                var n = str.lastIndexOf('/');
+                datastoreId = str.substring(n + 1);
+            }
+            return datastoreId;
+        };
         self.GetTestConnectionData = function () {
             var data = self.GetSettingsData('.contentSectionInfoItem .connection_folder');
+            //getting hidden values.
+            data = self.GetHiddenDataForTestConnection('.contentSectionInfoItem .connection_folder', data);
             return { setting_list: data };
+        };
+        self.GetHiddenDataForTestConnection = function (container, datastoreData) {
+            jQuery(container).find('input[type = "hidden"]').each(function (index, input) {
+                var id = jQuery(input).attr('id')
+                if (!datastoreData.hasObject('id', id)) {
+                    datastoreData.push({
+                        "id": id,
+                        "value": jQuery(input).val(),
+                        "type": "text"
+                    });
+                }
+            });
+            return datastoreData
         };
         self.GetSettingsData = function (container) {
             var datastoreData = [];
@@ -3192,25 +3220,30 @@
             return datastoreData;
         };
 
-        self.UpdateOutputFolder = function (e, settingId) {
+        self.GetHiddenSettingsId = function () {
+            return jQuery('#settingId').val()
+        };
+
+        self.UpdateOutputFolder = function (e) {
             _self.fnCheck && clearTimeout(_self.fnCheck);
             _self.fnCheck = setTimeout(function () {
-                self.UpdateOutputFolderfield(e.value, settingId);
+                self.UpdateOutputFolderfield(e.value, self.GetHiddenSettingsId());
             }, 500);
 
         };
 
         self.UpdateOutputFolderfield = function (subfoldervalue, settingId) {
-            var ouputFolderInput = $('#' + settingId), datastoreOutputFolderValue = $("#" + settingId + "_intial").val(), outputfolderValue = "";
+            var ouputFolderInput = $('#' + settingId + "_Output_Folder"), datastoreOutputFolderValue = $("#" + settingId + "_intial").val(), outputfolderValue = "";
             var seperator = subfoldervalue.startsWith("\\") || datastoreOutputFolderValue.endsWith("\\") ? "" : "\\";
             outputfolderValue = datastoreOutputFolderValue + seperator + subfoldervalue;
             ouputFolderInput.val(outputfolderValue);
         };
 
         self.UpdateSubFolderField = function (arg) {
-            subfolderValue = arg.value.replace($('#connection_folder_intial').val(), "");
+            var settingId = self.GetHiddenSettingsId();
+            var subfolderValue = arg.value.replace($('#' + settingId + '_intial').val(), "");
             $('#action_subfolder').val(subfolderValue);
-            self.UpdateOutputFolderfield(subfolderValue, "connection_folder");
+            self.UpdateOutputFolderfield(subfolderValue, settingId);
         };
     };
 

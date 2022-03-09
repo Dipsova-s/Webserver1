@@ -15,17 +15,29 @@
         self.EditDefaultCsvDatastoreUri = '';
         self.EditDefaultExcelDatastoreUri = '';
         self.canDatastoreBeDefault = true;
+        self.LocalFolderStorageId = "localfolder";
         self.Awss3StorageId = "awss3";
+        self.NetworkDriveStorageId = "networkdrive";
+        self.ActionSubfolder = "action_subfolder";
+        self.commonElementArrayForCloudStorage = [
+            "cloud_storage_upload_folder"
+        ];
         self.awss3ElementArray = [
-            '#row-aws_s3_region',
-            '#row-aws_s3_bucket',
-            '#row-aws_s3_upload_folder',
-            '#row-aws_s3_access_key',
-            '#row-aws_s3_secret_key',
+            'aws_s3_region',
+            'aws_s3_bucket',
+            'aws_s3_access_key',
+            'aws_s3_secret_key'
+        ]; self.networkDriveElementArray = [
+            'network_drive_unc_path',
+            'network_drive_username',
+            'network_drive_password'
         ];
         self.localFolderElementArray = [
-            '#row-connection_folder',
-            '#row-test-connection'
+            'connection_folder'
+        ];
+        self.noRequiredElementArray = [
+            '#row-network_drive_username',
+            '#row-network_drive_password'
         ];
         self.InitialAllDataStores = function (data) {
             self.DataStoresUri = '';
@@ -142,11 +154,13 @@
             return data;
         };
         self.GetSettingsData = function (container) {
-            var data = [];
-
+            var data = [], saveValuesBasedOnSelectedStorage = [];
+            if (container.indexOf(".connection_settings") !== -1) {
+                saveValuesBasedOnSelectedStorage = self.GetStorageArrayIdsNotToSave();
+            }
             jQuery(container).find("input[type!='hidden']").each(function (index, input) {
                 var setting = self.GetSettingInfo(jQuery(input));
-                if (setting.type && setting.id && !data.hasObject('id', setting.id)) {
+                if (setting.type && setting.id && !data.hasObject('id', setting.id) && saveValuesBasedOnSelectedStorage.indexOf(setting.id) === -1) {
                     if (setting.type === 'currency_symbol')
                         data.settingList.setting_list.push(setting);
                     else
@@ -155,6 +169,21 @@
             });
 
             return data;
+        };
+        self.GetStorageArrayIdsNotToSave = function () {
+            var selectedStoreageId = self.GetSelectedPreferedStorage();
+            if (selectedStoreageId === self.Awss3StorageId) {
+                return Array.prototype.concat(self.localFolderElementArray, self.networkDriveElementArray);
+            }
+            else if (selectedStoreageId === self.NetworkDriveStorageId) {
+                return Array.prototype.concat(self.localFolderElementArray, self.awss3ElementArray);
+            }
+            else if (selectedStoreageId === self.LocalFolderStorageId) {
+                return Array.prototype.concat(self.awss3ElementArray, self.networkDriveElementArray, self.commonElementArrayForCloudStorage, [self.ActionSubfolder]);
+            }
+            else {
+                return [];
+            }
         };
         self.GetSettingInfo = function (input) {
             var setting = { 'id': input.attr('id'), 'value': null, 'type': input.data('setting-type') };
@@ -182,7 +211,7 @@
             var isDataSettingsFormValid = !$('#data_settings').length || $('#data_settings').valid();
 
             if (!isDatastoreFormValid || !isDataSettingsFormValid || !self.ValidateRequiredFieldsNotBlank('.connection_settings')) {
-               $('.pageDatastore .error:first').focus();
+                $('.pageDatastore .error:first').focus();
                 return false;
             }
 
@@ -235,13 +264,13 @@
             btnTestConnection.addClass('disabled');
             jQuery('#row-test-connection .statusInfo').text(Localization.MC_TestingConnection);
 
-            var deferred = jQuery.Deferred();
+            var deferred = jQuery.Deferred(); var querystring = self.GetDatastoreId() === 0 ? '' : '?datastoreId=' + self.GetDatastoreId();
             disableLoading();
             MC.ajax
                 .request({
                     url: self.TestConnectionUri,
                     parameters: {
-                        "testconnectionUri": self.PluginUri + '/check_connection',
+                        "testconnectionUri": self.PluginUri + '/check_connection' + querystring,
                         'jsonData': JSON.stringify(self.GetTestConnectionData())
                     },
                     type: 'POST'
@@ -279,7 +308,7 @@
                 })
                 .done(function (result) {
                     jQuery.each(result.connection_settings.SettingList, function (_index, element) {
-                        if (element.Id === "preferred_storage" && element.Value !== "localfolder") {
+                        if (element.Id === "preferred_storage" && element.Value !== self.LocalFolderStorageId) {
                             self.canDatastoreBeDefault = false;
                             jQuery('#row-default-datastore .datastoreDefaultStatusInfo').css('display', 'block').addClass('error');//Datastores' which have preferred storage location other than local folder can be made default
                         }
@@ -288,6 +317,18 @@
                     self.DatastoreUri = result.Uri;
                     self.ShowHideConnectionSettingsForDefaultDatastore();
                 });
+        };
+        self.GetSelectedPreferedStorage = function () {
+            return jQuery("#preferred_storage").val();
+        };
+        self.GetDatastoreId = function () {
+            var datastoreId = 0;
+            if (self.DatastoreUri) {
+                var str = self.DatastoreUri;
+                var n = str.lastIndexOf('/');
+                datastoreId = str.substring(n + 1);
+            }
+            return datastoreId;
         };
         self.SetData = function (result) {
             var container = 'connection_settings';
@@ -334,34 +375,45 @@
             }
         };
         self.ShowHideConnectionSettingsForDefaultDatastore = function () {
-            var selectedStoreageId = jQuery("#preferred_storage").val();
+            var selectedStoreageId = self.GetSelectedPreferedStorage();
             self.GetData().datastore.is_default ? jQuery("#row-preferred_storage").hide() : jQuery("#row-preferred_storage").show();
-            selectedStoreageId === self.Awss3StorageId ? self.ShowHideConnectionSettingsGeneral(self.awss3ElementArray, self.localFolderElementArray) : self.ShowHideConnectionSettingsGeneral(self.localFolderElementArray, self.awss3ElementArray);
+            self.ShowHideConnectionSettingsBasedStorageSelection(selectedStoreageId);
         };
         self.ShowHideConnectionSettingsGeneral = function (showArray, hideArray) {
             jQuery.each(showArray, function (_index, element) {
+                element = "#row-" + element;
                 $(element).show()
-                $(element).find("input:visible").show().addClass("required");
-
+                if (self.noRequiredElementArray.indexOf(element) === -1) {
+                    $(element).find("input:visible").show().addClass("required");
+                }
             });
             jQuery.each(hideArray, function (_index, element) {
+                element = "#row-" + element;
                 $(element).hide();
                 $(element).find("input:visible").hide().removeClass("required");
             });
-            $('#row-action_subfolder').hide();
+            $("#row-" + self.ActionSubfolder).hide();
+        };
+
+        self.ShowHideConnectionSettingsBasedStorageSelection = function (selectedStoreageId) {
+            if (selectedStoreageId === self.Awss3StorageId) {
+                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.awss3ElementArray, self.commonElementArrayForCloudStorage), Array.prototype.concat(self.localFolderElementArray, self.networkDriveElementArray));
+            }
+            else if (selectedStoreageId === self.NetworkDriveStorageId) {
+                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.networkDriveElementArray), Array.prototype.concat(self.localFolderElementArray, self.awss3ElementArray, self.commonElementArrayForCloudStorage));
+            }
+            else {
+                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.localFolderElementArray), Array.prototype.concat(self.awss3ElementArray, self.networkDriveElementArray, self.commonElementArrayForCloudStorage));
+            }
         };
 
         self.ShowHideConnectionSettings = function (obj) {
             var preferredStorage = obj.sender.dataItem();
             if (typeof preferredStorage === 'undefined')
                 return;
-            if (preferredStorage.id === self.Awss3StorageId) {
-                self.ShowHideConnectionSettingsGeneral(self.awss3ElementArray, self.localFolderElementArray);
-            }
-            else {
-                self.ShowHideConnectionSettingsGeneral(self.localFolderElementArray, self.awss3ElementArray);
-            }
+            self.ShowHideConnectionSettingsBasedStorageSelection(preferredStorage.id);
         };
+
     };
 
     win.MC.AutomationTasks = automationTasks || {};
