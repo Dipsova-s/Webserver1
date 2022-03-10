@@ -5052,6 +5052,14 @@ a.mailto {
     margin-left: 330px;
 }
 
+#CheckOutputFolder .datastoreFolder > p {
+    max-width: 480px;
+}
+
+    #CheckOutputFolder .datastoreFolder > p > input {
+        width: 450px;
+    }
+ 
 #CheckOutputFolder hr {
     display: none;
 }
