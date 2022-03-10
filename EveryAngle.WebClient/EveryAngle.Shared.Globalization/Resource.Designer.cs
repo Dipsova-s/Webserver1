@@ -8932,7 +8932,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This datastore cannot be made default.
+        ///   Looks up a localized string similar to This datastore cannot be set as default..
         /// </summary>
         public static string MC_DataStoreCannotBeDefault {
             get {

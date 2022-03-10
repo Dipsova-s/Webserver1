@@ -6586,8 +6586,8 @@ The "manage system" privilege is required to change the Approval state of an Act
   </data>
   <data name="MC_Validation_UserRolesRequired" xml:space="preserve">
     <value>Please specify at least one role.</value>
-  </data>  
+  </data>
   <data name="MC_DataStoreCannotBeDefault" xml:space="preserve">
-    <value>This datastore cannot be made default</value>
+    <value>This datastore cannot be set as default.</value>
   </data>
 </root>

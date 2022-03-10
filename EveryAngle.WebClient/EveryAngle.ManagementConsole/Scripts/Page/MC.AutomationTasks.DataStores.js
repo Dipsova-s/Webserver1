@@ -18,6 +18,7 @@
         self.LocalFolderStorageId = "localfolder";
         self.Awss3StorageId = "awss3";
         self.NetworkDriveStorageId = "networkdrive";
+        self.SharePointStorageId = "sharepoint";
         self.ActionSubfolder = "action_subfolder";
         self.commonElementArrayForCloudStorage = [
             "cloud_storage_upload_folder"
@@ -27,17 +28,25 @@
             'aws_s3_bucket',
             'aws_s3_access_key',
             'aws_s3_secret_key'
-        ]; self.networkDriveElementArray = [
+        ];
+        self.networkDriveElementArray = [
             'network_drive_unc_path',
             'network_drive_username',
             'network_drive_password'
+        ];
+        self.sharePointElementArray = [
+            "sharepoint_uploadfolder",
+            'sharepoint_site_url',
+            'sharepoint_username',
+            'sharepoint_password'
         ];
         self.localFolderElementArray = [
             'connection_folder'
         ];
         self.noRequiredElementArray = [
             '#row-network_drive_username',
-            '#row-network_drive_password'
+            '#row-network_drive_password',
+            '#row-sharepoint_uploadfolder'
         ];
         self.InitialAllDataStores = function (data) {
             self.DataStoresUri = '';
@@ -173,13 +182,16 @@
         self.GetStorageArrayIdsNotToSave = function () {
             var selectedStoreageId = self.GetSelectedPreferedStorage();
             if (selectedStoreageId === self.Awss3StorageId) {
-                return Array.prototype.concat(self.localFolderElementArray, self.networkDriveElementArray);
+                return Array.prototype.concat(self.localFolderElementArray, self.networkDriveElementArray, self.sharePointElementArray);
             }
             else if (selectedStoreageId === self.NetworkDriveStorageId) {
-                return Array.prototype.concat(self.localFolderElementArray, self.awss3ElementArray);
+                return Array.prototype.concat(self.localFolderElementArray, self.awss3ElementArray, self.sharePointElementArray);
+            }
+            else if (selectedStoreageId === self.SharePointStorageId) {
+                return Array.prototype.concat(self.localFolderElementArray, self.awss3ElementArray, self.networkDriveElementArray);
             }
             else if (selectedStoreageId === self.LocalFolderStorageId) {
-                return Array.prototype.concat(self.awss3ElementArray, self.networkDriveElementArray, self.commonElementArrayForCloudStorage, [self.ActionSubfolder]);
+                return Array.prototype.concat(self.awss3ElementArray, self.networkDriveElementArray, self.commonElementArrayForCloudStorage, [self.ActionSubfolder], self.sharePointElementArray);
             }
             else {
                 return [];
@@ -397,13 +409,16 @@
 
         self.ShowHideConnectionSettingsBasedStorageSelection = function (selectedStoreageId) {
             if (selectedStoreageId === self.Awss3StorageId) {
-                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.awss3ElementArray, self.commonElementArrayForCloudStorage), Array.prototype.concat(self.localFolderElementArray, self.networkDriveElementArray));
+                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.awss3ElementArray, self.commonElementArrayForCloudStorage), Array.prototype.concat(self.localFolderElementArray, self.networkDriveElementArray, self.sharePointElementArray));
             }
             else if (selectedStoreageId === self.NetworkDriveStorageId) {
-                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.networkDriveElementArray), Array.prototype.concat(self.localFolderElementArray, self.awss3ElementArray, self.commonElementArrayForCloudStorage));
+                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.networkDriveElementArray), Array.prototype.concat(self.localFolderElementArray, self.awss3ElementArray, self.commonElementArrayForCloudStorage, self.sharePointElementArray));
+            }
+            else if (selectedStoreageId === self.SharePointStorageId) {
+                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.sharePointElementArray), Array.prototype.concat(self.localFolderElementArray, self.awss3ElementArray, self.commonElementArrayForCloudStorage, self.networkDriveElementArray));
             }
             else {
-                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.localFolderElementArray), Array.prototype.concat(self.awss3ElementArray, self.networkDriveElementArray, self.commonElementArrayForCloudStorage));
+                self.ShowHideConnectionSettingsGeneral(Array.prototype.concat(self.localFolderElementArray), Array.prototype.concat(self.awss3ElementArray, self.networkDriveElementArray, self.commonElementArrayForCloudStorage, self.sharePointElementArray));
             }
         };
 

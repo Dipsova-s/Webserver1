@@ -114,11 +114,23 @@ describe("MC.AutomationTasks.DataStores", function () {
             automationDatastore.ShowHideConnectionSettings(data);
             expect(automationDatastore.ShowHideConnectionSettingsBasedStorageSelection).toHaveBeenCalled();
         });
+        it("Should show sharepoint connectionsettings when id is sharepoint", function () {
+            var data = {
+                sender: {
+                    dataItem: function () {
+                        return { id: automationDatastore.SharePointStorageId };
+                    }
+                }
+            };
+            spyOn(automationDatastore, "ShowHideConnectionSettingsBasedStorageSelection");
+            automationDatastore.ShowHideConnectionSettings(data);
+            expect(automationDatastore.ShowHideConnectionSettingsBasedStorageSelection).toHaveBeenCalled();
+        });
         it("Should show localfolder connectionsettings when id is localfolder", function () {
             var data = {
                 sender: {
                     dataItem: function () {
-                        return { id: "localfolder"};
+                        return { id: automationDatastore.LocalFolderStorageId };
                     }
                 }
             };
@@ -130,19 +142,25 @@ describe("MC.AutomationTasks.DataStores", function () {
     describe(".GetStorageArrayIdsNotToSave", function(){
         it("Should returne array of ids which should not be saved when preferred storage is AWS", function(){
             spyOn(automationDatastore, 'GetSelectedPreferedStorage').and.returnValue(automationDatastore.Awss3StorageId);
-            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.localFolderElementArray, automationDatastore.networkDriveElementArray);
+            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.localFolderElementArray, automationDatastore.networkDriveElementArray, automationDatastore.sharePointElementArray);
             expect(actualIdSet).toEqual(expectedIdSet);
             expect(automationDatastore.GetSelectedPreferedStorage).toHaveBeenCalled();
         });
         it("Should returne array of ids which should not be saved when preferred storage is Network drive", function () {
             spyOn(automationDatastore, 'GetSelectedPreferedStorage').and.returnValue(automationDatastore.NetworkDriveStorageId);
-            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.localFolderElementArray, automationDatastore.awss3ElementArray);
+            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.localFolderElementArray, automationDatastore.awss3ElementArray, automationDatastore.sharePointElementArray);
             expect(actualIdSet).toEqual(expectedIdSet);
             expect(automationDatastore.GetSelectedPreferedStorage).toHaveBeenCalled(); 
         });
         it("Should returne array of ids which should not be saved when preferred storage is local folder", function () {
             spyOn(automationDatastore, 'GetSelectedPreferedStorage').and.returnValue(automationDatastore.LocalFolderStorageId);
-            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.awss3ElementArray, automationDatastore.networkDriveElementArray, automationDatastore.commonElementArrayForCloudStorage, [automationDatastore.ActionSubfolder]);
+            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.awss3ElementArray, automationDatastore.networkDriveElementArray, automationDatastore.commonElementArrayForCloudStorage, [automationDatastore.ActionSubfolder], automationDatastore.sharePointElementArray);
+            expect(actualIdSet).toEqual(expectedIdSet);
+            expect(automationDatastore.GetSelectedPreferedStorage).toHaveBeenCalled();  
+        });
+        it("Should returne array of ids which should not be saved when preferred storage is SharePoint", function () {
+            spyOn(automationDatastore, 'GetSelectedPreferedStorage').and.returnValue(automationDatastore.SharePointStorageId);
+            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.localFolderElementArray, automationDatastore.awss3ElementArray, automationDatastore.networkDriveElementArray);
             expect(actualIdSet).toEqual(expectedIdSet);
             expect(automationDatastore.GetSelectedPreferedStorage).toHaveBeenCalled();  
         });
