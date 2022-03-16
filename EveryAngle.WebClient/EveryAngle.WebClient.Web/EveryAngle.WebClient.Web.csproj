@@ -752,6 +752,10 @@
     <Content Include="Images\Domains\BillingBlockReleaseStatus\BillingBlockReleaseStatusBBRS_NotCritical.png" />
     <Content Include="Images\Domains\BillingBlockReleaseStatus\BillingBlockReleaseStatusBBRS_ReleasedLate.png" />
     <Content Include="Images\Domains\BillingBlockReleaseStatus\BillingBlockReleaseStatusBBRS_ReleasedOnTime.png" />
+    <Content Include="Images\Domains\CreditPosition\CreditPositioncp0NotApplicable.png" />
+    <Content Include="Images\Domains\CreditPosition\CreditPositioncp1NotCritical.png" />
+    <Content Include="Images\Domains\CreditPosition\CreditPositioncp2Critical.png" />
+    <Content Include="Images\Domains\CreditPosition\CreditPositioncp4Problem.png" />
     <Content Include="Images\Domains\DeliveryBlockReleaseStatus\DeliveryBlockReleaseStatusDBRS_Critical.png" />
     <Content Include="Images\Domains\DeliveryBlockReleaseStatus\DeliveryBlockReleaseStatusDBRS_Late.png" />
     <Content Include="Images\Domains\DeliveryBlockReleaseStatus\DeliveryBlockReleaseStatusDBRS_None.png" />
