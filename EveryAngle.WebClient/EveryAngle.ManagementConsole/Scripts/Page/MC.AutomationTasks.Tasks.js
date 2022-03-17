@@ -3185,7 +3185,7 @@
             return datastoreId;
         };
         self.GetTestConnectionData = function () {
-            var data = self.GetSettingsData('.contentSectionInfoItem .connection_folder');
+            var data = self.GetSettingsData('.contentSectionInfoItem .datastoreFolder');
             //getting hidden values.
             data = self.GetHiddenDataForTestConnection('.contentSectionInfoItem .connection_folder', data);
             return { setting_list: data };

@@ -6,12 +6,10 @@
 {
     var preferrredStorage = (string)@Model.SettingList.FirstOrDefault(x => x.Id == "preferred_storage").Value;
     var settingId = "connection_folder";
-    if (preferrredStorage == "networkdrive")
-        settingId = "network_drive_unc_path";
-    else if (preferrredStorage == "awss3")
-        settingId = "cloud_storage_upload_folder";
+    if (preferrredStorage == "awss3")
+        settingId = "aws_s3_upload_folder";
     else if (preferrredStorage == "sharepoint")
-        settingId = "sharepoint_uploadfolder";
+        settingId = "sharepoint_upload_folder";
     Setting setting = @Model.SettingList.FirstOrDefault(x => x.Id == settingId);
     Setting sharePointSetting = @Model.SettingList.FirstOrDefault(x => x.Id == "sharepoint_site_url");
 
@@ -57,7 +55,7 @@
                 <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
                 <textarea class="alwaysHidden"><pre>@Resource.MC_OutputFolderDescription</pre></textarea>
             </p>
-            @foreach (Setting hiddenSetting in Model.SettingList)
+            @foreach (Setting hiddenSetting in Model.SettingList.Where(x => x.Id != "action_subfolder"))
             {
                 @Html.Hidden(hiddenSetting.Id, hiddenSetting.Value);
             }
