@@ -76,7 +76,7 @@ ${URL_WC}    http://${URL}/${Branch}
 ${URL_WC_COMPARE}    http://${URL}/${CompareBranch}
 ${URL_MC}    http://${URL}/${Branch}/admin
 ${TIMEOUT_AJAX_COMPLETE}    1000
-${TIMEOUT_DROPDOWN}    0.7s
+${TIMEOUT_DROPDOWN}    1s
 ${TIMEOUT_GENERAL}    0.5s
 ${TIMEOUT_LARGEST}    1s
 ${TIMEOUT_LARGEST_EXTRA}    15s
