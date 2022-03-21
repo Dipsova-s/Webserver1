@@ -1,5 +1,7 @@
 *** Variables ***
 ${divFilterPanel}                       jquery=.query-definition .item:visible
+${divAngleFilterPanel}                  jquery=.section-angle .query-definition .editmode
+${divDisplayFilterPanel}                jquery=.section-display .query-definition .editmode
 ${ddlFilterOperator}                    .k-widget.query-operator
 ${iconEdit}                             .action-edit
 ${ddlFilterSelectValue}                 .k-widget.input-argument-value
@@ -43,6 +45,7 @@ Convert Operator Symbol To Dropdown Option
 Click Edit Filter
     [Arguments]   ${index}
     Mouse Over      ${divFilterPanel}[data-index=${index}]
+    Wait Until Element Is Enabled    ${divFilterPanel}[data-index=${index}] ${iconEdit}
     Click Element   ${divFilterPanel}[data-index=${index}] ${iconEdit}
 
 Expand Filter Panel
@@ -57,7 +60,7 @@ Collapse Filter Panel
 
 Choose Dropdown Filter Operator
     [Arguments]   ${index}    ${selectText}
-    Sleep    ${TIMEOUT_GENERAL}
+    ${TIMEOUT_DROPDOWN}
     Select Dropdown By Text   ${divFilterPanel}[data-index=${index}] ${ddlFilterOperator}    ${selectText}
 
 Choose Dropdown Dashboard Filter Operator
@@ -150,6 +153,17 @@ Input Filter Input Text In List
     [Arguments]   ${index}    ${expect}
     Input Text    ${divFilterPanel}[data-index=${index}] ${txtSelectedValue}   ${expect}
     Click Element    ${divFilterPanel}[data-index=${index}] ${btnAddSelectedValue}
+    
+Input Angle Section Filter Text In List
+    [Arguments]   ${index}    ${expect}
+    Input Text    ${divAngleFilterPanel}[data-index=${index}] ${txtSelectedValue}   ${expect}
+    Click Element    ${divAngleFilterPanel}[data-index=${index}] ${btnAddSelectedValue}
+
+Input Display Section Filter Text In List
+    [Arguments]   ${index}    ${expect}
+    scroll element into view    ${divDisplayFilterPanel}
+    Input Text    ${divDisplayFilterPanel}[data-index=${index}] ${txtSelectedValue}   ${expect}
+    Click Element    ${divDisplayFilterPanel}[data-index=${index}] ${btnAddSelectedValue}
 
 Input Filter Input Short Name In List
     [Arguments]   ${index}    ${expect}

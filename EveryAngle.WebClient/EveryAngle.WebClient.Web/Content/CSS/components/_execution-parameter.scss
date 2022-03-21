@@ -14,6 +14,8 @@
     }
 
     .col-angle-object {
+        font-weight: normal;
+
         .btn-info {
             margin-right: 5px;
         }
@@ -32,5 +34,18 @@
 
     .btn-wrapper {
         display: none;
+    }
+
+    .accrodion-bg-white {
+        background: white;
+    }
+
+    .angelStartObject {
+        margin-left: auto;
+        display: inline-flex;
+
+        .startObjectText {
+            padding-right: 5px;
+        }
     }
 }
