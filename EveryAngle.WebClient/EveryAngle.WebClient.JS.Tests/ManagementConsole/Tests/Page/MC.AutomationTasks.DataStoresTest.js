@@ -130,7 +130,7 @@ describe("MC.AutomationTasks.DataStores", function () {
     describe(".GetStorageArrayIdsNotToSave", function () {
         it("Should returne array of ids which should not be saved when preferred storage is AWS", function () {
             spyOn(automationDatastore, 'GetSelectedPreferedStorage').and.returnValue(automationDatastore.Awss3StorageId);
-            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.localFolderElementArray, automationDatastore.networkDriveElementArray, automationDatastore.sharePointElementArray);
+            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.localFolderElementArray, [automationDatastore.ActionSubfolder], automationDatastore.networkDriveElementArray, automationDatastore.sharePointElementArray);
             expect(actualIdSet).toEqual(expectedIdSet);
             expect(automationDatastore.GetSelectedPreferedStorage).toHaveBeenCalled();
         });
@@ -142,7 +142,7 @@ describe("MC.AutomationTasks.DataStores", function () {
         });
         it("Should returne array of ids which should not be saved when preferred storage is SharePoint", function () {
             spyOn(automationDatastore, 'GetSelectedPreferedStorage').and.returnValue(automationDatastore.SharePointStorageId);
-            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.localFolderElementArray, automationDatastore.awss3ElementArray, automationDatastore.networkDriveElementArray);
+            var actualIdSet = automationDatastore.GetStorageArrayIdsNotToSave(), expectedIdSet = Array.prototype.concat(automationDatastore.localFolderElementArray, [automationDatastore.ActionSubfolder], automationDatastore.awss3ElementArray, automationDatastore.networkDriveElementArray);
             expect(actualIdSet).toEqual(expectedIdSet);
             expect(automationDatastore.GetSelectedPreferedStorage).toHaveBeenCalled();
         });
