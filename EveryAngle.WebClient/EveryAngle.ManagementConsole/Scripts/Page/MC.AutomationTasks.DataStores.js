@@ -178,10 +178,10 @@
         self.GetStorageArrayIdsNotToSave = function () {
             var selectedStoreageId = self.GetSelectedPreferedStorage();
             if (selectedStoreageId === self.Awss3StorageId) {
-                return Array.prototype.concat(self.localFolderElementArray, self.networkDriveElementArray, self.sharePointElementArray);
+                return Array.prototype.concat(self.localFolderElementArray, [self.ActionSubfolder], self.networkDriveElementArray, self.sharePointElementArray);
             }
             else if (selectedStoreageId === self.SharePointStorageId) {
-                return Array.prototype.concat(self.localFolderElementArray, self.awss3ElementArray, self.networkDriveElementArray);
+                return Array.prototype.concat(self.localFolderElementArray, [self.ActionSubfolder], self.awss3ElementArray, self.networkDriveElementArray);
             }
             else if (selectedStoreageId === self.LocalFolderStorageId) {
                 return Array.prototype.concat(self.awss3ElementArray, [self.ActionSubfolder], self.sharePointElementArray);
