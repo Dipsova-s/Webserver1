@@ -419,7 +419,16 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    SessionHelper.Initialize().Logout(true);
+                    var session = SessionHelper.Initialize();
+                    Log.SendWarning($@"401 received with response {response.ResponseUri}, logging out user.
+Session id: {session.Session.Id}
+Created time: {session.Session.Created}
+Expiration time: {session.Session.ExpirationTime}
+Session active: {session.Session.IsActive}
+Currently logged in session: {session.Session.IsCurrentLogedInSession}
+User id: {session.CurrentUser.Id}
+User name: {session.CurrentUser.Fullname}");
+                    session.Logout(true);
                 }
 
                 throw new HttpException(response.StatusCode.GetHashCode(), response.Content);
