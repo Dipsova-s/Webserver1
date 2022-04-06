@@ -31,7 +31,7 @@ Click on Action drop down and select Info option for Extraction service Componen
     Wait Until Element Exist And Visible  ${trComponent}
     Click Element   ${trComponent}
     Click Show Action Dropdown In Grid By Name   ExtractionService     ${trComponent}
-    Click Action In Grid By Name  ExtractionService  ${trComponent}  ${btnComponentInfo}
+    Click Info Button Of Component From Action Dropdown In Grid  ExtractionService  ${trComponent}  ${btnComponentInfo}
     Wait Progress Bar Closed
     Wait Until Ajax Complete
     Wait until page contains Element    ${tblmodelServerInfoData}
