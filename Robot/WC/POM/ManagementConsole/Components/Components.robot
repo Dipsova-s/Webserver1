@@ -28,13 +28,13 @@ Check System Components
     Page Should Contain Element         ${trComponent}:contains(ITManagementConsole) .btnDelete:not(.disabled)
 
 Click on Action drop down and select Info option for Extraction service Component
-    Wait Until Element Exist And Visible  ${trComponent}
+    Wait Until Element Exist And Visible  ${trComponent} 
     Click Element   ${trComponent}
     Click Show Action Dropdown In Grid By Name   ExtractionService     ${trComponent}
-    Click Action In Grid By Name  ExtractionService  ${trComponent}  ${btnComponentInfo}
+    Click Info Button Of Component From Action Dropdown In Grid   ExtractionService  ${trComponent}  ${btnComponentInfo}
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Wait until page contains Element    ${tblmodelServerInfoData}
+    Wait Until Element Is Visible       ${tblmodelServerInfoData}
 
 Check Info popup displayed for Extraction Service
     Page should contain     ExtractionService
@@ -57,11 +57,11 @@ Click on Close button in Component Info popup
 Click on Action drop down and select Info option for Model query service Component
     Wait Until Element Exist And Visible  ${trComponent}
     Click Element   ${trComponent}
-    Click Show Action Dropdown In Grid By Name   ClassicModelQueryService   ${trComponent}
-    Click Main Action In Grid By Name   ClassicModelQueryService  ${trComponent}  ${btnComponentInfo}
+    Click Show Action Dropdown In Grid By Name   ClassicModelQueryService      ${trComponent}
+    Click Info Button Of Component From Action Dropdown In Grid    ClassicModelQueryService     ${trComponent}  ${btnComponentInfo}
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-    Wait until page contains Element    ${tblmodelServerPopup}
+    Wait Until Element Is Visible     ${tblmodelServerPopup}
 
 Click on Action drop down for the component in component page
     [Arguments]     ${componentName}

@@ -49,8 +49,9 @@ Click Reload MC Page
 Click Show Action Dropdown In Grid By Name
     [Arguments]    ${name}    ${trRowInGrid}
     Wait Until Page Contains Element    ${trRowInGrid}:contains(${name}) ${btnAction}
-    Scroll Horizontal  ${scrollBarHorizontalGrid}  2000
-    Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name})
+    Scroll Horizontal To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name}) ${btnAction}
+    Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name}) ${btnAction}
+    Wait Until Element Is Visible    ${trRowInGrid}:contains(${name}) ${btnAction}
     Click Element At Coordinates   ${trRowInGrid}:contains(${name}) ${btnAction}    10    0
 
 Click Show Action Dropdown In Grid By Index
@@ -63,8 +64,16 @@ Click Show Action Dropdown In Grid By Index
 Click Main Action In Grid By Name
     [Arguments]    ${name}    ${trRowInGrid}    ${btnAction}
     Wait Until Page Contains Element    ${trRowInGrid}:contains(${name}) ${btnAction}
-    Scroll Horizontal  ${scrollBarHorizontalGrid}  2000
-    Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name})
+    Scroll Horizontal To Element   ${scrollBarGrid}    ${trRowInGrid}:contains(${name}) ${btnAction}
+    Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name}) ${btnAction}
+    Wait Until Element Is Visible   ${trRowInGrid}:contains(${name}) ${btnAction}
+    Click Element    ${trRowInGrid}:contains(${name}) ${btnAction}
+
+Click Info Button Of Component From Action Dropdown In Grid
+    [Arguments]    ${name}    ${trRowInGrid}    ${btnAction}
+    Wait Until Page Contains Element    ${trRowInGrid}:contains(${name}) ${btnAction}
+    Scroll Element Into View    ${trRowInGrid}:contains(${name}) ${btnAction}
+    Wait Until Element Is Visible   ${trRowInGrid}:contains(${name}) ${btnAction}
     Click Element    ${trRowInGrid}:contains(${name}) ${btnAction}
 
 Click Action In Grid By Name
