@@ -115,6 +115,9 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
 
         // will forced save when changing angle/display that is used in task
         var display = self.GetDisplayHandler();
+        if (!display.ValidateExternalId()) {
+            return;
+        }
         self.HideSaveOptionsMenu();
         display.ConfirmSave(null, jQuery.proxy(self.ForceSaveDisplay, self));
     };
@@ -150,7 +153,7 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
     self.SaveAngleAs = function () {
         if (!self.EnableSaveAngleAs())
             return;
-        
+
         self.HideSaveOptionsMenu();
         var handler = new AngleSaveAsHandler(self.AngleHandler, self.GetDisplayHandler());
         handler.ItemSaveAsHandler.Redirect = self.Redirect;
@@ -185,7 +188,7 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
         return self.AngleHandler.CanSetTemplate();
     };
     self.SetTemplate = function () {
-        if (!self.EnableSetTemplate())
+        if (!self.EnableSetTemplate() || !self.ValidateSetTemplate())
             return;
 
         self.HideSaveOptionsMenu();
@@ -195,6 +198,17 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
         self.AngleHandler.SaveAll(true).done(function () {
             self.StateHandler.SetTemplateStatus(!self.AngleHandler.Data().is_template());
         });
+    };
+    self.ValidateSetTemplate = function () {
+        var result = true;
+        jQuery.each(self.AngleHandler.Displays, function (_index, display) {
+            if (display.Data().is_available_externally()) {
+                popup.Alert('Set as template - ' + display.GetName(), "Cannot set angle as template. Deselect Available via Gateway checkbox and then continue.");
+                result = false;
+                return false;
+            }
+        });
+        return result;
     };
 }
 AngleSaveActionHandler.extend(ItemSaveActionHandler);

@@ -112,7 +112,9 @@ function DisplayOverviewHandler(angleHandler) {
             UnSavedClassName: hasAdhocSign ? 'icon-adhoc sign-unsaved' : 'none',
             GroupId: groupInfo.id,
             Sorting: groupInfo.sorting,
-            Sortable: self.Sortable(display)
+            Sortable: self.Sortable(display),
+            IsAvailableExternally: displayData.is_available_externally,
+            ExternalId: displayData.external_id
         };
     };
     self.HasGroup = function (groupId) {

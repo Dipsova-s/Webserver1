@@ -6590,4 +6590,16 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_DataStoreCannotBeDefault" xml:space="preserve">
     <value>This datastore cannot be set as default.</value>
   </data>
+  <data name="AvailableExternally" xml:space="preserve">
+    <value>Available External</value>
+  </data>
+  <data name="DisplayAvailableExternally" xml:space="preserve">
+    <value>Available via Gateway</value>
+  </data>
+  <data name="AutofillId" xml:space="preserve">
+    <value>Autofill ID</value>
+  </data>
+  <data name="ExternalIdPlaceholder" xml:space="preserve">
+    <value>External ID (max 128 char)</value>
+  </data>
 </root>

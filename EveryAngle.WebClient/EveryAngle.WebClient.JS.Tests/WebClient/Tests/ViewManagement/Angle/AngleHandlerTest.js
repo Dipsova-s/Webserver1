@@ -1298,6 +1298,9 @@ describe("AngleHandler", function () {
             spyOn(display1, 'CanCreateOrUpdate').and.returnValue(true);
             spyOn(display2, 'CanCreateOrUpdate').and.returnValue(false);
             spyOn(display3, 'CanCreateOrUpdate').and.returnValue(true);
+            spyOn(display1, 'ValidateExternalId').and.returnValue(true);
+            spyOn(display2, 'ValidateExternalId').and.returnValue(true);
+            spyOn(display3, 'ValidateExternalId').and.returnValue(true);
 
             angleHandler.Displays = [display1, display2, display3];
             spyOn(Array.prototype, 'pushDeferred');

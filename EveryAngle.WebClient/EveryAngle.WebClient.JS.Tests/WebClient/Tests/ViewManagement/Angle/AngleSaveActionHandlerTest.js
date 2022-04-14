@@ -399,9 +399,11 @@ describe("AngleSaveActionHandler", function () {
         var displayHandler;
         beforeEach(function () {
             displayHandler = {
-                ConfirmSave: $.noop
+                ConfirmSave: $.noop,
+                ValidateExternalId: $.noop
             };
             spyOn(displayHandler, 'ConfirmSave');
+            spyOn(displayHandler, 'ValidateExternalId').and.returnValue(true);
             spyOn(angleSaveActionHandler, 'HideSaveOptionsMenu');
             spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue(displayHandler);
         });

@@ -239,6 +239,8 @@ function DisplayModel(model) {
                 display_type: displayType || null,
                 is_angle_default: false,
                 is_public: false,
+                is_available_externally: false,
+                external_id: null,
                 user_specific: {
                     execute_on_login: false,
                     is_user_default: false
@@ -348,6 +350,8 @@ function DisplayModel(model) {
         display.display_type = displayType || null;
         display.uri = angleUri + '/displays/' + newDisplay;
         display.is_angle_default = false;
+        display.is_available_externally = false;
+        display.external_id = null;
         display.authorizations = self.GetDefaultAdhocAuthorization(angleData);
 
         jQuery.extend(display, displayObject);

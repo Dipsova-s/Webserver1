@@ -1438,6 +1438,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Autofill ID.
+        /// </summary>
+        public static string AutofillId {
+            get {
+                return ResourceManager.GetString("AutofillId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available External.
+        /// </summary>
+        public static string AvailableExternally {
+            get {
+                return ResourceManager.GetString("AvailableExternally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
         public static string BackToCreateOptions {
@@ -3283,6 +3301,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available via Gateway.
+        /// </summary>
+        public static string DisplayAvailableExternally {
+            get {
+                return ResourceManager.GetString("DisplayAvailableExternally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display description.
         /// </summary>
         public static string DisplayDescription {
@@ -4278,6 +4305,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string ExternalApps {
             get {
                 return ResourceManager.GetString("ExternalApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External ID (max 128 char).
+        /// </summary>
+        public static string ExternalIdPlaceholder {
+            get {
+                return ResourceManager.GetString("ExternalIdPlaceholder", resourceCulture);
             }
         }
         

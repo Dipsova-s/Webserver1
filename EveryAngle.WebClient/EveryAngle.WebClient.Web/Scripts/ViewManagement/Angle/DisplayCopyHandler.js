@@ -23,7 +23,8 @@ function DisplayCopyHandler() {
         displayData.used_in_task = false;
         displayData.user_specific.execute_on_login = false;
         displayData.user_specific.is_user_default = false;
-
+        displayData.is_available_externally = false;
+        displayData.external_id = '';
         jQuery.localStorage('copied_display', displayData);
 
         if (self.CanPasteDisplay()) {

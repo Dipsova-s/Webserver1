@@ -44,6 +44,23 @@
             return this.substring(position - searchString.length, position) === searchString;
         };
     }
+    if (!String.prototype.isAlphaNumeric) {
+        // String.isAlphaNumeric: checks if the string contains only alphanumeric characters
+        // @return - true - when it only contains alphanumeric
+        // @return - false - when it atleast one non alphanumeric
+        String.prototype.isAlphaNumeric = function () {
+            var regExp = /^[A-Za-z0-9_]+$/;
+            return (this.match(regExp));
+        };
+    }
+    if (!String.prototype.replaceNonAlphanumeric) {
+        // String.isAlphaNumeric: removes non alphanumeric characters from the string 
+        // @return - string with alphanumeric characters
+        String.prototype.replaceNonAlphanumeric = function () {
+            var regExp = /[^0-9a-zA-Z_]/gi;
+            return (this.replace(regExp, ''));
+        };
+    }
 
 })(window, window.String);
 

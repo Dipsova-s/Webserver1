@@ -1800,7 +1800,7 @@ textarea.input-light {
   max-height: 230px; }
 
 .screenMinHeight .popupNotification {
-  max-height: 150px; }
+  max-height: 190px; }
 
 .popupNotification .notificationIcon {
   float: left;
@@ -4215,3 +4215,11 @@ textarea.input-light {
 
 .no-tooltip {
   cursor: default; }
+
+/* Available via Gateway
+============================================ */
+#DisplayExternalId {
+  display: block; }
+
+#ExternalId {
+  width: 100%; }

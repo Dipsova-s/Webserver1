@@ -398,8 +398,9 @@ function AngleHandler(model) {
         var saveUserDefaultInfo = null;
         jQuery.each(self.Displays, function (_index, display) {
             if (display.CanCreateOrUpdate()) {
+                var isDisplayValid = display.ValidateExternalId();
                 var shouldDisplayBeSaved = display.IsUsedInTask() && !self.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave(display.Data().uri) ? false : true;                     //if display not selected by user to save remove it
-                if (shouldDisplayBeSaved) {
+                if (shouldDisplayBeSaved && isDisplayValid) {
                     if (display.Data().user_specific.is_user_default())
                         saveUserDefaultInfo = [display, forced];
                     else

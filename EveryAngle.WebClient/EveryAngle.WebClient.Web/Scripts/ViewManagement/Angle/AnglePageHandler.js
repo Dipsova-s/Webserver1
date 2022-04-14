@@ -368,7 +368,18 @@ function AnglePageHandler() {
             self.ApplyExecutionAngle();
             return true;
         };
-
+        // available externally
+        self.HandlerDisplay.AvailableExternalCKChanged = function () {
+            self.HandlerDisplay.SetISAvailableExternal();
+            self.HandlerDisplay.SetExternalIdForAutoFill();
+            self.ApplyExecutionAngle();
+            return true;
+        };
+        self.HandlerDisplay.ExternalIdUpdated = function () {
+            self.HandlerDisplay.ValidateExternalIdTextbox();
+            self.ApplyExecutionAngle();
+            return true;
+        };
         // description
         self.HandlerDisplay.SaveDescriptionDone = function () {
             self.HandlerDisplay.parent.prototype.SaveDescriptionDone.apply(self.HandlerDisplay, arguments);
@@ -459,6 +470,7 @@ function AnglePageHandler() {
     };
     self.ApplyKnockoutDisplayTab = function () {
         WC.HtmlHelper.ApplyKnockout(self.HandlerDisplay, jQuery('#TabContentDisplay .section-description'));
+        WC.HtmlHelper.ApplyKnockout(self.HandlerDisplay, jQuery('#TabContentDisplay .section-available-externally'));
         self.HandlerDisplay.QueryDefinitionHandler.ApplyHandler(jQuery('#TabContentDisplay .section-definition'), '.definition-body-inner');
         self.HandlerDisplay.QueryDefinitionHandler.ApplyAggregationHandler(jQuery('#TabContentDisplay .section-aggregation'), '.aggregation-body');
         WC.HtmlHelper.ApplyKnockout(self.HandlerDisplay, jQuery('#TabContentDisplay .section-display-options'));

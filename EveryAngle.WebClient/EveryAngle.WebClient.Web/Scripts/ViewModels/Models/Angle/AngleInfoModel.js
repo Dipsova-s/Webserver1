@@ -400,6 +400,8 @@ function AngleInfoViewModel(model) {
                     full_name: currentUser.full_name
                 };
                 v.used_in_task = false;
+                v.is_available_externally = false;
+                v.external_id = null;
                 delete v.user_specific;
                 displayModel.SetTemporaryDisplay(v.uri, v);
             });

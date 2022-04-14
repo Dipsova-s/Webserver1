@@ -38,7 +38,9 @@
                     return 'icon-' + this.display_type + (this.is_angle_default() ? ' default' : '');
                 },
                 state: display.state,
-                can_set_state: self.CanSetDisplayState(display.is_angle_default, display.is_public, display.authorizations)
+                can_set_state: self.CanSetDisplayState(display.is_angle_default, display.is_public, display.authorizations),
+                is_available_externally: ko.observable(display.is_available_externally),
+                external_id: display.external_id
             };
         });
         data.sortObject('name', enumHandlers.SORTDIRECTION.ASC, false);

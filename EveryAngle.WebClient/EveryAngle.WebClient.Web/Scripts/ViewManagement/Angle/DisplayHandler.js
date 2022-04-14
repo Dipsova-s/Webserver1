@@ -4,6 +4,7 @@ function DisplayHandler(model, parent) {
     var _self = {};
 
     var self = this;
+    var externalIdMaxLength = 128;
     self.AngleHandler = parent;
     self.Data = ko.observable(null);
     self.ItemDescriptionHandler = new ItemDescriptionHandler();
@@ -35,6 +36,8 @@ function DisplayHandler(model, parent) {
         data.is_angle_default = ko.observable(data.is_angle_default);
         data.user_specific.is_user_default = ko.observable(data.user_specific.is_user_default);
         data.user_specific.execute_on_login = ko.observable(data.user_specific.execute_on_login);
+        data.is_available_externally = ko.observable(data.is_available_externally);
+        data.external_id = ko.observable(data.external_id);
         self.Data(data);
     };
     self.GetData = function () {
@@ -68,6 +71,8 @@ function DisplayHandler(model, parent) {
             is_user_default: false,
             execute_on_login: false
         };
+        data.is_available_externally = false;
+        data.external_id = '';
         return data;
     };
     self.HasChanged = function (displayData) {
@@ -90,7 +95,79 @@ function DisplayHandler(model, parent) {
     self.GetModelUri = function () {
         return self.AngleHandler.Data().model;
     };
-
+    // Available externally 
+    self.CanDisplayBeAvailableExternally = function () {
+        return true;
+    };
+    self.CanUpdateExternalId = function () {
+        return !self.AngleHandler.Data().is_template() && self.Data().display_type !== enumHandlers.DISPLAYTYPE.CHART;
+    };
+    self.SetISAvailableExternal = function () {
+        var value = self.Data().is_available_externally();
+        if (value) {
+            self.ValidateExternalIdTextbox();
+        }
+        else {
+            self.SetExternalId(null);
+        }
+    };
+    self.SetExternalId = function (externalId) {
+        self.Data().external_id(externalId);
+    };
+    self.SetExternalIdForAutoFill = function () {
+        if (!self.Data().is_available_externally()) {
+            return false;
+        }
+        var value = self.AngleHandler.GetName() + '_' + self.GetName();
+        var validExternalIdLength = value.length > externalIdMaxLength ? externalIdMaxLength : value.length;
+        var validExternalId = value.replaceNonAlphanumeric().substring(0, validExternalIdLength);
+        self.SetExternalId(validExternalId);
+        self.ValidateExternalIdTextbox();
+    };
+    self.CanViewExternalId = function () {
+        return self.Data().is_available_externally();
+    };
+    self.ValidateExternalIdTextbox = function () {
+        var value = self.Data().external_id();
+        var errorMsgContainer = $('.external-id-message');
+        if (self.CanViewExternalId()) {
+            if (value === null || value.trim() === '') {
+                errorMsgContainer.html("<span>External ID cannot be empty.<span>");
+                return false;
+            }
+            else if (!value.isAlphaNumeric()) {
+                errorMsgContainer.html("<span>External ID needs to be alphanumeric.<span>");
+                return false;
+            }
+            else {
+                errorMsgContainer.html("");
+            }
+        }
+        return true;
+    };
+    self.ValidateExternalId = function () {
+        var value = self.Data().external_id();
+        if (self.CanUpdateExternalId()) {
+            if (self.CanViewExternalId()) {
+                if (value === null || value.trim() === '') {
+                    popup.Alert(Localization.CannotSaveAngle_Title + ' ' + self.GetName(), "External ID cannot be empty.");
+                    $('.external-id-message').html("<span>External ID cannot be empty.<span>")
+                    return false;
+                }
+                else if (!value.isAlphaNumeric()) {
+                    popup.Alert(Localization.CannotSaveAngle_Title + ' ' + self.GetName(), "External ID needs to be alphanumeric");
+                    return false;
+                }
+            }
+            else {
+                if (value && value != "") {
+                    popup.Alert(Localization.CannotSaveAngle_Title + ' ' + self.GetName(), "Mark the display avialable externally to save External ID");
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
     // personal things
     self.CanUpdateUserSpecific = function () {
         return self.Data().authorizations.update_user_specific;
@@ -123,7 +200,9 @@ function DisplayHandler(model, parent) {
     self.IsAngleDefaultChanged = jQuery.noop;
     self.IsUserDefaultChanged = jQuery.noop;
     self.ExecuteOnLoginChanged = jQuery.noop;
-     
+    self.AvailableExternalCKChanged = jQuery.noop;
+
+    self.ExternalIdUpdated = jQuery.noop;
     // display statistic 
     self.ShowStatisticPopup = function () {
         self.DisplayStatisticHandler.ShowPopup();

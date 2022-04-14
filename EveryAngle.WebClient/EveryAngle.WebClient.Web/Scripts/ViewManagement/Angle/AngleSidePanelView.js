@@ -81,6 +81,34 @@
             '</div>'
         ].join('');
     };
+    self.GetSectionAvailableExternallyTemplate = function () {
+        return [
+            '<div class="card section-display-options side-content-alignment">',
+            '<div class="card-body">',
+            '<div class="section-available-externally">',
+                '<!-- ko if: CanUpdateExternalId() -->',
+                '<div class="section-available-externally-body">',
+                    '<div class="form-row">',
+                        '<div class="form-col">',
+                            '<label>',
+                                '<input id="IsAvailableExternally" name="IsAvailableExternally" class="chk-is-available-externally" type="checkbox" data-bind="checked: Data().is_available_externally, enable: CanDisplayBeAvailableExternally(), click: AvailableExternalCKChanged"/>',
+                                '<span class="label" data-bind="text: Localization.DisplayAvailableExternally"></span>',
+                            '</label>',
+                        '</div>',
+                    '</div>',
+                    '<div class="form-row" id="DisplayExternalId">',
+                        '<div class="form-col">',
+                        '<input id="ExternalId" name="ExternalId" class="txt-external-id" type="text" maxlength="128" placeholder="' + Localization.ExternalIdPlaceholder + '" data-bind="value: Data().external_id, valueUpdate: \'keyup\', event: { keyup: ExternalIdUpdated}, enable: CanViewExternalId()"/>',
+                        '<div class="external-id-message required clearfix"></div>',
+                        '</div>',
+                    '</div>',
+                '</div>',    
+                '<!-- /ko -->',
+            '</div>',
+            '</div>',
+            '</div>'
+        ].join('');
+    };
     self.GetSectionDisplayOptionsTemplate = function () {
         return [
             '<div class="card section-display-options side-content-alignment">',

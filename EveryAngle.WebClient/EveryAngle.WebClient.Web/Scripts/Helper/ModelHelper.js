@@ -534,6 +534,8 @@
             data.state = data.state || (data.uri + '/states');
             data.created = data.created || null;
             data.changed = data.changed || null;
+            data.is_available_externally = WC.Utility.ToBoolean(data.is_available_externally);
+            data.external_id = WC.Utility.ToString(data.external_id);
 
             // display_details
             _self.ExtendDisplayDetails(data, angle);
