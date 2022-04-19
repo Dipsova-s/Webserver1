@@ -362,6 +362,7 @@ describe("CreateNewAnglePageHandlerTest", function () {
                         ]
                     });
                 });
+            expect(helpTextHandler.LoadHelpTextByIds).toHaveBeenCalled();
         });
         it("should return empty help_texts array for empty helpText Ids", function () {
             // input
@@ -378,6 +379,7 @@ describe("CreateNewAnglePageHandlerTest", function () {
                     // assert
                     expect(result).toEqual({ help_texts: [] });
                 });
+            expect(helpTextHandler.LoadHelpTextByIds).not.toHaveBeenCalled();
         });
     });
 

@@ -234,7 +234,7 @@ describe("ItemStateHandler", function () {
         it("should update count from UI", function () {
             var groupItem = { count: ko.observable(2) };
             spyOn(ko, 'dataFor').and.returnValue(groupItem);
-            spyOn($.fn, 'find').and.returnValue($('<div/><div/><div/>'));
+            spyOn($.fn, 'find').and.returnValue($('<div></div><div></div><div></div>'));
             spyOn($.fn, 'data').and.returnValues(
                 null,
                 { value: ko.observableArray(['a']) },
@@ -307,10 +307,12 @@ describe("ItemStateHandler", function () {
             spyOn($, 'whenAll').and.returnValue($.when());
             spyOn(modelsHandler, 'GetModelByUri').and.returnValue({});
             spyOn(modelsHandler, 'LoadModelInfo').and.returnValue($.when({}));
-            itemStateHandler.GetPublishSettingsResources();
+            itemStateHandler.GetPublishSettingsResources()
+                .then(function () {
+                    expect($.whenAll).toHaveBeenCalled();
+                });
 
-            expect(modelsHandler.LoadModelInfo).toHaveBeenCalled();
-            expect($.whenAll).toHaveBeenCalled();
+            expect(modelsHandler.LoadModelInfo).toHaveBeenCalled();            
         });
     });
 

@@ -13,7 +13,7 @@
         { "Path": "/../../Global.js" },
         { "Path": "/../../Dependencies/modernizr.2.6.2.custom.js" },
         { "Path": "/../../Dependencies/jQuery/jquery.js" },
-        { "Path": "/../../Dependencies/jQuery/jquery-migrate-1.2.1.js" },
+        { "Path": "/../../Dependencies/jQuery/jquery-migrate.js" },
         { "Path": "/../../Dependencies/jQuery/jquery.cookie-1.4.1.min.js" },
         { "Path": "/../../Dependencies/jQuery/jquery.base64.min.js" },
         { "Path": "/../../Dependencies/jQuery/jquery.address.js" },

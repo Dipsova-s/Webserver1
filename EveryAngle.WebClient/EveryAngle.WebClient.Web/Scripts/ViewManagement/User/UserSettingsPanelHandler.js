@@ -453,7 +453,7 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
             dataValueField: dropdownValueField,
             index: defaultIndex,
             change: function (e) {
-                var currentDropdown = e.sender.wrapper.context.id;
+                var currentDropdown = e.sender.wrapper[0].id;
                 self.ChangeDropdownFormat(currentDropdown);
             }
         };

@@ -433,14 +433,16 @@ describe("AngleSaveActionHandler", function () {
             spyOn(angleSaveActionHandler.AngleHandler, 'SaveDefaultDisplay').and.returnValue($.when());
             spyOn(angleSaveActionHandler.AngleHandler, 'SaveDisplay').and.returnValue($.when());
             spyOn(angleSaveActionHandler, 'SaveDisplayDone');
-            angleSaveActionHandler.ForceSaveDisplay();
+            angleSaveActionHandler.ForceSaveDisplay()
+                .then(function () {
+                    expect(angleSaveActionHandler.AngleHandler.SaveDisplay).toHaveBeenCalled();
+                    expect(angleSaveActionHandler.SaveDisplayDone).toHaveBeenCalled();
+                });
 
             // assert
             expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
             expect(progressbarModel.SetDisableProgressBar).toHaveBeenCalled();
             expect(angleSaveActionHandler.AngleHandler.SaveDefaultDisplay).toHaveBeenCalled();
-            expect(angleSaveActionHandler.AngleHandler.SaveDisplay).toHaveBeenCalled();
-            expect(angleSaveActionHandler.SaveDisplayDone).toHaveBeenCalled();
         });
     });
     describe(".SaveDisplayDone", function () {

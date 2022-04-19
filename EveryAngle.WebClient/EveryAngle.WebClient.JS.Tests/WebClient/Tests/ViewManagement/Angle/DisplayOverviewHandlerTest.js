@@ -384,7 +384,7 @@ describe("DisplayOverviewHandler", function () {
 
             // act
             displayOverviewHandler.TabGroupAnimationCallback(option);
-            
+
             // assert
             expect(option.Visible()).toEqual(true);
             expect(displayOverviewHandler.UpdateScrollButtonState).toHaveBeenCalled();
@@ -987,18 +987,24 @@ describe("DisplayOverviewHandler", function () {
         });
         it('should get data for list', function () {
             // prepare
+            jasmine.clock().install();
 
-            displayOverviewHandler.GetCreateDisplayData('list');
+            displayOverviewHandler.GetCreateDisplayData('list')
+                .then(function () {
+                    // assert
+                    expect(displayHandler.Data().fields).toEqual('my-fields');
+                });
 
-            // assert
-            expect(displayHandler.Data().fields).toEqual('my-fields');
+            jasmine.clock().tick(251);
+            jasmine.clock().uninstall();
         });
         it('should get data for others', function () {
             // prepare
-            displayOverviewHandler.GetCreateDisplayData('not-list');
-
-            // assert
-            expect(displayHandler.Data().fields).toEqual('my-old-fields');
+            displayOverviewHandler.GetCreateDisplayData('not-list')
+                .done(function () {
+                    // assert
+                    expect(displayHandler.Data().fields).toEqual('my-old-fields');
+                });
         });
     });
 

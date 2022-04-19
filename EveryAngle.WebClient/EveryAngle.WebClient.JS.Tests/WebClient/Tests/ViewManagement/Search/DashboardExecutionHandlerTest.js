@@ -152,8 +152,12 @@ describe("DashboardExecutionHandler", function () {
             spyOn(handler, 'LoadItems').and.returnValue($.when());
             spyOn(handler, 'CreateData').and.returnValue($.when());
             spyOn(handler, 'Redirect');
-            handler.Create();
+            jasmine.clock().install();
 
+            handler.Create();
+            jasmine.clock().tick(251);
+
+            jasmine.clock().uninstall();
             // assert
             expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
             expect(handler.LoadItems).toHaveBeenCalled();
@@ -171,6 +175,7 @@ describe("DashboardExecutionHandler", function () {
                     // assert
                     expect(result).toEqual(['full-item-data', 'full-item-data']);
                 });
+            expect(window.GetDataFromWebService).toHaveBeenCalled();
         });
     });
     describe(".CreateData", function () {

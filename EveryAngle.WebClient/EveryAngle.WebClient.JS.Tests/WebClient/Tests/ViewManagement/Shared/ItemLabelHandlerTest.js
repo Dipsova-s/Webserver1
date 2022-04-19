@@ -212,7 +212,7 @@ describe("ItemLabelHandler", function () {
     describe(".GetData", function () {
         it("should get assigned labels", function () {
             // prepare
-            spyOn($.fn, 'find').and.returnValue($('<div/><div/><div/>'));
+            spyOn($.fn, 'find').and.returnValue($('<div></div><div></div><div></div>'));
             spyOn($.fn, 'data').and.returnValues(
                 null,
                 { value: ko.observableArray(['label1']) },
@@ -364,7 +364,7 @@ describe("ItemLabelHandler", function () {
     describe(".SetBusinesProcessErrorMessage", function () {
         it("should set message", function () {
             //arrange
-            var elements = $('<div class="business-processes-selection"/><div class="business-processes-selection-message"/>');
+            var elements = $('<div class="business-processes-selection"></div><div class="business-processes-selection-message"></div>');
             itemLabelHandler.$BusinessProcess = {
                 element: elements.filter('.business-processes-selection')
             };

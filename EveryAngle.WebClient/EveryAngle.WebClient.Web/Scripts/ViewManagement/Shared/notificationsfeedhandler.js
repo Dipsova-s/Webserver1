@@ -29,5 +29,5 @@ WCNotificationsFeedCreator.Create = function (userId) {
     NotificationsFeedRepository.UserId = userId;
     NotificationsFeedRepository.Init();
     notificationsFeedHandler.IsTouchDevice = Modernizr.touch;
-    notificationsFeedHandler.LoadFeeds(true);
+    notificationsFeedHandler.LoadFeeds(true, true);
 };

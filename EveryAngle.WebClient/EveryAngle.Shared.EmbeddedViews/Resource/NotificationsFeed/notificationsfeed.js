@@ -142,7 +142,7 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
         });
     };
 
-    self.LoadFeeds = function (renderImmediately) {
+    self.LoadFeeds = function (renderImmediately, isWC) {
         if (!window.notificationsFeed)
             return false;
 
@@ -150,7 +150,7 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
 
         if (!isLoaded) {
             isLoaded = true;
-            self.RequestFeedsHandling();
+            self.RequestFeedsHandling(isWC);
         }
 
         if (isForceRender) {
@@ -161,25 +161,47 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
         }
     };
 
-    self.RequestFeedsHandling = function () {
+    self.RequestFeedsHandling = function (isWC) {
         _setTimeout(function () {
             // IMPORTANT: https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/
-            jQuery
-                .ajax({
-                    url: notificationsFeed.dataUrl,
-                    type: 'get',
-                    dataType: 'jsonp',
-                    jsonp: '_jsonp',
-                    jsonpCallback: self.JsonpCallback,
-                    cache: false,
-                    error: self.OnFeedCannotLoaded.bind(this)
-                })
-                .always(function () {
-                    if (isForceRender) {
-                        isForceRender = false;
-                        self.ProcessElements();
-                    }
-                });
+            if (isWC) {
+                jQuery
+                    .ajax({
+                        url: notificationsFeed.dataUrl,
+                        type: 'get',
+                        dataType: 'jsonp',
+                        jsonp: '_jsonp',
+                        cache: false,
+                        jsonpCallback: self.JsonpCallback,
+                        error: self.OnFeedCannotLoaded.bind(this)
+                    })
+                    .always(function () {
+                        if (isForceRender) {
+                            isForceRender = false;
+                            self.ProcessElements();
+                        }
+                    });
+            }
+            else {
+                jQuery
+                    .ajax({
+                        url: notificationsFeed.dataUrl,
+                        type: 'get',
+                        dataType: 'jsonp',
+                        jsonp: '_jsonp',
+                        cache: false,
+                        success: function (response) {
+                            self.OnFeedLoaded(response);
+                        },
+                        error: self.OnFeedCannotLoaded.bind(this)
+                    })
+                    .always(function () {
+                        if (isForceRender) {
+                            isForceRender = false;
+                            self.ProcessElements();
+                        }
+                    });
+            }
         }, 250);
     };
 

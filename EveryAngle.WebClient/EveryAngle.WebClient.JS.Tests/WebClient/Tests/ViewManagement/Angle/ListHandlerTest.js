@@ -20,8 +20,8 @@ describe("ListHandler", function () {
 
         it("should get scroll position from html element if scrollPosition is true", function () {
             var result = listHandler.GetGridScrollSettings(true);
-            expect(result.left).toEqual(null);
-            expect(result.top).toEqual(null);
+            expect(result.left).toEqual(undefined);
+            expect(result.top).toEqual(undefined);
         });
 
         it("should use scrollPosition if scrollPosition is object", function () {

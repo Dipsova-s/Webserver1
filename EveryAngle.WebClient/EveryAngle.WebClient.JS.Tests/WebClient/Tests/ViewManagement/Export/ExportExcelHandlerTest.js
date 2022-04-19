@@ -306,9 +306,12 @@ describe("ExportExcelHandlerTest", function () {
             spyOn(directoryHandler, 'GetDirectoryUri').and.callFake(function () { return ''; });
             spyOn(window, 'GetDataFromWebService').and.callFake(function () { return $.when(exportOptions); });
             spyOn($.fn, 'busyIndicator');
-            exportExcelHandler.GetDefaultExcelDatastore();
-            expect(exportExcelHandler.SetExportModel).toHaveBeenCalled();
-            expect(exportExcelHandler.SetExportModelUI).toHaveBeenCalled();
+            exportExcelHandler.GetDefaultExcelDatastore()
+                .then(function () {
+                    expect(exportExcelHandler.SetExportModel).toHaveBeenCalled();
+                    expect(exportExcelHandler.SetExportModelUI).toHaveBeenCalled();
+                });
+            expect(window.GetDataFromWebService).toHaveBeenCalled();
         });
     });
     describe(".SetExportModel", function () {

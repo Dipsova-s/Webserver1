@@ -16,7 +16,7 @@ describe("SearchQueryTest", function () {
                     trigger: function () { return true; }
                 };
             });
-            $('<div class="datepickerFrom" /><div class="datepickerFrom" />').data('kendoDatePicker', {
+            $('<div class="datepickerFrom" ></div><div class="datepickerFrom" ></div>').data('kendoDatePicker', {
                 value: function (val) {
                     $('.datepickerFrom').val(val);
                 },
@@ -26,7 +26,7 @@ describe("SearchQueryTest", function () {
                 max: $.noop
             }).hide().appendTo('body');
 
-            $('<div class="datepickerTo" /><div class="datepickerTo" />').data('kendoDatePicker', {
+            $('<div class="datepickerTo" ></div><div class="datepickerTo" ></div>').data('kendoDatePicker', {
                 value: function (val) {
                     $('.datepickerTo').val(val);
                 },

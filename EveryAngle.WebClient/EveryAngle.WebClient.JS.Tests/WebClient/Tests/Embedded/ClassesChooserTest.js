@@ -869,7 +869,7 @@
                 .done(function (data) {
                     expect(data.items).toEqual([]);
                 });
-
+            expect(classesChooser7.DefaultLanguage).toEqual('en');
         });
 
         it("should use cache if loaded", function () {
@@ -884,15 +884,16 @@
             classesChooser7.GetSearchQuery = function () { return 'test'; };
             classesChooser7.LoadAngleRelateBusinessProcesses = function () { return { items: [] }; };
 
-            classesChooser7.FilterClasses();
+            classesChooser7.FilterClasses()
+                .done(function () {
+                    classesChooser7.LoadAngleRelateBusinessProcesses = function () { return { items: [{ id: 'test' }] }; };
 
-            classesChooser7.LoadAngleRelateBusinessProcesses = function () { return { items: [{ id: 'test' }] }; };
-
-            $.when(classesChooser7.FilterClasses())
-                .done(function (data) {
-                    expect(null).toEqual(data);
+                    $.when(classesChooser7.FilterClasses())
+                        .done(function (data) {
+                            expect(null).toEqual(data);
+                        });
                 });
-
+            expect(classesChooser7.DefaultLanguage).toEqual('en');
         });
 
     });
