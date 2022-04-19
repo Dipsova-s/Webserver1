@@ -1309,11 +1309,13 @@ describe("AngleHandler", function () {
         it("should save all Displays with is_user_default=true", function () {
             // prepare
             display3.Data().user_specific.is_user_default(true);
-            angleHandler.SaveDisplays();
+            angleHandler.SaveDisplays()
+                .then(function () {
+                    expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(1);
+                });
 
             // assert
             expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(1);
-            expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(1);
         });
         it("should save all Displays with is_user_default=false", function () {
             // prepare
@@ -1330,13 +1332,16 @@ describe("AngleHandler", function () {
             spyOn(angleHandler.SaveDisplaysUsedInAutomationTasksHandler, 'IsDisplayRequiredToSave').and.returnValue(true);
 
             // call
-            angleHandler.SaveDisplays(forcedSaveDisplays);
+            angleHandler.SaveDisplays(forcedSaveDisplays)
+                .then(function () {
+                    expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(1);
+                });
 
             // assert
             expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave).toHaveBeenCalledTimes(1);
             expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave).toHaveBeenCalledWith('display/3');
             expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(1);
-            expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(1);
+            
         });
         it("should not save displays usedInTask but user don't want save it", function () {
             var forcedSaveDisplays = true;
@@ -1686,11 +1691,13 @@ describe("AngleHandler", function () {
             spyOn(angleHandler, 'IsAdhoc').and.returnValue(false);
             spyOn(angleHandler, 'CreateOrUpdate').and.returnValue($.when());
             spyOn(angleHandler, 'SaveDisplays').and.returnValue($.when());
-            angleHandler.SaveAll();
+            angleHandler.SaveAll()
+                .then(function () {
+                    expect(angleHandler.SaveDisplays).toHaveBeenCalled();
+                });
 
             // assert
             expect(angleHandler.CreateOrUpdate).toHaveBeenCalled();
-            expect(angleHandler.SaveDisplays).toHaveBeenCalled();
         });
         it("should only save Angle for adhoc", function () {
             // prepare
@@ -1842,13 +1849,15 @@ describe("AngleHandler", function () {
             spyOn(angleInfoModel, 'DeleteTemporaryAngle');
             spyOn(angleInfoModel, 'SetData');
             spyOn(angleHandler, 'ForceInitial');
-            angleHandler.CreateNew({}, callback.done, callback.fail);
+            angleHandler.CreateNew({}, callback.done, callback.fail)
+                .then(function () {
+                    expect(callback.done).toHaveBeenCalled();
+                    expect(angleInfoModel.SetData).toHaveBeenCalled();
+                    expect(angleHandler.ForceInitial).toHaveBeenCalled();
+                });
 
-            // assert
-            expect(callback.done).toHaveBeenCalled();
+            // assert            
             expect(callback.fail).not.toHaveBeenCalled();
-            expect(angleInfoModel.SetData).toHaveBeenCalled();
-            expect(angleHandler.ForceInitial).toHaveBeenCalled();
         });
     });
 
@@ -1862,12 +1871,14 @@ describe("AngleHandler", function () {
             var data = {
                 name: 'new-name'
             };
-            angleHandler.UpdateDataFunction('', data);
-
-            // assert
-            expect(angleHandler.UpdateModel).toHaveBeenCalled();
-            expect(angleHandler.UpdateDisplayAuthorizations).toHaveBeenCalled();
-            expect(angleHandler.SetRawData).toHaveBeenCalled();
+            angleHandler.UpdateDataFunction('', data)
+                .then(function () {
+                    // assert
+                    expect(angleHandler.UpdateModel).toHaveBeenCalled();
+                    expect(angleHandler.UpdateDisplayAuthorizations).toHaveBeenCalled();
+                    expect(angleHandler.SetRawData).toHaveBeenCalled();
+                });
+            expect(window.UpdateDataToWebService).toHaveBeenCalled();
         });
     });
 
@@ -1877,10 +1888,12 @@ describe("AngleHandler", function () {
             spyOn(angleInfoModel, 'Data').and.returnValue({});
             spyOn(window, 'UpdateDataToWebService').and.returnValue($.when({}));
             spyOn(angleHandler, 'SetRawData');
-            angleHandler.UpdateStateFunction('', {});
-
-            // assert
-            expect(angleHandler.SetRawData).toHaveBeenCalled();
+            angleHandler.UpdateStateFunction('', {})
+                .then(function () {
+                    // assert
+                    expect(angleHandler.SetRawData).toHaveBeenCalled();
+                });
+            expect(window.UpdateDataToWebService).toHaveBeenCalled();
         });
     });
 

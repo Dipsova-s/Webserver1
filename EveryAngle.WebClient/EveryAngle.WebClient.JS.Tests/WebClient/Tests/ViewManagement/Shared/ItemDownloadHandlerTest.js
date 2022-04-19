@@ -51,6 +51,7 @@ describe("ItemDownloadHandler", function () {
                 .done(function (urls) {
                     expect(urls.length).toEqual(3);
                 });
+            expect(itemDownloadHandler.GetDashboardAngleUris).toHaveBeenCalled();
         });
     });
 
@@ -68,6 +69,7 @@ describe("ItemDownloadHandler", function () {
                 .done(function (urls) {
                     expect(urls).toEqual(['/angles/1', '/angles/2']);
                 });
+            expect(window.GetDataFromWebService).toHaveBeenCalled();
         });
     });
 

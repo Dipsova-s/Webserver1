@@ -115,6 +115,7 @@ describe("DisplayUpgradeHandler", function () {
                     expect(WC.ModelHelper.ExtendDisplayData).toHaveBeenCalled();
                     expect(displayUpgradeHandler.UpgradeDisplayDone).toHaveBeenCalled();
                 });
+            expect(window.UpdateDataToWebService).toHaveBeenCalled();
         });
 
         it("should not update display if is adhoc display", function () {

@@ -1223,7 +1223,7 @@
     <Content Include="Scripts\Helper\GlobalFunction.js" />
     <Content Include="Scripts\Helper\Utilities.js" />
     <Content Include="Scripts\jQuery\jquery.js" />
-    <Content Include="Scripts\jQuery\jquery-migrate-1.2.1.js" />
+    <Content Include="Scripts\jQuery\jquery-migrate.js" />
     <Content Include="Scripts\jQuery\jquery.address.js" />
     <Content Include="Scripts\jQuery\jquery.cookie-1.4.1.min.js" />
     <Content Include="Scripts\jQuery\jquery.highlight.js" />

@@ -43,13 +43,15 @@ describe("DashboardResultViewModel", function () {
             spyOn(dashboardResultViewModel, 'GetResult').and.callFake($.noop);
 
             // act
-            dashboardResultViewModel.Execute();
+            dashboardResultViewModel.Execute()
+                .then(function () {
+                    expect(dashboardResultViewModel.PostIntegrity).toHaveBeenCalled();
+                    expect(dashboardResultViewModel.PostResult).toHaveBeenCalled();
+                    expect(dashboardResultViewModel.GetResult).toHaveBeenCalled();
+                });
 
             // assert
             expect(dashboardResultViewModel.CheckPostIntegrityQueue).toHaveBeenCalled();
-            expect(dashboardResultViewModel.PostIntegrity).toHaveBeenCalled();
-            expect(dashboardResultViewModel.PostResult).toHaveBeenCalled();
-            expect(dashboardResultViewModel.GetResult).toHaveBeenCalled();
         });
 
     });
@@ -69,6 +71,7 @@ describe("DashboardResultViewModel", function () {
                     expect('test_response').toEqual(result1);
                     expect('test_definition').toEqual(result2);
                 });
+            expect(window.CreateDataToWebService).toHaveBeenCalled();
         });
 
     });

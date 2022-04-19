@@ -199,11 +199,13 @@ describe("DashboardStateHandler", function () {
 
         it("should publish Dashboard when values is valid", function () {
             spyOn(dashboardStateHandler, 'CheckPublishItem').and.returnValue(true);
-            dashboardStateHandler.PublishItem(null, event);
+            dashboardStateHandler.PublishItem(null, event)
+                .then(function () {
+                    expect(dashboardStateHandler.UpdateState).toHaveBeenCalled();
+                    expect(dashboardStateHandler.AfterUpdatedDashboard).toHaveBeenCalled();
+                });
             
             expect(dashboardStateHandler.UpdateItem).toHaveBeenCalled();
-            expect(dashboardStateHandler.UpdateState).toHaveBeenCalled();
-            expect(dashboardStateHandler.AfterUpdatedDashboard).toHaveBeenCalled();
         });
 
         it("should not publish Angle when values is invalid", function () {
@@ -227,12 +229,17 @@ describe("DashboardStateHandler", function () {
             spyOn(dashboardStateHandler, 'UpdateState').and.callFake($.when);
             spyOn(dashboardStateHandler, 'AfterUpdatedDashboard').and.callFake($.noop);
             spyOn(dashboardPageHandler, 'BackToSearch').and.callFake($.noop);
+            jasmine.clock().install();
+        });
+        afterEach(function () {
+            jasmine.clock().uninstall();
         });
 
         it("should unpublish Angle when user is Dashboard's creator", function () {
             spyOn(dashboardStateHandler, 'CanUserManagePrivateItem').and.returnValue(true);
             dashboardStateHandler.UnpublishItem(null, event);
 
+            jasmine.clock().tick(10);
             expect(popup.Confirm).not.toHaveBeenCalled();
             expect(dashboardStateHandler.UpdateItem).toHaveBeenCalled();
             expect(dashboardStateHandler.UpdateState).toHaveBeenCalled();
@@ -243,6 +250,7 @@ describe("DashboardStateHandler", function () {
         it("should show confirmation popup before unpublish Dashboard when user is not a creator", function () {
             spyOn(dashboardStateHandler, 'CanUserManagePrivateItem').and.returnValue(false);
             dashboardStateHandler.UnpublishItem(null, event);
+            jasmine.clock().tick(10);
 
             expect(popup.Confirm).toHaveBeenCalled();
             expect(dashboardStateHandler.UpdateItem).toHaveBeenCalled();
@@ -276,13 +284,15 @@ describe("DashboardStateHandler", function () {
             spyOn(dashboardStateHandler, 'AfterUpdatedDashboard').and.callFake($.noop);
 
             // act
-            dashboardStateHandler.UpdatePublishState(null, event);
+            dashboardStateHandler.UpdatePublishState(null, event)
+                .then(function () {
+                    expect(dashboardStateHandler.UpdateState).toHaveBeenCalled();
+                    expect(dashboardStateHandler.AfterUpdatedDashboard).toHaveBeenCalled();
+                });
 
             // assert
             expect(dashboardStateHandler.ShowPublishingProgressbar).toHaveBeenCalled();
             expect(dashboardStateHandler.UpdateItem).toHaveBeenCalled();
-            expect(dashboardStateHandler.UpdateState).toHaveBeenCalled();
-            expect(dashboardStateHandler.AfterUpdatedDashboard).toHaveBeenCalled();
         });
        
     });

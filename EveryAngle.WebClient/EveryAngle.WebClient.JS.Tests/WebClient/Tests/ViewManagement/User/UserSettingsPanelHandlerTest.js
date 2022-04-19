@@ -661,7 +661,7 @@ describe("UserSettingsPanelHandler", function () {
         it("when dropdown change, ChangeDropdownFormat should be called", function () {
             spyOn(userSettingsPanelHandler, "ChangeDropdownFormat");
             var ddl = userSettingsPanelHandler.RenderFormatSettingDropdownlist(elementId, models, userSettingDefault, null, null);
-            var e = { sender: { wrapper: { context: {} } } };
+            var e = { sender: { wrapper: [{ id: '' }] } };
             ddl.kendoDropDownOption.change(e);
             expect(userSettingsPanelHandler.ChangeDropdownFormat).toHaveBeenCalled();
         });
@@ -954,7 +954,7 @@ describe("UserSettingsPanelHandler", function () {
             expect(userSettings[enumHandlers.USERSETTINGS.HIDE_OTHER_USERS_PRIVATE_DISPLAY]).toEqual(undefined);
         });
     });
-    
+
     describe(".SetTechnicalInfoSapFieldHeader", function () {
 
         beforeEach(function () {
@@ -1330,7 +1330,7 @@ describe("UserSettingsPanelHandler", function () {
                 userSettings = [],
                 generalDecimalSeparator = ".",
                 generalThousandSeparator = ",";
-          
+
             userSettingsPanelHandler.SetClientSetting(defaultUserSetting, userSettings, generalDecimalSeparator, generalThousandSeparator);
 
             var result = {
@@ -1342,7 +1342,7 @@ describe("UserSettingsPanelHandler", function () {
                 sap_logon_user: '',
                 sap_logon_language: ''
             };
-            
+
             expect(JSON.parse(userSettings[enumHandlers.USERSETTINGS.CLIENT_SETTINGS])).toEqual(result);
         });
 

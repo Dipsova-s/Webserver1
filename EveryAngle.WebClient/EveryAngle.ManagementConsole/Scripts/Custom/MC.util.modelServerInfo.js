@@ -70,7 +70,7 @@
 
             MC.ajax.request({
                 url: data.serverUrl,
-                parameters: "modelServerUri=" + data['server-info-url'] + "&isCurrentInstance=" + data['server-info-is-current'],
+                parameters: "modelServerUri=" + data['serverInfoUrl'] + "&isCurrentInstance=" + data['serverInfoIsCurrent'],
                 type: 'GET'
             })
                 .done(function (data, status, xhr) {
@@ -225,8 +225,8 @@
             var self = this;
             var deferred = $.Deferred();
             var infoData = $('#popupModelServer').data();
-            var uri = infoData['server-info-url'];
-            var isCurrentInstance = infoData['server-info-is-current'];
+            var uri = infoData['serverInfoUrl'];
+            var isCurrentInstance = infoData['serverInfoIsCurrent'];
             var callback = infoData['callback'];
 
             clearTimeout(MC.util.modelServerInfo.fnCheckInfo);
@@ -322,7 +322,7 @@
 
             var reportUri = e.sender.current().data('url');
             var infoData = $('#popupModelServer').data();
-            var modelServerUri = infoData['server-info-url'];
+            var modelServerUri = infoData['serverInfoUrl'];
             var className = $("#ServerStatusMenu_tv_active > div > span").html();
             $("#popupModelServer_wnd_title").html(className);
 

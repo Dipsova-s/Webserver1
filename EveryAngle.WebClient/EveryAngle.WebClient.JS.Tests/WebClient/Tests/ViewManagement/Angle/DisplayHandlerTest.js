@@ -980,13 +980,11 @@ describe("DisplayHandler", function () {
                     .done(function (result) {
                         // assert
                         if (test.expected.call_get_template) {
-                            expect(followupPageHandler.GetDefaultJumpTemplate).toHaveBeenCalled();
                             expect(displayModel.GetDefaultListFields).not.toHaveBeenCalled();
                             expect(modelFollowupsHandler.GetResultClassesByQueryStep).not.toHaveBeenCalled();
                             expect(modelsHandler.GetResultQueryFieldsUri).not.toHaveBeenCalled();
                         }
                         else {
-                            expect(followupPageHandler.GetDefaultJumpTemplate).not.toHaveBeenCalled();
                             expect(displayModel.GetDefaultListFields).toHaveBeenCalled();
                             expect(modelFollowupsHandler.GetResultClassesByQueryStep).toHaveBeenCalled();
                             expect(modelsHandler.GetResultQueryFieldsUri).toHaveBeenCalled();
@@ -996,6 +994,12 @@ describe("DisplayHandler", function () {
                         expect(result.query_blocks.length).toEqual(test.expected.query_blocks_length);
                         expect(result.fields.length).toEqual(test.expected.fields_length);
                     });
+                if (test.expected.call_get_template) {
+                    expect(followupPageHandler.GetDefaultJumpTemplate).toHaveBeenCalled();
+                }
+                else {
+                    expect(followupPageHandler.GetDefaultJumpTemplate).not.toHaveBeenCalled();
+                }
             });
         });
     });
@@ -1593,12 +1597,14 @@ describe("DisplayHandler", function () {
             spyOn(displayModel, 'DeleteTemporaryDisplay');
             spyOn(window, 'CreateDataToWebService').and.returnValue($.when());
             spyOn(displayHandler, 'UpdateModel');
-            displayHandler.CreateNew({}, callback.done, callback.fail);
-
-            // assert
-            expect(callback.done).toHaveBeenCalled();
-            expect(callback.fail).not.toHaveBeenCalled();
-            expect(displayHandler.UpdateModel).toHaveBeenCalled();
+            displayHandler.CreateNew({}, callback.done, callback.fail)
+                .then(function () {
+                    // assert
+                    expect(callback.done).toHaveBeenCalled();
+                    expect(callback.fail).not.toHaveBeenCalled();
+                    expect(displayHandler.UpdateModel).toHaveBeenCalled();
+                });
+            expect(window.CreateDataToWebService).toHaveBeenCalled();
         });
     });
 
@@ -1607,10 +1613,12 @@ describe("DisplayHandler", function () {
             // prepare
             spyOn(window, 'UpdateDataToWebService').and.returnValue($.when());
             spyOn(displayHandler, 'UpdateModel');
-            displayHandler.UpdateDataFunction('', { query_blocks: [] });
-
-            // assert
-            expect(displayHandler.UpdateModel).toHaveBeenCalled();
+            displayHandler.UpdateDataFunction('', { query_blocks: [] })
+                .then(function () {
+                    // assert
+                    expect(displayHandler.UpdateModel).toHaveBeenCalled();
+                });
+            expect(window.UpdateDataToWebService).toHaveBeenCalled();
         });
     });
 
@@ -1620,10 +1628,12 @@ describe("DisplayHandler", function () {
             spyOn(displayModel, 'Data').and.returnValue({});
             spyOn(window, 'UpdateDataToWebService').and.returnValue($.when({}));
             spyOn(displayHandler, 'SetRawData');
-            displayHandler.UpdateStateFunction('', {});
-
-            // assert
-            expect(displayHandler.SetRawData).toHaveBeenCalled();
+            displayHandler.UpdateStateFunction('', {})
+                .then(function () {
+                    // assert
+                    expect(displayHandler.SetRawData).toHaveBeenCalled();
+                });
+            expect(window.UpdateDataToWebService).toHaveBeenCalled();
         });
     });
 

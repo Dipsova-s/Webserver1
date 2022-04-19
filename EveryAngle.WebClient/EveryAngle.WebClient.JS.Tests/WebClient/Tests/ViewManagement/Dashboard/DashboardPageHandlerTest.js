@@ -69,7 +69,6 @@ describe("DashboardPageHandler", function () {
             expect(displayModel.Data()).toEqual(null);
             expect(searchStorageHandler.Initial).toHaveBeenCalled();
             expect(dashboardPageHandler.BackToSearch).not.toHaveBeenCalled();
-            expect(dashboardPageHandler.InitialCallback).toHaveBeenCalled();
             expect($.fn.addClass).toHaveBeenCalledWith('initialized');
         });
     });
@@ -643,8 +642,8 @@ describe("DashboardPageHandler", function () {
                 ],
                 widgets: ['widget1', 'widget2', 'widget3', 'widget4']
             };
-            spyOn($.fn, 'prevAll').and.returnValues($(), $('<div/>'));
-            spyOn($.fn, 'children').and.returnValue($('<div/><div/><div/><div/>'));
+            spyOn($.fn, 'prevAll').and.returnValues($(), $('<div></div>'));
+            spyOn($.fn, 'children').and.returnValue($('<div></div><div></div><div></div><div></div>'));
             spyOn(dashboardPageHandler, 'GetLayoutFromView').and.returnValue(layout);
             var result = dashboardPageHandler.GetDeletingLayout('widget2');
 
@@ -664,8 +663,8 @@ describe("DashboardPageHandler", function () {
                 ],
                 widgets: ['widget1', 'widget2', 'widget3', 'widget4']
             };
-            spyOn($.fn, 'prevAll').and.returnValues($(), $('<div/><div/><div/>'));
-            spyOn($.fn, 'children').and.returnValue($('<div/><div/><div/><div/>'));
+            spyOn($.fn, 'prevAll').and.returnValues($(), $('<div></div><div></div><div></div>'));
+            spyOn($.fn, 'children').and.returnValue($('<div></div><div></div><div></div><div></div>'));
             spyOn(dashboardPageHandler, 'GetLayoutFromView').and.returnValue(layout);
             var result = dashboardPageHandler.GetDeletingLayout('widget4');
 

@@ -15,7 +15,7 @@ namespace EveryAngle.WebClient.Web
             };
             var jQueryScripts = new string[] {
                 "~/scripts/jquery/jquery.js",
-                "~/scripts/jquery/jquery-migrate-1.2.1.js"
+                "~/scripts/jquery/jquery-migrate.js"
             };
             var jqueryExtentionScripts = new string[] {
                 "~/scripts/jquery/jquery.placeholder.min.js",
