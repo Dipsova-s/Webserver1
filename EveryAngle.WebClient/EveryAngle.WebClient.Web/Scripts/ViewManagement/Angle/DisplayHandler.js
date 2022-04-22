@@ -124,13 +124,13 @@ function DisplayHandler(model, parent) {
         self.SetExternalId(validExternalId);
         self.ValidateExternalIdTextbox();
     };
-    self.CanViewExternalId = function () {
+    self.IsAvailableExternally = function () {
         return self.Data().is_available_externally();
     };
     self.ValidateExternalIdTextbox = function () {
         var value = self.Data().external_id();
         var errorMsgContainer = $('.external-id-message');
-        if (self.CanViewExternalId()) {
+        if (self.IsAvailableExternally()) {
             if (value === null || value.trim() === '') {
                 errorMsgContainer.html("<span>External ID cannot be empty.<span>");
                 return false;
@@ -148,7 +148,7 @@ function DisplayHandler(model, parent) {
     self.ValidateExternalId = function () {
         var value = self.Data().external_id();
         if (self.CanUpdateExternalId()) {
-            if (self.CanViewExternalId()) {
+            if (self.IsAvailableExternally()) {
                 if (value === null || value.trim() === '') {
                     popup.Alert(Localization.CannotSaveAngle_Title + ' ' + self.GetName(), "External ID cannot be empty.");
                     $('.external-id-message').html("<span>External ID cannot be empty.<span>")
@@ -580,8 +580,17 @@ function DisplayHandler(model, parent) {
 
         if (checker())
             self.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup(self.GetDisplayDetailsUsedInTask(), callback, cancel);
+        else if (self.IsAvailableExternallyDisplayChanged()) {
+            popup.Confirm(Localization.Confirm_SaveAvailableExternalDisplay,
+                callback,
+                cancel);
+        }
         else
             callback();
+    };
+    self.IsAvailableExternallyDisplayChanged = function () {
+        var oldData = self.GetRawData();
+        return oldData.is_available_externally;
     };
     self.GetChangeData = function (currentData, compareData) {
         return WC.ModelHelper.GetChangeDisplay(currentData, compareData);

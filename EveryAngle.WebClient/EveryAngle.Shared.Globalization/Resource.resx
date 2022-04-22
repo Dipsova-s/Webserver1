@@ -6542,7 +6542,7 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Confirmation required</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Updating Displays used in Automation Task(s) will modify the action and might cause it to fail.</value>
+    <value>Changing Displays used in Automation Task(s) or available externally will modify the action and can break the integration.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Go to scheduled task</value>
@@ -6601,5 +6601,8 @@ The "manage system" privilege is required to change the Approval state of an Act
   </data>
   <data name="ExternalIdPlaceholder" xml:space="preserve">
     <value>External ID (max 128 char)</value>
+  </data>
+  <data name="Confirm_SaveAvailableExternalDisplay" xml:space="preserve">
+    <value>Changing a display that is available externally can break the integration.&lt;br&gt;Are you sure you want to continue?</value>
   </data>
 </root>
