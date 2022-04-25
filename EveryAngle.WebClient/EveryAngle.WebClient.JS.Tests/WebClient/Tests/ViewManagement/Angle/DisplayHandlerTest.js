@@ -1518,7 +1518,7 @@ describe("DisplayHandler", function () {
             spyOn(fn, 'callback');
             spyOn(displayHandler, 'IsUsedInTask').and.returnValue(true);
             spyOn(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler, 'ShowSavePopup');
-            spyOn(popup, 'Confirm')
+            spyOn(popup, 'Confirm');
         });
         it("should show confirmation popup with a default logic", function () {
             // prepare
