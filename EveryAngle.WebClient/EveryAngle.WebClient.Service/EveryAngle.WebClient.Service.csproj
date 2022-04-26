@@ -258,6 +258,7 @@
     <Compile Include="ApiServices\SystemInformationService.cs" />
     <Compile Include="ApiServices\DownloadTableService.cs" />
     <Compile Include="ApiServices\UserService.cs" />
+    <Compile Include="ErrorHandlers\CustomApiHandleCompactErrorAttribute.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="ApplicationServices\CopyrightService.cs" />
     <Compile Include="ApplicationServices\LogFileReaderService.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="Extensions\HttpContextExtensions.cs" />
     <Compile Include="FriendlyErrorMessageHelper.cs" />
     <Compile Include="HttpHandlers\CustomHeaderModule.cs" />
+    <Compile Include="HttpHandlers\DirectProxyRequestManager.cs" />
     <Compile Include="HttpHandlers\HttpResponseMessageBuilder.cs" />
     <Compile Include="HttpHandlers\RequestManager.cs">
       <SubType>Code</SubType>

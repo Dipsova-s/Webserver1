@@ -20,7 +20,13 @@ namespace EveryAngle.WebClient.Web.App_Start
                routeTemplate: "api/{controller}/{*requestUrl}",
                defaults: new { controller = "proxy", requestUrl = UrlParameter.Optional }
             );
-            
+
+            config.Routes.MapHttpRoute(
+               name: "DirectProxy",
+               routeTemplate: "api/{controller}/{*requestUrl}",
+               defaults: new { controller = "directproxy", requestUrl = UrlParameter.Optional }
+            );
+
             config.Routes.MapHttpRoute(
                 name: "ApiByAction",
                 routeTemplate: "userapi/{action}/{id}",

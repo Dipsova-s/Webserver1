@@ -20,6 +20,11 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             return controller.Request.CreateResponse((HttpStatusCode)statusCode, jsonResult);
         }
 
+        public static HttpResponseMessage GetHttpResponseMessageAsString(ApiController controller, string stringResult, int statusCode)
+        {
+            return controller.Request.CreateResponse((HttpStatusCode)statusCode, stringResult);
+        }
+
         public static HttpResponseMessage GetHttpResponseMessageFromArray(ApiController controller, JArray jsonResult)
         {
             HttpStatusCode statusCode = HttpContext.Current.Response.StatusCode != 0 ? (HttpStatusCode)HttpContext.Current.Response.StatusCode : HttpStatusCode.RequestTimeout;

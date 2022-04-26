@@ -29,7 +29,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
     public class RequestManager
     {
         private const string CSM_URI = "csm/componentservices";
-        private RestClient client { get; set; }
+        protected RestClient client { get; set; }
         public RestClient Client
         {
             get
@@ -38,7 +38,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             }
         }
 
-        private string uri { get; set; }
+        protected string uri { get; set; }
         private HttpStatusCode responseStatus { get; set; }
 
         public HttpStatusCode ResponseStatus
@@ -46,7 +46,9 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             get { return responseStatus; }
         }
 
-        private RequestManager(string uri)
+        protected virtual string[] CookiesToIgnore => new[] { "EASECTOKEN", "STSSEASECTOKEN" }; // Do not add the old EASECTOKEN or STSEASECTOKEN
+
+        protected RequestManager(string uri)
         {
             if (string.IsNullOrEmpty(uri))
                 throw new HttpException(400, "Request url is required");
@@ -373,7 +375,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             return !string.IsNullOrEmpty(responseContent) ? JArray.Parse(responseContent) : new JArray();
         }
 
-        private string ExecuteForContent(DataFormat requestFormat, string requestUrl, Method method, string content)
+        protected string ExecuteForContent(DataFormat requestFormat, string requestUrl, Method method, string content)
         {
             string newRequestUrl = VerifyURL(requestUrl);
 
@@ -407,7 +409,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             return requestUrl;
         }
 
-        private void VerifyResponseStatus(IRestResponse response)
+        protected void VerifyResponseStatus(IRestResponse response)
         {
             responseStatus = response.StatusCode;
             if ((response.StatusCode.GetHashCode() > 300) || (response.StatusCode.GetHashCode() < 200))
@@ -419,12 +421,17 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    SessionHelper.Initialize().Logout(true);
+                    ExecuteWhenResponseCodeUnauthorized(response);
                 }
 
                 throw new HttpException(response.StatusCode.GetHashCode(), response.Content);
             }
             CloneResponseHeader(response);
+        }
+
+        protected virtual void ExecuteWhenResponseCodeUnauthorized(IRestResponse response)
+        {
+            SessionHelper.Initialize().Logout(true);
         }
 
         private void CloneRequestHeader(RestRequest request, HttpRequest requestContext)
@@ -452,7 +459,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
                 }
                 else
                 {
-                    if (!newCookie.Name.Equals("EASECTOKEN") && !newCookie.Name.Equals("STSEASECTOKEN")) // Do not add the old EASECTOKEN or STSEASECTOKEN
+                    if (!CookiesToIgnore.Contains(newCookie.Name))
                     {
                         request.AddCookie(newCookie.Name, newCookie.Value);
                     }
@@ -460,7 +467,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             }
         }
 
-        private void CloneRequestHeader(RestRequest request)
+        protected void CloneRequestHeader(RestRequest request)
         {
             CloneRequestHeader(request, HttpContext.Current.Request);
         }
