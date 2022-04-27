@@ -590,7 +590,7 @@ function DisplayHandler(model, parent) {
     };
     self.IsAvailableExternallyDisplayChanged = function () {
         var oldData = self.GetRawData();
-        return oldData.is_available_externally;
+        return oldData && oldData.is_available_externally;
     };
     self.GetChangeData = function (currentData, compareData) {
         return WC.ModelHelper.GetChangeDisplay(currentData, compareData);

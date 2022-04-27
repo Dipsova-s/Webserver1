@@ -495,8 +495,7 @@ function AngleHandler(model) {
     self.IsAvailableExternallyChangedForAnyDisplay = function () {
         var isAvailableExternally = false;
         jQuery.each(self.Displays, function (_index, display) {
-            var hasAdhocSign = display.CanCreateOrUpdate() && display.HasChanged(display.GetData());
-            if (display.IsAvailableExternallyDisplayChanged() && hasAdhocSign) {
+            if (display.IsAvailableExternallyDisplayChanged()) {
                 isAvailableExternally = true;
                 return false;
             }
