@@ -1522,6 +1522,7 @@ describe("DisplayHandler", function () {
             spyOn(fn, 'callback');
             spyOn(displayHandler, 'IsUsedInTask').and.returnValue(true);
             spyOn(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler, 'ShowSavePopup');
+            spyOn(popup, 'Confirm');
         });
         it("should show confirmation popup with a default logic", function () {
             // prepare
@@ -1531,6 +1532,7 @@ describe("DisplayHandler", function () {
             // assert
             expect(displayHandler.IsUsedInTask).toHaveBeenCalled();
             expect(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).toHaveBeenCalled();
+            expect(popup.Confirm).not.toHaveBeenCalled();
             expect(fn.callback).not.toHaveBeenCalled();
         });
         it("should show confirmation popup with a custom logic", function () {
@@ -1543,22 +1545,56 @@ describe("DisplayHandler", function () {
             expect(displayHandler.IsUsedInTask).not.toHaveBeenCalled();
             expect(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).toHaveBeenCalled();
             expect(fn.checker).toHaveBeenCalled();
+            expect(popup.Confirm).not.toHaveBeenCalled();
             expect(fn.callback).not.toHaveBeenCalled();
         });
-        it("should execute callback function", function () {
+        it("should show confirmation popup", function () {
             // prepare
             fn.checker = $.noop;
             spyOn(fn, 'checker').and.returnValue(false);
+            spyOn(displayHandler, 'IsAvailableExternallyDisplayChanged').and.returnValue(true);
             displayHandler.ConfirmSave(fn.checker, fn.callback, $.noop);
 
             // assert
             expect(displayHandler.IsUsedInTask).not.toHaveBeenCalled();
             expect(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).not.toHaveBeenCalled();
             expect(fn.checker).toHaveBeenCalled();
+            expect(popup.Confirm).toHaveBeenCalled();
+            expect(fn.callback).not.toHaveBeenCalled();
+        });
+        it("should execute callback function", function () {
+            // prepare
+            fn.checker = $.noop;
+            spyOn(fn, 'checker').and.returnValue(false);
+            spyOn(displayHandler, 'IsAvailableExternallyDisplayChanged').and.returnValue(false);
+            displayHandler.ConfirmSave(fn.checker, fn.callback, $.noop);
+
+            // assert
+            expect(displayHandler.IsUsedInTask).not.toHaveBeenCalled();
+            expect(displayHandler.AngleHandler.SaveDisplaysUsedInAutomationTasksHandler.ShowSavePopup).not.toHaveBeenCalled();
+            expect(fn.checker).toHaveBeenCalled();
+            expect(popup.Confirm).not.toHaveBeenCalled();
             expect(fn.callback).toHaveBeenCalled();
         });
     });
-
+    describe(".IsAvailableExternallyChanged", function () {
+        it("should return true when is_available_externally is true", function(){
+            var data = {
+                "is_available_externally": true
+            };
+            spyOn(displayHandler, 'GetRawData').and.returnValue(data);
+            var result = displayHandler.IsAvailableExternallyDisplayChanged();
+            expect(result).toBeTruthy();
+        });
+        it("should return false when is_available_externally is false", function () {
+            var data = {
+                "is_available_externally": false
+            };
+            spyOn(displayHandler, 'GetRawData').and.returnValue(data);
+            var result = displayHandler.IsAvailableExternallyDisplayChanged();
+            expect(result).not.toBeTruthy();
+        });
+    });
     describe(".GetChangeData", function () {
         it("should get changes data", function () {
             //process

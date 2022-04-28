@@ -98,7 +98,7 @@
                     '</div>',
                     '<div class="form-row" id="DisplayExternalId">',
                         '<div class="form-col">',
-                        '<input id="ExternalId" name="ExternalId" class="txt-external-id" type="text" maxlength="128" placeholder="' + Localization.ExternalIdPlaceholder + '" data-bind="value: Data().external_id, valueUpdate: \'keyup\', event: { keyup: ExternalIdUpdated}, enable: CanViewExternalId()"/>',
+                        '<input id="ExternalId" name="ExternalId" class="txt-external-id" type="text" maxlength="128" placeholder="' + Localization.ExternalIdPlaceholder + '" data-bind="value: Data().external_id, valueUpdate: \'keyup\', event: { keyup: ExternalIdUpdated}, enable: IsAvailableExternally()"/>',
                         '<div class="external-id-message required clearfix"></div>',
                         '</div>',
                     '</div>',

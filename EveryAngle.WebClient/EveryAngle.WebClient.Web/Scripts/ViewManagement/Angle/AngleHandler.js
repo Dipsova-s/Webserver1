@@ -483,8 +483,24 @@ function AngleHandler(model) {
     self.ConfirmSaveWithUsedInTask = function (checker, callback, cancel) {
         if (checker())
             self.ShowSaveDisplaysUsedInAutomationTasksPopup(self.IsChangeDisplaysUsedInTask, callback, cancel);
+        else if (self.IsAvailableExternallyChangedForAnyDisplay()) {
+            popup.Confirm(Localization.Confirm_SaveAvailableExternalDisplay,
+                callback,
+                cancel);
+        }
         else
             callback();
+    };
+
+    self.IsAvailableExternallyChangedForAnyDisplay = function () {
+        var isAvailableExternally = false;
+        jQuery.each(self.Displays, function (_index, display) {
+            if (display.IsAvailableExternallyDisplayChanged()) {
+                isAvailableExternally = true;
+                return false;
+            }
+        });
+        return isAvailableExternally;
     };
 
     self.ConfirmValidationSaveUsedInTask = function (checker, callback, cancel) {
