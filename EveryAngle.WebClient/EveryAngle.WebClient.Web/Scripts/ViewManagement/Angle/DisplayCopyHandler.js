@@ -24,7 +24,8 @@ function DisplayCopyHandler() {
         displayData.user_specific.execute_on_login = false;
         displayData.user_specific.is_user_default = false;
         displayData.is_available_externally = false;
-        displayData.external_id = '';
+        if (displayData.display_type !== enumHandlers.DISPLAYTYPE.CHART && !angleInfoModel.Data().is_template)
+            displayData.external_id = '';
         jQuery.localStorage('copied_display', displayData);
 
         if (self.CanPasteDisplay()) {

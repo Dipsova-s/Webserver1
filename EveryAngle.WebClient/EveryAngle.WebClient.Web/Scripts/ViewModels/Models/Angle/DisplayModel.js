@@ -240,7 +240,7 @@ function DisplayModel(model) {
                 is_angle_default: false,
                 is_public: false,
                 is_available_externally: false,
-                external_id: null,
+                external_id: '',
                 user_specific: {
                     execute_on_login: false,
                     is_user_default: false
@@ -293,6 +293,9 @@ function DisplayModel(model) {
                 rowFieldDetails[enumHandlers.FIELDDETAILPROPERTIES.AREA] = AggregationFieldViewModel.Area.Row;
                 if (displayType === enumHandlers.DISPLAYTYPE.PIVOT) {
                     rowFieldDetails[enumHandlers.FIELDDETAILPROPERTIES.SORTING] = AggregationFieldViewModel.Sorting.Ascending;
+                }
+                if (displayType === enumHandlers.DISPLAYTYPE.CHART && !angleInfoModel.Data().is_template) {
+                    delete display.external_id;
                 }
                 jQuery.extend(rowFieldDetails, fieldDetails);
                 delete rowFieldDetails.width;
@@ -351,7 +354,8 @@ function DisplayModel(model) {
         display.uri = angleUri + '/displays/' + newDisplay;
         display.is_angle_default = false;
         display.is_available_externally = false;
-        display.external_id = null;
+        if (!angleData.is_template && display.display_type !== enumHandlers.DISPLAYTYPE.CHART)
+            display.external_id = '';
         display.authorizations = self.GetDefaultAdhocAuthorization(angleData);
 
         jQuery.extend(display, displayObject);

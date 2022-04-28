@@ -37,7 +37,8 @@ function DisplayHandler(model, parent) {
         data.user_specific.is_user_default = ko.observable(data.user_specific.is_user_default);
         data.user_specific.execute_on_login = ko.observable(data.user_specific.execute_on_login);
         data.is_available_externally = ko.observable(data.is_available_externally);
-        data.external_id = ko.observable(data.external_id);
+        if (!self.AngleHandler.Data().is_template() && data.display_type !== enumHandlers.DISPLAYTYPE.CHART)
+            data.external_id = ko.observable(data.external_id);
         self.Data(data);
     };
     self.GetData = function () {
@@ -72,7 +73,14 @@ function DisplayHandler(model, parent) {
             execute_on_login: false
         };
         data.is_available_externally = false;
-        data.external_id = '';
+        if (typeof data.external_id !== 'undefined') {
+            if (data.display_type === enumHandlers.DISPLAYTYPE.CHART && !self.AngleHandler.Data().is_template()) {
+                delete data.external_id;
+            }
+            else if (data.external_id !== '') {
+                data.external_id = '';
+            }
+        }
         return data;
     };
     self.HasChanged = function (displayData) {
@@ -128,9 +136,9 @@ function DisplayHandler(model, parent) {
         return self.Data().is_available_externally();
     };
     self.ValidateExternalIdTextbox = function () {
-        var value = self.Data().external_id();
         var errorMsgContainer = $('.external-id-message');
         if (self.IsAvailableExternally()) {
+            var value = self.Data().external_id();
             if (value === null || value.trim() === '') {
                 errorMsgContainer.html("<span>External ID cannot be empty.<span>");
                 return false;
@@ -146,8 +154,8 @@ function DisplayHandler(model, parent) {
         return true;
     };
     self.ValidateExternalId = function () {
-        var value = self.Data().external_id();
         if (self.CanUpdateExternalId()) {
+            var value = self.Data().external_id();
             if (self.IsAvailableExternally()) {
                 if (value === null || value.trim() === '') {
                     popup.Alert(Localization.CannotSaveAngle_Title + ' ' + self.GetName(), "External ID cannot be empty.");

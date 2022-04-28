@@ -401,7 +401,8 @@ function AngleInfoViewModel(model) {
                 };
                 v.used_in_task = false;
                 v.is_available_externally = false;
-                v.external_id = null;
+                if (!newAngle.is_template && v.display_type !== enumHandlers.DISPLAYTYPE.CHART)
+                    v.external_id = '';
                 delete v.user_specific;
                 displayModel.SetTemporaryDisplay(v.uri, v);
             });
