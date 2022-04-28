@@ -6544,4 +6544,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_DataStoreCannotBeDefault" xml:space="preserve">
     <value>This datastore cannot be set as default.</value>
   </data>
+  <data name="Confirm_SaveAvailableExternalDisplay" xml:space="preserve">
+    <value>Changing a display that is available externally can break the integration.&lt;br&gt;Are you sure you want to continue?</value>
+  </data>
 </root>
