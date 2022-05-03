@@ -24,7 +24,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         {
             FieldSourceViewModel referenceClass = _cachedListOfFieldSources.FirstOrDefault(x => x.id.Equals(reference));
 
-            if (referenceClass != null)
+            if (referenceClass != null && !string.IsNullOrEmpty(referenceClass.class_uri))
             {
                 return GetClassByUri(referenceClass.class_uri);
             }

@@ -113,6 +113,9 @@
 
         [JsonProperty("types")]
         public string[] Types { get; set; }
+
+        [JsonProperty("remove_if_replacefield_exists")]
+        public bool RemoveIfReplaceFieldExists { get; set; }
     }
 
     public class RemoveColumn_ActionParameters : BaseActionParameter

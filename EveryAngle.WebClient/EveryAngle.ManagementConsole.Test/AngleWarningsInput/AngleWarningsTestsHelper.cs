@@ -326,6 +326,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
           ""value"": {
             ""action"": ""replace_field"",
             ""parameter"": {
+              remove_if_replacefield_exists : true,
               ""objects"": [
                 ""Purchase""
               ],
@@ -380,6 +381,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
           ""value"": {
             ""action"": ""replace_field"",
             ""parameter"": {
+              remove_if_replacefield_exists : true,
               ""objects"": [
                 ""Order""
               ],
@@ -417,6 +419,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
           ""value"": {
             ""action"": ""replace_field"",
             ""parameter"": {
+              remove_if_replacefield_exists : true,
               ""objects"": [
                 ""BillingDocumentItem""
               ],
@@ -528,6 +531,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
           ""value"": {
             ""action"": ""replace_field"",
             ""parameter"": {
+              remove_if_replacefield_exists : true,
               ""objects"": [
                 ""Batch""
               ],
@@ -565,6 +569,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
           ""value"": {
             ""action"": ""replace_field"",
             ""parameter"": {
+              remove_if_replacefield_exists : true,
               ""objects"": [
                 ""Batch""
               ],
@@ -602,6 +607,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
           ""value"": {
             ""action"": ""replace_field"",
             ""parameter"": {
+              remove_if_replacefield_exists : true,
               ""objects"": [
                 ""Batch""
               ],
@@ -640,6 +646,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
           ""value"": {
             ""action"": ""replace_field"",
             ""parameter"": {
+              remove_if_replacefield_exists : true,
               ""objects"": [
                 ""Batch""
               ],

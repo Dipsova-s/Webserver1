@@ -127,6 +127,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
           ""value"": {
             ""action"": ""replace_field"",
             ""parameter"": {
+              remove_if_replacefield_exists : true,
               ""objects"": [
                 ""PurchaseOrderScheduleLine""
               ],
@@ -164,6 +165,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
           ""value"": {
             ""action"": ""replace_field"",
             ""parameter"": {
+              remove_if_replacefield_exists : true,
               ""objects"": [
                 ""BillingDocumentItem""
               ],

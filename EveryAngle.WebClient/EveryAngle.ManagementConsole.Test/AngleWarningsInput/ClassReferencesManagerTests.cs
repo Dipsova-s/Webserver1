@@ -35,6 +35,31 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
         }
 
         [TestCase]
+        public void AWT_GetReferencedClass_ClassUriMissing_ShouldReturnEmptyString()
+        {
+            List<FieldSourceViewModel> fieldSources = new List<FieldSourceViewModel>();
+            FieldSourceViewModel fieldSourceViewModel = new FieldSourceViewModel
+            {
+                id = "Payer"
+            };
+
+            fieldSources.Add(fieldSourceViewModel);
+
+            ClassViewModel customerClass = new ClassViewModel
+            {
+                id = "Customer"
+            };
+
+            modelService.Setup(x => x.GetFieldSources(It.IsAny<string>())).Returns(fieldSources);
+            modelService.Setup(x => x.GetClass(@"classes\145")).Returns(customerClass);
+
+            ClassReferencesManager classReferencesManager = new ClassReferencesManager(modelService.Object);
+            classReferencesManager.Initialize("", "");
+
+            Assert.AreEqual(string.Empty, classReferencesManager.GetReferencedClass("Payer"));
+        }
+
+        [TestCase]
         public void AWT_FieldSourceNotFound_ShouldReturnEmpty()
         {
             List<FieldSourceViewModel> fieldSources = new List<FieldSourceViewModel>();
