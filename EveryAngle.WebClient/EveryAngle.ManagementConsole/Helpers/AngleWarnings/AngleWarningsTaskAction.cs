@@ -170,7 +170,8 @@ namespace EveryAngle.ManagementConsole.Helpers
                 Field = field,
                 Objects = objects,
                 Types = types,
-                ReplaceWith = replaceWith
+                ReplaceWith = replaceWith,
+                RemoveIfReplaceFieldExists = true
             };
 
             actionValue.Parameter = actionParameter;
