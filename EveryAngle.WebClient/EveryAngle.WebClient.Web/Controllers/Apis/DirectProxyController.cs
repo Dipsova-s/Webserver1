@@ -7,10 +7,11 @@ using EveryAngle.WebClient.Service.LogHandlers;
 using System.Net;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
+using System;
+using Newtonsoft.Json.Linq;
 
 namespace EveryAngle.WebClient.Web.Controllers
 {
-    [CustomApiHandleCompactError]
     [LogExceptionApiHandler]
     [ExcludeFromCodeCoverage] // Cannot mock DirectProxyRequestManager
     public class DirectProxyController : ApiController
@@ -26,13 +27,43 @@ namespace EveryAngle.WebClient.Web.Controllers
                 {
                     throw new HttpException((int)HttpStatusCode.Forbidden, $"Url '{requestUrl}' not allowed");
                 }
+
                 var requestManager = DirectProxyRequestManager.Initialize($"/{requestUrl}");
+                
+                var isEncrypted = requestUrl.StartsWith("api/gateway/connections");
+                if(isEncrypted)
+                {
+                    var stringResult = requestManager.RunEncrypted();
+                    return HttpResponseMessageBuilder.GetHttpResponseMessageAsString(this, stringResult, requestManager.ResponseStatus.GetHashCode());
+                }
+
                 var jsonResult = requestManager.Run();
-                return HttpResponseMessageBuilder.GetHttpResponseMessageAsString(this, jsonResult, requestManager.ResponseStatus.GetHashCode());
+                return HttpResponseMessageBuilder.GetHttpResponseMessage(this, jsonResult, requestManager.ResponseStatus.GetHashCode());
             }
-            catch (HttpException ex)
+            catch (Exception ex)
             {
-                throw new HttpException(ex.GetHttpCode(), ex.Message);  
+                var statusCode = HttpStatusCode.InternalServerError;
+                if (ex.GetType() == typeof(HttpException))
+                {
+                    var httpException = ex as HttpException;
+                    int exceptionCode = httpException.GetHttpCode();
+                    statusCode = (HttpStatusCode)exceptionCode;
+                }
+                JObject errorResponse = null;
+                try
+                {
+                    errorResponse = JObject.Parse(ex.Message);
+                }
+                catch
+                {
+                    errorResponse = new JObject()
+                    {
+                        ["Reason"] = statusCode.ToString(),
+                        ["Message"] = ex.Message
+                    };
+                }                
+
+                return HttpResponseMessageBuilder.GetHttpResponseMessage(this, errorResponse, statusCode.GetHashCode());
             }
         }
     }

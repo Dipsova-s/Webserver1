@@ -124,7 +124,11 @@ namespace EveryAngle.WebClient.Service.Extensions
                             n.ProtocolMessage.IdTokenHint = idTokenHint;
                             n.ProtocolMessage.PostLogoutRedirectUri = postLogoutRedirectUri;
                         }
-
+                        if (n.Request.Path.Value.StartsWith("/api/directproxy"))
+                        {
+                            // don't redirect to login page
+                            n.HandleResponse();
+                        }
                         return Task.CompletedTask;
                     }
                 }

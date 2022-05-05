@@ -35,7 +35,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             return url;
         }
 
-        public new string Run()
+        public string RunEncrypted()
         {
             return Execute(uri, Method.GET, string.Empty, DataFormat.Xml);
         }

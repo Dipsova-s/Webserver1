@@ -27,7 +27,7 @@ namespace EveryAngle.WebClient.Web.CS.Tests.HttpHandlerTests
         }
 
         [Test]
-        public void DirectProxyRequestManagerTests_Run()
+        public void DirectProxyRequestManagerTests_RunEncrypted()
         {
             var expectedResponse = "testResponse";
             var mockRequest = new HttpRequest(null, "https://abc.com/api/directproxy/requestUrl", null);
@@ -37,7 +37,7 @@ namespace EveryAngle.WebClient.Web.CS.Tests.HttpHandlerTests
             var requestManager = TestProxyRequestManager.Initialize("requestUrl");
             requestManager.SetupMockClient(expectedResponse);
 
-            var result = requestManager.Run();
+            var result = requestManager.RunEncrypted();
 
             Assert.AreEqual(expectedResponse, result);
         }

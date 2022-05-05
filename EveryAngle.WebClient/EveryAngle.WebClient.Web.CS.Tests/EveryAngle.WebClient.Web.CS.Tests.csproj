@@ -204,7 +204,6 @@
     <Compile Include="ControllerTest\SharedComponentControllerTest.cs" />
     <Compile Include="Extensions\AuthenticateResultExtensionsTests.cs" />
     <Compile Include="Extensions\OwinContextExtensionsTests.cs" />
-    <Compile Include="ErrorHandlerTests\CustomApiHandleCompactErrorAttributeTests.cs" />
     <Compile Include="Filters\ActionFilters\IsUserLoggedInActionAttributeTests.cs" />
     <Compile Include="Filters\ActionFilters\ValidationRequestActionFilterTests.cs" />
     <Compile Include="HelperTests\SessionControllerHelperTests.cs" />
