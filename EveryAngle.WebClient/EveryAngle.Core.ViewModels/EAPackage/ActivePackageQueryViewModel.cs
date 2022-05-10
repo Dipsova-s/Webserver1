@@ -6,6 +6,7 @@
         public bool IsActive { get; set; }
         public string ModelId { get; set; }
         public bool IncludeLabelCategories { get; set; }
+        public bool IncludeExternalId { get; set; }
         public bool IncludePrivateItems { get; set; }
         public string AnglesConflictResolution { get; set; }
         public string LabelCategoriesConflictResolution { get; set; }

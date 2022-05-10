@@ -17,6 +17,7 @@ namespace EveryAngle.Core.ViewModels.Tests
                 ModelId = "model_id",
                 IncludeLabelCategories = true,
                 IncludePrivateItems = true,
+                IncludeExternalId = true,
                 AnglesConflictResolution = "overwrite",
                 LabelCategoriesConflictResolution = "overwrite"
             };
@@ -26,6 +27,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.IsActive.GetType(), typeof(bool));
             Assert.AreEqual(viewModel.ModelId.GetType(), typeof(string));
             Assert.AreEqual(viewModel.IncludeLabelCategories.GetType(), typeof(bool));
+            Assert.AreEqual(viewModel.IncludeExternalId.GetType(), typeof(bool));
             Assert.AreEqual(viewModel.IncludePrivateItems.GetType(), typeof(bool));
             Assert.AreEqual(viewModel.AnglesConflictResolution.GetType(), typeof(string));
             Assert.AreEqual(viewModel.LabelCategoriesConflictResolution.GetType(), typeof(string));

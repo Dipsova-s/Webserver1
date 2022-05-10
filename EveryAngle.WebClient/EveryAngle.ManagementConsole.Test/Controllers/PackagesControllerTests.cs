@@ -78,6 +78,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 PackageUri = "http://everyangle.com",
                 IncludeLabelCategories = true,
                 IncludePrivateItems = true,
+                IncludeExternalId = true,
                 AnglesConflictResolution = "overwrite",
                 LabelCategoriesConflictResolution = "overwrite"
             };
@@ -132,6 +133,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     PackageUri = "http://everyangle.com/package/1",
                     IncludeLabelCategories = true,
                     IncludePrivateItems = true,
+                    IncludeExternalId = true,
                     AnglesConflictResolution = "overwrite",
                     LabelCategoriesConflictResolution = "overwrite"
                 }

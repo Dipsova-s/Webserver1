@@ -114,6 +114,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             arguments.Add(new Argument { name = TaskArgumentConstant.IncludeLabelCategories, value = activePackageQueryViewModel.IncludeLabelCategories });
             arguments.Add(new Argument { name = TaskArgumentConstant.IncludePrivateItems, value = activePackageQueryViewModel.IncludePrivateItems });
             arguments.Add(new Argument { name = TaskArgumentConstant.AnglesConflictResolution, value = activePackageQueryViewModel.AnglesConflictResolution});
+            arguments.Add(new Argument { name = TaskArgumentConstant.IncludeExternalId, value = activePackageQueryViewModel.IncludeExternalId});
 
             if (activePackageQueryViewModel.IncludeLabelCategories)
                 arguments.Add(new Argument { name = TaskArgumentConstant.LabelCategoriesConflictResolution, value = activePackageQueryViewModel.LabelCategoriesConflictResolution });
