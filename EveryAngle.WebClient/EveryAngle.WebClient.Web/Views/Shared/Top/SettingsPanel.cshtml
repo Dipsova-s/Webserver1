@@ -98,8 +98,8 @@
                             </div>
                             <div class="form-col form-col-half">
                                 <input class="k-dropdown"
-                                        id="LanguageSelect"
-                                        name="settingsPanelLanguageSelector" />
+                                       id="LanguageSelect"
+                                       name="settingsPanelLanguageSelector" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -108,8 +108,8 @@
                             </div>
                             <div class="form-col form-col-half">
                                 <input class="k-dropdown"
-                                        id="ExcelRowSelect"
-                                        name="settingsPanelRowForExportToExcelSelector" />
+                                       id="ExcelRowSelect"
+                                       name="settingsPanelRowForExportToExcelSelector" />
                             </div>
                         </div>
                         <div class="form-row" data-bind="visible: userModel.IsPossibleToCreateAngle()">
@@ -186,7 +186,32 @@
                 </div>
                 <hr />
             </div>
-
+            <div class="settingsPanelSection" id="AnglesGateway">
+                <div class="card settingsPanelGoToSap">
+                    <div class="card-header">@Resource.SystemSettingLabelAnglesGateway</div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-col">
+                                @Resource.SystemSettingLabelAnglesGatewayDownload
+                                <a class="btn-info"
+                                   data-role="tooltip"
+                                   data-tooltip-text="@Resource.SystemSettingLabelAnglesGateway_Info"
+                                   data-tooltip-position="bottom"><i class="icon icon-info"></i></a>
+                            </div>
+                            <div class="form-col float-right">
+                                <a onclick="userSettingsPanelHandler.Download('@Url.Content("https://www.simba.com/products/Angles/Gateway_Angles_Windows.zip")')"
+                                   class="btn-download"
+                                   data-role="tooltip"
+                                   data-tooltip-text="@Resource.Download"
+                                   data-tooltip-position="bottom">
+                                    <i class="icon icon-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
             <div class="settingsPanelSection" id="GoToSapSection">
                 <div class="card settingsPanelGoToSap">
                     <div class="card-header">@Resource.SystemSettingLabelGoToSAP</div>
@@ -195,17 +220,17 @@
                             <div class="form-col">
                                 @Resource.SystemSettingLabelGoToSAPDownload
                                 <a class="btn-info"
-                                    data-role="tooltip"
-                                    data-tooltip-text="@Resource.SystemSettingLabelGoToSAPDownload_Info"
-                                    data-tooltip-position="bottom"><i class="icon icon-info"></i></a>
+                                   data-role="tooltip"
+                                   data-tooltip-text="@Resource.SystemSettingLabelGoToSAPDownload_Info"
+                                   data-tooltip-position="bottom"><em class="icon icon-info"></em></a>
                             </div>
                             <div class="form-col float-right">
-                                <a onclick="userSettingsPanelHandler.DownloadSAPLauncher('@Url.Content("~/download/gotosap")')"
-                                    class="btn-download"
-                                    data-role="tooltip"
-                                    data-tooltip-text="@Resource.Download"
-                                    data-tooltip-position="bottom">
-                                    <i class="icon icon-download"></i>
+                                <a onclick="userSettingsPanelHandler.Download('@Url.Content("~/download/gotosap")')"
+                                   class="btn-download"
+                                   data-role="tooltip"
+                                   data-tooltip-text="@Resource.Download"
+                                   data-tooltip-position="bottom">
+                                    <em class="icon icon-download"></em>
                                 </a>
                             </div>
                         </div>
@@ -223,7 +248,7 @@
                             </div>
                             <div class="form-col form-col-half">
                                 <input id="sapLanguageDropdown"
-                                        class="k-dropdown" name="sapLanguageDropdown">
+                                       class="k-dropdown" name="sapLanguageDropdown">
                             </div>
                         </div>
                     </div>

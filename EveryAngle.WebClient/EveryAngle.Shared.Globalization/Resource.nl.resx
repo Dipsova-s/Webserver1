@@ -6547,4 +6547,13 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="Confirm_SaveAvailableExternalDisplay" xml:space="preserve">
     <value>Changing a display that is available externally can break the integration.&lt;br&gt;Are you sure you want to continue?</value>
   </data>
+  <data name="SystemSettingLabelAnglesGateway" xml:space="preserve">
+    <value>Angles Gateway</value>
+  </data>
+  <data name="SystemSettingLabelAnglesGatewayDownload" xml:space="preserve">
+    <value>Download Angles Gateway</value>
+  </data>
+  <data name="SystemSettingLabelAnglesGateway_Info" xml:space="preserve">
+    <value>Download Angles Gateway</value>
+  </data>
 </root>

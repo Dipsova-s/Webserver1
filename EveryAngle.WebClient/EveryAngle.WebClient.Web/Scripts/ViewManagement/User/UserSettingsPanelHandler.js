@@ -1027,7 +1027,7 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
         if (!window.enableGoToSAP)
             jQuery('#GoToSapSection').remove();
     };
-    self.DownloadSAPLauncher = function (url) {
+    self.Download = function (url) {
         WC.Ajax.EnableBeforeExit = false;
         WC.Utility.DownloadFile(url);
     };
