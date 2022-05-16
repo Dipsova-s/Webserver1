@@ -51,6 +51,7 @@ Create a New Excel Datastore with Default Settings
 
 Create a New SQL DataStores
     [Arguments]     ${datastorePlugin}      ${datastoreName}
+    Wait Until Element Is Visible   ${txtDatastoreName}
     Fill Create New Datastore   ${datastoreName}    
     Fill Connection Settings for SQL Export  nl-bangalore1\SQLEXPRESS  sa  ea  2019sp2  check
     Fill Data Settings for SQL Export  5  Short name  Display  6  {anglename:}  100  Append

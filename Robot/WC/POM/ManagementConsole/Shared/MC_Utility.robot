@@ -88,6 +88,13 @@ Click Action In Grid By Name
     Sleep    ${TIMEOUT_GENERAL}
     Click Element    ${trRowInGrid}:contains(${name}) ${btnAction}
 
+Click Action In Grid By Id
+    [Arguments]    ${name}    ${trRowInGrid}    ${btnAction}
+    Wait Until Ajax Complete
+    Wait Until Page Contains Element    ${trRowInGrid}#row-${name} ${btnAction}
+    Sleep    ${TIMEOUT_GENERAL}
+    Click Element    ${trRowInGrid}#row-${name} ${btnAction}
+
 Click More Action In Grid By Name
     [Arguments]    ${name}    ${trRowInGrid}    ${btnAction}
     Wait Until Page Contains Element    ${trRowInGrid}:contains(${name}) ${btnAction}

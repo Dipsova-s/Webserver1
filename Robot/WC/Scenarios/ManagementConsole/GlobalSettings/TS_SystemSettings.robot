@@ -21,6 +21,7 @@ Restore No Manage System User
     Update User Roles  ${TEST_USER_URI}  ${TEST_USER_ROLES}
 
 Verify System Settings Page Is Ready
+    Wait Until Element Is Visible   ${lbApplicationServerUri}
     Page Should Contain Element    ${lbApplicationServerUri}
     Page Should Contain Element    ${txtDefaultPageSize}
     Page Should Contain Element    ${txtMaxPageSize}
@@ -54,6 +55,7 @@ Verify Input Invalid Email Settings
     Close Test Email Setting Popup
 
 Verify SSL Email Settings
+    Scroll Element into View    ${chkEmailSettingsUseSSL}
     ${emailSsl}    Is Element Checked    ${chkEmailSettingsUseSSL}
     ${emailUsername}    Get Value    ${txtEmailSettingsUserName}
 

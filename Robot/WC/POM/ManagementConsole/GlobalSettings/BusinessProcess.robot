@@ -53,7 +53,7 @@ Fill English In Business Process By Abbreviation
 Click Enable Business Process By Abbreviation
     [Arguments]    ${abbreviation}
     ${chkEnable}    Get Element Count    ${trRowInBusinessProcessGrid}:contains(${abbreviation}) ${chkEnableBusinessProcess}:checked
-    Run Keyword If    "${chkEnable}" == "0"    Click Action In Grid By Name    ${abbreviation}    ${trRowInBusinessProcessGrid}    ${chkEnableBusinessProcess}
+    Run Keyword If    "${chkEnable}" == "0"    Click Action In Grid By Id    ${abbreviation}    ${trRowInBusinessProcessGrid}    ${chkEnableBusinessProcess}
 
 Click Delete Business Process By Abbreviation
     [Arguments]    ${abbreviation}
@@ -87,29 +87,35 @@ Click Save And Delete Business Process
 Fill Abbreviation In New Business Process
     [Arguments]    ${valueText}
     Wait Until Page Contains Element    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessAbbreviation}
+    Clear Element Text      ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessAbbreviation}
     Input Text    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessAbbreviation}    ${valueText}
 
 Fill English In New Business Process
     [Arguments]    ${valueText}
     Wait Until Page Contains Element    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessEnglish}
+    Clear Element Text      ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessEnglish}
     Input Text    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessEnglish}    ${valueText}
 
 Fill German In New Business Process
     [Arguments]    ${valueText}
     Wait Until Page Contains Element    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessGerman}
+    Clear Element Text      ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessGerman}
     Input Text    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessGerman}    ${valueText}
 
 Fill Spanish In New Business Process
     [Arguments]    ${valueText}
     Wait Until Page Contains Element    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcesspanish}
+    Clear Element Text      ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcesspanish}
     Input Text    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcesspanish}    ${valueText}
 
 Fill French In New Business Process
     [Arguments]    ${valueText}
     Wait Until Page Contains Element    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessFrench}
+    Clear Element Text      ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessFrench}
     Input Text    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessFrench}    ${valueText}
 
 Fill Dutch In New Business Process
     [Arguments]    ${valueText}
     Wait Until Page Contains Element    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessDutch}
+    Clear Element Text      ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessDutch}
     Input Text    ${trRowInBusinessProcessGrid}${divNewBusinessProcessRow} ${txtBusinessProcessDutch}    ${valueText}

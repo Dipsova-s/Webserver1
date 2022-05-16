@@ -70,6 +70,7 @@ Click Minimize Dashboard
 Click Link Go To Angle
     [Arguments]    ${index}
     Show Dashboard Widget Menu    ${index}
+    Wait Until Element Is Visible    ${lnkWidgetOpenNewWindow}:eq(${index})
     Click Element    ${lnkWidgetOpenNewWindow}:eq(${index})
 
 Click Delete Widget
