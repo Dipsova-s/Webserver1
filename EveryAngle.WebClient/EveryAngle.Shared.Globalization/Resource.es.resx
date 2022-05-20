@@ -2598,17 +2598,11 @@
   <data name="MC_AccessToModel" xml:space="preserve">
     <value>Access to model</value>
   </data>
-  <data name="MC_AddAttachment" xml:space="preserve">
-    <value>Add attachment</value>
-  </data>
   <data name="MC_AddMyComment" xml:space="preserve">
     <value>Add my comment</value>
   </data>
   <data name="AllUsers" xml:space="preserve">
     <value>Todos los usuarios</value>
-  </data>
-  <data name="MC_Attachment" xml:space="preserve">
-    <value>Attachment</value>
   </data>
   <data name="MC_AuthenticationProvider" xml:space="preserve">
     <value>Authentication provider</value>
@@ -3443,9 +3437,6 @@
   </data>
   <data name="MC_Details" xml:space="preserve">
     <value>Details</value>
-  </data>
-  <data name="MC_Validation_Attached_Comment" xml:space="preserve">
-    <value>Only the following extension types are allowed: .eapackage .bmp .csl .doc .docx .gif .htm .html .jpeg .jpg .pdf .png .txt .xls .xlsx .zip</value>
   </data>
   <data name="MaxNumberToExportThePackage" xml:space="preserve">
     <value>El número máximo de Angles es {0}</value>

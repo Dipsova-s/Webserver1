@@ -30,8 +30,5 @@ namespace EveryAngle.Core.ViewModels.Comment
 
         [JsonProperty(PropertyName = "comment")]
         public virtual string comment { get; set; }
-
-        [JsonProperty(PropertyName = "attachment", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public virtual string attachment { get; set; }
     }
 }

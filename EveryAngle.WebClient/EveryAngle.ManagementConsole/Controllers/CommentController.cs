@@ -54,7 +54,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddComment(FormCollection formCollection, HttpPostedFileBase file, string commentType)
+        public ActionResult AddComment(FormCollection formCollection, string commentType)
         {
             CommentViewModel comment = new CommentViewModel();
             string commentUri = formCollection["commentUri"];
@@ -68,20 +68,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 VersionViewModel version = SessionHelper.Version;
                 string uri = version.GetEntryByName("comments").Uri.ToString();
-                if (file != null && file.ContentLength > 0)
-                {
-                    string fileName = Path.GetFileName(file.FileName);
-                    string[] splitFileName = fileName.Split('.');
-                    string newGuid = Guid.NewGuid().ToString();
-                    comment.attachment = newGuid + "." + splitFileName.Last().ToLower();
-
-                    AttachFileHelper.RenameUploadFile(file, newGuid);
-                }
-                else
-                {
-                    comment.attachment = "Null";
-                }
-                
                 comment.comment_type = formCollection["commentType"];
                 comment.comment = formCollection["message"];
                 _commentService.AddComment(uri, JsonConvert.SerializeObject(comment));
@@ -134,65 +120,4 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         #endregion
     }
-
-    #region TODO: this class need to move it out to a lower layer
-
-    // need to move this class to lower layer to make it testable.
-    public static class AttachFileHelper
-    {
-        private static string[] validExtensions = new string[]
-        {
-            ".eapackage", ".csl", ".zip",
-            ".xls", ".xlsx", ".doc", ".docx", ".pdf",
-            ".bmp", ".gif", ".jpg", ".jpeg", ".png",
-            ".htm", ".html", ".txt"
-        };
-
-        public static readonly string ItemUploadFolderPath = "~/UploadedResources/Comments/";
-
-        public static bool RenameUploadFile(HttpPostedFileBase file, string renamedFile)
-        {
-            if (File.Exists(HttpContext.Current.Request.MapPath(ItemUploadFolderPath + renamedFile)))
-            {
-                try
-                {
-                    File.Delete(HttpContext.Current.Request.MapPath(ItemUploadFolderPath + renamedFile));
-                }
-                catch
-                {
-                    // do nothing
-                }
-            }
-            return UploadFile(file, renamedFile);
-        }
-
-        private static bool UploadFile(HttpPostedFileBase file, string fileName)
-        {
-            var name = Path.GetFileName(file.FileName);
-            var splitFileName = name.Split('.');
-            var extension = "." + splitFileName.Last();
-            var path = Path.Combine(HttpContext.Current.Request.MapPath(ItemUploadFolderPath), fileName);
-
-            path = path + extension;
-            if (!ValidateExtension(extension))
-                return false;
-
-            try
-            {
-                file.SaveAs(path);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private static bool ValidateExtension(string extension)
-        {
-            return validExtensions.Contains(extension.ToLowerInvariant());
-        }
-    }
-
-    #endregion
 }

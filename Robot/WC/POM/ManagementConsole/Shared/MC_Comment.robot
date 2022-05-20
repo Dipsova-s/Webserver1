@@ -21,9 +21,6 @@ Input Comment Text
     [Arguments]    ${text}
     Input Text    ${txtComment}    ${text}
 
-Attach Comment File
-    Choose File    ${fileAttached}    ${fileTestComment}
-
 Click Save Comment
     Click Element    ${btnSaveComment}
     Wait MC Progress Bar Closed

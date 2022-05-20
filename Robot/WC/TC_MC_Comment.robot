@@ -21,7 +21,6 @@ Test for comment sections
     Verify Package Page Is Ready
     Click Add New Comment
     Input Comment Text      ${Comment}    
-    Attach Comment File
     Click Save Comment
     Click Show Action Dropdown In Grid By Index     ${Index}     ${trRowInGrid}
     Click Edit comment and verify       ${Comment}

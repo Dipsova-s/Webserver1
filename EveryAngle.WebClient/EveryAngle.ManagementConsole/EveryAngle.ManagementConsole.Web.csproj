@@ -571,7 +571,6 @@
     <Content Include="Scripts\Page\MC.GlobalSettings.Languages.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.FieldCategories.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.SystemSettings.js" />
-    <Content Include="UploadedResources\Comments\log.txt" />
     <Content Include="UploadedResources\CompanyLogo\ea_logo.png" />
     <Content Include="UploadedResources\ExtraFiles\EA_16.png" />
     <Content Include="UploadedResources\ExtraFiles\EA_32.png" />

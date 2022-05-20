@@ -734,7 +734,6 @@
                         successCallback: function () {
                             jQuery('#CommentText').val('');
                             jQuery('#CommentForm .k-upload-status').text('');
-                            jQuery('#fileAttached').replaceWith(jQuery('#fileAttached').clone(true));
                             if (jQuery('#GridComment').length) {
                                 jQuery('#CloseCommentForm').trigger('click');
                                 jQuery('#GridComment').data('kendoGrid').dataSource.read();
@@ -756,7 +755,6 @@
                         var dataItem = grid.dataSource.getByUid(option);
                         if (dataItem) {
                             jQuery('#CommentText').val(MC.util.decodeHtml(dataItem.comment));
-                            $('.fieldFile').hide();
                             $('#commentUri').val(dataItem.Uri);
                             $('#SaveCommentBtn').attr("onclick", "MC.ui.commentbox('edit')");
                         }
@@ -766,7 +764,6 @@
                 case 'popup':
                     setScrollablePopup();
                     $('#commentUri').val('');
-                    $('.fieldFile').show();
                     $('#SaveCommentBtn').attr("onclick", "MC.ui.commentbox('add')");
                     break;
 
