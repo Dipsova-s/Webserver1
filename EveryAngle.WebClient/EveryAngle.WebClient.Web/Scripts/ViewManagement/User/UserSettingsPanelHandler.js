@@ -73,7 +73,7 @@ function UserSettingsPanelViewManager() {
     var _htmlExecuteItems = [
         '<div class="settingsPanelActionsAtLoginDisplays" data-bind="foreach: $root.AutoExecuteList">',
         '<div class="settingsPanelActionsAtLoginDisplaysItem">',
-        '<a target="_blank" data-bind="attr: { href: $data.link }">',
+        '<a target="_blank" data-bind="attr: { href: $data.link }"></a>',
         '<i class="icon display" data-bind="css: \'icon-\' + $data.display.display_type"></i>',
         '<div class="settingsPanelActionsAtLoginDisplayText">',
         '<span class="darkText" data-bind="text: $data.model + \' \' + $data.name">Avg. Duration</span>',

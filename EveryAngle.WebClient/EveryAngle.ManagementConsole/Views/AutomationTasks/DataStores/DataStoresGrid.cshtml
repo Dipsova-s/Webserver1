@@ -38,9 +38,9 @@
         columns.Bound("Uri")
             .ClientTemplate(
                 "# if (data.is_default == true && data.datastore_plugin == 'csv') { #"
-                + "<a class='btn btnOpenWindow btnLink' href='\\" + SiteMapHelper.ActionHash("AngleExports/ExportDefault/ExportCsv") + "' />"
+                + "<a class='btn btnOpenWindow btnLink' href='\\" + SiteMapHelper.ActionHash("AngleExports/ExportDefault/ExportCsv") + "' ></a>"
                 + "# } else if (data.is_default == true && data.datastore_plugin == 'msexcel') { #"
-                + "<a class='btn btnOpenWindow btnLink' href='\\"+ SiteMapHelper.ActionHash("AngleExports/ExportDefault/ExportExcel") + "' />"
+                + "<a class='btn btnOpenWindow btnLink' href='\\"+ SiteMapHelper.ActionHash("AngleExports/ExportDefault/ExportExcel") + "' ></a>"
                 + "# } else { #"
                 + gridButton
                 + "# } #"

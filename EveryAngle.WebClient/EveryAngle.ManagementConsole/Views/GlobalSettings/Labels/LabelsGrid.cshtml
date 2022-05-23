@@ -12,8 +12,8 @@
     {
         Type = PageToolbarButtonType.GridEditDelete,
         Privilege = PrivilegeType.System,
-        EnableTemplate = "<input type=\"hidden\" name=\"uri\" value=\"#= Uri #\"/><a data-delete-template=\"" + Resource.MC_DeleteLabelCoonfirm + "\" data-delete-field-index=\"0\" class=\"btn btnDelete\" data-callback=\"MC.GlobalSettings.LabelCategories.DeletionCheckMark\" onclick=\"MC.form.template.markAsRemove(this)\" data-parameters='{\"uri\":\"#= data.Uri #\", \"abbreviation\":\"#= data.abbreviation #\"}' />",
-        DisableTemplate = "<input type=\"hidden\" name=\"uri\" value=\"#= Uri #\"/><a class=\"btn btnDelete disabled\" />"
+        EnableTemplate = "<input type=\"hidden\" name=\"uri\" value=\"#= Uri #\"/><a data-delete-template=\"" + Resource.MC_DeleteLabelCoonfirm + "\" data-delete-field-index=\"0\" class=\"btn btnDelete\" data-callback=\"MC.GlobalSettings.LabelCategories.DeletionCheckMark\" onclick=\"MC.form.template.markAsRemove(this)\" data-parameters='{\"uri\":\"#= data.Uri #\", \"abbreviation\":\"#= data.abbreviation #\"}' ></a>",
+        DisableTemplate = "<input type=\"hidden\" name=\"uri\" value=\"#= Uri #\"/><a class=\"btn btnDelete disabled\" ></a>"
 
     });
     string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
