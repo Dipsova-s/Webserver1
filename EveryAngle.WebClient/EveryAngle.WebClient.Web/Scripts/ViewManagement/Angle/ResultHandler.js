@@ -130,8 +130,11 @@ function ResultHandler(displayHandler) {
         data.object_count = WC.Utility.ToNumber(data.object_count);
         data.progress = Math.max(0, Math.min(WC.Utility.ToNumber(data.progress), 0.99));
         deferred.notify(data);
+        var isListAndnotQueryable = self.DisplayHandler.Data().display_type === enumHandlers.DISPLAYTYPE.LIST && !data.queryable;
+        var isnotListAndnotFinished = self.DisplayHandler.Data().display_type !== enumHandlers.DISPLAYTYPE.LIST && data.status !== enumHandlers.POSTRESULTSTATUS.FINISHED.Value;
 
-        if (data.status !== enumHandlers.POSTRESULTSTATUS.FINISHED.Value) {
+        // When Queryable is true showing data for list not for chart and pivot
+        if (isListAndnotQueryable || isnotListAndnotFinished) {
             // running
             self.SetCancelable(deferred, data, true);
             self.EnsureGetResult(deferred, data);
@@ -146,6 +149,8 @@ function ResultHandler(displayHandler) {
         }
         else {
             // completed
+            if (data.status === enumHandlers.POSTRESULTSTATUS.RUNNING.Value)
+                self.SetObjectCountWhenQueryRunning(data);
             data.progress = 1;
             self.SetCancelable(deferred, data, false);
             self.SetData(data);
@@ -166,7 +171,7 @@ function ResultHandler(displayHandler) {
     };
     self.IsCustomError = function (data, xhr) {
         // finished but fail
-        if (!data.successfully_completed) {
+        if (data.status !== enumHandlers.POSTRESULTSTATUS.RUNNING.Value && !data.successfully_completed) {
             xhr.errorType = ResultHandler.CustomErrorType.SuccessfullyCompleted;
             xhr.responseText = Localization.ErrorPostResultFinishWithUnknown;
             xhr.displayError = jQuery.proxy(errorHandlerModel.ShowCustomError, errorHandlerModel, xhr.responseText);
@@ -265,19 +270,42 @@ function ResultHandler(displayHandler) {
             return kendo.format('<em>{0}</em>', Localization.Info_AngleNotExecuted);
 
         var modelText = kendo.format('{0} {1}', executionInfo.Model, executionInfo.Datetime);
-        var objectText = executionInfo.Objects.length === 1 ? kendo.format(' {0},', executionInfo.Objects[0]) : '';
+        var objectText = executionInfo.Objects.length === 1 ? kendo.format(' {0}', executionInfo.Objects[0]) : '';
+        var responseTimeText = self.GetExecutionTimeText(measurePerformance.ElapsedTime(), 0);
+
+        if (executionInfo.ObjectCount === "-1") {
+            return kendo.format('{0},{1} in {2}, {3}',
+                modelText,
+                objectText,
+                responseTimeText,
+                Localization.AngleDefinitionAreaCountingItem);
+        }
         var objectCountText = [
             executionInfo.ObjectCount,
             Localization.AngleDefinitionAreaItemsIn
         ].join(' ');
-        var responseTimeText = self.GetExecutionTimeText(measurePerformance.ElapsedTime(), 0);
 
-        return kendo.format('{0},{1} {2} {3}',
+        return kendo.format('{0},{1}, {2} {3}',
             modelText,
             objectText,
             objectCountText,
             responseTimeText);
     };
+
+    self.SetObjectCountWhenQueryRunning = function (result) {
+        setTimeout(function () {
+            GetDataFromWebService(directoryHandler.ResolveDirectoryUri(result.uri))
+                .done(function (data) {
+                    if (data.status === enumHandlers.POSTRESULTSTATUS.FINISHED.Value) {
+                        //update count
+                        self.SetData(data);
+                    }
+                    else {
+                        self.SetObjectCountWhenQueryRunning(result);
+                    }
+                });
+        }, self.IntervalTime);
+    }
 }
 
 ResultHandler.CustomErrorType = {

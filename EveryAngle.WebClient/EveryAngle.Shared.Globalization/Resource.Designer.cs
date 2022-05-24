@@ -979,6 +979,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to counting items....
+        /// </summary>
+        public static string AngleDefinitionAreaCountingItem {
+            get {
+                return ResourceManager.GetString("AngleDefinitionAreaCountingItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to items in.
         /// </summary>
         public static string AngleDefinitionAreaItemsIn {

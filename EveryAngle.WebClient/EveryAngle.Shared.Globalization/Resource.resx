@@ -6605,4 +6605,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="SystemSettingLabelAnglesGateway_Info" xml:space="preserve">
     <value>Download Angles Gateway</value>
   </data>
+  <data name="AngleDefinitionAreaCountingItem" xml:space="preserve">
+    <value>counting items...</value>
+  </data>
 </root>
