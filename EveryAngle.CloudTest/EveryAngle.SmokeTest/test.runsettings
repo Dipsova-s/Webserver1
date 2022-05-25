@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<RunSettings>
+   <TestRunParameters>
+      <Parameter name="url" value="__friendly_url__" />
+      <Parameter name="Username" value="EAadmin" />
+      <Parameter name="Password" value="__eaadmin_password__" />
+   </TestRunParameters>
+</RunSettings>
