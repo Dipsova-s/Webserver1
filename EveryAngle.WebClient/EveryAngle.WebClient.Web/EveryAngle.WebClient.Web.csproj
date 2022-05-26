@@ -67,23 +67,23 @@
     <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <HintPath>..\packages\DevExpress.Data.19.2.4.1\lib\net452\DevExpress.Data.v19.2.dll</HintPath>
+    <Reference Include="DevExpress.Data.v21.2, Version=21.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Data.21.2.7.1\lib\net462\DevExpress.Data.v21.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v19.2.Core, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <HintPath>..\packages\DevExpress.PivotGrid.19.2.4.1\lib\net452\DevExpress.PivotGrid.v19.2.Core.dll</HintPath>
+    <Reference Include="DevExpress.PivotGrid.v21.2.Core, Version=21.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.PivotGrid.21.2.7\lib\net462\DevExpress.PivotGrid.v21.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <HintPath>..\packages\DevExpress.Utils.19.2.4.1\lib\net452\DevExpress.Utils.v19.2.dll</HintPath>
+    <Reference Include="DevExpress.Utils.v21.2, Version=21.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Utils.21.2.7.1\lib\net462\DevExpress.Utils.v21.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxPivotGrid.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <HintPath>..\packages\DevExpress.Web.ASPxPivotGrid.19.2.4.1\lib\net452\DevExpress.Web.ASPxPivotGrid.v19.2.dll</HintPath>
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v21.2, Version=21.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Web.ASPxPivotGrid.21.2.7\lib\net462\DevExpress.Web.ASPxPivotGrid.v21.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.Mvc5.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <HintPath>..\packages\DevExpress.Web.Mvc5.19.2.4.1\lib\net452\DevExpress.Web.Mvc5.v19.2.dll</HintPath>
+    <Reference Include="DevExpress.Web.Mvc5.v21.2, Version=21.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Web.Mvc5.21.2.7\lib\net462\DevExpress.Web.Mvc5.v21.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <HintPath>..\packages\DevExpress.Web.19.2.4.1\lib\net452\DevExpress.Web.v19.2.dll</HintPath>
+    <Reference Include="DevExpress.Web.v21.2, Version=21.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Web.21.2.7\lib\net462\DevExpress.Web.v21.2.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.AppServerAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.CSM.Client.4.0.1\lib\net462\EveryAngle.CSM.AppServerAPI.dll</HintPath>
@@ -109,8 +109,8 @@
     <Reference Include="EveryAngle.Shared.Formatter, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Formatter.4.0.0\lib\net462\EveryAngle.Shared.Formatter.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Shared.Pivot, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Pivot.4.0.0\lib\net462\EveryAngle.Shared.Pivot.dll</HintPath>
+    <Reference Include="EveryAngle.Shared.Pivot, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Pivot.4.0.1\lib\net462\EveryAngle.Shared.Pivot.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Threading, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Threading.4.0.0\lib\net462\EveryAngle.Threading.dll</HintPath>
