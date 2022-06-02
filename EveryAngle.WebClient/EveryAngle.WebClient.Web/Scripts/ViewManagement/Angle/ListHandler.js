@@ -221,8 +221,8 @@ function ListHandler(elementId, container) {
         var container = self.GetContainer();
         !isRemoveColumn &&
             container
-            .empty()
-            .append('<div id="' + self.ElementId.substr(1) + '" class="grid widgetDisplay" />');
+                .empty()
+                .append('<div id="' + self.ElementId.substr(1) + '" class="grid widgetDisplay" />');
         if (self.ReadOnly()) {
             jQuery(self.ElementId).addClass('readOnlyMode');
         }
@@ -232,7 +232,7 @@ function ListHandler(elementId, container) {
         self.ColumnDefinitions = self.GetColumnDefinitions();
         // M4-94496 - Just refresh when data is already present instead of getting it from server
         if (isRemoveColumn) {
-           return self.refreshGridDataLocally();
+            return self.refreshGridDataLocally();
         }
 
         return jQuery(self.ElementId).addClass(self.DashBoardMode() ? 'grid-custom-scroller' : '')
@@ -331,7 +331,7 @@ function ListHandler(elementId, container) {
     };
     self.GetGridDataSource = function () {
         var fieldsList = self.Models.Display.GetSpecificColumnString(self.Models.Display.Data().fields);
-        var defaultPageSize = self.GetDefaultPageSize();
+        var defaultPageSize = self.GetDefaultPageSize() * 2;
         var dataSourceTmp = {};
         var requestObject = {};
         return new kendo.data.DataSource({
@@ -361,7 +361,7 @@ function ListHandler(elementId, container) {
                         requestObject = GetDataFromWebService(requestUrl, query)
                             .done(function (result) {
                                 if (!jQuery.isEmptyObject(result)) {
-                                     var dataRows = self.GetDataRows(result.fields, result.rows);
+                                    var dataRows = self.GetDataRows(result.fields, result.rows);
 
                                     dataSourceTmp[page] = { total: result.header.total, data: dataRows };
                                     options.success(dataSourceTmp[page]);
@@ -409,14 +409,6 @@ function ListHandler(elementId, container) {
         self.Models.Result.SetRetryPostResult(xhr, element);
     };
     self.ApplyGridDataSource = function (grid, scrollTop, rowHeight) {
-        // prefetch next page
-        var prefetch = function (e) {
-            if (e.sender.dataSource.page() === 1 && e.sender.dataSource.totalPages() > 1)
-                grid.dataSource.prefetch(grid.dataSource.skip() + grid.dataSource.take(), grid.dataSource.take());
-            grid.unbind('dataBound', prefetch);
-        };
-        grid.bind('dataBound', prefetch);
-
         var page = self.GetDefaultPage(grid.dataSource.pageSize(), scrollTop, rowHeight);
         grid.dataSource.page(page);
     };

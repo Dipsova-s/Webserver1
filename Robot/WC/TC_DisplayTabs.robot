@@ -178,20 +178,21 @@ Display Overview Popup Behavior
 
     [Teardown]  Clean Up Items And Go To Search Page
 
-Verify Keep Active Display Filter
-    [Documentation]  The current filter display is applied to the other display when setting the keep active display filter is true.
-    ...              Risk/Cover area: Keep Active Display Filter under the display tab.
-    [Tags]   acc_wc  TC_C229133
-    [Setup]  Import Angle By API  /models/1  ANGLE_KeepActiveDisplayFilter.json  user=${Username} 
-    Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_KeepActiveDisplayFilter
+# Will be enabled as part of M4-103764
+# Verify Keep Active Display Filter
+#     [Documentation]  The current filter display is applied to the other display when setting the keep active display filter is true.
+#     ...              Risk/Cover area: Keep Active Display Filter under the display tab.
+#     [Tags]   acc_wc  TC_C229133
+#     [Setup]  Import Angle By API  /models/1  ANGLE_KeepActiveDisplayFilter.json  user=${Username} 
+#     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_KeepActiveDisplayFilter
     
-    Set Editor Context: Display Tab
-    Click Display Tab
+#     Set Editor Context: Display Tab
+#     Click Display Tab
 
-    Check Keep Active Display Filter Disabled When No Filter On Display
-    Check Keep Active Display Filter Disabled When Display Contains Jump
-    Check Keep Active Display Filter Enabled When Has Filter On Display
-    Check Filter Is Applied When Enabled Keep Active Display Filter And Switch To Other Display
+#     Check Keep Active Display Filter Disabled When No Filter On Display
+#     Check Keep Active Display Filter Disabled When Display Contains Jump
+#     Check Keep Active Display Filter Enabled When Has Filter On Display
+#     Check Filter Is Applied When Enabled Keep Active Display Filter And Switch To Other Display
 
     [Teardown]  Clean Up Items And Go To Search Page
 
