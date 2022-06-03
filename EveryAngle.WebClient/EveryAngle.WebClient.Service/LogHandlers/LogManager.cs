@@ -213,7 +213,7 @@ namespace EveryAngle.WebClient.Service.LogHandlers
 
         internal static class LoggerHelper
         {
-            private const string MASKING_CHARACTERS = "**********";
+            private const string MASKING_CHARACTERS = "********************";
 
             public static string[] GetPasswordIdsInSettings()
             {

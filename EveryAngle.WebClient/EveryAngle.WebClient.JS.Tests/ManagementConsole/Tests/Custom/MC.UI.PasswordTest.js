@@ -6,7 +6,7 @@ describe("MC.ui.password.js", function () {
 
         var input;
         beforeEach(function () {
-            window.passwordPlaceHolder = '********';
+            window.passwordPlaceHolder = '********************';
             input = $('<input />').appendTo('body');
         });
         afterEach(function () {
@@ -17,7 +17,7 @@ describe("MC.ui.password.js", function () {
             {
                 title: 'should have placeholder if has password',
                 has_password: true,
-                expected: '********'
+                expected: '********************'
             },
             {
                 title: 'should not have placeholder if has no password',
