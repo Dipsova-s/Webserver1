@@ -61,7 +61,7 @@ function AngleActionMenuHandler(base) {
     };
     self.GetPrivilegeData = function () {
         var privileges = {};
-        
+
         privileges[enumHandlers.ANGLEACTION.DOWNLOAD.Id] = { Enable: self.CanDownload(), Visible: self.CanDownload() };
 
         privileges[enumHandlers.ANGLEACTION.ADDFOLLOWUP.Id] = { Enable: self.CanAddFollowup(), Visible: true };
@@ -82,7 +82,7 @@ function AngleActionMenuHandler(base) {
 
         // find only available in list display
         privileges[enumHandlers.ANGLEACTION.FIND.Id] = { Enable: self.CanFindRow(), Visible: self.IsFindOptionVisible() };
-        
+
         privileges[enumHandlers.ANGLEACTION.PASTEDISPLAY.Id] = { Enable: self.CanPasteDisplay(), Visible: true };
 
         // SCHEDULEANGLE visibility will depend on priviledge and it can use for saved Display
@@ -193,7 +193,7 @@ function AngleActionMenuHandler(base) {
         var canDisplayExecuted = !self.HandlerValidation.Angle.InvalidBaseClasses
             && !self.HandlerValidation.Display.InvalidAggregates
             && !self.HandlerValidation.Display.InvalidFilters;
-        var isExecuteSuccess = resultModel.Data().successfully_completed;
+        var isExecuteSuccess = resultModel.Data().status === enumHandlers.POSTRESULTSTATUS.RUNNING.Value || resultModel.Data().successfully_completed;
         return canDisplayExecuted && isExecuteSuccess;
     };
 

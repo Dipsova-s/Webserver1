@@ -57,7 +57,7 @@ function ListHandler(elementId, container) {
             '</div>',
             '</div>'
         ].join(''),
-        AddColumnButton: '<a id="AddNewColumn" class="btnAddField" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="' + Localization.InsertColumn  + '" OnClick=\"window[\'' + self.ModelId + '\'].ShowAddColumnsPopup();\"></a>',
+        AddColumnButton: '<a id="AddNewColumn" class="btnAddField" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="' + Localization.InsertColumn + '" OnClick=\"window[\'' + self.ModelId + '\'].ShowAddColumnsPopup();\"></a>',
         HeaderPopup: [
             '<div class="k-window-custom k-window-titleless HeaderPopup HeaderPopupList" id="#PopupHeaderID#" alt="#FieldId#">',
             '<div class="k-content k-window-content">',
@@ -144,6 +144,8 @@ function ListHandler(elementId, container) {
                 self.InitialAllowToHighlightCell(grid);
 
                 self.InitialContentCopy();
+
+                self.UpdateCountWhenRunning();
             });
     };
     self.CheckUpgradeDisplay = function () {
@@ -337,7 +339,7 @@ function ListHandler(elementId, container) {
         return new kendo.data.DataSource({
             transport: {
                 read: function (options) {
-                /* M4-8817: After POST /results fail still show angle/display details => added resultModel.Data().successfully_completed criteria */
+                    /* M4-8817: After POST /results fail still show angle/display details => added resultModel.Data().successfully_completed criteria */
                     var setEmptyResult = function () {
                         options.success({ total: 0, data: [] });
                     };
@@ -363,7 +365,11 @@ function ListHandler(elementId, container) {
                                 if (!jQuery.isEmptyObject(result)) {
                                     var dataRows = self.GetDataRows(result.fields, result.rows);
 
-                                    dataSourceTmp[page] = { total: result.header.total, data: dataRows };
+                                    var countRows = defaultPageSize * 2;
+                                    if (result.header.total === -1 && Object.keys(dataSourceTmp).length > 0)
+                                        countRows += dataSourceTmp[Object.keys(dataSourceTmp).length].total;
+
+                                    dataSourceTmp[page] = { total: result.header.total === -1 ? countRows : result.header.total, data: dataRows };
                                     options.success(dataSourceTmp[page]);
                                 }
                                 else {
@@ -452,7 +458,7 @@ function ListHandler(elementId, container) {
         var currentField = self.Models.Display.Data().fields.splice(e.oldIndex, 1);
         self.Models.Display.Data().fields.splice(e.newIndex, 0, currentField[0]);
         self.Models.Display.Data.commit();
-        
+
         self.OnChanged(self.Models.Display.Data(), false);
 
         setTimeout(function () {
@@ -1726,7 +1732,7 @@ function ListHandler(elementId, container) {
         RowId: -1
     };
     self.LeftClickElement = {};
-    self.ResetLeftClickFirstCell  = function() {
+    self.ResetLeftClickFirstCell = function () {
         self.LeftClickFirstCell.RowId = -1;
         self.LeftClickElement = {};
     };
@@ -1734,7 +1740,7 @@ function ListHandler(elementId, container) {
         self.LeftClickFirstCell.RowId = context.parentElement.rowIndex;
         self.LeftClickElement = context;
     };
-    self.ContextMenuRenderPosition = function(isOnlyCopy, column, dataItem, menu, context) {
+    self.ContextMenuRenderPosition = function (isOnlyCopy, column, dataItem, menu, context) {
         self.MenuOptions = self.CreateContextMenu(column.field.toLowerCase(), dataItem[column.field.toLowerCase()]);
         if (isOnlyCopy) {
             var copyClone = self.MenuOptions.items.copy;
@@ -1779,8 +1785,8 @@ function ListHandler(elementId, container) {
             noOfRows: noOfRows
         };
     };
-    
-    self.IsIndexInSelectedArea = function(currentIndex, grid) {
+
+    self.IsIndexInSelectedArea = function (currentIndex, grid) {
         var isIndexInSelectedArea = false;
         var selectedAreaData = self.GetSelectedAreaData(grid, grid.select().first(), grid.select().last());
         if ([(selectedAreaData.dragStart - selectedAreaData.noOfColumns + 1) + ((selectedAreaData.noOfRows - 1) * selectedAreaData.totalGridCount)] == selectedAreaData.dragEnd) {
@@ -1824,7 +1830,7 @@ function ListHandler(elementId, container) {
                     }
                 }
                 self.ResetLeftClickFirstCell();
-            }        
+            }
             grid.select(context);
             cell = grid.select();
 
@@ -2636,6 +2642,27 @@ function ListHandler(elementId, container) {
                 setIsCopyText();
             }
         });
+    };
+    self.UpdateCountWhenRunning = function () {
+        if (resultModel.Data().status === enumHandlers.POSTRESULTSTATUS.RUNNING.Value) {
+            self.SetObjectCountWhenQueryRunning(resultModel.Data());
+        }
+    };
+    self.SetObjectCountWhenQueryRunning = function (result) {
+        setTimeout(function () {
+            GetDataFromWebService(directoryHandler.ResolveDirectoryUri(result.uri))
+                .done(function (data) {
+                    if (data.status === enumHandlers.POSTRESULTSTATUS.FINISHED.Value) {
+                        //update count
+                        anglePageHandler.HandlerDisplay.ResultHandler.SetData(data);
+                        anglePageHandler.HandlerDisplayOverview.UpdateExecutionInfo();
+                        resultModel.LoadSuccess(data);
+                    }
+                    else {
+                        self.SetObjectCountWhenQueryRunning(result);
+                    }
+                });
+        }, window.intervalTime);
     };
 
     /*EOF: Model Methods*/

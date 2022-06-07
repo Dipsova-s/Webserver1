@@ -149,8 +149,6 @@ function ResultHandler(displayHandler) {
         }
         else {
             // completed
-            if (data.status === enumHandlers.POSTRESULTSTATUS.RUNNING.Value)
-                self.SetObjectCountWhenQueryRunning(data);
             data.progress = 1;
             self.SetCancelable(deferred, data, false);
             self.SetData(data);
@@ -291,21 +289,6 @@ function ResultHandler(displayHandler) {
             objectCountText,
             responseTimeText);
     };
-
-    self.SetObjectCountWhenQueryRunning = function (result) {
-        setTimeout(function () {
-            GetDataFromWebService(directoryHandler.ResolveDirectoryUri(result.uri))
-                .done(function (data) {
-                    if (data.status === enumHandlers.POSTRESULTSTATUS.FINISHED.Value) {
-                        //update count
-                        self.SetData(data);
-                    }
-                    else {
-                        self.SetObjectCountWhenQueryRunning(result);
-                    }
-                });
-        }, self.IntervalTime);
-    }
 }
 
 ResultHandler.CustomErrorType = {
