@@ -284,7 +284,7 @@ Click Open Web Client on User Menu
     Wait Progress Bar Closed
     Click Element    ${btnWebClient}
     Wait Progress Bar Closed
-    Switch Window       Magnitude Angles for SAP - Search page
+    Switch Window       Angles for SAP - Search page
 
 Click Logout
     Click Link       ${btnLogout}
