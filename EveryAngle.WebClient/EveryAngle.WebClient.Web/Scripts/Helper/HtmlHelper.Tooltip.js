@@ -26,29 +26,29 @@
         var target = jQuery(e.currentTarget);
         var tooltipPosition = target.data('tooltip-position') || e.data && e.data.position;
         var cursorOffset = target.data('tooltip-offset') || e.data && e.data.offset || 0;
-        var targetOffset = target.offset();
+        var targetOffset = target[0];
         if (tooltipPosition === TOOLTIP_POSITION.BOTTOM) {
             // show at bottom
-            tooltipLeft = Math.max(5, targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2));
-            tooltipTop = targetOffset.top + target.outerHeight() + 8 + cursorOffset;
+            tooltipLeft = Math.max(5, targetOffset.offsetLeft + (target.outerWidth() / 2) - (tooltipWidth / 2));
+            tooltipTop = targetOffset.offsetTop + target.outerHeight() + 8 + cursorOffset;
             tooltip.addClass('k-window-arrow-n');
         }
         else if (tooltipPosition === TOOLTIP_POSITION.TOP) {
             // show at top
-            tooltipLeft = Math.max(5, targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2));
-            tooltipTop = targetOffset.top - target.outerHeight() - cursorOffset;
+            tooltipLeft = Math.max(5, targetOffset.offsetLeft + (target.outerWidth() / 2) - (tooltipWidth / 2));
+            tooltipTop = targetOffset.offsetTop - target.outerHeight() - cursorOffset;
             tooltip.addClass('k-window-arrow-s');
         }
         else if (tooltipPosition === TOOLTIP_POSITION.LEFT) {
             // show at left
-            tooltipLeft = targetOffset.left - target.outerWidth() - cursorOffset;
-            tooltipTop = Math.max(5, targetOffset.top + (target.outerHeight() / 2) - (tooltipHeight / 2));
+            tooltipLeft = targetOffset.offsetLeft - target.outerWidth() - cursorOffset;
+            tooltipTop = Math.max(5, targetOffset.offsetTop + (target.outerHeight() / 2) - (tooltipHeight / 2));
             tooltip.addClass('k-window-arrow-e');
         }
         else if (tooltipPosition === TOOLTIP_POSITION.RIGHT) {
             // show at right
-            tooltipLeft = targetOffset.left + target.outerWidth() + 8 + cursorOffset;
-            tooltipTop = Math.max(5, targetOffset.top + (target.outerHeight() / 2) - (tooltipHeight / 2));
+            tooltipLeft = targetOffset.offsetLeft + target.outerWidth() + 8 + cursorOffset;
+            tooltipTop = Math.max(5, targetOffset.offsetTop + (target.outerHeight() / 2) - (tooltipHeight / 2));
             tooltip.addClass('k-window-arrow-w');
         }
         else {
