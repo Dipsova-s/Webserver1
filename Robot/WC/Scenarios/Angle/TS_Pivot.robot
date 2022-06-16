@@ -193,5 +193,5 @@ Pivot Should Sort By Summary Correctly
     ${dataCount}    Get Length    ${data}
     ${previousValue}    Convert To Integer    10000000
     : FOR    ${value}    IN    @{data}
-    \    Should Be True    ${previousValue} <= ${value}
+    \    Should Be True    ${previousValue} >= ${value}
     \    ${previousValue}    Convert To Integer    ${value}

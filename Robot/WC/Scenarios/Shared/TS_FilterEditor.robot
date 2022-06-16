@@ -24,7 +24,7 @@ ${defaultOperatorSetFilter}             is in list
 ${defaultTextFilterDisplayName}         (Self) - ID contains substring(s)
 ${defaultOperatorTextFilter}            contains substring(s)
 
-${defaultTimeFilterDisplayName}         (Self) - TheTime is after
+${defaultTimeFilterDisplayName}         (Self) - TIME is after
 ${defaultOperatorTimeFilter}            is after
 ${defaultArgumentTimeFilter}            
 
@@ -32,7 +32,7 @@ ${defaultTimeSpanFilterDisplayName}     (Self) - Calculated Delay is greater tha
 ${defaultOperatorTimeSpanFilter}        is greater than
 ${defaultArgumentTimeSpanFilter}       
    
-${defaultTimeStampFilterDisplayName}    (Self) - TheDateTime is after
+${defaultTimeStampFilterDisplayName}    (Self) - DATETIME is after
 ${defaultOperatorTimeStampFilter}       is after
 ${defaultArgumentTimeStampFilter}       Date
 
@@ -44,14 +44,14 @@ ${txtInputFilterValue}    input-argument-value:eq(0)
 ${txtBooleanAfterEditValue}             (Self) - Special Advice for Early Shipping is equal to Yes
 ${txtCurrencyAfterEditValue}            (Self) - Ordered Value is greater than 2 EUR 
 ${txtDateAfterEditValue}                (Self) - Order Due Date is after this day(s)
-${txtDateTimeAfterEditValue}            (Self) - TheDateTime is after this day(s)  
+${txtDateTimeAfterEditValue}            (Self) - DATETIME is after this day(s)  
 ${txtDoubleAfterEditValue}              (Self) - Quantity is greater than 1
 ${txtEnumerateAfterEditValue}           (Self) - Delivery Reliability is in list
 ${txtIntAfterEditValue}                 (Self) - Number of Material Plant Data is greater than 1
 ${txtPercentageAfterEditValue}          (Self) - Delivery Reliability As Percentage is greater than 1 %
 ${txtPeriodAfterEditValue}              (Self) - Calculated Delay is greater than 1 day(s)
 ${txtTextAfterEditValue}                (Self) - Area of the Country contains substring(s) (AA, ABC)
-${txtTimeAfterEditValue}                (Self) - TheTime is after 00:00:01
+${txtTimeAfterEditValue}                (Self) - TIME is after 00:00:01
 ${txtTimespanAfterEditValue}            (Self) - Description is greater than 2 days 00:00:00
 
 *** Keywords ***
@@ -158,9 +158,9 @@ Verify Edit Filter Date Operator
     Verify Edit Filter Operator    2    is between             (Self) - Order Due Date is between Jan/30/2020
 
 Verify Edit Filter DateTime Operator
-    Verify Edit Filter Operator    3    is equal to            (Self) - TheDateTime is equal to  
-    Verify Edit Filter Operator    3    is before              (Self) - TheDateTime is before
-    Verify Edit Filter Operator    3    is between             (Self) - TheDateTime is between
+    Verify Edit Filter Operator    3    is equal to            (Self) - DATETIME is equal to  
+    Verify Edit Filter Operator    3    is before              (Self) - DATETIME is before
+    Verify Edit Filter Operator    3    is between             (Self) - DATETIME is between
 
 Verify Edit Filter Double Operator
     Verify Edit Filter Operator    4    is not empty           (Self) - Quantity is not empty   
@@ -200,10 +200,10 @@ Verify Edit Filter Text Operator
     Verify Edit Filter Operator    9    matches pattern(s)     (Self) - Area of the Country matches pattern(s)
 
 Verify Edit Filter Time Operator
-    Verify Edit Filter Operator    10    is not empty          (Self) - TheTime is not empty   
-    Verify Edit Filter Operator    10    is equal to           (Self) - TheTime is equal to
-    Verify Edit Filter Operator    10    is before             (Self) - TheTime is before
-    Verify Edit Filter Operator    10    is between            (Self) - TheTime is between
+    Verify Edit Filter Operator    10    is not empty          (Self) - TIME is not empty   
+    Verify Edit Filter Operator    10    is equal to           (Self) - TIME is equal to
+    Verify Edit Filter Operator    10    is before             (Self) - TIME is before
+    Verify Edit Filter Operator    10    is between            (Self) - TIME is between
 
 Verify Edit Filter Timespan Operator
     Verify Edit Filter Operator    11    is not empty          (Self) - Description is not empty   

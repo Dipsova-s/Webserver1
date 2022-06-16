@@ -60,7 +60,7 @@ Collapse Filter Panel
 
 Choose Dropdown Filter Operator
     [Arguments]   ${index}    ${selectText}
-    ${TIMEOUT_DROPDOWN}
+    Sleep   ${TIMEOUT_DROPDOWN}
     Select Dropdown By Text   ${divFilterPanel}[data-index=${index}] ${ddlFilterOperator}    ${selectText}
 
 Choose Dropdown Dashboard Filter Operator
