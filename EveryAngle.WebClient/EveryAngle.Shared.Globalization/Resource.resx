@@ -6608,4 +6608,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="AngleDefinitionAreaCountingItem" xml:space="preserve">
     <value>counting items...</value>
   </data>
+  <data name="ExpectedRunTime" xml:space="preserve">
+    <value>Expected run time</value>
+  </data>
 </root>

@@ -282,6 +282,12 @@
                 self.RefreshCycleForm.find('input[name="TimeStop"]').data('handler').value(timeStopPickerValue);
             }
 
+            // expected run time
+            if (jQuery.isNumeric(data.expected_run_time)) {
+                var expectedRunTimeStopPickerValue = MC.util.unixtimeToTimePicker(data.expected_run_time, true);
+                self.RefreshCycleForm.find('input[name="ExpectedRunTimeStop"]').data('handler').value(expectedRunTimeStopPickerValue);
+            }
+
             // parameters [action list = 'tables']
             self.BindingSpecifyTablesDataToForm(data.SpecifyTables);
 
@@ -603,6 +609,12 @@
                 restartDelay.enable(isContinuous);
             }
 
+            var expectedRunTime = self.RefreshCycleForm.find('input[name*="ExpectedRunTimeStop"]').data('kendoTimePicker');
+            if (expectedRunTime) {
+                expectedRunTime.enable(!isContinuous);
+                expectedRunTime.value(0);
+            }
+
         };
         self.TriggerTypeChange = function (checkbox) {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
@@ -620,6 +632,7 @@
                 enabled: true,
                 triggers: [],
                 max_run_time: 0,
+                expected_run_time: 0,
                 uri: ''
             };
         };
@@ -665,6 +678,7 @@
             var actionList = self.RefreshCycleForm.find('[name="Action"]');
             var actionListParams = self.RefreshCycleForm.find('[name^=Parameters]');
             var maxRuntime = self.RefreshCycleForm.find('[name^="TimeStop"]');
+            var expectedRuntime = self.RefreshCycleForm.find('[name^="ExpectedRunTimeStop"]');
 
             actionModel.arguments.push(self.CreateArgumentModel('model', self.ModelId));
             actionModel.arguments.push(self.CreateArgumentModel('action_list', self.RefreshCycleForm.find('[name="Action"]').val()));
@@ -691,6 +705,9 @@
 
             if (maxRuntime.val() !== '')
                 taskModel.max_run_time = MC.util.timePickerToUnixTime(maxRuntime.data('kendoTimePicker').value(), true);
+
+            if (expectedRuntime.val() !== '')
+                taskModel.expected_run_time = MC.util.timePickerToUnixTime(expectedRuntime.data('kendoTimePicker').value(), true);
 
             // if edit mode
             if (!isCreateMode)

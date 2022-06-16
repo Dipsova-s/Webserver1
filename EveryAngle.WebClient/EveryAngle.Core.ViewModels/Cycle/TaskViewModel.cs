@@ -219,6 +219,9 @@ namespace EveryAngle.Core.ViewModels.Cycle
         [JsonProperty(PropertyName = "max_run_time")]
         public int? max_run_time { get; set; }
 
+        [JsonProperty(PropertyName = "expected_run_time")]
+        public int? expected_run_time { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

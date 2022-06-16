@@ -4192,6 +4192,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expected run time.
+        /// </summary>
+        public static string ExpectedRunTime {
+            get {
+                return ResourceManager.GetString("ExpectedRunTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to all.
         /// </summary>
         public static string ExportCSVEnquoteAll {
