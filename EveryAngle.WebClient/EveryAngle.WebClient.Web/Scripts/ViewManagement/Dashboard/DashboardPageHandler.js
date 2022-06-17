@@ -1616,7 +1616,7 @@ function DashboardPageHandler() {
     };
     self.MinimizeWidget = function (widgetElement, animate) {
         var maximizeWrapper = jQuery('#widgetMaximizeWrapper');
-        var containerId = '#widget' + maximizeWrapper.data('widget-id') + '-container';
+        var containerId = maximizeWrapper.data().ResultModel.ElementId + '-container';
         var widgetWrapper = jQuery(containerId);
 
         // prepare elment
@@ -1638,7 +1638,7 @@ function DashboardPageHandler() {
             self.UpdateDisplayLayout(1);
             maximizeWrapper.removeClass('busy active');
         };
-        if (animate === false)
+        if (!animate)
             setMinimize();
         else
             maximizeWrapper.animate(animateProperties, self.MaxMinWidgetSpeed, setMinimize);

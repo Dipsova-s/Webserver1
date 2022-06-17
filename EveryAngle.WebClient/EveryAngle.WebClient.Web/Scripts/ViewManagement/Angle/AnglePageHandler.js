@@ -52,9 +52,7 @@ function AnglePageHandler() {
                     systemSettingHandler.LoadSystemSettings(),
                     userModel.Load(),
                     systemInformationHandler.LoadSystemInformation(),
-                    systemCurrencyHandler.LoadCurrencies(),
-                    defaultExcelDatastoreHandler.LoadDatastoreSettings(undefined, false),
-                    excelTemplateFilesHandler.LoadFileDetails({"fileType":"ExcelTemplate"}, false)
+                    systemCurrencyHandler.LoadCurrencies()
                 );
             })
             .then(function () {
@@ -213,8 +211,6 @@ function AnglePageHandler() {
                 if (isHide(e.target, excepts))
                     jQuery('#AngleSavingWrapper .saving-options').hide();
             });
-
-            WCNotificationsFeedCreator.Create(userModel.Data().id);
         }
 
         if (typeof callback === 'function')
@@ -393,7 +389,7 @@ function AnglePageHandler() {
         };
         self.HandlerDisplay.QueryDefinitionHandler.ClickDropArea = function () {
             if (!self.HandlerDisplay.QueryDefinitionHandler.HasChanged(false, false)) {
-                self.HandlerSidePanel.OpenAngleAccordion(enumHandlers.ACCORDION.DEFINITION);            
+                self.HandlerSidePanel.OpenAngleAccordion(enumHandlers.ACCORDION.DEFINITION);
                 self.HandlerSidePanel.Open(0);
             }
         };
@@ -439,7 +435,7 @@ function AnglePageHandler() {
         self.HandlerDisplay.UpdateAngleQueryDefinition();
         self.HandlerDisplay.QueryDefinitionHandler.RefreshQuerySteps();
     };
-    self.CheckUpdatingDisplay = function (display, isSaved,isRemoveColoumn) {
+    self.CheckUpdatingDisplay = function (display, isSaved, isRemoveColoumn) {
         var displayData = jQuery.extend(self.HandlerDisplay.GetData(), ko.toJS({
             fields: display.fields,
             display_details: display.display_details,
@@ -491,8 +487,6 @@ function AnglePageHandler() {
         if (self.HandlerDisplay.Data().display_type !== enumHandlers.DISPLAYTYPE.LIST)
             self.HandlerDisplay.InitialDefaultDrilldown('.section-default-drilldown');
 
-        // Excel Template
-        self.HandlerDisplay.InitialExcelTemplate('.section-default-excel-template');
 
         // angle_default_display
         var angleDefaultDisplay = self.HandlerAngle.GetDefaultDisplay();
@@ -799,7 +793,7 @@ function AnglePageHandler() {
     };
     self.CheckDisplay = function () {
         // check if displayParameter is ['default'] then redirect to that
-        var angleData = _self.angleData !== null ? _self.angleData: self.HandlerAngle.GetData();
+        var angleData = _self.angleData !== null ? _self.angleData : self.HandlerAngle.GetData();
         var displayObject;
         var angleParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
         var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
@@ -1169,7 +1163,6 @@ function AnglePageHandler() {
                     resultModel.ApplyResult();
                 else
                     self.ApplyExecutionAngle();
-                self.HandlerAngle.InitialLabel(jQuery('.section-labels'));
             }
         }, 10);
     };
@@ -1917,6 +1910,20 @@ function AnglePageHandler() {
             additionalRequests = [clientSettingsRequest];
         }
         WC.Ajax.ExecuteBeforeExit(additionalRequests, true);
+    };
+    self.UpdateExcelTemplateInSidepanel = function () {
+        jQuery.when(
+            defaultExcelDatastoreHandler.LoadDatastoreSettings(undefined, false),
+            excelTemplateFilesHandler.LoadFileDetails({ "fileType": "ExcelTemplate" }, false)
+        ).done(function () {
+            // Excel Template
+            self.HandlerDisplay.InitialExcelTemplate('.section-default-excel-template');
+        });
+    };
+    self.UpdateSidepanelAfterLoading = function () {
+        self.UpdateExcelTemplateInSidepanel();
+        self.HandlerAngle.InitialLabel(jQuery('.section-labels'));
+        WCNotificationsFeedCreator.Create(userModel.Data().id);
     };
     /*EOF: Model Methods*/
 

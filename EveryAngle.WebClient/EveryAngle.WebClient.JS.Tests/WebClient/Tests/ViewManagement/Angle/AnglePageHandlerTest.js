@@ -210,13 +210,11 @@ describe("AnglePageHandler", function () {
             spyOn(anglepageHandler.HandlerAngle, 'InitialLabel');
             spyOn(anglepageHandler.HandlerAngle, 'InitialTag');
             spyOn(anglepageHandler.HandlerDisplay, 'InitialDefaultDrilldown');
-            spyOn(anglepageHandler.HandlerDisplay, 'InitialExcelTemplate');
             spyOn(anglepageHandler.HandlerAngle, 'GetDefaultDisplay').and.returnValues(data);
         });
         afterEach(function () {
             expect(anglepageHandler.HandlerAngle.InitialTag).toHaveBeenCalledWith(jQuery('.section-tags'));
             expect(anglepageHandler.HandlerDisplay.InitialDefaultDrilldown).toHaveBeenCalledWith('.section-default-drilldown');
-            expect(anglepageHandler.HandlerDisplay.InitialExcelTemplate).toHaveBeenCalledWith('.section-default-excel-template');
         });
         it("Should not call InitialLabel when isAngleAndDisplayWithoutResult undefined", function () {           
             anglepageHandler.UpdateSidePanelHandlers();

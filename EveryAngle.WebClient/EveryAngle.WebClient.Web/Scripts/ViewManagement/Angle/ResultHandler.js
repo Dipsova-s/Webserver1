@@ -103,11 +103,11 @@ function ResultHandler(displayHandler) {
     };
     self.PostResultDone = function (deferred, result) {
         self.DisplayHandler.AngleHandler.UpdateExecutionTimes(result);
-        self.EnsureGetResult(deferred, result);
+        self.GetResultDone(deferred, result);
     };
     self.EnsureGetResult = function (deferred, result) {
         clearTimeout(_self.fnGetResult);
-        _self.fnGetResult = setTimeout(jQuery.proxy(self.GetResult, self, result, deferred), self.IntervalTime);
+        _self.fnGetResult = setTimeout(jQuery.proxy(self.GetResult, self, result, deferred), 500);
     };
     self.GetResult = function (result, deferred) {
         GetDataFromWebService(directoryHandler.ResolveDirectoryUri(result.uri))

@@ -175,6 +175,9 @@ function ChartHandler(elementId, container) {
         container.closest('#ChartArea').busyIndicator(false);
     };
     self.GetChartDisplayAlways = function () {
+        if (!self.DashBoardMode()) {
+            anglePageHandler.UpdateSidepanelAfterLoading();
+        }
         self.HideLoadingIndicator();
         measurePerformance.SetEndTime();
         self.OnRenderEnd();

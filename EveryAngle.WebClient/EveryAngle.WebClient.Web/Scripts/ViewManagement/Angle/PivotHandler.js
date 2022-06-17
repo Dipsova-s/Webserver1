@@ -230,6 +230,9 @@ function PivotPageHandler(elementId, container) {
         }
     };
     self.GetPivotDisplayAlways = function () {
+        if (!self.DashBoardMode()) {
+            anglePageHandler.UpdateSidepanelAfterLoading();
+        }
         self.HideLoadingIndicator();
         measurePerformance.SetEndTime();
         self.OnRenderEnd();

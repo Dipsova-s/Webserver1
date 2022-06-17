@@ -145,7 +145,10 @@ function ListHandler(elementId, container) {
 
                 self.InitialContentCopy();
 
-                self.UpdateCountWhenRunning();
+                if (!self.DashBoardMode()) {
+                    anglePageHandler.UpdateSidepanelAfterLoading();
+                    self.UpdateCountWhenRunning();                    
+                }                
             });
     };
     self.CheckUpgradeDisplay = function () {

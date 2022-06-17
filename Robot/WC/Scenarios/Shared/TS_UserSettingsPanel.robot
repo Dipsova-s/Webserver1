@@ -61,8 +61,6 @@ Verify Fields Tab
     Click Checkbox Numbers Thousand separator
     Click Dropdown Currency Format
     Wait Until Page Contains    EUR (euro)
-    Wait Until Page Contains    USD (us dollar)
-    Wait Until Page Contains    GBP (pound sterling)
     Close User Setting Dropdown
 
     Click Dropdown Currency Decimals
