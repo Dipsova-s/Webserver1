@@ -72,11 +72,8 @@
                 {
                   "argument_type": "value",
                   "value": "bt00None"
-                },
-                {
-                  "argument_type": "value",
-                  "value": "bt01PlanningShortage"
                 }
+               
               ]
             },
             {

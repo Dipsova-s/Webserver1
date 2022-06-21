@@ -115,6 +115,7 @@ Open Angle From First Angle in Search Page
     Sleep    2s
     Wait Angle Page Document Loaded
     Wait Until Page Contains    ${angleName}
+    Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Until Ajax Complete
 
 Execute First Search Item In Edit Mode
