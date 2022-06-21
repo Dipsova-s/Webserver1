@@ -697,6 +697,10 @@ function AnglePageHandler() {
         return true;
     };
     self.CheckModelStatus = function () {
+        var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
+        if (displayParameter.indexOf("displays") === -1) {
+            return jQuery.when();
+        }
         return modelsHandler.LoadModelInfo(self.HandlerAngle.Data().model)
             .done(function () {
                 if (self.HandlerAngle.Online())

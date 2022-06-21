@@ -192,42 +192,19 @@ function SearchViewModel() {
             // get full angle to check is_parameterized and warning in displays
             progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingAngle, false);
 
-            var query = {};
-            query[enumHandlers.PARAMETERS.CACHING] = false;
-            GetDataFromWebService(item.uri, query)
-                .done(function (angle) {
-                    var displayObject;
-                    if (type === enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT) {
-                        displayObject = WC.Utility.GetDefaultDisplay(angle.display_definitions);
-                    }
-                    else if (displayUri) {
-                        displayObject = angle.display_definitions.findObject('uri', displayUri);
-                    }
-                    else {
-                        displayObject = angle.display_definitions.findObject('display_type', type);
-                    }
+            progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
+            if (displayUri) {
+                redirectUrl = redirectUrl.replace('display=' + type, 'display=' + displayUri);
+            }
+            else {
+                redirectUrl = redirectUrl.replace('display=' + type, 'display=' + enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT);
+            }
+            var params = {};
+            params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
+            WC.Utility.RedirectUrl(redirectUrl + "&" + jQuery.param(params));
 
-                    var angleValidation = validationHandler.GetAngleValidation(angle);
-                    var displayValidation = validationHandler.GetDisplayValidation(displayObject, angle.model);
-                    var canPostResult = angleValidation.CanPostResult && displayValidation.CanPostResult;
-                    var isParameterized = angle.is_parameterized || (displayObject || {}).is_parameterized;
-                    if (canPostResult && isParameterized) {
-                        progressbarModel.EndProgressBar();
-                        itemInfoHandler.ShowAngleExecutionParameterPopup(angle, displayObject.uri);
-                    }
-                    else {
-                        progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
-                        if (displayObject) {
-                            redirectUrl = redirectUrl.replace('display=' + type, 'display=' + displayObject.uri);
-                        }
-                        var params = {};
-                        params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
-                        WC.Utility.RedirectUrl(redirectUrl + "&" + jQuery.param(params));
-                    }
-
-                    angleInfoModel.Data(angle);
-                    angleInfoModel.Data.commit();
-                });
+            angleInfoModel.Data(item);
+            angleInfoModel.Data.commit();
         }
         else {
             progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingDashboard, false);
