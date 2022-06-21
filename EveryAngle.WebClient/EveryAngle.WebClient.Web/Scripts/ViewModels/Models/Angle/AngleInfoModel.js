@@ -453,6 +453,7 @@ function AngleInfoViewModel(model) {
         value.is_published = false;
         value.allow_followups = true;
         value.allow_more_details = true;
+        value.based_on_template = +value.uri.split('/').pop();
         jQuery.each(value.multi_lang_name, function (k, v) {
             v.text = 'Based on Template "' + v.text + '"';
         });
