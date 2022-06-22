@@ -6611,4 +6611,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="ExpectedRunTime" xml:space="preserve">
     <value>Expected run time</value>
   </data>
+  <data name="MC_IncludeIdsForExternalAvailability" xml:space="preserve">
+    <value>Include Available via Gateway settings</value>
+  </data>
 </root>
