@@ -199,7 +199,7 @@
                                    data-tooltip-position="bottom"><i class="icon icon-info"></i></a>
                             </div>
                             <div class="form-col float-right">
-                                <a onclick="userSettingsPanelHandler.Download('@Url.Content("https://www.simba.com/products/Angles/Gateway_Angles_Windows.zip")')"
+                                <a onclick="userSettingsPanelHandler.DownloadAnglesGateway()"
                                    class="btn-download"
                                    data-role="tooltip"
                                    data-tooltip-text="@Resource.Download"
@@ -225,7 +225,7 @@
                                    data-tooltip-position="bottom"><em class="icon icon-info"></em></a>
                             </div>
                             <div class="form-col float-right">
-                                <a onclick="userSettingsPanelHandler.Download('@Url.Content("~/download/gotosap")')"
+                                <a onclick="userSettingsPanelHandler.DownloadSAPLauncher('@Url.Content("~/download/gotosap")')"
                                    class="btn-download"
                                    data-role="tooltip"
                                    data-tooltip-text="@Resource.Download"

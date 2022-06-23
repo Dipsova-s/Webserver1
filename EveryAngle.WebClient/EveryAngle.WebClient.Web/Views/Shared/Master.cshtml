@@ -36,6 +36,10 @@
             dataUrl: '@Html.Raw(EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("NotificationsFeedDataUrl"))',
             viewAllUrl: '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("NotificationsFeedViewAllUrl")'
         };
+        var AnglesGatewayURL = {
+            Windows:'@System.Configuration.ConfigurationManager.AppSettings["AnglesGatewayWinDownloadLink"]',
+            Mac:'@System.Configuration.ConfigurationManager.AppSettings["AnglesGatewayMacDownloadLink"]'
+        };
 
         @{
             string webLanguage = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;

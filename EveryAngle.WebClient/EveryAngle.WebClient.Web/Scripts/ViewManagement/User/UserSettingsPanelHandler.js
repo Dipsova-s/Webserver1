@@ -1027,9 +1027,25 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
         if (!window.enableGoToSAP)
             jQuery('#GoToSapSection').remove();
     };
-    self.Download = function (url) {
+
+    self.DownloadSAPLauncher = function (url) {
         WC.Ajax.EnableBeforeExit = false;
         WC.Utility.DownloadFile(url);
+    };
+
+    self.DownloadAnglesGateway = function () {
+        WC.Ajax.EnableBeforeExit = false;
+        var downloadURL = '';
+
+        var OS = navigator.platform;
+        if (OS.indexOf('Win') !==-1 ) {
+            downloadURL = AnglesGatewayURL.Windows;
+        } 
+        if (OS.indexOf('Mac') !== -1 ) {
+            downloadURL = AnglesGatewayURL.Mac;
+        }
+
+        WC.Utility.DownloadFile(downloadURL);
     };
 
     self.CheckManagePrivateItems = function () {
