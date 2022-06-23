@@ -30,6 +30,7 @@
         if (target[0] !== document) {
             targetOffset = target.offset();
         }
+        else { targetOffset = { top: target[0].offsetTop, left: target[0].offsetLeft } }
          
         if (tooltipPosition === TOOLTIP_POSITION.BOTTOM) {
             // show at bottom
