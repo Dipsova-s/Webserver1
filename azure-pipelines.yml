@@ -1,0 +1,417 @@
+variables:
+- group: General variables
+- name:  SolutionToBuild
+  value: '**\*.sln'
+- name: ProductName
+  value: 'WebServer'
+- name: SetupStagingDirectory
+  value: '$(build.artifactstagingdirectory)\Setup'
+- name: BranchExtension
+- name: ReleaseNumber
+  ${{ if and(in(variables['Build.SourceBranch'], '/release/'), in(variables['Build.SourceBranchName'], '.')) }}:
+    value: $[variables['Build.SourceBranchName']]
+  ${{ elseif and(in(variables['Build.SourceBranch'], '/release/'), in(variables['Build.SourceBranchName'], 'sp')) }}:
+    value: $[replace(variables['Build.SourceBranchName'], 'sp', '.')]
+  ${{ elseif in(variables['Build.SourceBranch'], '/release/') }}:
+    value: $[format('{0}.0', variables['Build.SourceBranchName'])]
+  ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }}:
+    value: '22.1'
+  ${{ elseif eq(variables['Build.SourceBranchName'], '2020main') }}:
+    value: '20.7'
+  ${{ else }}:
+    value: '9999.999'
+- name: UpdateNumber
+  value: 99
+
+name: $(ReleaseNumber).$(UpdateNumber)$(Rev:.r)
+
+jobs:
+- job: Build
+  displayName: 'job: Build and publish solutions'
+  dependsOn: GetDocumentation
+  pool:
+    vmImage: 'windows-2019'
+
+  steps:
+  - checkout: self
+    submodules: true
+
+  - task: PowerShell@2
+    displayName: Get PullRequest source branch
+    inputs:
+      targetType: inline
+      script: |
+        $PRSourceBranch = $env:SYSTEM_PULLREQUEST_SOURCEBRANCH
+        $PRBranchName = ""
+
+        If($PRSourceBranch) {
+          Write-Host "SYSTEM_PULLREQUEST_SOURCEBRANCH: [$($PRSourceBranch)]"
+          $PRBranchName = $PRSourceBranch.split("/")[-1]
+        }
+
+        $BranchExtension = "$(Build.SourceBranchName)$($PRBranchName).$(Build.BuildNumber)"
+        Write-Host "BranchExtension: [$($BranchExtension)]"
+        Write-Host "##vso[task.setvariable variable=BranchExtension]$($BranchExtension)"
+
+  - task: Assembly-Info-NetFramework@3
+    displayName: 'Set Assembly Manifest Data'
+    inputs:
+      FileNames: '**\AssemblyInfo.cs'
+      Product: 'Every Angle WebServer'
+      Company: '$(Company)'
+      Copyright: '$(Copyright)'
+      FileVersionNumber: '$(Build.BuildNumber)'
+      InsertAttributes: false
+      FileEncoding: 'auto'
+      WriteBOM: false
+      LogLevel: 'verbose'
+      FailOnWarning: false
+      DisableTelemetry: false
+
+###################################
+## Download and prepare artifacts from other pipelines
+##################################
+  - task: DownloadBuildArtifacts@0
+    displayName: 'Download ApplicationPortfolio Artifacts'
+    inputs:
+      buildType: specific
+      project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
+      pipeline: 438
+      buildVersionToDownload: latestFromBranch
+      downloadType: specific
+      itemPattern: '**/Copyright.json'
+      downloadPath: '$(Build.SourcesDirectory)'
+      extractTars: false
+
+  - task: CopyFiles@2
+    displayName: 'Copy Copyright Artifacts to shared directory'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\Portfolio\'
+      Contents: Copyright.json
+      TargetFolder: '$(Build.SourcesDirectory)\EveryAngle.WebClient\EveryAngle.Shared.EmbeddedViews\Resource\Copyright\'
+      OverWrite: true
+
+  - task: DownloadBuildArtifacts@1
+    displayName: 'Download DeploymentTools Artifacts'
+    inputs:
+      buildType: specific
+      project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
+      pipeline: 9
+      buildVersionToDownload: latestFromBranch
+      branchName: 'refs/heads/master'
+      artifactName: DeploymentTools
+      downloadPath: '$(Build.SourcesDirectory)'
+
+  - task: DownloadBuildArtifacts@1
+    displayName: 'Download ModelServer Artifacts'
+    inputs:
+      buildType: specific
+      project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
+      pipeline: 474
+      buildVersionToDownload: latestFromBranch
+      branchName: 'refs/heads/master'
+      downloadType: specific
+      itemPattern: EveryAngle.GoToSAP.Launcher/EveryAngle.GoToSAP.Launcher.exe
+      downloadPath: '$(Build.SourcesDirectory)'
+
+  - task: DownloadBuildArtifacts@1
+    displayName: 'Download Content Artifacts'
+    inputs:
+      buildType: specific
+      project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
+      pipeline: 80
+      buildVersionToDownload: latestFromBranch
+      branchName: 'refs/heads/master'
+      downloadType: specific
+      itemPattern: |
+        drop/Diagrams.zip
+        drop/EveryAngle.ManagementConsole.zip
+        drop/EveryAngle.WebClient.Web.zip
+        drop/AngleWarningsList.xlsx
+      downloadPath: '$(Build.SourcesDirectory)'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Angle Warnings Input File'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\drop'
+      Contents: AngleWarningsList.xlsx
+      TargetFolder: '$(Build.SourcesDirectory)\Content'
+
+  - task: ExtractFiles@1
+    displayName: 'Extract Diagrams'
+    inputs:
+      archiveFilePatterns: drop/Diagrams.zip
+      destinationFolder: '$(Build.SourcesDirectory)\Content\Diagrams'
+
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download Pipeline Artifact: WebClient Help'
+    inputs:
+      artifactName: 'WebClient Help'
+      targetPath: '$(Build.SourcesDirectory)\EveryAngle.WebClient\EveryAngle.WebClient.Web\Data'
+
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download Pipeline Artifact: ManagementConsole Help'
+    inputs:
+      artifactName: 'ManagementConsole Help'
+      targetPath: '$(Build.SourcesDirectory)\EveryAngle.WebClient\EveryAngle.ManagementConsole\Data'
+
+  - task: SonarCloudPrepare@1
+    displayName: 'Prepare analysis on SonarCloud'
+    inputs:
+      SonarCloud: 'SonarCloud service connection'
+      organization: magnitude
+      projectKey: 'EA.$(Build.Repository.Name)'
+      projectName: 'EA.$(Build.Repository.Name)'
+      projectVersion: '$(Build.BuildNumber)'
+      extraProperties: |
+        # Additional properties that will be passed to the scanner, 
+        # Put one key=value per line, example:
+        sonar.exclusions=**/*.bin, **/obj/**, **/packages/**, **/Content/**, **/Scripts/**, **/Data/Help/**,**/EveryAngle.Shared.EmbeddedViews/Resource/**,**/EveryAngle.WebClient.Web/Views/Shared/_LoadingIcon.cshtml, **/EveryAngle.ManagementConsole/Views/Shared/_LoadingIcon.cshtml
+
+  - task: CmdLine@1
+    displayName: 'Choco install 7zip.extra'
+    inputs:
+      filename: choco
+      arguments: 'install "7zip.extra.ea" --version "1.0.1" -y -source "https://everyangle.pkgs.visualstudio.com/_packaging/Chocolatey/nuget/v2" -u "vsts" -p "$(ChocolateyPAT)"'
+
+  - task: CopyFiles@2
+    displayName: 'Copy 7Zip to Staging Directory'
+    inputs:
+      SourceFolder: 'C:\ProgramData\chocolatey\lib\7zip.extra\tools\'
+      TargetFolder: 'SetupFiles\ThirdParty\7-Zip'
+
+###################################
+## Build Solutions
+##################################
+  - task: NuGetCommand@2
+    displayName: 'NuGet restore'
+    inputs:
+      restoreSolution: '$(SolutionToBuild)'
+      vstsFeed: '516b7cc5-4206-49de-a68a-3926623a4fad'
+      includeNuGetOrg: false
+
+  - task: VSBuild@1
+    displayName: 'Build solution $(SolutionToBuild)'
+    inputs:
+      solution: '$(SolutionToBuild)'
+      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(Build.SourcesDirectory)\NET\Frontend\WebDeploy\\"'
+      platform: '$(BuildPlatform)'
+      configuration: '$(BuildConfiguration)'
+
+###################################
+## Build and publish setup 
+##################################
+  - task: CmdLine@1
+    displayName: 'Create setup'
+    inputs:
+      filename: 'ISCC.exe'
+      arguments: >-
+        "$(Build.SourcesDirectory)\SetupFiles\EA$(ProductName)Setup.iss" 
+        "/dSourceDir=$(Build.SourcesDirectory)" 
+        "/dOutputDir=$(SetupStagingDirectory)" 
+        "/dOutputFileName="EA$(ProductName)Setup.$(BranchExtension)"
+
+        
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: EA$(ProductName)Setup'
+    inputs:
+      PathtoPublish: '$(SetupStagingDirectory)'
+
+###################################
+## Bundle and Publish Robot and Rest# Tests 
+##################################
+  - task: CmdLine@1
+    displayName: 'Install chromedriver'
+    inputs:
+      filename: choco
+      arguments: 'install chromedriver.ea --version 2.46 -y -source https://everyangle.pkgs.visualstudio.com/_packaging/Chocolatey/nuget/v2 -u "vsts" -p "$(ChocolateyPAT)"'
+    continueOnError: true
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files Chromedriver'
+    inputs:
+      SourceFolder: 'C:\ProgramData\chocolatey\lib\chromedriver\tools'
+      TargetFolder: '$(build.artifactstagingdirectory)\RobotTests'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files RobotTests'
+    inputs:
+      SourceFolder: Robot
+      TargetFolder: '$(build.artifactstagingdirectory)\RobotTests'
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive RobotTests'
+    inputs:
+      rootFolderOrFile: '$(build.artifactstagingdirectory)\RobotTests'
+      includeRootFolder: false
+      archiveFile: '$(Build.sourcesdirectory)/$(Build.Repository.Name)RobotTests.$(BranchExtension).zip'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: RobotTests'
+    inputs:
+      PathtoPublish: '$(Build.sourcesdirectory)/$(Build.Repository.Name)RobotTests.$(BranchExtension).zip'
+      ArtifactName: RobotTests
+
+  - task: CopyFiles@2
+    displayName: 'Copy Smoke test to Staging Directory'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)\EveryAngle.CloudTest\EveryAngle.SmokeTest\bin\$(BuildConfiguration)'
+      TargetFolder: '$(build.artifactstagingdirectory)/SmokeTest'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Smoke test run setting to Staging Directory'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)\EveryAngle.CloudTest\EveryAngle.SmokeTest'
+      Contents: '*.runsettings'
+      TargetFolder: '$(build.artifactstagingdirectory)/SmokeTest'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: SmokeTest'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)/SmokeTest'
+      ArtifactName: SmokeTest
+
+###################################
+## Run tests and analysis
+##################################
+  - task: VSTest@2
+    displayName: 'Collect and execute all tests'
+    inputs:
+      testAssemblyVer2: |
+        **\EveryAngle.WebClient.JS.Tests\**\Tests\**\chutzpah.json
+        **\$(BuildConfiguration)\*.test*.dll
+        !**\*TestAdapter.dll
+        !**\obj\**
+        runSettingsFile: CodeCoverage.runsettings
+        pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\EveryAngle.WebClient\packages\'
+        codeCoverageEnabled: true
+        platform: '$(BuildPlatform)'
+        configuration: '$(BuildConfiguration)'
+        diagnosticsEnabled: true
+  - task: SonarCloudAnalyze@1
+    displayName: 'Run SonarCloud Code Analysis'
+  - task: SonarCloudPublish@1
+    displayName: 'Publish SonarCloud Quality Gate Result'
+
+ 
+  #TODO: TaskGroup: Create and Publish Artifact: VeracodeSrc: WebServer
+  #Task group has not been exported, task groups are not supported yet
+
+  #TODO: TaskGroup: Create and Publish Artifact: VeracodeSrc: ManagementConsole
+  #Task group has not been exported, task groups are not supported yet
+
+  #TODO: TaskGroup: Create and Publish Artifact: VeracodeSrc: OData
+  #Task group has not been exported, task groups are not supported yet
+
+###################################
+## Index and publish symbols
+##################################
+  - task: CopyFiles@2
+    displayName: 'Copy build Output to Staging Directory'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**\bin\$(BuildConfiguration)\**'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+
+  - task: PublishSymbols@2
+    displayName: Index sources and stage symbols
+    inputs:
+      SearchPattern: '**/*.pdb'
+      SymbolServerType: FileShare
+      SymbolsPath: $(Build.ArtifactStagingDirectory)\Symbols_Stage1
+      SymbolsArtifactName: Symbols_Temp
+      
+  - task: CopyFiles@2
+    displayName: Copy symbols only
+    inputs:
+      SourceFolder: $(Build.ArtifactStagingDirectory)\Symbols_Stage1
+      Contents: '**\*.pdb'
+      TargetFolder: $(Build.ArtifactStagingDirectory)\Symbols_Stage2
+      
+  - task: ArchiveFiles@2
+    displayName: Archive symbols
+    inputs:
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)\Symbols_Stage2
+      includeRootFolder: false
+      archiveFile: $(Build.ArtifactStagingDirectory)\Symbols\Symbols_$(Build.Repository.Name).$(BranchExtension).zip
+      
+  - task: DeleteFiles@1
+    displayName: Delete symbols
+    inputs:
+      SourceFolder: $(Build.ArtifactStagingDirectory)
+      Contents: |
+        Symbols_Stage1
+        Symbols_Stage2
+          
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: Symbols'
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)\Symbols
+      ArtifactName: Symbols
+
+############################################
+#### JOB: Get and Publish documentation ####
+############################################
+
+- job: GetDocumentation
+  displayName: 'job: Get and Publish documentation'
+  pool:
+    name: Default
+
+  steps:
+  - task: PowerShell@2
+    displayName: 'Unzip WebClient Help'
+    inputs:
+      filePath: '$(Build.SourcesDirectory)\BuildScripts\GetDocumentation.ps1'
+      arguments: >
+        -HelpType "WebClientOnCloud"
+        -FileOperation "Unzip"
+        -OutputFolder "$(Build.StagingDirectory)\Temp"
+        -OutputFolderPostfix "."
+        -UnzipFilter "*"
+
+  - task: CopyFiles@2
+    displayName: 'Copy WebClient Help to ..\..\Help'
+    inputs:
+      SourceFolder: '$(Build.StagingDirectory)\Temp\89567-Web_Client_Cloud-html5\out\'
+      TargetFolder: '$(Build.StagingDirectory)\WebClientHelp\Help'
+
+  - task: PowerShell@2
+    displayName: 'Unzip FieldHelp Images'
+    inputs:
+      filePath: '$(Build.SourcesDirectory)\BuildScripts\GetDocumentation.ps1'
+      arguments: >
+        -HelpType "Field"
+        -FileOperation "Unzip"
+        -OutputFolder "$(Build.StagingDirectory)\WebClientHelp\"
+        -OutputFolderPostfix ".."
+        -UnzipFilter "images/*.*"
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Pipeline Artifact: WebClient Help'
+    inputs:
+      targetPath: '$(Build.StagingDirectory)\WebClientHelp'
+      artifact: 'WebClient Help'
+
+  - task: PowerShell@2
+    displayName: 'Unzip ManagementConsole Help'
+    inputs:
+      filePath: '$(Build.SourcesDirectory)\BuildScripts\GetDocumentation.ps1'
+      arguments: >
+        -HelpType "ManagementConsoleOnCloud"
+        -FileOperation "Unzip"
+        -OutputFolder "$(Build.StagingDirectory)\Temp"
+        -OutputFolderPostfix "."
+        -UnzipFilter "*"
+
+  - task: CopyFiles@2
+    displayName: 'Copy ManagementConsole Help to ..\..\Help'
+    inputs:
+      SourceFolder: '$(Build.StagingDirectory)\Temp\89877-IT_Management_Console_Cloud-html5\out\'
+      TargetFolder: '$(Build.StagingDirectory)\ManagementConsoleHelp\Help'
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Pipeline Artifact: ManagementConsole Help'
+    inputs:
+      targetPath: '$(Build.StagingDirectory)\ManagementConsoleHelp'
+      artifact: 'ManagementConsole Help'
