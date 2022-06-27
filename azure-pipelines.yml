@@ -15,13 +15,16 @@ variables:
   ${{ elseif in(variables['Build.SourceBranch'], '/release/') }}:
     value: $[format('{0}.0', variables['Build.SourceBranchName'])]
   ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }}:
-    value: '22.1'
+    value: $[variables.MasterVersion]
   ${{ elseif eq(variables['Build.SourceBranchName'], '2020main') }}:
-    value: '20.7'
+    value: $[variables.2020MainVersion]
   ${{ else }}:
     value: '9999.999'
 - name: UpdateNumber
-  value: 99
+  ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+    value: $[variables.MasterUpdateNumber]
+  ${{ else }}:
+    value: '99'
 
 name: $(ReleaseNumber).$(UpdateNumber)$(Rev:.r)
 
