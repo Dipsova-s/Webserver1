@@ -30,8 +30,10 @@ set updateSix=yes
 set updateSixVersion="six==1.16.0"
 set updateRobot=yes
 set updateRobotVersion="robotframework==3.0.4"
+set updateSeleniumLibraryVersion="selenium==4.2.0"
 set updateSeleniumLibrary=yes
-set updateSeleniumLibraryVersion="robotframework-seleniumlibrary==4.0.0"
+set updateRobotSeleniumLibrary=yes
+set updateRobotSeleniumLibraryVersion="robotframework-seleniumlibrary==4.0.0"
 set updateSelenium2screenshots=yes
 set updateSelenium2screenshotsVersion="robotframework-selenium2screenshots==0.8.1"
 set updatePabot=yes
@@ -50,6 +52,7 @@ for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateSixVersion% set updateSix=no
 	if "%%i"==%updateRobotVersion% set updateRobot=no
 	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
+	if "%%i"==%updateRobotSeleniumLibraryVersion% set updateRobotSeleniumLibrary=no
 	if "%%i"==%updatePabotVersion% set updatePabot=no
 	if "%%i"==%updateHttpLibraryVersion% set updateHttpLibrary=no
 	if "%%i"==%updateSelenium2screenshotsVersion% set updateSelenium2screenshots=no
@@ -61,6 +64,7 @@ for /F %%i in ('pip freeze --local') do (
 if "%updateSix%"=="yes" pip install %updateSixVersion%
 if "%updateRobot%"=="yes" pip install %updateRobotVersion%
 if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
+if "%updateRobotSeleniumLibrary%"=="yes" pip install %updateRobotSeleniumLibraryVersion%
 if "%updatePabot%"=="yes" pip install %updatePabotVersion%
 if "%updateHttpLibrary%"=="yes" pip install %updateHttpLibraryVersion%
 if "%updateSelenium2screenshots%"=="yes" pip install %updateSelenium2screenshotsVersion%
