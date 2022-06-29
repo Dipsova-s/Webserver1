@@ -3,6 +3,7 @@ function ChartHandler(elementId, container) {
 
     var self = this;
     var _self = {};
+    var option;
 
     /*BOF: Model Properties*/
     self.Chart = null;
@@ -1198,7 +1199,7 @@ function ChartHandler(elementId, container) {
                 aggFieldSourceType = dataArea[0].DataType;
             }
 
-            var option = jQuery.extend(true, {
+             option = jQuery.extend(true, {
                 DataType: {
                     CategoryFieldType: categoryFieldSourceType ? self.ConvertCategoryFieldType(categoryFieldSourceType) : null,
                     GroupFieldType: groupFieldSourceType ? self.ConvertCategoryFieldType(groupFieldSourceType) : null
@@ -1640,7 +1641,7 @@ function ChartHandler(elementId, container) {
                     self.FILTERRANGE.START = start;
                     self.FILTERRANGE.CURRENT = length;
                     self.SaveChartRange();
-                    _self.UpdateChartFilter(baseChartType);
+                    self.BindingChart(self.ElementId.substr(1), option);
                 }
             }
         });
@@ -2845,11 +2846,11 @@ function ChartHandler(elementId, container) {
             fieldSettingsHandler.Handler = self;
             fieldSettingsHandler.BuildFieldsSettings();
         }
-     
+
         var fieldSetting = self.FieldSettings.GetFieldByFieldName(settings.FieldId);
         var fieldName = fieldSetting.FieldName;
         return self.GetFormattedValue(self.FieldMetadata[fieldName], value);
-        
+
     };
     self.GetGaugeLabel = function (value, settings) {
         if (self.GaugeLabels[value] && self.GaugeLabels[value].visible === false) {
@@ -4366,7 +4367,7 @@ function ChartHandler(elementId, container) {
         var dataItems = self.GetDataItemsFromView(chart);
         var axisValueSettings;
         var target = '', fieldDetails;
-        
+
         if (chartDetails.show_as_percentage)
             return;
         target = self.IsScatterOrBubbleChartType(chartDetails.chart_type) ? chart.options.yAxis : chart.options.valueAxis;
@@ -4403,25 +4404,25 @@ function ChartHandler(elementId, container) {
     };
     self.PlotReferenceLine = function (row, chartDetails, fieldDetails, target, axisValueSettings) {
         var strlength = axisValueSettings.majorUnit.toString().length;
-        var val = strlength === axisValueSettings.max.toString().length? 2.3 : 2;
+        var val = strlength === axisValueSettings.max.toString().length ? 2.3 : 2;
         var tovalue = parseInt(fieldDetails.targetlinedetails.fromvalue) - (Math.pow(10, strlength - val));
         tovalue = fieldDetails.targetlinedetails.fromvalue >= 0 ? Math.abs(tovalue) : tovalue;
-            if (chartDetails.multi_axis) {                
-                target[row].plotBands = [{
-                    from: fieldDetails.targetlinedetails.fromvalue,
-                    to: tovalue,
-                    color: fieldDetails.targetlinedetails.color,
-                    opacity: fieldDetails.targetlinedetails.opacity
-                }];
-            }
-            else {
-                target.plotBands = [{
-                    from: fieldDetails.targetlinedetails.fromvalue,
-                    to: tovalue,
-                    color: fieldDetails.targetlinedetails.color,
-                    opacity: fieldDetails.targetlinedetails.opacity
-                }];
-            }
+        if (chartDetails.multi_axis) {
+            target[row].plotBands = [{
+                from: fieldDetails.targetlinedetails.fromvalue,
+                to: tovalue,
+                color: fieldDetails.targetlinedetails.color,
+                opacity: fieldDetails.targetlinedetails.opacity
+            }];
+        }
+        else {
+            target.plotBands = [{
+                from: fieldDetails.targetlinedetails.fromvalue,
+                to: tovalue,
+                color: fieldDetails.targetlinedetails.color,
+                opacity: fieldDetails.targetlinedetails.opacity
+            }];
+        }
     };
     self.PlotReferenceBand = function (row, chartDetails, fieldDetails, target) {
         if (chartDetails.multi_axis) {
