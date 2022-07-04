@@ -18,7 +18,12 @@
 
 #ifndef OutputDir
   #define OutputDir "c:\t\innosetup"
-#endif                                              
+#endif    
+
+#ifndef OutputFileName
+  #define OutputFileName "EAWebServerSetup"
+#endif    
+
 
 #define MyAppVersion GetFileVersion(AddBackslash(SourceDir) + VersionFile)
 #define MyAppName "Every Angle Web Server"
@@ -63,7 +68,7 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DisableProgramGroupPage=yes
-OutputBaseFilename=EAWebServerSetup
+OutputBaseFilename={#OutputFileName}
 Compression=lzma
 SolidCompression=yes
 Password=
