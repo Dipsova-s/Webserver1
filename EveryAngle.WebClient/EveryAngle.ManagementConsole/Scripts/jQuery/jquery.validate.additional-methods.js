@@ -392,7 +392,7 @@ jQuery.validator.addMethod("google_analytics_id", function (value, element) {
 }, Localization.MC_Validation_GoogleAnalyticsId);
 
 jQuery.validator.addMethod("table_name", function (value, element) {
-    return this.optional(element) || /^[a-z\{][\w\{\}\:]+$/gi.test(value);
+    return this.optional(element) || /^[a-z\{][\w\{\}\:\.]+$/gi.test(value);
 }, Localization.MC_Validation_TableName);
 
 jQuery.validator.addMethod("package_name", function (value, element) {
