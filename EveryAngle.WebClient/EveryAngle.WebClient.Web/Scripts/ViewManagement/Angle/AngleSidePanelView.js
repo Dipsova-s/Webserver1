@@ -36,7 +36,7 @@
                         ' data-bind="click: ShowAggregationOptions, attr: { \'data-tooltip-text\': Captions.Title_ChartOptions }, css: { disabled: !CanChangeAggregationOptions() }"></a>',
                     '</div>',
                 '</div>',
-                '<div class="accordion-body aggregation-body"></div>',
+                '<div class="accordion-body aggregation-body" style="padding-bottom: 40px;"></div>',
             '</div>'
         ].join('');
     };
