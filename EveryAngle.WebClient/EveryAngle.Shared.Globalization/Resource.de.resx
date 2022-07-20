@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+  <xsd:schema id="root" xmlns="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element msdata:IsDataSet="true" name="root">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element minOccurs="0" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
+                <xsd:element minOccurs="0" msdata:Ordinal="2" name="comment" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute msdata:Ordinal="1" name="name" type="xsd:string" use="required"/>
+              <xsd:attribute msdata:Ordinal="3" name="type" type="xsd:string"/>
+              <xsd:attribute msdata:Ordinal="4" name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -205,7 +205,7 @@
     <value>Neuen Angle erstellen</value>
   </data>
   <data name="CreateNewAngleDescription" xml:space="preserve">
-    <value />
+    <value/>
   </data>
   <data name="CreateNewAngleFromSelectedObjects" xml:space="preserve">
     <value>Angle erstellen</value>
@@ -1540,7 +1540,7 @@
     <value>Das Display wurde dem Dashboard hinzugefügt.&lt;br/&gt;Klicken Sie &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;hier&lt;/a&gt;, um Ihr Dashboard anzuzeigen.</value>
   </data>
   <data name="Info_CannotHandleUnknownField" xml:space="preserve">
-    <value>Unbekannte Feld-Art kann nicht bearbeitet werden.&lt;br/&gt;Es wurde ein Satz erwartet, die tatsächliche Feld-Art ist jedoch {0}.&lt;br/&gt;&lt;a href="{1}" target="_blank"&gt;{2}&lt;/a&gt;</value>
+    <value>Unbekannte Feld-Art kann nicht bearbeitet werden.&lt;br /&gt;Es wurde ein Satz erwartet, die tatsächliche Feld-Art ist jedoch {0}.&lt;br /&gt;&lt;a href={1} target="_blank"&gt;{2}&lt;/a&gt;</value>
   </data>
   <data name="Info_NoFieldTypeTextInResult" xml:space="preserve">
     <value>Es gibt keine Ergebnisse für die Feld-Art \"text\".</value>
@@ -1558,7 +1558,7 @@
     <value>Das aktuelle Display wird in ein neues Display mit den angegebenen Feldern geändert. &lt;br/&gt;Möchten Sie wirklich fortfahren?</value>
   </data>
   <data name="Confirm_DeleteAngle" xml:space="preserve">
-    <value>Angle löschen:&lt;br/&gt; {0}?</value>
+    <value>Angle löschen:&lt;br /&gt; {0}?</value>
   </data>
   <data name="Confirm_DeleteDisplay" xml:space="preserve">
     <value>Display löschen: '{0}' {1} ?</value>
@@ -2954,7 +2954,7 @@
   </data>
   <data name="MC_MailSettingsHelp" xml:space="preserve">
     <value>&lt;b&gt;The following macro’s are available:&lt;/b&gt;
-                &lt;br&gt;&lt;br&gt;
+                &lt;br/&gt;&lt;br/&gt;
                 &lt;table props="allow_pagebreak"&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -2962,7 +2962,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the ID of the exported Angle.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -2970,7 +2970,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the name of the exported Angle.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -2978,7 +2978,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the normalized name of the exported Angle. When applied, all spaces and special characters used in the Angle name will be removed. A normalized name can for instance be used as file name.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -2986,7 +2986,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Condition for condition based automation task.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -2994,7 +2994,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Condition result for condition based automation task.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3002,7 +3002,7 @@
 	&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the ID of the exported Display.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3010,7 +3010,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the name of the exported Display.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3018,7 +3018,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the normalized name of the exported Display. When applied, all spaces and special characters used in the Display name will be removed. A normalized name can for instance be used as file name.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3026,7 +3026,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Language of the exported data.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3034,7 +3034,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the ID of the model the Angle is part of.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3042,7 +3042,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the timestamp of the model the exported Angle is part of. {objectcount} Inserts the number of objects the Display contains.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3050,7 +3050,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Amount of objects in the export.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3058,7 +3058,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the contents of the exported Display.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3066,7 +3066,7 @@
 		&lt;/TD&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
 			&lt;p&gt;Inserts the number of rows exported for this Angle.&lt;/p&gt;
-		&lt;/TD&gt;
+			&lt;/TD&gt;
 	&lt;/TR&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3735,23 +3735,23 @@ Are you sure you want to delete this role?</value>
     <value>Enter your comment here...</value>
   </data>
   <data name="MC_SingleObject_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select an object in the list by clicking its checkbox. &lt;br&gt;&lt;br&gt;
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select an object in the list by clicking its checkbox. &lt;br/&gt;&lt;br/&gt;
 After selecting an object, click the Continue button to start setting the suggested fields for the selected object in the next window.&lt;/p&gt;</value>
   </data>
   <data name="MC_SelectTheObjects" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_BasicList_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_ClearAll_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which the suggested fields should be cleared. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which the suggested fields should be cleared. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_AllTemplate_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all Displays and Filters in all existing Templates should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;After a selection of objects have been made, click on the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all Displays and Filters in all existing Templates should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;After a selection of objects have been made, click on the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_Template_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from all Displays and Filters in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from all Displays and Filters in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_SetAllSuggest" xml:space="preserve">
     <value>Suggest all</value>
@@ -3820,7 +3820,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Suche nach Objekt...</value>
   </data>
   <data name="AboutEveryAngle" xml:space="preserve">
-    <value>Über Magnitude Angles for SAP</value>
+    <value>Über Angles for SAP</value>
   </data>
   <data name="Helppage" xml:space="preserve">
     <value>Hilfeseite</value>
@@ -4799,20 +4799,20 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   </data>
   <data name="MC_SystemSettingsHelpActiveDirectorySizeLimit" xml:space="preserve">
     <value>The maximum number of users or user groups that are returned when querying an authentication provider. 
-&lt;br&gt;
+&lt;br/&gt;
 The number of users may be very large. Therefore, use this setting to limit the number of users requested per query to keep the load under control.
-&lt;br&gt;
+&lt;br/&gt;
 The value may not exceed 999.</value>
   </data>
   <data name="MC_SystemSettingsHelpCheckExpiredSessionsMinutes" xml:space="preserve">
     <value>The number of minutes after which the system will check if there are any inactive sessions. 
-&lt;br&gt;
-Example&lt;br&gt;
+&lt;br/&gt;
+Example&lt;br/&gt;
 If you set this setting to 2 minutes and the 'Session timeout' to 5 minutes, the system will check every 2 minutes if a session has been inactive for more than 5 minutes.</value>
   </data>
   <data name="MC_SystemSettingsHelpDefaultExportMaxPageSize" xml:space="preserve">
     <value>The maximum page size used when exporting to Excel or CSV.
-&lt;br&gt;
+&lt;br/&gt;
 The value may not exceed 999999.</value>
   </data>
   <data name="MC_SystemSettingsHelpDefaultCacheMinutes" xml:space="preserve">
@@ -4835,7 +4835,7 @@ The value may not exceed 999999.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailSmtpUseSsl" xml:space="preserve">
     <value>Check this field to enable SSL.
-&lt;br&gt;
+&lt;br/&gt;
 When selected, the Application Server will connect to the SMTP server using the SSL protocol, which means authentication is done securely based on certificates.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailUsername" xml:space="preserve">
@@ -4847,8 +4847,8 @@ When this number of instances is reached, the import of a new instance will caus
 The minimum is 1.</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxDomainElementsSearch" xml:space="preserve">
-    <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values) are retrieved when executing an Angle. 
-&lt;br&gt;
+    <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values)  are retrieved when executing an Angle. 
+&lt;br/&gt;
 Use this setting to prevent the system from overloading, as many elements can exist in a domain (field).</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxPageSize" xml:space="preserve">
@@ -4857,7 +4857,7 @@ You cannot change this setting.</value>
   </data>
   <data name="MC_SystemSettingsHelpMinlabelcategoriesPublish" xml:space="preserve">
     <value>Publishing an Angle or Dashboard is only allowed if the assigned privilege labels originate from at least this number of label categories. The minimum is 1, because the default label category Business Process is mandatory.
-&lt;br&gt;&lt;br&gt;
+&lt;br/&gt;&lt;br/&gt;
 Example: if you set the number of label categories to 2, users must assign at least 2 labels, and these labels must be in 2 different label categories.</value>
   </data>
   <data name="MC_SystemSettingsHelpModelserverCheckSeconds" xml:space="preserve">
@@ -4883,9 +4883,9 @@ Example: if you set the number of label categories to 2, users must assign at le
   </data>
   <data name="MC_WebClientSettingsHelpEnableOptimizations" xml:space="preserve">
     <value>This is a debug setting.
-&lt;br&gt;
+&lt;br/&gt;
 When selected, all javascript code is optimized and thus unreadable. 
-&lt;br&gt;
+&lt;br/&gt;
 When not selected, all javascript code is sent to the Web Client in a readable form and can be used for browser debugging.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableSsl" xml:space="preserve">
@@ -4893,11 +4893,11 @@ When not selected, all javascript code is sent to the Web Client in a readable f
   </data>
   <data name="MC_WebClientSettingsHelpGoogleAnalyticsCode" xml:space="preserve">
     <value>The ID you receive from Google Analytics, when using this service. 
-&lt;br&gt;
+&lt;br/&gt;
 Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
-    <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
+    <value>Select this field to enable the Go to SAP functionality.&lt;br/&gt;
 The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
@@ -4914,14 +4914,14 @@ The option to download the required Go to SAP launcher will then become availabl
   </data>
   <data name="MC_WebClientSettingsHelpMaxNumberOfMassChange" xml:space="preserve">
     <value>The maximum number of items that can be selected for a mass change.
-&lt;br&gt;
+&lt;br/&gt;
 The maximum number is 1800.</value>
   </data>
   <data name="MC_WebClientSettingsHelpShowAngleAndDisplayID" xml:space="preserve">
     <value>Angle, Display and Dashboard IDs are automatically generated. 
-&lt;br&gt;
+&lt;br/&gt;
 Check this field if you want to show these IDs in the General tab of the item details window and allow users to change these IDs.
-&lt;br&gt;
+&lt;br/&gt;
 Deselect this field if you do not want to show the IDs. Users will not be able to change them. This way the automatically generated IDs are always used.</value>
   </data>
   <data name="MC_WebClientSettingsHelpShowErrorSourceUri" xml:space="preserve">
@@ -5083,6 +5083,12 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
   <data name="MC_AngleWarnings_InfoTotalWarnings" xml:space="preserve">
     <value>Total number of warnings</value>
   </data>
+  <data name="MC_AngleWarnings_WarningsSolvable" xml:space="preserve">
+    <value>Warnings solvable by input file</value>
+  </data>
+  <data name="MC_AngleWarnings_WarningsSolve" xml:space="preserve">
+    <value>Solve</value>
+  </data>
   <data name="MC_AngleWarnings_InfoUniqueErrors" xml:space="preserve">
     <value>unique errors</value>
   </data>
@@ -5108,7 +5114,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Expand All</value>
   </data>
   <data name="Dashboard_WidgetNotExist" xml:space="preserve">
-    <value />
+    <value/>
   </data>
   <data name="MC_AngleWarningsConfirmHeader" xml:space="preserve">
     <value>{0}: All {1} items under {2}</value>
@@ -5136,6 +5142,9 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
   </data>
   <data name="MC_AngeWarningsNoBeExecuted" xml:space="preserve">
     <value>No action will be executed</value>
+  </data>
+  <data name="MC_AngeWarningsNoSolvableItemsFound" xml:space="preserve">
+    <value>Failure during solving. Some replacement fields or classes might not be available. Please check the general log</value>
   </data>
   <data name="MC_AngeWarningsNoItemSelect" xml:space="preserve">
     <value>Please select at least one item</value>
@@ -5208,6 +5217,15 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
   <data name="MC_Identity" xml:space="preserve">
     <value>Identity</value>
   </data>
+  <data name="MC_IdentityProviderIssuer" xml:space="preserve">
+    <value>Identity provider issuer</value>
+  </data>
+  <data name="MC_IdentityProviderSingleSignOnUrl" xml:space="preserve">
+    <value>Identity provider single sign on URL</value>
+  </data>
+  <data name="MC_IdentityProviderCertificateString" xml:space="preserve">
+    <value>Identity provider certificate string</value>
+  </data>
   <data name="MC_SyncRolesToGroups" xml:space="preserve">
     <value>Sync roles to groups</value>
   </data>
@@ -5251,7 +5269,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Hier ablegen, um Filter zum Angle zu verschieben.</value>
   </data>
   <data name="MC_ADFSRequires" xml:space="preserve">
-    <value>ADFS requires the automatic creation of users</value>
+    <value>ADFS and SAML require the automatic creation of users</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
     <value>Filter zum Angle verschieben?&lt;br/&gt; Dadurch werden alle Änderungen am Angle umgehend gespeichert.&lt;br/&gt; Möchten Sie fortfahren?</value>
@@ -5276,7 +5294,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
   </data>
   <data name="MC_SystemSettingsHelpMaxGeneralHistory" xml:space="preserve">
     <value>The maximum retention time in months for system log records, which are saved in the database. Use this setting to clean up old system logs automatically. 
-&lt;br&gt;
+&lt;br/&gt;
 The value 0 means the setting is off, so the logs will not be cleaned up. The maximum value is 120 months.</value>
   </data>
   <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
@@ -5293,7 +5311,7 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   </data>
   <data name="MC_SystemSettingsHelpIncludeSelfInExportHeaders" xml:space="preserve">
     <value>Check this field to include 'Self' in the export headers. 
-&lt;br&gt;
+&lt;br/&gt;
 This setting is valid for both Export to Excel and Export to CSV, manually from the Web Client and automatically using an Automation Task.</value>
   </data>
   <data name="AdvanceFilterUsageOperatorNotWarning" xml:space="preserve">
@@ -5570,10 +5588,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>The following ID is not allowed: {0}</value>
   </data>
   <data name="MC_SAP_Jobs_Cancel_And_Retry_Info" xml:space="preserve">
-    <value>Cancel all running SAP&lt;br&gt; jobs and initiate retry.&lt;br&gt; Retry is not possible when the&lt;br&gt; maximum number of&lt;br&gt; retries has been reached.</value>
+    <value>Cancel all running SAP&lt;br/&gt; jobs and initiate retry.&lt;br/&gt; Retry is not possible when the&lt;br/&gt; maximum number of&lt;br/&gt; retries has been reached.</value>
   </data>
   <data name="MC_SAP_Jobs_Cancel_Info" xml:space="preserve">
-    <value>Cancel all running SAP&lt;br&gt; jobs without retry. The&lt;br&gt; refresh task can still finish if&lt;br&gt; all essentially-marked&lt;br&gt; tables are successfully extracted.</value>
+    <value>Cancel all running SAP&lt;br/&gt; jobs without retry. The&lt;br/&gt; refresh task can still finish if&lt;br/&gt; all essentially-marked&lt;br/&gt; tables are successfully extracted.</value>
   </data>
   <data name="MC_License_Unlimited" xml:space="preserve">
     <value>unlimited</value>
@@ -5582,7 +5600,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>unlimited</value>
   </data>
   <data name="MC_ODataLogin" xml:space="preserve">
-    <value>Connect to OData</value>
+    <value>Connect to ODATA/ODBC/JDBC (Pull)</value>
   </data>
   <data name="WeekFormat" xml:space="preserve">
     <value>Wch {0} von {1}</value>
@@ -5615,7 +5633,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Nicht autorisiert</value>
   </data>
   <data name="Info_ReportDeleteItem" xml:space="preserve">
-    <value>Entfernen von Dashboards/Angles erfolgreich für {0} von {1}</value>
+    <value>Entfernen von Dashboard/Angles erfolgreich für {0} von {1}</value>
   </data>
   <data name="Title_ReportDeleteItem" xml:space="preserve">
     <value>Angle-Bericht entfernen</value>
@@ -5751,7 +5769,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
   </data>
   <data name="MC_SystemSettingsHelpTextMaxAuditLogHistory" xml:space="preserve">
     <value>The maximum number of months during which the history of Audit Log records is saved. Use this setting to clean up old Audit Log records.
-&lt;br&gt;
+&lt;br/&gt;
 The value 0 means the setting is off, so the Audit Log will not be cleaned up. The maximum value is 120 months.</value>
   </data>
   <data name="JSONLengthExceeded" xml:space="preserve">
@@ -5884,30 +5902,30 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>When new model available</value>
   </data>
   <data name="MC_TaskAction_DescriptionUsername" xml:space="preserve">
-    <value>The username of the Run user for the program/script.&lt;br&gt;
-This must be a valid Windows user with sufficient permissions.&lt;br&gt;
+    <value>The username of the Run user for the program/script.&lt;br/&gt;
+This must be a valid Windows user with sufficient permissions.&lt;br/&gt;
 Prefix the username with "domain\" to use a domain user.</value>
   </data>
   <data name="MC_TaskAction_DescriptionAbortWhenError" xml:space="preserve">
-    <value>When checked, the Task will fail when this action fails.&lt;br&gt;
+    <value>When checked, the Task will fail when this action fails.&lt;br/&gt;
 When unchecked, the Task will continue and complete itself when this action fails.</value>
   </data>
   <data name="MC_TaskAction_DescriptionParameters" xml:space="preserve">
-    <value>Add arguments to pass to the script.&lt;br&gt;
-The syntax depends on the type of script that is used in this action.&lt;br&gt;
+    <value>Add arguments to pass to the script.&lt;br/&gt;
+The syntax depends on the type of script that is used in this action.&lt;br/&gt;
 Use {alloutput} to pass a list of output files coming from other datastore actions in this task.</value>
   </data>
   <data name="MC_TaskAction_DescriptionPassword" xml:space="preserve">
-    <value>The password of the Run user for the program/script.&lt;br&gt;
+    <value>The password of the Run user for the program/script.&lt;br/&gt;
 For security reasons, the password must always be reentered before saving the action.</value>
   </data>
   <data name="MC_TaskAction_DescriptionScript" xml:space="preserve">
-    <value>Select the program or script file for this action.&lt;br&gt;
+    <value>Select the program or script file for this action.&lt;br/&gt;
 You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings.</value>
   </data>
   <data name="MC_TaskAction_DescriptionExcelTemplate" xml:space="preserve">
-    <value>Select which Excel template to use for this export.&lt;br&gt;
-When you select "Use default", the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+    <value>Select which Excel template to use for this export.&lt;br/&gt;
+When you select "Use default", the template that is set as the default Excel template in this Display will be used.&lt;br/&gt;
 You can also select a different Excel template from the list if you don't want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro's.</value>
   </data>
   <data name="MC_ScriptLocation" xml:space="preserve">
@@ -5915,8 +5933,8 @@ You can also select a different Excel template from the list if you don't want t
   </data>
   <data name="MC_SystemSettingsHelpScriptLocation" xml:space="preserve">
     <value>The location of the folder for program/script files for use in Automation Tasks. Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script. 
-&lt;br&gt;
-&lt;br&gt;
+&lt;br/&gt;
+&lt;br/&gt;
 Note: the specified location must be a full file path on the Application server.</value>
   </data>
   <data name="ViewDisplaysMode" xml:space="preserve">
@@ -5974,8 +5992,8 @@ Note: the specified location must be a full file path on the Application server.
     <value>If this setting is selected, a new Every Angle user account is automatically created when a user from this authentication provider logs in to Every Angle for the first time. This Every Angle user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpContainer" xml:space="preserve">
-    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br&gt;
-In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
+    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br/&gt;
+In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br/&gt;
 An Active Directory browsing tool can help you find the correct DN syntax for the container. For example, LDAP Admin is a free Windows LDAP client that lets you browse the Active Directory and copy the DN. Example DN: &lt;strong&gt;CN=External Users, DC=Contoso, DC=com&lt;/strong&gt;</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpDefaultRoles" xml:space="preserve">
@@ -5991,8 +6009,17 @@ An Active Directory browsing tool can help you find the correct DN syntax for th
     <value>Enter an ID for the authentication provider. The ID is used by the Application Server for the authentication provider.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpIdentity" xml:space="preserve">
-    <value>Enter the identity of the ADFS.&lt;br&gt;
+    <value>Enter the identity of the ADFS.&lt;br/&gt;
 The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;address of service&amp;gt;, for example: https://ea2auth.&amp;lt;client-domain name&amp;gt;.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentityProviderIssuer" xml:space="preserve">
+    <value>Enter the SAML identity provider issuer.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentityProviderSingleSignOnUrl" xml:space="preserve">
+    <value>Enter the SAML identity provider single sign on URL.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentityProviderCertificateString" xml:space="preserve">
+    <value>Enter the SAML identity provider certificate string.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpProvider" xml:space="preserve">
     <value>This setting indicates whether the authentication provider is an active provider or not.</value>
@@ -6001,12 +6028,12 @@ The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;addres
     <value>If this setting is selected, the Application Server will always check AD group membership when a user logs in. When an AD group exists as a role in Every Angle, this role will be assigned to the user during the session. Note that the group name may not contain any spaces.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpTarget" xml:space="preserve">
-    <value>Enter the target of the ADFS.&lt;br&gt;
+    <value>Enter the target of the ADFS.&lt;br/&gt;
 During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
-    <value>The type of the authentication provider.&lt;br&gt;
-Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
+    <value>The type of the authentication provider.&lt;br/&gt;
+The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML).</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
     <value>Benachrichtigungen</value>
@@ -6183,7 +6210,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Add values</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Aufgrund eines bekannten Problems funktioniert der Bildlauf möglicherweise nicht korrekt, wenn iOS 13 läuft. Bitte kontaktieren Sie den Support von Magnitude für weitere Informationen.</value>
+    <value>Aufgrund eines bekannten Problems funktioniert der Bildlauf möglicherweise nicht korrekt, wenn iOS 13 läuft. Bitte kontaktieren Sie den Support von Angles for SAP für weitere Informationen.</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
@@ -6291,10 +6318,10 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Sie haben Änderungen an einem Angle vorgenommen, der in Automation Tasks verwendet wird. Dies kann Fehler verursachen. &lt;br/&gt;&lt;br/&gt; Möchten Sie mit dem Speichern der Änderungen fortfahren?</value>
   </data>
   <data name="FirstInQueueMessage" xml:space="preserve">
-    <value>Der Server ist ausgelastet. Es muss zunächst noch {0} weiterer Angle fertiggestellt werden. &lt;br/&gt;Bitte warten Sie.</value>
+    <value>Der Server ist ausgelastet. Es muss zunächst noch {0} weiterer Angle fertiggestellt werden. &lt;br /&gt;Bitte warten Sie.</value>
   </data>
   <data name="LaterInQueueMessage" xml:space="preserve">
-    <value>Der Server ist ausgelastet. Es müssen zunächst noch {0} weitere Angles fertiggestellt werden. &lt;br/&gt;Bitte warten Sie.</value>
+    <value>Der Server ist ausgelastet. Es müssen zunächst noch {0} weitere Angles fertiggestellt werden. &lt;br /&gt;Bitte warten Sie.</value>
   </data>
   <data name="ExecutingAngleMessage" xml:space="preserve">
     <value>Berechnung des Angle-Ergebnisses</value>
@@ -6407,13 +6434,13 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Dashboards</value>
   </data>
   <data name="MC_ResultExportTypeWarning" xml:space="preserve">
-    <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
+    <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br/&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
   </data>
   <data name="MC_FallbackFieldLength" xml:space="preserve">
     <value>Fallback export field length</value>
   </data>
   <data name="MC_FallbackFieldLengthDescription" xml:space="preserve">
-    <value>Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;</value>
+    <value>Fallback field length for text fields in SQL-Server.&lt;br/&gt;&lt;br/&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
   <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
     <value>Run as user</value>
@@ -6484,33 +6511,91 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Log level (Application Server)</value>
   </data>
   <data name="MC_LogLevelDescription" xml:space="preserve">
-    <value>Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
+    <value>Log level of Application Server.&lt;br/&gt;&lt;br/&gt;&lt;table>&lt;tr>&lt;td>&lt;b&gt;INFO:&lt;/b&gt;&lt;TD&gt;&lt;td>Info messages + Warnings + Errors&lt;TD&gt;&lt;/tr>&lt;tr>&lt;td>&lt;b&gt;WARNING:&lt;/b&gt;&lt;TD&gt;&lt;td>Warnings + Errors&lt;TD&gt;&lt;/tr>&lt;tr>&lt;td>&lt;b&gt;ERROR:&lt;/b&gt;&lt;TD&gt;&lt;td>Errors&lt;TD&gt;&lt;/tr>&lt;tr>&lt;td>&lt;b&gt;DEBUG:&lt;/b&gt;&lt;TD&gt;&lt;td>Info messages + Warnings + Errors + Debug messages&lt;TD&gt;&lt;/tr>&lt;table&gt;</value>
   </data>
   <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
     <value>Bestätigung erforderlich</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Die Aktualisierung von Displays, die in (einem) Automation Task(s) verwendet werden, verändert die Aktion und kann dazu führen, dass sie fehlschlägt.</value>
+    <value>Displays zu ändern, die in Automatisierungsaufgaben verwendet werden oder extern verfügbar sind, modifiziert die Aktion und kann die Integration unterbrechen.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Zur geplanten Aufgabe wechseln</value>
   </data>
+  <data name="MC_SystemLog_STS" xml:space="preserve">
+    <value>STS</value>
+  </data>
+  <data name="MC_CopyAction" xml:space="preserve">
+    <value>Copy action to task</value>
+  </data>
+  <data name="MC_SelectTask" xml:space="preserve">
+    <value>Select task</value>
+  </data>
+  <data name="MC_DatastoreFolder" xml:space="preserve">
+    <value>Datastore folder</value>
+  </data>
+  <data name="MC_ActionSubfolder" xml:space="preserve">
+    <value>Action subfolder</value>
+  </data>
+  <data name="MC_DatastoreFolderDescription" xml:space="preserve">
+    <value>This is the path that is connected to a specific Datastores. &lt;br/&gt;
+- You can edit this path at Angle exports → Datastores.</value>
+  </data>
+  <data name="MC_ActionSubfolderDescription" xml:space="preserve">
+    <value>This is an optional subfolder to extend the Datastore path, where you want to save the output of this action. Consequently, you can use different subfolders for different actions while reusing the same datastore.</value>
+  </data>
+  <data name="MC_OutputFolderDescription" xml:space="preserve">
+    <value>This field shows a preview of the full path of the location, where the output of this action will be saved. </value>
+  </data>
+  <data name="MC_AngleWarningsForwardingRulesLastUpdated" xml:space="preserve">
+    <value>Forwarding rules last updated:</value>
+  </data>
+  <data name="MC_AngleWarningsSubHeading" xml:space="preserve">
+    <value>Select and execute filters to view Angle warnings</value>
+  </data>
+  <data name="MC_InvalidContentExcelFile" xml:space="preserve">
+    <value>This is not a valid content Excel file</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Hochladen</value>
+  </data>
+  <data name="MC_Validation_UserRolesRequired" xml:space="preserve">
+    <value>Please specify at least one role.</value>
+  </data>
   <data name="MC_DataStoreCannotBeDefault" xml:space="preserve">
     <value>This datastore cannot be set as default.</value>
   </data>
+  <data name="AvailableExternally" xml:space="preserve">
+    <value>Extern verfügbar</value>
+  </data>
+  <data name="DisplayAvailableExternally" xml:space="preserve">
+    <value>Verfügbar über Gateway</value>
+  </data>
+  <data name="AutofillId" xml:space="preserve">
+    <value>Autofill-ID</value>
+  </data>
+  <data name="ExternalIdPlaceholder" xml:space="preserve">
+    <value>Externe ID (max. 128 Zeichen)</value>
+  </data>
   <data name="Confirm_SaveAvailableExternalDisplay" xml:space="preserve">
-    <value>Changing a display that is available externally can break the integration.&lt;br&gt;Are you sure you want to continue?</value>
+    <value>Ein Display zu ändern, das extern verfügbar ist, kann die Integration unterbrechen. &lt;br/&gt;Möchten Sie wirklich fortfahren?</value>
   </data>
   <data name="SystemSettingLabelAnglesGateway" xml:space="preserve">
     <value>Angles Gateway</value>
   </data>
   <data name="SystemSettingLabelAnglesGatewayDownload" xml:space="preserve">
-    <value>Download Angles Gateway</value>
+    <value>Angles Gateway herunterladen</value>
   </data>
   <data name="SystemSettingLabelAnglesGateway_Info" xml:space="preserve">
-    <value>Download Angles Gateway</value>
+    <value>Angles Gateway herunterladen</value>
   </data>
   <data name="AngleDefinitionAreaCountingItem" xml:space="preserve">
-    <value>counting items...</value>
+    <value>Elemente zählen&#x00a0;...</value>
+  </data>
+  <data name="ExpectedRunTime" xml:space="preserve">
+    <value>Erwartete Laufzeit</value>
+  </data>
+  <data name="MC_IncludeIdsForExternalAvailability" xml:space="preserve">
+    <value>Include Available via Gateway settings</value>
   </data>
 </root>
