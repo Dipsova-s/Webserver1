@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -331,13 +331,13 @@
     <value>Etiquetas de búsqueda</value>
   </data>
   <data name="Page_Angle_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - página Angle</value>
+    <value>Angles for SAP - página Angle</value>
   </data>
   <data name="Page_Dashboard_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - página Dashboard</value>
+    <value>Angles for SAP - página Dashboard</value>
   </data>
   <data name="Page_Search_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - página Búsqueda</value>
+    <value>Angles for SAP - página Búsqueda</value>
   </data>
   <data name="Popup_Followup_Title" xml:space="preserve">
     <value>Seleccione Jump para aplicar</value>

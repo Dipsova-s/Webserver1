@@ -997,7 +997,7 @@
     <value>Dashboard name</value>
   </data>
   <data name="PopupConfirmDiscardChangeFieldSetting" xml:space="preserve">
-    <value>Changes to {0} Display have not been applied.&lt;br&gt;Save without changes?</value>
+    <value>Changes to {0} Display have not been applied.&lt;br/&gt;Save without changes?</value>
   </data>
   <data name="ErrorCommonMessage" xml:space="preserve">
     <value>An error occured while processing. Please contact the system administrator.</value>
@@ -1183,7 +1183,7 @@
     <value>Save Display</value>
   </data>
   <data name="MessageConfirmUnpublishAngle" xml:space="preserve">
-    <value>You are not the creator of this Angle. If you unpublish this Angle, you will no longer have access to it.&lt;br&gt;Are you sure you want to unpublish this Angle?</value>
+    <value>You are not the creator of this Angle. If you unpublish this Angle, you will no longer have access to it.&lt;br/&gt;Are you sure you want to unpublish this Angle?</value>
   </data>
   <data name="MessagePublishingNote" xml:space="preserve">
     <value>Note: At least one Display has to be published to perform this action.</value>
@@ -1378,7 +1378,7 @@
     <value>Search labels</value>
   </data>
   <data name="MessageConfirmUnpublishDashboard" xml:space="preserve">
-    <value>You are not the creator of this Dashboard. If you unpublish this Dashboard, you will no longer have access to it.&lt;br&gt;Are you sure you want to unpublish this Dashboard?</value>
+    <value>You are not the creator of this Dashboard. If you unpublish this Dashboard, you will no longer have access to it.&lt;br/&gt;Are you sure you want to unpublish this Dashboard?</value>
   </data>
   <data name="DonotHaveWCAndMCAuthrozation" xml:space="preserve">
     <value>You do not have permission to use the Web Client and the IT Management Console.</value>
@@ -1390,7 +1390,7 @@
     <value>Save Dashboard</value>
   </data>
   <data name="MassChangeMessageConfirmUnpublishAngle" xml:space="preserve">
-    <value>You are not the creator of this Angle. If you unpublish this Angle, you will no longer have access to it.&lt;br&gt;Are you sure you want to unpublish this Angle?</value>
+    <value>You are not the creator of this Angle. If you unpublish this Angle, you will no longer have access to it.&lt;br/&gt;Are you sure you want to unpublish this Angle?</value>
   </data>
   <data name="MessageSaveRequiredPublishDashboard" xml:space="preserve">
     <value>Please save all changes before publishing this Dashboard.</value>
@@ -1513,7 +1513,7 @@
     <value>Dashboard Display details</value>
   </data>
   <data name="Info_AddedDisplayToDashboardSuccessfull" xml:space="preserve">
-    <value>Display has been added to the Dashboard.&lt;br&gt;Click &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;here&lt;/a&gt; to view your Dashboard.</value>
+    <value>Display has been added to the Dashboard.&lt;br/&gt;Click &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;here&lt;/a&gt; to view your Dashboard.</value>
   </data>
   <data name="Info_CannotSetFavoriteToAdhocAngle" xml:space="preserve">
     <value>You cannot make an ad hoc Angle a starred Angle. You have to first save the Angle.</value>
@@ -1537,7 +1537,7 @@
     <value>The field you selected is not the correct field type. Please select a set field.</value>
   </data>
   <data name="Info_AddDisplayToDashboardSucceed" xml:space="preserve">
-    <value>Display has been added to the Dashboard.&lt;br&gt;Click &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;here&lt;/a&gt; to view your Dashboard.</value>
+    <value>Display has been added to the Dashboard.&lt;br/&gt;Click &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;here&lt;/a&gt; to view your Dashboard.</value>
   </data>
   <data name="Info_CannotHandleUnknownField" xml:space="preserve">
     <value>Cannot handle unknown field type.&lt;br /&gt;Expected a set but the actual field type is {0}.&lt;br /&gt;&lt;a href={1} target="_blank"&gt;{2}&lt;/a&gt;</value>
@@ -1555,7 +1555,7 @@
     <value>Are you sure you want to delete {0}?</value>
   </data>
   <data name="Confirm_CreateNewFollowUp" xml:space="preserve">
-    <value>The current Display will change to a new Display with suggested fields. &lt;br&gt;Are you sure you want to continue?</value>
+    <value>The current Display will change to a new Display with suggested fields. &lt;br/&gt;Are you sure you want to continue?</value>
   </data>
   <data name="Confirm_DeleteAngle" xml:space="preserve">
     <value>Delete Angle:&lt;br /&gt; {0}?</value>
@@ -1567,7 +1567,7 @@
     <value>Delete widget: {0}?</value>
   </data>
   <data name="Confirm_InvalidQueryWillBeRemoved" xml:space="preserve">
-    <value>The following Filters have no criteria or are invalid: {0}&lt;br&gt;These Filters will be removed.</value>
+    <value>The following Filters have no criteria or are invalid: {0}&lt;br/&gt;These Filters will be removed.</value>
   </data>
   <data name="Confirm_Title" xml:space="preserve">
     <value>Confirmation</value>
@@ -1579,7 +1579,7 @@
     <value>Please select at least one item</value>
   </data>
   <data name="Info_CannotPublishedDashboardBecausePrivateAngleDisplay" xml:space="preserve">
-    <value>The Dashboard cannot be published, because it contains Private Displays.&lt;br&gt;&lt;br&gt;Click OK to be redirected to the Definition tab. Then click on Go to Angle to access the Display you wish to publish.</value>
+    <value>The Dashboard cannot be published, because it contains Private Displays.&lt;br/&gt;&lt;br/&gt;Click OK to be redirected to the Definition tab. Then click on Go to Angle to access the Display you wish to publish.</value>
   </data>
   <data name="Info_CannotSetPrivateDisplayToDefaultDisplay" xml:space="preserve">
     <value>A Private Display cannot be set as Default Display</value>
@@ -1633,7 +1633,7 @@
     <value>408: Request Timeout</value>
   </data>
   <data name="Info_OperationTimeoutDescription" xml:space="preserve">
-    <value>&lt;div class=customTimeout&gt;&lt;strong&gt;The operation has timed out&lt;/strong&gt;&lt;br&gt;&lt;i&gt;{0}: {1}&lt;/i&gt;&lt;/div&gt;</value>
+    <value>&lt;div class=customTimeout&gt;&lt;strong&gt;The operation has timed out&lt;/strong&gt;&lt;br/&gt;&lt;i&gt;{0}: {1}&lt;/i&gt;&lt;/div&gt;</value>
   </data>
   <data name="Info_PleaseEnterValidFilter" xml:space="preserve">
     <value>Please enter a valid Filter</value>
@@ -2598,17 +2598,11 @@
   <data name="MC_AccessToModel" xml:space="preserve">
     <value>Access to model</value>
   </data>
-  <data name="MC_AddAttachment" xml:space="preserve">
-    <value>Add attachment</value>
-  </data>
   <data name="MC_AddMyComment" xml:space="preserve">
     <value>Add my comment</value>
   </data>
   <data name="AllUsers" xml:space="preserve">
     <value>All users</value>
-  </data>
-  <data name="MC_Attachment" xml:space="preserve">
-    <value>Attachment</value>
   </data>
   <data name="MC_AuthenticationProvider" xml:space="preserve">
     <value>Authentication provider</value>
@@ -2960,7 +2954,7 @@
   </data>
   <data name="MC_MailSettingsHelp" xml:space="preserve">
     <value>&lt;b&gt;The following macro’s are available:&lt;/b&gt;
-                &lt;br&gt;&lt;br&gt;
+                &lt;br/&gt;&lt;br/&gt;
                 &lt;table props="allow_pagebreak"&gt;
 	&lt;TR&gt;
 		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -3444,9 +3438,6 @@
   <data name="MC_Details" xml:space="preserve">
     <value>Details</value>
   </data>
-  <data name="MC_Validation_Attached_Comment" xml:space="preserve">
-    <value>Only the following extension types are allowed: .eapackage .bmp .csl .doc .docx .gif .htm .html .jpeg .jpg .pdf .png .txt .xls .xlsx .zip</value>
-  </data>
   <data name="MaxNumberToExportThePackage" xml:space="preserve">
     <value>The maximum number of selected Angles is {0}</value>
   </data>
@@ -3744,23 +3735,23 @@ Are you sure you want to delete this role?</value>
     <value>Enter your comment here...</value>
   </data>
   <data name="MC_SingleObject_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select an object in the list by clicking its checkbox. &lt;br&gt;&lt;br&gt;
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select an object in the list by clicking its checkbox. &lt;br/&gt;&lt;br/&gt;
 After selecting an object, click the Continue button to start setting the suggested fields for the selected object in the next window.&lt;/p&gt;</value>
   </data>
   <data name="MC_SelectTheObjects" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_BasicList_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_ClearAll_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which the suggested fields should be cleared. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which the suggested fields should be cleared. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_AllTemplate_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all Displays and Filters in all existing Templates should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;After a selection of objects have been made, click on the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all Displays and Filters in all existing Templates should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;After a selection of objects have been made, click on the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_Template_Instruction" xml:space="preserve">
-    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from all Displays and Filters in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
+    <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from all Displays and Filters in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
   <data name="MC_SetAllSuggest" xml:space="preserve">
     <value>Suggest all</value>
@@ -3769,10 +3760,10 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Suggest none</value>
   </data>
   <data name="InfoAllowMoreDetailsPopup" xml:space="preserve">
-    <value>Restricting users to obtain more details will have the following effect: &lt;br&gt; 
-- Users are not allowed to add or remove fields in any Display &lt;br&gt;
-- Users are not allowed to add, remove or update Filters &lt;br&gt;
-- Users are not allowed to add or remove Jumps &lt;br&gt;
+    <value>Restricting users to obtain more details will have the following effect: &lt;br/&gt; 
+- Users are not allowed to add or remove fields in any Display &lt;br/&gt;
+- Users are not allowed to add, remove or update Filters &lt;br/&gt;
+- Users are not allowed to add or remove Jumps &lt;br/&gt;
 - Users are not allowed to drill down in any Display</value>
   </data>
   <data name="Infomation_Title" xml:space="preserve">
@@ -3815,7 +3806,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Role ID</value>
   </data>
   <data name="PopupConfirmDiscardChangeFieldSettingAndContinue" xml:space="preserve">
-    <value>Changes to {0} Display have not been applied.&lt;br&gt;Discard changes and continue?</value>
+    <value>Changes to {0} Display have not been applied.&lt;br/&gt;Discard changes and continue?</value>
   </data>
   <data name="MC_CheckAction" xml:space="preserve">
     <value>Check action</value>
@@ -3914,7 +3905,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Content</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>For the latest product information,&lt;br&gt; visit us at &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; </value>
+    <value>For the latest product information,&lt;br/&gt; visit us at &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
     <value>Client:</value>
@@ -4812,20 +4803,20 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
   </data>
   <data name="MC_SystemSettingsHelpActiveDirectorySizeLimit" xml:space="preserve">
     <value>The maximum number of users or user groups that are returned when querying an authentication provider. 
-&lt;br&gt;
+&lt;br/&gt;
 The number of users may be very large. Therefore, use this setting to limit the number of users requested per query to keep the load under control.
-&lt;br&gt;
+&lt;br/&gt;
 The value may not exceed 999.</value>
   </data>
   <data name="MC_SystemSettingsHelpCheckExpiredSessionsMinutes" xml:space="preserve">
     <value>The number of minutes after which the system will check if there are any inactive sessions. 
-&lt;br&gt;
-Example&lt;br&gt;
+&lt;br/&gt;
+Example&lt;br/&gt;
 If you set this setting to 2 minutes and the 'Session timeout' to 5 minutes, the system will check every 2 minutes if a session has been inactive for more than 5 minutes.</value>
   </data>
   <data name="MC_SystemSettingsHelpDefaultExportMaxPageSize" xml:space="preserve">
     <value>The maximum page size used when exporting to Excel or CSV.
-&lt;br&gt;
+&lt;br/&gt;
 The value may not exceed 999999.</value>
   </data>
   <data name="MC_SystemSettingsHelpDefaultCacheMinutes" xml:space="preserve">
@@ -4848,7 +4839,7 @@ The value may not exceed 999999.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailSmtpUseSsl" xml:space="preserve">
     <value>Check this field to enable SSL.
-&lt;br&gt;
+&lt;br/&gt;
 When selected, the Application Server will connect to the SMTP server using the SSL protocol, which means authentication is done securely based on certificates.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailUsername" xml:space="preserve">
@@ -4861,7 +4852,7 @@ The minimum is 1.</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxDomainElementsSearch" xml:space="preserve">
     <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values)  are retrieved when executing an Angle. 
-&lt;br&gt;
+&lt;br/&gt;
 Use this setting to prevent the system from overloading, as many elements can exist in a domain (field).</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxPageSize" xml:space="preserve">
@@ -4870,7 +4861,7 @@ You cannot change this setting.</value>
   </data>
   <data name="MC_SystemSettingsHelpMinlabelcategoriesPublish" xml:space="preserve">
     <value>Publishing an Angle or Dashboard is only allowed if the assigned privilege labels originate from at least this number of label categories. The minimum is 1, because the default label category Business Process is mandatory.
-&lt;br&gt;&lt;br&gt;
+&lt;br/&gt;&lt;br/&gt;
 Example: if you set the number of label categories to 2, users must assign at least 2 labels, and these labels must be in 2 different label categories.</value>
   </data>
   <data name="MC_SystemSettingsHelpModelserverCheckSeconds" xml:space="preserve">
@@ -4896,9 +4887,9 @@ Example: if you set the number of label categories to 2, users must assign at le
   </data>
   <data name="MC_WebClientSettingsHelpEnableOptimizations" xml:space="preserve">
     <value>This is a debug setting.
-&lt;br&gt;
+&lt;br/&gt;
 When selected, all javascript code is optimized and thus unreadable. 
-&lt;br&gt;
+&lt;br/&gt;
 When not selected, all javascript code is sent to the Web Client in a readable form and can be used for browser debugging.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableSsl" xml:space="preserve">
@@ -4906,11 +4897,11 @@ When not selected, all javascript code is sent to the Web Client in a readable f
   </data>
   <data name="MC_WebClientSettingsHelpGoogleAnalyticsCode" xml:space="preserve">
     <value>The ID you receive from Google Analytics, when using this service. 
-&lt;br&gt;
+&lt;br/&gt;
 Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
-    <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
+    <value>Select this field to enable the Go to SAP functionality.&lt;br/&gt;
 The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
@@ -4927,14 +4918,14 @@ The option to download the required Go to SAP launcher will then become availabl
   </data>
   <data name="MC_WebClientSettingsHelpMaxNumberOfMassChange" xml:space="preserve">
     <value>The maximum number of items that can be selected for a mass change.
-&lt;br&gt;
+&lt;br/&gt;
 The maximum number is 1800.</value>
   </data>
   <data name="MC_WebClientSettingsHelpShowAngleAndDisplayID" xml:space="preserve">
     <value>Angle, Display and Dashboard IDs are automatically generated. 
-&lt;br&gt;
+&lt;br/&gt;
 Check this field if you want to show these IDs in the General tab of the item details window and allow users to change these IDs.
-&lt;br&gt;
+&lt;br/&gt;
 Deselect this field if you do not want to show the IDs. Users will not be able to change them. This way the automatically generated IDs are always used.</value>
   </data>
   <data name="MC_WebClientSettingsHelpShowErrorSourceUri" xml:space="preserve">
@@ -5172,7 +5163,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>ID should start with [A-Z, a-z] followed by [A-Z, a-z], [0-9] or [ _ ]</value>
   </data>
   <data name="Info_InvalidPackageVersion" xml:space="preserve">
-    <value>Please enter a valid number.&lt;br&gt;Use format N.N where N is a number.&lt;br&gt;For example 1.0</value>
+    <value>Please enter a valid number.&lt;br/&gt;Use format N.N where N is a number.&lt;br/&gt;For example 1.0</value>
   </data>
   <data name="MC_SwitchWhenPostprocessing_Description" xml:space="preserve">
     <value>When a Model Server has started and loaded the model, it will start caching and postprocessing a number of predefined fields. In a model environment with multiple Model Servers, this setting controls when the execution of queries will be switched to the Model Server with the newest data:
@@ -5198,7 +5189,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>All available languages are already active</value>
   </data>
   <data name="Info_SelectItemsContainTemplatesOrAngles" xml:space="preserve">
-    <value>Your selection contains Templates and/or Dashboards.&lt;br&gt;These cannot be executed as a Dashboard.&lt;br&gt;&lt;br&gt;Click OK to execute only the selected Angle(s) as a Dashboard.</value>
+    <value>Your selection contains Templates and/or Dashboards.&lt;br/&gt;These cannot be executed as a Dashboard.&lt;br/&gt;&lt;br/&gt;Click OK to execute only the selected Angle(s) as a Dashboard.</value>
   </data>
   <data name="Info_AdvFilterSelectFilter" xml:space="preserve">
     <value>Please select a filter from the list.</value>
@@ -5306,7 +5297,7 @@ Do you want to continue?</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxGeneralHistory" xml:space="preserve">
     <value>The maximum retention time in months for system log records, which are saved in the database. Use this setting to clean up old system logs automatically. 
-&lt;br&gt;
+&lt;br/&gt;
 The value 0 means the setting is off, so the logs will not be cleaned up. The maximum value is 120 months.</value>
   </data>
   <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
@@ -5323,7 +5314,7 @@ The value 0 means the setting is off, so the logs will not be cleaned up. The ma
   </data>
   <data name="MC_SystemSettingsHelpIncludeSelfInExportHeaders" xml:space="preserve">
     <value>Check this field to include 'Self' in the export headers. 
-&lt;br&gt;
+&lt;br/&gt;
 This setting is valid for both Export to Excel and Export to CSV, manually from the Web Client and automatically using an Automation Task.</value>
   </data>
   <data name="AdvanceFilterUsageOperatorNotWarning" xml:space="preserve">
@@ -5378,7 +5369,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Do not warn me again in this session.</value>
   </data>
   <data name="AlertWarningFieldChooserSource" xml:space="preserve">
-    <value>Selecting fields from referenced objects will in most cases cause items to be counted multiple times. This will yield incorrect results.&lt;br&gt;Please make sure you select a correct field.</value>
+    <value>Selecting fields from referenced objects will in most cases cause items to be counted multiple times. This will yield incorrect results.&lt;br/&gt;Please make sure you select a correct field.</value>
   </data>
   <data name="WarningExcelNotSupportedExportAsChart" xml:space="preserve">
     <value>Chart type is not supported for export. Only data will be exported to Excel.</value>
@@ -5435,7 +5426,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Angle/Display is used in the automation task.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Delete" xml:space="preserve">
-    <value>The current Angle/Display is used in the following automation task(s). Updating the Angle/Display will delete this action.&lt;br&gt;When there are no actions left the task will be deleted.</value>
+    <value>The current Angle/Display is used in the following automation task(s). Updating the Angle/Display will delete this action.&lt;br/&gt;When there are no actions left the task will be deleted.</value>
   </data>
   <data name="ResolveAngleDisplay_ConflictAlert_Update" xml:space="preserve">
     <value>The current Angle/Display is used in the following automation task(s). Updating the Angle/Display will modify the task action(s) and might cause it to fail.</value>
@@ -5600,10 +5591,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>The following ID is not allowed: {0}</value>
   </data>
   <data name="MC_SAP_Jobs_Cancel_And_Retry_Info" xml:space="preserve">
-    <value>Cancel all running SAP&lt;br&gt; jobs and initiate retry.&lt;br&gt; Retry is not possible when the&lt;br&gt; maximum number of&lt;br&gt; retries has been reached.</value>
+    <value>Cancel all running SAP&lt;br/&gt; jobs and initiate retry.&lt;br/&gt; Retry is not possible when the&lt;br/&gt; maximum number of&lt;br/&gt; retries has been reached.</value>
   </data>
   <data name="MC_SAP_Jobs_Cancel_Info" xml:space="preserve">
-    <value>Cancel all running SAP&lt;br&gt; jobs without retry. The&lt;br&gt; refresh task can still finish if&lt;br&gt; all essentially-marked&lt;br&gt; tables are successfully extracted.</value>
+    <value>Cancel all running SAP&lt;br/&gt; jobs without retry. The&lt;br/&gt; refresh task can still finish if&lt;br/&gt; all essentially-marked&lt;br/&gt; tables are successfully extracted.</value>
   </data>
   <data name="MC_License_Unlimited" xml:space="preserve">
     <value>unlimited</value>
@@ -5618,7 +5609,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Wk {0} of {1}</value>
   </data>
   <data name="Confirm_SaveAngleWithWarning" xml:space="preserve">
-    <value>Adding or removing a Jump can cause Angle warnings.&lt;br&gt;Do you want to continue?</value>
+    <value>Adding or removing a Jump can cause Angle warnings.&lt;br/&gt;Do you want to continue?</value>
   </data>
   <data name="MC_ImportUser_Add_Users" xml:space="preserve">
     <value>Add users</value>
@@ -5675,10 +5666,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Select field to replace</value>
   </data>
   <data name="Confirm_SaveValidatedAngle" xml:space="preserve">
-    <value>You made changes to a Validated Angle.&lt;br&gt;Are you sure you want to continue?</value>
+    <value>You made changes to a Validated Angle.&lt;br/&gt;Are you sure you want to continue?</value>
   </data>
   <data name="Confirm_SaveValidatedDashboard" xml:space="preserve">
-    <value>You made changes to a Validated Dashboard.&lt;br&gt;Are you sure you want to continue?</value>
+    <value>You made changes to a Validated Dashboard.&lt;br/&gt;Are you sure you want to continue?</value>
   </data>
   <data name="MC_NoFieldAvailable" xml:space="preserve">
     <value>No field available</value>
@@ -5781,7 +5772,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
   </data>
   <data name="MC_SystemSettingsHelpTextMaxAuditLogHistory" xml:space="preserve">
     <value>The maximum number of months during which the history of Audit Log records is saved. Use this setting to clean up old Audit Log records.
-&lt;br&gt;
+&lt;br/&gt;
 The value 0 means the setting is off, so the Audit Log will not be cleaned up. The maximum value is 120 months.</value>
   </data>
   <data name="JSONLengthExceeded" xml:space="preserve">
@@ -5914,30 +5905,30 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>When new model available</value>
   </data>
   <data name="MC_TaskAction_DescriptionUsername" xml:space="preserve">
-    <value>The username of the Run user for the program/script.&lt;br&gt;
-This must be a valid Windows user with sufficient permissions.&lt;br&gt;
+    <value>The username of the Run user for the program/script.&lt;br/&gt;
+This must be a valid Windows user with sufficient permissions.&lt;br/&gt;
 Prefix the username with "domain\" to use a domain user.</value>
   </data>
   <data name="MC_TaskAction_DescriptionAbortWhenError" xml:space="preserve">
-    <value>When checked, the Task will fail when this action fails.&lt;br&gt;
+    <value>When checked, the Task will fail when this action fails.&lt;br/&gt;
 When unchecked, the Task will continue and complete itself when this action fails.</value>
   </data>
   <data name="MC_TaskAction_DescriptionParameters" xml:space="preserve">
-    <value>Add arguments to pass to the script.&lt;br&gt;
-The syntax depends on the type of script that is used in this action.&lt;br&gt;
+    <value>Add arguments to pass to the script.&lt;br/&gt;
+The syntax depends on the type of script that is used in this action.&lt;br/&gt;
 Use {alloutput} to pass a list of output files coming from other datastore actions in this task.</value>
   </data>
   <data name="MC_TaskAction_DescriptionPassword" xml:space="preserve">
-    <value>The password of the Run user for the program/script.&lt;br&gt;
+    <value>The password of the Run user for the program/script.&lt;br/&gt;
 For security reasons, the password must always be reentered before saving the action.</value>
   </data>
   <data name="MC_TaskAction_DescriptionScript" xml:space="preserve">
-    <value>Select the program or script file for this action.&lt;br&gt;
+    <value>Select the program or script file for this action.&lt;br/&gt;
 You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings.</value>
   </data>
   <data name="MC_TaskAction_DescriptionExcelTemplate" xml:space="preserve">
-    <value>Select which Excel template to use for this export.&lt;br&gt;
-When you select "Use default", the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+    <value>Select which Excel template to use for this export.&lt;br/&gt;
+When you select "Use default", the template that is set as the default Excel template in this Display will be used.&lt;br/&gt;
 You can also select a different Excel template from the list if you don't want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro's.</value>
   </data>
   <data name="MC_ScriptLocation" xml:space="preserve">
@@ -5945,8 +5936,8 @@ You can also select a different Excel template from the list if you don't want t
   </data>
   <data name="MC_SystemSettingsHelpScriptLocation" xml:space="preserve">
     <value>The location of the folder for program/script files for use in Automation Tasks. Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script. 
-&lt;br&gt;
-&lt;br&gt;
+&lt;br/&gt;
+&lt;br/&gt;
 Note: the specified location must be a full file path on the Application server.</value>
   </data>
   <data name="ViewDisplaysMode" xml:space="preserve">
@@ -6001,11 +5992,11 @@ Note: the specified location must be a full file path on the Application server.
     <value>Modeling Workbench</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpAutoCreateUsers" xml:space="preserve">
-    <value>If this setting is selected, a new Every Angle user account is automatically created when a user from this authentication provider logs in to Every Angle for the first time. This Every Angle user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default.</value>
+    <value>If this setting is selected, a new Angles for SAP user account is automatically created when a user from this authentication provider logs in to Angles for SAP for the first time. This Angles for SAP user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpContainer" xml:space="preserve">
-    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br&gt;
-In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
+    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Angles for SAP Application Server will retrieve users from this default location.&lt;br/&gt;
+In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br/&gt;
 An Active Directory browsing tool can help you find the correct DN syntax for the container. For example, LDAP Admin is a free Windows LDAP client that lets you browse the Active Directory and copy the DN. Example DN: &lt;strong&gt;CN=External Users, DC=Contoso, DC=com&lt;/strong&gt;</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpDefaultRoles" xml:space="preserve">
@@ -6021,7 +6012,7 @@ An Active Directory browsing tool can help you find the correct DN syntax for th
     <value>Enter an ID for the authentication provider. The ID is used by the Application Server for the authentication provider.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpIdentity" xml:space="preserve">
-    <value>Enter the identity of the ADFS.&lt;br&gt;
+    <value>Enter the identity of the ADFS.&lt;br/&gt;
 The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;address of service&amp;gt;, for example: https://ea2auth.&amp;lt;client-domain name&amp;gt;.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpIdentityProviderIssuer" xml:space="preserve">
@@ -6037,14 +6028,14 @@ The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;addres
     <value>This setting indicates whether the authentication provider is an active provider or not.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpSyncRoles" xml:space="preserve">
-    <value>If this setting is selected, the Application Server will always check AD group membership when a user logs in. When an AD group exists as a role in Every Angle, this role will be assigned to the user during the session. Note that the group name may not contain any spaces.</value>
+    <value>If this setting is selected, the Application Server will always check AD group membership when a user logs in. When an AD group exists as a role in Angles for SAP, this role will be assigned to the user during the session. Note that the group name may not contain any spaces.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpTarget" xml:space="preserve">
-    <value>Enter the target of the ADFS.&lt;br&gt;
+    <value>Enter the target of the ADFS.&lt;br/&gt;
 During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
-    <value>The type of the authentication provider.&lt;br&gt;
+    <value>The type of the authentication provider.&lt;br/&gt;
 The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML).</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
@@ -6186,7 +6177,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>SAP user</value>
   </data>
   <data name="DragAndDropWidget" xml:space="preserve">
-    <value>Drag and drop&lt;br&gt;widget</value>
+    <value>Drag and drop&lt;br/&gt;widget</value>
   </data>
   <data name="Toast_ChangePassword" xml:space="preserve">
     <value>Password has been changed!</value>
@@ -6222,7 +6213,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
     <value>Add values</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
+    <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Angles for SAP Support for more information</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
@@ -6335,7 +6326,7 @@ The following types are supported: Active Directory (AD), Active Directory Feder
   </data>
   <data name="MessageSaveQuestionAngleUsedInTask" xml:space="preserve">
     <value>You made changes to an Angle that is used in Automation tasks. This might cause failures.
-&lt;br&gt;&lt;br&gt;
+&lt;br/&gt;&lt;br/&gt;
 Do you want to continue saving your changes?</value>
   </data>
   <data name="FirstInQueueMessage" xml:space="preserve">
@@ -6398,7 +6389,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>There is already a template with the same name. Do you want to replace this one?</value>
   </data>
   <data name="MC_ReplaceNotAllowedForStandardExcel" xml:space="preserve">
-    <value>Changing the Every Angle Standard template is not allowed</value>
+    <value>Changing the Angles for SAP Standard template is not allowed</value>
   </data>
   <data name="MC_ExcelFilenameCannotBeNull" xml:space="preserve">
     <value>Excel filename cannot be null.</value>
@@ -6455,13 +6446,13 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Dashboards</value>
   </data>
   <data name="MC_ResultExportTypeWarning" xml:space="preserve">
-    <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
+    <value>Changing the Export type of existing actions can cause failures and unexpected output.&lt;br/&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before.</value>
   </data>
   <data name="MC_FallbackFieldLength" xml:space="preserve">
     <value>Fallback export field length</value>
   </data>
   <data name="MC_FallbackFieldLengthDescription" xml:space="preserve">
-    <value>Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;</value>
+    <value>Fallback field length for text fields in SQL-Server.&lt;br/&gt;&lt;br/&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
   <data name="MC_TaskAction_ColumnRunAsUser" xml:space="preserve">
     <value>Run as user</value>
@@ -6479,7 +6470,7 @@ Note: Invalid Angles are not included in the package. If the results in the pack
     <value>Open sidebar</value>
   </data>
   <data name="InsertCSVModelTimestamp_info" xml:space="preserve">
-    <value>Specify in what column the model timestamp should be inserted.&lt;br&gt;
+    <value>Specify in what column the model timestamp should be inserted.&lt;br/&gt;
 Use '1' to select the first column. When no model timestamp column is required, select 'None'.</value>
   </data>
   <data name="MC_Approved" xml:space="preserve">
@@ -6533,25 +6524,16 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Log level (Application Server)</value>
   </data>
   <data name="MC_LogLevelDescription" xml:space="preserve">
-    <value>Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
+    <value>Log level of Application Server.&lt;br/&gt;&lt;br/&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
   </data>
   <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
     <value>Confirmation required</value>
   </data>
   <data name="DisplaysUsedInAutomationTextWarning" xml:space="preserve">
-    <value>Updating Displays used in Automation Task(s) will modify the action and might cause it to fail.</value>
+    <value>Changing Displays used in Automation Task(s) or available externally will modify the action and can break the integration.</value>
   </data>
   <data name="GoToScheduledTask" xml:space="preserve">
     <value>Go to scheduled task</value>
-  </data>
-  <data name="MC_DelayToTriggerTaskOnNewModel" xml:space="preserve">
-    <value>Delay to trigger tasks on new model [seconds]</value>
-  </data>
-  <data name="MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel" xml:space="preserve">
-    <value>The number of seconds delay to trigger tasks associated with new model event.</value>
-  </data>
-  <data name="SAPDownloadMaxRunTime" xml:space="preserve">
-    <value>SAP download maximum run time</value>
   </data>
   <data name="MC_SystemLog_STS" xml:space="preserve">
     <value>STS</value>
@@ -6569,11 +6551,14 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Action subfolder</value>
   </data>
   <data name="MC_DatastoreFolderDescription" xml:space="preserve">
-    <value>This is the path that is connected to a specific Datastores. &lt;br&gt;
+    <value>This is the path that is connected to a specific Datastores. &lt;br/&gt;
 - You can edit this path at Angle exports → Datastores.</value>
   </data>
   <data name="MC_ActionSubfolderDescription" xml:space="preserve">
     <value>This is an optional subfolder to extend the Datastore path, where you want to save the output of this action. Consequently, you can use different subfolders for different actions while reusing the same datastore.</value>
+  </data>
+  <data name="MC_OutputFolderDescription" xml:space="preserve">
+    <value>This field shows a preview of the full path of the location, where the output of this action will be saved. </value>
   </data>
   <data name="MC_AngleWarningsForwardingRulesLastUpdated" xml:space="preserve">
     <value>Forwarding rules last updated:</value>
@@ -6590,10 +6575,10 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_Validation_UserRolesRequired" xml:space="preserve">
     <value>Please specify at least one role.</value>
   </data>
-  <data name="MC_OutputFolderDescription" xml:space="preserve">
-    <value>This field shows a preview of the full path of the location, where the output of this action will be saved. </value>
-  </data>
   <data name="MC_DataStoreCannotBeDefault" xml:space="preserve">
     <value>This datastore cannot be set as default.</value>
+  </data>
+  <data name="MC_AddAttachment" xml:space="preserve">
+    <value>Add attachment</value>
   </data>
 </root>

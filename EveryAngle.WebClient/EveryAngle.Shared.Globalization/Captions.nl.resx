@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -331,13 +331,13 @@
     <value>Zoeklabels</value>
   </data>
   <data name="Page_Angle_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - Angle-pagina</value>
+    <value>Angles for SAP - Angle-pagina</value>
   </data>
   <data name="Page_Dashboard_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - Dashboard-pagina</value>
+    <value>Angles for SAP - Dashboard-pagina</value>
   </data>
   <data name="Page_Search_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - Zoek-pagina</value>
+    <value>Angles for SAP - Zoekpagina</value>
   </data>
   <data name="Popup_Followup_Title" xml:space="preserve">
     <value>Selecteer een Jump om toe te passen</value>

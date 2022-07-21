@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -316,7 +316,7 @@
     <value>Remarque : Pour ajouter/supprimer des étiquettes, ne sélectionner que des Angles issus de la même instance.</value>
   </data>
   <data name="MassChange_Label_NumberItems" xml:space="preserve">
-    <value>Nombre d'éléments :</value>
+    <value>Nombre d'éléments :</value>
   </data>
   <data name="MassChange_PrivilegeLabel_Tab_Title" xml:space="preserve">
     <value>Étiquettes de privilège</value>
@@ -331,13 +331,13 @@
     <value>Étiquettes de recherche</value>
   </data>
   <data name="Page_Angle_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - Page d'Angle</value>
+    <value>Angles for SAP - Page d'Angle</value>
   </data>
   <data name="Page_Dashboard_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - Page de Dashboard</value>
+    <value>Angles for SAP - Page de Dashboard</value>
   </data>
   <data name="Page_Search_Title" xml:space="preserve">
-    <value>Magnitude Angles for SAP - Page de recherche</value>
+    <value>Angles for SAP - Page de recherche</value>
   </data>
   <data name="Popup_Followup_Title" xml:space="preserve">
     <value>Sélectionnez un Jump à appliquer</value>
@@ -580,7 +580,7 @@
     <value>Trier {0} par cette ligne</value>
   </data>
   <data name="Popup_ModelParameters_Label_Model" xml:space="preserve">
-    <value>Paramètres de l'Instance :</value>
+    <value>Paramètres de l'Instance :</value>
   </data>
   <data name="AdhocEnableSummarySheet" xml:space="preserve">
     <value>Indisponible pour le Display ad hoc</value>
