@@ -7919,6 +7919,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attachment.
+        /// </summary>
+        public static string MC_Attachment {
+            get {
+                return ResourceManager.GetString("MC_Attachment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attach result.
         /// </summary>
         public static string MC_AttachResult {
@@ -9219,6 +9228,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_DelayModelserverStop_Description {
             get {
                 return ResourceManager.GetString("MC_DelayModelserverStop_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delay to trigger tasks on new model [seconds].
+        /// </summary>
+        public static string MC_DelayToTriggerTaskOnNewModel {
+            get {
+                return ResourceManager.GetString("MC_DelayToTriggerTaskOnNewModel", resourceCulture);
             }
         }
         
@@ -13223,6 +13241,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The number of seconds delay to trigger tasks associated with new model event..
+        /// </summary>
+        public static string MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel {
+            get {
+                return ResourceManager.GetString("MC_SystemSettingsHelpDelayToTriggerTaskOnNewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This password will be used when the SMTP server requires authentication..
         /// </summary>
         public static string MC_SystemSettingsHelpEmailPassword {
@@ -14317,6 +14344,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_Validation_AngleDisplay {
             get {
                 return ResourceManager.GetString("MC_Validation_AngleDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only the following extension types are allowed: .eapackage .bmp .csl .doc .docx .gif .htm .html .jpeg .jpg .pdf .png .txt .xls .xlsx .zip.
+        /// </summary>
+        public static string MC_Validation_Attached_Comment {
+            get {
+                return ResourceManager.GetString("MC_Validation_Attached_Comment", resourceCulture);
             }
         }
         
@@ -17149,6 +17185,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string RunningRealTime {
             get {
                 return ResourceManager.GetString("RunningRealTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAP download maximum run time.
+        /// </summary>
+        public static string SAPDownloadMaxRunTime {
+            get {
+                return ResourceManager.GetString("SAPDownloadMaxRunTime", resourceCulture);
             }
         }
         
