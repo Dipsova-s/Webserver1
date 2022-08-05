@@ -16,7 +16,7 @@
     handler.ForceSaveAngle = function (showPopup) {
         return jQuery.when(anglePageHandler.SaveAll(false, true)).done(showPopup);
     };
-    
+
     handler.ReloadPublishingSettingsData = function (hasData) {
         var self = this;
         self.SetAngleData(anglePageHandler.HandlerAngle.GetData());
@@ -136,7 +136,7 @@
     };
     handler.UnpublishItem = function (model, event) {
         var self = this;
-        
+
         var onFail = jQuery.proxy(self.ClosePublishSettingsPopup, self);
         var unpublishAngle = function (callback) {
             self.ShowPublishingProgressbar(event.currentTarget);
@@ -193,6 +193,7 @@
 
     handler.ReloadAngleResult = function () {
         anglePageHandler.HandlerAngle.ClearData();
+        anglePageHandler.HandlerDisplay.ClearPostResultData();
         anglePageHandler.ExecuteAngle();
     };
 

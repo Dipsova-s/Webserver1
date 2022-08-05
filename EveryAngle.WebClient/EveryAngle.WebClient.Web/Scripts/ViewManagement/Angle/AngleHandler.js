@@ -41,7 +41,7 @@ function AngleHandler(model) {
     };
     self.GetData = function () {
         var data = jQuery.extend(ko.toJS(self.Data()), self.QueryDefinitionHandler.GetQueryDefinition());
-        
+
         if (!data.display_definitions || self.IsAdhoc()) {
             data.display_definitions = jQuery.map(self.Displays, function (display) {
                 return display.GetData();
@@ -127,7 +127,7 @@ function AngleHandler(model) {
 
         // update to old model, this will be removed later
         angleInfoModel.SetAngleSatistics(null, null, data.executed, null, null);
-        angleInfoModel.Data().user_specific.times_executed = data.user_specific.times_executed;
+        angleInfoModel.Data().user_specific && (angleInfoModel.Data().user_specific.times_executed = data.user_specific.times_executed);
         angleInfoModel.Data.commit();
         angleInfoModel.TimeExcuted(data.user_specific.times_executed);
     };
@@ -440,7 +440,7 @@ function AngleHandler(model) {
         jQuery.each(self.Displays, function (_index, display) {
             if (self.CanCreateOrUpdate() && display.GetCreateOrUpdateData()) {
                 changedDisplayCount++;//Count of displays which are changed.
-                if(display.IsUsedInTask())
+                if (display.IsUsedInTask())
                     changedDisplaysUsedInTask.push({ Name: display.GetName(), Details: display.GetData() });
             }
         });

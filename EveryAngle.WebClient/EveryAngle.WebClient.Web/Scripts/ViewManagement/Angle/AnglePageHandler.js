@@ -7,6 +7,7 @@ function AnglePageHandler() {
     var self = this;
     var _self = {};
     _self.angleData = null;
+    _self.canPostResult = null;
     // extend method from AngleActionMenuHandler.js
     jQuery.extend(self, new AngleActionMenuHandler(self));
 
@@ -32,6 +33,7 @@ function AnglePageHandler() {
     self.HandlerAngleSaveAction = new AngleSaveActionHandler(self.HandlerAngle, self.HandlerState);
     self.LoadResultFieldDone = false;
     self.SaveAllCalledOnce = false;
+    self.DisplayType = null;
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
@@ -397,6 +399,7 @@ function AnglePageHandler() {
             // forced to execute a new result
             if (self.HandlerDisplay.ResultHandler.HasChanged()) {
                 self.HandlerDisplay.ClearPostResultData();
+                self.HandlerDisplay.ResultHandler.IsQueryDefinationUpdated = true;
             }
 
             // update flag
@@ -676,7 +679,7 @@ function AnglePageHandler() {
                 measurePerformance.StartTime = startTime;
                 var angleParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
                 var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
-                var query = self.CreateAngleQuery([enumHandlers.ANGLEPARAMETER.STARTTIMES]);
+                var query = self.CreateAngleQuery([enumHandlers.ANGLEPARAMETER.STARTTIMES, enumHandlers.ANGLEPARAMETER.DISPLAYTYPE, enumHandlers.ANGLEPARAMETER.CANPOSTRESULT]);
                 WC.Utility.RedirectUrlQuery(WC.Utility.GetAnglePageUri(angleParameter, displayParameter, query));
                 return false;
             }
@@ -708,6 +711,10 @@ function AnglePageHandler() {
                 else
                     self.SetModelServerUnavailable({});
             });
+    };
+    self.CheckDisplayType = function () {
+        var type = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAYTYPE);
+        if (type && enumHandlers.DISPLAYTYPE[type.toUpperCase()]) self.DisplayType = type;
     };
     self.ShowProgressbar = function () {
         var cancelFunction = progressbarModel.KeepCancelFunction ? progressbarModel.CancelFunction : function () {
@@ -835,6 +842,8 @@ function AnglePageHandler() {
             self.HandleNoneExistDisplay();
             return false;
         }
+        if (!jQuery.isEmptyObject(self.HandlerDisplay.ResultHandler.GetData()) && (!self.HandlerDisplay.GetData().uri || display.GetData().uri === self.HandlerDisplay.GetData().uri))
+            display.SetPostResultData(self.HandlerDisplay.ResultHandler.GetData());
         self.SetHandlerDisplay(display);
         displayModel.LoadSuccess(display.GetData());
         return true;
@@ -898,7 +907,7 @@ function AnglePageHandler() {
         handler.QueryDefinitionHandler.IsExecutedParameters = true;
     };
     self.CheckExecutionParameters = function () {
-        
+
         if (self.HandlerDisplay.IsAdhoc()) {
             self.MarkAsExecutedParameter(self.HandlerDisplay);
         }
@@ -976,6 +985,10 @@ function AnglePageHandler() {
         // hide no need stuff
         self.CleanElements();
 
+        self.CheckDisplayType();
+        var canPostResult = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.CANPOSTRESULT);
+        _self.canPostResult = canPostResult === "true" ? canPostResult : _self.canPostResult;
+
         if (!self.CheckEditMode()
             || !self.CheckStartTime()
             || !self.CheckModelServer())
@@ -989,7 +1002,9 @@ function AnglePageHandler() {
         self.EnableAnglePage(true);
 
         self.ShowProgressbar();
-        self.LoadAngle(angleParameter)
+        jQuery.when(
+            _self.canPostResult && self.HandlerDisplay.PostResult(),
+            self.LoadAngle(angleParameter))
             .fail(function (xhr) {
                 self.IsExecuted = true;
                 self.EnableAnglePage(false);
@@ -1426,6 +1441,7 @@ function AnglePageHandler() {
                 WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY, self.HandlerExecutionParameter.Display.uri);
             }
             else {
+                self.HandlerDisplay.ResultHandler.IsQueryDefinationUpdated = true;
                 self.ExecuteAngle();
             }
         };
@@ -1476,6 +1492,8 @@ function AnglePageHandler() {
             self.ShowExecutionParameterPopup(self.HandlerAngle.GetData(), switchDisplay.GetData(), true);
             return;
         }
+
+        _self.canPostResult = !display.IsError;
 
         // normal switch display
         self.MarkAsExecutedParameter(switchDisplay);

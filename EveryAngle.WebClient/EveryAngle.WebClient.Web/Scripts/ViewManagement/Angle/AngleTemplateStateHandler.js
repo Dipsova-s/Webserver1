@@ -7,6 +7,7 @@
             var toastmessage = self.Data.is_template() ? Localization.Toast_SetTemplateToAngle : Localization.Toast_SetAngleToTemplate;
             toast.MakeSuccessTextFormatting(angleInfoModel.Name(), toastmessage);
             anglePageHandler.HandlerAngle.ClearData();
+            anglePageHandler.HandlerDisplay.ClearPostResultData();
             anglePageHandler.ExecuteAngle();
         });
         return true;

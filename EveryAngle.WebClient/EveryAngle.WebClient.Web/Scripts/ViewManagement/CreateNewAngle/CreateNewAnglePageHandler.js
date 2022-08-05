@@ -140,7 +140,7 @@ function CreateNewAngleViewManagementModel() {
         if (jQuery('#ButtonCreateAngleFromSchemaSimple').hasClass('disabled') ||
             jQuery('#ButtonCreateAngleFromSchemaDetailed').hasClass('disabled'))
             return;
-        
+
         self.CloseCreateOption();
 
         currentSchemaMode = schemaMode;
@@ -558,6 +558,7 @@ function CreateNewAngleViewManagementModel() {
                             params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
                         }
                         params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
+                        params[enumHandlers.ANGLEPARAMETER.CANPOSTRESULT] = !(template.is_parameterized || template.has_warnings);
                         window.location = WC.Utility.GetAnglePageUri(template.uri, defaultdisplay.uri, params);
                     }
                 }
@@ -945,6 +946,7 @@ function CreateNewAngleViewManagementModel() {
                         // prepare query string to angle page
                         var params = {};
                         params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
+                        params[enumHandlers.ANGLEPARAMETER.CANPOSTRESULT] = !(angle.is_parameterized || angle.has_warnings);
                         if (angle.is_template) {
                             params[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
                             params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;

@@ -15,6 +15,9 @@ describe("AngleStateHandler", function () {
             HandlerAngle: {
                 ClearData: $.noop,
                 ConfirmValidationSaveUsedInTask: $.noop
+            },
+            HandlerDisplay: {
+                ClearPostResultData: $.noop
             }
         });
     });
@@ -56,6 +59,7 @@ describe("AngleStateHandler", function () {
             spyOn(angleStateHandler, 'CloseValidatePopup');
             spyOn(anglePageHandler.HandlerAngle, 'ClearData');
             spyOn(anglePageHandler, 'ExecuteAngle');
+            spyOn(anglePageHandler.HandlerDisplay, 'ClearPostResultData');
 
             // act
             angleStateHandler.CallbackValidateItem();
@@ -67,6 +71,7 @@ describe("AngleStateHandler", function () {
             expect(angleStateHandler.CloseValidatePopup).toHaveBeenCalled();
             expect(anglePageHandler.HandlerAngle.ClearData).toHaveBeenCalled();
             expect(anglePageHandler.ExecuteAngle).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerDisplay.ClearPostResultData).toHaveBeenCalled();
         });
     });
 

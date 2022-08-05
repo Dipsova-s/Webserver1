@@ -21,6 +21,7 @@
             self.HideValidatingProgressbar();
             self.CloseValidatePopup();
             anglePageHandler.HandlerAngle.ClearData();
+            anglePageHandler.HandlerDisplay.ClearPostResultData();
             anglePageHandler.ExecuteAngle();
         });
     };

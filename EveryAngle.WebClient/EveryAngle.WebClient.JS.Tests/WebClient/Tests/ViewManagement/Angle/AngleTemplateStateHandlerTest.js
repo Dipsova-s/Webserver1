@@ -14,6 +14,9 @@ describe("AngleTemplateStateHandler", function () {
             ExecuteAngle: $.noop,
             HandlerAngle: {
                 ClearData: $.noop
+            },
+            HandlerDisplay: {
+                ClearPostResultData: $.noop
             }
         });
     });
@@ -39,6 +42,7 @@ describe("AngleTemplateStateHandler", function () {
                 });
                 spyOn(anglePageHandler.HandlerAngle, 'ClearData');
                 spyOn(anglePageHandler, 'ExecuteAngle');
+                spyOn(anglePageHandler.HandlerDisplay, 'ClearPostResultData');
 
                 // act
                 var result = angleStateHandler.SetTemplateStatus(test.istemplate);
@@ -47,6 +51,7 @@ describe("AngleTemplateStateHandler", function () {
                 expect(angleStateHandler.UpdateState).toHaveBeenCalled();
                 expect(anglePageHandler.HandlerAngle.ClearData).toHaveBeenCalled();
                 expect(anglePageHandler.ExecuteAngle).toHaveBeenCalled();
+                expect(anglePageHandler.HandlerDisplay.ClearPostResultData).toHaveBeenCalled();
                 expect(result).toEqual(true);
             });
         });

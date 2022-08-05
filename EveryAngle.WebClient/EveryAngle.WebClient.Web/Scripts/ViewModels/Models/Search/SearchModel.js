@@ -193,14 +193,19 @@ function SearchViewModel() {
             progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingAngle, false);
 
             progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
-            if (displayUri) {
-                redirectUrl = redirectUrl.replace('display=' + type, 'display=' + displayUri);
+            var displayObject = {};
+            if (type === enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT) {
+                displayObject = WC.Utility.GetDefaultDisplay(item.displays, true);
             }
-            else {
-                redirectUrl = redirectUrl.replace('display=' + type, 'display=' + enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT);
+            else if (displayUri) {
+                displayObject = item.displays.findObject('uri', displayUri)
             }
+            !jQuery.isEmptyObject(displayObject) && (redirectUrl = redirectUrl.replace('display=' + type, 'display=' + displayObject.uri));
+
             var params = {};
             params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
+            displayObject.display_type && (params[enumHandlers.ANGLEPARAMETER.DISPLAYTYPE] = displayObject.display_type);
+            params[enumHandlers.ANGLEPARAMETER.CANPOSTRESULT] = !(displayObject.is_parameterized || item.has_warnings);
             WC.Utility.RedirectUrl(redirectUrl + "&" + jQuery.param(params));
 
             angleInfoModel.Data(item);

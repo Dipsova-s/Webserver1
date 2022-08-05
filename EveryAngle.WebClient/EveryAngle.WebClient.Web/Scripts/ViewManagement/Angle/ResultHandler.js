@@ -19,6 +19,7 @@ function ResultHandler(displayHandler) {
     self.DisplayHandler = displayHandler;
     self.IntervalTime = window.intervalTime;
     self.CustomError = false;
+    self.IsQueryDefinationUpdated = false;
     self.SetData = function (data) {
         self.ClearData();
         jQuery.extend(self.Data, ko.toJS(data));
@@ -78,6 +79,26 @@ function ResultHandler(displayHandler) {
         }
         return resultQueryDefinition;
     };
+    self.CreatePostDataWithoutAngleDetails = function (angleUri, displayUri) {
+        var resultQueryDefinition = {
+            query_definition: []
+        };
+        resultQueryDefinition.query_definition.push({
+            base_angle: angleUri,
+            queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_ANGLE
+        });
+        resultQueryDefinition.query_definition.push({
+            base_display: displayUri,
+            queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY
+        });
+        return resultQueryDefinition;
+    };
+    self.IsValidAngleAndDisplayUrl = function (angleUri, displayUri) {
+        if (angleUri.indexOf('angles') === -1 || displayUri.indexOf('displays') === -1) return false;
+        var angleId = angleUri.split('/').pop();
+        var displayId = displayUri.split('/').pop();
+        return !isNaN(angleId) && !isNaN(displayId);
+    };
     self.PostResult = function (uri, data) {
         var deferred = jQuery.Deferred();
         clearTimeout(_self.fnGetResult);
@@ -94,8 +115,19 @@ function ResultHandler(displayHandler) {
     };
     self.PostNewResult = function () {
         var uri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.RESULTS) + '?redirect=no';
-        var data = self.CreatePostData();
-        return self.PostResult(uri, data);
+
+        var angleUri = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE);
+        var displayUri = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
+        var data = null;
+        if (self.IsValidAngleAndDisplayUrl(angleUri, displayUri) && !self.IsQueryDefinationUpdated) {
+            data = self.CreatePostDataWithoutAngleDetails(angleUri, displayUri);
+        }
+        else if (self.DisplayHandler.GetData().uri) {
+            data = self.CreatePostData();
+            self.IsQueryDefinationUpdated = false;
+        }
+
+        return data ? self.PostResult(uri, data) : jQuery.when(null);
     };
     self.PostExecutionSteps = function (data) {
         var uri = self.Data.execute_steps + '?redirect=no';
@@ -130,8 +162,9 @@ function ResultHandler(displayHandler) {
         data.object_count = WC.Utility.ToNumber(data.object_count);
         data.progress = Math.max(0, Math.min(WC.Utility.ToNumber(data.progress), 0.99));
         deferred.notify(data);
-        var isListAndnotQueryable = self.DisplayHandler.Data().display_type === enumHandlers.DISPLAYTYPE.LIST && !data.queryable;
-        var isnotListAndnotFinished = self.DisplayHandler.Data().display_type !== enumHandlers.DISPLAYTYPE.LIST && data.status !== enumHandlers.POSTRESULTSTATUS.FINISHED.Value;
+        var type = self.DisplayHandler.Data().display_type ? self.DisplayHandler.Data().display_type : anglePageHandler.DisplayType ? anglePageHandler.DisplayType : "";
+        var isListAndnotQueryable = type === enumHandlers.DISPLAYTYPE.LIST && !data.queryable;
+        var isnotListAndnotFinished = type !== enumHandlers.DISPLAYTYPE.LIST && data.status !== enumHandlers.POSTRESULTSTATUS.FINISHED.Value;
 
         // When Queryable is true showing data for list not for chart and pivot
         if (isListAndnotQueryable || isnotListAndnotFinished) {

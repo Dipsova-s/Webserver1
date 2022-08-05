@@ -166,7 +166,7 @@ function EnumHandlers() {
         SECOND_FORMAT: 'second',
         SEPARATOR: 'separator',
         //Please use the one below from the TIME INPUT
-        DELEMITER:'timedelimiter'
+        DELEMITER: 'timedelimiter'
     };
 
     self.TIME_DEFUALT_TEMPLATE = {
@@ -202,7 +202,7 @@ function EnumHandlers() {
         FORMAT_DATE: 'format_date',
         FORMAT_PERIOD: 'format_period',
         FORMAT_TIME: 'format_time',
-        HIDE_OTHER_USERS_PRIVATE_DISPLAY:'hide_other_users_private_display'
+        HIDE_OTHER_USERS_PRIVATE_DISPLAY: 'hide_other_users_private_display'
     };
 
     // query steps type
@@ -468,7 +468,9 @@ function EnumHandlers() {
         STARTTIMES: 'starttimes',
         EDITID: 'editid',
         TARGET: 'target',
-        ADHOCFILTERS: 'adhocfilters'
+        ADHOCFILTERS: 'adhocfilters',
+        DISPLAYTYPE: 'displaytype',
+        CANPOSTRESULT: 'canpostresult'
     };
 
     self.ANGLETARGET = {
@@ -479,8 +481,8 @@ function EnumHandlers() {
 
     self.HELPTEXTPARAMETER = {
         MODELNAME: 'modelName',
-        IMAGENAME:'imageName',
-        MODELCONTENTIMAGE:'ModelContentImage'
+        IMAGENAME: 'imageName',
+        MODELCONTENTIMAGE: 'ModelContentImage'
     }
 
     // action dropdown on search page

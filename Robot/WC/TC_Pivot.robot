@@ -7,7 +7,7 @@ Force Tags          acc_wc
 *** Test Cases ***
 Verify Pivot Settings Result
     [Documentation]  This test case is to verify the applied settings result in pivot display
-    [Tags]  acc_wc_aci TC_C231391
+    [Tags]  acc_wc_aci  TC_C231391
     Pivot Settings Subtotal / Percentages Column / Alias Name / Field Icons / Collapse
     [Teardown]    Go to Search Page
 
