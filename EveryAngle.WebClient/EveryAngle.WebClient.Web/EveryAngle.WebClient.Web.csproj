@@ -86,37 +86,34 @@
       <HintPath>..\packages\DevExpress.Web.21.2.7\lib\net462\DevExpress.Web.v21.2.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.AppServerAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.1\lib\net462\EveryAngle.CSM.AppServerAPI.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.4\lib\net48\EveryAngle.CSM.AppServerAPI.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.CSM.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.1\lib\net462\EveryAngle.CSM.Client.dll</HintPath>
+    <Reference Include="EveryAngle.CSM.Client, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.4\lib\net48\EveryAngle.CSM.Client.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.Client.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.1\lib\net462\EveryAngle.CSM.Client.Interfaces.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.4\lib\net48\EveryAngle.CSM.Client.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.CSM.Reg, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.1\lib\net462\EveryAngle.CSM.Reg.exe</HintPath>
+    <Reference Include="EveryAngle.CSM.Shared, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.CSM.Shared.4.0.4\lib\net48\EveryAngle.CSM.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.CSM.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Shared.4.0.1\lib\net462\EveryAngle.CSM.Shared.dll</HintPath>
+    <Reference Include="EveryAngle.Logging, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Logging.4.0.1\lib\net48\EveryAngle.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Logging, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Logging.4.0.0\lib\net462\EveryAngle.Logging.dll</HintPath>
+    <Reference Include="EveryAngle.Security, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Security.4.0.1\lib\net48\EveryAngle.Security.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Security, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Security.4.0.0\lib\net462\EveryAngle.Security.dll</HintPath>
+    <Reference Include="EveryAngle.Shared.Formatter, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Formatter.4.0.1\lib\net48\EveryAngle.Shared.Formatter.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Shared.Formatter, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Formatter.4.0.0\lib\net462\EveryAngle.Shared.Formatter.dll</HintPath>
+    <Reference Include="EveryAngle.Shared.Pivot, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Pivot.4.0.2\lib\net48\EveryAngle.Shared.Pivot.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Shared.Pivot, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Pivot.4.0.1\lib\net462\EveryAngle.Shared.Pivot.dll</HintPath>
+    <Reference Include="EveryAngle.Threading, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Threading.4.0.1\lib\net48\EveryAngle.Threading.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Threading, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Threading.4.0.0\lib\net462\EveryAngle.Threading.dll</HintPath>
-    </Reference>
-    <Reference Include="EveryAngle.Utilities, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Utilities.4.0.0\lib\net462\EveryAngle.Utilities.dll</HintPath>
+    <Reference Include="EveryAngle.Utilities, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Utilities.4.0.2\lib\net48\EveryAngle.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.3.3.11, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.1.3.3\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
