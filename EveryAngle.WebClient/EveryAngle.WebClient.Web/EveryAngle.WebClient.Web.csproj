@@ -86,13 +86,16 @@
       <HintPath>..\packages\DevExpress.Web.21.2.7\lib\net462\DevExpress.Web.v21.2.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.AppServerAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.4\lib\net48\EveryAngle.CSM.AppServerAPI.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.5\lib\net48\EveryAngle.CSM.AppServerAPI.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.CSM.Client, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.4\lib\net48\EveryAngle.CSM.Client.dll</HintPath>
+    <Reference Include="EveryAngle.CSM.Client, Version=4.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.5\lib\net48\EveryAngle.CSM.Client.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.Client.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.4\lib\net48\EveryAngle.CSM.Client.Interfaces.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.5\lib\net48\EveryAngle.CSM.Client.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.CSM.Reg, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.CSM.Client.4.0.5\lib\net48\EveryAngle.CSM.Reg.exe</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.Shared, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.CSM.Shared.4.0.4\lib\net48\EveryAngle.CSM.Shared.dll</HintPath>
