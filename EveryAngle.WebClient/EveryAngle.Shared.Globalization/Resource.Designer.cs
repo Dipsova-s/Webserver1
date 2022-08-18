@@ -79,7 +79,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For the latest product information,&lt;br&gt; visit us at &lt;a href=&quot;http://www.magnitude.com&quot; target=&quot;_blank&quot;&gt;www.magnitude.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; .
+        ///   Looks up a localized string similar to For the latest product information,&lt;br/&gt; visit us at &lt;a href=&quot;http://www.magnitude.com&quot; target=&quot;_blank&quot;&gt;www.magnitude.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; .
         /// </summary>
         public static string AboutEveryAngleDetails {
             get {
@@ -862,7 +862,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecting fields from referenced objects will in most cases cause items to be counted multiple times. This will yield incorrect results.&lt;br&gt;Please make sure you select a correct field..
+        ///   Looks up a localized string similar to Selecting fields from referenced objects will in most cases cause items to be counted multiple times. This will yield incorrect results.&lt;br/&gt;Please make sure you select a correct field..
         /// </summary>
         public static string AlertWarningFieldChooserSource {
             get {
@@ -2374,7 +2374,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current Display will change to a new Display with suggested fields. &lt;br&gt;Are you sure you want to continue?.
+        ///   Looks up a localized string similar to The current Display will change to a new Display with suggested fields. &lt;br/&gt;Are you sure you want to continue?.
         /// </summary>
         public static string Confirm_CreateNewFollowUp {
             get {
@@ -2419,7 +2419,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following Filters have no criteria or are invalid: {0}&lt;br&gt;These Filters will be removed..
+        ///   Looks up a localized string similar to The following Filters have no criteria or are invalid: {0}&lt;br/&gt;These Filters will be removed..
         /// </summary>
         public static string Confirm_InvalidQueryWillBeRemoved {
             get {
@@ -2428,7 +2428,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adding or removing a Jump can cause Angle warnings.&lt;br&gt;Do you want to continue?.
+        ///   Looks up a localized string similar to Adding or removing a Jump can cause Angle warnings.&lt;br/&gt;Do you want to continue?.
         /// </summary>
         public static string Confirm_SaveAngleWithWarning {
             get {
@@ -2437,7 +2437,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changing a display that is available externally can break the integration.&lt;br&gt;Are you sure you want to continue?.
+        ///   Looks up a localized string similar to Changing a display that is available externally can break the integration.&lt;br/&gt;Are you sure you want to continue?.
         /// </summary>
         public static string Confirm_SaveAvailableExternalDisplay {
             get {
@@ -2446,7 +2446,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You made changes to a Validated Angle.&lt;br&gt;Are you sure you want to continue?.
+        ///   Looks up a localized string similar to You made changes to a Validated Angle.&lt;br/&gt;Are you sure you want to continue?.
         /// </summary>
         public static string Confirm_SaveValidatedAngle {
             get {
@@ -2455,7 +2455,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You made changes to a Validated Dashboard.&lt;br&gt;Are you sure you want to continue?.
+        ///   Looks up a localized string similar to You made changes to a Validated Dashboard.&lt;br/&gt;Are you sure you want to continue?.
         /// </summary>
         public static string Confirm_SaveValidatedDashboard {
             get {
@@ -3589,7 +3589,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drag and drop&lt;br&gt;widget.
+        ///   Looks up a localized string similar to Drag and drop&lt;br/&gt;widget.
         /// </summary>
         public static string DragAndDropWidget {
             get {
@@ -5083,7 +5083,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display has been added to the Dashboard.&lt;br&gt;Click &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; onclick=&quot;popup.CloseAll();&quot;&gt;here&lt;/a&gt; to view your Dashboard..
+        ///   Looks up a localized string similar to Display has been added to the Dashboard.&lt;br/&gt;Click &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; onclick=&quot;popup.CloseAll();&quot;&gt;here&lt;/a&gt; to view your Dashboard..
         /// </summary>
         public static string Info_AddDisplayToDashboardSucceed {
             get {
@@ -5092,7 +5092,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display has been added to the Dashboard.&lt;br&gt;Click &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; onclick=&quot;popup.CloseAll();&quot;&gt;here&lt;/a&gt; to view your Dashboard..
+        ///   Looks up a localized string similar to Display has been added to the Dashboard.&lt;br/&gt;Click &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; onclick=&quot;popup.CloseAll();&quot;&gt;here&lt;/a&gt; to view your Dashboard..
         /// </summary>
         public static string Info_AddedDisplayToDashboardSuccessfull {
             get {
@@ -5146,7 +5146,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Dashboard cannot be published, because it contains Private Displays.&lt;br&gt;&lt;br&gt;Click OK to be redirected to the Definition tab. Then click on Go to Angle to access the Display you wish to publish..
+        ///   Looks up a localized string similar to The Dashboard cannot be published, because it contains Private Displays.&lt;br/&gt;&lt;br/&gt;Click OK to be redirected to the Definition tab. Then click on Go to Angle to access the Display you wish to publish..
         /// </summary>
         public static string Info_CannotPublishedDashboardBecausePrivateAngleDisplay {
             get {
@@ -5328,7 +5328,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a valid number.&lt;br&gt;Use format N.N where N is a number.&lt;br&gt;For example 1.0.
+        ///   Looks up a localized string similar to Please enter a valid number.&lt;br/&gt;Use format N.N where N is a number.&lt;br/&gt;For example 1.0.
         /// </summary>
         public static string Info_InvalidPackageVersion {
             get {
@@ -5508,7 +5508,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div class=customTimeout&gt;&lt;strong&gt;The operation has timed out&lt;/strong&gt;&lt;br&gt;&lt;i&gt;{0}: {1}&lt;/i&gt;&lt;/div&gt;.
+        ///   Looks up a localized string similar to &lt;div class=customTimeout&gt;&lt;strong&gt;The operation has timed out&lt;/strong&gt;&lt;br/&gt;&lt;i&gt;{0}: {1}&lt;/i&gt;&lt;/div&gt;.
         /// </summary>
         public static string Info_OperationTimeoutDescription {
             get {
@@ -5922,7 +5922,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your selection contains Templates and/or Dashboards.&lt;br&gt;These cannot be executed as a Dashboard.&lt;br&gt;&lt;br&gt;Click OK to execute only the selected Angle(s) as a Dashboard..
+        ///   Looks up a localized string similar to Your selection contains Templates and/or Dashboards.&lt;br/&gt;These cannot be executed as a Dashboard.&lt;br/&gt;&lt;br/&gt;Click OK to execute only the selected Angle(s) as a Dashboard..
         /// </summary>
         public static string Info_SelectItemsContainTemplatesOrAngles {
             get {
@@ -6012,10 +6012,10 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restricting users to obtain more details will have the following effect: &lt;br&gt; 
-        ///- Users are not allowed to add or remove fields in any Display &lt;br&gt;
-        ///- Users are not allowed to add, remove or update Filters &lt;br&gt;
-        ///- Users are not allowed to add or remove Jumps &lt;br&gt;
+        ///   Looks up a localized string similar to Restricting users to obtain more details will have the following effect: &lt;br/&gt; 
+        ///- Users are not allowed to add or remove fields in any Display &lt;br/&gt;
+        ///- Users are not allowed to add, remove or update Filters &lt;br/&gt;
+        ///- Users are not allowed to add or remove Jumps &lt;br/&gt;
         ///- Users are not allowed to drill down in any Display.
         /// </summary>
         public static string InfoAllowMoreDetailsPopup {
@@ -6106,7 +6106,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify in what column the model timestamp should be inserted.&lt;br&gt;
+        ///   Looks up a localized string similar to Specify in what column the model timestamp should be inserted.&lt;br/&gt;
         ///Use &apos;1&apos; to select the first column. When no model timestamp column is required, select &apos;None&apos;..
         /// </summary>
         public static string InsertCSVModelTimestamp_info {
@@ -6767,7 +6767,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are not the creator of this Angle. If you unpublish this Angle, you will no longer have access to it.&lt;br&gt;Are you sure you want to unpublish this Angle?.
+        ///   Looks up a localized string similar to You are not the creator of this Angle. If you unpublish this Angle, you will no longer have access to it.&lt;br/&gt;Are you sure you want to unpublish this Angle?.
         /// </summary>
         public static string MassChangeMessageConfirmUnpublishAngle {
             get {
@@ -7649,7 +7649,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all Displays and Filters in all existing Templates should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;After a selection of objects have been made, click on the Continue button for review.&lt;/p&gt;.
+        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all Displays and Filters in all existing Templates should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;After a selection of objects have been made, click on the Continue button for review.&lt;/p&gt;.
         /// </summary>
         public static string MC_AllTemplate_Instruction {
             get {
@@ -8018,7 +8018,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this setting is selected, a new Every Angle user account is automatically created when a user from this authentication provider logs in to Every Angle for the first time. This Every Angle user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default..
+        ///   Looks up a localized string similar to If this setting is selected, a new Angles for SAP user account is automatically created when a user from this authentication provider logs in to Angles for SAP for the first time. This Angles for SAP user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default..
         /// </summary>
         public static string MC_AuthenticationProvidersHelpAutoCreateUsers {
             get {
@@ -8027,9 +8027,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In a default Active Directory hierarchy structure, users are located in the &quot;Users&quot; container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br&gt;
-        ///In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
-        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For exampl [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to In a default Active Directory hierarchy structure, users are located in the &quot;Users&quot; container. This container is always on the main level of your domain. When leaving this field empty, the Angles for SAP Application Server will retrieve users from this default location.&lt;br/&gt;
+        ///In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br/&gt;
+        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For e [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MC_AuthenticationProvidersHelpContainer {
             get {
@@ -8074,7 +8074,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the identity of the ADFS.&lt;br&gt;
+        ///   Looks up a localized string similar to Enter the identity of the ADFS.&lt;br/&gt;
         ///The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;address of service&amp;gt;, for example: https://ea2auth.&amp;lt;client-domain name&amp;gt;..
         /// </summary>
         public static string MC_AuthenticationProvidersHelpIdentity {
@@ -8120,7 +8120,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this setting is selected, the Application Server will always check AD group membership when a user logs in. When an AD group exists as a role in Every Angle, this role will be assigned to the user during the session. Note that the group name may not contain any spaces..
+        ///   Looks up a localized string similar to If this setting is selected, the Application Server will always check AD group membership when a user logs in. When an AD group exists as a role in Angles for SAP, this role will be assigned to the user during the session. Note that the group name may not contain any spaces..
         /// </summary>
         public static string MC_AuthenticationProvidersHelpSyncRoles {
             get {
@@ -8129,7 +8129,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the target of the ADFS.&lt;br&gt;
+        ///   Looks up a localized string similar to Enter the target of the ADFS.&lt;br/&gt;
         ///During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/.
         /// </summary>
         public static string MC_AuthenticationProvidersHelpTarget {
@@ -8139,7 +8139,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The type of the authentication provider.&lt;br&gt;
+        ///   Looks up a localized string similar to The type of the authentication provider.&lt;br/&gt;
         ///The following types are supported: Active Directory (AD), Active Directory Federation Services (ADFS) and Security Assertion Markup Language (SAML)..
         /// </summary>
         public static string MC_AuthenticationProvidersHelpType {
@@ -8248,7 +8248,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;.
+        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;.
         /// </summary>
         public static string MC_BasicList_Instruction {
             get {
@@ -8419,7 +8419,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which the suggested fields should be cleared. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;.
+        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which the suggested fields should be cleared. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;.
         /// </summary>
         public static string MC_ClearAll_Instruction {
             get {
@@ -8995,7 +8995,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is the path that is connected to a specific Datastores. &lt;br&gt;
+        ///   Looks up a localized string similar to This is the path that is connected to a specific Datastores. &lt;br/&gt;
         ///- You can edit this path at Angle exports → Datastores..
         /// </summary>
         public static string MC_DatastoreFolderDescription {
@@ -10266,7 +10266,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fallback field length for text fields in SQL-Server.&lt;br&gt;&lt;br&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;.
+        ///   Looks up a localized string similar to Fallback field length for text fields in SQL-Server.&lt;br/&gt;&lt;br/&gt;This length is used with:&lt;ul&gt;&lt;li&gt;Metadata import&lt;/li&gt;&lt;li&gt;Data export to SQL-Server&lt;/li&gt;&lt;/ul&gt;.
         /// </summary>
         public static string MC_FallbackFieldLengthDescription {
             get {
@@ -11013,7 +11013,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log level of Application Server.&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;.
+        ///   Looks up a localized string similar to Log level of Application Server.&lt;br/&gt;&lt;br/&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Warnings + Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Errors&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;.
         /// </summary>
         public static string MC_LogLevelDescription {
             get {
@@ -11050,7 +11050,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;b&gt;The following macro’s are available:&lt;/b&gt;
-        ///                &lt;br&gt;&lt;br&gt;
+        ///                &lt;br/&gt;&lt;br/&gt;
         ///                &lt;table props=&quot;allow_pagebreak&quot;&gt;
         ///	&lt;TR&gt;
         ///		&lt;TD ALIGN=left VALIGN=middle&gt;
@@ -11070,7 +11070,7 @@ namespace EveryAngle.Shared.Globalization {
         ///	&lt;/TR&gt;
         ///	&lt;TR&gt;
         ///		&lt;TD ALIGN=left VALIGN=middle&gt;
-        ///			&lt;p&gt;{ang [rest of string was truncated]&quot;;.
+        ///			&lt;p&gt;{a [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MC_MailSettingsHelp {
             get {
@@ -12175,7 +12175,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changing the Every Angle Standard template is not allowed.
+        ///   Looks up a localized string similar to Changing the Angles for SAP Standard template is not allowed.
         /// </summary>
         public static string MC_ReplaceNotAllowedForStandardExcel {
             get {
@@ -12220,7 +12220,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changing the Export type of existing actions can cause failures and unexpected output.&lt;br&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before..
+        ///   Looks up a localized string similar to Changing the Export type of existing actions can cause failures and unexpected output.&lt;br/&gt;It is highly recommended not to change this for SQL Exports that have run with a different Export type before..
         /// </summary>
         public static string MC_ResultExportTypeWarning {
             get {
@@ -12301,7 +12301,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel all running SAP&lt;br&gt; jobs and initiate retry.&lt;br&gt; Retry is not possible when the&lt;br&gt; maximum number of&lt;br&gt; retries has been reached..
+        ///   Looks up a localized string similar to Cancel all running SAP&lt;br/&gt; jobs and initiate retry.&lt;br/&gt; Retry is not possible when the&lt;br/&gt; maximum number of&lt;br/&gt; retries has been reached..
         /// </summary>
         public static string MC_SAP_Jobs_Cancel_And_Retry_Info {
             get {
@@ -12310,7 +12310,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel all running SAP&lt;br&gt; jobs without retry. The&lt;br&gt; refresh task can still finish if&lt;br&gt; all essentially-marked&lt;br&gt; tables are successfully extracted..
+        ///   Looks up a localized string similar to Cancel all running SAP&lt;br/&gt; jobs without retry. The&lt;br/&gt; refresh task can still finish if&lt;br/&gt; all essentially-marked&lt;br/&gt; tables are successfully extracted..
         /// </summary>
         public static string MC_SAP_Jobs_Cancel_Info {
             get {
@@ -12508,7 +12508,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;.
+        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;.
         /// </summary>
         public static string MC_SelectTheObjects {
             get {
@@ -12977,7 +12977,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select an object in the list by clicking its checkbox. &lt;br&gt;&lt;br&gt;
+        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select an object in the list by clicking its checkbox. &lt;br/&gt;&lt;br/&gt;
         ///After selecting an object, click the Continue button to start setting the suggested fields for the selected object in the next window.&lt;/p&gt;.
         /// </summary>
         public static string MC_SingleObject_Instruction {
@@ -13215,9 +13215,9 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The maximum number of users or user groups that are returned when querying an authentication provider. 
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///The number of users may be very large. Therefore, use this setting to limit the number of users requested per query to keep the load under control.
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///The value may not exceed 999..
         /// </summary>
         public static string MC_SystemSettingsHelpActiveDirectorySizeLimit {
@@ -13246,8 +13246,8 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The number of minutes after which the system will check if there are any inactive sessions. 
-        ///&lt;br&gt;
-        ///Example&lt;br&gt;
+        ///&lt;br/&gt;
+        ///Example&lt;br/&gt;
         ///If you set this setting to 2 minutes and the &apos;Session timeout&apos; to 5 minutes, the system will check every 2 minutes if a session has been inactive for more than 5 minutes..
         /// </summary>
         public static string MC_SystemSettingsHelpCheckExpiredSessionsMinutes {
@@ -13267,7 +13267,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The maximum page size used when exporting to Excel or CSV.
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///The value may not exceed 999999..
         /// </summary>
         public static string MC_SystemSettingsHelpDefaultExportMaxPageSize {
@@ -13323,7 +13323,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to Check this field to enable SSL.
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///When selected, the Application Server will connect to the SMTP server using the SSL protocol, which means authentication is done securely based on certificates..
         /// </summary>
         public static string MC_SystemSettingsHelpEmailSmtpUseSsl {
@@ -13343,7 +13343,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to Check this field to include &apos;Self&apos; in the export headers. 
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///This setting is valid for both Export to Excel and Export to CSV, manually from the Web Client and automatically using an Automation Task..
         /// </summary>
         public static string MC_SystemSettingsHelpIncludeSelfInExportHeaders {
@@ -13365,7 +13365,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to This setting is related to fields of type &apos;set&apos; in the field chooser and determines how many elements (enumerated values)  are retrieved when executing an Angle. 
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///Use this setting to prevent the system from overloading, as many elements can exist in a domain (field)..
         /// </summary>
         public static string MC_SystemSettingsHelpMaxDomainElementsSearch {
@@ -13376,7 +13376,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The maximum retention time in months for system log records, which are saved in the database. Use this setting to clean up old system logs automatically. 
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///The value 0 means the setting is off, so the logs will not be cleaned up. The maximum value is 120 months..
         /// </summary>
         public static string MC_SystemSettingsHelpMaxGeneralHistory {
@@ -13397,7 +13397,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to Publishing an Angle or Dashboard is only allowed if the assigned privilege labels originate from at least this number of label categories. The minimum is 1, because the default label category Business Process is mandatory.
-        ///&lt;br&gt;&lt;br&gt;
+        ///&lt;br/&gt;&lt;br/&gt;
         ///Example: if you set the number of label categories to 2, users must assign at least 2 labels, and these labels must be in 2 different label categories..
         /// </summary>
         public static string MC_SystemSettingsHelpMinlabelcategoriesPublish {
@@ -13444,8 +13444,8 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The location of the folder for program/script files for use in Automation Tasks. Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script. 
-        ///&lt;br&gt;
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
+        ///&lt;br/&gt;
         ///Note: the specified location must be a full file path on the Application server..
         /// </summary>
         public static string MC_SystemSettingsHelpScriptLocation {
@@ -13465,7 +13465,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The maximum number of months during which the history of Audit Log records is saved. Use this setting to clean up old Audit Log records.
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///The value 0 means the setting is off, so the Audit Log will not be cleaned up. The maximum value is 120 months..
         /// </summary>
         public static string MC_SystemSettingsHelpTextMaxAuditLogHistory {
@@ -13628,7 +13628,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When checked, the Task will fail when this action fails.&lt;br&gt;
+        ///   Looks up a localized string similar to When checked, the Task will fail when this action fails.&lt;br/&gt;
         ///When unchecked, the Task will continue and complete itself when this action fails..
         /// </summary>
         public static string MC_TaskAction_DescriptionAbortWhenError {
@@ -13638,8 +13638,8 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select which Excel template to use for this export.&lt;br&gt;
-        ///When you select &quot;Use default&quot;, the template that is set as the default Excel template in this Display will be used.&lt;br&gt;
+        ///   Looks up a localized string similar to Select which Excel template to use for this export.&lt;br/&gt;
+        ///When you select &quot;Use default&quot;, the template that is set as the default Excel template in this Display will be used.&lt;br/&gt;
         ///You can also select a different Excel template from the list if you don&apos;t want to use the default. The specified template file will be used as a basis for the data export. Templates can include Innowera Process Runner functions, basic formatting, coloring definitions and macro&apos;s..
         /// </summary>
         public static string MC_TaskAction_DescriptionExcelTemplate {
@@ -13649,8 +13649,8 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add arguments to pass to the script.&lt;br&gt;
-        ///The syntax depends on the type of script that is used in this action.&lt;br&gt;
+        ///   Looks up a localized string similar to Add arguments to pass to the script.&lt;br/&gt;
+        ///The syntax depends on the type of script that is used in this action.&lt;br/&gt;
         ///Use {alloutput} to pass a list of output files coming from other datastore actions in this task..
         /// </summary>
         public static string MC_TaskAction_DescriptionParameters {
@@ -13660,7 +13660,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password of the Run user for the program/script.&lt;br&gt;
+        ///   Looks up a localized string similar to The password of the Run user for the program/script.&lt;br/&gt;
         ///For security reasons, the password must always be reentered before saving the action..
         /// </summary>
         public static string MC_TaskAction_DescriptionPassword {
@@ -13670,7 +13670,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select the program or script file for this action.&lt;br&gt;
+        ///   Looks up a localized string similar to Select the program or script file for this action.&lt;br/&gt;
         ///You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings..
         /// </summary>
         public static string MC_TaskAction_DescriptionScript {
@@ -13680,8 +13680,8 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The username of the Run user for the program/script.&lt;br&gt;
-        ///This must be a valid Windows user with sufficient permissions.&lt;br&gt;
+        ///   Looks up a localized string similar to The username of the Run user for the program/script.&lt;br/&gt;
+        ///This must be a valid Windows user with sufficient permissions.&lt;br/&gt;
         ///Prefix the username with &quot;domain\&quot; to use a domain user..
         /// </summary>
         public static string MC_TaskAction_DescriptionUsername {
@@ -13808,7 +13808,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from all Displays and Filters in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;.
+        ///   Looks up a localized string similar to &lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from all Displays and Filters in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br/&gt;&lt;br/&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;.
         /// </summary>
         public static string MC_Template_Instruction {
             get {
@@ -14771,7 +14771,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select this field to enable the Go to SAP functionality.&lt;br&gt;
+        ///   Looks up a localized string similar to Select this field to enable the Go to SAP functionality.&lt;br/&gt;
         ///The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client..
         /// </summary>
         public static string MC_WebClientSettingsHelpEnableGoToSAP {
@@ -14782,9 +14782,9 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to This is a debug setting.
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///When selected, all javascript code is optimized and thus unreadable. 
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///When not selected, all javascript code is sent to the Web Client in a readable form and can be used for browser debugging..
         /// </summary>
         public static string MC_WebClientSettingsHelpEnableOptimizations {
@@ -14804,7 +14804,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The ID you receive from Google Analytics, when using this service. 
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///Leave this field empty if you do not use Google Analytics..
         /// </summary>
         public static string MC_WebClientSettingsHelpGoogleAnalyticsCode {
@@ -14842,7 +14842,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The maximum number of items that can be selected for a mass change.
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///The maximum number is 1800..
         /// </summary>
         public static string MC_WebClientSettingsHelpMaxNumberOfMassChange {
@@ -14853,9 +14853,9 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to Angle, Display and Dashboard IDs are automatically generated. 
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///Check this field if you want to show these IDs in the General tab of the item details window and allow users to change these IDs.
-        ///&lt;br&gt;
+        ///&lt;br/&gt;
         ///Deselect this field if you do not want to show the IDs. Users will not be able to change them. This way the automatically generated IDs are always used..
         /// </summary>
         public static string MC_WebClientSettingsHelpShowAngleAndDisplayID {
@@ -14955,7 +14955,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are not the creator of this Angle. If you unpublish this Angle, you will no longer have access to it.&lt;br&gt;Are you sure you want to unpublish this Angle?.
+        ///   Looks up a localized string similar to You are not the creator of this Angle. If you unpublish this Angle, you will no longer have access to it.&lt;br/&gt;Are you sure you want to unpublish this Angle?.
         /// </summary>
         public static string MessageConfirmUnpublishAngle {
             get {
@@ -14964,7 +14964,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are not the creator of this Dashboard. If you unpublish this Dashboard, you will no longer have access to it.&lt;br&gt;Are you sure you want to unpublish this Dashboard?.
+        ///   Looks up a localized string similar to You are not the creator of this Dashboard. If you unpublish this Dashboard, you will no longer have access to it.&lt;br/&gt;Are you sure you want to unpublish this Dashboard?.
         /// </summary>
         public static string MessageConfirmUnpublishDashboard {
             get {
@@ -15010,7 +15010,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to You made changes to an Angle that is used in Automation tasks. This might cause failures.
-        ///&lt;br&gt;&lt;br&gt;
+        ///&lt;br/&gt;&lt;br/&gt;
         ///Do you want to continue saving your changes?.
         /// </summary>
         public static string MessageSaveQuestionAngleUsedInTask {
@@ -16280,7 +16280,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changes to {0} Display have not been applied.&lt;br&gt;Save without changes?.
+        ///   Looks up a localized string similar to Changes to {0} Display have not been applied.&lt;br/&gt;Save without changes?.
         /// </summary>
         public static string PopupConfirmDiscardChangeFieldSetting {
             get {
@@ -16289,7 +16289,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changes to {0} Display have not been applied.&lt;br&gt;Discard changes and continue?.
+        ///   Looks up a localized string similar to Changes to {0} Display have not been applied.&lt;br/&gt;Discard changes and continue?.
         /// </summary>
         public static string PopupConfirmDiscardChangeFieldSettingAndContinue {
             get {
@@ -17045,7 +17045,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current Angle/Display is used in the following automation task(s). Updating the Angle/Display will delete this action.&lt;br&gt;When there are no actions left the task will be deleted..
+        ///   Looks up a localized string similar to The current Angle/Display is used in the following automation task(s). Updating the Angle/Display will delete this action.&lt;br/&gt;When there are no actions left the task will be deleted..
         /// </summary>
         public static string ResolveAngleDisplay_ConflictAlert_Delete {
             get {
@@ -17333,7 +17333,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information.
+        ///   Looks up a localized string similar to Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Angles for SAP Support for more information.
         /// </summary>
         public static string ScrollingMightNotWorkCorrectlyWhenRunningIOS13 {
             get {
