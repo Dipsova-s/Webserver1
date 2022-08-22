@@ -8,7 +8,6 @@ using EveryAngle.Core.ViewModels.Privilege;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
-using EveryAngle.WebClient.Domain.Constants;
 using EveryAngle.WebClient.Domain.Enums;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using EveryAngle.WebClient.Service.Security;
@@ -38,6 +37,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly ITaskService _taskService;
         private readonly ISystemScriptService _systemScriptService;
         private readonly IItemService _itemService;
+        private static string SortCookie = "TaskPageSortingType";
 
         #endregion
 
@@ -89,6 +89,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/AutomationTasks/Tasks/AllTasks.cshtml");
         }
 
+        [ExcludeFromCodeCoverage] // Cannot mock HttpContext.Request
         public ActionResult GetTasksGrid(string tasksUri, string q = "")
         {
             ViewData["DefaultPageSize"] = DefaultPageSize;
@@ -96,7 +97,14 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.ManageSystemPrivilege = Convert.ToString(SessionHelper.Session.IsValidToManageSystemPrivilege()).ToLowerInvariant();
             ViewBag.CanScheduleAngles = Convert.ToString(SessionHelper.Session.IsValidToScheduleAngles()).ToLowerInvariant();
             ViewBag.UserId = SessionHelper.CurrentUser.Id.Replace("\\", "\\\\");
+            string sortField = string.Empty, sortDirection = string.Empty;
+            if (HttpContext != null && HttpContext.Request.Cookies[SortCookie] != null)
+            {
+                (sortField, sortDirection) = GetSortingCookie();
+            }
 
+            ViewBag.SortField = sortField;
+            ViewBag.SortDirection = sortDirection == "asc" ? ListSortDirection.Ascending : ListSortDirection.Descending;
             ViewBag.Query = q;
             return PartialView("~/Views/AutomationTasks/Tasks/TasksGrid.cshtml");
         }
@@ -114,6 +122,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [ExcludeFromCodeCoverage] // Cannot mock HttpContext.Request
         private string GetTaskQueryString(DataSourceRequest request)
         {
             string query = string.Empty;
@@ -133,6 +142,22 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     string sortDirection = request.Sorts[0].SortDirection == ListSortDirection.Descending ? "desc" : "asc";
                     query += string.Format("&sort={0}&dir={1}", sorting[sortingKey], sortDirection);
+                    var newCookie = new System.Web.HttpCookie(SortCookie, string.Format("sort={0}&dir={1}", sorting[sortingKey], sortDirection))
+                    {
+                        Path = "/",
+                        Expires = DateTime.UtcNow.AddYears(1).ToLocalTime(),
+                        Secure = true
+                    };
+                    HttpContext.Response.SetCookie(newCookie);
+                }
+                else
+                {
+                    var cookie = HttpContext.Request.Cookies[SortCookie];
+                    if (cookie != null)
+                    {
+                        cookie.Expires = DateTime.UtcNow.AddDays(-1).ToLocalTime();
+                        HttpContext.Response.SetCookie(cookie);
+                    }
                 }
             }
             return query;
@@ -518,7 +543,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             return requestManager.Run(Method.POST, jsonData);
         }
-        
+
         [AcceptVerbs(HttpVerbs.Post)]
         [ExcludeFromCodeCoverage] // This functions has direct call to RequestManager 
         public JObject TestActionConnection(string plugin, string datastoreId, string jsonData)
@@ -804,6 +829,14 @@ namespace EveryAngle.ManagementConsole.Controllers
             return task;
         }
 
+        [ExcludeFromCodeCoverage] // Cannot mock HttpContext.Request
+        private (string sortKey, string sortDirection) GetSortingCookie()
+        {
+            var cookie = HttpContext.Request.Cookies[SortCookie].Value?.ToString().Split('&');
+            var sortField = cookie.FirstOrDefault().Substring(cookie.FirstOrDefault().IndexOf("=") + 1);
+            var sortDirection = cookie.LastOrDefault().Substring(cookie.LastOrDefault().IndexOf("=") + 1);
+            return (sortField, sortDirection);
+        }
 
         /// <summary>
         /// try get all angle in actions in order to verify ModelPriviledge

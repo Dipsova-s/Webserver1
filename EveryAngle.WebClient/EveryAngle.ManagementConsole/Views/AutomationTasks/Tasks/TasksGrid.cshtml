@@ -76,8 +76,9 @@
     .Resizable(resize => resize.Columns(true))
     .Sortable(sortable => sortable.AllowUnsort(false))
     .DataSource(dataSource => dataSource
-        .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))        
         .Read(read => read.Action("ReadTasksGrid", "AutomationTasks", new { tasksUri = ViewBag.TasksUri, q = @ViewBag.Query }))
+        .Sort(m => m.Add(ViewBag.SortField).Order(ViewBag.SortDirection))
         .PageSize(pageSize)
     )
     .EnableCustomBinding(true)
