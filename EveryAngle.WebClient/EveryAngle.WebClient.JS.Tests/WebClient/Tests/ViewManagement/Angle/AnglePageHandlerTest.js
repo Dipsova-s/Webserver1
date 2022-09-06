@@ -216,11 +216,11 @@ describe("AnglePageHandler", function () {
             expect(anglepageHandler.HandlerAngle.InitialTag).toHaveBeenCalledWith(jQuery('.section-tags'));
             expect(anglepageHandler.HandlerDisplay.InitialDefaultDrilldown).toHaveBeenCalledWith('.section-default-drilldown');
         });
-        it("Should not call InitialLabel when isAngleAndDisplayWithoutResult undefined", function () {           
+        it("Should not call InitialLabel when isAngleAndDisplayWithoutResult undefined", function () {
             anglepageHandler.UpdateSidePanelHandlers();
 
             //assert
-            expect(anglepageHandler.HandlerAngle.InitialLabel).not.toHaveBeenCalled();           
+            expect(anglepageHandler.HandlerAngle.InitialLabel).not.toHaveBeenCalled();
         });
         it("Should not call InitialLabel when isAngleAndDisplayWithoutResult false", function () {
             anglepageHandler.UpdateSidePanelHandlers(false);
@@ -233,6 +233,36 @@ describe("AnglePageHandler", function () {
 
             //assert
             expect(anglepageHandler.HandlerAngle.InitialLabel).toHaveBeenCalledWith(jQuery('.section-labels'));
+        });
+    });
+    describe(".CheckModelStatus", function () {
+        beforeEach(() => {
+            spyOn(modelsHandler, 'LoadModelInfo').and.returnValue($.when({}));
+        });
+        var testcases = [
+            {
+                url: "/models/0/angles/1/displays/2",
+                shouldCall: true,
+                modelUrl: "/models/0"
+            },
+            {
+                url: "models/1/angles/242/displays/2",
+                shouldCall: true,
+                modelUrl: "/models/1"
+            },
+            {
+                url: "/models/1/angles",
+                shouldCall: false
+            }
+        ];
+        testcases.map((test) => {
+            it(`Should ${!test.shouldCall ? `not` : ``} call LoadModelInfo with ${test.shouldCall ? test.modelUrl : ``}`, function () {
+                spyOn(WC.Utility, "UrlParameter").and.returnValue(test.url);
+
+                anglepageHandler.CheckModelStatus();
+
+                test.shouldCall ? expect(modelsHandler.LoadModelInfo).toHaveBeenCalledWith(test.modelUrl) : expect(modelsHandler.LoadModelInfo).not.toHaveBeenCalled();
+            });
         });
     });
 });

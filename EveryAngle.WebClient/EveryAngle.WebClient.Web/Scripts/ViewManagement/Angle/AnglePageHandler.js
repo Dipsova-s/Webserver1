@@ -8,6 +8,7 @@ function AnglePageHandler() {
     var _self = {};
     _self.angleData = null;
     _self.canPostResult = null;
+    _self.isModelLoaded = false;
     // extend method from AngleActionMenuHandler.js
     jQuery.extend(self, new AngleActionMenuHandler(self));
 
@@ -66,7 +67,10 @@ function AnglePageHandler() {
                 );
             })
             .then(function () {
-                return modelsHandler.LoadModels();
+                return jQuery.when(
+                    modelsHandler.LoadModels(),
+                    self.CheckModelStatus()
+                );
             })
             .done(function () {
                 jQuery('html').addClass('initialized');
@@ -701,13 +705,16 @@ function AnglePageHandler() {
     };
     self.CheckModelStatus = function () {
         var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
-        if (displayParameter.indexOf("displays") === -1) {
+        if (displayParameter.indexOf("displays") === -1 || _self.isModelLoaded) {
             return jQuery.when();
         }
-        return modelsHandler.LoadModelInfo(self.HandlerAngle.Data().model)
+        var modelUri = self.HandlerAngle.Data().model ? self.HandlerAngle.Data().model : "/" + displayParameter.split('/').filter(function (e) { return e !== ""; }).slice(0, 2).join('/');
+        return modelsHandler.LoadModelInfo(modelUri)
             .done(function () {
-                if (self.HandlerAngle.Online())
+                if (modelsHandler.IsAvailable(modelUri)) {
                     self.SetModelServerAvailable();
+                    _self.isModelLoaded = true;
+                }
                 else
                     self.SetModelServerUnavailable({});
             });
@@ -987,7 +994,7 @@ function AnglePageHandler() {
 
         self.CheckDisplayType();
         var canPostResult = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.CANPOSTRESULT);
-        _self.canPostResult = canPostResult === "true" ? canPostResult : _self.canPostResult;
+        _self.canPostResult = canPostResult === "true" && angleInfoModel.ModelServerAvailable ? canPostResult : _self.canPostResult;
 
         if (!self.CheckEditMode()
             || !self.CheckStartTime()
@@ -1039,6 +1046,7 @@ function AnglePageHandler() {
             })
             .done(function (canContinue) {
                 self.EnableAnglePage(true);
+                _self.isModelLoaded = false;
 
                 if (!canContinue)
                     return;
@@ -1126,11 +1134,11 @@ function AnglePageHandler() {
                     return;
                 }
 
+
                 // can post a result
                 progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_CheckingModel);
                 return jQuery.when(
-                    self.PostResult(),
-                    self.LoadAngleDisplayMetadata(angleData, displayData)
+                    self.PostResult()
                 )
                     .done(self.CheckLoadMetadataDone);
             });
@@ -1173,7 +1181,7 @@ function AnglePageHandler() {
     };
     self.CheckLoadMetadataDone = function (renderNewResult) {
         var fnCheckLoadMetadataDone = setInterval(function () {
-            if (isLoadMetadataDone) {
+            if (self.LoadResultFieldDone) {
                 clearInterval(fnCheckLoadMetadataDone);
 
                 if (self.IsEditMode())

@@ -205,7 +205,7 @@ function SearchViewModel() {
             var params = {};
             params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
             displayObject.display_type && (params[enumHandlers.ANGLEPARAMETER.DISPLAYTYPE] = displayObject.display_type);
-            params[enumHandlers.ANGLEPARAMETER.CANPOSTRESULT] = !(displayObject.is_parameterized || item.has_warnings);
+            params[enumHandlers.ANGLEPARAMETER.CANPOSTRESULT] = !(item.is_parameterized || displayObject.is_parameterized || item.has_warnings);
             WC.Utility.RedirectUrl(redirectUrl + "&" + jQuery.param(params));
 
             angleInfoModel.Data(item);
