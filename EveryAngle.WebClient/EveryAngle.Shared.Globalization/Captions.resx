@@ -828,6 +828,9 @@
   <data name="Label_Insert_model_timestamp" xml:space="preserve">
     <value>Insert model timestamp</value>
   </data>
+  <data name="Label_Refreshable_data" xml:space="preserve">
+    <value>Refreshable data</value>
+  </data>
   <data name="InsertModelTimestamp_info" xml:space="preserve">
     <value>Use '0' to select the first column. When no model timestamp column is required, enter -1 or leave empty.</value>
   </data>

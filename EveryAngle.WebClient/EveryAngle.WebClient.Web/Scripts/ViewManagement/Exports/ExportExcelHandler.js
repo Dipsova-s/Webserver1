@@ -180,6 +180,13 @@ function ExportExcelHandler() {
             exportRow = rowCount;
         }
         jQuery('[id="NumberOfItems"]:visible').val(exportRow);
+               
+        var isavailable = displayModel.Data().is_available_externally;
+        if (isavailable) {
+            jQuery('#RefreshableData').show();
+        } else {
+            jQuery('#RefreshableData').hide();
+        }
 
         if (typeof jQuery('[id="popupExportExcel"]:visible').get(0) !== 'undefined') {
             if (self.CanSetNumberOfItem()) {
@@ -346,18 +353,7 @@ function ExportExcelHandler() {
             value: self.CurrentExportModel.HeaderFormat()
         });
         
-        var excelDropdown = jQuery('#ExcelTemplate').kendoDropDownList({
-            dataTextField: "name",
-            dataValueField: "id",
-            dataSource: self.GetDropdownData(),
-            template: self.GetExcelItemTemplate(),
-            valueTemplate: self.GetExcelItemTemplate(),
-            change: function (e) {
-                self.CurrentExportModel.TemplateFile(e.sender.value());
-                self.ShowInnoweraDetails(this.dataSource.get(this.value()));
-                self.ShowWarningMessageTemplateDeleted(e.sender.value());
-            }
-        }).data(enumHandlers.KENDOUITYPE.DROPDOWNLIST);
+        var excelDropdown = self.ExcelTemplateDropDown();
 
         if (!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
             var addModelDateUI = jQuery('#InsertModelTimestamp').data('handler');
@@ -379,6 +375,21 @@ function ExportExcelHandler() {
         excelDropdown.value(self.CurrentExportModel.TemplateFile());
         excelDropdown.trigger('change');
     };
+    self.ExcelTemplateDropDown = function () {
+        return jQuery('#ExcelTemplate').kendoDropDownList({
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: self.GetDropdownData(),
+            template: self.GetExcelItemTemplate(),
+            valueTemplate: self.GetExcelItemTemplate(),
+            change: function (e) {
+                self.CurrentExportModel.TemplateFile(e.sender.value());
+                self.ShowInnoweraDetails(this.dataSource.get(this.value()));
+                self.ShowWarningMessageTemplateDeleted(e.sender.value());
+            }
+        }).data(enumHandlers.KENDOUITYPE.DROPDOWNLIST);
+    };
+
     self.GetDropdownData = function () {
         var excelTemplates = excelTemplateFilesHandler.GetDropdownData();
         var displayDetails = WC.Utility.ParseJSON(displayModel.Data().display_details);
@@ -389,11 +400,28 @@ function ExportExcelHandler() {
                 icon_class: "none"
             });
         }
-        return excelTemplates;
+
+        var checkbox = jQuery('#RefreshableDataSheet').prop('checked');
+        if (checkbox)
+            return excelTemplates.findObjects('id', 'EveryAngle-Refreshable.xlsx');
+        else {
+            excelTemplates.removeObject('id', 'EveryAngle-Refreshable.xlsx');
+            return excelTemplates;
+        }
     };
+    self.RefreshableTemplate = function (RefreshableDataSheet) {
+
+        jQuery('#NumberOfRowsCustom').prop('disabled', RefreshableDataSheet.checked);
+        jQuery('#NumberOfRowsDefault').prop('disabled', RefreshableDataSheet.checked);
+        jQuery('#ExcelTemplate').prop('disabled', RefreshableDataSheet.checked);
+        $("#ModeltimeStamp").css('pointer-events', RefreshableDataSheet.checked ? 'none' : '');
+
+        self.CurrentExportModel.TemplateFile('EveryAngle-Refreshable.xlsx');
+        self.ExcelTemplateDropDown();
+    }
     self.ShowInnoweraDetails = function (fileData) {
         $('#InnoweraDetails').html('');
-        if (!fileData.is_innowera) {
+        if (!fileData || !fileData.is_innowera) {
             $("#ExportOptionArea .innowera-details").hide();
             return;
         }
@@ -607,6 +635,10 @@ function ExportExcelHandler() {
             {
                 "id": "add_angle_definition",
                 "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
+            },
+            {
+                "id": "is_refreshable",
+                "value": jQuery('[id="RefreshableDataSheet"]:visible').is(':checked')
             }
         ];
         exportOptions.data_settings.setting_list = exportOptions.data_settings.setting_list.concat(self.DefaultSetting);
@@ -777,6 +809,10 @@ function ExportExcelHandler() {
                 "id": "model_timestamp_index",
                 "value": parseInt(self.CurrentExportModel.ModelTimestampIndex())
             },
+            {
+                "id": "is_refreshable",
+                "value": jQuery('[id="RefreshableDataSheet"]:visible').is(':checked')
+            },
         ];
         exportOptions.data_settings.setting_list = exportOptions.data_settings.setting_list.concat(self.DefaultSetting);
         self.GenerateExceljsonData = exportOptions;
@@ -845,7 +881,7 @@ function ExportExcelHandler() {
                     {
                         "id": "template_file",
                         "value": self.CurrentExportModel.TemplateFile()
-                    }
+                    },
                 ]
             }
         };

@@ -11,6 +11,7 @@
         self.Container = $(target);
         self.DefaultDatastoreTemplate = defaultExcelDatastoreHandler.GetDefaultTemplate();
         self.DropdownData = excelTemplateFilesHandler.GetDropdownData();
+        self.DropdownData.removeObject('id', 'EveryAngle-Refreshable.xlsx');
         self.AddDefaultTemplate();
         self.Render();
     };

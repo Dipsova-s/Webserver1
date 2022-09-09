@@ -1330,6 +1330,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refreshable data.
+        /// </summary>
+        public static string Label_Refreshable_data {
+            get {
+                return ResourceManager.GetString("Label_Refreshable_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Training movies.
         /// </summary>
         public static string Label_Search_WelcomeMovieTitle {

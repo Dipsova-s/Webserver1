@@ -48,6 +48,10 @@ describe("ExportExcelHandlerTest", function () {
                             {
                                 id: "EveryAngle-Test1.xlsx",
                                 name: "EveryAngle-Test1.xlsx"
+                            },
+                            {
+                                id: "RefreshableDataSheet",
+                                name: "EveryAngle-Refreshable.xlsx"
                             }
                         ]
                     }]
