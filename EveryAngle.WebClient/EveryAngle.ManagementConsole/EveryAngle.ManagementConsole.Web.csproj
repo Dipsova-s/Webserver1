@@ -548,7 +548,6 @@
     <Content Include="Scripts\Page\MC.GlobalSettings.Languages.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.FieldCategories.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.SystemSettings.js" />
-    <Content Include="UploadedResources\Comments\log.txt" />
     <Content Include="UploadedResources\CompanyLogo\ea_logo.png" />
     <Content Include="UploadedResources\ExtraFiles\EA_16.png" />
     <Content Include="UploadedResources\ExtraFiles\EA_32.png" />
@@ -595,7 +594,6 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EveryAngle.Core.Interfaces\EveryAngle.Core.Interfaces.csproj">
       <Project>{7f61d24c-5fb8-4b24-8273-176209ae2b8e}</Project>

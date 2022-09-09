@@ -18,23 +18,19 @@ namespace EveryAngle.Core.ViewModels.Tests
             {
                 comment_type = "comment",
                 CreatedBy = new UserDateViewModel(),
-                comment = "comment",
-                attachment = "attachment"
+                comment = "comment"
             };
 
             //assert type
             Assert.AreEqual(viewModel.comment_type.GetType(), typeof(string));
             Assert.AreEqual(viewModel.CreatedBy.GetType(), typeof(UserDateViewModel));
             Assert.AreEqual(viewModel.comment.GetType(), typeof(string));
-            Assert.AreEqual(viewModel.attachment.GetType(), typeof(string));
-
 
             //assert json serialize
             var viewModelSerialize = JsonConvert.SerializeObject(viewModel);
             Assert.IsTrue(viewModelSerialize.Contains("comment_type"));
             Assert.IsTrue(viewModelSerialize.Contains("created"));
             Assert.IsTrue(viewModelSerialize.Contains("comment"));
-            Assert.IsTrue(viewModelSerialize.Contains("attachment"));
         }
     }
 }

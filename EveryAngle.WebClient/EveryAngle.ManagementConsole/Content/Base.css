@@ -2131,16 +2131,6 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     box-sizing: border-box;
 }
 
-#popupCommentForm .fieldFile {
-    float: left;
-    margin-top: 18px;
-}
-
-#popupCommentForm .fieldFile .btn {
-    margin-left: 0;
-    top: 0;
-}
-
 #popupCommentForm .k-upload .k-upload-status {
     max-width: 175px;
     margin-left: 5px;

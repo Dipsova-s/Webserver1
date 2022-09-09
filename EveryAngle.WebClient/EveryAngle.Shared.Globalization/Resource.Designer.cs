@@ -7163,15 +7163,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add attachment.
-        /// </summary>
-        public static string MC_AddAttachment {
-            get {
-                return ResourceManager.GetString("MC_AddAttachment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add comment.
         /// </summary>
         public static string MC_AddComment {
@@ -7915,24 +7906,6 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_AttachLogfiles {
             get {
                 return ResourceManager.GetString("MC_AttachLogfiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Attachment.
-        /// </summary>
-        public static string MC_Attachment {
-            get {
-                return ResourceManager.GetString("MC_Attachment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Attach result.
-        /// </summary>
-        public static string MC_AttachResult {
-            get {
-                return ResourceManager.GetString("MC_AttachResult", resourceCulture);
             }
         }
         
@@ -14344,15 +14317,6 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_Validation_AngleDisplay {
             get {
                 return ResourceManager.GetString("MC_Validation_AngleDisplay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only the following extension types are allowed: .eapackage .bmp .csl .doc .docx .gif .htm .html .jpeg .jpg .pdf .png .txt .xls .xlsx .zip.
-        /// </summary>
-        public static string MC_Validation_Attached_Comment {
-            get {
-                return ResourceManager.GetString("MC_Validation_Attached_Comment", resourceCulture);
             }
         }
         

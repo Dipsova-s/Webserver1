@@ -27,7 +27,6 @@ Add Comment, Edit Added Comment Under Communications Settings And Delete The Com
     [Tags]      TC_C228546
     Click Add New Comment
     Input Comment Text      ${Comment}    
-    Attach Comment File
     Click Save Comment
     Click Show Action Dropdown In Grid By Index     ${Index}     ${trRowInGrid}
     Click Edit comment and verify       ${Comment}

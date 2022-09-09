@@ -160,6 +160,10 @@ Source: "Resources\EveryAngle.EncryptionDecryption32-2.3\EveryAngle.EncryptionDe
 Source: "SetupFiles\PowerShellScripts\SetCertificatePermissions.ps1"; Flags: dontcopy noencryption
 Source: "SetupFiles\PowerShellScripts\SetUrlRedirectsAndAuthority.ps1"; Flags: dontcopy noencryption
 
+[InstallDelete]
+;list files of previous installs that are no longer relevant here
+Type: filesandordirs; Name: "{code:CommentsFolderPhysicalPath}"; Components: webclient
+
 [Dirs]
 Name: "{code:DataPath|log}";
 
@@ -507,6 +511,11 @@ begin
 
   // Expand environment variables when they are present.
   result := ExpandEnvVars(Result);
+end;
+    
+function CommentsFolderPhysicalPath(Param: String): String;
+begin
+  Result := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true) + '\admin\UploadedResources\Comments';
 end;
 
 function CheckIISPhysicalPath(IISPhysicalPath : string) : boolean;

@@ -99,7 +99,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingFormCollection.Add("commentType", commentType);
 
             // execute
-            ContentResult contentResult = _testingController.AddComment(_testingFormCollection, null, commentType) as ContentResult;
+            ContentResult contentResult = _testingController.AddComment(_testingFormCollection, commentType) as ContentResult;
 
             // assert
             Assert.IsNotNull(contentResult);

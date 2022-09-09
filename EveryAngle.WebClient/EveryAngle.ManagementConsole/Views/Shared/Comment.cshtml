@@ -26,14 +26,6 @@
                         {
 
                             columns.Bound(model => model.comment).Title(@Resource.MC_Comments).ClientTemplate("#= data.comment #");
-                            columns.Bound("attachment").ClientTemplate(
-                               "# if((data.attachment != 'Null') && (data.attachment != null) ) { #"
-                                + "<a class='btn btnViewAtteched' target='_blank\' href='" + Url.Content("~/UploadedResources/Comments/") + "#= data.attachment #'>View Attached File</a>"
-                                + "# } else { #"
-                                + "No Data"
-                                + "# } #")
-
-                              .Width(140).Title(@Resource.MC_Attachment);
                             columns.Bound(model => model.CreatedBy.Created).ClientTemplate("by #= data.CreatedBy.Fullname # on <span data-role='localize'>#= data.CreatedBy.Created #</span>").Width(220).Title("Created");
                             columns.Bound("uri")
                         .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
@@ -78,9 +70,6 @@
         <div class="popupToolbar">
             <a class="btn btnPrimary" id="SaveCommentBtn" data-url="" onclick="MC.ui.commentbox('add');">@Resource.Save</a>
             <a class="btn btnClose alwaysHidden" id="CloseCommentForm" data-role="popup-close"></a>
-            <div class="fieldFile">
-                <input type="file" name="file" id="fileAttached" size="60" data-role="uploader" data-rule-extension="csl|htm|html|jpg|jpeg|png|gif|txt|doc|docx|pdf|xls|xlsx|bmp|zip|eapackage" data-msg-extension="@Resource.MC_Validation_Attached_Comment" data-text-browse="@Resource.MC_AddAttachment" />
-            </div>
         </div>
     </form>
 </div>
