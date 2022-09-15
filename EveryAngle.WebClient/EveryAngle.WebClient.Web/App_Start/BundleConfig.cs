@@ -494,6 +494,7 @@ namespace EveryAngle.WebClient.Web
                     // list
                     "~/scripts/viewmanagement/angle/listdrilldownhandler.js",
                     "~/scripts/viewmanagement/angle/listhandler.js",
+                    "~/scripts/viewmanagement/angle/gotosaphandler.js",
 
                     // schedule angle
                     "~/scripts/htmltemplate/scheduleangle/scheduleanglehtmltemplate.js",

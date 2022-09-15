@@ -65,6 +65,7 @@
 /// <reference path="ViewManagement/Angle/ListDrilldownHandler.js" />
 /// <reference path="ViewManagement/Angle/ListFormatSettingHandler.js" />
 /// <reference path="ViewManagement/Angle/ListHandler.js" />
+/// <reference path="ViewManagement/Angle/GoToSapHandler.js" />
 /// <reference path="ViewManagement/Angle/ListSortHandler.js" />
 /// <reference path="ViewManagement/Angle/PivotHandler.js" />
 /// <reference path="ViewManagement/Angle/QuickFilterHandler.js" />

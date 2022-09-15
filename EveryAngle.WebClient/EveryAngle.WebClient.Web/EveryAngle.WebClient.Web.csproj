@@ -1133,6 +1133,7 @@
     <Content Include="Scripts\ViewManagement\Angle\DisplayStatisticHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayStatisticView.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleSaveActionHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\GoToSapHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\Pivot\PivotHelper.js" />
     <Content Include="Scripts\ViewManagement\Angle\Pivot\PivotOptionsHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\Pivot\PivotOptionsView.js" />

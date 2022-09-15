@@ -4,10 +4,9 @@ function ListHandler(elementId, container) {
     var self = this;
     var _self = {};
 
-    self.SapTransactionFieldCache = {};
-
     /*BOF: Model Properties*/
     _self.CheckScrollingTimeout;
+    _self.CheckSapHoverTimeout;
 
     self.UpdateLayoutChecker = null;
     self.AddColumnIndex = null;
@@ -147,8 +146,8 @@ function ListHandler(elementId, container) {
 
                 if (!self.DashBoardMode()) {
                     anglePageHandler.UpdateSidepanelAfterLoading();
-                    self.UpdateCountWhenRunning();                    
-                }                
+                    self.UpdateCountWhenRunning();
+                }
             });
     };
     self.CheckUpgradeDisplay = function () {
@@ -1905,14 +1904,15 @@ function ListHandler(elementId, container) {
         }
 
     };
-    self.OnContextMenuHover = function () {
+    self.OnContextMenuHover = function (e) {
         var element = jQuery(this);
         if (!element.hasClass('context-menu-submenu') || element.hasClass('disabled')) {
             return;
         }
 
-        if (element.attr('name') === 'gotosap') {
-            self.GenerateGoToSapMenu();
+        if (element.attr('name') === 'gotosap' && !e.isTrigger && !gotosaphandler.DatarowsIsRunning) {
+            var grid = self.GetGridObject();
+            gotosaphandler.GenerateGoToSapMenu(grid);
         }
 
         self.UpdateContextMenuPosition(element);
@@ -1961,8 +1961,10 @@ function ListHandler(elementId, container) {
                         self.OnContentCopy();
                         break;
                     case 'sap':
+                        var grid = self.GetGridObject();
+                        var dataItem = grid.dataSource.view()[grid.select().parent('tr').index()];
 
-                        GetDataFromWebService(self.GetSapTransactionDetailsUri(val))
+                        GetDataFromWebService(gotosaphandler.GetSapTransactionDetailsUri(val, dataItem))
                             .done(function (data) {
                                 var logonUser = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER) ?
                                     kendo.format(' -user={0}', userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER)) : '';
@@ -2238,67 +2240,7 @@ function ListHandler(elementId, container) {
             enumHandlers.FIELDTYPE.TIMESPAN
         ]) !== -1;
     };
-    self.GenerateGoToSapMenu = function () {
-        var uri = self.GetSapTransactionUri();
-        var data = self.SapTransactionFieldCache[uri];
-        if (!data) {
-            // load transaction
-            self.SapTransactionFieldCache[uri] = { busy: true };
-            var target = jQuery('li[name="gotosap"]');
-            target.children('ul').empty();
-            target.children('.btn-more').removeClass('icon-chevron-right').addClass('loader-spinner-inline');
-            self.GetSapTransaction(uri)
-                .always(function () {
-                    self.GenerateSapSubMenu(self.SapTransactionFieldCache[uri]);
-                    target.children('.btn-more').addClass('icon-chevron-right').removeClass('loader-spinner-inline');
-                });
-        }
-        else if (!data.busy) {
-            // use cache
-            self.GenerateSapSubMenu(self.SapTransactionFieldCache[uri]);
-        }
-    };
-    self.GenerateSapSubMenu = function (data) {
-        var menu = jQuery('li[name="gotosap"]');
-        var ul = menu.children('ul');
-        ul.empty().show();
 
-        if (data && data.sap_transactions && data.sap_transactions.length) {
-            jQuery.each(data.sap_transactions, function (i, transaction) {
-                var item = {
-                    id: 'sap',
-                    name: transaction.id,
-                    description: transaction.description
-                };
-                self.AddContextMenuItem(ul, item);
-            });
-        }
-        else {
-            self.AddEmptyContextMenuItem(ul, Localization.GoToSapNotAvailable);
-        }
-        self.UpdateContextMenuPosition(menu);
-        menu.children('i.btn-more').removeClass('loader-spinner-inline').addClass('icon-chevron-right');
-    };
-    self.GetSapTransactionUri = function () {
-        var rowid = self.GetSelectedRow();
-        var field = self.GetSelectedField();
-        return kendo.format('{0}?row_id={1}&fields={2}', self.Models.Result.Data().sap_transactions, rowid, field.id);
-    };
-    self.GetSelectedRow = function () {
-        var grid = self.GetGridObject();
-        return grid.dataSource.view()[grid.select().parent('tr').index()].row_id - 1;
-    };
-    self.GetSelectedField = function () {
-        var grid = self.GetGridObject();
-        var cell = grid.select();
-        var column = grid.columns[cell.index() + 1];
-        return modelFieldsHandler.GetFieldById(column.field, self.Models.Angle.Data().model);
-    };
-    self.GetSapTransactionDetailsUri = function (selectedTransaction) {
-        var rowid = self.GetSelectedRow();
-        var field = self.GetSelectedField();
-        return kendo.format('{0}?row_id={1}&field={2}&transaction_id={3}', self.Models.Result.Data().sap_transactions, rowid, field.id, selectedTransaction);
-    };
     self.GetSapFields = function (transaction) {
         var sapfields = [];
         jQuery.each(transaction.transaction_details, function (index, detail) {
@@ -2307,12 +2249,6 @@ function ListHandler(elementId, container) {
             }
         });
         return sapfields;
-    };
-    self.GetSapTransaction = function (uri) {
-        return GetDataFromWebService(uri)
-            .done(function (data) {
-                self.SapTransactionFieldCache[uri] = data;
-            });
     };
     self.GenerateFilterSubMenu = function (field, fieldValue) {
 

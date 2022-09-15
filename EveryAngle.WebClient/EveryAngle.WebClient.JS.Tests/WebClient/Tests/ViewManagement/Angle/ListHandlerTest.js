@@ -9,6 +9,13 @@ describe("ListHandler", function () {
     var listHandler;
     beforeEach(function () {
         listHandler = new ListHandler();
+        listHandler.Models.Result = {
+            Data: () => {
+                return {
+                    sap_transactions: 'result/0/sap_transactions'
+                }
+            }
+        };
     });
 
     describe(".GetGridScrollSettings", function () {
@@ -69,12 +76,10 @@ describe("ListHandler", function () {
         it("should correctly update data rows", function () {
             var fieldNames = ["ID", "ObjectType", "BottleneckType"];
             var rowData = ["80011670/4", "DeliveryNoteLine", "bt09DelayInProcessing"];
-            listHandler.Models = {
-                Display: {
-                    Data: ko.observable({
-                        fields: [{ field: "BottleneckType" }, { field: "ObjectType" }, { field: "ID" }]
-                    })
-                }
+            listHandler.Models.Display = {
+                Data: ko.observable({
+                    fields: [{ field: "BottleneckType" }, { field: "ObjectType" }, { field: "ID" }]
+                })
             };
 
             var actualFields = listHandler.Models.Display.Data().fields;
@@ -179,7 +184,7 @@ describe("ListHandler", function () {
                 select: function () {
                     return $();
                 },
-                columns: { length: 5}
+                columns: { length: 5 }
             };
             spyOn($.fn, 'index').and.returnValues(0, 6);
             var selectedData = listHandler.GetSelectedAreaData(grid, grid.select(), grid.select());
@@ -247,14 +252,14 @@ describe("ListHandler", function () {
                 select: function () {
                     return $();
                 },
-                columns: [{}, { field: ""}],
+                columns: [{}, { field: "" }],
                 dataSource: {
-                   view: function () {
+                    view: function () {
                         return $();
                     }
                 },
                 clearSelection: function () {
-                    return ;
+                    return;
                 }
             };
             spyOn(listHandler, 'GetGridObject').and.callFake(function () {
@@ -282,7 +287,7 @@ describe("ListHandler", function () {
             listHandler.OnContextMenuShow(rightClick, $());
             expect(listHandler.ContextMenuRenderPosition).toHaveBeenCalled();
         });
-        
+
         it("should select area between two cells", function () {
             spyOn(listHandler, 'GetSelectedAreaData').and.callFake(function () {
                 return {
@@ -318,7 +323,7 @@ describe("ListHandler", function () {
     describe(".ContextMenuRenderPosition", function () {
         it("MenuOptions should only have copy options", function () {
             var column = { field: "" }, context = $();
-            var menu = jasmine.createSpyObj('menu', ['width', 'height', 'offset', 'attr','css']);
+            var menu = jasmine.createSpyObj('menu', ['width', 'height', 'offset', 'attr', 'css']);
             menu.offset = function () {
                 return { left: 0, top: 0 };
             };
@@ -351,7 +356,7 @@ describe("ListHandler", function () {
     });
     describe(".GetTemplateCellData", function () {
         it("should get template for angleurl link element", function () {
-            var fieldData = "sampleData",fieldId = {
+            var fieldData = "sampleData", fieldId = {
                 id: "angleurl",
                 fieldtype: "text"
             }
@@ -362,7 +367,7 @@ describe("ListHandler", function () {
     describe(".GetFormatValue", function () {
         it("should get angle url angle tag", function () {
             var cellValue = "/sampleUrl", fieldId = "angleurl";
-             
+
             var result = listHandler.GetFormatValue(fieldId, cellValue);
             expect(result).toEqual("<a class='angleUrlLink' href='" + cellValue + "'>" + cellValue + "</a>");
         });
