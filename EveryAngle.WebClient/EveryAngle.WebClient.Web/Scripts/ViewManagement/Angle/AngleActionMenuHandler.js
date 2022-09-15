@@ -81,7 +81,7 @@ function AngleActionMenuHandler(base) {
         privileges[enumHandlers.ANGLEACTION.EXPORTTOEXCEL.Id] = { Enable: canExportItem, Visible: true };
 
         // find only available in list display
-        privileges[enumHandlers.ANGLEACTION.FIND.Id] = { Enable: self.CanFindRow(), Visible: self.IsFindOptionVisible() };
+        privileges[enumHandlers.ANGLEACTION.FIND.Id] = { Enable: self.CanFindRow(), Visible:false };
 
         privileges[enumHandlers.ANGLEACTION.PASTEDISPLAY.Id] = { Enable: self.CanPasteDisplay(), Visible: true };
 
