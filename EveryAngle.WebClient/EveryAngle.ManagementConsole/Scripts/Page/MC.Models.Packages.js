@@ -281,7 +281,7 @@
 
         self.DisableCheckBox = function (query) {
             if ($('.gridToolbarFilter .loader-spinner-inline').length) {
-                setTimeout(function() {
+                setTimeout(function () {
                     self.DisableCheckBox(query);
                 }, 10)
             } else {
@@ -408,7 +408,7 @@
         };
 
         self.PostPackage = function (element) {
-            var requestParams = {
+            const requestParams = {
                 element: element,
                 type: 'POST'
             };
@@ -447,7 +447,7 @@
         };
 
         self.PostPackageSuccessCallback = function (parameters) {
-            var timeout = 150;
+            const timeout = 150;
 
             // if user click active package
             if (parameters.isActive) {
@@ -476,8 +476,8 @@
         };
 
         self.includeLabelsSelected = function (isChecked) {
-            var labelCategoriesSection = $('.labelCategoriesSection');
-            var radioButtons = labelCategoriesSection.find('input[type=radio]');
+            let labelCategoriesSection = $('.labelCategoriesSection');
+            let radioButtons = labelCategoriesSection.find('input[type=radio]');
             if (isChecked) {
                 labelCategoriesSection.removeClass('hidden');
                 radioButtons.attr('disabled', false);
@@ -511,7 +511,7 @@
                     }
                     self.CheckedPackages.removeObject('PackageUri', selected.Uri);
                 }
-                
+
                 self.ResetActivateDeactivateButton();
             }
         };

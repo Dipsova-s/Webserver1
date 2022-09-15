@@ -5,7 +5,7 @@ function AnglePageHandler() {
     "use strict";
 
     var self = this;
-    var _self = {};
+    let _self = {};
     _self.angleData = null;
     _self.canPostResult = null;
     _self.isModelLoaded = false;
@@ -705,10 +705,10 @@ function AnglePageHandler() {
     };
     self.CheckModelStatus = function () {
         var displayParameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
-        if (displayParameter.indexOf("displays") === -1 || _self.isModelLoaded) {
+        if (!displayParameter.includes("displays") || _self.isModelLoaded) {
             return jQuery.when();
         }
-        var modelUri = self.HandlerAngle.Data().model ? self.HandlerAngle.Data().model : "/" + displayParameter.split('/').filter(function (e) { return e !== ""; }).slice(0, 2).join('/');
+        var modelUri = self.HandlerAngle.Data().model ? self.HandlerAngle.Data().model : "/" + displayParameter.split('/').filter(e => e).slice(0, 2).join('/');
         return modelsHandler.LoadModelInfo(modelUri)
             .done(function () {
                 if (modelsHandler.IsAvailable(modelUri)) {

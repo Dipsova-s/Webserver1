@@ -56,7 +56,7 @@ function MassChangeModel() {
             }, 500);
         }
 
-        var popupName = 'MassChangePopup',
+        const popupName = 'MassChangePopup',
             popupSettings = {
                 title: Localization.MassChangeTitle,
                 element: '#popup' + popupName,
@@ -165,8 +165,8 @@ function MassChangeModel() {
         self.IsTemplate(null);
     };
     self.ShowMassChangeReportPopup = function () {
-        var popupName = 'MassChangeReport';
-        var popupSettings = {
+        const popupName = 'MassChangeReport';
+        const popupSettings = {
             title: Localization.MassChangeReportTitle,
             element: '#popup' + popupName,
             className: 'popup' + popupName,
