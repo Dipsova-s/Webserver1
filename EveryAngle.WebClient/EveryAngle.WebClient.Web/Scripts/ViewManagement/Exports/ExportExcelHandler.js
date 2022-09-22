@@ -180,13 +180,8 @@ function ExportExcelHandler() {
             exportRow = rowCount;
         }
         jQuery('[id="NumberOfItems"]:visible').val(exportRow);
-               
-        var isavailable = displayModel.Data().is_available_externally;
-        if (isavailable) {
-            jQuery('#RefreshableData').show();
-        } else {
-            jQuery('#RefreshableData').hide();
-        }
+
+        self.SetVisibilityOfRefreshableData();
 
         if (typeof jQuery('[id="popupExportExcel"]:visible').get(0) !== 'undefined') {
             if (self.CanSetNumberOfItem()) {
@@ -262,7 +257,7 @@ function ExportExcelHandler() {
                 DisplayUri: displayModel.Data().uri,
                 FieldMetaDataUri: !model ? '' : model.fields,
                 UserSettingUri: userModel.Data().user_settings,
-                ModelDataTimeStamp: modelCurrentInstanceHandler.GetCurrentModelInstance(angleInfoModel.Data().model).modeldata_timestamp,
+                ModelDataTimeStamp: modelCurrentInstanceHandler.GetCurrentModelInstance(angleInfoModel.Data().model)?.modeldata_timestamp,
                 DataFieldUri: resultModel.Data().data_fields,
                 CurrentFields: self.GetCurrentDisplayField(displayModel.Data().display_type),
                 DisplayType: displayModel.Data().display_type
@@ -275,13 +270,22 @@ function ExportExcelHandler() {
             self.CurrentExportModel.DisplayUri = displayModel.Data().uri;
             self.CurrentExportModel.FieldMetaDataUri = !model ? '' : model.fields;
             self.CurrentExportModel.UserSettingUri = userModel.Data().user_settings;
-            self.CurrentExportModel.ModelDataTimeStamp = modelCurrentInstanceHandler.GetCurrentModelInstance(angleInfoModel.Data().model).modeldata_timestamp;
+            self.CurrentExportModel.ModelDataTimeStamp = modelCurrentInstanceHandler.GetCurrentModelInstance(angleInfoModel.Data().model)?.modeldata_timestamp;
             self.CurrentExportModel.DataFieldUri = resultModel.Data().data_fields;
             self.CurrentExportModel.CurrentFields = self.GetCurrentDisplayField(displayModel.Data().display_type);
             self.CurrentExportModel.DisplayType = displayModel.Data().display_type;
         }
 
         self.GetDefaultExcelDatastore();
+    };
+    self.SetVisibilityOfRefreshableData = function () {
+        if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.CHART) {
+            jQuery('#RefreshableData').hide();
+        }
+        else if (!displayModel.Data().is_available_externally) {
+            jQuery('#RefreshableDataSheet').prop('disabled', true);;
+            jQuery("#RefreshableDataField").addClass('disable');
+        }
     };
     self.GetDefaultExcelDatastore = function () {
         var request = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.SYSTEMDATASTORES);
@@ -352,7 +356,7 @@ function ExportExcelHandler() {
             dataSource: self.CurrentExportModel.HeaderFormats,
             value: self.CurrentExportModel.HeaderFormat()
         });
-        
+
         var excelDropdown = self.ExcelTemplateDropDown();
 
         if (!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
@@ -371,7 +375,7 @@ function ExportExcelHandler() {
                 }
             });
         }
-        
+
         excelDropdown.value(self.CurrentExportModel.TemplateFile());
         excelDropdown.trigger('change');
     };
@@ -410,7 +414,6 @@ function ExportExcelHandler() {
         }
     };
     self.RefreshableTemplate = function (RefreshableDataSheet) {
-
         jQuery('#NumberOfRowsCustom').prop('disabled', RefreshableDataSheet.checked);
         jQuery('#NumberOfRowsDefault').prop('disabled', RefreshableDataSheet.checked);
         jQuery('#ExcelTemplate').prop('disabled', RefreshableDataSheet.checked);

@@ -3319,7 +3319,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Available via Gateway.
+        ///   Looks up a localized string similar to Available via Angles Gateway.
         /// </summary>
         public static string DisplayAvailableExternally {
             get {
@@ -16969,6 +16969,19 @@ namespace EveryAngle.Shared.Globalization {
         public static string ReferencePopupWarning {
             get {
                 return ResourceManager.GetString("ReferencePopupWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check this box to enable the Angles Data from within Excel itself.This creates &lt;br/&gt; a constant connection between the data in this Display and in the Excel template.&lt;br/&gt;
+        ///	&lt;br/&gt;
+        ///	       To refresh the data in the Excel template, &lt;br/&gt; go to the ‘Data&apos; tab and select &apos;Refresh All&apos; (Cntl + Alt + F5).&lt;br/&gt;
+        ///	&lt;br/&gt;
+        ///           If the &apos;Refreshable Data&apos; box is greyed out in this screen, Ensure that you have set &lt;br/&gt; the flag for the field Available Via Angles Gateway in the &apos;Display Details&apos; screen..
+        /// </summary>
+        public static string RefreshableData_Info {
+            get {
+                return ResourceManager.GetString("RefreshableData_Info", resourceCulture);
             }
         }
         

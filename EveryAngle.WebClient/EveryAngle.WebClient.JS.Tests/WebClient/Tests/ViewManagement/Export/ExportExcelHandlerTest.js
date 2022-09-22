@@ -154,7 +154,7 @@ describe("ExportExcelHandlerTest", function () {
             spyOn(popup, "Alert").and.callFake($.noop);
             var filename = "Export_to_Excel";
             var result = exportExcelHandler.ValidateExportExcel(filename);
-            expect(result).toBe(true);            
+            expect(result).toBe(true);
         });
         it("should return false", function () {
             spyOn(window, 'IsValidFileAndSheetName').and.returnValue(false);
@@ -233,10 +233,10 @@ describe("ExportExcelHandlerTest", function () {
 
         var expected = [
             '<span data-role=\"tooltip\" data-tooltip-text=\"MM02/MM02_Plant\">',
-                'MM02/MM02_Plant',
+            'MM02/MM02_Plant',
             '</span><br>',
             '<span data-role=\"tooltip\" data-tooltip-text=\"GX0K/GX0K_Material\">',
-                'GX0K/GX0K_Material',
+            'GX0K/GX0K_Material',
             '</span><br>'
         ].join('');
 
@@ -299,10 +299,10 @@ describe("ExportExcelHandlerTest", function () {
     describe(".GetDefaultExcelDatastore", function () {
         it("should call a function", function () {
             var exportOptions = {
-                    'datastores': {
-                        'datastore_plugin': 'msexcel',
-                        'findObject': function () { return true;}
-                    }
+                'datastores': {
+                    'datastore_plugin': 'msexcel',
+                    'findObject': function () { return true; }
+                }
             };
             spyOn(exportExcelHandler, 'SetExportModel');
             spyOn(exportExcelHandler, 'SetExportModelUI');
@@ -345,7 +345,7 @@ describe("ExportExcelHandlerTest", function () {
             var result = exportExcelHandler.SetExportModel(datastore);
             expect(result.FileName()).toBe('Test');
             expect(exportExcelHandler.GetExcelTemplate).toHaveBeenCalled();
-        });        
+        });
     });
     describe(".SetDefaultExcelSetting", function () {
         beforeEach(function () {
@@ -370,8 +370,8 @@ describe("ExportExcelHandlerTest", function () {
 
     });
     describe(".SetButtonStatus", function () {
-        it("Should call removeClass function when template deleted", function () {           
-            spyOn(jQuery.fn, 'removeClass').and.returnValue($());           
+        it("Should call removeClass function when template deleted", function () {
+            spyOn(jQuery.fn, 'removeClass').and.returnValue($());
             exportExcelHandler.CurrentExportModel = {
                 TemplateFile: function () {
                     return "EveryAngle-Test.xlsx";
@@ -399,7 +399,7 @@ describe("ExportExcelHandlerTest", function () {
             expect(jQuery.fn.addClass).toHaveBeenCalled();
         });
     });
-   
+
     describe(".GetExcelTemplate", function () {
         it("It should return the displayData excel template", function () {
             var displayData = {
@@ -448,7 +448,7 @@ describe("ExportExcelHandlerTest", function () {
         it("File Name in text box should be equal to angle name", function () {
             angleInfoModel.Name = function () {
                 return 'angle for test';
-            };           
+            };
             exportExcelHandler.SetSheetName();
             var FileName = $("#SaveFileName").val();
             expect(FileName).toBe(angleInfoModel.Name());
@@ -463,8 +463,8 @@ describe("ExportExcelHandlerTest", function () {
         });
         it("File name and sheet name text box value should be equal to expected", function () {
             angleInfoModel.Data = function () {
-                return { model: "/models/1"};
-            };           
+                return { model: "/models/1" };
+            };
             var drilldownUri = "{%22ID%22:%223000000005/2/1%22,%22ObjectType%22:%22PurchaseOrderScheduleLine%22}";
             var Details = {
                 short_name: 'PD Schedule Line'
@@ -472,7 +472,7 @@ describe("ExportExcelHandlerTest", function () {
             var expectedFileName = "PD Schedule Line #300000000521";
             var expectedSheetName = "Drilldown to item PD Schedule ";
             spyOn(WC.Utility, 'UrlParameter').and.returnValue(drilldownUri);
-            spyOn(modelClassesHandler,'GetClassById').and.returnValue(Details);
+            spyOn(modelClassesHandler, 'GetClassById').and.returnValue(Details);
             exportExcelHandler.SetSheetName();
             var SheetName = $("#SaveSheetName").val();
             var FileName = $("#SaveFileName").val();
@@ -537,5 +537,53 @@ describe("ExportExcelHandlerTest", function () {
             expect(exportExcelHandler.SetButtonStatus).toHaveBeenCalled();
         });
     });
-   
+
+    describe(".SetVisibilityOfRefreshableData", () => {
+        beforeEach(() => {
+            element = $('<div id="RefreshableData"><div class="field" id="RefreshableDataField"></div><input type="checkbox" id="RefreshableDataSheet" /></div>').appendTo('body');
+        });
+        afterEach(() => {
+            element.remove();
+        });
+        const testcases = [
+            {
+                display_type: "chart",
+                is_available_externally: false,
+                visible: false,
+                disabled: false
+            },
+            {
+                display_type: "list",
+                is_available_externally: false,
+                visible: true,
+                disabled: true
+            },
+            {
+                display_type: "list",
+                is_available_externally: true,
+                visible: true,
+                disabled: false
+            },
+            {
+                display_type: "pivot",
+                is_available_externally: true,
+                visible: true,
+                disabled: false
+            },
+            {
+                display_type: "pivot",
+                is_available_externally: false,
+                visible: true,
+                disabled: true
+            }
+        ];
+        testcases.map((testcase) => {
+            it(`Refreshable Data should be ${testcase.visible ? 'visible' : 'hidden'} ${testcase.disabled ? 'and greyed out' : ''} when display type is ${testcase.display_type}  and available external is ${testcase.is_available_externally}`, () => {
+                spyOn(displayModel, 'Data').and.returnValue({ display_type: testcase.display_type, is_available_externally: testcase.is_available_externally });
+                exportExcelHandler.SetVisibilityOfRefreshableData();
+                expect(jQuery('#RefreshableData').is(':visible')).toEqual(testcase.visible);
+                testcase.visible && expect(jQuery('#RefreshableDataSheet').is(':disabled')).toEqual(testcase.disabled);
+            });
+        });
+    });
 });

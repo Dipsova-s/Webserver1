@@ -6585,7 +6585,7 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Available External</value>
   </data>
   <data name="DisplayAvailableExternally" xml:space="preserve">
-    <value>Available via Gateway</value>
+    <value>Available via Angles Gateway</value>
   </data>
   <data name="AutofillId" xml:space="preserve">
     <value>Autofill ID</value>
@@ -6613,5 +6613,12 @@ The "manage system" privilege is required to change the Approval state of an Act
   </data>
   <data name="MC_IncludeIdsForExternalAvailability" xml:space="preserve">
     <value>Include Available via Gateway settings</value>
+  </data>
+  <data name="RefreshableData_Info" xml:space="preserve">
+	<value>Check this box to enable the Angles Data from within Excel itself.This creates &lt;br/&gt; a constant connection between the data in this Display and in the Excel template.&lt;br/&gt;
+	&lt;br/&gt;
+	       To refresh the data in the Excel template, &lt;br/&gt; go to the ‘Data' tab and select 'Refresh All' (Cntl + Alt + F5).&lt;br/&gt;
+	&lt;br/&gt;
+           If the 'Refreshable Data' box is greyed out in this screen, Ensure that you have set &lt;br/&gt; the flag for the field Available Via Angles Gateway in the 'Display Details' screen.</value>
   </data>
 </root>
