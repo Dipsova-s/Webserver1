@@ -14,7 +14,7 @@ Screenshot "WC_How_to_export_to_Excel_or_CSV" page
     
 
 Crop Angle Action Excel
-    Crop WebHelp Image     WC_Angle_action_excel2.png     css=.popupExportExcel
+    Crop WebHelp Image     WC_Angle_action_excel2-on-prem.png     css=.popupExportExcel
 
 Crop Angle Action CSV
     Crop WebHelp Image     WC_Angle_action_CSV2.png      css=.popupExportToCSV
