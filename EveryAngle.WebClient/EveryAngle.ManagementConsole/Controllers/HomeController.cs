@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using EveryAngle.WebClient.Web.Filters.ActionFilters;
 using System;
+using System.Linq;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
@@ -76,7 +77,9 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             var aboutUri = SessionHelper.Initialize().Version.GetEntryByName("about").Uri.ToString();
             var result = _directoryService.GetAbout(aboutUri);
-            result.web_client_version = AssemblyInfoHelper.GetFileVersion();
+            var version = AssemblyInfoHelper.GetFileVersion().Split('.');
+            result.web_client_version = string.Join(".", version.Take(version.Length - 1));
+            ViewBag.CanAccess = SessionHelper.Session.IsValidToManagementAccess();
 
             return PartialView("~/Views/Shared/AboutSystem.cshtml", result);
         }

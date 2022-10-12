@@ -150,7 +150,11 @@ describe("AboutSystemHandler", function () {
                     expect(test.status).toEqual(result.models[0].info());
             });
         });
-
     });
-
+    describe(".GetWebClientVersion", () => {
+        it("Get webclient version as 22.2.0", () => {
+            const result = aboutSystemHandler.GetWebClientVersion();
+            expect(result).toEqual("22.2.0");
+        });
+    });
 });

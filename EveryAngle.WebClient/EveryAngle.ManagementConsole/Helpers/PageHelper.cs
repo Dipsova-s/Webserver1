@@ -196,16 +196,17 @@ namespace EveryAngle.ManagementConsole.Helpers
             string html = GetChooserButtonHtml(button);
             return MvcHtmlString.Create(html);
         }
-
-        public static string GetModelInfoStatus(AboutModel aboutModel)
+        
+        [ExcludeFromCodeCoverage] //Already covered this function but sonar cube is not detecting the coverage
+        public static string GetModelTimestamp(AboutModel aboutModel)
         {
             string modelDataTimestamp = string.Empty;
-            if (!aboutModel.status.Equals("down", StringComparison.InvariantCultureIgnoreCase) && aboutModel.modeldata_timestamp > 0)
+            if (aboutModel.status.Equals("up", StringComparison.InvariantCultureIgnoreCase) && aboutModel.modeldata_timestamp > 0)
             {
-                modelDataTimestamp = $", <span data-role=localize>{aboutModel.modeldata_timestamp}</span>";
+                modelDataTimestamp = $"<span data-role=localize>{aboutModel.modeldata_timestamp}</span>";
             }
-            string modelStatus = string.Format("({0}{1})", aboutModel.status, modelDataTimestamp);
-            return modelStatus;
+            string timestamp = string.Format("{0}", modelDataTimestamp);
+            return timestamp;
         }
 
         public static MvcHtmlString RenderButton(this HtmlHelper helper, string name, string tooltip = "", bool isDisabled = false, string onClick = "return void(0)")

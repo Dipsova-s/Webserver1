@@ -64,7 +64,7 @@
                 }
                 <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span data-bind="text: Localization.Helppage"></span></a>
                 <a class="actionDropdownItem btnModelParameters" onclick="helpPopupPageHandler.ShowModelParameterPopup()"><span data-bind="text: Localization.ModelParameters"></span></a>
-                <a class="actionDropdownItem btnAbout" onclick="aboutSystemHandler.ShowAboutSystemPopup()"><span data-bind="html: Localization.AboutEveryAngle"></span></a>
+                <a class="actionDropdownItem btnAbout" onclick="aboutSystemHandler.ShowAboutSystemPopup('@Url.Content(administratorPath.ToLower())')"><span data-bind="html: Localization.AboutEveryAngle"></span></a>
                 <a class="actionDropdownItem btnSupport" target="_blank" href="@Url.Content(supportUri)"><span data-bind="text: Localization.Support"></span></a>
             </div>
         </div>

@@ -1,4 +1,5 @@
-﻿using EveryAngle.ManagementConsole.Helpers;
+﻿using EveryAngle.Core.ViewModels.About;
+using EveryAngle.ManagementConsole.Helpers;
 using Kendo.Mvc;
 using Kendo.Mvc.UI;
 using NUnit.Framework;
@@ -104,6 +105,24 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
             string expectedHTMLText = string.Format("<span data-tooltip-title=\"MC.util.getTimezoneText\">{0}</span>", headerText);
             Assert.IsNotNullOrEmpty(PageHelper.HeaderWithTimezone(headerText));
             Assert.AreEqual(expectedHTMLText, PageHelper.HeaderWithTimezone(headerText));
+        }
+
+        [TestCase]
+        public void Can_GetModelTimestamp()
+        {
+            //arrange
+            AboutModel aboutModel = new AboutModel
+            {
+                model_id = "EA2_800",
+                version = "version 5.0",
+                status = "up",
+                modeldata_timestamp = 1497514623
+            };
+            var expected = "<span data-role=localize>1497514623</span>";
+
+            var result = PageHelper.GetModelTimestamp(aboutModel);
+
+            Assert.AreEqual(expected, result);
         }
 
         #endregion

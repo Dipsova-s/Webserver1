@@ -15,36 +15,30 @@
             </a>
         </div>
     </div>
-    <div class="aboutModels">
-        <h3>@Resource.AboutVersion</h3>
+    <div class="aboutModels">        
         <div class="row">
-            <div class="label">@Resource.AboutClientVersion</div>
-            <div class="value">@Model.web_client_version</div>
-        </div>
-        <div class="row">
-            <div class="label">@Resource.AboutServerVersion</div>
-            <div class="value">@Model.app_server_version</div>
-        </div>
-        @foreach (var aboutModel in Model.models)
-        {
-            <div class="row">
-                <div class="label">@aboutModel.model_id:</div>
-                <div class="value">@aboutModel.version</div>
+            <div class="label">
+                <h3>@Resource.AboutVersion</h3>
             </div>
-        }
+                <div class="value">@Model.web_client_version</div>
+            </div>
+        <div class="row">
+            @{
+            if (ViewBag.CanAccess)
+            {
+                    <a href='@SiteMapHelper.ActionHash("GlobalSettings/Components")' id="details">@Resource.Details</a>
+            }
+            }
+        </div>
         @if (Model.models.Count > 0)
         {
             <br />
             <h3>@Resource.AboutModelInfo</h3>
             foreach (var aboutModel in Model.models)
             {
+                var model_defination = string.IsNullOrEmpty(aboutModel.model_definition_version) ? "" : string.Format("v{0}", @aboutModel.model_definition_version);
                 <div class="row">
-                    <div class="label">@aboutModel.model_id:</div>
-                    <div class="value">@Html.Raw(PageHelper.GetModelInfoStatus(aboutModel))</div>
-                </div>
-                <div class="row">
-                    <div class="label">@Resource.ModelDefinitionVersion</div>
-                    <div class="value">@aboutModel.model_definition_version</div>
+                    <div>@aboutModel.model_id :&emsp;&emsp; @aboutModel.status &emsp;&emsp;  @model_defination  &emsp;&emsp; @Html.Raw(PageHelper.GetModelTimestamp(aboutModel))</div>
                 </div>
             }
         }

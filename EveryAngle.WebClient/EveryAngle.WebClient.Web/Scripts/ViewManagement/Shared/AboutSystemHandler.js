@@ -6,7 +6,8 @@ function AboutSystemModel(model) {
     jQuery.extend(true, this, {
         web_client_version: '',
         app_server_version: '',
-        models: []
+        models: [],
+        management_url: ''
     }, model);
 
     // add extra info
@@ -23,22 +24,16 @@ function AboutSystemModel(model) {
                 return modelStatus !== AboutSystemModel.STATUS.DOWN && this.modeldata_timestamp;
         };
 
-        if (data.available()) {
-            data.date = function () {
-                return WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, this.modeldata_timestamp);
-            };
-            data.info = function () {
-                return kendo.format('{0}, {1}', this.status, this.date());
-            };
-        }
-        else {
-            data.date = function () {
-                return '';
-            };
-            data.info = function () {
-                return this.status;
-            };
-        }
+        data.modelDefinationVersion = () => {
+            return (typeof this.model_definition_version === "number") ? kendo.format("v{0}", this.model_definition_version) : '';
+        };
+
+        data.date = () => {
+            return data.available() ? WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, this.modeldata_timestamp) : '';
+        };
+        data.info = () => {
+            return data.available() ? kendo.format('{0}, {1}', this.status, this.date()) : this.status;
+        };
     });
 }
 
@@ -95,7 +90,8 @@ function AboutSystemHandler() {
     };
 
     self.GetWebClientVersion = function () {
-        return ClientVersion;
+        const version = ClientVersion.split(".");
+        return version.slice(0, version.length - 1).join('.');
     };
 
     self.IsRealTimeModel = function (modelId) {
@@ -103,9 +99,10 @@ function AboutSystemHandler() {
         return data && data.is_real_time;
     };
 
-    self.ShowAboutSystemPopup = function () {
+    self.ShowAboutSystemPopup = function (url) {
         jQuery('#HelpMenu').hide();
-        var popupName = 'AboutResultSummary',
+        const management_url = url + "home/index#/Global settings/Components/";
+        const popupName = 'AboutResultSummary',
             popupSettings = {
                 element: '#popup' + popupName,
                 title: Localization.AboutEveryAngle,
@@ -121,6 +118,7 @@ function AboutSystemHandler() {
                     self.LoadAboutSystem()
                         .done(function () {
                             self.Data.web_client_version = self.GetWebClientVersion();
+                            self.Data.management_url = management_url;
 
                             e.sender.element.html(aboutHtmlTemplate());
                             e.sender.bind('close', function () {

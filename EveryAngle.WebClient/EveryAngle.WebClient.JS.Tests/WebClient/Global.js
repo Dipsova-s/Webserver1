@@ -33,3 +33,4 @@ var restoreMockHandlers = function () {
         restoreMockHandler(name);
     }
 };
+var ClientVersion = "22.2.0.1";

@@ -70,7 +70,7 @@
             // display default indicator
             disableLoading();
 
-            var popupElement = jQuery('#popupAbout');
+            const popupElement = jQuery('#popupAbout');
             popupElement.empty().busyIndicator(true);
             MC.ajax
                 .request({
@@ -84,7 +84,7 @@
                 .done(function (data) {
                     popupElement.html(data);
 
-                    var kPopup = jQuery('#popupAbout').data('kendoWindow');
+                    const kPopup = popupElement.data('kendoWindow');
                     if (kPopup) {
                         kPopup.setOptions({
                             resizable: false,
@@ -96,6 +96,10 @@
                         });
 
                         jQuery('.k-overlay').one('click.close', function () {
+                            kPopup.close();
+                        });
+
+                        jQuery("#popupAbout #details").on('click', () => {
                             kPopup.close();
                         });
                     }
