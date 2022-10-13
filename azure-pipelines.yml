@@ -10,9 +10,9 @@ variables:
 - name: ReleaseNumber
   ${{ if and(in(variables['Build.SourceBranch'], '/release/'), in(variables['Build.SourceBranchName'], '.')) }}:
     value: $[variables['Build.SourceBranchName']]
-  ${{ elseif and(in(variables['Build.SourceBranch'], '/release/'), in(variables['Build.SourceBranchName'], 'sp')) }}:
+  ${{ elseif and(contains(variables['Build.SourceBranch'], '/release/'), contains(variables['Build.SourceBranchName'], 'sp')) }}:
     value: $[replace(variables['Build.SourceBranchName'], 'sp', '.')]
-  ${{ elseif in(variables['Build.SourceBranch'], '/release/') }}:
+  ${{ elseif contains(variables['Build.SourceBranch'], '/release/') }}:
     value: $[format('{0}.0', variables['Build.SourceBranchName'])]
   ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }}:
     value: $[variables.MasterVersion]
@@ -24,7 +24,7 @@ variables:
   ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
     value: $[variables.MasterUpdateNumber]
   ${{ else }}:
-    value: '99'
+    value: '0'
 
 name: $(ReleaseNumber).$(UpdateNumber)$(Rev:.r)
 
@@ -99,9 +99,9 @@ jobs:
     inputs:
       buildType: specific
       project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
-      pipeline: 9
+      pipeline: 1018
       buildVersionToDownload: latestFromBranch
-      branchName: 'refs/heads/master'
+      branchName: 'refs/heads/release/2020sp8'
       artifactName: DeploymentTools
       downloadPath: '$(Build.SourcesDirectory)'
 
@@ -112,7 +112,7 @@ jobs:
       project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
       pipeline: 999
       buildVersionToDownload: latestFromBranch
-      branchName: 'refs/heads/2020main'
+      branchName: 'refs/heads/release/2020sp8'
       downloadType: specific
       itemPattern: EveryAngle.GoToSAP.Launcher/EveryAngle.GoToSAP.Launcher.exe
       downloadPath: '$(Build.SourcesDirectory)'
@@ -124,7 +124,7 @@ jobs:
       project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
       pipeline: 1009
       buildVersionToDownload: latestFromBranch
-      branchName: 'refs/heads/master'
+      branchName: 'refs/heads/release/2020sp8'
       downloadType: specific
       itemPattern: |
         drop/Diagrams.zip
