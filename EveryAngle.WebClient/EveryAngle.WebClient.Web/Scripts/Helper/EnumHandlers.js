@@ -5,6 +5,11 @@ function EnumHandlers() {
 
     var self = this;
 
+    self.ACTIONTYPES = {
+        DISPLAY: 'Display',
+        ALL: 'All'
+    };
+
     self.SORTDIRECTION = {
         ASC: -1,
         DESC: 1
@@ -1705,4 +1710,6 @@ function EnumHandlers() {
             "name": "Zulu"
         }
     ];
+
+ 
 }

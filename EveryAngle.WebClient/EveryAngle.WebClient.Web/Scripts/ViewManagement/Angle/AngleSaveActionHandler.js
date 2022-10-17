@@ -21,6 +21,7 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
     self.Redirect = jQuery.noop;
     self.ExecuteAngle = jQuery.noop;
 
+
     // All
     self.VisibleSaveAll = function () {
         var canSaveAngle = self.AngleHandler.CanCreateOrUpdate();
@@ -52,8 +53,7 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
 
         var isRedirect = self.IsRedirect();
         var displayId = self.GetDisplayHandler().Data().id();
-        progressbarModel.ShowStartProgressBar();
-        progressbarModel.SetDisableProgressBar();
+
         return self.AngleHandler.SaveAll(forcedSaveAngle)
             .always(function () {
                 self.SaveAllDone(isRedirect, displayId, forcedExecuteAngle);
@@ -81,10 +81,14 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
             self.Redirect(displayId);
             return;
         }
-        
-        if (forcedExecuteAngle === true)
+
+        if (forcedExecuteAngle) {
             self.AngleHandler.ForceInitial();
-        self.ExecuteAngle();
+            self.ExecuteAngle();
+        }
+        else
+            self.DisableSaveDisplay();
+
     };
 
     // create Angle
@@ -125,8 +129,6 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
         var isRedirect = self.IsRedirect();
         var display = self.GetDisplayHandler();
         var displayId = display.Data().id();
-        progressbarModel.ShowStartProgressBar();
-        progressbarModel.SetDisableProgressBar();
         return self.AngleHandler.SaveDefaultDisplay()
             .then(function () {
                 return self.AngleHandler.SaveDisplay(display, true);
@@ -140,7 +142,7 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
             self.Redirect(displayId);
             return;
         }
-        self.ExecuteAngle();
+        self.DisableSaveDisplay();
     };
 
     // AngleAs
@@ -210,5 +212,12 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
         });
         return result;
     };
+    self.DisableSaveDisplay = function () {
+        jQuery.each(self.SaveActions, function (id, action) {
+            if (id === enumHandlers.ACTIONTYPES.DISPLAY || id === enumHandlers.ACTIONTYPES.ALL)
+                action.Enable(false);
+        });
+        anglePageHandler.RenderDisplayTabs();
+    }
 }
 AngleSaveActionHandler.extend(ItemSaveActionHandler);

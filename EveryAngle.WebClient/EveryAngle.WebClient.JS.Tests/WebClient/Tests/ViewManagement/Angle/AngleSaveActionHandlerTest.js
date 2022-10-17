@@ -152,8 +152,6 @@ describe("AngleSaveActionHandler", function () {
             spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue({
                 Data: ko.observable({ id: $.noop })
             });
-            spyOn(progressbarModel, 'ShowStartProgressBar');
-            spyOn(progressbarModel, 'SetDisableProgressBar');
             spyOn(angleSaveActionHandler.AngleHandler, 'SaveAll').and.returnValue($.when());
             spyOn(angleSaveActionHandler, 'SaveAllDone');
         });
@@ -162,8 +160,6 @@ describe("AngleSaveActionHandler", function () {
             angleSaveActionHandler.ForceSaveAll();
 
             // assert
-            expect(progressbarModel.ShowStartProgressBar).not.toHaveBeenCalled();
-            expect(progressbarModel.SetDisableProgressBar).not.toHaveBeenCalled();
             expect(angleSaveActionHandler.AngleHandler.SaveAll).not.toHaveBeenCalled();
             expect(angleSaveActionHandler.SaveAllDone).not.toHaveBeenCalled();
         });
@@ -172,8 +168,6 @@ describe("AngleSaveActionHandler", function () {
             angleSaveActionHandler.ForceSaveAll();
 
             // assert
-            expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
-            expect(progressbarModel.SetDisableProgressBar).toHaveBeenCalled();
             expect(angleSaveActionHandler.AngleHandler.SaveAll).toHaveBeenCalled();
             expect(angleSaveActionHandler.SaveAllDone).toHaveBeenCalled();
         });
@@ -430,8 +424,6 @@ describe("AngleSaveActionHandler", function () {
             spyOn(angleSaveActionHandler, 'GetDisplayHandler').and.returnValue({
                 Data: ko.observable({ id: $.noop })
             });
-            spyOn(progressbarModel, 'ShowStartProgressBar');
-            spyOn(progressbarModel, 'SetDisableProgressBar');
             spyOn(angleSaveActionHandler.AngleHandler, 'SaveDefaultDisplay').and.returnValue($.when());
             spyOn(angleSaveActionHandler.AngleHandler, 'SaveDisplay').and.returnValue($.when());
             spyOn(angleSaveActionHandler, 'SaveDisplayDone');
@@ -442,15 +434,15 @@ describe("AngleSaveActionHandler", function () {
                 });
 
             // assert
-            expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
-            expect(progressbarModel.SetDisableProgressBar).toHaveBeenCalled();
             expect(angleSaveActionHandler.AngleHandler.SaveDefaultDisplay).toHaveBeenCalled();
         });
     });
     describe(".SaveDisplayDone", function () {
         beforeEach(function () {
+            anglePageHandler.RenderDisplayTabs = $.noop;
             spyOn(angleSaveActionHandler, 'ExecuteAngle');
             spyOn(angleSaveActionHandler, 'Redirect');
+            spyOn(anglePageHandler, 'RenderDisplayTabs');
         });
         it('should redirect', function () {
             angleSaveActionHandler.SaveDisplayDone(true, 'id');
@@ -460,11 +452,13 @@ describe("AngleSaveActionHandler", function () {
             expect(angleSaveActionHandler.ExecuteAngle).not.toHaveBeenCalled();
         });
         it('should execute Angle', function () {
+
             angleSaveActionHandler.SaveDisplayDone(false, 'id');
 
             // assert
+            expect(anglePageHandler.RenderDisplayTabs).toHaveBeenCalled();
             expect(angleSaveActionHandler.Redirect).not.toHaveBeenCalled();
-            expect(angleSaveActionHandler.ExecuteAngle).toHaveBeenCalled();
+            expect(angleSaveActionHandler.ExecuteAngle).not.toHaveBeenCalled();
         });
     });
 
@@ -763,6 +757,18 @@ describe("AngleSaveActionHandler", function () {
             // assert
             expect(angleSaveActionHandler.AngleHandler.SaveAll).toHaveBeenCalled();
             expect(angleSaveActionHandler.StateHandler.SetTemplateStatus).toHaveBeenCalled();
+        });
+    });
+    describe(".DisableSaveDisplay", function () {
+
+        it('should disable Display and SaveAll buttons', function () {
+            anglePageHandler.RenderDisplayTabs = $.noop;
+            angleSaveActionHandler.DisableSaveDisplay();
+            // assert
+            expect(angleSaveActionHandler.SaveActions.All._enable()).toEqual(false);
+            expect(angleSaveActionHandler.SaveActions.Angle._enable()).toEqual(true);
+            expect(angleSaveActionHandler.SaveActions.AngleAs._enable()).toEqual(true);
+
         });
     });
 });

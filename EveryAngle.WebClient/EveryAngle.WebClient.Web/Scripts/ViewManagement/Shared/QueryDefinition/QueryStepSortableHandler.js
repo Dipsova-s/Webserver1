@@ -145,10 +145,11 @@
         // remove it
         queryStep.is_applied = false;
         self.RemoveFilter(queryStep);
-
+      
         // add to Angle
         self.Parent().AddQueryFilter(movedFilter);
         self.Parent().Save();
+        jQuery('.block-overlay').css('display', 'none');
     };
     handler.CanSortFilter = function (data) {
         // can sorting/re-ordering a filter
