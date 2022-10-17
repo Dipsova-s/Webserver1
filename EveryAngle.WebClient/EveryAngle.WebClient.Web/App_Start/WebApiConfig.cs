@@ -1,7 +1,7 @@
-using Microsoft.AspNet.WebApi.MessageHandlers.Compression;
-using Microsoft.AspNet.WebApi.MessageHandlers.Compression.Compressors;
 using System.Web.Http;
 using System.Web.Mvc;
+using Microsoft.AspNet.WebApi.Extensions.Compression.Server;
+using System.Net.Http.Extensions.Compression.Core.Compressors;
 
 namespace EveryAngle.WebClient.Web.App_Start
 {

@@ -1654,7 +1654,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Magnitude Angles for SAP - Dashboard.
+        ///   Looks up a localized string similar to Magnitude Angles for SAP - Dashboard page.
         /// </summary>
         public static string Page_Dashboard_Title {
             get {
