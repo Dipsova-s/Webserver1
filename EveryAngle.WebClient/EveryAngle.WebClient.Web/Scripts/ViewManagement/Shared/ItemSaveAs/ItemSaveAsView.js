@@ -66,4 +66,16 @@ function ItemSaveAsView() {
             '</div>'
         ].join('');
     };
+    self.GetTemplateForInvalidBP = () => {
+        return [
+            '<div class="description-editor">',
+                '<div class="card section-warning-message">',
+                    '<div class="card-header">',
+                        '<span>' + Localization.BPWarningMessageInSaveAs+'</span>',
+                    '</div>',
+                '</div>',
+            self.GetDisplayTemplate(),
+            '</div>'
+        ].join('');
+    }
 }

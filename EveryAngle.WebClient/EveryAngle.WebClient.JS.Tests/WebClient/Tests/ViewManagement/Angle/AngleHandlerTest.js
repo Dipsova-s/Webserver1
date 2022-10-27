@@ -2143,7 +2143,14 @@ describe("AngleHandler", function () {
 
             angleHandler.Validate();
 
-            expect(angleHandler.AngleLabelHandler.Validate).toHaveBeenCalled();
+            expect(angleHandler.AngleLabelHandler.Validate).toHaveBeenCalledWith(true, undefined);
+        });
+        it("should call validate function with expected parameter", function () {
+            spyOn(angleHandler.AngleLabelHandler, 'Validate');
+
+            angleHandler.Validate(true);
+
+            expect(angleHandler.AngleLabelHandler.Validate).toHaveBeenCalledWith(true, true);
         });
     });
 

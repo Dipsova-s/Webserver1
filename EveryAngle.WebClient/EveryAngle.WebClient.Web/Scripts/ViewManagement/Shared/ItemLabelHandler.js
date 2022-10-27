@@ -6,11 +6,18 @@
     handler.$Container = jQuery();
     handler.$BusinessProcess = null;
     handler.StateHandler = new ItemStateHandler();
+    handler.View = new ItemStateView();
     handler.Labels = ko.observableArray([]);
     handler.SaveTimeoutTimer = null;
     handler.SaveTimeout = 1000;
     handler.LoadLabelTimer = null;
     handler.LoadLabelStatus = 'none';
+    handler.Summary = {
+        bp_text: ko.observable(''),
+        language_text: ko.observable(''),
+        privilege_label_text: ko.observable(''),
+        search_label_text: ko.observable('')
+    };
 
     handler.CanUpdate = function () {
         return false;
@@ -42,6 +49,8 @@
             self.SetOverlay(true);
             return;
         }
+
+        $("#btn-popupValidateBusinessProcess0").removeClass('disabled');
 
         var labels = self.GetData();
         if (self.IsAdhoc())
@@ -88,7 +97,7 @@
         var self = this;
         self.HideProgressbar();
     };
-    handler.Validate = function (showPopup) {
+    handler.Validate = function (showPopup, saveDisplayAs) {
         var self = this;
         var validBusinessProcess = self.ValidateBusinessProcess();
         var validLabel = self.ValidateLabel();
@@ -99,13 +108,8 @@
             // show popup in some cases
             // - clicking save all on adhoc Angle
             if (showPopup === true) {
-                var tagets = self.$Container.find('.business-processes-selection-message')
-                    .add(self.$Container.find('.label-selection-message'));
-                var messages = jQuery.map(tagets, function(element) {
-                    element = jQuery(element);
-                    return jQuery.trim(element.text()) || null;
-                });
-                popup.Alert(Localization.CannotSaveAngle_Title, messages[0]);
+                const popupSettings = self.GetValidateBusinessProcessPopupOptions(saveDisplayAs);
+                popup.Show(popupSettings);
             }
             return false;
         }
@@ -246,5 +250,100 @@
     handler.ValidateLabel = function () {
         var self = this;
         return self.StateHandler.CheckSavePublishSettings(self.$Container, self.IsPublished());
+    };
+    handler.GetValidateBusinessProcessPopupOptions = function (saveDisplayAs) {
+        const self = this;
+        const handle = '#' + 'AngleSavingWrapper';
+        const popupName = 'ValidateBusinessProcess';
+        const popupSettings = {
+            title: Localization.AddLabels,
+            element: '#popup' + popupName,
+            html: self.View.GetBusinessProcessValidateTemplate(),
+            className: 'k-window-full popup' + popupName,
+            resizable: false,
+            draggable: false,
+            center: false,
+            actions: ["Close"],
+            width: 350,
+            minHeight: 100,
+            resize: jQuery.proxy(self.StateHandler.OnPopupResized, self, handle),
+            buttons: self.GetButtons(saveDisplayAs),
+            open: jQuery.proxy(self.ShowValidateBusinessProcessCallback, self),
+            close: e => {
+                popup.Destroy(e);
+                e.userTriggered && popup.Close('#PopupSaveAs');
+            }
+        };
+        return popupSettings;
+    };
+
+    handler.GetButtons = function (saveDisplayAs) {
+        const self = this;
+        let buttons = [{
+            text: Localization.Save,
+            position: 'right',
+            isPrimary: true,
+            className: 'btn-save btn-primary float-right disabled',
+            attr: {
+                'data-busy': Localization.Saving
+            },
+            click: jQuery.proxy(self.CreateAngle, self, saveDisplayAs)
+        }];
+        saveDisplayAs && buttons.push({
+            text: Localization.FollowupsLeftText,
+            position: 'right',
+            click: () => {
+                popup.Close('#popupValidateBusinessProcess');
+            }
+        });
+        return buttons;
+    };
+
+    handler.ShowValidateBusinessProcessCallback = function (e) {
+        const self = this;
+
+        jQuery('.k-overlay').off('click');
+        WC.HtmlHelper.ApplyKnockout(self, e.sender.element);
+        e.sender.element.busyIndicator(true);
+
+        jQuery.when(
+            self.Initial(jQuery('.section-labels')),
+                systemLanguageHandler.LoadLanguages())
+                .then(() => {
+                    self.SetSummary(self);
+                    jQuery('.k-overlay').on('click', () => {
+                        popup.Close('#popupValidateBusinessProcess');
+                        popup.Close('#PopupSaveAs');
+                    });
+
+                    e.sender.element.busyIndicator(false);
+                });        
+    };
+
+    handler.SetSummary = function () {
+        const self = this;
+        const language = self.StateHandler.GetLanguagesData(self.AngleHandler.Data().multi_lang_name);
+
+        let privilegeLabels = [];
+        let searchLabels = [];
+        jQuery.each(self.GetAssignedLabels(), function (index, assignedLabel) {
+            // other label
+            const label = modelLabelCategoryHandler.GetLabelById(assignedLabel);
+            if (label) {
+                const labelName = label.name || label.id;
+                const categoryUri = self.Data.model + label.category;
+                const category = modelLabelCategoryHandler.GetLabelCategoryByUri(categoryUri);
+                if (category.used_for_authorization)
+                    privilegeLabels.push(labelName);
+                else
+                    searchLabels.push(labelName);
+            }
+        });
+
+        // summary
+        self.Summary.language_text(kendo.format('{0}: {1} ({2})', Localization.Languages, language.length, language.join(', ')));
+        self.Summary.bp_text(kendo.format('{0}: {1} ({2})', Localization.BusinessProcesses, 0, ''));
+        self.Summary.privilege_label_text(kendo.format('{0}: {1}', Localization.PrivilegeLabels, privilegeLabels.length));
+        self.Summary.search_label_text(kendo.format('{0}: {1}', Localization.SearchLabels, searchLabels.length));
     };
 }(ItemLabelHandler.prototype));

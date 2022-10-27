@@ -66,6 +66,8 @@ ${btnShowValidateButton}            css=#ShowValidateButton
 ${popupNotification}         css=#popupNotification
 ${btnCancelConfirmation}     css=#btn-popupNotification0
 
+${popupAddLabels}            css=#popupValidateBusinessProcess_wnd_title
+
 *** Keywords ***
 Get Angle Uri
     ${uri}  Execute JavaScript  return WC.Utility.UrlParameter('angle');
@@ -191,6 +193,12 @@ Click Save Angle
     Wait Until Ajax Complete
     Wait Until Element Exist And Visible   ${btnShowPublishSettings}
     Wait Display Executed
+
+Click Save Angle Without BP Added
+    ${hasButton}  Is Element Exist  ${btnSaveAngle}
+    Run Keyword If  ${hasButton}  Click Option Save  ${btnSaveAngle}
+    ...    ELSE                   Click Main Save
+    Wait Until Element Exist And Visible     ${popupAddLabels}
 
 Click Save Angle And Expect Warning
     ${hasButton}  Is Element Exist  ${btnSaveAngle}

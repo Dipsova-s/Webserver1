@@ -705,8 +705,8 @@ function AngleHandler(model) {
     self.CanSetTemplate = function () {
         return self.Data().is_template() ? self.Data().authorizations.unmark_template : self.Data().authorizations.mark_template;
     };
-    self.Validate = function () {
-        return self.AngleLabelHandler.Validate(true);
+    self.Validate = function (saveAsDisplay) {
+        return self.AngleLabelHandler.Validate(true, saveAsDisplay);
     };
 
     // constructor

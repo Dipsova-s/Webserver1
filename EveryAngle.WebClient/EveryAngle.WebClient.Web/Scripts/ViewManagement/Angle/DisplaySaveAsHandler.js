@@ -34,7 +34,7 @@
         self.ItemSaveAsHandler.Validation = self.Validation;
     };
     self.ShowPopup = function () {
-        self.ItemSaveAsHandler.ShowPopup(Localization.SaveAs);
+        self.AngleHandler.AngleLabelHandler.Validate(false) ? self.ItemSaveAsHandler.ShowPopup(Localization.SaveAs) : self.ItemSaveAsHandler.ShowPopupForInvalidBP(Localization.SaveAs);
     };
     self.GetPopupOptions = function (title) {
         var options = self.ItemSaveAsHandler.__GetPopupOptions(title);
@@ -152,7 +152,7 @@
         return data;
     };
     self.Save = function () {
-        if (!self.AngleHandler.Validate())
+        if (!self.AngleHandler.Validate(true))
             return;
 
         var data = self.GetSaveData();
@@ -211,7 +211,7 @@
                 data = display;
                 return false;
             }
-        }); 
+        });
         return data;
     };
     self.SetPersonalDefaultDisplay = function (isPersonalDefaultChanged) {

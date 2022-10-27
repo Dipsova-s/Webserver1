@@ -39,5 +39,9 @@
     self.GetStateData = function () {
         return self.AngleHandler.GetData();
     };
+    self.CreateAngle = function(saveDisplayAs) {
+        popup.Close('#popupValidateBusinessProcess');
+        saveDisplayAs ? anglePageHandler.HandlerAngleSaveAction.SaveasHandler.Save() : anglePageHandler.SaveAll(false, true);
+    };
 }
 AngleLabelHandler.extend(ItemLabelHandler);

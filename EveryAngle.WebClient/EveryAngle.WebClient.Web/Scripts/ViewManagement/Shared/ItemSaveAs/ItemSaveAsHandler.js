@@ -14,6 +14,7 @@
     var self = this;
     self.Language = null;
     self.View = new ItemSaveAsView();
+    self.StateHandler = new ItemStateHandler();
 
     self.SetData = function (names, appendCopy) {
         jQuery.each(names, function (index, name) {
@@ -61,6 +62,47 @@
                 },
                 {
                     text: Localization.Ok,
+                    position: 'right',
+                    isPrimary: true,
+                    className: 'btn-save executing',
+                    attr: {
+                        'data-busy': Localization.Saving
+                    },
+                    click: function (e, obj) {
+                        if (popup.CanButtonExecute(obj) && self.Validation())
+                            self.Save();
+                    }
+                }
+            ],
+            open: self.ShowPopupCallback,
+            close: popup.Destroy
+        };
+    };
+    self.ShowPopupForInvalidBP = function (title) {
+        const options = self.GetPopupOptionForInvalidBusinessProcess(title);
+        popup.Show(options);
+    };
+    self.GetPopupOptionForInvalidBusinessProcess = function (title) {
+        const self = this;
+        const handle = '#' + 'AngleSavingWrapper';
+        return {
+            element: '#PopupSaveAs',
+            title: title,
+            html: self.View.GetTemplateForInvalidBP(),
+            className: 'save-as-popup',
+            actions: ['Close'],
+            width: 350,
+            height: 'auto',
+            minWidth: 350,
+            minHeight: 100,
+            scrollable: false,
+            resizable: false,
+            center: false,
+            draggable: false,
+            resize: jQuery.proxy(self.StateHandler.OnPopupResized, self, handle),
+            buttons: [
+                {
+                    text: Localization.FollowupsRightText,
                     position: 'right',
                     isPrimary: true,
                     className: 'btn-save executing',

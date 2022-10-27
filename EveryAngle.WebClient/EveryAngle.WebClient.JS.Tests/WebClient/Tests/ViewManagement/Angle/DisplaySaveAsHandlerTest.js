@@ -65,10 +65,32 @@ describe("DisplaySaveAsHandler", function () {
         it("should show popup", function () {
             // prepare
             spyOn(displaySaveAsHandler.ItemSaveAsHandler, 'ShowPopup');
+            displaySaveAsHandler.AngleHandler.AngleLabelHandler = {
+                Validate: jQuery.noop
+            }
+            spyOn(displaySaveAsHandler.AngleHandler.AngleLabelHandler, "Validate").and.returnValue(true);
+
+            //call
             displaySaveAsHandler.ShowPopup();
 
             // assert
             expect(displaySaveAsHandler.ItemSaveAsHandler.ShowPopup).toHaveBeenCalled();
+            expect(displaySaveAsHandler.AngleHandler.AngleLabelHandler.Validate).toHaveBeenCalled();
+        });
+        it("should show popup of Invalid BP", function () {
+            // prepare
+            spyOn(displaySaveAsHandler.ItemSaveAsHandler, 'ShowPopupForInvalidBP');
+            displaySaveAsHandler.AngleHandler.AngleLabelHandler = {
+                Validate: jQuery.noop
+            }
+            spyOn(displaySaveAsHandler.AngleHandler.AngleLabelHandler, "Validate").and.returnValue(false);
+
+            //call
+            displaySaveAsHandler.ShowPopup();
+
+            // assert
+            expect(displaySaveAsHandler.ItemSaveAsHandler.ShowPopupForInvalidBP).toHaveBeenCalled();
+            expect(displaySaveAsHandler.AngleHandler.AngleLabelHandler.Validate).toHaveBeenCalled();
         });
     });
 
@@ -473,6 +495,9 @@ describe("DisplaySaveAsHandler", function () {
     });
 
     describe(".Save", function () {
+        afterEach(() => {
+            expect(displaySaveAsHandler.AngleHandler.Validate).toHaveBeenCalledWith(true);
+        });
         it("should save Display from a current handler", function () {
             // prepare
             spyOn(displaySaveAsHandler.AngleHandler, 'Validate').and.returnValue(true);
