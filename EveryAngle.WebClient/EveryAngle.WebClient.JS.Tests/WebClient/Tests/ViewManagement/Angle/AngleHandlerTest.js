@@ -1306,10 +1306,7 @@ describe("AngleHandler", function () {
         it("should save all Displays with is_user_default=true", function () {
             // prepare
             display3.Data().user_specific.is_user_default(true);
-            angleHandler.SaveDisplays()
-                .then(function () {
-                    expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(1);
-                });
+            angleHandler.SaveDisplays();
 
             // assert
             expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(1);
@@ -1329,16 +1326,13 @@ describe("AngleHandler", function () {
             spyOn(angleHandler.SaveDisplaysUsedInAutomationTasksHandler, 'IsDisplayRequiredToSave').and.returnValue(true);
 
             // call
-            angleHandler.SaveDisplays(forcedSaveDisplays)
-                .then(function () {
-                    expect(angleHandler.SaveDisplay).toHaveBeenCalledTimes(1);
-                });
+            angleHandler.SaveDisplays(forcedSaveDisplays);
 
             // assert
             expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave).toHaveBeenCalledTimes(1);
             expect(angleHandler.SaveDisplaysUsedInAutomationTasksHandler.IsDisplayRequiredToSave).toHaveBeenCalledWith('display/3');
             expect(Array.prototype.pushDeferred).toHaveBeenCalledTimes(1);
-            
+
         });
         it("should not save displays usedInTask but user don't want save it", function () {
             var forcedSaveDisplays = true;
@@ -2131,7 +2125,14 @@ describe("AngleHandler", function () {
 
             angleHandler.Validate();
 
-            expect(angleHandler.AngleLabelHandler.Validate).toHaveBeenCalled();
+            expect(angleHandler.AngleLabelHandler.Validate).toHaveBeenCalledWith(true, undefined);
+        });
+        it("should call validate function with expected parameter", function () {
+            spyOn(angleHandler.AngleLabelHandler, 'Validate');
+
+            angleHandler.Validate(true);
+
+            expect(angleHandler.AngleLabelHandler.Validate).toHaveBeenCalledWith(true, true);
         });
     });
 

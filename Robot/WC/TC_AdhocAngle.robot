@@ -12,11 +12,8 @@ Save Adhoc Angle Without BP
     ${angleName}  Set Variable  [ROBOT] Save Adhoc Angle Without BP
     ${bps}    Create List    S2D
     Execute Blank Adhoc Angle From One Object      PD
-    Click Save Angle And Expect Warning
-    Verify Popup Warning For BP And Close
-    Add Business Processes      ${bps}     ${TRUE}
-    Edit Angle Description    en    ${angleName}    ${EMPTY}    ${TRUE}
-    Click Save Angle
+    Click Save Angle Without BP Added
+    Add Business Process From Add Labels Popup And Save      ${bps}
     [Teardown]  Back To Search And Delete Angle Are Created    ${angleName}
 
 Save Display As Adhoc Angle Without BP
@@ -26,12 +23,8 @@ Save Display As Adhoc Angle Without BP
     ${displayName}  Set Variable    [ROBOT] Display From Adhoc Angle Without BP
     ${bps}    Create List    S2D
     Execute Blank Adhoc Angle From One Object      PD
-    Save Adhoc Display From Action Menu     ${displayName}
-    Verify Popup Warning For BP And Close
-    Cancel Save Display As
-    Add Business Processes      ${bps}     ${TRUE}
-    Edit Angle Description    en    ${angleName}    ${EMPTY}    ${TRUE}
-    Save Adhoc Display From Action Menu     ${displayName}
+    Update Adhoc Display Name When No Bp Added In Angle    ${displayName}
+    Add Business Process From Add Labels Popup And Save     ${bps}
     [Teardown]  Back To Search And Delete Angle Are Created    ${angleName}
 
 Adhoc Display Is Removed When Create Another Display In Adhoc Angle

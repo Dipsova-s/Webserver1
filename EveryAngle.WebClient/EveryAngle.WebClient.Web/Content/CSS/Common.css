@@ -4215,3 +4215,49 @@ textarea.input-light {
 
 .no-tooltip {
   cursor: default; }
+
+.popupValidateBusinessProcess .section-labels .label-header {
+    color: #78909c;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+.popupValidateBusinessProcess .section-labels .label-group-header {
+    font-size: 11px;
+}
+.popupValidateBusinessProcess .section-labels .labels-wrapper {
+    border-radius: 2px;
+    border: solid 1px #e9ecee;
+    background-color: #ffffff;
+    padding: 7px 2px 2px 7px;
+    margin-bottom: 10px;
+    min-height: 36px;
+    box-sizing: border-box;
+}
+
+.popupValidateBusinessProcess .section-labels .labels-wrapper .multiple-select-header {
+        display: none;
+}
+
+.popupValidateBusinessProcess .section-labels .labels-wrapper .label-selection-message,
+.popupValidateBusinessProcess .section-labels .labels-wrapper .business-processes-selection-message {
+        font-size: 11px;
+}
+
+.popupValidateBusinessProcess .section-warning-message,
+.save-as-popup .section-warning-message {
+    background-color: rgba(255, 204, 203, 0.7);
+    overflow-wrap: break-word;
+    border-radius: 3px;
+    color: #061c2b;
+    letter-spacing: 0.25px;
+}
+
+.popupValidateBusinessProcess .card .card-header,
+.save-as-popup .card .card-header {
+    font-weight: normal;
+    text-transform: none;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}

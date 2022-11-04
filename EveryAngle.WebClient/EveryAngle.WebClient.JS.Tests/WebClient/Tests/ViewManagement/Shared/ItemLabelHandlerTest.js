@@ -282,7 +282,7 @@ describe("ItemLabelHandler", function () {
             //arrange
             spyOn(itemLabelHandler, 'ValidateBusinessProcess').and.returnValue(true);
             spyOn(itemLabelHandler, 'ValidateLabel').and.returnValue(false);
-            spyOn(popup, 'Alert');
+            spyOn(popup, 'Show');
             spyOn($.fn, 'find').and.returnValues($('<div/>'), $('<div/>').text('error'));
 
             //act
@@ -290,7 +290,7 @@ describe("ItemLabelHandler", function () {
 
             // assert
             expect(result).toEqual(false);
-            expect(popup.Alert).toHaveBeenCalled();
+            expect(popup.Show).toHaveBeenCalled();
         });
     });
 
@@ -683,6 +683,38 @@ describe("ItemLabelHandler", function () {
             // assert
             expect(result).toEqual(true);
             expect(itemLabelHandler.StateHandler.CheckSavePublishSettings).toHaveBeenCalled();
+        });
+    });
+    describe(".GetButtons", () => {
+        it("Should return two buttons", () => {
+            var result = itemLabelHandler.GetButtons(true);
+            expect(result.length).toEqual(2);
+        });
+        it("Should return one buttons", () => {
+            var result = itemLabelHandler.GetButtons(false);
+            expect(result.length).toEqual(1);
+        });
+    });
+    describe(".SetSummary", () => {
+        it("Should call GetLanguagesData", () => {
+            //prepare
+            itemLabelHandler.AngleHandler = {
+                Data: () => {
+                    return {
+                        multi_lang_name: "Test"
+                    }
+                }
+            };
+            spyOn(itemLabelHandler, 'GetAssignedLabels').and.returnValue([]);
+            spyOn(itemLabelHandler.StateHandler, "GetLanguagesData").and.returnValue(["English"]);
+
+            //call
+            itemLabelHandler.SetSummary();
+
+            //expect
+            expect(itemLabelHandler.StateHandler.GetLanguagesData).toHaveBeenCalled();
+            expect(itemLabelHandler.Summary.bp_text()).toEqual("Business Processes: 0 ()");
+            expect(itemLabelHandler.Summary.language_text()).toEqual("Languages: 1 (English)");
         });
     });
 });

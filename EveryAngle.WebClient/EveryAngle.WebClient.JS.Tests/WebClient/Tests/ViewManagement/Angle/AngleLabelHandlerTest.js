@@ -141,4 +141,39 @@ describe("AngleLabelHandler", function () {
             expect(result).toEqual('my-angle-data');
         });
     });
+    describe(".CreateAngle", () => {
+        beforeEach(() => {
+            createMockHandler(window, 'anglePageHandler', {
+                HandlerAngleSaveAction: {
+                    SaveasHandler: {
+                        Save: $.noop
+                    }
+                },
+                SaveAll: $.noop
+            });
+        });
+        afterEach(() => {
+            restoreMockHandlers();
+        });
+        it("Should call SaveAll", () => {
+            //arrange
+            spyOn(anglePageHandler, "SaveAll");
+
+            //act
+            angleLabelHandler.CreateAngle(false);
+
+            // assert
+            expect(anglePageHandler.SaveAll).toHaveBeenCalled()
+        });
+        it("Should call SaveasHandler Save", () => {
+            //arrange
+            spyOn(anglePageHandler.HandlerAngleSaveAction.SaveasHandler, "Save");
+
+            //act
+            angleLabelHandler.CreateAngle(true);
+
+            // assert
+            expect(anglePageHandler.HandlerAngleSaveAction.SaveasHandler.Save).toHaveBeenCalled()
+        });
+    });
 });

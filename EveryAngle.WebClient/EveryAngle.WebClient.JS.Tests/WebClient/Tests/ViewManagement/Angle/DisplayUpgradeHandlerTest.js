@@ -102,7 +102,7 @@ describe("DisplayUpgradeHandler", function () {
 
         beforeEach(function () {
             spyOn(window, 'UpdateDataToWebService').and.returnValue($.when({}));
-            spyOn(WC.ModelHelper, 'ExtendDisplayData');
+            spyOn(WC.ModelHelper, 'ExtendDisplayData').and.returnValue(true);
             spyOn(displayUpgradeHandler, 'UpgradeDisplayDone');
         });
 
@@ -111,8 +111,7 @@ describe("DisplayUpgradeHandler", function () {
             var upgradeData = { fields: [] };
             displayUpgradeHandler.UpgradeDisplay(displayUri, upgradeData)
                 .done(function (result) {
-                    expect(result).not.toEqual(false);
-                    expect(WC.ModelHelper.ExtendDisplayData).toHaveBeenCalled();
+                    expect(result).toEqual(true);
                     expect(displayUpgradeHandler.UpgradeDisplayDone).toHaveBeenCalled();
                 });
             expect(window.UpdateDataToWebService).toHaveBeenCalled();

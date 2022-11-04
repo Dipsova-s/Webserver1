@@ -286,6 +286,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Labels.
+        /// </summary>
+        public static string AddLabels {
+            get {
+                return ResourceManager.GetString("AddLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add language.
         /// </summary>
         public static string AddLanguage {
@@ -1506,6 +1515,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string Both {
             get {
                 return ResourceManager.GetString("Both", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a business process to save this Angle..
+        /// </summary>
+        public static string BPWarningMessage {
+            get {
+                return ResourceManager.GetString("BPWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To save this display add a business process in the next step..
+        /// </summary>
+        public static string BPWarningMessageInSaveAs {
+            get {
+                return ResourceManager.GetString("BPWarningMessageInSaveAs", resourceCulture);
             }
         }
         

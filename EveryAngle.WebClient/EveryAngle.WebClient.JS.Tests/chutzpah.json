@@ -1,15 +1,15 @@
 ﻿{
     "Framework": "jasmine",
-    //"Server": {
-    //    "Enabled": true
-    //},
-    //"Engine": "Chrome",
-    //"EngineOptions": {
-    //    "ChromeBrowserPath": "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-    //},
-    //"BrowserArguments": {
-    //    "chrome": "--allow-file-access-from-files --allow-file-access"
-    //},
+     "Server": {
+        "Enabled": true
+    },
+    "Engine": "Chrome",
+    "EngineOptions": {
+        "ChromeBrowserPath": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+    },
+    "BrowserArguments": {
+        "chrome": "--allow-file-access-from-files --allow-file-access"
+    },
     "CodeCoverageExecutionMode": "Manual",
     "CodeCoverageIncludes": [],
     "CodeCoverageExcludes": [

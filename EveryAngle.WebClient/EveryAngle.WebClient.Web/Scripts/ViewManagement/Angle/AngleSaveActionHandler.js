@@ -4,6 +4,7 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
     var self = this;
     self.AngleHandler = angleHandler;
     self.StateHandler = stateHandler;
+    self.SaveasHandler = null;
 
     self.Initial = function (container) {
         self.AddAction('Display', Localization.SaveDisplay, 'action-save-display', self.VisibleSaveDisplay, self.EnableSaveDisplay, self.SaveDisplay);
@@ -150,7 +151,7 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
     self.SaveAngleAs = function () {
         if (!self.EnableSaveAngleAs())
             return;
-        
+
         self.HideSaveOptionsMenu();
         var handler = new AngleSaveAsHandler(self.AngleHandler, self.GetDisplayHandler());
         handler.ItemSaveAsHandler.Redirect = self.Redirect;
@@ -169,9 +170,9 @@ function AngleSaveActionHandler(angleHandler, stateHandler) {
             return;
 
         self.HideSaveOptionsMenu();
-        var handler = new DisplaySaveAsHandler(self.AngleHandler, self.GetDisplayHandler());
-        handler.ItemSaveAsHandler.Redirect = self.Redirect;
-        handler.ShowPopup();
+        self.SaveasHandler = new DisplaySaveAsHandler(self.AngleHandler, self.GetDisplayHandler());
+        self.SaveasHandler.ItemSaveAsHandler.Redirect = self.Redirect;
+        self.SaveasHandler.ShowPopup();
     };
 
     // SetTemplate/SetAngle

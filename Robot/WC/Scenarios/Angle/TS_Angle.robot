@@ -2,6 +2,9 @@
 Resource    		${EXECDIR}/WC/POM/Search/SearchPage.robot
 Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
 
+*** Variables ***
+${nextBtnSaveDsiaplayAsPopup}      css=#btn-PopupSaveAs0
+
 *** Keywords ***
 Create Adhoc Angle From N Object List
     [Arguments]   ${objectName}    ${angleName}    ${n}=0
@@ -220,6 +223,13 @@ Save Adhoc Display From Action Menu
     Input Name In Save Display As Popup    ${displayName}
     Save Display As
 
+Update Adhoc Display Name When No Bp Added In Angle
+    [Arguments]    ${displayName}
+    Click Save Display As
+    Page Should Contain    To save this display add a business process in the next step.
+    Input Name In Save Display As Popup    ${displayName}
+    Click Element    ${nextBtnSaveDsiaplayAsPopup}
+
 Check Warning And Error Displays In Display Dropdown
     [Arguments]         ${angleName}
     Search Angle From Search Page And Execute Angle    ${angleName}
@@ -398,10 +408,6 @@ Add Display To Existing Dashboard
     Select Existing Dashboard To Add  ${dashboardName}
     Click Save Dashboard Button
     Wait Until Page Contains    Display has been added to the Dashboard
-    Click Close Info Button
-
-Verify Popup Warning For BP And Close
-    Wait Until Page Contains    You must add at least one Business Process to save the Angle
     Click Close Info Button
 
 Copy Display

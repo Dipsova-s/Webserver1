@@ -65,10 +65,28 @@ describe("ItemSaveAsHandler", function () {
     describe(".ShowPopup", function () {
         it("should show popup", function () {
             // prepare
+            spyOn(itemSaveAsHandler, "GetPopupOptions");            
             spyOn(popup, "Show");
+
+            //act
             itemSaveAsHandler.ShowPopup();
 
             // assert
+            expect(itemSaveAsHandler.GetPopupOptions).toHaveBeenCalled();
+            expect(popup.Show).toHaveBeenCalled();
+        });        
+    });
+    describe(".ShowPopupForInvalidBP", () => {
+        it("should show BP invalid popup", () => {
+            // prepare
+            spyOn(popup, "Show");
+            spyOn(itemSaveAsHandler, "GetPopupOptionForInvalidBusinessProcess");
+
+            //act
+            itemSaveAsHandler.ShowPopupForInvalidBP();
+
+            // assert
+            expect(itemSaveAsHandler.GetPopupOptionForInvalidBusinessProcess).toHaveBeenCalled();
             expect(popup.Show).toHaveBeenCalled();
         });
     });
