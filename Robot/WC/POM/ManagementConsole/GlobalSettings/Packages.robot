@@ -19,7 +19,7 @@ ${btnCancelDeletePackage}           css=#popupConfirmation .btnConfirmCancel
 Wait Until Packages Page Loaded
     Sleep    ${TIMEOUT_GENERAL}
     Wait Until Page Contains Element    ${tbGridPackage}
-    Wait Until Page Contains    All uploaded packages
+    Wait Until Page Contains    Upload new package
     Wait Until Package Grid Loaded
 
 Wait Until Package Grid Loaded

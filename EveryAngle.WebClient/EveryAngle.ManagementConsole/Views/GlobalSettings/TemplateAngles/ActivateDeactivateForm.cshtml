@@ -1,0 +1,45 @@
+﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.Core.ViewModels.EAPackage
+@model IEnumerable<ExportPackageModelViewModel>
+@{
+    Layout = null;
+}
+
+<div class="popupContent">
+    <form id="ActivatePackageForm">
+        <div class="contentSection contentSectionInfo">
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Resource.MC_SelectModel
+                </label>
+                <p>
+                    <input type="text" id="ModelActivateSelector" name="display_id" class="required" />
+                    <select name="model_id" id="ModelActivateSelectorHidden" style="display:none">
+                        @foreach (ExportPackageModelViewModel model in Model)
+                        {
+                            <option class="text" value='{"modelId":"@(model.Id)","packageUri":"@(model.PackageUri)"}' title="@(model.Name)" @(model.HasManageModelPrivilege ? string.Empty : "disabled")>
+                                @(model.Name)
+                            </option>
+                        }
+                    </select>
+                </p>
+            </div>
+        </div>
+    </form>
+    <br />
+    <div class="contentSection contentSectionInfo">
+        <div class="contentSectionInfoItem">
+            <label style="width: 180px; margin-right: 0px;">
+                @Resource.MC_ContentType
+            </label>
+            <div id="contentSection">
+                @* Content will come here*@
+            </div>
+        </div>
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnSubmit" id="ExportPackageButton" onclick="MC.Models.Packages.ActivatePackageFromPopup(this)">@Resource.Ok</a>
+        <a class="btn" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>
+

@@ -630,12 +630,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        public ActionResult RenderUploadedEASetsPage()
-        {
-            ViewBag.HasManageModel = SessionHelper.Session.IsValidToManageModelPrivilege();
-            return PartialView("~/Views/GlobalSettings/UploadEASets/AllUploadedEASets.cshtml");
-        }
-
         public ActionResult RenderExportPackageForm()
         {
             IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = SessionHelper.Models.Select(x => new ExportPackageModelViewModel
@@ -645,15 +639,22 @@ namespace EveryAngle.ManagementConsole.Controllers
                 HasManageModelPrivilege = SessionHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString())
             });
 
-            return PartialView("~/Views/GlobalSettings/UploadEASets/ExportPackageForm.cshtml", ExportPackageModelViewModel);
+            return PartialView("~/Views/GlobalSettings/TemplateAngles/ExportPackageForm.cshtml", ExportPackageModelViewModel);
         }
 
-        public ActionResult GetFilterUploadedEASets(string q = "")
+        public ActionResult RenderActivatePackageForm()
         {
-            ViewData["DefaultPageSize"] = DefaultPageSize;
-            ViewBag.Query = q;
-            return PartialView("~/Views/GlobalSettings/UploadEASets/AllUploadedEASetsGrid.cshtml");
+            IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = SessionHelper.Models.Select(x => new ExportPackageModelViewModel
+            {
+                Id = x.id,
+                Name = x.short_name,
+                HasManageModelPrivilege = SessionHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
+                PackageUri = x.PackagesUri.ToString()
+            });
+
+            return PartialView("~/Views/GlobalSettings/TemplateAngles/ActivateDeactivateForm.cshtml", ExportPackageModelViewModel);
         }
+
 
         private ListViewModel<PackageViewModel> GetPackages(int page, int pagesize, string query,
             [DataSourceRequest] DataSourceRequest request)

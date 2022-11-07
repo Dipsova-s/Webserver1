@@ -11,5 +11,6 @@ namespace EveryAngle.Core.ViewModels.EAPackage
         public string Id { get; set; }
         public string Name { get; set; }
         public bool HasManageModelPrivilege { get; set; }
+        public string PackageUri { get; set; }
     }
 }
