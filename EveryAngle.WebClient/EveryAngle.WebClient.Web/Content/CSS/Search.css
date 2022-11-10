@@ -1004,17 +1004,19 @@
     line-height: 23px;
     height: 23px;
     padding-top: 8px;
-    display: flex;
+/*    display: flex;*/
     align-items: center;
     position: relative; }
     #LeftMenu .FilterTab .icon {
       font-weight: bold;
-      font-size: 10px; }
+      font-size: 10px; 
+      float: right;
+      margin-top: -16px;}
     #LeftMenu .FilterTab:not(.expand) {
       padding-bottom: 8px; }
       #LeftMenu .FilterTab:not(.expand) .icon-chevron-down {
         display: none; }
-    #LeftMenu .FilterTab.expand .icon-chevron-right {
+    #LeftMenu .FilterTab.expand .icon-chevron-up {
       display: none; }
     #LeftMenu .FilterTab.expand + .FilterCheckBox,
     #LeftMenu .FilterTab.sliding + .FilterCheckBox {
@@ -1022,7 +1024,6 @@
     #LeftMenu .FilterTab .FilterTitle {
       font-size: 12px;
       font-weight: bold;
-      margin-left: 12px;
       letter-spacing: .24px; }
     #LeftMenu .FilterTab span {
       display: block;

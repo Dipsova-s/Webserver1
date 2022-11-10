@@ -189,19 +189,19 @@
 }
 
 [type="checkbox"]:checked + .label:before {
-    border-color: #25cad2;
-    background-color: #25cad2;
+    border-color: #007AC9;
+    background-color: #007AC9;
 }
 
 [type="radio"]:checked + .label:before {
-    border-color: #25cad2;
+    border-color: #007AC9;
 }
 
 [type="checkbox"]:hover + .label:before,
 [type="radio"]:hover + .label:before,
 [type="checkbox"] + .label:hover:before,
 [type="radio"] + .label:hover:before {
-    border: 2px solid #25cad2  ;
+    border: 2px solid #007AC9;
 }
 
 [type="checkbox"] + .label:after,

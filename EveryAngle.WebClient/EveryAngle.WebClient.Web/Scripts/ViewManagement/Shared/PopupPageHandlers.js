@@ -89,6 +89,8 @@ function Popup() {
             if (!e.sender.options.content) {
                 e.sender.isPopupInitialized = true;
             }
+
+            e.sender.wrapper.find('.k-window-titlebar').append("<div class=\"triangle\"></div>");
         };
         var onClose = function (e) {
             if (typeof options.close === 'function')
@@ -113,7 +115,7 @@ function Popup() {
             if (e.sender.options.isMaximized) {
                 e.sender.wrapper.addClass('k-window-maximized');
                 var buttonHeight = e.sender.wrapper.find('.k-window-buttons').outerHeight();
-                var titleHeight = e.sender.wrapper.find('k-window-titlebar').outerHeight();
+                var titleHeight = e.sender.wrapper.find('.k-window-titlebar').outerHeight();
                 e.sender.wrapper.css({
                     width: WC.Window.Width * 0.9,
                     height: (WC.Window.Height - titleHeight - buttonHeight - 42) * 0.85

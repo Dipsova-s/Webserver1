@@ -247,8 +247,9 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 .k-grid-tooltip {
   display: none;
   position: absolute;
-  border-radius: 2px;
-  background-color: #061c2b;
+  border: 1px solid #1E2556;
+  border-radius: 4px;
+  background-color: #1E2556;
   font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 11px;
   color: #fff;
@@ -497,18 +498,19 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 rgba(0, 0, 0, 0.1); }
 
 .k-window-titlebar {
-  height: 40px;
+  height: 55px;
   padding: 0;
-  background: #fff none;
   border-radius: 2px 2px 0 0;
-  border-bottom-color: transparent; }
+  border-bottom-color: transparent;
+  background: #1E2556;
+  border-radius: 4px 4px 0px 0px; }
 
 .k-window-title {
   font-size: 14px;
   margin-left: 15px;
   line-height: 40px;
   font-weight: bold;
-  color: #3d4852; }
+  color: #FFFFFF; }
 
 .k-window-draggable .k-window-titlebar,
 .k-window-draggable .k-window-title {
@@ -521,9 +523,9 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
   margin-right: 2px; }
 
 .k-window-titlebar .k-window-action {
-  height: 14px;
-  width: 14px;
-  margin-left: 5px;
+  height: 10px;
+  width: 10px;
+  margin: 7px 8px 0 6px;
   opacity: 1; }
 
 .k-window-titlebar .k-window-action.k-state-hover {
@@ -536,10 +538,10 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 
 .k-window-titlebar .k-window-action .k-icon {
   background-image: none;
-  font-size: 14px;
-  color: #78909c;
-  height: 14px;
-  width: 14px; }
+  font-size: 10px;
+  color: #FFFFFF;
+  height: 10px;
+  width: 10px; }
 
 div.k-window-content {
   color: inherit;
