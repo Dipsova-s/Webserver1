@@ -1,11 +1,11 @@
-﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.GlobalSettings.Packages.js" />
+﻿/// <chutzpah_reference path="/../../Dependencies/page/MC.Models.Packages.js" />
 
 describe("MC.GlobalSettings.Packages", function () {
 
     var packages;
 
     beforeEach(function () {
-        packages = MC.GlobalSettings.Packages;
+        packages = MC.Models.Packages;
     });
 
     describe(".InitExportPostData", function () {

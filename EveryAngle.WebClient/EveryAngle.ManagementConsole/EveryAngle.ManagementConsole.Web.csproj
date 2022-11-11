@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44374</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -576,7 +576,6 @@
     <Content Include="Scripts\Page\MC.GlobalSettings.SystemRoles.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.LabelCategories.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.BusinessProcesses.js" />
-    <Content Include="Scripts\Page\MC.GlobalSettings.Packages.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.WelcomePage.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.Languages.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.FieldCategories.js" />
@@ -738,9 +737,6 @@
     <Content Include="Views\User\Sessions\AllSessions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\GlobalSettings\UploadEASets\AllUploadedEASets.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="EveryAngle.ManagementConsole.Web.wpp.targets">
       <SubType>Designer</SubType>
     </Content>
@@ -805,9 +801,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\Sessions\AllSessionsGrid.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\GlobalSettings\UploadEASets\AllUploadedEASetsGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\AvailableRoleTable.cshtml" />
@@ -953,7 +946,7 @@
     <Content Include="Views\User\ImportUserGrid.cshtml" />
     <Content Include="Views\Shared\ManageUserRole.cshtml" />
     <Content Include="Views\Model\RefreshCycle\RefreshCycleForm.cshtml" />
-    <Content Include="Views\GlobalSettings\UploadEASets\ExportPackageForm.cshtml" />
+    <Content Include="Views\GlobalSettings\TemplateAngles\ExportPackageForm.cshtml" />
     <Content Include="Views\Component\SystemComponent.cshtml" />
     <Content Include="Views\Component\ComponentGrid.cshtml" />
     <Content Include="Views\Shared\Copyright.cshtml" />
@@ -961,6 +954,7 @@
     <Content Include="Views\AngleExports\ExcelTemplatesGrid.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ModelTimestampTemplate.cshtml" />
     <Content Include="Views\AutomationTasks\Tasks\ConnectionSettings.cshtml" />
+    <Content Include="Views\GlobalSettings\TemplateAngles\ActivateDeactivateForm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

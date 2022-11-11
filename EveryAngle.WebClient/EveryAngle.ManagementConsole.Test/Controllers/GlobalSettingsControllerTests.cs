@@ -107,7 +107,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 Assert.IsFalse(view.ViewBag.ServerOperation);
             }
-            else if(logType == SystemLogType.ModelServer)
+            else if (logType == SystemLogType.ModelServer)
             {
                 Assert.IsFalse(view.ViewBag.SortEnabled);
             }
@@ -164,10 +164,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [TestCase("WebClient", ".log", true)]
-        [TestCase("ManagementConsole", ".log", true)] 
-        [TestCase("AppServer", ".log", false)] 
-        [TestCase("ModelServer", ".log", false)] 
-        [TestCase("Repository", ".log", false)] 
+        [TestCase("ManagementConsole", ".log", true)]
+        [TestCase("AppServer", ".log", false)]
+        [TestCase("ModelServer", ".log", false)]
+        [TestCase("Repository", ".log", false)]
         public void GetSystemlog_Should_Return_File_Contents_For_Log_File(string target, string fileExtension, bool isOnClient)
         {
             var filePath = "test" + fileExtension;
@@ -185,7 +185,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     .Setup(x => x.Get(It.IsAny<string>()))
                     .Returns(new FileReaderResult { ErrorMessage = "", StringContent = "Sample Data", Success = true });
             }
-            
+
             ContentResult objContentResult = _testingController.GetSystemlog(filePath, 0, 0, "", "", target);
             Assert.AreEqual("Sample Data", objContentResult.Content);
         }
@@ -218,7 +218,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 logFileReaderService.Object,
                 systemSettingsService.Object,
                 stsLogService.Object);
-            Assert.NotNull(testController);   
+            Assert.NotNull(testController);
         }
 
         [Test]
@@ -248,8 +248,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             sessionHelper.SetupGet(x => x.Version)
                 .Returns(version);
             sessionHelper.SetupGet(x => x.Info)
-                .Returns(new SystemInformationViewModel {
-                features = new List<FeatureViewModel>()});
+                .Returns(new SystemInformationViewModel
+                {
+                    features = new List<FeatureViewModel>()
+                });
             globalSettingService
                 .Setup(x => x.GetSystemSettings(It.IsAny<string>()))
                 .Returns(new SystemSettingViewModel());
@@ -268,6 +270,24 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             var approvalOptions = (List<ApprovalStateOption>)_testingController.ViewBag.ApprovalStateOptions;
             Assert.AreEqual(approvalStateOptions.Count, approvalOptions.Count);
             globalSettingService.Verify(x => x.GetSystemSettings(It.IsAny<string>()), Times.Once);
+        }
+
+        [Test]
+        public void RenderExportPackageForm_Should_Return_PartialView()
+        {
+            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
+            {
+                new ModelViewModel
+                {
+                    id = "EA2_800",
+                    Uri = new Uri("/models/1", UriKind.Relative)
+                }
+            });
+
+            var result = _testingController.RenderActivatePackageForm();
+
+            // assert 
+            Assert.That(result, Is.InstanceOf<PartialViewResult>());
         }
         #endregion
 

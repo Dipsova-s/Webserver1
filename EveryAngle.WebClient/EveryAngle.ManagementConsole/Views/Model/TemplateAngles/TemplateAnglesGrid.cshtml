@@ -13,7 +13,7 @@
         Type = PageToolbarButtonType.GridEditDelete,
         Privilege = PrivilegeType.Model,
         ModelUri = ViewBag.ModelUri,
-        EnableTemplate = "#= MC.Models.Packages.GetPackageButtonsTemplate(data, true) #",
+        EnableTemplate = "#= MC.Models.Packages.GetPackageButtonsTemplate(data, true) #",                        
         DisableTemplate = "#= MC.Models.Packages.GetPackageButtonsTemplate(data, false) #"
     });
     string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
@@ -34,12 +34,17 @@
             .HeaderHtmlAttributes(new { @class = "columnNumber" })
             .Title(Resource.Version)
             .Sortable(false);
+        columns.Bound(model => model.ActivatedModels)
+            .Title(Resource.Model)
+            .Sortable(false)
+            .Hidden(!string.IsNullOrEmpty(ViewBag.ModelId));
         columns.Bound(model => model.active_version)
             .Width(60)
             .HtmlAttributes(new { @class = "columnNumber" })
             .HeaderHtmlAttributes(new { @class = "columnNumber" })
             .Title(Resource.ActiveVersion)
-            .Sortable(false);
+            .Sortable(false)
+            .Hidden(string.IsNullOrEmpty(ViewBag.ModelId));
         columns.Bound(model => model.source).Title(Resource.Source).Sortable(false);
         columns.Bound(model => model.ReContentsList).Title(Resource.MC_ContentType).Sortable(false);
 
@@ -68,7 +73,8 @@
                 + "# } #"
             )
             .Title(Resource.Activated)
-            .Sortable(false);
+            .Sortable(false)
+            .Hidden(string.IsNullOrEmpty(ViewBag.ModelId));
 
         columns.Bound(model => model.deactivated.Created)
             .Title("Deactivated")
@@ -80,12 +86,14 @@
             + "No data"
             + "# } #")
             .Title(Resource.Deactivated)
-            .Sortable(false);
+            .Sortable(false)
+            .Hidden(string.IsNullOrEmpty(ViewBag.ModelId));
 
         columns.Bound(model => model.StatusName)
             .Title(Resource.Status)
             .Width(105)
-            .Sortable(true);
+            .Sortable(true)
+            .Hidden(string.IsNullOrEmpty(ViewBag.ModelId));
 
         columns.Bound("Uri").ClientTemplate(gridButton)
             .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
@@ -102,7 +110,8 @@
             "<label>"
             + "<input type=\"checkbox\" id = \"IsSelected\" name=\"IsSelected\" #= data.IsSelected ? checked='checked' : ''# value='#=JSON.stringify(data)#'/>"
             + "<span class=\"label\"></span></label>"
-        );
+        )
+            .Hidden(string.IsNullOrEmpty(ViewBag.ModelId));
     })
     .EnableCustomBinding(true)
     .AutoBind(false)

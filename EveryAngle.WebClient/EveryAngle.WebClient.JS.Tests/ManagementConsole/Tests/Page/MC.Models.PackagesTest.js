@@ -2,22 +2,39 @@
 
 describe("MC.Models.Packages", function () {
     describe(".GetPackageButtonsTemplate", function () {
-        it("should no error", function () {
-            // prepare
-            var data = {};
-            var enable = true;
+        let data = {}, template = '';
+        const enable = true;
+        beforeEach(() => {
             spyOn(MC.Models.Packages, 'GetPackageActionHtmlAttributes').and.callFake($.noop);
             spyOn(MC.Models.Packages, 'GetPackageDownloadHtmlAttributes').and.callFake($.noop);
             spyOn(MC.Models.Packages, 'GetPackageButtonHtml').and.callFake(function () { return ''; });
             spyOn(MC.Models.Packages, 'PersistCheckedPakcages').and.callFake($.noop);
-
-            var template = MC.Models.Packages.GetPackageButtonsTemplate(data, enable);
-
-            // assert
+            spyOn(MC.Models.Packages, 'GetPackageDeleteHtmlAttributes').and.callFake($.noop);
+        });
+        afterEach(() => {
             expect(MC.Models.Packages.GetPackageActionHtmlAttributes).toHaveBeenCalled();
             expect(MC.Models.Packages.GetPackageDownloadHtmlAttributes).toHaveBeenCalled();
             expect(MC.Models.Packages.GetPackageButtonHtml).toHaveBeenCalled();
             expect('').toEqual(template);
+        });
+        it("should no error and should not call GetPackageDeleteHtmlAttributes", function () {
+            // prepare            
+            MC.Models.Packages.ModelId = "EA2_800";
+
+            template = MC.Models.Packages.GetPackageButtonsTemplate(data, enable);
+
+            // assert
+            expect(MC.Models.Packages.GetPackageDeleteHtmlAttributes).not.toHaveBeenCalled();
+        });
+
+        it("should no error and should call GetPackageDeleteHtmlAttributes", function () {
+            // prepare
+            MC.Models.Packages.ModelId = '';
+
+            template = MC.Models.Packages.GetPackageButtonsTemplate(data, enable);
+
+            // assert
+            expect(MC.Models.Packages.GetPackageDeleteHtmlAttributes).toHaveBeenCalled();
         });
     });
 
@@ -264,7 +281,7 @@ describe("MC.Models.Packages", function () {
     });
 
     describe(".CanDeactivatePackage", function () {
-        var tests = [
+        const tests = [
             {
                 active: true,
                 active_version: 1,
@@ -289,19 +306,34 @@ describe("MC.Models.Packages", function () {
                 Version: 0,
                 expected: true,
                 status: 'ActivationFailed'
+            },
+            {
+                active: true,
+                active_version: 1,
+                Version: 0,
+                expected: true,
+                modelId: ''
+            },
+            {
+                active: false,
+                active_version: 1,
+                Version: 0,
+                expected: false,
+                modelId: ''
             }
         ];
-
         $.each(tests, function (index, test) {
-            it("should " + test.expected + " if active=" + test.active + ", active_version=" + test.active_version + ", Version=" + test.Version, function () {
+            it("should " + test.expected + " if active=" + test.active + (test.modelId !== '' ? ", active_version=" + test.active_version + ", Version=" + test.Version : ", Model Id is empty"), function () {
                 // prepare
-                var data = {
+                const data = {
                     active: test.active,
                     active_version: test.active_version,
                     Version: test.Version,
                     status: test.status
                 };
-                var result = MC.Models.Packages.CanDeactivatePackage(data);
+                MC.Models.Packages.ModelId = test.modelId === '' ? test.modelId : 'EA2_800';
+
+                const result = MC.Models.Packages.CanDeactivatePackage(data);
 
                 // assert
                 expect(test.expected).toEqual(result);
@@ -461,12 +493,12 @@ describe("MC.Models.Packages", function () {
         afterEach(function () {
             docElement.remove();
         })
-        
+
         it("Should update the grid url", function () {
             var grid = {
                 dataSource: {
                     transport: {
-                        options: { read: { url: "/Jasmine/admin/packages/readpackages?packageUri=Test.local&activeStatus=active"}}
+                        options: { read: { url: "/Jasmine/admin/packages/readpackages?packageUri=Test.local&activeStatus=active" } }
                     }
                 }
             };
@@ -481,7 +513,7 @@ describe("MC.Models.Packages", function () {
         };
         beforeEach(function () {
             domElement = $(
-                '<p><input name = "IsSelected" type="checkbox" class = "click" value= ' + JSON.stringify(testData) +'> <button id="btnactivatedeactivate" class="btnActivateDeactivate btnPrimary" disabled = "disabled" value = "Activate"><span class="label">Deactivate</span></button></p>').appendTo('body') 
+                '<p><input name = "IsSelected" type="checkbox" class = "click" value= ' + JSON.stringify(testData) + '> <button id="btnactivatedeactivate" class="btnActivateDeactivate btnPrimary" disabled = "disabled" value = "Activate"><span class="label">Deactivate</span></button></p>').appendTo('body')
         });
         afterEach(function () {
             domElement.remove();
@@ -530,6 +562,52 @@ describe("MC.Models.Packages", function () {
 
             // assert
             expect(data.IsSelected).toEqual(false);
+        });
+    });
+    describe(".IsModelPackage", () => {
+        const testCases = [
+            {
+                contents: ['angles'],
+                expected: true
+            },
+            {
+                contents: ['users'],
+                expected: false
+            },
+            {
+                contents: ['angles', 'users'],
+                expected: true
+            }
+        ];
+        testCases.forEach(e => {
+            it("should return " + e.expected + " when it has " + e.contents.join(', '), () => {
+                const result = MC.Models.Packages.IsModelPackage(e.contents);
+                expect(result).toEqual(e.expected);
+            });
+        });
+    });
+    describe(".GetElementWithParameter", () => {
+        let dataParameters = {}, dropdown = {};
+        beforeEach(() => {
+            dataParameters = {
+                packageUri: 'http://test.local/packages/1',
+                modelId: '',
+                activatedModel: 'EA2_800',
+                content: 'angles'
+            };
+            dropdown = {
+                packageUri: 'http://test.local/model/1/packages',
+                modelId: 'EA2_800'
+            }
+        });
+        it("should return element with model id and model package url", () => {
+            const expected = {
+                modelId: "EA2_800",
+                packageUri: "http://test.local/model/1/packages/1"
+            }
+            const element = MC.Models.Packages.GetElementWithParameter(dataParameters, dropdown);
+
+            expect($(element).data('parameters')).toEqual(expected);
         });
     });
 });

@@ -21,7 +21,7 @@
             <div class="contentSectionInfoItem">
                 <p>
                     <input class="required agent_url valid_modelinUrl exportPackage_url" type="text" name="package_export_url" placeholder="Paste Web client URL here" /> &emsp;
-                    <a class="btn btnPrimary" id="ExportPackageCheckButton" onclick="MC.GlobalSettings.Packages.CheckPackageURL(this)">@Resource.Check</a> &emsp;
+                    <a class="btn btnPrimary" id="ExportPackageCheckButton" onclick="MC.Models.Packages.CheckPackageURL(this)">@Resource.Check</a> &emsp;
                     <span> <span id="ExportPackageCount">@Resource.No</span> @Resource.Items</span>
                     <span class="tooltip">
                         <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
@@ -127,7 +127,7 @@
         </div>
     </div>
     <div class="popupToolbar">
-        <a class="btn btnPrimary" id="ExportPackageButton" onclick="MC.GlobalSettings.Packages.ExportPackage(this)">@Resource.Ok</a>
+        <a class="btn btnPrimary" id="ExportPackageButton" onclick="MC.Models.Packages.ExportPackage(this)">@Resource.Ok</a>
         <a class="btn" data-role="popup-close">@Resource.Cancel</a>
     </div>
 </form>

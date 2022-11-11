@@ -6630,4 +6630,10 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="AddLabels" xml:space="preserve">
     <value>Add Labels</value> 
   </data>
+  <data name="MC_DeactivatePackage" xml:space="preserve">
+	<value>Deactivate Package</value>
+  </data>
+  <data name="MC_GlobalModel" xml:space="preserve">
+	<value>Global Model</value>
+  </data>
 </root>

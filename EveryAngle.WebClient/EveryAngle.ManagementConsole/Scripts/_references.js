@@ -61,7 +61,6 @@
 /// <reference path="page/mc.globalsettings.fieldcategories.js" />
 /// <reference path="page/mc.globalsettings.labelcategories.js" />
 /// <reference path="page/mc.globalsettings.languages.js" />
-/// <reference path="page/mc.globalsettings.packages.js" />
 /// <reference path="Page/MC.GlobalSettings.Systemlog.js" />
 /// <reference path="page/mc.globalsettings.systemroles.js" />
 /// <reference path="page/mc.globalsettings.systemsettings.js" />

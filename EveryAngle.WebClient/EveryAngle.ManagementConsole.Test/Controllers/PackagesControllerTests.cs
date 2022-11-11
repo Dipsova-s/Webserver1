@@ -9,6 +9,10 @@ using System.Linq;
 using EveryAngle.Core.ViewModels.Cycle;
 using Newtonsoft.Json;
 using System;
+using Kendo.Mvc.UI;
+using System.ComponentModel;
+using Kendo.Mvc;
+using EveryAngle.Core.ViewModels.Privilege;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -149,6 +153,54 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             modelService.Verify(m => m.GetModelPackage(viewModels[0].PackageUri), Times.Once);
         }
 
+        [Test]
+        public void ReadPackages_should_return_Json()
+        {
+            SortDescriptor sortDescriptor = new SortDescriptor { Member = "id", SortDirection = ListSortDirection.Ascending };
+
+            modelService.Setup(x => x.GetModelPackages(It.IsAny<string>())).Returns(new Core.ViewModels.ListViewModel<PackageViewModel>());
+
+            var result = _testingController.ReadPackages(new DataSourceRequest
+            {
+                Page = 1,
+                PageSize = 30,
+                Sorts = new List<SortDescriptor> { sortDescriptor }
+            }, string.Empty, string.Empty, "active");
+
+            // assert 
+            Assert.That(result, Is.InstanceOf<JsonResult>());
+        }
+
+        [Test]
+        public void RenderTemplateAnglesPage_should_return_PartialView()
+        {
+            Core.ViewModels.Users.SessionViewModel sessionViewModel = GetMockViewModel<Core.ViewModels.Users.SessionViewModel>();
+            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
+            {
+                new ModelPrivilegeViewModel
+                {
+                    model = new Uri("/models/1", UriKind.Relative),
+                    Privileges = new PrivilegesForModelViewModel
+                    {
+                        manage_model = true
+                    }
+                }
+            };
+            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            var result = _testingController.RenderTemplateAnglesPage(string.Empty, string.Empty);
+
+            // assert 
+            Assert.That(result, Is.InstanceOf<PartialViewResult>());
+        }
+
+        [Test]
+        public void GetFilterTemplateAngles_should_return_PartialView()
+        {
+            var result = _testingController.GetFilterTemplateAngles(string.Empty, "active");
+
+            // assert 
+            Assert.That(result, Is.InstanceOf<PartialViewResult>());
+        }
         #endregion
 
     }

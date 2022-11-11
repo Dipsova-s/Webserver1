@@ -5536,3 +5536,22 @@ td.PopupExcelTemplate {
     line-height: 14px;
     margin-top: 3px;
 }
+
+form#ActivatePackageForm .contentSectionInfo label {
+    width: 80px;
+    margin-top: 5px;
+}
+
+form#ActivatePackageForm .contentSectionInfo p {
+    margin-right: 5px;
+    margin-left: 180px;
+}
+
+.rowPackageContent {
+    margin-left: 180px;
+    font-size: 12px;
+}
+
+.rowPackageContent:first-letter {
+    text-transform: capitalize;
+}

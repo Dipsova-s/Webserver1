@@ -69,11 +69,11 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             return packages;
         }
-        
+
         private ExportSummaryFacetViewModel GetExportSummaryFacetViewModel(IEnumerable<FacetViewModel> facetViewModels, string facetFilterIds)
         {
             ExportSummaryFacetViewModel exportSummaryFacetViewModel = new ExportSummaryFacetViewModel();
-            if(facetViewModels.Any())
+            if (facetViewModels.Any())
             {
                 FacetViewModel characteristics = facetViewModels.FirstOrDefault(x => x.id.Equals("facetcat_characteristics"));
                 exportSummaryFacetViewModel.TotalPrivate = GetTotalFacetItem(characteristics, "facet_isprivate");
@@ -82,7 +82,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
             return exportSummaryFacetViewModel;
         }
-        
+
         private int GetTotalFacetItem(FacetViewModel facetViewModel, string facetFilterItemTypeId)
         {
             if (facetViewModel == null)
@@ -91,7 +91,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             FacetFilterViewModel facetFilterViewModel = facetViewModel.filters.FirstOrDefault(x => x.id.Equals(facetFilterItemTypeId));
             return facetFilterViewModel == null ? 0 : facetFilterViewModel.count;
         }
-        
+
         private int GetTotalPublishedFacetItem(IEnumerable<FacetViewModel> facetViewModels, string facetFilterItemTypeIds, int totalPrivate)
         {
             if (string.IsNullOrEmpty(facetFilterItemTypeIds))
@@ -113,8 +113,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             arguments.Add(new Argument { name = TaskArgumentConstant.IncludeLabelCategories, value = activePackageQueryViewModel.IncludeLabelCategories });
             arguments.Add(new Argument { name = TaskArgumentConstant.IncludePrivateItems, value = activePackageQueryViewModel.IncludePrivateItems });
-            arguments.Add(new Argument { name = TaskArgumentConstant.AnglesConflictResolution, value = activePackageQueryViewModel.AnglesConflictResolution});
-            arguments.Add(new Argument { name = TaskArgumentConstant.IncludeExternalId, value = activePackageQueryViewModel.IncludeExternalId});
+            arguments.Add(new Argument { name = TaskArgumentConstant.AnglesConflictResolution, value = activePackageQueryViewModel.AnglesConflictResolution });
+            arguments.Add(new Argument { name = TaskArgumentConstant.IncludeExternalId, value = activePackageQueryViewModel.IncludeExternalId });
 
             if (activePackageQueryViewModel.IncludeLabelCategories)
                 arguments.Add(new Argument { name = TaskArgumentConstant.LabelCategoriesConflictResolution, value = activePackageQueryViewModel.LabelCategoriesConflictResolution });
@@ -133,28 +133,28 @@ namespace EveryAngle.ManagementConsole.Controllers
                 ViewBag.ActiveStatus = response["activeStatus"].ToString();
                 ViewBag.Query = response["q"].ToString();
             }
-            
             var version = SessionHelper.Version;
             var model = SessionHelper.GetModel(modelUri);
 
             ViewBag.ModelId = modelId;
-            ViewBag.ModelName = model.short_name;
+            ViewBag.ModelName = model?.short_name ?? "";
             ViewBag.ModelPackagesUri = string.Format("{0}?model={1}&types=deactivate_package,activate_package&filterMode=task_results", version.GetEntryByName("eventlog").Uri, modelId);
             ViewBag.EventlogUri = version.GetEntryByName("eventlog").Uri.ToString();
             ViewBag.ModelUri = modelUri;
+            ViewBag.HasManageModel = SessionHelper.Session.IsValidToManageModelPrivilege();
             return PartialView("~/Views/Model/TemplateAngles/TemplateAnglesPage.cshtml");
         }
 
         public ActionResult GetFilterTemplateAngles(string modelUri, string activeStatus, string q = "")
         {
             var model = SessionHelper.GetModel(modelUri);
-            var packageUri = model.PackagesUri != null ? model.PackagesUri.ToString() : string.Empty;
+            var packageUri = model != null && model.PackagesUri != null ? model.PackagesUri.ToString() : string.Empty;
 
             ViewData["DefaultPageSize"] = DefaultPageSize;
             ViewBag.Query = q;
             ViewBag.PackageUri = packageUri;
             ViewBag.ModelUri = modelUri;
-            ViewBag.ModelId = model.id;
+            ViewBag.ModelId = model?.id ?? string.Empty;
             ViewBag.ActiveStatus = activeStatus ?? "active";
             return PartialView("~/Views/Model/TemplateAngles/TemplateAnglesGrid.cshtml");
         }
@@ -191,7 +191,38 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult ReadPackages([DataSourceRequest] DataSourceRequest request, string q, string packageUri,
             string activeStatus)
         {
-            var packages = GetPackages(request, q, packageUri, activeStatus);
+            ListViewModel<PackageViewModel> packages;
+            var models = SessionHelper.Models;
+            var isPackageUriEmpty = string.IsNullOrEmpty(packageUri);
+            if (isPackageUriEmpty)
+            {
+                var version = SessionHelper.Version;
+                packageUri = version.GetEntryByName("packages").Uri.ToString();
+            }
+            packages = GetPackages(request, q, packageUri, activeStatus);
+
+            if (isPackageUriEmpty)
+            {
+                packages.Data.ForEach(packageData =>
+                {
+                    var modelsName = new List<string>();
+                    var modelItems = new List<string> { "angles", "labels", "dashboards", "helptexts", "model_authorizations" };
+                    if (packageData.Contents.Any(x => modelItems.Contains(x)))
+                    {
+                        packageData.activated_models.ForEach(activatedModel =>
+                        {
+                            var model = models.FirstOrDefault(w => w.id == activatedModel);
+                            modelsName.Add(model != null ? model.short_name : activatedModel);
+                        });
+                        packageData.ActivatedModels = string.Join(", ", modelsName);
+                    }
+                    else
+                    {
+                        packageData.ActivatedModels = Resource.MC_GlobalModel;
+                    }
+                    packageData.active = packageData.activated_models.Count > 0;
+                });
+            }
             var result = new DataSourceResult
             {
                 Data = packages.Data,
@@ -243,7 +274,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     arguments.Add(new Argument { name = TaskArgumentConstant.AutoCreateMissingUsers, value = true });
                     AddArgumentsForUpgradePackage(arguments, package, input);
                 }
-                actions.Add(new Core.ViewModels.Cycle.TaskAction 
+                actions.Add(new Core.ViewModels.Cycle.TaskAction
                 {
                     action_type = input.IsActive ? "activate_package" : "deactivate_package",
                     arguments = arguments

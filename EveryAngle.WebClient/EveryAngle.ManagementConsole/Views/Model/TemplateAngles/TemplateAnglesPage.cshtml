@@ -12,7 +12,11 @@
                 ShowPackageErrorMessageUri: '@Url.Action("GetPackageErrorMessage", "Packages")',
                 ManagePackageUri: '@Url.Content("~/Packages/ManagePackage")',
                 DownloadPackageUri: '@Url.Content("~/Packages/DownloadPackageFile")',
-                ManageMultiplePackagesUri: '@Url.Content("~/Packages/ManageMultiplePackage")'
+                ManageMultiplePackagesUri: '@Url.Content("~/Packages/ManageMultiplePackage")',
+                DeletePackageUri: '@Url.Content("~/GlobalSettings/DeletePackage")',
+                GetPackageSummaryUri: '@Url.Action("GetPackageSummary", "Packages")',
+                GetExportPackageStatusUri: '@Url.Action("GetExportPackageStatus", "Packages")',
+                PostExportPackageUri: '@Url.Action("ExportPackage", "Packages")'
             });
             MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
             MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
@@ -23,6 +27,14 @@
 </script>
 
 @{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        EnableTemplate = "<div class=\"field fieldFile\"><input type=\"file\" name=\"file\" id=\"file\" size=\"60\" onchange=\"MC.Models.Packages.SavePackage(event)\" data-rule-packagename=\"true\" data-role=\"uploader\" data-text-browse=\"" + Resource.MC_UploadNewPackage + "\" /></div>",
+        DisableTemplate = "<div class=\"field fieldFile\"><input type=\"file\" name=\"file\" id=\"file\" size=\"60\" data-text-browse=\"" + Resource.MC_UploadNewPackage + "\" disabled=\"disabled\"/></div>",
+        Type = PageToolbarButtonType.Custom,
+        Privilege = PrivilegeType.System
+    });
     @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
     {
         new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
@@ -40,13 +52,37 @@
                 <label><input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="active" type="radio" checked="checked" /><span class="label">@Resource.MC_Active</span></label>
                 <label><input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="inactive" type="radio" /><span class="label">@Resource.Inactive</span></label>
                 <label><input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="all" type="radio" /><span class="label">@Resource.All</span></label>
+                @if (!string.IsNullOrEmpty(ViewBag.ModelId))
+                {
                 <label><button id="btnactivatedeactivate" disabled="disabled" class="btn btnPrimary btnActivateDeactivate" name="btnactivatedeactivate" onclick="MC.Models.Packages.ActivatePackages()" value="Deactivate"><span class="label">@Resource.Deactivate</span></button></label>
+                }
             </div>
         </div>
         <div class="gridContainer" id="TemplateAnglesGridContainer">
             @{Html.RenderAction("GetFilterTemplateAngles", "Packages", new { modelUri = ViewBag.ModelUri });}
         </div>
     </div>
+    @{
+        if (string.IsNullOrEmpty(ViewBag.ModelId))
+        {
+            <div class="gridToolbar gridToolbarBottom">
+                <form action="@Url.Action("UploadPackage", "GlobalSettings")" data-role="validator" enctype="multipart/form-data" id="UploadPackageFileForm" method="post">
+                    @{
+                        @Html.RenderPageToolbarBottom(buttons)
+
+                        if (ViewBag.HasManageModel)
+                        {
+                            <a class="btn btnPrimary btnAdd" id="ExportPackagePopup" onclick="MC.Models.Packages.OpenExportPopup()" href="#PopupExportPackage" title="@Resource.MC_CreatePackage" data-role="mcPopup" data-min-width="600" data-width="600" data-height="670">@Resource.MC_CreateNewPackage</a>
+                        }
+                        else
+                        {
+                            <a class="btn btnPrimary btnAdd disabled">@Resource.MC_CreateNewPackage</a>
+                        }
+                    }
+                </form>
+            </div>
+        }
+    }
     <hr />
 
     <div class="contentSection contentSectionGrid PackagesHistoryContentSectionGrid">
@@ -68,4 +104,12 @@
 
 <div class="popup" id="ImportPackagePopup">
     @Html.Partial("~/Views/Model/TemplateAngles/ImportPackageForm.cshtml")
+</div>
+
+<div class="popup" id="PopupExportPackage">
+    @{Html.RenderAction("RenderExportPackageForm", "GlobalSettings");}
+</div>
+
+<div class="popup" id="ActivatePackagePopup">
+    @{Html.RenderAction("RenderActivatePackageForm", "GlobalSettings");}
 </div>
