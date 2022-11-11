@@ -79,7 +79,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For the latest product information,&lt;br/&gt; visit us at &lt;a href=&quot;http://www.magnitude.com&quot; target=&quot;_blank&quot;&gt;www.magnitude.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; .
+        ///   Looks up a localized string similar to For the latest product information,&lt;br/&gt; visit us at &lt;a href=&quot;https://insightsoftware.com/&quot; target=&quot;_blank&quot;&gt;insightsoftware.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; .
         /// </summary>
         public static string AboutEveryAngleDetails {
             get {

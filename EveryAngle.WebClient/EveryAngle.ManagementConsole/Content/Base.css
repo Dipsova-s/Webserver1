@@ -35,9 +35,10 @@
     display: inline-block;
     padding: 5px 8px;
     height: 20px;
-    border: 1px solid #25cad2;
+    border: 1px solid #B8C5D5;
+    border-radius: 3px;
     border-radius: 2px;
-    color: #25cad2;
+    color: #546176;
     font-size: 13px;
     letter-spacing: 0.42px;
     font-weight: 500;
@@ -51,25 +52,32 @@
 }
 
     .btn:hover {
-        border: solid 1px #03c6cf;
-        color: #03c6cf;
+        border: 1px solid #007AC9;
+        border-radius: 3px;
+        color: #007AC9;
+        background: #E8F4FC;
     }
 
     .btn:focus {
-        border: solid 1px #25cad2;
-        color: #16dfe9;
+        box-shadow: 0px 0px 0px 3px rgba(66, 153, 226, 0.6);
+        border-radius: 3px;
+        border: 1px solid #001737;
+        color: #546176;
         outline: none;
     }
 
     .btn:active {
-        border: solid 1px #17ccd4;
-        color: #17ccd4;
+        border: 1px solid #007AC9;
+        border-radius: 3px;
+        color: #001737;
+        background: #A1D1EF;
     }
 
     .btn:disabled {
         opacity: 0.5;
-        border: solid 1px #25cad2;
-        color: #25cad2;
+        background: #F4F6F8;
+        border-radius: 3px;
+        color: #B8C5D5;
     }
 
 .btn:after {
