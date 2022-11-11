@@ -314,12 +314,12 @@ function ExportExcelHandler() {
     self.SetButtonStatus = function () {
         var templates = excelTemplateFilesHandler.GetDropdownData();
         if (!templates.hasObject('id', self.CurrentExportModel.TemplateFile())) {
-            jQuery('a[id=btn-popupExportExcel1]').addClass('executing');
-            jQuery('a[id=btn-popupExportDrilldownExcel1]:visible').addClass('executing');
+            jQuery('a[id=btn-popupExportExcel0]').addClass('executing');
+            jQuery('a[id=btn-popupExportDrilldownExcel0]:visible').addClass('executing');
         }
         else {
-            jQuery('a[id=btn-popupExportExcel1]').removeClass('executing');
-            jQuery('a[id=btn-popupExportDrilldownExcel1]:visible').removeClass('executing');
+            jQuery('a[id=btn-popupExportExcel0]').removeClass('executing');
+            jQuery('a[id=btn-popupExportDrilldownExcel0]:visible').removeClass('executing');
         }
     };
     self.SetExportModel = function (datastore) {

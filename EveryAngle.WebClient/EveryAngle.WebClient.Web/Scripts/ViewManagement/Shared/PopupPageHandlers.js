@@ -90,7 +90,7 @@ function Popup() {
                 e.sender.isPopupInitialized = true;
             }
 
-            e.sender.wrapper.find('.k-window-titlebar').append("<div class=\"triangle\"></div>");
+            !e.sender.wrapper.hasClass('popupNotification') && e.sender.wrapper.find('.k-window-titlebar').append("<div class=\"triangle\"></div>");
         };
         var onClose = function (e) {
             if (typeof options.close === 'function')
@@ -237,7 +237,7 @@ function Popup() {
             var wrapper = jQuery('.k-window-buttons', win.wrapper).length === 0 ? jQuery('<div class="k-window-buttons" />') : jQuery('.k-window-buttons', win.wrapper).empty(),
                 inner = wrapper.append('<div class="k-window-buttons-inner" />').children(),
                 winId = win.element.attr('id') || '';
-
+            buttons.find(x => x.text === Captions.Button_Cancel) && (buttons = buttons.reverse());
             jQuery.each(buttons, function (k, v) {
                 v.kendoWindow = win;
                 jQuery('<a class="btn btn-small" />')
@@ -374,10 +374,10 @@ function Popup() {
         if (sessionName) {
             container.append([
                 '<div class="warningSession">',
-                    '<label>',
-                        '<input type="checkbox" />',
-                        '<span class="label">' + Localization.PopupWarningRemberSession + '</span>',
-                    '</label>',
+                '<label>',
+                '<input type="checkbox" />',
+                '<span class="label">' + Localization.PopupWarningRemberSession + '</span>',
+                '</label>',
                 '</div>'
             ].join(''));
 
