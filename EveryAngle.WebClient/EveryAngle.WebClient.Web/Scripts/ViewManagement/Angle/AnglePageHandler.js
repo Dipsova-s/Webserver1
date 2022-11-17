@@ -1841,7 +1841,7 @@ function AnglePageHandler() {
                 .done(function () {
                     popup.Info(kendo.format(Localization.Info_AddDisplayToDashboardSucceed, WC.Utility.GetDashboardPageUri(dashboardModel.Data().uri)));
                     self.CloseAddToDashboardPopup();
-                    $("#btn-popupAddToDashboard1").prop("disabled", false);
+                    $("#btn-popupAddToDashboard0").prop("disabled", false);
                 });
         }
     };

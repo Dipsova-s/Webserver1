@@ -1483,7 +1483,7 @@ textarea.input-light {
       min-width: 700px; } }
 
 #TopBar {
-  background: linear-gradient(150.16deg, #02A84B 0%, #016841 100%);
+  background: #1E2556;
   color: #fafcfc;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); }
   #TopBar .Wrapper {
@@ -1893,6 +1893,12 @@ textarea.input-light {
 .popupNotification .invalidMessages li {
   margin-bottom: 3px; }
 
+.popupNotification .k-window-titlebar {
+    background: #FFFFFF; }
+
+.popupNotification .k-window-titlebar .k-window-title {
+    color: #001737; }
+
 .customTimeout i {
   font-size: 11px; }
 
@@ -2281,7 +2287,7 @@ textarea.input-light {
   .breadcrumb-wrapper .icon-breadcrumb-front {
     margin-right: 7px; }
     .breadcrumb-wrapper .icon-breadcrumb-front.icon-angle {
-      color: #007AC9; }
+      color: #278838; }
   .breadcrumb-wrapper .icon-breadcrumb-rear {
     margin-left: 5px; }
     .breadcrumb-wrapper .icon-breadcrumb-rear.icon-validated {
@@ -2367,7 +2373,7 @@ textarea.input-light {
     .displayNameContainer .icon:before {
       margin: auto; }
     .displayNameContainer .icon.icon-angle {
-      color: #007AC9; }
+      color: #278838; }
     .displayNameContainer .icon.icon-validated {
       color: #7dc855; }
     .displayNameContainer .icon.icon-star-active:before, .displayNameContainer .icon.icon-star-inactive:before {
@@ -4076,7 +4082,7 @@ textarea.input-light {
     color: #fafcfc;
     top: 4px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-    background-color: #f5333f; }
+    background-color: #278838; }
 
 /* .content-wrapper
 ============================================ */

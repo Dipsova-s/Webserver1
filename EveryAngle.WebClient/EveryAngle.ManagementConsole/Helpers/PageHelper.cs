@@ -196,8 +196,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             string html = GetChooserButtonHtml(button);
             return MvcHtmlString.Create(html);
         }
-        
-        [ExcludeFromCodeCoverage] //Already covered this function but sonar cube is not detecting the coverage
+
         public static string GetModelTimestamp(AboutModel aboutModel)
         {
             string modelDataTimestamp = string.Empty;
@@ -257,7 +256,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                             SetDisabledButton(buttons[index]);
                         break;
                     case PrivilegeType.Model:
-                        if (!session.IsValidToManageModelPrivilege(buttons[index].ModelUri))
+                        if (!session.IsValidToManageModelPrivilege(buttons[index].ModelUri) && !(string.IsNullOrEmpty(buttons[index].ModelUri) && canManageSystem))
                             SetDisabledButton(buttons[index]);
                         break;
                     case PrivilegeType.User:

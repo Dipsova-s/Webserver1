@@ -150,9 +150,6 @@ namespace EveryAngle.ManagementConsole
             bundles.Add(new CustomScriptBundle("~/bundles/globalsettings/fieldcategories")
                 .Include("~/scripts/page/mc.globalsettings.fieldcategories.js"));
 
-            bundles.Add(new CustomScriptBundle("~/bundles/globalsettings/packages")
-                .Include("~/scripts/page/mc.globalsettings.packages.js"));
-
             bundles.Add(new CustomScriptBundle("~/bundles/globalsettings/businessprocesses")
                 .Include("~/scripts/page/mc.globalsettings.businessprocesses.js"));
 

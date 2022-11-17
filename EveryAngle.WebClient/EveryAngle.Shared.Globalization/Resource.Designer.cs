@@ -79,7 +79,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For the latest product information,&lt;br/&gt; visit us at &lt;a href=&quot;http://www.magnitude.com&quot; target=&quot;_blank&quot;&gt;www.magnitude.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; .
+        ///   Looks up a localized string similar to For the latest product information,&lt;br/&gt; visit us at &lt;a href=&quot;https://insightsoftware.com/&quot; target=&quot;_blank&quot;&gt;insightsoftware.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; .
         /// </summary>
         public static string AboutEveryAngleDetails {
             get {
@@ -9104,6 +9104,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deactivate Package.
+        /// </summary>
+        public static string MC_DeactivatePackage {
+            get {
+                return ResourceManager.GetString("MC_DeactivatePackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Debug logging.
         /// </summary>
         public static string MC_DebugLogging {
@@ -10478,6 +10487,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_Generating {
             get {
                 return ResourceManager.GetString("MC_Generating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global Model.
+        /// </summary>
+        public static string MC_GlobalModel {
+            get {
+                return ResourceManager.GetString("MC_GlobalModel", resourceCulture);
             }
         }
         

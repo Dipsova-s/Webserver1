@@ -506,11 +506,13 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
   border-radius: 4px 4px 0px 0px; }
 
 .k-window-title {
-  font-size: 14px;
+  font-size: 20px;
   margin-left: 15px;
-  line-height: 40px;
-  font-weight: bold;
-  color: #FFFFFF; }
+  line-height: 24px;
+  font-weight: 500;
+  color: #FFFFFF;
+  font-family: 'Inter';
+  font-style: normal; }
 
 .k-window-draggable .k-window-titlebar,
 .k-window-draggable .k-window-title {
@@ -563,8 +565,9 @@ div.k-window-content {
   overflow: hidden;
   right: 0;
   bottom: 0;
-  height: 48px;
-  border-radius: 0 0 2px 2px; }
+  height: 55px;
+  border-top: 1px solid #DEE1EA;
+  border-radius: 0px 0px 3px 3px; }
 
 .k-window-buttons-inner {
   position: absolute;
@@ -572,7 +575,7 @@ div.k-window-content {
   right: 0;
   padding: 10px;
   overflow: hidden;
-  background: #f6f6f6; }
+  background: #FFFFFF; }
 
 .k-window-buttons .loading16x16 {
   position: static;

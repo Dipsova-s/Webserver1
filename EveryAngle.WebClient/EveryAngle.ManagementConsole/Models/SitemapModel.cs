@@ -92,7 +92,7 @@ namespace EveryAngle.ManagementConsole.Models
             }
 
             //AngleExport
-            if(!canUseOnlyAutomationTask || isSupportAutomateTask)
+            if (!canUseOnlyAutomationTask || isSupportAutomateTask)
             {
                 _siteMaps.Add(GetAngleExportsMenu(canAccessSystem, canUseOnlyAutomationTask, isSupportAutomateTask));
             }
@@ -151,7 +151,7 @@ namespace EveryAngle.ManagementConsole.Models
                     },
                     new SiteMap { Id = "Languages", Name = Resource.MC_Languages, Uri = "~/GlobalSettings/GetGlobalLanguages", HashPath = "GlobalSettings/Languages" },
                     new SiteMap { Id = "License", Name = Resource.MC_License, Uri = "~/License/GetLicense", HashPath = "GlobalSettings/License" },
-                    new SiteMap { Id = "UploadEASets", Name = Resource.MC_Packages, Uri = "~/GlobalSettings/RenderUploadedEASetsPage", HashPath = "GlobalSettings/UploadEASets" },
+                    new SiteMap { Id = "UploadEASets", Name = Resource.MC_Packages, Uri = "~/Packages/RenderTemplateAnglesPage", HashPath = "GlobalSettings/UploadEASets",Parameters = new { modelUri = "",modelId = ""} },
                     new SiteMap
                     {
                         Id = "Systemlog", Name = Resource.MC_SystemLog, HashPath = "GlobalSettings/Systemlog", Childs = new List<SiteMap>
@@ -366,7 +366,7 @@ namespace EveryAngle.ManagementConsole.Models
                 {
                     siteMap.Childs.Add(GetDataStoresMenu());
                 }
-                
+
             }
             if (!canUseOnlyAutomationTask)
             {

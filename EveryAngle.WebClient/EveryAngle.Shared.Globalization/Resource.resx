@@ -3905,7 +3905,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Content</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>For the latest product information,&lt;br/&gt; visit us at &lt;a href="http://www.magnitude.com" target="_blank"&gt;www.magnitude.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
+    <value>For the latest product information,&lt;br/&gt; visit us at &lt;a href="https://insightsoftware.com/" target="_blank"&gt;insightsoftware.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
     <value>Client:</value>
@@ -6629,5 +6629,11 @@ The "manage system" privilege is required to change the Approval state of an Act
   </data>
   <data name="AddLabels" xml:space="preserve">
     <value>Add Labels</value> 
+  </data>
+  <data name="MC_DeactivatePackage" xml:space="preserve">
+	<value>Deactivate Package</value>
+  </data>
+  <data name="MC_GlobalModel" xml:space="preserve">
+	<value>Global Model</value>
   </data>
 </root>
