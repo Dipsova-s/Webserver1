@@ -27,7 +27,7 @@ window.ItemInfoHandler = function () {
                 text: Captions.Button_EditItem,
                 position: 'right',
                 className: 'executing',
-                isPrimary: true,
+                isPrimary: false,
                 click: function (kendoWindow, obj) {
                     if (popup.CanButtonExecute(obj)) {
                         var params = {}, redirectUrl;

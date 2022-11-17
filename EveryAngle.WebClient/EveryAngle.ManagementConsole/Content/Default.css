@@ -364,7 +364,7 @@ div.error {
 ================================== */
 .header {
     height: 48px;
-    background: #1E2556;
+    background: linear-gradient(150.16deg, #02A84B 0%, #016841 100%);
     box-shadow: 0 0 6px rgba(0, 0, 0, .1);
 }
 

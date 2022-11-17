@@ -90,7 +90,7 @@ function Popup() {
                 e.sender.isPopupInitialized = true;
             }
 
-            !e.sender.wrapper.hasClass('popupNotification') && e.sender.wrapper.find('.k-window-titlebar').append("<div class=\"triangle\"></div>");
+            !e.sender.wrapper.hasClass('popupNotification') && !e.sender.wrapper.hasClass('popupNotification') && e.sender.wrapper.find('.k-window-titlebar').append("<div class=\"triangle\"></div>");
         };
         var onClose = function (e) {
             if (typeof options.close === 'function')

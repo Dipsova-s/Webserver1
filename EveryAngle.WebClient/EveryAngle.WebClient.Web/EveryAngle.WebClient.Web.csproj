@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort></IISExpressSSLPort>
+    <IISExpressSSLPort>44313</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -1048,6 +1048,9 @@
     <Content Include="Content\fonts\roboto-medium.ttf" />
     <Content Include="Content\fonts\roboto-medium.woff" />
     <Content Include="Content\fonts\roboto-medium.woff2" />
+    <Content Include="Content\fonts\Inter-Medium.ttf" />
+    <Content Include="Content\fonts\Inter-Regular.ttf" />
+    <Content Include="Content\fonts\Inter-SemiBold.ttf" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -1502,8 +1505,6 @@
           <DevelopmentServerPort>33986</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:33947/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://PORT0310.everyangle.org:33947</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
