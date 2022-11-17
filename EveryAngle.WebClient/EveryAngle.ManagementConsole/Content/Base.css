@@ -6,10 +6,10 @@
 }
 
 @font-face {
-    font-family: "Roboto";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
-    src: url("../content/fonts/roboto-v19-latin-regular.eot") format("eot"), url("../content/fonts/roboto-v19-latin-regular.woff2") format("woff2"), url("../content/fonts/roboto-v19-latin-regular.woff") format("woff"), url("../content/fonts/roboto-v19-latin-regular.ttf") format("truetype"), url("../content/fonts/roboto-v19-latin-regular.svg#Roboto") format("svg");
+    src: url("../content/fonts/Inter-Regular.ttf") format("ttf"), url("../content/fonts/Inter-Regular.ttf") format("woff2"), url("../content/fonts/roboto-v19-latin-regular.woff") format("woff"), url("../content/fonts/roboto-v19-latin-regular.ttf") format("truetype"), url("../content/fonts/roboto-v19-latin-regular.svg#Roboto") format("svg");
 }
 
 @font-face {
@@ -20,10 +20,10 @@
 }
 
 @font-face {
-    font-family: "Roboto";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
-    src: url("../content/fonts/roboto-medium.eot") format("eot"), url("../../content/fonts/roboto-medium.woff2") format("woff2"), url("../content/fonts/roboto-medium.woff") format("woff"), url("../content/fonts/roboto-medium.ttf") format("truetype"), url("../content/fonts/roboto-medium.svg#Roboto") format("svg");
+    src: url("../content/fonts/Inter-Medium.ttf") format("ttf"), url("../../content/fonts/roboto-medium.woff2") format("woff2"), url("../content/fonts/roboto-medium.woff") format("woff"), url("../content/fonts/roboto-medium.ttf") format("truetype"), url("../content/fonts/roboto-medium.svg#Roboto") format("svg");
 }
 
 

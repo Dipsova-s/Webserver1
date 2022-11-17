@@ -183,25 +183,32 @@
   top: -11px; }
 
 @font-face {
-  font-family: "Roboto";
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../fonts/roboto-v19-latin-regular.eot") format("eot"), url("../fonts/roboto-v19-latin-regular.woff2") format("woff2"), url("../fonts/roboto-v19-latin-regular.woff") format("woff"), url("../fonts/roboto-v19-latin-regular.ttf") format("truetype"), url("../fonts/roboto-v19-latin-regular.svg#Roboto") format("svg"); }
+  src: url("../fonts/Inter-Regular.ttf") format('truetype'); }
 
 @font-face {
   font-family: "Roboto";
   font-style: normal;
   font-weight: bold;
   font-display: swap;
-  src: url("../fonts/roboto-v19-latin-500.eot") format("eot"), url("../fonts/roboto-v19-latin-500.woff2") format("woff2"), url("../fonts/roboto-v19-latin-500.woff") format("woff"), url("../fonts/roboto-v19-latin-500.ttf") format("truetype"), url("../fonts/roboto-v19-latin-500.svg#Roboto") format("svg"); }
+  src: url("../fonts/roboto-v19-latin-500.eot") format("eot") }
 
 @font-face {
-  font-family: "Roboto";
+  font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("../fonts/roboto-medium.eot") format("eot"), url("../fonts/roboto-medium.woff2") format("woff2"), url("../fonts/roboto-medium.woff") format("woff"), url("../fonts/roboto-medium.ttf") format("truetype"), url("../fonts/roboto-medium.svg#Roboto") format("svg"); }
+  src: url("../fonts/Inter-Medium.ttf") format('truetype'); }
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    src: url("../fonts/Inter-SemiBold.ttf") format('truetype');
+}
 
 html, body {
   height: 100%;
@@ -211,7 +218,7 @@ html, body {
   background-color: #fff; }
 
 html, body, input, textarea {
-  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   color: #555;
   font-size: 12px; }
 
@@ -555,7 +562,7 @@ textarea {
   margin: 0;
   box-sizing: border-box;
   height: 30px;
-  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   letter-spacing: 0.15px;
   color: #7d7d7d; }
@@ -608,7 +615,7 @@ textarea.input-light {
     top: -6px;
     padding: 0 3px;
     background-color: #fff;
-    font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+    font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
     font-size: 11px;
     line-height: 1.33;
     letter-spacing: 0.4px;
@@ -1071,8 +1078,13 @@ textarea.input-light {
   height: 14px;
   margin: auto; }
 
+.icon-hamburger {
+    background-image: url('../../Images/apps.svg');
+}
+
 .icon-bin:before {
-  content: "\e909"; }
+    content: "\e909";
+}
 
 .icon-parameterized:before {
   content: "\e90a"; }
@@ -1126,7 +1138,7 @@ textarea.input-light {
   content: "\e917"; }
 
 .icon-hamburger:before {
-  content: "\e918"; }
+  background-image: url('../../../Images/search-grey.svg'); }
 
 .icon-gear:before {
   content: "\e919"; }
@@ -1483,9 +1495,15 @@ textarea.input-light {
       min-width: 700px; } }
 
 #TopBar {
-  background: #1E2556;
+  background: linear-gradient(150.16deg, #02A84B 0%, #016841 100%);
   color: #fafcfc;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); }
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); 
+  left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    position: absolute;  
+    width: 60px; }
   #TopBar .Wrapper {
     height: 48px; }
 
@@ -1512,9 +1530,9 @@ textarea.input-light {
     flex-grow: 1; }
 
 #UserPanel {
-  position: relative;
-  float: right;
-  height: 100%;
+  position: fixed;
+ /* float: right;*/
+  bottom:0;
   padding-top: 6px;
   padding-right: 20px;
   box-sizing: border-box; }
@@ -1526,12 +1544,15 @@ textarea.input-light {
     list-style: none; }
   #UserPanel li {
     vertical-align: middle;
-    display: table-cell;
-    padding: 0 5px; }
+    padding: 13px 0 10px 14px; }
     #UserPanel li.disabled {
       visibility: hidden; }
     #UserPanel li:last-child {
-      padding: 0 0 0 5px; }
+      padding: 0 0 0 5px;
+      background: #001737;
+      opacity: 0.4;
+     /*border: 1px solid #FFFFFF;*/
+     width: 55px; }
     #UserPanel li a {
       font-size: 12px;
       color: #fafcfc;
@@ -1554,8 +1575,7 @@ textarea.input-light {
 
 #UserControl {
   display: flex;
-  align-items: center;
-  margin-left: 5px; }
+  align-items: center; }
 
 #HelpIcon {
   background: transparent url("../../images/master/help.svg") left center no-repeat; }
@@ -2311,7 +2331,7 @@ textarea.input-light {
   cursor: default;
   position: relative;
   box-sizing: border-box;
-  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   font-weight: 500; }
   .item-label > span:first-child {
@@ -2544,7 +2564,7 @@ textarea.input-light {
   box-sizing: border-box;
   margin: 0 5px 5px 0;
   line-height: 20px;
-  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   font-weight: 500; }
 
@@ -2603,7 +2623,7 @@ textarea.input-light {
   background-color: #fff;
   color: #061c2b;
   font-size: 10px;
-  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   font-weight: 500;
   padding: 12px; }
@@ -2645,7 +2665,7 @@ textarea.input-light {
 
 .accordion-body {
   padding: 0 12px 10px;
-  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   color: #061c2b;
   line-height: 1.67; }
@@ -2823,12 +2843,14 @@ textarea.input-light {
         left: 50%;
         width: 0;
         height: 3px;
-        background-color: #25cad2;
+        background-color: #001737;
         transition: width .3s ease-in-out, left .3s ease-in-out; }
+      .tab .tab-menu-wrapper .tab-menu:hover:before {
+        background-color: #007AC9; }
       .tab .tab-menu-wrapper .tab-menu.active {
         color: #061c2b !important;
         background-color: #fff;
-        font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+        font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
         font-size: 12px;
         line-height: 1.83;
         letter-spacing: 0.42px;
@@ -2866,20 +2888,23 @@ textarea.input-light {
   border-bottom: 1px solid #e3e5e5; }
 
 .tab-details .tab-menu-wrapper .tab-menu, .tab-settings .tab-menu-wrapper .tab-menu {
-  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   line-height: 2;
   letter-spacing: 0.42px;
   text-align: center;
-  color: #444; }
+  color: #546176;
+  font-weight: 400; }
   .tab-details .tab-menu-wrapper .tab-menu:before, .tab-settings .tab-menu-wrapper .tab-menu:before {
     top: auto;
     bottom: 0;
     height: 2px; }
   .tab-details .tab-menu-wrapper .tab-menu.active, .tab-settings .tab-menu-wrapper .tab-menu.active {
     font-size: 13px;
-    color: #25cad2 !important;
+    color: #001737 !important;
     background-color: transparent; }
+  .tab-details .tab-menu-wrapper .tab-menu:hover, .tab-settings .tab-menu-wrapper .tab-menu:hover {
+      color: #007AC9 !important; }
 
 /* .description-editor
 ============================================ */

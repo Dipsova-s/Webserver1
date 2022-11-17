@@ -64,7 +64,7 @@ function MassChangeModel() {
                 className: 'popup' + popupName,
                 animation: false,
                 width: 665,
-                height: 477,
+                height: 500,
                 minWidth: 665,
                 open: function (e) {
                     self.ShowMassChangePopupCallback(e);

@@ -350,16 +350,16 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 .k-window {
   opacity: inherit; }
 
-.k-window.k-state-focused {
+/*.k-window.k-state-focused {
   border: 1px solid #fff !important;
-  box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16) !important; }
+  box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16) !important; }*/
 
 .k-window,
 .k-window-custom {
   background: #fff none;
-  border-radius: 2px;
-  border: 1px solid #fff;
-  box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16);
+  /*  border-radius: 2px;*/
+  border: none;
+  /*box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16);*/
   left: 0;
   top: 0; }
 
@@ -965,7 +965,7 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 
 .k-popup .k-list-scroller .k-list .k-item {
   border-top-color: transparent;
-  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 12px;
   line-height: 30px;
   min-height: 30px; }

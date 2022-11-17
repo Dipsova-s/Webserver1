@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort></IISExpressSSLPort>
+    <IISExpressSSLPort>44313</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -701,8 +701,12 @@
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Views\Top\ValidationRequestHeader.cshtml">
       <Link>Views\Shared\Top\ValidationRequestHeader.cshtml</Link>
     </Content>
-    <None Include="Content\CSS\angle.scss" />
-    <None Include="Content\CSS\common.scss" />
+    <None Include="Content\CSS\angle.scss">
+      <Generator>SassTranspiler</Generator>
+    </None>
+    <None Include="Content\CSS\common.scss">
+      <Generator>SassTranspiler</Generator>
+    </None>
     <None Include="Content\CSS\components\_query-aggregation-format.scss" />
     <None Include="Content\CSS\components\_execution-parameter.scss" />
     <None Include="Content\CSS\components\_display-tabs.scss" />
@@ -818,6 +822,7 @@
     <Content Include="Images\Angle\Followups\followups_relation.svg" />
     <Content Include="Images\Angle\Followups\followups_relation_indicator.svg" />
     <Content Include="Images\Angle\pivotchart.png" />
+    <Content Include="Images\apps.svg" />
     <Content Include="Images\Domains\BillingBlockReleaseStatus\BillingBlockReleaseStatusBBRS_Critical.png" />
     <Content Include="Images\Domains\BillingBlockReleaseStatus\BillingBlockReleaseStatusBBRS_Late.png" />
     <Content Include="Images\Domains\BillingBlockReleaseStatus\BillingBlockReleaseStatusBBRS_None.png" />
@@ -1048,6 +1053,10 @@
     <Content Include="Content\fonts\roboto-medium.ttf" />
     <Content Include="Content\fonts\roboto-medium.woff" />
     <Content Include="Content\fonts\roboto-medium.woff2" />
+    <Content Include="Content\fonts\Inter-Medium.ttf" />
+    <Content Include="Content\fonts\Inter-Regular.ttf" />
+    <Content Include="Content\fonts\Inter-SemiBold.ttf" />
+    <Content Include="Content\fonts\Inter-Bold.ttf" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -1502,8 +1511,6 @@
           <DevelopmentServerPort>33986</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:33947/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://PORT0310.everyangle.org:33947</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

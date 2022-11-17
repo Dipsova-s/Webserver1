@@ -17,6 +17,8 @@
     overflow: hidden;
     z-index: 5;
     background-color: #fff;
+    margin-left: 60px;
+    height: 100%;
 }
 
 /* .popupResolveAngleDisplay

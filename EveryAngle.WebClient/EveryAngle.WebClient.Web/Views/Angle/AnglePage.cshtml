@@ -34,11 +34,27 @@
 @section TopBar
 {
     <div id="AngleTopBar" class="topBarWrapper">
-        <div class="Wrapper Shadow">
-            <a id="Logo" href="@Url.Action("SearchPage", "Search")">
-                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" height="20" />
+        <div @*class="Wrapper Shadow"*@>
+            <a class="toggle-sidebar disabled" id="ButtonToggleSidePanel">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="4" cy="4" r="2" fill="white"></circle>
+                    <circle cx="4" cy="12" r="2" fill="white"></circle>
+                    <circle cx="4" cy="20" r="2" fill="white"></circle>
+                    <circle cx="4" cy="28" r="2" fill="white"></circle>
+                    <circle cx="12" cy="4" r="2" fill="white"></circle>
+                    <circle cx="12" cy="12" r="2" fill="white"></circle>
+                    <circle cx="12" cy="20" r="2" fill="white"></circle>
+                    <circle cx="12" cy="28" r="2" fill="white"></circle>
+                    <circle cx="20" cy="4" r="2" fill="white"></circle>
+                    <circle cx="20" cy="12" r="2" fill="white"></circle>
+                    <circle cx="20" cy="20" r="2" fill="white"></circle>
+                    <circle cx="20" cy="28" r="2" fill="white"></circle>
+                    <circle cx="28" cy="4" r="2" fill="white"></circle>
+                    <circle cx="28" cy="12" r="2" fill="white"></circle>
+                    <circle cx="28" cy="20" r="2" fill="white"></circle>
+                    <circle cx="28" cy="28" r="2" fill="white"></circle>
+                </svg>
             </a>
-            <a class="icon icon-hamburger toggle-sidebar disabled" id="ButtonToggleSidePanel"></a>
 
             @{Html.RenderPartial("~/Views/Shared/Top/UserPanel.cshtml");}
         </div>

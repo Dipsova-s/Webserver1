@@ -1,13 +1,15 @@
 ﻿/* Angle Page
 ============================================ */
 .topBarWrapper {
-  position: relative;
-  left: 0;
-  top: 0;
-  width: 100%;
-  min-width: 762px;
-  background: #1E2556;
-  color: #666; }
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    position: absolute;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(150.16deg, #02A84B 0%, #016841 100%);
+    color: #666; }
 
 .topBarWrapper .Wrapper {
   height: 48px; }
@@ -536,7 +538,9 @@
 
 #ResultContainerWrapper {
   z-index: 0;
-  background: #fafafa; }
+  background: #fafafa;
+  margin-left: 60px;
+}
 
 .detailsWrapper {
   left: 0;
