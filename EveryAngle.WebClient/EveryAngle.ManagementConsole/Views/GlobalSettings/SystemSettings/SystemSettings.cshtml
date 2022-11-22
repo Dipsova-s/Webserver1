@@ -109,14 +109,14 @@
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpMaxDomainElementsSearch</textarea>
                 </p>
             </div>
-            <div class="contentSectionInfoItem">
+            @*<div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.default_cache_minutes)
                 <p>
                     @Html.Kendo().NumericTextBoxFor(model => model.default_cache_minutes).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required" })
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultCacheMinutes</textarea>
                 </p>
-            </div>
+            </div>*@
             <div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.min_labelcategories_to_publish)
                 <p>
@@ -141,14 +141,14 @@
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpInstancesPerModel</textarea>
                 </p>
             </div>
-            <div class="contentSectionInfoItem">
+            @*<div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.active_directory_size_limit)
                 <p>
                     @Html.Kendo().NumericTextBoxFor(model => model.active_directory_size_limit).Decimals(0).Format("0").Step(1).Min(1).Max(999).HtmlAttributes(new { @class = "required" })
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpActiveDirectorySizeLimit</textarea>
                 </p>
-            </div>
+            </div>*@
         </div>
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.AngleExport</h2>
@@ -172,14 +172,14 @@
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpIncludeSelfInExportHeaders</textarea>
                 </p>
             </div>
-            <div class="contentSectionInfoItem">
+            @*<div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.default_max_export_page_size)
                 <p>
                     @Html.Kendo().NumericTextBoxFor(model => model.default_max_export_page_size).Decimals(0).Format("0").Step(1).Min(1).Max(999999).HtmlAttributes(new { @class = "required" })
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultExportMaxPageSize</textarea>
                 </p>
-            </div>
+            </div>*@
             <div class="contentSectionInfoItem @(ViewBag.SupportAngleAutomation ? "" : " hidden")">
                 @Html.LabelFor(model => model.script_location)
                 <p>

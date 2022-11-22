@@ -79,7 +79,6 @@ Check Field Elements
     Page Should Contain New And Changed Tables Only Field
     Page Should Contain Day Field
     Page Should Contain Start Time Field
-    Page Should Contain Delay Model Server Stop Field
     Page Should Contain Continuous Field
     Page Should Contain Restart Delay Field
     Page Should Contain Until Field

@@ -8680,6 +8680,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection Settings.
+        /// </summary>
+        public static string MC_ConnectionsSettings {
+            get {
+                return ResourceManager.GetString("MC_ConnectionsSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Console section.
         /// </summary>
         public static string MC_ConsoleSection {

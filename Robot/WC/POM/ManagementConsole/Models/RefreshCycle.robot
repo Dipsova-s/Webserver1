@@ -11,7 +11,6 @@ ${ddlActionList}                   select[name^=Action]
 ${chkDelta}                        input[name^=IsDelta]
 ${chkExternal}                     input[name^=IsExternal]
 ${chkNewAndChangedTablesOnly}      input[name^=ChangedTablesOnly]
-${chkDelayModelServerStop}         input[name^=DelayModelserverStop]
 
 ${chkDaySunday}                    .checkbox [value=S]
 ${chkDayMonday}                    .checkbox [value=M]
@@ -276,10 +275,6 @@ Page Should Contain Day Field
 Page Should Contain Start Time Field
     Wait Until Page Contains Element    ${contentSectionInfo} ${txtStartTime}
     Page Should Contain Element    ${contentSectionInfo} ${txtStartTime}
-
-Page Should Contain Delay Model Server Stop Field
-    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDelayModelServerStop}
-    Page Should Contain Element    ${contentSectionInfo} ${chkDelayModelServerStop}
 
 Page Should Contain Continuous Field
     Wait Until Page Contains Element    ${contentSectionInfo} ${chkContinuous}

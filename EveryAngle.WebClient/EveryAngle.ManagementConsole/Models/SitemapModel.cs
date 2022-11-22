@@ -232,7 +232,7 @@ namespace EveryAngle.ManagementConsole.Models
                 {
                     new SiteMap { Id = "ServerSettings", Name = Resource.MC_ServerSettings, HashPath = string.Format("{0}/ServerSettings", modelPath), IsText = true },
                     new SiteMap { Id = "Communications", Name = Resource.MC_Communications, Uri = "~/ModelCommunication/GetCommunications", HashPath = string.Format("{0}/Communications", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageCommunications },
-                    new SiteMap { Id = "EAXtractor", Name = Resource.MC_EAXtractor, Uri = "~/Model/RenderExtractorSettings", HashPath = string.Format("{0}/EAXtractor", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageExtractor },
+                    new SiteMap { Id = "EAXtractor", Name = Resource.MC_ConnectionsSettings, Uri = "~/Model/RenderExtractorSettings", HashPath = string.Format("{0}/EAXtractor", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageExtractor },
                     new SiteMap { Id = "RefreshCycle", Name = Resource.MC_RefreshCycle, Uri ="~/RefreshCycle/GetRefreshCycle", HashPath = string.Format("{0}/RefreshCycle", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageRefreshTasks },
 
                     new SiteMap { Id = "ContentSettings", Name = Resource.MC_ContentSettings, HashPath = string.Format("{0}/ContentSettings", modelPath), IsText = true },

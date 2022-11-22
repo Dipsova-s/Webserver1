@@ -17,5 +17,4 @@ Test Authentication
     [Tags]  acc_mc_aci      TC_C561
     Input Invalid Trusted Webservers And Warning Should Be Shown
     Save Authenticate And Invalid Trusted Webservers Should Be Cleared
-    Check Automatically create users for "ADFS" is ON and disabled
-    Check default Is Set Local    local
+    Check Automatically create users for "ADFS" is ON and disabled 

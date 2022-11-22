@@ -11,12 +11,9 @@ ${txtPollModelserver}                   modelserver_check_seconds
 ${txtModelServerTimeout}                modelserver_timeout
 ${txtModelServerMetadataTimeout}        modelserver_metadata_timeout
 ${txtMaxDomainSizeForSearch}            max_domainelements_for_search
-${txtCacheValidity}                     default_cache_minutes
 ${txtMinimumNumberOfLabelCategories}    min_labelcategories_to_publish
 ${txtCheckExpiredSessionMinutes}        check_expired_sessions_minutes
 ${txtInstancesToKeepPerModel}           instances_per_model
-${txtActiveDirectlySizeLimit}           active_directory_size_limit
-${txtDefaultMaximumExportPageSize}      default_max_export_page_size
 ${txtFallbackFieldLength}               fallback_field_length
 ${txtDefaultApprovalState}              default_approval_state_label
 ${chkEnableGroupingInPivotExports}      allow_grouping_in_pivot_excel_export
@@ -89,10 +86,6 @@ Input System Settings Max Domain Size For Search
     [Arguments]    ${maxDomainSize}
     Input kendo Numeric TextBox    ${txtMaxDomainSizeForSearch}    ${maxDomainSize}
 
-Input System Settings Cache Validity
-    [Arguments]    ${cacheValidity}
-    Input kendo Numeric TextBox    ${txtCacheValidity}    ${cacheValidity}
-
 Input System Settings Minimum Number Of Label Categories
     [Arguments]    ${minimunNumberOfLabelCategory}
     Input kendo Numeric TextBox    ${txtMinimumNumberOfLabelCategories}    ${minimunNumberOfLabelCategory}
@@ -113,18 +106,6 @@ Input System Settings Check Instances To Keep Per Model
 
 System Settings Check Instances To Keep Per Model Should Be One
     Textfield Value Should Be    ${txtInstancesToKeepPerModel}    1
-
-Input System Settings Active Directory Size Limit
-    [Arguments]    ${activeDirectorySizeLimit}
-    Input kendo Numeric TextBox    ${txtActiveDirectlySizeLimit}    ${activeDirectorySizeLimit}
-
-Get System Settings Active Directory Size Limit Value
-    ${value}    Get Kendo Value  ${txtActiveDirectlySizeLimit} 
-    [Return]    ${value}
-
-Input Default maximum export page size field
-    [Arguments]     ${defaultMaximumExportPageSize}
-    Input kendo Numeric TextBox  ${txtDefaultMaximumExportPageSize}  ${defaultMaximumExportPageSize}
 
 Set Enable Grouping in Pivot exports checkbox
     [Arguments]     ${enableGroupingInPivotExports}
@@ -268,10 +249,6 @@ Get Model server metadata timeout [seconds] field value
 Get Max domain size for search field value
     ${value}    Get Kendo Value  ${txtMaxDomainSizeForSearch}
     [Return]  ${value}
-    
-Get Cache validity field value
-    ${value}    Get Kendo Value  ${txtCacheValidity}
-    [Return]  ${value}
 
 Get Minimum number of label categories to publish angle field value
     ${value}    Get Kendo Value  ${txtMinimumNumberOfLabelCategories}
@@ -281,10 +258,6 @@ Get Check expired sessions minutes field value
     ${value}    Get Kendo Value  ${txtCheckExpiredSessionMinutes}
     [Return]  ${value}
 
-Get Active directory size limit field value
-    ${value}    Get Kendo Value  ${txtActiveDirectlySizeLimit}
-    [Return]  ${value}
-
 Get Enable Grouping in Pivot exports checkbox state
     ${chkbox}   Is Element Checked  ${chkEnableGroupingInPivotExports}
     [Return]    ${chkbox}
@@ -292,10 +265,6 @@ Get Enable Grouping in Pivot exports checkbox state
 Get Include Self in export headers checkbox state
     ${chkbox}   Is Element Checked  ${chkIncludeSelfInExportHeaders}
     [Return]    ${chkbox}
-
-Get Default maximum export page size field value
-    ${value}    Get Kendo Value  ${txtDefaultMaximumExportPageSize}
-    [Return]    ${value}
 
 Get Program/scripts folder field value
     ${value}    Get Value    ${txtProgramScriptsFolder}

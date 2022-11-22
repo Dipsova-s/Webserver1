@@ -74,14 +74,6 @@ namespace EveryAngle.Core.ViewModels.Cycle
             }
         }
 
-        public bool DelayModelserverStop
-        {
-            get
-            {
-                return GetDataFromBooleanArgument("delay_modelserver_stop");
-            }
-        }
-
         private object GetDataFromArgument(string nameArgument)
         {
             object value = null;

@@ -6636,4 +6636,7 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="MC_GlobalModel" xml:space="preserve">
 	<value>Global Model</value>
   </data>
+  <data name="MC_ConnectionsSettings" xml:space="preserve">
+    <value>Connection Settings</value>
+  </data>
 </root>
