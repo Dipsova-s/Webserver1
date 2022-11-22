@@ -21,12 +21,12 @@ namespace EveryAngle.WebClient.Service.Security
         public const string TokenHeaderId = "Request-Verification-Token";
         public const string TokenQueryStringId = "request_verification_token";
         private const string AuthoritySettingName = "Authority";
-        private const string ClientSecret = "api-secret";
+        private const string ClientSecret = "hii8Q~4OxjNfLEjULpebGK-kPY-XtcRsajHYuayv";
         private const string IdTokenClaimTypeName = "id_token";
         private const string RefreshTokenClaimTypeName = "refresh_token";
         private const string AccessTokenClaimName = "access_token";
         private const string AccessTokenExpiresAtClaimName = "access_token_expires_at";
-        private const string WebServerClientId = "web_server";
+        private const string WebServerClientId = "7c471a28-159f-472c-bc0a-f7bfb0b60e9f";
 
         [Obsolete("For unit tests only", false)]
         public ValidationRequestService()

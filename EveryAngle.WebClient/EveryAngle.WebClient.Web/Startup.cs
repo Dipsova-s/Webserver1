@@ -8,7 +8,7 @@ namespace EveryAngle.WebClient.Web
     [ExcludeFromCodeCoverage]
     public class Startup
     {
-        private const string ClientId = "web_server";
+        private const string ClientId = "7c471a28-159f-472c-bc0a-f7bfb0b60e9f";
 
         public void Configuration(IAppBuilder app)
         {
