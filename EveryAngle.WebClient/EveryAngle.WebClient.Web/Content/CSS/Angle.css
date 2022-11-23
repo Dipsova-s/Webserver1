@@ -6,7 +6,7 @@
     top: 0%;
     bottom: 0%;
     position: absolute;
-    width: 60px;
+    width: 50px;
     height: 100%;
     background: linear-gradient(150.16deg, #02A84B 0%, #016841 100%);
     color: #666; }
@@ -537,9 +537,9 @@
     top: 0; }
 
 #ResultContainerWrapper {
-  z-index: 0;
+  /*z-index: 0;*/
   background: #fafafa;
-  margin-left: 60px;
+  margin-left: 50px;
 }
 
 .detailsWrapper {

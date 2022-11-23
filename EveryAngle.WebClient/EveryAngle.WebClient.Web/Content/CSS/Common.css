@@ -1503,7 +1503,7 @@ textarea.input-light {
     top: 0%;
     bottom: 0%;
     position: absolute;  
-    width: 60px; }
+    width: 50px; }
   #TopBar .Wrapper {
     height: 48px; }
 
@@ -1552,7 +1552,7 @@ textarea.input-light {
       background: #001737;
       opacity: 0.4;
      /*border: 1px solid #FFFFFF;*/
-     width: 55px; }
+     width: 45px; }
     #UserPanel li a {
       font-size: 12px;
       color: #fafcfc;
@@ -4096,7 +4096,7 @@ textarea.input-light {
 
 .toggle-sidebar {
   position: absolute;
-  left: 8px;
+  left: 6px;
   top: 9px;
   font-size: 18px;
   color: #fafcfc;
