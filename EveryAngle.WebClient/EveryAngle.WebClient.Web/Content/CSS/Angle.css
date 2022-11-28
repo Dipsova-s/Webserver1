@@ -537,9 +537,10 @@
     top: 0; }
 
 #ResultContainerWrapper {
-  /*z-index: 0;*/
-  background: #fafafa;
-  margin-left: 50px;
+    /*z-index: 0;*/
+    background: #fafafa;
+    margin-left: 50px;
+    height: 100%;
 }
 
 .detailsWrapper {
