@@ -975,6 +975,8 @@
     <Content Include="Images\Icons\icon_viewmode_displays_active.svg" />
     <Content Include="Images\Icons\icon_warnings.svg" />
     <Content Include="Images\Icons\icon_workbench.svg" />
+    <Content Include="Images\Icons\ic_settings-3-fill.svg" />
+    <Content Include="Images\Icons\question-fill.svg" />
     <Content Include="Images\image-not-found.png" />
     <Content Include="Images\image-not-found.svg" />
     <Content Include="Images\Login\login_bg.jpg" />
@@ -984,6 +986,7 @@
     <Content Include="Images\Master\ea_about_logo.svg" />
     <Content Include="Images\Master\help.svg" />
     <Content Include="Images\Master\helpuser.svg" />
+    <Content Include="Images\Master\ic_home-5-fill.svg" />
     <Content Include="Images\Master\usercontrol.svg" />
     <Content Include="Images\search-grey.svg" />
     <Content Include="Images\search-white.svg" />
@@ -1442,6 +1445,7 @@
     <Content Include="Views\Shared\Top\ItemState.cshtml" />
     <Content Include="Views\Shared\Copyright.cshtml" />
     <Content Include="Views\User\Forbidden.cshtml" />
+    <Content Include="Views\Shared\Top\SidePanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

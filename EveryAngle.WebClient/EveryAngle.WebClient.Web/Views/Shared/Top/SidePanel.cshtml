@@ -1,0 +1,45 @@
+﻿<div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu">
+    <div class="k-window-content k-content">
+        @{
+            string administratorPath = EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("ManagementConsoleUrl");
+            if (!administratorPath.StartsWith("http"))
+            {
+                administratorPath = Url.Content("~/") + administratorPath;
+            }
+            <a class="actionDropdownItem btnMC" target="_blank" href="@administratorPath.ToLower()" onclick="userSettingsView.HideAllMenus()"><span data-bind="text: Localization.SearchPageManagementConsole"></span></a>
+        }
+        @{
+            string workbenchUri = @Url.Content("~/Component/GoToModellingWorkbench");
+        }
+        <a id="btnWorkbench" class="actionDropdownItem btnWorkbench" href="@workbenchUri" target="_blank" onclick="userSettingsView.HideAllMenus()">
+            <span data-bind="text: Localization.Workbench"></span>
+        </a>
+        <a class="actionDropdownItem btnChangePassword" onclick="userPasswordHandler.ShowPopup()"><span data-bind="text: Localization.ChangePassword"></span></a>
+        <a class="actionDropdownItem btnLogout" onclick="WC.Authentication.Logout()"><span data-bind="text: Localization.Logout"></span></a>
+    </div>
+</div>
+
+<div class="k-window-titleless k-window-custom k-window-arrow-n popupHelpMenu" id="HelpMenu">
+    <div class="k-window-content k-content">
+        @{
+            string webLanguage = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+            string helpUri = string.Format("~/data/help/{0}/UUID-c553e180-7b42-eaf7-41b5-534d2a32a3bc.html", webLanguage);
+            string supportUri = "https://magnitude.com/online-support/";
+        }
+        <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span data-bind="text: Localization.Helppage"></span></a>
+        <a class="actionDropdownItem btnModelParameters" onclick="helpPopupPageHandler.ShowModelParameterPopup()"><span data-bind="text: Localization.ModelParameters"></span></a>
+        <a class="actionDropdownItem btnAbout" onclick="aboutSystemHandler.ShowAboutSystemPopup('@Url.Content(administratorPath.ToLower())')"><span data-bind="html: Localization.AboutEveryAngle"></span></a>
+        <a class="actionDropdownItem btnSupport" target="_blank" href="@Url.Content(supportUri)"><span data-bind="text: Localization.Support"></span></a>
+    </div>
+</div>
+
+<div class="k-window-titleless k-window-custom k-window-arrow-n popupNotificationsFeedMenu" id="NotificationsFeedMenu">
+    <div class="k-window-content k-content notificationsFeed">
+        <div class="header">
+        </div>
+        <div class="content">
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+</div>

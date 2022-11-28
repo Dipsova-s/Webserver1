@@ -208,7 +208,7 @@
     <div id="LoginModalPlaceHolder"></div>
 
     @RenderPage("~/Views/Shared/Top/SettingsPanel.cshtml")
-
+    @RenderPage("~/Views/Shared/Top/SidePanel.cshtml")
     @if (Convert.ToBoolean(EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("EnableMiniprofiler")))
     {
         MiniProfiler.RenderIncludes();

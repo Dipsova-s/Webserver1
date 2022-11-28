@@ -196,8 +196,8 @@
 
 .popupNotificationsFeedMenu {
     position: absolute;
-    top: 36px;
-    left: -320px;
+    top: 200px;
+    left: 50px;
     width: 345px;
     display: none;
     border: 0;

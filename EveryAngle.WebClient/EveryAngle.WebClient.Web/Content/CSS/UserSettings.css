@@ -1,6 +1,8 @@
 ﻿#SettingsIcon {
-  font-size: 23px;
-  color: #fafcfc; }
+    font-size: 23px;
+    color: #fafcfc;
+    background-image: url('../../Images/Icons/ic_settings-3-fill.svg');
+}
 
 .settingsPanel {
   box-shadow: 0 6px 12px 0 rgba(8, 35, 48, 0.14), 0 16px 24px 0 rgba(8, 35, 48, 0.08);
@@ -8,12 +10,12 @@
   width: 354px;
   position: absolute;
   top: 48px;
-  right: 0;
-  transition: right .3s ease-in-out;
+  left: 50px;
+  /*transition: left .3s ease-in-out;*/
   z-index: 1000; }
   .settingsPanel.hide {
     position: fixed;
-    right: -364px; }
+    left: -364px; }
   .settingsPanel .card-header, .settingsPanel .accordion-header {
     color: #061c2b;
     text-transform: none;
