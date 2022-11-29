@@ -129,7 +129,7 @@ Default Values are displayed in Default Excel Datastore
     Wait For Export Defaults Page     Export defaults   Export to Excel
     Verify the Default value for Default datastores in Edit Datastore   Export to Excel Default
     Verify the Default value for Default datastores in Connection Settings    Data\\AppServer\\ExportOutput
-    Verify the field values for Excel Datastore in Data Settings    -1  id  id  -1  {anglename:normalized}     EveryAngle-Standard.xlsx  {displayname:normalized}  check
+    Verify the field values for Excel Datastore in Data Settings    -1  display  display  -1  {anglename:normalized}     EveryAngle-Standard.xlsx  {displayname:normalized}  uncheck
     Verify the field values for Excel Datastore in Angle Settings   uncheck  uncheck
     Click on Cancel button in DataStore
 
