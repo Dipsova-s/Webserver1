@@ -187,6 +187,14 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 }
             };
             sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
+            {
+                new ModelViewModel
+                {
+                    id = "EA2_800",
+                    Uri = new Uri("/models/1", UriKind.Relative)
+                }
+            });
             var result = _testingController.RenderTemplateAnglesPage(string.Empty, string.Empty);
 
             // assert 

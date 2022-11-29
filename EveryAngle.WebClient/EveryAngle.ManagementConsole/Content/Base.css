@@ -5537,14 +5537,16 @@ td.PopupExcelTemplate {
     margin-top: 3px;
 }
 
-form#ActivatePackageForm .contentSectionInfo label {
+form#ActivatePackageForm .contentSectionInfo label,
+form#ImportPackageForm .contentSectionInfo label {
     width: 80px;
     margin-top: 5px;
 }
 
-form#ActivatePackageForm .contentSectionInfo p {
+form#ActivatePackageForm .contentSectionInfo p,
+form#ImportPackageForm .contentSectionInfo p {
     margin-right: 5px;
-    margin-left: 180px;
+    margin-left: 180px !important;
 }
 
 .rowPackageContent {

@@ -27,15 +27,6 @@ Verify At Least 1 Authentication Should Be Enabled
     ${countEnabled}    Get Enabled Authentication Count
     Should Be True    ${countEnabled}>0
 
-Check default Is Set Local
-    [Arguments]    ${ID}
-    Wait Until Authentication Page Loaded
-    Wait Until Page Contains Element    ${trRowInSystemAuthenticationGrid}:contains(${ID}) ${rdoSetDefaultSyetemAuthentication}
-    Click Element    ${trRowInSystemAuthenticationGrid}:contains(${ID}) ${rdoSetDefaultSyetemAuthentication}
-    Click Save Authentication
-    Wait Until Authentication Page Loaded
-    Wait Until Page Contains Element    ${trRowInSystemAuthenticationGrid}:contains(${ID}) ${rdoSetDefaultSyetemAuthentication}
-
 Reload Authentication Page And Role "${roleName}" Should Be Their
     Click Reload MC Page
     Wait Until Authentication Page Loaded

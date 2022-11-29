@@ -130,7 +130,7 @@ Verify Apply Filter & Jump On Display
     # check add filter/jump
 	Click Display Tab
     Set Editor Context: Display Tab
-	${displayJumpText}    Set Variable    DeliveryNoteLines
+	${displayJumpText}    Set Variable    Delivery Items
     Add Jump To Display    ${displayJumpText}
 	Add Filter    "Is Fixed"    IsFixed    ${True}
 	${displayFilterText}    Get Display Filter Name By Index    1

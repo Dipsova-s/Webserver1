@@ -23,7 +23,7 @@
         columns.Bound(model => model.IsEnabled)
             .HeaderHtmlAttributes(new { @class = "columnBoolean" })
             .HtmlAttributes(new { @class = "columnBoolean" })
-            .Width(65)
+            .Width(85)
             .Title(@Resource.MC_Provider)
             .ClientTemplate(
                 "<span class='hidden'>"
@@ -76,14 +76,15 @@
                 + "<input name=\"IsDefaultProvider\" id=\"IsDefaultProvider-#= data.Id #\" #= data.IsEnabled == false ?  disabled=\"disabled\" : '' # value=\"#= data.Uri #\" data-default=\"false\" type=\"radio\">"
                 + "# } #"
                 + "<span class=\"label\"></span></label>"
-            );
+            )
+            .Hidden(true);
         columns.Bound(model => model.Id)
             .ClientTemplate("<span class=\"#= data.IsEnabled == false ? 'textDisabled' : '' #\">#= data.Id #</span>")
-            .Width(65)
+            .Width(85)
             .Title(@Resource.ID);
         columns.Bound(model => model.Type)
             .ClientTemplate("<span class=\"#= data.IsEnabled == false ? 'textDisabled' : '' #\">#= data.Type #</span>")
-            .Width(40)
+            .Width(85)
             .Title(@Resource.Type);
         columns.Bound(model => model.Description)
             //.Width(400)

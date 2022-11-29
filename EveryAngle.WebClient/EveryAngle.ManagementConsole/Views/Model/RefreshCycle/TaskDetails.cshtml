@@ -102,20 +102,6 @@
             .HtmlAttributes(new { @class = "columnStartTime columnDate" })
             .Width(115);
 
-        columns.Bound(model => model.DelayModelserverStop)
-            .Width(75)
-            .HeaderHtmlAttributes(new { @class = "columnDelayModelserverStop columnBoolean" })
-            .HtmlAttributes(new { @class = "columnDelayModelserverStop columnBoolean" })
-            .Title(Resource.MC_DelayModelserverStop)
-            .ClientTemplate(
-                "<label>"
-                + "# if(data.DelayModelserverStop) { #"
-                + "<input name=\"DelayModelserverStop\" value=\"true\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
-                + "# } else { #"
-                + "<input name=\"DelayModelserverStop\" value=\"false\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
-                + "# } #"
-                + "<span class=\"label\"></span></label>");
-
         columns.Bound(model => model.RefreshCycleTrigger.continuous)
             .Width(75)
             .HeaderHtmlAttributes(new { @class = "columnContinuous columnBoolean" })

@@ -175,20 +175,20 @@
                     attributes['class'] = 'btn btnSetActive';
                     attributes.title = Localization.MC_ActivatePackage;
 
-                    if (!self.ModelId && self.IsModelPackage(data.Contents)) {
+                    if (data.IsUpgradePackage) {
+                        // management console type package
+                        attributes.href = '#ImportPackagePopup';
+                        attributes['data-role'] = 'mcPopup';
+                        attributes['data-width'] = '425';
+                        attributes['data-height'] = !self.ModelId ? '580' : '470';
+                    }
+                    else if (!self.ModelId && self.IsModelPackage(data.Contents)) {
                         // management console type package
                         attributes.href = '#ActivatePackagePopup';
                         attributes['data-role'] = 'mcPopup';
                         attributes['data-width'] = '425';
                         attributes['data-height'] = '290';
                         attributes['title'] = Localization.MC_ActivatePackage;
-                    }
-                    else if (data.IsUpgradePackage) {
-                        // management console type package
-                        attributes.href = '#ImportPackagePopup';
-                        attributes['data-role'] = 'mcPopup';
-                        attributes['data-width'] = '425';
-                        attributes['data-height'] = '365';
                     }
                     else {
                         // other type package
@@ -399,19 +399,29 @@
         self.ManagePackage = function (e, element) {
             const dataParameters = $(element).data('parameters');
 
-            if (!self.ModelId && self.IsModelPackage(dataParameters.content.split(',').map(e => e.trim()))) {
-                self.GetActivatePopupForGlobalPackage(dataParameters);
-            }
-            else if (dataParameters.isActive && dataParameters.isUpgradePackage) {
+
+            if (dataParameters.isActive && dataParameters.isUpgradePackage) {
                 MC.ui.popup('setScrollable', {
                     element: '#ImportPackagePopup'
                 });
+                const importPackagePopup = $('#ImportPackagePopup');
 
-                var importPackagePopup = $('#ImportPackagePopup');
-                importPackagePopup.find('form').trigger('reset');
+                if (!self.ModelId) {
+                    //Update Model selector
+                    self.ModelSelectorDropdown(dataParameters, '#ImportPackagePopup');
+
+                    //Update content html
+                    const html = self.GetPackageContentHtml(dataParameters.content.split(',').map(e => e.trim()));
+                    importPackagePopup.find('#contentSection').html(html);
+                }
+                else importPackagePopup.find('form').trigger('reset');
+
                 importPackagePopup.find('.btnSubmit').data('parameters', dataParameters);
                 self.includeLabelsSelected(true);
                 $(element).closest('.btnGroupContainer').removeClass('open');
+            }
+            else if (!self.ModelId && self.IsModelPackage(dataParameters.content.split(',').map(e => e.trim()))) {
+                self.GetActivatePopupForGlobalPackage(dataParameters);
             }
             else {
                 const confirmMessage = MC.form.template.getRemoveMessage(element);
@@ -436,7 +446,7 @@
                     packageParameters[field.name] = field.value;
                 });
 
-                var element = $('<a>')
+                var element = !self.ModelId ? self.GetElementWithParameter(packageParameters, _self.ModelActivatorValue) : $('<a>')
                     .attr('href', self.ManagePackageUri)
                     .data('parameters', packageParameters);
 
@@ -636,7 +646,7 @@
             const popup = $(_self.ActivatePackagePopupId);
 
             //Update Model selector
-            self.ModelSelectorDropdown(dataParameters);
+            self.ModelSelectorDropdown(dataParameters, _self.ActivatePackageFormId);
 
             //Update content html
             const html = self.GetPackageContentHtml(dataParameters.content.split(',').map(e => e.trim()));
@@ -645,9 +655,9 @@
             popup.find('.btnSubmit').data('parameters', dataParameters);
         };
 
-        self.ModelSelectorDropdown = (dataParameters) => {
-            const models = dataParameters.activatedModel.split(",");
-            const dropdownModelElement = $(_self.ActivatePackageFormId).find(_self.PackageModelSelectorId);
+        self.ModelSelectorDropdown = (dataParameters, popuId) => {
+            const models = dataParameters.activatedModel.split(",").map(e => e.trim());
+            const dropdownModelElement = $(popuId).find(_self.PackageModelSelectorId);
             let dropdownValues = [];
             $($("#ModelActivateSelectorHidden")[0].options).each(function () {
                 const value = jQuery.parseJSON($(this).val())

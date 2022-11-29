@@ -217,7 +217,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             SystemSettingViewModel updatedSystemSettings = (SystemSettingViewModel)SessionHelper.SystemSettings.Clone();
             updatedSystemSettings.session_expiry_minutes = systemSettings.session_expiry_minutes;
             updatedSystemSettings.modelserver_check_seconds = systemSettings.modelserver_check_seconds;
-            updatedSystemSettings.default_cache_minutes = systemSettings.default_cache_minutes;
             updatedSystemSettings.min_labelcategories_to_publish = systemSettings.min_labelcategories_to_publish;
             updatedSystemSettings.check_expired_sessions_minutes = systemSettings.check_expired_sessions_minutes;
             updatedSystemSettings.instances_per_model = systemSettings.instances_per_model;
@@ -229,8 +228,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             updatedSystemSettings.modelserver_timeout = systemSettings.modelserver_timeout;
             updatedSystemSettings.modelserver_metadata_timeout = systemSettings.modelserver_metadata_timeout;
             updatedSystemSettings.max_domainelements_for_search = systemSettings.max_domainelements_for_search;
-            updatedSystemSettings.active_directory_size_limit = systemSettings.active_directory_size_limit;
-            updatedSystemSettings.default_max_export_page_size = systemSettings.default_max_export_page_size;
             updatedSystemSettings.max_general_history = systemSettings.max_general_history;
             updatedSystemSettings.max_audit_log_history = systemSettings.max_audit_log_history;
             updatedSystemSettings.allow_grouping_in_pivot_excel_export = systemSettings.allow_grouping_in_pivot_excel_export;

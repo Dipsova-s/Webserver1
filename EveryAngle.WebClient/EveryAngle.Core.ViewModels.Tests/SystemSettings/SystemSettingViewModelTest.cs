@@ -22,14 +22,11 @@ namespace EveryAngle.Core.ViewModels.Tests
                 modelserver_timeout = 30,
                 modelserver_metadata_timeout = 300,
                 max_domainelements_for_search = 100,
-                default_cache_minutes = 10,
                 min_labelcategories_to_publish = 1,
                 check_expired_sessions_minutes = 1,
                 instances_per_model = 5,
                 auto_create_users = false,
                 default_system_roles = new List<string> { "sytemRole1", "sytemRole2" },
-                active_directory_size_limit = 5,
-                default_max_export_page_size = 1000,
                 trusted_webservers = new List<string> { "0.0.1.1", "0.0.0.1" },
                 max_general_history = 99,
                 max_audit_log_history = 555,
@@ -52,14 +49,11 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.modelserver_timeout.GetType(), typeof(int));
             Assert.AreEqual(viewModel.modelserver_metadata_timeout.GetType(), typeof(int));
             Assert.AreEqual(viewModel.max_domainelements_for_search.GetType(), typeof(int));
-            Assert.AreEqual(viewModel.default_cache_minutes.GetType(), typeof(int));
             Assert.AreEqual(viewModel.min_labelcategories_to_publish.GetType(), typeof(int));
             Assert.AreEqual(viewModel.check_expired_sessions_minutes.GetType(), typeof(int));
             Assert.AreEqual(viewModel.instances_per_model.GetType(), typeof(int));
             Assert.AreEqual(viewModel.auto_create_users.GetType(), typeof(bool));
             Assert.AreEqual(viewModel.default_system_roles.GetType(), typeof(List<string>));
-            Assert.AreEqual(viewModel.active_directory_size_limit.GetType(), typeof(int));
-            Assert.AreEqual(viewModel.default_max_export_page_size.GetType(), typeof(int));
             Assert.AreEqual(viewModel.trusted_webservers.GetType(), typeof(List<string>));
             Assert.AreEqual(viewModel.max_general_history.GetType(), typeof(int));
             Assert.AreEqual(viewModel.max_audit_log_history.GetType(), typeof(int));
@@ -90,14 +84,11 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.IsTrue(viewModelSerialize.Contains("modelserver_timeout"));
             Assert.IsTrue(viewModelSerialize.Contains("modelserver_metadata_timeout"));
             Assert.IsTrue(viewModelSerialize.Contains("max_domainelements_for_search"));
-            Assert.IsTrue(viewModelSerialize.Contains("default_cache_minutes"));
             Assert.IsTrue(viewModelSerialize.Contains("min_labelcategories_to_publish"));
             Assert.IsTrue(viewModelSerialize.Contains("check_expired_sessions_minutes"));
             Assert.IsTrue(viewModelSerialize.Contains("instances_per_model"));
             Assert.IsTrue(viewModelSerialize.Contains("auto_create_users"));
             Assert.IsTrue(viewModelSerialize.Contains("default_system_roles"));
-            Assert.IsTrue(viewModelSerialize.Contains("active_directory_size_limit"));
-            Assert.IsTrue(viewModelSerialize.Contains("default_max_export_page_size"));
             Assert.IsTrue(viewModelSerialize.Contains("trusted_webservers"));
             Assert.IsTrue(viewModelSerialize.Contains("max_general_history"));
             Assert.IsTrue(viewModelSerialize.Contains("max_audit_log_history"));

@@ -42,10 +42,6 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("MC_MaxDomainSizeSearch")]
         public int max_domainelements_for_search { get; set; }
 
-        [JsonProperty(PropertyName = "default_cache_minutes")]
-        [LocalizedDisplayName("MC_CacheValidity")]
-        public int default_cache_minutes { get; set; }
-
         [JsonProperty(PropertyName = "min_labelcategories_to_publish")]
         [LocalizedDisplayName("MC_MinimumNumberPublishAngle")]
         public int min_labelcategories_to_publish { get; set; }
@@ -65,14 +61,6 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [JsonProperty(PropertyName = "default_system_roles")]
         [LocalizedDisplayName("MC_AssignFollowingRoles")]
         public List<string> default_system_roles { get; set; }
-
-        [JsonProperty(PropertyName = "active_directory_size_limit")]
-        [LocalizedDisplayName("MC_ActiveDirectorySizeLimit")]
-        public int active_directory_size_limit { get; set; }
-
-        [JsonProperty(PropertyName = "default_max_export_page_size")]
-        [LocalizedDisplayName("MC_DefaultMaxExportPageSize")]
-        public int default_max_export_page_size { get; set; }
 
         [JsonProperty(PropertyName = "trusted_webservers")]
         [LocalizedDisplayName("MC_AssignTrustedWebservers")]

@@ -8680,6 +8680,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection Settings.
+        /// </summary>
+        public static string MC_ConnectionsSettings {
+            get {
+                return ResourceManager.GetString("MC_ConnectionsSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Console section.
         /// </summary>
         public static string MC_ConsoleSection {
@@ -13322,7 +13331,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The default number of rows that is fetched when no page size is specified by the Application Server. You can leave this at its default value of 30..
+        ///   Looks up a localized string similar to The default number of rows that is fetched when no page size is specified by the Application Server. You can leave this at its default value..
         /// </summary>
         public static string MC_SystemSettingsHelpDefaultPageSize {
             get {

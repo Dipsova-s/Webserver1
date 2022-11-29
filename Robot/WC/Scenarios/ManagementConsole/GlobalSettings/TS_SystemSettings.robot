@@ -71,17 +71,6 @@ Verify SSL Email Settings
     Input Email Settings Username    ${emailUsername}
     Click Save System Settings
 
-Get and change Active Directory Size Limit Value
-    [Arguments]     ${ADSLValue}
-    ${ADSLActualValue}      Get System Settings Active Directory Size Limit Value
-    Set Global Variable     ${ADSLActualValue}      ${ADSLActualValue}
-    Input System Settings Active Directory Size Limit       ${ADSLValue}
-    Click Save System Settings
-
-Restore Active Directory Size Limit Value   
-    Input System Settings Active Directory Size Limit       ${ADSLActualValue}
-    Click Save System Settings
-
 Verify Text for info property of Program/Script folder
     Click Program/scripts folder textinfo Popup
 

@@ -112,7 +112,6 @@
 
             var sessionExpiryMinutes = $('#session_expiry_minutes').val();
             var modelserverCheckSeconds = $('#modelserver_check_seconds').val();
-            var defaultCacheMinutes = $('#default_cache_minutes').val();
             var minLabelcategoriesToPublish = $('#min_labelcategories_to_publish').val();
             var checkExpiredEessionsMinutes = $('#check_expired_sessions_minutes').val();
             var instancesPerModel = $('#instances_per_model').val();
@@ -120,8 +119,6 @@
             var defaultSystemRoles = $('#DefaultSystemRoles').val();
             var defaultPagesize = $('#default_pagesize').val();
             var maxPagesize = $('#max_pagesize_appserver').val();
-            var directorySizeLimit = $('#active_directory_size_limit').val();
-            var defaultMaxExportPageSize = $('#default_max_export_page_size').val();
             var rememberExpiredSessionsMinutes = $('#remember_expired_sessions_minutes').val();
             var modelserverTimeout = $('#modelserver_timeout').val();
             var modelserverMetadataTimeout = $('#modelserver_metadata_timeout').val();
@@ -153,7 +150,6 @@
             var systemSettingsData = {
                 'session_expiry_minutes': sessionExpiryMinutes,
                 'modelserver_check_seconds': modelserverCheckSeconds,
-                'default_cache_minutes': defaultCacheMinutes,
                 'min_labelcategories_to_publish': minLabelcategoriesToPublish,
                 'check_expired_sessions_minutes': checkExpiredEessionsMinutes,
                 'instances_per_model': instancesPerModel,
@@ -166,12 +162,10 @@
                 'modelserver_metadata_timeout': modelserverMetadataTimeout,
                 'max_domainelements_for_search': maxDomainelementsForSearch,
                 'email_settings': emailSettings,
-                'active_directory_size_limit': directorySizeLimit,
                 'max_general_history': maxGeneralHistory,
                 'max_audit_log_history': maxAuditLogHistory,
                 'allow_grouping_in_pivot_excel_export': allowGroupingInPivotExcelExport,
                 'include_self_in_export_headers': includeSelfInExportHeaders,
-                'default_max_export_page_size': defaultMaxExportPageSize,
                 'script_location': scriptLocation,
                 'fallback_field_length': fallbackFieldLength,
                 'default_approval_state': defaultApprovalState,

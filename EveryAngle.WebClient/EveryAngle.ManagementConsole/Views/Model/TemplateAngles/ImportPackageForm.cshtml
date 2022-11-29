@@ -1,10 +1,16 @@
 ﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.Core.ViewModels.EAPackage
+@model IEnumerable<ExportPackageModelViewModel>
 @{
     Layout = null;
 }
 
 <form id="ImportPackageForm">
     <div class="popupContent">
+        @if (string.IsNullOrEmpty(ViewBag.ModelId))
+        {
+            {Html.RenderPartial("~/Views/GlobalSettings/TemplateAngles/ModelSelectorFrom.cshtml", Model);}
+        }
         <h3>@Resource.MC_Include</h3>
         <div class="contentSectionInfoItem">
             <p>

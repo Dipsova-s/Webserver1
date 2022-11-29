@@ -1,0 +1,34 @@
+﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.Core.ViewModels.EAPackage
+@model IEnumerable<ExportPackageModelViewModel>
+@{
+    Layout = null;
+}
+
+<div class="contentSection contentSectionInfo">
+    <div class="contentSectionInfoItem">
+        <label>
+            @Resource.MC_SelectModel
+        </label>
+        <p class="modelSelector">
+            <input type="text" id="ModelActivateSelector" name="display_id" class="required" />
+            <select name="model_id" id="ModelActivateSelectorHidden" style="display:none">
+                @foreach (ExportPackageModelViewModel model in Model)
+                {
+                    <option class="text" value='{"modelId":"@(model.Id)","packageUri":"@(model.PackageUri)"}' title="@(model.Name)" @(model.HasManageModelPrivilege ? string.Empty : "disabled")>
+                        @(model.Name)
+                    </option>
+                }
+            </select>
+        </p>
+    </div>
+<br />
+    <div class="contentSectionInfoItem">
+        <label style="width: 180px; margin-right: 0px;">
+            @Resource.MC_ContentType
+        </label>
+        <div id="contentSection">
+            @* Content will come here*@
+        </div>
+    </div>
+</div>

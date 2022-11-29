@@ -121,7 +121,7 @@ Display Tabs Behavior
     # create Private Display
     Close Display Group Private
     Change Display By Name    No. per Creation Date
-    Click First Bar In Column Chart
+    Click First Bar In Column Chart Circle
 
     # check scroll left/right
     Verify Left Display Scrolling Button Is Enabled

@@ -249,9 +249,6 @@
                 }
             });
 
-            // delay model server stop
-            self.RefreshCycleForm.find('[name="DelayModelserverStop"]').prop('checked', data.DelayModelserverStop);
-
             if (data.RefreshCycleTrigger) {
                 // start time
                 if (jQuery.isNumeric(data.RefreshCycleTrigger.start_time)) {
@@ -343,8 +340,6 @@
             var startTime = self.RefreshCycleForm.find('input[name="StartTime"]').data('handler');
             startTime.value(null);
             startTime.trigger('change');
-
-            self.RefreshCycleForm.find('input[name="DelayModelserverStop"]').prop('checked', false);
 
             // restart delay
             self.RefreshCycleForm.find('input[name="RestartDelay"]').data('handler').value(null);
@@ -693,10 +688,6 @@
 
             if (self.IsTablesAction(actionList.val()))
                 actionModel.arguments.push(self.CreateArgumentModel('parameters', jQuery.trim(actionListParams.val())));
-
-            var delayModelserverStopValue = self.RefreshCycleForm.find('[name^="DelayModelserverStop"]').is(':checked');
-            if (delayModelserverStopValue)
-                actionModel.arguments.push(self.CreateArgumentModel('delay_modelserver_stop', delayModelserverStopValue));
 
             taskModel.name = self.RefreshCycleForm.find('[name^="TaskName"]').val();
             taskModel.enabled = self.RefreshCycleForm.find('[name^="IsEnabled"]').is(':checked');

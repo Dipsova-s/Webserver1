@@ -144,6 +144,10 @@ Selected Excel Template in Export to Excel Pop up
     ${getExcelTemplate}     Get Text    ${textExcelTemplate}
     [Return]    ${getExcelTemplate}
 
+Selected Header Format in Export to Excel Pop up should Be
+    [Arguments]     ${expectedDefaultHeaderFormat}
+    Select Dropdown By InnerText    css=#HeaderFormat    ${expectedDefaultHeaderFormat}
+
 Select Excel Template in Export to Excel Pop up To
     [Arguments]     ${excelTemplateName}
     Select Dropdown By InnerText     ${ddlExcelTemplates}    ${excelTemplateName}

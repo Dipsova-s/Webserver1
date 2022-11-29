@@ -4819,7 +4819,7 @@ The value may not exceed 999999.</value>
     <value>The default time in minutes during which cached items remain valid. After this time, cached items will be removed from cache and will have to be loaded again.</value>
   </data>
   <data name="MC_SystemSettingsHelpDefaultPageSize" xml:space="preserve">
-    <value>The default number of rows that is fetched when no page size is specified by the Application Server. You can leave this at its default value of 30.</value>
+    <value>The default number of rows that is fetched when no page size is specified by the Application Server. You can leave this at its default value.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailPassword" xml:space="preserve">
     <value>This password will be used when the SMTP server requires authentication.</value>

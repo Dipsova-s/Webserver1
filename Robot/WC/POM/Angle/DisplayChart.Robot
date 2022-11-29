@@ -3,6 +3,7 @@ ${divChartWrapper}              jquery=#ChartWrapper
 ${pgbChartDisplay}              jquery=#ChartWrapper .k-loading-mask
 ${svgChart}                     jquery=#ChartWrapper svg
 ${svgFirstBarColumnChart}       jquery=#chart > svg > g > g:nth-child(3) > g:nth-child(5) > g > g:nth-child(1)
+${svgFirstBarCircle}            jquery=#chart > svg > g > g:nth-child(3) > g:nth-child(5) > g > circle
 ${divChartTooltip}              .k-chart-tooltip
 ${liSecondLegend}               jquery=.k-legend-custom li[data-index="1"]
 ${divNavigatorWrapper}          css=#ChartWrapper .navigatorWrapper
@@ -35,6 +36,11 @@ Wait Until Chart Display Loaded
 
 Click First Bar In Column Chart
     Click Element    ${svgFirstBarColumnChart}
+    Wait Progress Bar Closed
+    Wait Until List Display Loaded
+
+Click First Bar In Column Chart Circle
+    Click Element    ${svgFirstBarCircle}
     Wait Progress Bar Closed
     Wait Until List Display Loaded
 
