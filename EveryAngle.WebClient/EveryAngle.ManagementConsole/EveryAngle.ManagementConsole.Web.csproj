@@ -955,6 +955,7 @@
     <Content Include="Views\Shared\EditorTemplates\ModelTimestampTemplate.cshtml" />
     <Content Include="Views\AutomationTasks\Tasks\ConnectionSettings.cshtml" />
     <Content Include="Views\GlobalSettings\TemplateAngles\ActivateDeactivateForm.cshtml" />
+    <Content Include="Views\GlobalSettings\TemplateAngles\ModelSelectorFrom.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

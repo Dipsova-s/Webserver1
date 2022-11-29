@@ -142,7 +142,14 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.EventlogUri = version.GetEntryByName("eventlog").Uri.ToString();
             ViewBag.ModelUri = modelUri;
             ViewBag.HasManageModel = SessionHelper.Session.IsValidToManageModelPrivilege();
-            return PartialView("~/Views/Model/TemplateAngles/TemplateAnglesPage.cshtml");
+            IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = SessionHelper.Models.Select(x => new ExportPackageModelViewModel
+            {
+                Id = x.id,
+                Name = x.short_name,
+                HasManageModelPrivilege = SessionHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
+                PackageUri = x.PackagesUri.ToString()
+            });
+            return PartialView("~/Views/Model/TemplateAngles/TemplateAnglesPage.cshtml", ExportPackageModelViewModel);
         }
 
         public ActionResult GetFilterTemplateAngles(string modelUri, string activeStatus, string q = "")
