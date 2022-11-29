@@ -670,7 +670,7 @@ textarea.input-light {
 
 .btn-small {
   font-size: 13px !important;
-  height: 28px !important; }
+  height: 32px !important; }
 
 .btn-primary,
 .btn-primary:link,
@@ -852,7 +852,12 @@ textarea.input-light {
 
 .btn span,
 .btn-busy:before {
-  margin: 0 auto; }
+  margin: 0 auto;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+ /* font-size: 14px;*/
+  line-height: 17px; }
 
 .btn-busy:before {
   content: attr(data-busy); }
@@ -1548,12 +1553,12 @@ textarea.input-light {
     #UserPanel li.disabled {
       visibility: hidden; }
     #UserPanel li:last-child {
-      padding: 0 0 0 5px;
-      background: #001737;
-      opacity: 0.4;
+      padding: 0 0 0 2px;
+      background: rgba(0, 23, 55, 0.4);
+      opacity: 1;
       top: 94%;
       position: absolute;
-      width: 45px; }
+      width: 48px; }
     #UserPanel li a {
       font-size: 12px;
       color: #fafcfc;
@@ -1584,12 +1589,14 @@ textarea.input-light {
 /* .popupUserMenu
 ============================================ */
 .popupUserMenu {
-  top: 80%;
+  top: 77%;
   left: 50px;
   width: auto;
   min-width: 200px;
   max-width: 280px;
-  display: none; }
+  display: none; 
+  box-shadow: 0px 10px 15px -3px rgba(0, 23, 55, 0.1), 0px 4px 6px -2px rgba(0, 23, 55, 0.05);
+  border-radius: 4px;}
   .popupUserMenu:before, .popupUserMenu:after {
     left: auto;
     right: 30px; }
@@ -1626,7 +1633,9 @@ textarea.input-light {
   left: 50px;
   width: 200px;
   display: none; 
-  z-index:1000; }
+  z-index:1000; 
+  box-shadow: 0px 10px 15px -3px rgba(0, 23, 55, 0.1), 0px 4px 6px -2px rgba(0, 23, 55, 0.05);
+  border-radius: 4px; }
   .popupHelpMenu:before, .popupHelpMenu:after {
     left: auto;
     right: 30px;

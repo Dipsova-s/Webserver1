@@ -973,7 +973,8 @@
   transition: none; }
 
 #MainContent.content-wrapper.active .main-content {
-  transition: all .3s ease-in-out; }
+  transition: all .3s ease-in-out;
+  margin-right: 50px; }
 
 #MainContent.content-wrapper.full .main-content {
   margin-left: 0 !important;
