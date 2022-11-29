@@ -377,7 +377,7 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Copy WebClient Help to ..\..\Help'
     inputs:
-      SourceFolder: '$(Build.StagingDirectory)\Temp\89567-Web_Client_Cloud-html5-html5\out\'
+      SourceFolder: '$(Build.StagingDirectory)\Temp\89567-Web_Client_Cloud-html5\out\'
       TargetFolder: '$(Build.StagingDirectory)\WebClientHelp\Help'
 
   - task: PowerShell@2
