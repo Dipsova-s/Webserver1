@@ -6245,7 +6245,7 @@ namespace EveryAngle.Shared.Globalization {
         ///   Looks up a localized string similar to 
         ///      Copyright © 1997 - 2020 Magnitude Software, Inc. All rights reserved.&lt;br/&gt;
         ///      No part of this publication may be reproduced, stored in a retrieval system, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from Magnitude.&lt;br/&gt;
-        ///      The information in this document is subject to change without notice. Magnitude strives to keep this information accurate but does not warrant that this document is error-free. [rest of string was truncated]&quot;;.
+        ///      The information in this document is subject to change without notice. Magnitude strives to keep this information accurate but does not warrant that this document is error-free.&lt;br [rest of string was truncated]&quot;;.
         /// </summary>
         public static string LicenseCopyrightDescription {
             get {
@@ -7910,6 +7910,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attach result.
+        /// </summary>
+        public static string MC_AttachResult {
+            get {
+                return ResourceManager.GetString("MC_AttachResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authentication.
         /// </summary>
         public static string MC_Authentication {
@@ -7957,7 +7966,7 @@ namespace EveryAngle.Shared.Globalization {
         /// <summary>
         ///   Looks up a localized string similar to In a default Active Directory hierarchy structure, users are located in the &quot;Users&quot; container. This container is always on the main level of your domain. When leaving this field empty, the Angles for SAP Application Server will retrieve users from this default location.&lt;br/&gt;
         ///In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br/&gt;
-        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For e [rest of string was truncated]&quot;;.
+        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For exa [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MC_AuthenticationProvidersHelpContainer {
             get {
@@ -10158,7 +10167,7 @@ namespace EveryAngle.Shared.Globalization {
         /// <summary>
         ///   Looks up a localized string similar to Make a selection of the desired Angles, Templates, Dashboards using the filter options in the search page of the Webclient. Copy and paste the URL here to create a package containing the same selection of items.&lt;br/&gt;
         ///Multi-model selections are not supported. In case of multiple models, please make sure to select only one model in the General filters.&lt;br/&gt;
-        ///Note: Invalid Angles are not included in the package. If the results in the package don&apos;t match the results in the Web client, please check for invalid  [rest of string was truncated]&quot;;.
+        ///Note: Invalid Angles are not included in the package. If the results in the package don&apos;t match the results in the Web client, please check for invalid An [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MC_ExportPackageURlDescription {
             get {
@@ -10998,7 +11007,7 @@ namespace EveryAngle.Shared.Globalization {
         ///	&lt;/TR&gt;
         ///	&lt;TR&gt;
         ///		&lt;TD ALIGN=left VALIGN=middle&gt;
-        ///			&lt;p&gt;{a [rest of string was truncated]&quot;;.
+        ///			&lt;p&gt;{anglename:normalized}&lt; [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MC_MailSettingsHelp {
             get {
@@ -13034,7 +13043,7 @@ namespace EveryAngle.Shared.Globalization {
         /// <summary>
         ///   Looks up a localized string similar to When a Model Server has started and loaded the model, it will start caching and postprocessing a number of predefined fields. In a model environment with multiple Model Servers, this setting controls when the execution of queries will be switched to the Model Server with the newest data:
         ///&lt;ul&gt;&lt;li&gt;When this setting is selected (default value) the queries will be switched to the Model Server when it starts caching and postprocessing.&lt;/li&gt;
-        ///&lt;li&gt;When deselected the queries will only be switched to the Model Ser [rest of string was truncated]&quot;;.
+        ///&lt;li&gt;When deselected the queries will only be switched to the Model Serve [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MC_SwitchWhenPostprocessing_Description {
             get {
