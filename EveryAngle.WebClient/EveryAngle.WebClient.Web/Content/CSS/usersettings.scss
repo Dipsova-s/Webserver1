@@ -11,7 +11,7 @@
     background-color: #f7f7f7;
     width: 354px;
     position: absolute;
-    top: 48px;
+    top: 0;
     left: 50px;
     /*transition: right .3s ease-in-out;*/
     z-index: 1000;
@@ -96,7 +96,7 @@
     }
 
     .tab-content-wrapper {
-        @include calc-vh(height, 133px);
+        @include calc-vh(height, 90px);
         overflow: auto;
         padding: 0;
 

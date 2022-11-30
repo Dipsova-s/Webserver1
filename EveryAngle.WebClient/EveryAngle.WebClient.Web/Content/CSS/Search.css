@@ -1026,7 +1026,7 @@
       padding-bottom: 8px; }
       #LeftMenu .FilterTab:not(.expand) .icon-chevron-down {
         display: none; }
-    #LeftMenu .FilterTab.expand .icon-chevron-right {
+    #LeftMenu .FilterTab.expand .icon-chevron-up {
       display: none; }
     #LeftMenu .FilterTab.expand + .FilterCheckBox,
     #LeftMenu .FilterTab.sliding + .FilterCheckBox {

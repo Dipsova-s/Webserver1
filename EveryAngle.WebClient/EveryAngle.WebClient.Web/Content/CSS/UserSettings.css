@@ -8,7 +8,7 @@
   background-color: #f7f7f7;
   width: 354px;
   position: absolute;
-  top: 48px;
+  top: 0;
   left: 50px;
   /*transition: right .3s ease-in-out;*/
   z-index: 1000; }
@@ -62,9 +62,9 @@
     .settingsPanel fieldset p:not(:last-child) {
       margin-bottom: 10px; }
   .settingsPanel .tab-content-wrapper {
-    height: calc(100vh - 133px);
+    height: calc(100vh - 90px);
     /* fallback for none support browsers */
-    height: calc(var(--vh, 1vh) * 100 - 133px);
+    height: calc(var(--vh, 1vh) * 100 - 90px);
     overflow: auto;
     padding: 0; }
     .settingsPanel .tab-content-wrapper:focus {
