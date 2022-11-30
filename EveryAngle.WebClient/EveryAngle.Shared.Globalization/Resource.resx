@@ -6587,10 +6587,13 @@ The "manage system" privilege is required to change the Approval state of an Act
   <data name="BPWarningMessage" xml:space="preserve">
     <value>Add a business process to save this Angle.</value>
   </data>
-	<data name="BPWarningMessageInSaveAs" xml:space="preserve">
+  <data name="BPWarningMessageInSaveAs" xml:space="preserve">
     <value>To save this display add a business process in the next step.</value>
   </data>
-	<data name="AddLabels" xml:space="preserve">
-    <value>Add Labels</value> 
+  <data name="AddLabels" xml:space="preserve">
+    <value>Add Labels</value>
+  </data>
+  <data name="MC_AttachResult" xml:space="preserve">
+    <value>Attach result</value>
   </data>
 </root>
