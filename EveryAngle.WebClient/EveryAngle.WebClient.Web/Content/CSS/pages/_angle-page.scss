@@ -4,8 +4,10 @@
 $display-tab-bottom-border-color: #e6e6e6;
 
 #ResultContainerWrapper {
-    z-index: 0;
+    /*z-index: 0;*/
     background: #fafafa;
+    margin-left: 50px;
+    height: 100%;
 }
 
 .detailsWrapper {
@@ -56,7 +58,7 @@ $display-tab-bottom-border-color: #e6e6e6;
     }
 
     .active .tab-menu-header-inner {
-        background-color: #25cad2;
+        background-color: $primary-color;
         font-size: 12px;
         line-height: 1.83;
         text-align: left;

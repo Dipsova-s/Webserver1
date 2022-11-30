@@ -228,8 +228,8 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #25cad2;
-    border: solid #25cad2;
+    background-color: #007AC9;
+    border: solid #007AC9;
 }
 
 input[type="checkbox"]:not(:checked) + .label {
@@ -254,14 +254,14 @@ input[type="checkbox"]:not(:checked) + .label {
 [type="radio"]:disabled:hover + .label:before,
 [type="checkbox"]:disabled + .label:hover:before,
 [type="radio"]:disabled + .label:hover:before {
-    border-color: #78909c;
+    border-color: #A1D1EF;
 }
 
 [type="checkbox"]:disabled:checked:hover + .label:before,
 [type="radio"]:disabled:checked:hover + .label:before,
 [type="checkbox"]:disabled:checked + .label:hover:before,
 [type="radio"]:disabled:checked + .label:hover:before {
-    border-color: #25cad2;
+    border-color: #A1D1EF;
 }
 
 /* .helpTextContainer

@@ -40,13 +40,13 @@
     }
 
     &:hover {
-        background: #e9e9e9;
+        background: $secondary-color;
     }
 }
 
 .item-label-primary {
-    background-color: #e9ecee;
-    color: #333333;
+    background-color: $secondary-color;
+    color: #f7f7f7;
     border-radius: 2px;
 
     .btn-remove {
@@ -65,5 +65,5 @@
 }
 
 .item-label.item-label-light:hover {
-    background-color: #c6fdff;
+    background-color: $secondary-color;
 }

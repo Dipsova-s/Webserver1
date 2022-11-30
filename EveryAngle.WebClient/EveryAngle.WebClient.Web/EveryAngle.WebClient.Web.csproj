@@ -16,8 +16,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44313</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -788,8 +787,6 @@
     <Content Include="Content\CSS\WidgetDetails.css" />
     <Content Include="Content\CSS\WidgetFilters.css" />
     <Content Include="Content\CSS\WidgetLanguages.css" />
-    <Content Include="Content\fonts\roboto-v19-latin-500.svg" />
-    <Content Include="Content\fonts\roboto-v19-latin-regular.svg" />
     <Content Include="Content\VideoPlayer\Plugins\videojs-playlist-ui.css" />
     <Content Include="Content\VideoPlayer\Plugins\videojs-playlist-ui.vertical.css" />
     <Content Include="Data\Export\log.txt" />
@@ -1035,14 +1032,6 @@
     <Content Include="Scripts\HtmlTemplate\Menu\aboutHtmlTemplate.js" />
     <Content Include="Scripts\HtmlTemplate\SaveDisplaysUsedInAutomationTasks\savedisplaysusedinautomationtaskshtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\ScheduleAngle\scheduleanglehtmltemplate.js" />
-    <Content Include="Content\fonts\roboto-v19-latin-regular.eot" />
-    <Content Include="Content\fonts\roboto-v19-latin-regular.ttf" />
-    <Content Include="Content\fonts\roboto-v19-latin-regular.woff" />
-    <Content Include="Content\fonts\roboto-v19-latin-regular.woff2" />
-    <Content Include="Content\fonts\roboto-v19-latin-500.eot" />
-    <Content Include="Content\fonts\roboto-v19-latin-500.ttf" />
-    <Content Include="Content\fonts\roboto-v19-latin-500.woff" />
-    <Content Include="Content\fonts\roboto-v19-latin-500.woff2" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.bindings">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1054,13 +1043,18 @@
     <None Include="Content\CSS\components\_card.scss" />
     <None Include="Content\CSS\abstracts\_variables.scss" />
     <None Include="Content\CSS\vendors\_jquery.scrollbar.scss" />
-    <Content Include="Content\fonts\roboto-medium.ttf" />
-    <Content Include="Content\fonts\roboto-medium.woff" />
-    <Content Include="Content\fonts\roboto-medium.woff2" />
     <Content Include="Content\fonts\Inter-Medium.ttf" />
     <Content Include="Content\fonts\Inter-Regular.ttf" />
-    <Content Include="Content\fonts\Inter-SemiBold.ttf" />
     <Content Include="Content\fonts\Inter-Bold.ttf" />
+    <Content Include="Content\fonts\Inter-Bold.eot" />
+    <Content Include="Content\fonts\Inter-Medium.eot" />
+    <Content Include="Content\fonts\Inter-Regular.eot" />
+    <Content Include="Content\fonts\Inter-Bold.woff2" />
+    <Content Include="Content\fonts\Inter-Medium.woff2" />
+    <Content Include="Content\fonts\Inter-Regular.woff2" />
+    <Content Include="Content\fonts\Inter-Bold.woff" />
+    <Content Include="Content\fonts\Inter-Medium.woff" />
+    <Content Include="Content\fonts\Inter-Regular.woff" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -239,8 +239,8 @@
   margin-bottom: 0; }
 
 .btnCreateNewAngle {
-/*  background: #fff;
-  color: #333;*/
+  /*    background: #fff;
+    color: #333;*/
   font-weight: bold;
   height: 40px;
   font-size: 12px;
@@ -310,7 +310,7 @@
     width: 492px !important; } }
 
 .popupAdvFiltering .popupSectionTitle {
-  color: #25cad2;
+  color: #278838;
   font-size: 12px;
   font-weight: bold;
   font-style: normal;
@@ -671,7 +671,7 @@
   text-align: left; }
   #SearchFilterView .clear-filters .btn > span {
     font-weight: normal;
-    font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+    font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
     letter-spacing: 0.25px; }
   #SearchFilterView .clear-filters .btn:hover {
     text-underline-offset: 1px; }
@@ -981,6 +981,15 @@
   width: auto !important;
   min-width: 760px; }
 
+#MainContent.content-wrapper.active .lll {
+  transition: all .3s ease-in-out;
+  margin-right: 50px; }
+
+#MainContent.content-wrapper.full .lll {
+  margin-left: 0 !important;
+  width: auto !important;
+  min-width: 760px; }
+
 /* #LeftMenu
 ============================================ */
 #LeftMenu {
@@ -1005,19 +1014,19 @@
     line-height: 23px;
     height: 23px;
     padding-top: 8px;
-/*    display: flex;*/
+    /*display: flex;*/
     align-items: center;
     position: relative; }
     #LeftMenu .FilterTab .icon {
       font-weight: bold;
-      font-size: 10px; 
+      font-size: 10px;
       float: right;
-      margin-top: -16px;}
+      margin-top: -16px; }
     #LeftMenu .FilterTab:not(.expand) {
       padding-bottom: 8px; }
       #LeftMenu .FilterTab:not(.expand) .icon-chevron-down {
         display: none; }
-    #LeftMenu .FilterTab.expand .icon-chevron-up {
+    #LeftMenu .FilterTab.expand .icon-chevron-right {
       display: none; }
     #LeftMenu .FilterTab.expand + .FilterCheckBox,
     #LeftMenu .FilterTab.sliding + .FilterCheckBox {
@@ -1033,7 +1042,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+      font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
       font-size: 12px;
       font-weight: 500;
       line-height: 22px;
@@ -1061,10 +1070,10 @@
       #LeftMenu .tags-most-used .item-label .tag-count {
         padding-left: 3px; }
     #LeftMenu .tags-most-used .item-label-selected {
-      background-color: #25cad2;
+      background-color: #278838;
       color: #ffffff; }
       #LeftMenu .tags-most-used .item-label-selected:hover {
-        background-color: #25cad2;
+        background-color: #278838;
         text-shadow: none; }
   #LeftMenu .facetFilter .facetFilterSection {
     background: #ffffff;

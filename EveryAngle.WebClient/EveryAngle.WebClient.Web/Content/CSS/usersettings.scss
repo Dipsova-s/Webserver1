@@ -3,6 +3,7 @@
 #SettingsIcon {
     font-size: 23px;
     color: #fafcfc;
+    background-image: url('../../Images/Icons/ic_settings-3-fill.svg');
 }
 
 .settingsPanel {
@@ -11,13 +12,13 @@
     width: 354px;
     position: absolute;
     top: 48px;
-    right: 0;
-    transition: right .3s ease-in-out;
+    left: 50px;
+    /*transition: right .3s ease-in-out;*/
     z-index: 1000;
 
     &.hide {
         position: fixed;
-        right: -364px;
+        left: -364px;
     }
 
     .card-header, .accordion-header {

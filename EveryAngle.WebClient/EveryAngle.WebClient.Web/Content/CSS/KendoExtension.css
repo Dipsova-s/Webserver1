@@ -250,7 +250,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
   border: 1px solid #1E2556;
   border-radius: 4px;
   background-color: #1E2556;
-  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
   font-size: 11px;
   color: #fff;
   padding: 5px 8px;
@@ -351,15 +351,15 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
   opacity: inherit; }
 
 /*.k-window.k-state-focused {
-  border: 1px solid #fff !important;
-  box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16) !important; }*/
-
+    border: 1px solid #fff !important;
+    box-shadow: 0 1px 2px 0 rgba(8, 35, 48, .24), 0 2px 6px 0 rgba(8, 35, 48, .16) !important;
+}*/
 .k-window,
 .k-window-custom {
   background: #fff none;
-  /*  border-radius: 2px;*/
   border: none;
-  /*box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16);*/
+  /*    border: 1px solid #fff;
+    box-shadow: 0 1px 2px 0 rgba(8, 35, 48, .24), 0 2px 6px 0 rgba(8, 35, 48, .16);*/
   left: 0;
   top: 0; }
 
@@ -600,8 +600,8 @@ div.k-window-content {
   font-size: 12px;
   font-weight: 500;
   background: none #fff;
-  border-color: #25cad2;
-  color: #25cad2;
+  border-color: #278838;
+  color: #278838;
   border-radius: 2px;
   line-height: 18px;
   box-shadow: none;
@@ -609,8 +609,8 @@ div.k-window-content {
   filter: brightness(0.98); }
 
 .k-button.k-primary {
-  background: none #25cad2;
-  border-color: #25cad2;
+  background: none #278838;
+  border-color: #278838;
   color: #fff; }
   .k-button.k-primary:hover {
     background-color: #03c6cf;
