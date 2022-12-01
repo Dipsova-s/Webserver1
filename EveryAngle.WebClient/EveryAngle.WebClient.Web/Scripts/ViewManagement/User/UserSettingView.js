@@ -36,7 +36,12 @@ function UserSettingsView() {
 
     //start user info
     self.UpdateUserMenu = function () {
-        var name = userModel.DisplayName();
+        const names = userModel.DisplayName().split(' ');
+        let name = '';
+        for (let i = 0; i < names.length && i < 2; i++) {
+            name += names[i].charAt(0);
+        }
+
         jQuery('#UserControlName').text(name);
         self.CheckLocalUser();
     };
@@ -55,7 +60,7 @@ function UserSettingsView() {
 
     };
     //end user info
-    
+
 }
 
 var userSettingsView = new UserSettingsView();

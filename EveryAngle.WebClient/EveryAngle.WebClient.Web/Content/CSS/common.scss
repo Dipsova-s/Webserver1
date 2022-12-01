@@ -1,7 +1,4 @@
-﻿@import
-    'abstracts/mixins',
-    'abstracts/variables',
-    'abstracts/scrollbar';
+﻿@import 'abstracts/mixins', 'abstracts/variables', 'abstracts/scrollbar';
 
 @import 'vendors/jquery.scrollbar';
 
@@ -9,12 +6,12 @@
 @include font-face(Inter, "../fonts/Inter-Regular", 400, normal);
 @include font-face(Inter, "../fonts/Inter-Bold", bold, normal);
 @include font-face(Inter, "../fonts/Inter-medium", 500, normal);
-    
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; 
+    overflow: hidden;
     background-color: $background-color;
 }
 
@@ -87,6 +84,7 @@ img {
 .visible {
     visibility: visible;
 }
+
 .invisible {
     visibility: hidden;
 }
@@ -336,9 +334,11 @@ img {
     font-weight: bold;
     text-shadow: none !important;
 }
+
 .tabMenu .active > span {
     color: #358ed7;
 }
+
 .tabMenu .disabled > span {
     color: #aaa;
 }
@@ -486,7 +486,7 @@ img {
     top: 0%;
     bottom: 0%;
     position: absolute;
-    width: 50px;
+    width: 60px;
 
     .Wrapper {
         height: 48px;
@@ -499,9 +499,14 @@ img {
 }
 
 #Logo {
-    margin-top: 60px;
-    margin-left: 16px;
     display: inline-block;
+    margin-top: 16px;
+}
+
+.Logo {
+    height: 60px;
+    width: 60px;
+    text-align: center;
 }
 
 #BusinessProcessBadgeWrapper {
@@ -522,35 +527,25 @@ img {
 
 #UserPanel {
     position: fixed;
-    height: 90%;
+    height: 84%;
     bottom: 0;
-    padding-top: 10px;
-    padding-right: 20px;
     box-sizing: border-box;
+    width: 60px;
 
-    ul {
-        display: table;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    li {
-        vertical-align: middle;
-        padding: 25px 0 10px 14px;
+    div {
+        height: 60px;
+        width: 60px;
+        text-align: center;
+        position: absolute;
 
         &.disabled {
             visibility: hidden;
         }
 
         &:last-child {
-            padding: 0 0 0 2px;
             background: rgba(0, 23, 55, 0.4);
             opacity: 1;
-            top: 94%;
-            position: absolute;
-            width: 48px;
+            top: 91%;
         }
 
         a {
@@ -564,21 +559,38 @@ img {
 
             &:not(#UserControl) .icon {
                 display: block;
-                margin-top: -5px;
                 width: 24px;
                 height: 24px;
             }
+
+            &:not(#UserControl) span {
+                margin: 14px 0 0 18px;
+            }
         }
+    }
+
+    .Help {
+        top: 10%;
+    }
+
+    .NotificationsFeed {
+        top: 20%;
     }
 }
 
 #UserControlName {
-    min-width: 50px;
-    max-width: 100px;
-    padding-right: 3px;
-    letter-spacing: 0.2px;
-    color: #fafcfc;
-    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    color: #278838;
+    text-align: center;
+    line-height: 32px;
+    margin: 14px;
+    font-size: 12px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
 }
 
 #UserControl {
@@ -586,6 +598,7 @@ img {
 }
 
 #HelpIcon {
+    margin-left: 18px;
     background: transparent url('../../images/Icons/question-fill.svg') left center no-repeat;
 }
 
@@ -593,7 +606,7 @@ img {
 ============================================ */
 .popupUserMenu {
     top: 77%;
-    left: 50px;
+    left: 60px;
     width: auto;
     min-width: 200px;
     max-width: 280px;
@@ -657,8 +670,8 @@ img {
 /* .popupHelpMenu
 ============================================ */
 .popupHelpMenu {
-    top: 150px;
-    left: 50px;
+    top: 25%;
+    left: 60px;
     width: 200px;
     display: none;
     z-index: 1000;
@@ -1380,6 +1393,7 @@ img {
 }
 
 $dropdown-item-height: 16px;
+
 .k-list .actionDropdownItem {
     height: $dropdown-item-height;
     line-height: $dropdown-item-height;
@@ -1407,6 +1421,7 @@ $dropdown-item-height: 16px;
 }
 
 $dropdown-large-item-height: 20px;
+
 .k-list .actionDropdownItem.large {
     height: $dropdown-large-item-height;
     line-height: $dropdown-large-item-height;
@@ -1458,45 +1473,23 @@ $dropdown-large-item-height: 20px;
 }
 
 // components
-@import
-    'components/block-overlay',
-    'components/breadcrumb',
-    'components/item-label',
-    'components/item-name',
-    'components/card',
-    'components/listview',
-    'components/multiple-select',
-    'components/accordion',
-    'components/switch',
-    'components/toastnotification',
-    'components/tab',
-    'components/description-editor',
-    'components/query-definition',
-    'components/query-aggregation',
-    'components/query-aggregation-format',
-    'components/query-aggregation-options',
-    'components/execution-parameter',
-    'components/display-tabs',
-    'components/popup_info',
-    'components/widget-definition';
+@import 'components/block-overlay', 'components/breadcrumb', 'components/item-label', 'components/item-name', 'components/card', 'components/listview', 'components/multiple-select', 'components/accordion', 'components/switch', 'components/toastnotification', 'components/tab', 'components/description-editor', 'components/query-definition', 'components/query-aggregation', 'components/query-aggregation-format', 'components/query-aggregation-options', 'components/execution-parameter', 'components/display-tabs', 'components/popup_info', 'components/widget-definition';
 
 @import 'layout/side-content';
 
 .toggle-sidebar {
-    position: absolute;
-    left: 6px;
-    top: 1%;
-    font-size: 18px;
-    color: #fafcfc;
-    padding: 7px;
-    transition: top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    height: 60px;
+    width: 60px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 
     &:hover {
-        border-radius: 50%;
+        /*border-radius: 50%;
         color: #fafcfc;
         top: 4px;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-        background-color: $primary-color;
+        background-color: $primary-color;*/
     }
 }
 
@@ -1693,11 +1686,11 @@ $dropdown-large-item-height: 20px;
 
 /* Available via Gateway
 ============================================ */
-#DisplayExternalId{
+#DisplayExternalId {
     display: block;
 }
 
-#ExternalId{
+#ExternalId {
     width: 100%;
 }
 
