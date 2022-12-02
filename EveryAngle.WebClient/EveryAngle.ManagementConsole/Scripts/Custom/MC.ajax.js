@@ -101,6 +101,10 @@
                 return;
             }
 
+            if (typeof settings.error === "function") {
+                return;
+            }
+
             var errorMessage = MC.ajax.getErrorMessage(xhr, settings, error);
 
             MC.ui.loading.setError(errorMessage);
