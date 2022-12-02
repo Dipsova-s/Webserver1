@@ -1,13 +1,13 @@
 /*Core*/
 .notificationsFeedBadge {
-    position: relative;
+    position: relative !important;
     display: inline-block;
-    background-color: #ff4040;
+    background-color: #ff4040 !important;
     color: #fff;
-    top: 3px;
+    top: -34px !important;
     border-radius: 50%;
-    width: 16px;
-    height: 0;
+    width: 16px !important;
+    height: 0 !important;
     padding: 8px 0;
 }
 

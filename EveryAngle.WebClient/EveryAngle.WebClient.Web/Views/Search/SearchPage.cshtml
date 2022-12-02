@@ -30,7 +30,7 @@
         <div @*class="Wrapper Shadow"*@>
             <div class="toggle-sidebar">
                 <a class="disabled" id="ButtonToggleSidePanel">
-                    <img src="~/Images/apps.svg" />
+                    <img src="~/Images/apps.svg" alt="" />
                 </a>
             </div>
             @{Html.RenderPartial("~/Views/Shared/Top/Logo.cshtml");}
@@ -46,6 +46,11 @@
             @{Html.RenderPartial("~/Views/Search/PartialViews/CreateNewAngle.cshtml"); }
             @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters.cshtml"); }
         </div>
+    </div>
+    <div class="lll">
+        <a id="ButtonToggleSidePanel1" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.MoreActions">
+            <img id="logo" alt="logo" src="@Url.Content("~/Images/SearchPage/arrow-left-circle-fill.svg")" />
+        </a>
     </div>
     <div id="Content" class="main-content">
 

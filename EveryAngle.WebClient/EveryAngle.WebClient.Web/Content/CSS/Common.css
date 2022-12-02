@@ -1525,7 +1525,9 @@ textarea.input-light {
 
 #UserPanel {
   position: fixed;
-  height: 84%;
+  height: calc(100vh - 120px);
+  /* fallback for none support browsers */
+  height: calc(var(--vh, 1vh) * 100 - 120px);
   bottom: 0;
   box-sizing: border-box;
   width: 60px; }
@@ -1536,10 +1538,6 @@ textarea.input-light {
     position: absolute; }
     #UserPanel div.disabled {
       visibility: hidden; }
-    #UserPanel div:last-child {
-      background: rgba(0, 23, 55, 0.4);
-      opacity: 1;
-      top: 91%; }
     #UserPanel div a {
       font-size: 12px;
       color: #fafcfc;
@@ -1552,10 +1550,18 @@ textarea.input-light {
         height: 24px; }
       #UserPanel div a:not(#UserControl) span {
         margin: 14px 0 0 18px; }
+    #UserPanel div .notificationsFeedBadge span {
+      margin: 1px 0 !important; }
   #UserPanel .Help {
-    top: 10%; }
+    top: 65px; }
   #UserPanel .NotificationsFeed {
-    top: 20%; }
+    top: 130px; }
+  #UserPanel .Settings {
+    top: 5px; }
+  #UserPanel .UserControl {
+    background: rgba(0, 23, 55, 0.4);
+    opacity: 1;
+    bottom: 0; }
 
 #UserControlName {
   width: 32px;
@@ -1582,7 +1588,8 @@ textarea.input-light {
 /* .popupUserMenu
 ============================================ */
 .popupUserMenu {
-  top: 77%;
+  bottom: 3%;
+  top: auto;
   left: 60px;
   width: auto;
   min-width: 200px;

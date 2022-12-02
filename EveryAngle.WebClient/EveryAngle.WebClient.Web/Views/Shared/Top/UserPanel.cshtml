@@ -1,6 +1,6 @@
 ﻿@using EveryAngle.Shared.Globalization;
     <div id="UserPanel">
-            <div>
+            <div class="Settings">
                 <a id="Settings" onclick="userSettingsView.ToggleSettings();">
                     <span id="SettingsIcon"
                           data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.Settings"
@@ -20,7 +20,7 @@
                    href="javascript:void(0)">
                 </a>
             </div>
-            <div>
+            <div class="UserControl">
                 <a id="UserControl" onclick="userSettingsView.ToggleMenu();"
                    data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.MoreActions">
                     <span id="UserControlName"></span>
