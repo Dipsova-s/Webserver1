@@ -16,7 +16,7 @@ ${ddlList}              jquery=.k-list-container:visible li
 
 *** Keywords ***
 Wait Until Page Initialized
-    Wait Until Page Contains Element    ${htmlInitialized}    60s
+    Wait For Condition	return document.readyState == "complete"
 
 Wait Until Element Exist And Visible
     [Arguments]    ${element}
