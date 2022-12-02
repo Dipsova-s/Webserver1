@@ -153,9 +153,9 @@
     animation: rippleAnimation 0.2s;
 }
 .animation {
-    position: absolute;
-    width: 30px;
-    height: 30px;
+    position: absolute !important;
+    width: 30px !important;
+    height: 30px !important;
     background-color: rgb(96, 96, 96);
     top: -3px;
     left: -3px;
