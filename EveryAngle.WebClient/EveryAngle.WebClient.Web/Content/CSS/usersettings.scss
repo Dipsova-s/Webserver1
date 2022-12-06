@@ -3,6 +3,7 @@
 #SettingsIcon {
     font-size: 23px;
     color: #fafcfc;
+    background-image: url('../../Images/Icons/ic_settings-3-fill.svg');
 }
 
 .settingsPanel {
@@ -10,14 +11,14 @@
     background-color: #f7f7f7;
     width: 354px;
     position: absolute;
-    top: 48px;
-    right: 0;
-    transition: right .3s ease-in-out;
+    top: 0;
+    left: 60px;
+    /*transition: right .3s ease-in-out;*/
     z-index: 1000;
 
     &.hide {
         position: fixed;
-        right: -364px;
+        left: -364px;
     }
 
     .card-header, .accordion-header {
@@ -95,7 +96,7 @@
     }
 
     .tab-content-wrapper {
-        @include calc-vh(height, 133px);
+        @include calc-vh(height, 90px);
         overflow: auto;
         padding: 0;
 

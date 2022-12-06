@@ -298,8 +298,8 @@
 }
 
 .btnCreateNewAngle {
-    background: #fff;
-    color: #333;
+/*    background: #fff;
+    color: #333;*/
     font-weight: bold;
     height: 40px;
     font-size: 12px;
@@ -1209,6 +1209,7 @@
 
 #MainContent.content-wrapper.active .main-content {
     transition: all .3s ease-in-out;
+    margin-right: 50px;
 }
 
 #MainContent.content-wrapper.full .main-content {
@@ -1216,6 +1217,14 @@
     width: auto !important;
     min-width: 760px;
 }
+#MainContent.content-wrapper.active .lll {
+    transition: all .3s ease-in-out;
+    margin-right: 50px;
+}
 
-
+#MainContent.content-wrapper.full .lll {
+    margin-left: 0 !important;
+    width: auto !important;
+    min-width: 760px;
+}
 @import 'pages/search-page';

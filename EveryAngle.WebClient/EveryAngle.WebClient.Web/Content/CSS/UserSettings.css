@@ -1,17 +1,16 @@
 ﻿#SettingsIcon {
-    font-size: 23px;
-    color: #fafcfc;
-    background-image: url('../../Images/Icons/ic_settings-3-fill.svg');
-}
+  font-size: 23px;
+  color: #fafcfc;
+  background-image: url("../../Images/Icons/ic_settings-3-fill.svg"); }
 
 .settingsPanel {
   box-shadow: 0 6px 12px 0 rgba(8, 35, 48, 0.14), 0 16px 24px 0 rgba(8, 35, 48, 0.08);
   background-color: #f7f7f7;
   width: 354px;
   position: absolute;
-  top: 48px;
-  left: 50px;
-  /*transition: left .3s ease-in-out;*/
+  top: 0;
+  left: 60px;
+  /*transition: right .3s ease-in-out;*/
   z-index: 1000; }
   .settingsPanel.hide {
     position: fixed;
@@ -63,9 +62,9 @@
     .settingsPanel fieldset p:not(:last-child) {
       margin-bottom: 10px; }
   .settingsPanel .tab-content-wrapper {
-    height: calc(100vh - 133px);
+    height: calc(100vh - 90px);
     /* fallback for none support browsers */
-    height: calc(var(--vh, 1vh) * 100 - 133px);
+    height: calc(var(--vh, 1vh) * 100 - 90px);
     overflow: auto;
     padding: 0; }
     .settingsPanel .tab-content-wrapper:focus {

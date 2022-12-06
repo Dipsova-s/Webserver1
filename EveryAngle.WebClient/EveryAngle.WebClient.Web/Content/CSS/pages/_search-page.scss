@@ -37,13 +37,15 @@ $left-menu-background-color: #f7f7f7;
         line-height: 23px;
         height: 23px;
         padding-top: 8px;
-        display: flex;
+        /*display: flex;*/
         align-items: center;
         position: relative;
 
         .icon {
             font-weight: bold;
             font-size: 10px;
+            float: right;
+            margin-top: -16px;
         }
 
         &:not(.expand) {
@@ -54,7 +56,7 @@ $left-menu-background-color: #f7f7f7;
             }
         }
 
-        &.expand .icon-chevron-right {
+        &.expand .icon-chevron-up {
             display: none;
         }
 
@@ -66,7 +68,6 @@ $left-menu-background-color: #f7f7f7;
         .FilterTitle {
             font-size: 12px;
             font-weight: bold;
-            margin-left: 12px;
             letter-spacing: .24px;
         }
 

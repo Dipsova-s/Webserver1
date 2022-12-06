@@ -1,13 +1,13 @@
 /*Core*/
 .notificationsFeedBadge {
-    position: relative;
+    position: relative !important;
     display: inline-block;
-    background-color: #ff4040;
+    background-color: #ff4040 !important;
     color: #fff;
-    top: 3px;
+    top: -34px !important;
     border-radius: 50%;
-    width: 16px;
-    height: 0;
+    width: 16px !important;
+    height: 0 !important;
     padding: 8px 0;
 }
 
@@ -153,9 +153,9 @@
     animation: rippleAnimation 0.2s;
 }
 .animation {
-    position: absolute;
-    width: 30px;
-    height: 30px;
+    position: absolute !important;
+    width: 30px !important;
+    height: 30px !important;
     background-color: rgb(96, 96, 96);
     top: -3px;
     left: -3px;
@@ -196,8 +196,8 @@
 
 .popupNotificationsFeedMenu {
     position: absolute;
-    top: 200px;
-    left: 50px;
+    top: 33%;
+    left: 60px;
     width: 345px;
     display: none;
     border: 0;

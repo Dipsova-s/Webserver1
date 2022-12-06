@@ -10,17 +10,17 @@
 
         if (!BundleTable.EnableOptimizations)
         {
-            @Scripts.Render("~/bundles/searchpage.js")
+        @Scripts.Render("~/bundles/searchpage.js")
         }
         else
         {
-            <script>
+        <script>
                 WC.Page.LoadSearchPageScripts(
                     [
                         '@Scripts.Url("~/bundles/searchpage.js")'
                     ]
                 );
-            </script>
+        </script>
         }
     }
 }
@@ -28,27 +28,12 @@
 {
     <div id="TopBar" class="topBarWrapper">
         <div @*class="Wrapper Shadow"*@>
+            <div class="toggle-sidebar">
+                <a class="disabled" id="ButtonToggleSidePanel">
+                    <img src="~/Images/apps.svg" alt="" />
+                </a>
+            </div>
             @{Html.RenderPartial("~/Views/Shared/Top/Logo.cshtml");}
-            <a class="toggle-sidebar disabled" id="ButtonToggleSidePanel">
-                <svg width="27" height="27" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="4" cy="4" r="2" fill="white"></circle>
-                    <circle cx="4" cy="12" r="2" fill="white"></circle>
-                    <circle cx="4" cy="20" r="2" fill="white"></circle>
-                    <circle cx="4" cy="28" r="2" fill="white"></circle>
-                    <circle cx="12" cy="4" r="2" fill="white"></circle>
-                    <circle cx="12" cy="12" r="2" fill="white"></circle>
-                    <circle cx="12" cy="20" r="2" fill="white"></circle>
-                    <circle cx="12" cy="28" r="2" fill="white"></circle>
-                    <circle cx="20" cy="4" r="2" fill="white"></circle>
-                    <circle cx="20" cy="12" r="2" fill="white"></circle>
-                    <circle cx="20" cy="20" r="2" fill="white"></circle>
-                    <circle cx="20" cy="28" r="2" fill="white"></circle>
-                    <circle cx="28" cy="4" r="2" fill="white"></circle>
-                    <circle cx="28" cy="12" r="2" fill="white"></circle>
-                    <circle cx="28" cy="20" r="2" fill="white"></circle>
-                    <circle cx="28" cy="28" r="2" fill="white"></circle>
-                </svg>
-            </a>
             @{Html.RenderPartial("~/Views/Shared/Top/UserPanel.cshtml");}
         </div>
     </div>
@@ -61,6 +46,11 @@
             @{Html.RenderPartial("~/Views/Search/PartialViews/CreateNewAngle.cshtml"); }
             @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters.cshtml"); }
         </div>
+    </div>
+    <div class="lll">
+        <a id="ButtonToggleSidePanel1" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.MoreActions">
+            <img id="logo" alt="logo" src="@Url.Content("~/Images/SearchPage/arrow-left-circle-fill.svg")" />
+        </a>
     </div>
     <div id="Content" class="main-content">
 
