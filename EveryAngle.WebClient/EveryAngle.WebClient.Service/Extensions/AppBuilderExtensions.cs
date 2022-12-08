@@ -30,7 +30,7 @@ namespace EveryAngle.WebClient.Service.Extensions
     [ExcludeFromCodeCoverage]
     public static class AppBuilderExtensions
     {
-        private const string Scope = "openid profile email";
+        private const string Scope = "openid";
         private const string SecurityCookieName = "STSTOKEN";
         private const string AuthenticationType = "Cookies";
         private const string ClientSecret = "hii8Q~4OxjNfLEjULpebGK-kPY-XtcRsajHYuayv";
