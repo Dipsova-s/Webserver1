@@ -66,7 +66,7 @@
             resizable: false,
             draggable: false,
             center: false,
-            position: { left: 0, top: 0 },
+            position: { left: 60, top: 0 },
             maxHeight: 400,
             width: 400,
             actions: ['Close'],

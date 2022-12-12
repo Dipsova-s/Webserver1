@@ -172,10 +172,10 @@ $left-menu-background-color: #f7f7f7;
             color: #333;
             text-decoration: none;
             margin-bottom: 12px;
-            font-family: Roboto;
+            font-family: $font-stack;
             font-size: 12px;
             line-height: normal;
-            letter-spacing: 0.44px;
+            letter-spacing: 0.1px;
             text-align: left;
 
             &:hover span {

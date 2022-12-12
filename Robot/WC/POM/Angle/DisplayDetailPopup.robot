@@ -5,8 +5,8 @@ ${ddlDisplayType}    css=#tempDisplayType_ddlWrapper
 
 #Filters & Jumps
 ${popupMoveFilterNotification}      css=#popupNotification
-${btnCloseFilterNotification}       btn-popupNotification0
-${btnSubmitFilterConfirmation}      btn-popupNotification1  
+${btnCloseFilterNotification}       btn-popupNotification1
+${btnSubmitFilterConfirmation}      btn-popupNotification0  
 
 #Statistics
 ${tabDisplayStatistic}     css=#DisplayStatistic
@@ -14,8 +14,8 @@ ${tabDisplayStatistic}     css=#DisplayStatistic
 #Generic
 ${btnSaveDisplay}    btn-popupDisplayDetail1
 ${btnCloseDisplayDetailPopup}     //div[@id='popupDisplayDetail']/..//div/a[@class='k-button k-flat k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
-${btnCloseJumpNotification}       btn-popupNotification0
-${btnSubmitJumpConfirmation}      btn-popupNotification1
+${btnCloseJumpNotification}       btn-popupNotification1
+${btnSubmitJumpConfirmation}      btn-popupNotification0
 
 #Excel Templates
 ${optionExcelTemplates}         //select[@id='DefaultExcelTemplate']/option

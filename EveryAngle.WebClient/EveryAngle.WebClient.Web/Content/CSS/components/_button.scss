@@ -18,7 +18,7 @@
     margin-left: 5px;
     min-width: 74px;
     cursor: pointer;
-    height: 37px;
+    height: 40px;
     outline: none;
     box-sizing: border-box;
     font-size: 14px;
@@ -40,8 +40,8 @@
 }
 
 .btn-small {
-    font-size: 13px!important;
-    height: 32px!important;
+    font-size: 13px !important;
+    height: 32px !important;
 }
 
 .btn-primary,
@@ -78,8 +78,9 @@
 .btn-secondary:link,
 .btn-secondary:visited {
     background-color: #FFFFFF;
-    border-color: #f7f7f7;
-    color: #000000;
+    border: 1px solid #B8C5D5;
+    border-radius: 3px;
+    color: #546176;
 }
 
 .btn-secondary:hover {
@@ -251,10 +252,10 @@
 .btn span,
 .btn-busy:before {
     margin: 0 auto;
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     line-height: 17px;
+    font-size: 14px;
 }
 
 .btn-busy:before {
@@ -429,14 +430,21 @@
     }
 
     .badge {
-        right: -8px;
-        top: -5px;
+        right: -22px;
+        top: -14px;
         min-width: 16px;
         border-radius: 50%;
-        padding: 3px;
+        font-size: 11px;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 
     &:hover {
         text-decoration: none !important;
     }
+}
+
+.float-left {
+    margin-left: 24px !important;
 }

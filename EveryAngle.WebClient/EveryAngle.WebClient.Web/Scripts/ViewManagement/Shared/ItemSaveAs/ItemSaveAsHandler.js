@@ -58,7 +58,8 @@
                 {
                     text: Captions.Button_Cancel,
                     position: 'right',
-                    click: 'close'
+                    click: 'close',
+                    isSecondary: true
                 },
                 {
                     text: Localization.Ok,

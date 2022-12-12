@@ -1,7 +1,7 @@
 *** Settings ***
 
 *** Variables ***
-${btnOkConfirmationpopupScheduleAngle}         css=#btn-popupScheduleAngle1
+${btnOkConfirmationpopupScheduleAngle}         css=#btn-popupScheduleAngle0
 ${popupScheduleAngle}        xpath=//div[@id='popupScheduleAngle']
 ${dropdownSelectTask}       //span[@id='taskDropdownList_ddlWrapper']/span/span[@class='k-select']/span
 ${ddlExistingTask}          taskDropdownList_ddlWrapper

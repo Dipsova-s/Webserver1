@@ -2,7 +2,7 @@
 ${divSaveDashboardAsPopup}              css=.save-as-popup
 ${pgbSaveDashboardAsPopup}              css=.save-as-popup .k-loading-mask
 ${txtSaveDashboardAsName}               jquery=#PopupSaveAs .name
-${btnSubmitSaveDashboardAs}             jquery=#btn-PopupSaveAs1
+${btnSubmitSaveDashboardAs}             jquery=#btn-PopupSaveAs0
 
 *** Keywords ***
 Wait Until Save Dashboard As Popup Loaded

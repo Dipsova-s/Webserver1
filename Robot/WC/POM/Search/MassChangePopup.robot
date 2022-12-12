@@ -10,8 +10,8 @@ ${chkMassChangeIsPublished}         Published
 ${chkMassChangeIsValidate}          Validated
 ${chkMassChangeIsTemplate}          Template
 
-${btnSaveMassChange}                btn-popupMassChangePopup1
-${btnCloseMassChangePopup}          btn-popupMassChangePopup0
+${btnSaveMassChange}                btn-popupMassChangePopup0
+${btnCloseMassChangePopup}          btn-popupMassChangePopup1
 
 #Mass change report popup
 ${divMassChangeReportPopup}         popupMassChangeReport

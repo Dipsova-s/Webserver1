@@ -490,10 +490,12 @@
   display: none; }
 
 .fieldChooserButtons {
-  clear: both;
-  display: block;
-  overflow: hidden;
-  padding: 20px; }
+    clear: both;
+    display: block;
+    overflow: hidden;
+    padding: 20px;
+    border-top: 1px solid #DEE1EA;
+    border-radius: 0px 0px 3px 3px; }
 
 .fieldChooserButtons .btn:last-child {
   margin-right: 0; }

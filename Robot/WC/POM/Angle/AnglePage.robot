@@ -58,13 +58,13 @@ ${ddlAngleActionDropdownScheduleAngle}              css=#ActionDropdownListPopup
 ${chkDisplaysSection}                               jquery=.publish-displays .accordion-body .listview-item    
 
 ${btnNewDisplay}                                    css=.btn-new-display
-${btnConfirmDeleteDisplay}              btn-popupNotification1
+${btnConfirmDeleteDisplay}              btn-popupNotification0
 
 ${btnShowPublishSettings}           css=#ShowPublishSettingsButton
 ${btnShowValidateButton}            css=#ShowValidateButton
 
 ${popupNotification}         css=#popupNotification
-${btnCancelConfirmation}     css=#btn-popupNotification0
+${btnCancelConfirmation}     css=#btn-popupNotification1
 
 ${popupAddLabels}            css=#popupValidateBusinessProcess_wnd_title
 

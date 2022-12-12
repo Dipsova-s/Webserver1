@@ -31,6 +31,8 @@
 /* .dashboard-widget-popup
 ============================================ */
 .dashboard-widget-popup {
+    left: 65px !important;
+
     .k-window-titlebar {
         @include flex-center;
     }

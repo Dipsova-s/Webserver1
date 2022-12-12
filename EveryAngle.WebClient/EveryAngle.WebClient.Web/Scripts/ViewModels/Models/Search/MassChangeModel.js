@@ -63,9 +63,9 @@ function MassChangeModel() {
                 html: massChangeHtmlTemplate(),
                 className: 'popup' + popupName,
                 animation: false,
-                width: 665,
-                height: 500,
-                minWidth: 665,
+                width: 675,
+                height: 540,
+                minWidth: 675,
                 open: function (e) {
                     self.ShowMassChangePopupCallback(e);
                 },
@@ -76,7 +76,8 @@ function MassChangeModel() {
                     {
                         text: Captions.Button_Cancel,
                         position: 'right',
-                        click: 'close'
+                        click: 'close',
+                        isSecondary: true
                     },
                     {
                         text: Localization.Save,

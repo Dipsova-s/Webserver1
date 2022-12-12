@@ -266,6 +266,7 @@
             actions: ["Close"],
             width: 350,
             minHeight: 100,
+            height: 600,
             resize: jQuery.proxy(self.StateHandler.OnPopupResized, self, handle),
             buttons: self.GetButtons(saveDisplayAs),
             open: jQuery.proxy(self.ShowValidateBusinessProcessCallback, self),
@@ -308,16 +309,16 @@
 
         jQuery.when(
             self.Initial(jQuery('.section-labels')),
-                systemLanguageHandler.LoadLanguages())
-                .then(() => {
-                    self.SetSummary(self);
-                    jQuery('.k-overlay').on('click', () => {
-                        popup.Close('#popupValidateBusinessProcess');
-                        popup.Close('#PopupSaveAs');
-                    });
+            systemLanguageHandler.LoadLanguages())
+            .then(() => {
+                self.SetSummary(self);
+                jQuery('.k-overlay').on('click', () => {
+                    popup.Close('#popupValidateBusinessProcess');
+                    popup.Close('#PopupSaveAs');
+                });
 
-                    e.sender.element.busyIndicator(false);
-                });        
+                e.sender.element.busyIndicator(false);
+            });
     };
 
     handler.SetSummary = function () {

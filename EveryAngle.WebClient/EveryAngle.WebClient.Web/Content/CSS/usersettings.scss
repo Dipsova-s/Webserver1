@@ -113,6 +113,14 @@
         overflow: hidden;
     }
 
+    #SettingsPanelFormatContent {
+        .icon-chevron-down,
+        .icon-chevron-up {
+            position: absolute;
+            right: 5%;
+        }
+    }
+
     .settingsPanelProfile {
         .card-body {
             padding-bottom: 0;

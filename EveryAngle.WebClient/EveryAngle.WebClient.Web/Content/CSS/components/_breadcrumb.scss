@@ -26,13 +26,14 @@
 
         .breadcrumb-link {
             cursor: pointer;
-            color: #061c2b;
-            font-weight: normal;
-            line-height: 1.2;
-            letter-spacing: 0.44px;
+            color: #007AC9;
+            font-weight: 400;
+            line-height: 17px;
+            letter-spacing: 0.1px;
+            font-size: 14px;
 
             &:hover .breadcrumb-name {
-                color: $primary-color;
+                /*color: $primary-color;*/
                 text-decoration: underline;
             }
         }

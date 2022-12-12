@@ -7,6 +7,7 @@
     @include inline-flex-center;
     flex-wrap: wrap;
 }
+
 .item-label {
     @include inline-flex-center;
     background-color: $secondary-color;
@@ -51,6 +52,22 @@
 
     .btn-remove {
         color: #333333;
+    }
+}
+
+#SearchFilterView .item-label-primary {
+    background-color: #FFFFFF;
+    color: #1E2556;
+    border: 1px solid #B8C5D5;
+    border-radius: 3px;
+    height: 30px;
+
+    .btn-remove {
+        color: #333333;
+    }
+
+    &:hover {
+        background: #FFFFFF;
     }
 }
 

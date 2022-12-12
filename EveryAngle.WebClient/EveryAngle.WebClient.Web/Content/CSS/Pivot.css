@@ -48,8 +48,8 @@
   /* -- ASPxPopupControl Lite -- */
   /* Loading panel */ }
   .pivotAreaContainer * {
-    font-family: Roboto;
-    letter-spacing: .24px; }
+    font-family: Inter;
+    letter-spacing: .1px; }
   .pivotAreaContainer .dxPivotGrid_CTNAttribute,
   .pivotAreaContainer .dxPivotGrid_CTNCalculatedMeasure,
   .pivotAreaContainer .dxPivotGrid_CTNDimension,

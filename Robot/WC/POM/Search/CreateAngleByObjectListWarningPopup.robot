@@ -1,5 +1,5 @@
 *** Variables ***
-${btnPopupNotification}    		btn-popupNotification1
+${btnPopupNotification}    		btn-popupNotification0
 ${warningPopUpSection}          jquery=#popupNotification
 
 *** Keywords ***

@@ -237,10 +237,10 @@ function Popup() {
             var wrapper = jQuery('.k-window-buttons', win.wrapper).length === 0 ? jQuery('<div class="k-window-buttons" />') : jQuery('.k-window-buttons', win.wrapper).empty(),
                 inner = wrapper.append('<div class="k-window-buttons-inner" />').children(),
                 winId = win.element.attr('id') || '';
-            buttons.find(x => x.text === Captions.Button_Cancel) && (buttons = buttons.reverse());
+            buttons.findIndex(x => x.text === Captions.Button_Cancel) === 0 && (buttons = buttons.reverse());
             jQuery.each(buttons, function (k, v) {
                 v.kendoWindow = win;
-                jQuery('<a class="btn btn-small" />')
+                jQuery('<a class="btn" />')
                     .attr(jQuery.extend({}, v.attr, { id: 'btn-' + winId + k }))
                     .data('setting', v)
                     .click(function (e) {
@@ -317,8 +317,8 @@ function Popup() {
                 title: title || 'Notification',
                 element: '#popup' + popupName,
                 className: 'popup' + popupName,
-                width: 430,
-                height: 269,
+                width: 500,
+                height: options?.height ? options.height : 230,
                 minHeight: 150,
                 draggable: false,
                 resizable: false,
@@ -431,7 +431,8 @@ function Popup() {
                     position: 'right',
                     className: 'btnRetry'
                 }
-            ]
+            ],
+            height: 280
         }, options);
 
         var win = self.Alert(title, message, settings);
@@ -448,6 +449,7 @@ function Popup() {
             buttons: [
                 {
                     text: Captions.Button_Cancel,
+                    isSecondary: true,
                     click: 'close',
                     position: 'right'
                 },

@@ -37,4 +37,4 @@ Scroll Display Tab To The Rightmost
     Repeat Keyword  2 times  Scroll Display Tab To Right
 
 Scroll Display Tab To The Leftmost
-    Repeat Keyword  2 times  Scroll Display Tab To Left
+    Repeat Keyword  3 times  Scroll Display Tab To Left

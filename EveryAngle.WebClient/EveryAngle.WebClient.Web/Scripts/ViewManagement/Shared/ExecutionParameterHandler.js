@@ -67,7 +67,8 @@ function ExecutionParameterHandler(angle, display) {
                         e.kendoWindow.close();
                     }
                 },
-                position: 'right'
+                position: 'right',
+                isSecondary: true
             },
             {
                 text: Localization.Execute,

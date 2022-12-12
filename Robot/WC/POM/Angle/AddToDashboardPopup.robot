@@ -2,7 +2,7 @@
 ${rdoAddToExistingDashboard}     css=#exitingDashboardRadioButton
 ${btnCloseSaveDashboardPopup}    css=.k-i-close
 ${ddlExistingDashboard}          css=#dashboardDropdownlist_ddlWrapper
-${btnSubmitAddToDashboard}       btn-popupAddToDashboard1
+${btnSubmitAddToDashboard}       btn-popupAddToDashboard0
 
 ${btnCloseInfo}       btn-popupNotification0
 
