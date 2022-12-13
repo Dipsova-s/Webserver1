@@ -124,6 +124,7 @@
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.woff" />
     <EmbeddedResource Include="Resource\KendoUICustom\kendo.modeltimestamptextbox.js" />
     <EmbeddedResource Include="Resource\KendoUICustom\kendo.percentagetextbox.js" />
+    <Content Include="Resource\Shared\Icons\loader-circular-undeterminate.svg" />
     <Content Include="Resource\Shared\Icons\loading-spinner.svg" />
     <Content Include="Views\Top\ValidationRequestHeader.cshtml" />
     <None Include="Views\User\PartialViews\UserLoginBodyPage.cshtml">

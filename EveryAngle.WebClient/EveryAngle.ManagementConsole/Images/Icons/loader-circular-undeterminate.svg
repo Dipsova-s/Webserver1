@@ -1,0 +1,13 @@
+﻿<svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<path d="M12 0C5.37294 0 0 5.37294 0 12C0 18.6279 5.37294 24 12 24C18.6271 24 24 18.6279 24 12C23.9992 5.37294 18.6271 0 12 0ZM12 21.3408C6.84143 21.3408 2.65917 17.1594 2.65917 12C2.65917 6.84143 6.84143 2.65917 12 2.65917C17.1586 2.65917 21.34 6.84143 21.34 12C21.34 17.1594 17.1586 21.3408 12 21.3408Z" fill="#DEE1EA"/>
+	<path d="M19.9 7L22.1 5.5C19.5 1 14.5 0 12 0V2.65917C18 3.5 19 6 19.9 7Z" fill="#007AC9">
+		<animateTransform
+		  attributeType="xml"
+		  attributeName="transform"
+		  type="rotate"
+		  from="0 12 12"
+		  to="360 12 12"
+		  dur="0.5s"
+		  repeatCount="indefinite"/>
+	</path>
+</svg>

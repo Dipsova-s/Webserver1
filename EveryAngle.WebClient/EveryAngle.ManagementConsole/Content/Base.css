@@ -1782,7 +1782,8 @@ table.grid tbody td:first-child {
         position: absolute;
         right: 1px;
         top: 1px;
-        background-size: 10px 10px;
+        height: 10px;
+        width: 10px;
         padding: 0.5em;
         margin-right: 5px;
     }

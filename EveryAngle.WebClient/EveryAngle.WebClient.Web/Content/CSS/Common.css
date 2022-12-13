@@ -2449,10 +2449,11 @@ textarea.input-light {
       .displayNameContainer .icon.icon-adhoc:before {
         content: '*'; }
     .displayNameContainer .icon.loader-spinner-inline {
-      cursor: default;
-      width: 9px;
-      height: 9px;
-      margin: 4px 5px 4px 4px; }
+        cursor: default;
+        width: 9px;
+        height: 9px;
+        margin: 2px 3px 2px 2px
+    }
   .displayNameContainer .name {
     display: inline-block;
     overflow: hidden;

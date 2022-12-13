@@ -444,6 +444,7 @@
     <Content Include="Images\Icons\icon_user.svg" />
     <Content Include="Images\Icons\icon_webclient.svg" />
     <Content Include="Images\Icons\icon_workbench.svg" />
+    <Content Include="Images\Icons\loader-circular-undeterminate.svg" />
     <Content Include="Images\Icons\white_arrow_down.svg" />
     <Content Include="Images\Login\login_image.png" />
     <Content Include="Images\logo.svg" />
