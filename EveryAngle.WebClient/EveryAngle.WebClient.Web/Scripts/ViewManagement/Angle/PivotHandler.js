@@ -604,7 +604,8 @@ function PivotPageHandler(elementId, container) {
                 {
                     text: Captions.Button_Cancel,
                     click: 'close',
-                    position: 'right'
+                    position: 'right',
+                    isSecondary: true
                 },
                 {
                     text: Localization.Ok,

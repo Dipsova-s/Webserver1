@@ -4,7 +4,7 @@
 
 // fonts
 @include font-face(Inter, "../fonts/Inter-Regular", 400, normal);
-@include font-face(Inter, "../fonts/Inter-Bold", bold, normal);
+@include font-face(Inter, "../fonts/Inter-SemiBold", bold, normal);
 @include font-face(Inter, "../fonts/Inter-medium", 500, normal);
 
 html, body {
@@ -600,7 +600,6 @@ img {
     line-height: 32px;
     margin: 14px;
     font-size: 12px;
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
 }
@@ -943,10 +942,9 @@ img {
 /* .popupNotification
 ============================================ */
 .popupNotification {
-    width: 430px;
-    height: 269px;
+    width: 500px;
+    height: 232px;
     min-height: 150px;
-    max-height: 230px;
 }
 
 .screenMinHeight .popupNotification {
@@ -1055,8 +1053,20 @@ img {
     margin-bottom: 3px;
 }
 
-.popupNotification .k-window-titlebar {
-    background: #FFFFFF;
+.popupNotification {
+    box-shadow: 0px 10px 15px -3px rgba(0, 23, 55, 0.1), 0px 4px 6px -2px rgba(0, 23, 55, 0.05);
+    border-radius: 3px;
+
+    .k-window-titlebar {
+        background: #FFFFFF;
+        height: 70px;
+    }
+
+    .k-window-title {
+        color: #001737;
+        margin: 24px 0 24px 24px;
+        font-weight: 600;
+    }
 }
 
 .customTimeout i {
@@ -1697,6 +1707,58 @@ $dropdown-large-item-height: 20px;
     cursor: default;
 }
 
+.popupValidateBusinessProcess {
+    .section-labels {
+        .label-header {
+            color: #78909c;
+            font-style: italic;
+            font-weight: normal;
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .label-group-header {
+            font-size: 11px;
+        }
+
+        .labels-wrapper {
+            border-radius: 2px;
+            border: solid 1px #e9ecee;
+            background-color: #ffffff;
+            padding: 7px 2px 2px 7px;
+            margin-bottom: 10px;
+            min-height: 36px;
+            box-sizing: border-box;
+
+            .multiple-select-header {
+                display: none;
+            }
+
+            .label-selection-message,
+            .business-processes-selection-message {
+                font-size: 11px;
+            }
+        }
+    }
+}
+
+.popupValidateBusinessProcess .section-warning-message,
+.save-as-popup .section-warning-message {
+    background-color: rgba(255, 204, 203, 0.7);
+    overflow-wrap: break-word;
+    border-radius: 3px;
+    color: #061c2b;
+    letter-spacing: 0.25px;
+}
+
+.popupValidateBusinessProcess .card .card-header,
+.save-as-popup .card .card-header {
+    font-weight: normal;
+    text-transform: none;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
 /* Available via Gateway
 ============================================ */
 #DisplayExternalId {
@@ -1705,12 +1767,4 @@ $dropdown-large-item-height: 20px;
 
 #ExternalId {
     width: 100%;
-}
-
-.popupNotification .k-window-titlebar {
-    background: #FFFFFF;
-}
-
-.popupNotification .k-window-titlebar .k-window-title {
-    color: #001737;
 }

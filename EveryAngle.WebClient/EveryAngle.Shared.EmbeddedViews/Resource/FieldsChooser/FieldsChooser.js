@@ -1783,6 +1783,7 @@ function FieldsChooserModel() {
         }
         // set title with html tag
         self.FieldChooserPopup.wrapper.find('.k-window-title').html(options.title);
+        self.FieldChooserPopup.wrapper.find('.k-window-titlebar').append("<div class=\"triangle\"></div>")
         // set tooltip
         self.SetPopupTooltip();
 

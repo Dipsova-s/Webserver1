@@ -298,7 +298,7 @@
 }
 
 .btnCreateNewAngle {
-/*    background: #fff;
+    /*    background: #fff;
     color: #333;*/
     font-weight: bold;
     height: 40px;
@@ -826,7 +826,7 @@
     > span {
         font-weight: normal;
         font-family: $font-stack;
-        letter-spacing: 0.25px;
+        letter-spacing: 0.1px;
     }
 
     &:hover {
@@ -985,8 +985,8 @@
 
     .name {
         color: #3d4852;
-        font-size: 14px;
-        font-weight: normal;
+        font-size: 15px;
+        font-weight: bold;
         font-style: normal;
         font-stretch: normal;
         letter-spacing: normal;
@@ -1035,11 +1035,10 @@
 
     .ContentDetail {
         margin: 5px 0;
-        font-size: 12px;
-        color: #3d4852;
-        letter-spacing: 0.24px;
+        font-size: 13px;
+        color: #000000;
         height: 32px;
-        line-height: 1.45;
+        line-height: 170%;
         overflow: hidden;
         white-space: normal;
         display: -webkit-box; /* NOSONAR: css for specific browser */
@@ -1209,7 +1208,7 @@
 
 #MainContent.content-wrapper.active .main-content {
     transition: all .3s ease-in-out;
-    margin-right: 50px;
+    margin-right: 60px;
 }
 
 #MainContent.content-wrapper.full .main-content {
@@ -1217,6 +1216,7 @@
     width: auto !important;
     min-width: 760px;
 }
+
 #MainContent.content-wrapper.active .lll {
     transition: all .3s ease-in-out;
     margin-right: 50px;
@@ -1227,4 +1227,5 @@
     width: auto !important;
     min-width: 760px;
 }
+
 @import 'pages/search-page';

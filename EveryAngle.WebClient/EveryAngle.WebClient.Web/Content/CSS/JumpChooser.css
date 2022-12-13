@@ -3,6 +3,7 @@
 #popupFollowup {
     display: flex;
     align-items: stretch;
+    margin-bottom: 10px;
 }
 
 .popupFollowup {
@@ -23,10 +24,6 @@
 
 .popupFollowup .k-window-buttons-inner {
     background: none;
-}
-
-.popupFollowup .k-window-buttons {
-    border-top: none;
 }
 
 .followupsArea,
@@ -205,13 +202,13 @@
     .followupsIndicator > .relation.manyToOne > span {
         flex-grow: 0;
         margin: 0 0 0 16.5px;
-        font-family: Roboto;
+        font-family: Inter;
         font-size: 12px;
         font-weight: normal;
         font-stretch: normal;
         font-style: normal;
         line-height: 2;
-        letter-spacing: 0.44px;
+        letter-spacing: 0.1px;
         text-align: left;
     }
 

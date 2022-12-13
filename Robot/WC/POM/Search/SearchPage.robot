@@ -106,12 +106,12 @@ ${lnkItemNameSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .Re
 ${divSearchResultNoData}         css=.grid-no-data
 
 #Delete Angle
-${btnConfirmDeleteAngle}                btn-popupNotification1
+${btnConfirmDeleteAngle}                btn-popupNotification0
 ${btnCloseDeleteAngleReportPopup}       btn-popupReport0
 ${divDeleteAngleProgress}               css=.k-overlay
 
 #Copy Angle
-${btnConfirmCopyAngle}                  btn-popupAngleCopy1
+${btnConfirmCopyAngle}                  btn-popupAngleCopy0
 ${btnCloseCopyAngleReportPopup}         btn-popupReport0
 ${divCopyAngleProgress}                 css=.k-overlay
 

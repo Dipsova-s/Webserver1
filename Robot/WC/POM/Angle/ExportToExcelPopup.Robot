@@ -5,9 +5,9 @@ ${chkAddSummarySheet}               css=#EnableSummarySheet
 ${chkAddDefinitionSheet}            css=#EnableDefinitionSheet
 ${txtFileName}                      css=#SaveFileName
 ${txtSheetName}                     css=#SaveSheetName
-${btnCancelExportToExcel}           btn-popupExportExcel0
-${btnOKExportToExcel}               btn-popupExportExcel1
-${btnOKExportDrilldownToExcel}      btn-popupExportDrilldownExcel1
+${btnCancelExportToExcel}           btn-popupExportExcel1
+${btnOKExportToExcel}               btn-popupExportExcel0
+${btnOKExportDrilldownToExcel}      btn-popupExportDrilldownExcel0
 ${pgbExportToExcel}                 css=.popupExportExcel .k-loading-mask
 ${textDefaultHeaderFormat}          xpath=//div[text()='Header format']/following::div/descendant::span[@class='k-input']
 ${textExcelTemplate}                //div[contains(text(), 'Excel template')]/following::div/descendant::span[@class='k-input']

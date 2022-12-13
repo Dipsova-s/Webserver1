@@ -14,7 +14,7 @@ ${ddlDashboardActionDropdownDownload}               css=#ActionDropdownListPopup
 
 ${divWidgetDisplayHeader}               jquery=.widget-display-header
 ${btnWidgetDelete}                      jquery=.widgetButtonDelete
-${btnConfirmDeleteWidget}               jquery=#btn-popupNotification1
+${btnConfirmDeleteWidget}               jquery=#btn-popupNotification0
 ${lnkWidgetOpenNewWindow}               jquery=.widgetButtonOpenNewWindow
 ${divWidgets}                           jquery=#dashboardWrapper .widget-display-column
 ${linkMaximizeDashboard}                jquery=.widgetButtonMaximize
@@ -22,7 +22,7 @@ ${linkMinimizeDashboard}                jquery=.widgetButtonMinimize
 
 ${btnShowPublishSettings}               css=#ShowPublishSettingsButton
 ${btnShowValidateButton}                css=#ShowValidateButton
-${btnCancelConfirmation}                css=#btn-popupNotification0
+${btnCancelConfirmation}                css=#btn-popupNotification1
 
 #Save Buttons
 ${btnDashboardSaveMain}                 jquery=#DashboardSavingWrapper .btn-main-saving

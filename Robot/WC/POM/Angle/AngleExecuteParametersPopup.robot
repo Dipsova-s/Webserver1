@@ -2,7 +2,7 @@
 ${divExecuteParametersPopup}            css=#PopupExecutionParameter
 ${pgbExecuteParameters}                 css=#PopupExecutionParameter > div.k-loading-mask
 ${btnCloseExecuteParametersPopup}       jquery=.popup-execution-parameter .k-window-action[aria-label="Close"]
-${btnSubmitExecuteParameters}           css=#btn-PopupExecutionParameter1
+${btnSubmitExecuteParameters}           css=#btn-PopupExecutionParameter0
 ${btnSwitchAngleExecuteParameters}      css=.btnChangeAngleParameters
 ${btnSwitchDisplayExecuteParameters}    css=.btnChangeDisplayParameters
 ${searchPageTitle}                      Angles for SAP - Search page

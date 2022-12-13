@@ -73,6 +73,10 @@
       padding: 10px 10px 0 10px; }
   .settingsPanel .settingsPanelSection {
     overflow: hidden; }
+  .settingsPanel #SettingsPanelFormatContent .icon-chevron-down,
+  .settingsPanel #SettingsPanelFormatContent .icon-chevron-up {
+    position: absolute;
+    right: 5%; }
   .settingsPanel .settingsPanelProfile .card-body {
     padding-bottom: 0; }
   .settingsPanel .settingsPanelProfile .settingsPanelProfileName {

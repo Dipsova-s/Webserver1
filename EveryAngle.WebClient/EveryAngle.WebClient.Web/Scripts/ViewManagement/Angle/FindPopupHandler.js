@@ -36,7 +36,8 @@ function FindPopupHandler() {
                 {
                     text: Captions.Button_Cancel,
                     click: 'close',
-                    position: 'right'
+                    position: 'right',
+                    isSecondary: true
                 },
                 {
                     className: 'btnSubmit executing',

@@ -8,7 +8,9 @@
         <!-- ko if: filter.checked()-->
         <div class="item-label item-label-primary">
             <span data-bind="text: filter.name, css: { 'strike-through': filter.negative }"></span>
-            <a class="btn-remove" data-bind="click: $root.UnselectFacetFilter.bind(this, filter)"><i class="icon icon-close"></i></a>
+            <a class="btn-remove" data-bind="click: $root.UnselectFacetFilter.bind(this, filter)">
+                <img src="~/Images/close-circle-fill.svg" alt="" />
+            </a>
         </div>
         <!-- /ko -->
         <!-- /ko -->

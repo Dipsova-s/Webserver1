@@ -29,7 +29,8 @@ function QuickFilterHandler() {
                         e.kendoWindow.close();
                         e.stopPropagation();
                     },
-                    position: 'right'
+                    position: 'right',
+                    isSecondary: true
                 },
                 {
                     text: Localization.Ok,

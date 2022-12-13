@@ -905,7 +905,8 @@ function CreateNewAngleViewManagementModel() {
                 {
                     title: Localization.Warning_Title,
                     session_name: 'remember_create_angle_object',
-                    icon: 'alert'
+                    icon: 'alert',
+                    height: 275
                 }
             );
         }

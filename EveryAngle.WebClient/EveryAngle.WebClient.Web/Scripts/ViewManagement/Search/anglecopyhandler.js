@@ -48,7 +48,8 @@ function AngleCopyHandler() {
                         text: Captions.Button_Cancel,
                         position: 'right',
                         className: 'executing',
-                        click: 'close'
+                        click: 'close',
+                        isSecondary: true
                     },
                     {
                         text: Localization.Save,

@@ -19,8 +19,8 @@ ${valueDecimals}                      xpath=//div[@id='decimal']/descendant::inp
 ${txtSetFormat}                     xpath=//div[@id='enum-format']/descendant::span[@class='k-input']
 ${valueInsertModelDate}               xpath=//div[@id='add-model-date']/descendant::input[contains(@id, 'model-date')]
 
-${btnOKExportToCSV}               btn-popupExportToCSV1
-${btnOKExportDrilldownToCSV}      btn-popupExportDrilldownCSV1
+${btnOKExportToCSV}               btn-popupExportToCSV0
+${btnOKExportDrilldownToCSV}      btn-popupExportDrilldownCSV0
 
 *** Keywords ***
 Wait Until Export To CSV Popup Loaded

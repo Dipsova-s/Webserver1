@@ -24,7 +24,8 @@ function ResolveAngleDisplayHandler() {
                 {
                     text: Captions.Button_Cancel,
                     position: 'right',
-                    click: 'close'
+                    click: 'close',
+                    isSecondary: true
                 },
                 {
                     //if confirm deleting angle, send ?force=true to API

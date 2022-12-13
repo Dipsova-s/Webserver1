@@ -821,6 +821,7 @@
     <Content Include="Images\Angle\Followups\followups_relation_indicator.svg" />
     <Content Include="Images\Angle\pivotchart.png" />
     <Content Include="Images\apps.svg" />
+    <Content Include="Images\close-circle-fill.svg" />
     <Content Include="Images\Domains\BillingBlockReleaseStatus\BillingBlockReleaseStatusBBRS_Critical.png" />
     <Content Include="Images\Domains\BillingBlockReleaseStatus\BillingBlockReleaseStatusBBRS_Late.png" />
     <Content Include="Images\Domains\BillingBlockReleaseStatus\BillingBlockReleaseStatusBBRS_None.png" />
@@ -1055,6 +1056,11 @@
     <Content Include="Content\fonts\Inter-Bold.woff" />
     <Content Include="Content\fonts\Inter-Medium.woff" />
     <Content Include="Content\fonts\Inter-Regular.woff" />
+    <Content Include="Content\fonts\Inter-SemiBold.ttf" />
+    <Content Include="Content\fonts\Inter-SemiBold.eot" />
+    <Content Include="Content\fonts\Inter-SemiBold.otf" />
+    <Content Include="Content\fonts\Inter-SemiBold.woff" />
+    <Content Include="Content\fonts\Inter-SemiBold.woff2" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
