@@ -131,6 +131,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.DefaultProvider = systemSettingModel.DefaultAuthenticationProvider;
             ViewBag.SupportAngleAutomation = SessionHelper.Info.AngleAutomation;
             ViewBag.ApprovalStateOptions = systemSettingsService.BuildApprovalStateOptions();
+            ViewBag.TimeZoneOptions = systemSettingsService.BuildTimeZoneOptions();
             return PartialView("~/Views/GlobalSettings/SystemSettings/SystemSettings.cshtml", systemSettingModel);
         }
 

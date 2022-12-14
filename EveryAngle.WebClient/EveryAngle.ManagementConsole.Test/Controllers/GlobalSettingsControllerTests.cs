@@ -256,10 +256,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 .Setup(x => x.GetSystemSettings(It.IsAny<string>()))
                 .Returns(new SystemSettingViewModel());
 
-            var approvalStateOptions = new List<ApprovalStateOption>
+            var approvalStateOptions = new List<SystemSettingOption>
             {
-                new ApprovalStateOption{ Id = "enabled", Name = "enabled" },
-                new ApprovalStateOption{ Id = "disabled", Name = "disabled" }
+                new SystemSettingOption{ Id = "enabled", Name = "enabled" },
+                new SystemSettingOption{ Id = "disabled", Name = "disabled" }
             };
             systemSettingsService
                 .Setup(x => x.BuildApprovalStateOptions())
@@ -267,7 +267,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController.GetSystemSettings();
 
             Assert.NotNull(_testingController.ViewBag.ApprovalStateOptions);
-            var approvalOptions = (List<ApprovalStateOption>)_testingController.ViewBag.ApprovalStateOptions;
+            var approvalOptions = (List<SystemSettingOption>)_testingController.ViewBag.ApprovalStateOptions;
             Assert.AreEqual(approvalStateOptions.Count, approvalOptions.Count);
             globalSettingService.Verify(x => x.GetSystemSettings(It.IsAny<string>()), Times.Once);
         }

@@ -173,13 +173,13 @@
                 </p>
             </div>
             @*<div class="contentSectionInfoItem">
-                @Html.LabelFor(model => model.default_max_export_page_size)
-                <p>
-                    @Html.Kendo().NumericTextBoxFor(model => model.default_max_export_page_size).Decimals(0).Format("0").Step(1).Min(1).Max(999999).HtmlAttributes(new { @class = "required" })
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultExportMaxPageSize</textarea>
-                </p>
-            </div>*@
+            @Html.LabelFor(model => model.default_max_export_page_size)
+            <p>
+                @Html.Kendo().NumericTextBoxFor(model => model.default_max_export_page_size).Decimals(0).Format("0").Step(1).Min(1).Max(999999).HtmlAttributes(new { @class = "required" })
+                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultExportMaxPageSize</textarea>
+            </p>
+        </div>*@
             <div class="contentSectionInfoItem @(ViewBag.SupportAngleAutomation ? "" : " hidden")">
                 @Html.LabelFor(model => model.script_location)
                 <p>
@@ -202,8 +202,21 @@
                     @(Html.Kendo().DropDownListFor(model => model.default_approval_state)
                                     .DataValueField("Id")
                                     .DataTextField("Name")
-                                    .BindTo((List<ApprovalStateOption>)ViewBag.ApprovalStateOptions)
+                                    .BindTo((List<SystemSettingOption>)ViewBag.ApprovalStateOptions)
                                     .Value(Model.default_approval_state)
+                    )
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_DefaultApprovalStateDescription</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.time_zone)
+                <p>
+                    @(Html.Kendo().DropDownListFor(model => model.time_zone)
+                                    .DataValueField("Id")
+                                    .DataTextField("Name")
+                                    .BindTo((List<SystemSettingOption>)ViewBag.TimeZoneOptions)
+                                    .Value(Model.time_zone)
                     )
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
                     <textarea class="alwaysHidden">@Resource.MC_DefaultApprovalStateDescription</textarea>
