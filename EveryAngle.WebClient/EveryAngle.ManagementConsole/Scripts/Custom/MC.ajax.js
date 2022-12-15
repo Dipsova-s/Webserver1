@@ -101,7 +101,7 @@
                 return;
             }
 
-            if (typeof settings.error === "function" && settings.url === notificationsFeed.dataUrl) {
+            if (typeof settings.error === "function" && settings.url.includes(notificationsFeed.dataUrl)) {
                 return;
             }
 
