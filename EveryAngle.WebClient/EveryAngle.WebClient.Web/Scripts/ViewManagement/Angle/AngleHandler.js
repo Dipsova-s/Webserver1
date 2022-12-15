@@ -127,7 +127,7 @@ function AngleHandler(model) {
 
         // update to old model, this will be removed later
         angleInfoModel.SetAngleSatistics(null, null, data.executed, null, null);
-        angleInfoModel.Data().user_specific && (angleInfoModel.Data().user_specific.times_executed = data.user_specific.times_executed);
+        angleInfoModel.Data()?.user_specific && (angleInfoModel.Data().user_specific.times_executed = data.user_specific.times_executed);
         angleInfoModel.Data.commit();
         angleInfoModel.TimeExcuted(data.user_specific.times_executed);
     };
