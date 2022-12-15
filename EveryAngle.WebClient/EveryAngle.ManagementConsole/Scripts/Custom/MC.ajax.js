@@ -55,29 +55,29 @@
             jQuery(document).ajaxStart(function () {
                 MC.ui.loading.show();
             })
-            .ajaxSend(function (e, xhr) {
-                if (xhr && xhr.setRequestHeader) {
-                    xhr.setRequestHeader('Accept-Language', '');
-                    ValidationRequestService.setSecurityHeader(xhr);
-                }
-            })
-            .ajaxError(self.onAjaxError)
-            .ajaxSuccess(function () {
-                MC.ajaxDone();
-            })
-            .ajaxStop(function () {
-                if (MC.ui.loading.type === MC.ui.loading.TYPE.normal)
-                    MC.ui.loading.hide();
-            })
-            .ajaxComplete(function (e, jqxhr) {
-                MC.ajax.xhr = jQuery.grep(MC.ajax.xhr, function (xhr) {
-                    return xhr !== jqxhr;
-                });
+                .ajaxSend(function (e, xhr) {
+                    if (xhr && xhr.setRequestHeader) {
+                        xhr.setRequestHeader('Accept-Language', '');
+                        ValidationRequestService.setSecurityHeader(xhr);
+                    }
+                })
+                .ajaxError(self.onAjaxError)
+                .ajaxSuccess(function () {
+                    MC.ajaxDone();
+                })
+                .ajaxStop(function () {
+                    if (MC.ui.loading.type === MC.ui.loading.TYPE.normal)
+                        MC.ui.loading.hide();
+                })
+                .ajaxComplete(function (e, jqxhr) {
+                    MC.ajax.xhr = jQuery.grep(MC.ajax.xhr, function (xhr) {
+                        return xhr !== jqxhr;
+                    });
 
-                setTimeout(function () {
-                    MC.ui.loading.type = MC.ui.loading.TYPE.normal;
-                }, 3000);
-            });
+                    setTimeout(function () {
+                        MC.ui.loading.type = MC.ui.loading.TYPE.normal;
+                    }, 3000);
+                });
         },
         onAjaxError: function (e, xhr, settings, error) {
             if (typeof error === 'string' && error.toLowerCase().indexOf('timeout') !== -1) {
@@ -101,7 +101,7 @@
                 return;
             }
 
-            if (typeof settings.error === "function") {
+            if (typeof settings.error === "function" && settings.url === notificationsFeed.dataUrl) {
                 return;
             }
 
@@ -127,8 +127,8 @@
         },
         request: function (options) {
             var metadata = typeof options === 'undefined' ? {} : jQuery.extend(true, {
-                    type: 'get'
-                }, options, jQuery(options.element).data() || {});
+                type: 'get'
+            }, options, jQuery(options.element).data() || {});
 
             if (metadata.target === '#mainContent') {
                 // clear something on leave a page
