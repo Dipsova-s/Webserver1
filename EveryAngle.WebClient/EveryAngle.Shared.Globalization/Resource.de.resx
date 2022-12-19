@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
-    <xsd:element msdata:IsDataSet="true" name="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element minOccurs="0" name="value" type="xsd:string"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
-                <xsd:element minOccurs="0" msdata:Ordinal="2" name="comment" type="xsd:string"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute msdata:Ordinal="1" name="name" type="xsd:string" use="required"/>
-              <xsd:attribute msdata:Ordinal="3" name="type" type="xsd:string"/>
-              <xsd:attribute msdata:Ordinal="4" name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element minOccurs="0" msdata:Ordinal="1" name="value" type="xsd:string"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -205,7 +205,7 @@
     <value>Neuen Angle erstellen</value>
   </data>
   <data name="CreateNewAngleDescription" xml:space="preserve">
-    <value/>
+    <value />
   </data>
   <data name="CreateNewAngleFromSelectedObjects" xml:space="preserve">
     <value>Angle erstellen</value>
@@ -5114,7 +5114,7 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Expand All</value>
   </data>
   <data name="Dashboard_WidgetNotExist" xml:space="preserve">
-    <value/>
+    <value />
   </data>
   <data name="MC_AngleWarningsConfirmHeader" xml:space="preserve">
     <value>{0}: All {1} items under {2}</value>
@@ -6511,7 +6511,7 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Log level (Application Server)</value>
   </data>
   <data name="MC_LogLevelDescription" xml:space="preserve">
-    <value>Log level of Application Server.&lt;br/&gt;&lt;br/&gt;&lt;table>&lt;tr>&lt;td>&lt;b&gt;INFO:&lt;/b&gt;&lt;TD&gt;&lt;td>Info messages + Warnings + Errors&lt;TD&gt;&lt;/tr>&lt;tr>&lt;td>&lt;b&gt;WARNING:&lt;/b&gt;&lt;TD&gt;&lt;td>Warnings + Errors&lt;TD&gt;&lt;/tr>&lt;tr>&lt;td>&lt;b&gt;ERROR:&lt;/b&gt;&lt;TD&gt;&lt;td>Errors&lt;TD&gt;&lt;/tr>&lt;tr>&lt;td>&lt;b&gt;DEBUG:&lt;/b&gt;&lt;TD&gt;&lt;td>Info messages + Warnings + Errors + Debug messages&lt;TD&gt;&lt;/tr>&lt;table&gt;</value>
+    <value>Log level of Application Server.&lt;br/&gt;&lt;br/&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;INFO:&lt;/b&gt;&lt;TD&gt;&lt;td&gt;Info messages + Warnings + Errors&lt;TD&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;WARNING:&lt;/b&gt;&lt;TD&gt;&lt;td&gt;Warnings + Errors&lt;TD&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;ERROR:&lt;/b&gt;&lt;TD&gt;&lt;td&gt;Errors&lt;TD&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;DEBUG:&lt;/b&gt;&lt;TD&gt;&lt;td&gt;Info messages + Warnings + Errors + Debug messages&lt;TD&gt;&lt;/tr&gt;&lt;table&gt;</value>
   </data>
   <data name="ConfirmSaveDisplaysUsedInAutomationTask" xml:space="preserve">
     <value>Bestätigung erforderlich</value>
@@ -6590,12 +6590,19 @@ The "manage system" privilege is required to change the Approval state of an Act
     <value>Angles Gateway herunterladen</value>
   </data>
   <data name="AngleDefinitionAreaCountingItem" xml:space="preserve">
-    <value>Elemente zählen&#x00a0;...</value>
+    <value>Elemente zählen ...</value>
   </data>
   <data name="ExpectedRunTime" xml:space="preserve">
     <value>Erwartete Laufzeit</value>
   </data>
   <data name="MC_IncludeIdsForExternalAvailability" xml:space="preserve">
     <value>Include Available via Gateway settings</value>
+  </data>
+  <data name="MC_TimeZone" xml:space="preserve">
+    <value>Scheduling time zone</value>
+  </data>
+  <data name="MC_TimeZoneDescription" xml:space="preserve">
+    <value>Select the Scheduling Time Zone parameter to adjust the time that jobs are scheduled to run. The Scheduling Time Zone adjustment means that scheduled jobs will either run earlier or later than the set time based on the value set. Increments/decrements are hourly. For example the adjustment allows the user to account for Day Light Saving clock adjustments in spring or autumn.
+This setting relates only to jobs that are executed via the job scheduling functionality.</value>
   </data>
 </root>
