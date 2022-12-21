@@ -110,13 +110,13 @@
                 </p>
             </div>
             @*<div class="contentSectionInfoItem">
-                @Html.LabelFor(model => model.default_cache_minutes)
-                <p>
-                    @Html.Kendo().NumericTextBoxFor(model => model.default_cache_minutes).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required" })
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultCacheMinutes</textarea>
-                </p>
-            </div>*@
+            @Html.LabelFor(model => model.default_cache_minutes)
+            <p>
+                @Html.Kendo().NumericTextBoxFor(model => model.default_cache_minutes).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required" })
+                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultCacheMinutes</textarea>
+            </p>
+        </div>*@
             <div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.min_labelcategories_to_publish)
                 <p>
@@ -141,14 +141,27 @@
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpInstancesPerModel</textarea>
                 </p>
             </div>
-            @*<div class="contentSectionInfoItem">
-                @Html.LabelFor(model => model.active_directory_size_limit)
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.time_zone)
                 <p>
-                    @Html.Kendo().NumericTextBoxFor(model => model.active_directory_size_limit).Decimals(0).Format("0").Step(1).Min(1).Max(999).HtmlAttributes(new { @class = "required" })
+                    @(Html.Kendo().DropDownListFor(model => model.time_zone)
+                                    .DataValueField("Id")
+                                    .DataTextField("Name")
+                                    .BindTo((List<SystemSettingOption>)ViewBag.TimeZoneOptions)
+                                    .Value(Model.time_zone)
+                    )
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpActiveDirectorySizeLimit</textarea>
+                    <textarea class="alwaysHidden">@Resource.MC_TimeZoneDescription</textarea>
                 </p>
-            </div>*@
+            </div>
+            @*<div class="contentSectionInfoItem">
+            @Html.LabelFor(model => model.active_directory_size_limit)
+            <p>
+                @Html.Kendo().NumericTextBoxFor(model => model.active_directory_size_limit).Decimals(0).Format("0").Step(1).Min(1).Max(999).HtmlAttributes(new { @class = "required" })
+                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpActiveDirectorySizeLimit</textarea>
+            </p>
+        </div>*@
         </div>
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.AngleExport</h2>
@@ -209,19 +222,7 @@
                     <textarea class="alwaysHidden">@Resource.MC_DefaultApprovalStateDescription</textarea>
                 </p>
             </div>
-            <div class="contentSectionInfoItem">
-                @Html.LabelFor(model => model.time_zone)
-                <p>
-                    @(Html.Kendo().DropDownListFor(model => model.time_zone)
-                                    .DataValueField("Id")
-                                    .DataTextField("Name")
-                                    .BindTo((List<SystemSettingOption>)ViewBag.TimeZoneOptions)
-                                    .Value(Model.time_zone)
-                    )
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_TimeZoneDescription</textarea>
-                </p>
-            </div>
+            
         </div>
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.Logging</h2>

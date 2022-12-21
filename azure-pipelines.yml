@@ -160,6 +160,7 @@ jobs:
 
   - task: SonarCloudPrepare@1
     displayName: 'Prepare analysis on SonarCloud'
+    condition: false
     inputs:
       SonarCloud: 'SonarCloud service connection'
       organization: magnitude
@@ -294,8 +295,10 @@ jobs:
       
   - task: SonarCloudAnalyze@1
     displayName: 'Run SonarCloud Code Analysis'
+    condition: false
   - task: SonarCloudPublish@1
     displayName: 'Publish SonarCloud Quality Gate Result'
+    condition: false
 
  
   #TODO: TaskGroup: Create and Publish Artifact: VeracodeSrc: WebServer

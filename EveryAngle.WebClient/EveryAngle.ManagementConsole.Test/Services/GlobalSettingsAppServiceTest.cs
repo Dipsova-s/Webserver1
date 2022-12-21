@@ -31,5 +31,17 @@ namespace EveryAngle.ManagementConsole.Test.Services
                 Assert.True(approvalOptions.Any(o => o.Id.Equals(option.ToString())));
             }
         }
+
+        [Test]
+        public void BuildApprovalStateOptions_Should_Return_TimeZoneOptions()
+        {
+            var timeZoneOptions = _service.BuildTimeZoneOptions();
+            Assert.NotNull(timeZoneOptions);
+
+            foreach (var timeZone in TimeZoneInfo.GetSystemTimeZones())
+            {
+                Assert.True(timeZoneOptions.Any(o => o.Id.Equals(timeZone.Id)));
+            }
+        }
     }
 }
