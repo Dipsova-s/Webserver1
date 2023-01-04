@@ -131,7 +131,7 @@ Check For Default Selection For Header Format
 
 Check Default Excel Datastore values in Export to Excel
     Checkboxes Should Not Be Selected By Default   uncheck     uncheck
-    Check For Default Selection For Header Format   ID
+    Check For Default Selection For Header Format   Short name
     Input Excel File Name Should Be     ANGLE_Pivot_fields_contain_special_characters
     Input Excel Sheet Name Should Be    New pivot display
 

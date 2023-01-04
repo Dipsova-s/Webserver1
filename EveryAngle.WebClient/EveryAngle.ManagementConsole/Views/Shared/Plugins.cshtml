@@ -23,19 +23,25 @@
         }
 
         @{
-        if (isFormatCollapsibleExpandable)
-        {
-            @Html.Raw("<form id='" + item.Id + "' data-role='validator' autocomplete='off' style='display:none;'>");
-        }
-        else
-        {
-            @Html.Raw("<form id='" + item.Id + "' data-role='validator' autocomplete='off'>");
-        }
+            if (isFormatCollapsibleExpandable)
+            {
+                @Html.Raw("<form id='" + item.Id + "' data-role='validator' autocomplete='off' style='display:none;'>");
+            }
+            else
+            {
+                @Html.Raw("<form id='" + item.Id + "' data-role='validator' autocomplete='off'>");
+            }
         }
 
         @foreach (var settingId in item.Settings)
         {
-            <div class="contentSectionInfoItem" id="row-@settingId" style="@styleFormatCollapsibleExpandable">
+            var ExcludeSettings = new string[] { "deltamerger_command", "tableindexer_command", "downloaddeterminer_command", "schemabuilder_command" };
+            var styleFormatToHide = "";
+            if (ExcludeSettings.Contains(settingId))
+            {
+                styleFormatToHide += "display:none;";
+            }
+            <div class="contentSectionInfoItem" id="row-@settingId" style="@(styleFormatCollapsibleExpandable+styleFormatToHide)">
                 @{
                     var setting = Model.GetSettingById(settingId);
                     var subGroups = item.GetSettingGroupById(settingId);
