@@ -24,7 +24,7 @@ variables:
   ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
     value: $[variables.MasterUpdateNumber]
   ${{ else }}:
-    value: '99'
+    value: '0'
 
 name: $(ReleaseNumber).$(UpdateNumber)$(Rev:.r)
 
@@ -81,7 +81,7 @@ jobs:
       project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
       pipeline: 438
       buildVersionToDownload: latestFromBranch
-      branchName: 'refs/heads/2020main'
+      branchName: 'refs/heads/release/2020sp9'
       downloadType: specific
       itemPattern: '**/Copyright.json'
       downloadPath: '$(Build.SourcesDirectory)'
@@ -102,7 +102,7 @@ jobs:
       project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
       pipeline: 1018
       buildVersionToDownload: latestFromBranch
-      branchName: 'refs/heads/master'
+      branchName: 'refs/heads/release/2020sp9'
       artifactName: DeploymentTools
       downloadPath: '$(Build.SourcesDirectory)'
 
@@ -113,7 +113,7 @@ jobs:
       project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
       pipeline: 999
       buildVersionToDownload: latestFromBranch
-      branchName: 'refs/heads/2020main'
+      branchName: 'refs/heads/release/2020sp9'
       downloadType: specific
       itemPattern: EveryAngle.GoToSAP.Launcher/EveryAngle.GoToSAP.Launcher.exe
       downloadPath: '$(Build.SourcesDirectory)'
@@ -125,7 +125,7 @@ jobs:
       project: '944c3508-25d4-46f4-ad5f-72eb92421f4a'
       pipeline: 1009
       buildVersionToDownload: latestFromBranch
-      branchName: 'refs/heads/master'
+      branchName: 'refs/heads/release/2020sp9'
       downloadType: specific
       itemPattern: |
         drop/Diagrams.zip
