@@ -297,16 +297,6 @@ jobs:
   - task: SonarCloudPublish@1
     displayName: 'Publish SonarCloud Quality Gate Result'
 
- 
-  #TODO: TaskGroup: Create and Publish Artifact: VeracodeSrc: WebServer
-  #Task group has not been exported, task groups are not supported yet
-
-  #TODO: TaskGroup: Create and Publish Artifact: VeracodeSrc: ManagementConsole
-  #Task group has not been exported, task groups are not supported yet
-
-  #TODO: TaskGroup: Create and Publish Artifact: VeracodeSrc: OData
-  #Task group has not been exported, task groups are not supported yet
-
 ###################################
 ## Index and publish symbols
 ##################################
