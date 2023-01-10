@@ -8,8 +8,6 @@ namespace EveryAngle.ManagementConsole
     [ExcludeFromCodeCoverage]
     public class Startup
     {
-        private const string ClientId = "web_server";
-
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
@@ -18,7 +16,8 @@ namespace EveryAngle.ManagementConsole
         public void ConfigureAuth(IAppBuilder app)
         {
             var redirectBaseUri = ConfigurationManager.AppSettings["RedirectBaseUri"];
-            app.SetupAuthenticationProviders(ClientId, redirectBaseUri, "/admin");
+            var clientId = ConfigurationManager.AppSettings["ClientId"];
+            app.SetupAuthenticationProviders(clientId, redirectBaseUri, "/admin");
         }
     }
 }

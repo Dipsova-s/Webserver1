@@ -120,7 +120,7 @@ function Authentication() {
     };
     _self.CleanupAuthorizedData = function () {
         // cleanup old cookies
-        DeleteCookieOnApplicationPath('STSTOKEN');
+        DeleteCookieOnApplicationPath('A4STOKEN');
 
         return jQuery.when(
             !_self.isSessionCleared && window.mcClearSessionUrl ? GetAjaxHtmlResult(window.mcClearSessionUrl) : null,

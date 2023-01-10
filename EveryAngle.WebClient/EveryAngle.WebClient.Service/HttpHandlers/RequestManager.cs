@@ -448,14 +448,14 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             for (int i = 0; i < allCookies.Count; i++)
             {
                 System.Web.HttpCookie newCookie = allCookies[i];
-                if (newCookie.Name.Equals("STSTOKEN"))
+                if (newCookie.Name.Equals("A4STOKEN"))
                 {
                     // Cookie is encrypted so we need to get the correct value if we want to have the AppServer read it
                     var authenticateCookies = requestContext.GetOwinContext().AuthenticateAsyncFromCookies();
                     string token = authenticateCookies?.Result?.GetAccessToken();
 
                     // AppServer expects a cookie with the name 'STSEASECTOKEN' containing the access token
-                    request.AddCookie("STSEASECTOKEN", token);
+                    request.AddCookie("PLATFORMSECTOKEN", token);
                 }
                 else
                 {
@@ -503,7 +503,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
                 if (HttpContext.Current != null)
                 {
                     string cookiePath = string.Empty;
-                    string adminUrl = EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("ManagementConsoleUrl");
+                    string adminUrl = Shared.Helpers.WebConfigHelper.GetAppSettingByKey("ManagementConsoleUrl");
                     if (!string.IsNullOrEmpty(adminUrl))
                     {
                         adminUrl = adminUrl.Replace("/", "");
@@ -529,21 +529,21 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
              * even if the response has not been sent to the client.
              * ref: https://msdn.microsoft.com/en-us/library/system.web.httprequest.cookies(v=vs.110).aspx
             */
-            string tokenName = "STSTOKEN";
-            if (HttpContext.Current != null && HttpContext.Current.Request.Cookies[tokenName] != null)
-            {
-                // use the last STSTOKEN
-                for (int i = HttpContext.Current.Request.Cookies.Count - 1; i >= 0; i--)
-                {
-                    if (HttpContext.Current.Request.Cookies[i].Name == tokenName)
-                    {
-                        var token = HttpContext.Current.Request.Cookies[i];
-                        HttpContext.Current.Request.Cookies.Remove(tokenName);
-                        HttpContext.Current.Request.Cookies.Add(token);
-                        break;
-                    }
-                }
-            }
+            //string tokenName = "STSTOKEN";
+            //if (HttpContext.Current != null && HttpContext.Current.Request.Cookies[tokenName] != null)
+            //{
+            //    // use the last STSTOKEN
+            //    for (int i = HttpContext.Current.Request.Cookies.Count - 1; i >= 0; i--)
+            //    {
+            //        if (HttpContext.Current.Request.Cookies[i].Name == tokenName)
+            //        {
+            //            var token = HttpContext.Current.Request.Cookies[i];
+            //            HttpContext.Current.Request.Cookies.Remove(tokenName);
+            //            HttpContext.Current.Request.Cookies.Add(token);
+            //            break;
+            //        }
+            //    }
+            //}
 
             return message;
         }

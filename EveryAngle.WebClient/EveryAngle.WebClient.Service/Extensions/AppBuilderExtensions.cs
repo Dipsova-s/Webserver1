@@ -30,10 +30,9 @@ namespace EveryAngle.WebClient.Service.Extensions
     [ExcludeFromCodeCoverage]
     public static class AppBuilderExtensions
     {
-        private const string Scope = "openid profile application_server offline_access";
-        private const string SecurityCookieName = "STSTOKEN";
+        private const string Scope = "openid";
+        private const string SecurityCookieName = "A4STOKEN";
         private const string AuthenticationType = "Cookies";
-        private const string ClientSecret = "api-secret";
         private const string AuthoritySettingName = "Authority";
         private const string NameClaimType = "full_name";
         private const string IdTokenClaimTypeName = "id_token";
@@ -84,7 +83,6 @@ namespace EveryAngle.WebClient.Service.Extensions
 
                 SaveTokens = true,
                 RedeemCode = true,
-                ClientSecret = ClientSecret,
 
                 ProtocolValidator = new CustomOpenIdConnectProtocolValidator(),
 
