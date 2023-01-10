@@ -46,7 +46,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             get { return responseStatus; }
         }
 
-        protected virtual string[] CookiesToIgnore => new[] { "EASECTOKEN", "STSSEASECTOKEN" }; // Do not add the old EASECTOKEN or STSEASECTOKEN
+        protected virtual string[] CookiesToIgnore => new[] { "EASECTOKEN", "STSSEASECTOKEN", "NewLogin" }; // Do not add the old EASECTOKEN or STSEASECTOKEN
 
         protected RequestManager(string uri)
         {
@@ -454,12 +454,12 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
                     var authenticateCookies = requestContext.GetOwinContext().AuthenticateAsyncFromCookies();
                     string token = authenticateCookies?.Result?.GetAccessToken();
 
-                    // AppServer expects a cookie with the name 'STSEASECTOKEN' containing the access token
-                    request.AddCookie("PLATFORMSECTOKEN", token);
+                    // AppServer expects a cookie with the name 'A4SSECTOKEN' containing the access token
+                    request.AddCookie("A4SSECTOKEN", token);
                 }
                 else
                 {
-                    if (!CookiesToIgnore.Contains(newCookie.Name))
+                    if (!CookiesToIgnore.Contains(newCookie.Name) && !newCookie.Name.StartsWith("A4STOKEN"))
                     {
                         request.AddCookie(newCookie.Name, newCookie.Value);
                     }
@@ -520,30 +520,6 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
                     HttpContext.Current.Response.Cookies.Set(newCookie);
                 }
             }
-
-
-            /* M4-32522: clean STSTOKEN
-             * - STSTOKEN will be duplicated in request
-             * After you add a cookie by using the HttpResponse.Cookies collection,
-             * the cookie is immediately available in the HttpRequest.Cookies collection,
-             * even if the response has not been sent to the client.
-             * ref: https://msdn.microsoft.com/en-us/library/system.web.httprequest.cookies(v=vs.110).aspx
-            */
-            //string tokenName = "STSTOKEN";
-            //if (HttpContext.Current != null && HttpContext.Current.Request.Cookies[tokenName] != null)
-            //{
-            //    // use the last STSTOKEN
-            //    for (int i = HttpContext.Current.Request.Cookies.Count - 1; i >= 0; i--)
-            //    {
-            //        if (HttpContext.Current.Request.Cookies[i].Name == tokenName)
-            //        {
-            //            var token = HttpContext.Current.Request.Cookies[i];
-            //            HttpContext.Current.Request.Cookies.Remove(tokenName);
-            //            HttpContext.Current.Request.Cookies.Add(token);
-            //            break;
-            //        }
-            //    }
-            //}
 
             return message;
         }
