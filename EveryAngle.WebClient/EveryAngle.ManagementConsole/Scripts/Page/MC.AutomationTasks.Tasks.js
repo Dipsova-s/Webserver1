@@ -89,13 +89,15 @@
             self.IsTaskOwner = '';
 
             jQuery.extend(self, data || {});
-
             setTimeout(function () {
-
                 var tasksGrid = jQuery('#TasksGrid').data('kendoGrid');
                 if (tasksGrid) {
                     tasksGrid.bind('dataBound', self.TaskActionsGridDataBound);
                     tasksGrid.dataSource.read();
+
+                    var span = $("#TasksGrid th[data-field='RefreshCycleTrigger.start_time']").children("span");
+                    var spanText = span.text();
+                    span.text(MC.util.getTimezoneColumnName(spanText));
                 }
 
                 var taskHistoryGrid = jQuery('#TaskHistoryGrid').data('kendoGrid');
@@ -109,6 +111,14 @@
                     else {
                         taskHistoryGrid.trigger('dataBound');
                     }
+
+                    var span = $("#TaskHistoryGrid th[data-field='start_time']").children("span");
+                    var spanText = span.text();
+                    span.text(MC.util.getTimezoneColumnName(spanText));
+
+                    var span = $("#TaskHistoryGrid th[data-field='end_time']").children("span");
+                    var spanText = span.text();
+                    span.text(MC.util.getTimezoneColumnName(spanText));
                 }
 
                 self.InitialCopyToClipboard();
@@ -585,7 +595,7 @@
             self.CreateTriggerTypeDropdown();
             self.CreateEventTypeDropdown();
 
-            // binding server time info to sub header
+            //binding server time info to sub header
             MC.util.showServerClock('#ServerTimeInfo', ', {0:HH:mm:ss}');
 
             jQuery('[name="TimeStop"]').kendoTimePicker({
@@ -671,7 +681,7 @@
 
             if (taskData.id) {
                 enabledCheckbox.prop('checked', taskData.enabled);
-                maximumRunTimePicker.value(MC.util.unixtimeToTimePicker(taskData.max_run_time, true));
+                maximumRunTimePicker.value(MC.util.unixtimeToTimePicker(taskData.max_run_time, false));
             }
             else {
                 enabledCheckbox.prop('checked', true);
@@ -2843,6 +2853,7 @@
             }
         };
         self.GetTaskData = function () {
+            debugger;
             //prepare data
             var timeStop = jQuery('[name^="TimeStop"]').val();
             var data = {
@@ -2892,6 +2903,7 @@
             return data;
         };
         self.GetData = function () {
+            debugger;
             var data = self.GetTaskData();
             data.actions = [];
             data.actionsDelete = [];

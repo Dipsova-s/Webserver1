@@ -138,11 +138,11 @@
             var descriptionLabel = element.closest('p').find('.descriptionLabel');
 
             if (value) {
-                var serverTime = MC.util.timePickerToUnixTime(value, false);
-                var serverDate = MC.util.unixtimeToTimePicker(serverTime, true);
+                var scheduleTime = MC.util.timePickerToUnixTime(value, false);
+                var userTime = MC.util.unixtimeToTimePicker(scheduleTime, true);
                 var serverOffset = MC.util.getTimezoneId(window.timezoneOffset);
                 descriptionLabel.removeClass('hidden');
-                descriptionLabel.find('.serverTimeValue').text(kendo.format('{0:HH:mm}', serverDate));
+                descriptionLabel.find('.serverTimeValue').text(kendo.format('{0:HH:mm}', userTime));
             }
             else {
                 descriptionLabel.addClass('hidden');

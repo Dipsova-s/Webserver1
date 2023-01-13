@@ -6,7 +6,6 @@
 
         self.Initial = function (data) {
             jQuery.extend(self, data || {});
-
             setTimeout(function () {
                 MC.form.page.init(self.GetData);
             }, 1);

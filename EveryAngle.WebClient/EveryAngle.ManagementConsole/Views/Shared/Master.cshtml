@@ -1,5 +1,6 @@
 ﻿@using EveryAngle.Shared.Globalization
 @using EveryAngle.WebClient.Service.Security;
+@using EveryAngle.WebClient.Service.ApiServices;
 @{
     Layout = null;
     var FileVersion = AssemblyInfoHelper.GetFileVersion();
@@ -141,9 +142,16 @@
                     userLanguage = user.Settings.default_language;
                 }
             }
+            GlobalSettingService globalSettingService = new GlobalSettingService();
+            string scheduleTimeZone = globalSettingService.GetSystemSettings(SessionHelper.Initialize().Version.GetEntryByName("system_settings").Uri.ToString()).time_zone;
         }
+        var timezoneName = '@TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).DisplayName';
+        var timezoneNameWithDst = '@(TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).IsDaylightSavingTime(DateTime.Now) ? TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).DaylightName : TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).StandardName)';
+        var timezoneOffset = @(TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).BaseUtcOffset.TotalMinutes * -1);
+        var timezoneOffsetWithDst = @(TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).GetUtcOffset(DateTime.Now).TotalMinutes * -1);
         var userCurrency = '@userCurrency';
         var userLanguage = '@userLanguage';
+        var scheduleTimeZone = '@scheduleTimeZone'
     </script>
 
     @{
