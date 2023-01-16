@@ -652,6 +652,19 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/GlobalSettings/TemplateAngles/ActivateDeactivateForm.cshtml", ExportPackageModelViewModel);
         }
 
+        public ActionResult RenderMultipleModelActivatePackageForm()
+        {
+            IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = SessionHelper.Models.Select(x => new ExportPackageModelViewModel
+            {
+                Id = x.id,
+                Name = x.short_name,
+                HasManageModelPrivilege = SessionHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
+                PackageUri = x.PackagesUri.ToString()
+            });
+
+            return PartialView("~/Views/GlobalSettings/TemplateAngles/MultipleModelPackageActivator.cshtml", ExportPackageModelViewModel);
+        }
+
 
         private ListViewModel<PackageViewModel> GetPackages(int page, int pagesize, string query,
             [DataSourceRequest] DataSourceRequest request)

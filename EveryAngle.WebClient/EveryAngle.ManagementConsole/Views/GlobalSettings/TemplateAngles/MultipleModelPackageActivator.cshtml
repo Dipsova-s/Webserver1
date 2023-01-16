@@ -1,0 +1,38 @@
+﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.Core.ViewModels.EAPackage
+@model IEnumerable<ExportPackageModelViewModel>
+@{
+    Layout = null;
+}
+
+<div class="popupContent">
+    <div class="contentSection contentSectionInfo" id="MultipleModelActivatePackage">
+        <select name="model_id" id="ModelActivateSelectorHidden" style="display:none">
+            @foreach (ExportPackageModelViewModel model in Model)
+            {
+                <option class="text" value='{"modelId":"@(model.Id)","packageUri":"@(model.PackageUri)"}' title="@(model.Name)" @(model.HasManageModelPrivilege ? string.Empty : "disabled")>
+                    @(model.Name)
+                </option>
+            }
+        </select>
+    </div>
+    <br />
+    <div class="contentSection" id="ModelValidation" style="display: none">
+        <label style="color: red;">
+            Selecting the same target model for multiple sources is not supported
+        </label>
+    </div>
+    <br />
+    <div class="contentSectionInfoItem">
+        <label style="width: 180px; margin-right: 0px;">
+            @Resource.MC_ContentType
+        </label>
+        <div id="contentSection">
+            @* Content will come here*@
+        </div>
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnSubmit" id="ExportPackageButton" onclick="MC.Models.Packages.ActivatePackageFromPopup(this)">@Resource.Ok</a>
+        <a class="btn" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>

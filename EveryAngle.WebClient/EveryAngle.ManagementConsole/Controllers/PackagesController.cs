@@ -207,7 +207,6 @@ namespace EveryAngle.ManagementConsole.Controllers
                 packageUri = version.GetEntryByName("packages").Uri.ToString();
             }
             packages = GetPackages(request, q, packageUri, activeStatus);
-
             if (isPackageUriEmpty)
             {
                 packages.Data.ForEach(packageData =>
@@ -242,7 +241,15 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult ManagePackage(ActivePackageQueryViewModel activePackageQueryViewModel)
         {
             VersionViewModel version = SessionHelper.Version;
-            TaskViewModel taskViewModel = GetPackageTaskViewModel(activePackageQueryViewModel);
+            TaskViewModel taskViewModel;
+            if (string.IsNullOrEmpty(activePackageQueryViewModel.ModelId))
+            {
+                taskViewModel = GetTaskViewModelForMultipleModel(activePackageQueryViewModel);
+            }
+            else
+            {
+                taskViewModel = GetPackageTaskViewModel(activePackageQueryViewModel);
+            }
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CleanUpPropertiesResolver(new List<string>
@@ -255,11 +262,9 @@ namespace EveryAngle.ManagementConsole.Controllers
                     "status"
                 })
             };
-
             string uri = version.GetEntryByName("tasks").Uri.ToString();
             string data = JsonConvert.SerializeObject(taskViewModel, jsonSerializerSettings);
             modelService.CreateTask(uri, data);
-
             return JsonHelper.GetJsonResult(true, null, null, null, MessageType.DEFAULT);
         }
 
@@ -338,9 +343,14 @@ namespace EveryAngle.ManagementConsole.Controllers
                 new Argument { name = TaskArgumentConstant.Package, value = package.Uri.AbsolutePath.Replace("//", "/") }
             };
 
+            if (!string.IsNullOrEmpty(activePackageQueryViewModel.SourceModel))
+            {
+                arguments.Add(new Argument { name = TaskArgumentConstant.SourceModel, value = activePackageQueryViewModel.SourceModel });
+            }
+
             if (activePackageQueryViewModel.IsActive)
             {
-                arguments.Add(new Argument { name = TaskArgumentConstant.AutoCreateMissingUsers, value = true });
+                arguments.Add(new Argument { name = TaskArgumentConstant.AutoCreateMissingUsers, value = true });                
                 AddArgumentsForUpgradePackage(arguments, package, activePackageQueryViewModel);
             }
 
@@ -371,6 +381,51 @@ namespace EveryAngle.ManagementConsole.Controllers
             };
 
             return taskViewModel;
+        }
+
+        public TaskViewModel GetTaskViewModelForMultipleModel(ActivePackageQueryViewModel activePackageQueryViewModel)
+        {
+            var actions = new List<Core.ViewModels.Cycle.TaskAction>();
+            var mappingObj = JsonConvert.DeserializeObject<List<MappingModel>>(activePackageQueryViewModel.MappingObj);
+            var packageName = "Multiple Model Package";
+            foreach (var obj in mappingObj)
+            {
+                PackageViewModel package = modelService.GetModelPackage(mappingObj?.FirstOrDefault().PackageUri);
+                List<Argument> arguments = new List<Argument>
+                {
+                    new Argument { name = TaskArgumentConstant.Model, value = obj.ModelId },
+                    new Argument { name = TaskArgumentConstant.Package, value = package.Uri.AbsolutePath.Replace("//", "/") },
+                    new Argument { name = TaskArgumentConstant.SourceModel, value = obj.SourceModel }
+                };
+                if (activePackageQueryViewModel.IsActive)
+                {
+                    arguments.Add(new Argument { name = TaskArgumentConstant.AutoCreateMissingUsers, value = true });
+                    AddArgumentsForUpgradePackage(arguments, package, activePackageQueryViewModel);
+                }
+                actions.Add(new Core.ViewModels.Cycle.TaskAction
+                {
+                    action_type = activePackageQueryViewModel.IsActive ? "activate_package" : "deactivate_package",
+                    arguments = arguments
+                });
+                packageName = package.Name;
+            }
+            return new TaskViewModel
+            {
+                actions = actions,
+                description = Resource.MC_ActivateUpgradePackageTask,
+                Triggers = null,
+                action_count = mappingObj.Count,
+                delete_after_completion = true,
+                enabled = true,
+                last_run_result = "not_started",
+                last_run_time = null,
+                max_run_time = 0,
+                name = packageName,
+                next_run_time = null,
+                status = "not_started",
+                run_as_user = null,
+                start_immediately = true,
+            };
         }
 
         public FileContentResult DownloadPackageFile(string packageFileUri)

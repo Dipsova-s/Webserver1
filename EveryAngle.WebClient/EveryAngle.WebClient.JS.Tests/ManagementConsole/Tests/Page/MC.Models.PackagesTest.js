@@ -609,5 +609,116 @@ describe("MC.Models.Packages", function () {
 
             expect($(element).data('parameters')).toEqual(expected);
         });
+        it("should return false when user didn't selected any option while activating in Global package page", () => {
+            dataParameters.isActive = true;
+            const element = MC.Models.Packages.GetElementWithParameter(dataParameters, dropdown);
+
+            expect(element).toEqual(false);
+        });
+        it("should return false when user didn't selected any option while activating in Model package page", () => {
+            dataParameters.isActive = true;
+            dataParameters.packageModels = 'EA2_800,EA4IT';
+            dropdown.modelId = '-1';
+            MC.Models.Packages.ModelId = "EA2_800";
+            const element = MC.Models.Packages.GetElementWithParameter(dataParameters, dropdown);
+
+            expect(element).toEqual(false);
+        });
+        it("should return element with model id and source id when we have package models", () => {
+            const expected = {
+                modelId: "EA2_800",
+                packageUri: "http://test.local/packages/1",
+                sourceModel: 'EA5_800',
+                isActive: true
+            }
+            dataParameters.isActive = true;
+            dataParameters.packageModels = 'EA2_800,EA4IT';
+            dataParameters.modelId = 'EA2_800';
+            dropdown.modelId = 'EA5_800';
+            MC.Models.Packages.ModelId = "EA2_800";
+            const element = MC.Models.Packages.GetElementWithParameter(dataParameters, dropdown);
+
+            expect($(element).data('parameters')).toEqual(expected);
+        });
+    });
+    describe(".CheckForModelValidation", () => {
+        const testcases = [
+            {
+                selectedModels: [{
+                    modelId: 'EA2_800',
+                    packageUri: ''
+                }],
+                expected: true
+            },
+            {
+                selectedModels: [{
+                    modelId: 'EA2_800',
+                    packageUri: ''
+                },
+                {
+                    modelId: 'EA2_800',
+                    packageUri: ''
+                }],
+                expected: false
+            },
+            {
+                selectedModels: [],
+                expected: true
+            }
+        ]
+        testcases.forEach(e => {
+            it("Should return " + e.expected, () => {
+                expect(MC.Models.Packages.CheckForModelValidation(e.selectedModels)).toEqual(e.expected);
+
+            });
+        });
+    });
+    describe(".GetModelDropdownValues", () => {
+        beforeEach(function () {
+            domElement = $(
+                '<p><select name="model_id" id="ModelActivateSelectorHidden" style="display:none" data-ddg-inputtype="unknown"><option class="text" value="{&quot;modelId&quot;:&quot;EA2_800&quot;,&quot;packageUri&quot;:&quot;https://test.local//models/1/packages&quot;}" title="EA2_800">EA2_800</option><option class="text" value="{&quot;modelId&quot;:&quot;EA3_800&quot;,&quot;packageUri&quot;:&quot;https://test.local//models/1/packages&quot;}" title="EA3_800">EA3_800</option></select></p>').appendTo('body')
+        });
+        afterEach(function () {
+            domElement.remove();
+        });
+        it("Should return all model value when activating the package", () => {
+            var dataParameters = {
+                packageUri: 'http://test.local/packages/1',
+                modelId: '',
+                activatedModel: 'EA2_800',
+                content: 'angles',
+                isActive: true
+            };
+            const expected = [{
+                id: "EA2_800",
+                name: "EA2_800",
+                packageUri: "https://test.local//models/1/packages"
+            },
+            {
+                id: "EA3_800",
+                name: "EA3_800",
+                packageUri: "https://test.local//models/1/packages"
+            }];
+            const result = MC.Models.Packages.GetModelDropdownValues(dataParameters);
+
+            expect(result).toEqual(expected);
+        });
+        it("Should return activatedModel models when deactivating the package", () => {
+            var dataParameters = {
+                packageUri: 'http://test.local/packages/1',
+                modelId: '',
+                activatedModel: 'EA3_800',
+                content: 'angles',
+                isActive: false
+            };
+            const expected = [{
+                id: "EA3_800",
+                name: "EA3_800",
+                packageUri: "https://test.local//models/1/packages"
+            }];
+            const result = MC.Models.Packages.GetModelDropdownValues(dataParameters);
+
+            expect(result).toEqual(expected);
+        });
     });
 });
