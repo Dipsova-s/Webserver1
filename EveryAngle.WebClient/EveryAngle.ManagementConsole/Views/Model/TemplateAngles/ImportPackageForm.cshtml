@@ -9,7 +9,16 @@
     <div class="popupContent">
         @if (string.IsNullOrEmpty(ViewBag.ModelId))
         {
-            {Html.RenderPartial("~/Views/GlobalSettings/TemplateAngles/ModelSelectorFrom.cshtml", Model);}
+            <div class="contentSection contentSectionInfo" id="MultipleModelActivatePackage">
+                <select name="model_id" id="ModelActivateSelectorHidden" style="display:none">
+                    @foreach (ExportPackageModelViewModel model in Model)
+                    {
+                        <option class="text" value='{"modelId":"@(model.Id)","packageUri":"@(model.PackageUri)"}' title="@(model.Name)" @(model.HasManageModelPrivilege ? string.Empty : "disabled")>
+                            @(model.Name)
+                        </option>
+                    }
+                </select>
+            </div>
         }
         <h3>@Resource.MC_Include</h3>
         <div class="contentSectionInfoItem">

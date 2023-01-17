@@ -947,6 +947,7 @@
     <Content Include="Views\AutomationTasks\Tasks\ConnectionSettings.cshtml" />
     <Content Include="Views\GlobalSettings\TemplateAngles\ActivateDeactivateForm.cshtml" />
     <Content Include="Views\GlobalSettings\TemplateAngles\ModelSelectorFrom.cshtml" />
+    <Content Include="Views\GlobalSettings\TemplateAngles\MultipleModelPackageActivator.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -973,11 +974,13 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>27380</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:27380/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>https://localhost:44374</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -16,6 +16,8 @@
         public const string AnglesConflictResolution = "angles_conflict_resolution";
         public const string LabelCategoriesConflictResolution = "label_categories_conflict_resolution";
 
+        // M4-108924
+        public const string SourceModel = "source_model";
         #endregion
     }
 }
