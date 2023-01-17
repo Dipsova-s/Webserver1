@@ -47,7 +47,7 @@ textarea{overflow:auto;vertical-align:top}
 	p,h2,h3{orphans:3;widows:3}
 	h2,h3{page-break-after:avoid}
 }
-body{margin:0;font-family:Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;font-size:12px;line-height:18px;color:#282828;background-color:#fff}
+body{margin:0;font-family:Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;font-size:12px;line-height:18px;color:#282828;background-color:#fff}
 input,textarea,select,td,th{font:inherit;color:inherit;}
 a{color:#082F56;text-decoration:none}
 a:hover{color:#082F56;text-decoration:none}

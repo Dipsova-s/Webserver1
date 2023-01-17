@@ -291,6 +291,7 @@ __pycache__/
 /EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/WebClient/Dependencies
 /EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/SharedDependencies
 **/Content/ExternalResource
+**/Content/fonts
 /EveryAngle.WebClient/EveryAngle.WebClient.Web/Resources
 !**/TestResources/**/*.log
 !**/log/log.txt

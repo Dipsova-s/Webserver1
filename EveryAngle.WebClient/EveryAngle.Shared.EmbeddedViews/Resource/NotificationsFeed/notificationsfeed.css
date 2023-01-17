@@ -1,10 +1,8 @@
 /*Core*/
 .notificationsFeedBadge {
-    position: relative !important;
     display: inline-block;
     background-color: #ff4040 !important;
     color: #fff;
-    top: -34px !important;
     border-radius: 50%;
     width: 16px !important;
     height: 0 !important;

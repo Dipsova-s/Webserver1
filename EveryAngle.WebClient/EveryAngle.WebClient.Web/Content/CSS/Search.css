@@ -910,12 +910,13 @@
   top: 11px; }
 
 .btnShowDisplays .badge {
-  font-size: 9px;
-  right: -8px;
-  top: 0;
-  min-width: 16px;
+  right: -22px;
+  top: -4px;
   border-radius: 50%;
-  padding: 3px; }
+  font-size: 10px;
+  left: 0;
+  width: 85%;
+  height: 67%; }
 
 .compactMode .ResultContent .ContentDetail,
 .compactMode .ResultContent .item-label-wrapper {

@@ -111,6 +111,23 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="fonts\Inter-Bold.eot" />
+    <Content Include="fonts\Inter-Bold.ttf" />
+    <Content Include="fonts\Inter-Bold.woff" />
+    <Content Include="fonts\Inter-Bold.woff2" />
+    <Content Include="fonts\Inter-Medium.eot" />
+    <Content Include="fonts\Inter-Medium.ttf" />
+    <Content Include="fonts\Inter-Medium.woff" />
+    <Content Include="fonts\Inter-Medium.woff2" />
+    <Content Include="fonts\Inter-Regular.eot" />
+    <Content Include="fonts\Inter-Regular.ttf" />
+    <Content Include="fonts\Inter-Regular.woff" />
+    <Content Include="fonts\Inter-Regular.woff2" />
+    <Content Include="fonts\Inter-SemiBold.eot" />
+    <Content Include="fonts\Inter-SemiBold.otf" />
+    <Content Include="fonts\Inter-SemiBold.ttf" />
+    <Content Include="fonts\Inter-SemiBold.woff" />
+    <Content Include="fonts\Inter-SemiBold.woff2" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

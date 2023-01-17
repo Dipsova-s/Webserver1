@@ -942,3 +942,8 @@
     bottom: 0;
     position: absolute;
 }
+
+.notificationsFeedBadge {
+    position: relative !important;
+    top: -34px !important;
+}
