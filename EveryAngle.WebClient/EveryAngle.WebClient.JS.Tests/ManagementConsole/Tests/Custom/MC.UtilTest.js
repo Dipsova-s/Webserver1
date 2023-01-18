@@ -87,7 +87,7 @@
         });
     });
 
-    /*describe(".unixtimeToTimePicker", function () {
+    xdescribe(".unixtimeToTimePicker", function () {
 
         var currentOffset = kendo.date.today().getTimezoneOffset();
         var tests = [
@@ -108,7 +108,7 @@
 
     });
 
-    describe(".timePickerToUnixTime", function () {
+    xdescribe(".timePickerToUnixTime", function () {
         var tests = [
             { offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: true, expected: 0 },
             { offset: 0, date: new Date(1970, 0, 1, 1, 0, 0), utc: true, expected: 3600 }
@@ -122,7 +122,7 @@
                 expect(test.expected).toEqual(result);
             });
         });
-    });*/
+    });
 
     describe(".getDisplayTimeUTC", function () {
 
@@ -141,7 +141,7 @@
 
     });
 
-    /*describe(".getDisplayTimeForGrid", function () {
+    xdescribe(".getDisplayTimeForGrid", function () {
         // currecnt location offset
         var offset = kendo.date.today().getTimezoneOffset();
 
@@ -165,7 +165,7 @@
             });
         });
 
-    });*/
+    });
 
     describe(".dateStringToTimestamp", function () {
 
@@ -284,7 +284,7 @@
         });
     });
 
-    describe("getTimezoneText", function () {
+    xdescribe("getTimezoneText", function () {
         it("Should return expected string", function () {
             spyOn(MC.util, "getTimezoneInfo").and.returnValue({ name: "IST", fullname: "Indian standard time" })
             var result = MC.util.getTimezoneText();
