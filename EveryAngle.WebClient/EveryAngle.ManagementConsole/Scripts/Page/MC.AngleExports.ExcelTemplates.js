@@ -14,6 +14,7 @@
             setTimeout(function () {
                 var grid = jQuery('#ExcelTemplatesGrid').data('kendoGrid');
                 if (grid) {
+                    MC.util.updateTimezoneColumnName('ExcelTemplatesGrid', 'Modified', 'a');
                     MC.util.gridScrollFixed(grid);
                     grid.bind('dataBound', self.ExcelGridDataBound);
                     if (!MC.ajax.isReloadMainContent) {

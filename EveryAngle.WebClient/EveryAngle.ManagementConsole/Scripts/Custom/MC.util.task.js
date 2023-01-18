@@ -140,9 +140,15 @@
             if (value) {
                 var scheduleTime = MC.util.timePickerToUnixTime(value, false);
                 var userTime = MC.util.unixtimeToTimePicker(scheduleTime, true);
-                var serverOffset = MC.util.getTimezoneId(window.timezoneOffset);
-                descriptionLabel.removeClass('hidden');
-                descriptionLabel.find('.serverTimeValue').text(kendo.format('{0:HH:mm}', userTime));
+                var localTimeZoneInfo = MC.util.getTimezoneInfo(true);
+                var ScheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
+                if (ScheduleTimeZoneInfo.abbr != localTimeZoneInfo.abbr) {
+                    descriptionLabel.removeClass('hidden');
+                    descriptionLabel.find('.serverTimeValue').text(kendo.format('{0:HH:mm}', userTime));
+                } else {
+                    descriptionLabel.addClass('hidden');
+                    descriptionLabel.find('.serverTimeValue').text('');
+                }
             }
             else {
                 descriptionLabel.addClass('hidden');

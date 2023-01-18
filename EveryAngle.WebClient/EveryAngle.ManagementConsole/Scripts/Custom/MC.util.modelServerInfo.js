@@ -239,6 +239,15 @@
                 })
                 .done(function (data, status, xhr) {
                     $(self.reportSectionId).html(data);
+                    let statusTimeStamp = $('#status_timestamp');
+                    if (statusTimeStamp !== null)
+                        statusTimeStamp.html(MC.util.getDisplayTime(statusTimeStamp.text(), false));
+                    let modeldataTimeStamp = $('#modeldata_timestamp');
+                    if (modeldataTimeStamp !== null)
+                        modeldataTimeStamp.html(MC.util.getDisplayTime(modeldataTimeStamp.text(), false));
+                    let serverStartedTimeStamp = $('#server_started');
+                    if (serverStartedTimeStamp !== null)
+                        serverStartedTimeStamp.html(MC.util.getDisplayTime(serverStartedTimeStamp.text(), false));
                     deferred.resolve(data, status, xhr);
                 })
                 .fail(function (xhr, status, error) {

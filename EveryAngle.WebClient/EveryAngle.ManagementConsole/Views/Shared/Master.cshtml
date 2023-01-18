@@ -111,11 +111,6 @@
         var webModelServersDownloadUrl = '@Url.Action("GetModelServerMetaDataFile", "ModelServers")';
         var webModelClassReportUrl = '@Url.Action("ModelClassReport", "Model")';
         var saveUserSettingsUrl = '@Url.Action("SaveUserSettingViewMode", "Users")';
-        var timezoneId = '@TimeZoneInfo.Local.Id';
-        var timezoneName = '@TimeZoneInfo.Local.DisplayName';
-        var timezoneNameWithDst = '@(TimeZone.CurrentTimeZone.IsDaylightSavingTime(DateTime.Now) ? TimeZone.CurrentTimeZone.DaylightName : TimeZone.CurrentTimeZone.StandardName)';
-        var timezoneOffset = @(TimeZoneInfo.Local.BaseUtcOffset.TotalMinutes * -1);
-        var timezoneOffsetWithDst = @(TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).TotalMinutes * -1);
         var currentTimestamp = @((int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
         var modelColors = '@System.Configuration.ConfigurationManager.AppSettings["ModelColors"]';
         var notificationsFeed = {

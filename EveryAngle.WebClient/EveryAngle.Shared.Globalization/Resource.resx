@@ -5686,11 +5686,11 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
   <data name="MC_SelectTime" xml:space="preserve">
     <value>Select time</value>
   </data>
-  <data name="MC_ServerLocationLabel" xml:space="preserve">
-    <value>Server's location:</value>
+  <data name="MC_ScheduleTimeZoneLabel" xml:space="preserve">
+    <value>Schedule Time Zone:</value>
   </data>
-  <data name="MC_ServerTimeLabel" xml:space="preserve">
-    <value>Server time:</value>
+  <data name="MC_UserTimeLabel" xml:space="preserve">
+    <value>User time:</value>
   </data>
   <data name="MC_UtcOffsetLabel" xml:space="preserve">
     <value>UTC offset:</value>

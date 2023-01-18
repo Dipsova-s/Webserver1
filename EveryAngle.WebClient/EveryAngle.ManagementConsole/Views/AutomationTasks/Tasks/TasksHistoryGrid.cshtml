@@ -16,14 +16,14 @@
             .Title(Resource.Name);
 
         columns.Bound(model => model.start_time)
-            .ClientTemplate("#= data.start_time == null ? '' : MC.util.getDisplayTimeLocal(data.start_time, true) #")
+            .ClientTemplate("#= data.start_time == null ? '' : MC.util.getDisplayTimeForGrid(data.start_time, true) #")
             .HtmlAttributes(new { @class = "columnDate" })
             .HeaderHtmlAttributes(new { @class = "columnDate" })
             .Width(135)
             .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.StartTime));
 
         columns.Bound(model => model.end_time)
-            .ClientTemplate("#= data.end_time == null ? '' : MC.util.getDisplayTimeLocal(data.end_time, true) #")
+            .ClientTemplate("#= data.end_time == null ? '' : MC.util.getDisplayTimeForGrid(data.end_time, true) #")
             .HtmlAttributes(new { @class = "columnDate" })
             .HeaderHtmlAttributes(new { @class = "columnDate" })
             .Width(135)

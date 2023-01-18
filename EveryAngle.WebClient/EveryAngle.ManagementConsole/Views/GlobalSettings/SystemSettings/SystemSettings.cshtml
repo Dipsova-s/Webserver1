@@ -2,6 +2,8 @@
 @using EveryAngle.ManagementConsole.Models
 @using EveryAngle.ManagementConsole.Helpers
 @using EveryAngle.Shared.Globalization
+@using EveryAngle.WebClient.Service.Security;
+@using EveryAngle.WebClient.Service.ApiServices;
 @model EveryAngle.Core.ViewModels.SystemSettings.SystemSettingViewModel
 
 <script>
@@ -12,6 +14,15 @@
             MC.GlobalSettings.SystemSettings.Initial({
                 SaveUri: '@Url.Action("SaveSystemSettings", "GlobalSettings")'
             });
+            @{
+                GlobalSettingService globalSettingService = new GlobalSettingService();
+                string scheduleTimeZone = globalSettingService.GetSystemSettings(SessionHelper.Initialize().Version.GetEntryByName("system_settings").Uri.ToString()).time_zone;
+            }
+            timezoneName = '@TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).DisplayName';
+            timezoneNameWithDst = '@(TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).IsDaylightSavingTime(DateTime.Now) ? TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).DaylightName : TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).StandardName)';
+            timezoneOffset = @(TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).BaseUtcOffset.TotalMinutes * -1);
+            timezoneOffsetWithDst = @(TimeZoneInfo.FindSystemTimeZoneById(scheduleTimeZone).GetUtcOffset(DateTime.Now).TotalMinutes * -1);
+            scheduleTimeZone = '@scheduleTimeZone'
         }
     });
 </script>
@@ -110,13 +121,13 @@
                 </p>
             </div>
             @*<div class="contentSectionInfoItem">
-            @Html.LabelFor(model => model.default_cache_minutes)
-            <p>
-                @Html.Kendo().NumericTextBoxFor(model => model.default_cache_minutes).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required" })
-                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultCacheMinutes</textarea>
-            </p>
-        </div>*@
+                    @Html.LabelFor(model => model.default_cache_minutes)
+                    <p>
+                        @Html.Kendo().NumericTextBoxFor(model => model.default_cache_minutes).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required" })
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                        <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultCacheMinutes</textarea>
+                    </p>
+                </div>*@
             <div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.min_labelcategories_to_publish)
                 <p>
@@ -155,13 +166,13 @@
                 </p>
             </div>
             @*<div class="contentSectionInfoItem">
-            @Html.LabelFor(model => model.active_directory_size_limit)
-            <p>
-                @Html.Kendo().NumericTextBoxFor(model => model.active_directory_size_limit).Decimals(0).Format("0").Step(1).Min(1).Max(999).HtmlAttributes(new { @class = "required" })
-                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpActiveDirectorySizeLimit</textarea>
-            </p>
-        </div>*@
+                    @Html.LabelFor(model => model.active_directory_size_limit)
+                    <p>
+                        @Html.Kendo().NumericTextBoxFor(model => model.active_directory_size_limit).Decimals(0).Format("0").Step(1).Min(1).Max(999).HtmlAttributes(new { @class = "required" })
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                        <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpActiveDirectorySizeLimit</textarea>
+                    </p>
+                </div>*@
         </div>
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.AngleExport</h2>
@@ -186,13 +197,13 @@
                 </p>
             </div>
             @*<div class="contentSectionInfoItem">
-            @Html.LabelFor(model => model.default_max_export_page_size)
-            <p>
-                @Html.Kendo().NumericTextBoxFor(model => model.default_max_export_page_size).Decimals(0).Format("0").Step(1).Min(1).Max(999999).HtmlAttributes(new { @class = "required" })
-                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultExportMaxPageSize</textarea>
-            </p>
-        </div>*@
+                    @Html.LabelFor(model => model.default_max_export_page_size)
+                    <p>
+                        @Html.Kendo().NumericTextBoxFor(model => model.default_max_export_page_size).Decimals(0).Format("0").Step(1).Min(1).Max(999999).HtmlAttributes(new { @class = "required" })
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                        <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultExportMaxPageSize</textarea>
+                    </p>
+                </div>*@
             <div class="contentSectionInfoItem @(ViewBag.SupportAngleAutomation ? "" : " hidden")">
                 @Html.LabelFor(model => model.script_location)
                 <p>
@@ -222,7 +233,7 @@
                     <textarea class="alwaysHidden">@Resource.MC_DefaultApprovalStateDescription</textarea>
                 </p>
             </div>
-            
+
         </div>
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.Logging</h2>
@@ -236,9 +247,9 @@
                         .DataTextField("Text")
                         .DataValueField("Text")
                         .BindTo(
-                            new List<SelectListItem> 
-                            { 
-                                new SelectListItem { Text = "INFO" }, 
+                            new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "INFO" },
                                 new SelectListItem { Text = "WARNING" },
                                 new SelectListItem { Text = "ERROR" },
                                 new SelectListItem { Text = "DEBUG" },
@@ -323,7 +334,7 @@
 
             @{
                 List<PageToolbarButtonModel> testEmailButton = new List<PageToolbarButtonModel>
-                        {
+                            {
                             new PageToolbarButtonModel
                             {
                                 Type = PageToolbarButtonType.Custom,

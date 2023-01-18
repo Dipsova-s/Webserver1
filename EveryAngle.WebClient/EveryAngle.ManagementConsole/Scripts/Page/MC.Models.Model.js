@@ -314,6 +314,12 @@
                     // collect status from ModelServer or HanaServer if no status
                     currentStatus = getServerStatus(server);
                 }
+                let statusTimeStamp = $('#status_timestamp_' + server.id);
+                if (statusTimeStamp !== null)
+                    statusTimeStamp.html(MC.util.getDisplayTime(server.timestamp, false));
+                let modeldataTimeStamp = $('#modeldata_timestamp' + server.id);
+                if (modeldataTimeStamp !== null)
+                    modeldataTimeStamp.html(MC.util.getDisplayTime(server.modeldataTimeStamp, false));
             });
             setServerStatus(currentStatus);
         };
@@ -432,8 +438,9 @@
                     'class': 'columnDate'
                 },
                 width: 170,
-                template: "<span data-role='localize'>#= Time # </span>",
-                field: 'Time'
+                field: 'Time',
+                headerTemplate: '<span data-tooltip-title=\"MC.util.getTimezoneText\">Time </span>',
+                template: '#= data.Time == null ? \'\' : MC.util.getDisplayTimeForGrid(data.Time, true) #'
             }];
             var logCache = {}, logKey;
             jQuery.each(self.ModelServers, function (index, modelServer) {

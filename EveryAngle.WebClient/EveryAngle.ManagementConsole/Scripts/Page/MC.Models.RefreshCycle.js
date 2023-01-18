@@ -114,6 +114,8 @@
         self.InitialRefreshCycleGrid = function () {
             var grid = jQuery('#TaskDetailGrid').data('kendoGrid');
             if (grid) {
+                MC.util.updateTimezoneColumnName('TaskDetailGrid', 'RefreshCycleTrigger.start_time', 'span');
+                MC.util.updateTimezoneColumnName('TaskDetailGrid', 'RefreshCycleTrigger.end_time', 'span');
                 grid.bind('dataBound', self.RefreshCycleGridDataBound);
                 return grid.dataSource.read();
             }
@@ -146,6 +148,8 @@
         self.InitialRefreshCycleHistoryGrid = function () {
             var grid = jQuery('#TaskHistoryGrid').data('kendoGrid');
             if (grid) {
+                MC.util.updateTimezoneColumnName('TaskHistoryGrid', 'start_time', 'a');
+                MC.util.updateTimezoneColumnName('TaskHistoryGrid', 'end_time', 'a');
                 grid.bind('dataBound', self.RefreshCycleHistoryGridDataBound);
                 if (!MC.ajax.isReloadMainContent)
                     return grid.dataSource.read();
@@ -260,7 +264,7 @@
 
                 // restart delay
                 if (jQuery.isNumeric(data.RefreshCycleTrigger.restart_delay)) {
-                    var restartDelayPickerValue = MC.util.unixtimeToTimePicker(data.RefreshCycleTrigger.restart_delay, true);
+                    var restartDelayPickerValue = MC.util.unixtimeToTimePicker(data.RefreshCycleTrigger.restart_delay, false);
                     self.RefreshCycleForm.find('input[name="RestartDelay"]').data('handler').value(restartDelayPickerValue);
                 }
 
@@ -275,13 +279,13 @@
 
             // maximum run time
             if (jQuery.isNumeric(data.max_run_time)) {
-                var timeStopPickerValue = MC.util.unixtimeToTimePicker(data.max_run_time, true);
+                var timeStopPickerValue = MC.util.unixtimeToTimePicker(data.max_run_time, false);
                 self.RefreshCycleForm.find('input[name="TimeStop"]').data('handler').value(timeStopPickerValue);
             }
 
             // expected run time
             if (jQuery.isNumeric(data.expected_run_time)) {
-                var expectedRunTimeStopPickerValue = MC.util.unixtimeToTimePicker(data.expected_run_time, true);
+                var expectedRunTimeStopPickerValue = MC.util.unixtimeToTimePicker(data.expected_run_time, false);
                 self.RefreshCycleForm.find('input[name="ExpectedRunTimeStop"]').data('handler').value(expectedRunTimeStopPickerValue);
             }
 

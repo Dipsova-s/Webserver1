@@ -95,9 +95,7 @@
                     tasksGrid.bind('dataBound', self.TaskActionsGridDataBound);
                     tasksGrid.dataSource.read();
 
-                    var span = $("#TasksGrid th[data-field='RefreshCycleTrigger.start_time']").children("span");
-                    var spanText = span.text();
-                    span.text(MC.util.getTimezoneColumnName(spanText));
+                    MC.util.updateTimezoneColumnName('TasksGrid', 'RefreshCycleTrigger.start_time', 'span');
                 }
 
                 var taskHistoryGrid = jQuery('#TaskHistoryGrid').data('kendoGrid');
@@ -112,13 +110,8 @@
                         taskHistoryGrid.trigger('dataBound');
                     }
 
-                    var span = $("#TaskHistoryGrid th[data-field='start_time']").children("span");
-                    var spanText = span.text();
-                    span.text(MC.util.getTimezoneColumnName(spanText));
-
-                    var span = $("#TaskHistoryGrid th[data-field='end_time']").children("span");
-                    var spanText = span.text();
-                    span.text(MC.util.getTimezoneColumnName(spanText));
+                    MC.util.updateTimezoneColumnName('TaskHistoryGrid', 'start_time', 'span');
+                    MC.util.updateTimezoneColumnName('TaskHistoryGrid', 'end_time', 'span');
                 }
 
                 self.InitialCopyToClipboard();
@@ -2853,7 +2846,6 @@
             }
         };
         self.GetTaskData = function () {
-            debugger;
             //prepare data
             var timeStop = jQuery('[name^="TimeStop"]').val();
             var data = {
@@ -2903,7 +2895,6 @@
             return data;
         };
         self.GetData = function () {
-            debugger;
             var data = self.GetTaskData();
             data.actions = [];
             data.actionsDelete = [];

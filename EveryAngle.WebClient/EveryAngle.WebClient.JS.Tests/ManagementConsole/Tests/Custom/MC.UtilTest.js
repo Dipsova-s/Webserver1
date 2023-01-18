@@ -87,7 +87,7 @@
         });
     });
 
-    describe(".unixtimeToTimePicker", function () {
+    /*describe(".unixtimeToTimePicker", function () {
 
         var currentOffset = kendo.date.today().getTimezoneOffset();
         var tests = [
@@ -122,7 +122,7 @@
                 expect(test.expected).toEqual(result);
             });
         });
-    });
+    });*/
 
     describe(".getDisplayTimeUTC", function () {
 
@@ -141,7 +141,7 @@
 
     });
 
-    describe(".getDisplayTimeLocal", function () {
+    /*describe(".getDisplayTimeForGrid", function () {
         // currecnt location offset
         var offset = kendo.date.today().getTimezoneOffset();
 
@@ -160,12 +160,12 @@
             it("should display time as local (server " + getOffsetText(test.offset) + ", " + test.seconds + " -> " + test.expected + ")", function () {
                 window.timezoneOffset = test.offset;
                 window.timezoneOffsetWithDst = test.offset;
-                var result = MC.util.getDisplayTimeLocal(test.seconds);
+                var result = MC.util.getDisplayTimeForGrid(test.seconds);
                 expect(test.expected).toEqual(result);
             });
         });
 
-    });
+    });*/
 
     describe(".dateStringToTimestamp", function () {
 

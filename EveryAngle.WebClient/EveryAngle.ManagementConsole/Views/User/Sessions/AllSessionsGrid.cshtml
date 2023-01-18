@@ -69,8 +69,16 @@
             + "# } #"
             + "<span class=\"label\"></span></label>"
         );
-        columns.Bound(model => model.Created).Title(Resource.MC_Created).HtmlAttributes(new { @class = "columnDate" }).HeaderHtmlAttributes(new { @class = "columnDate" }).ClientTemplate("<span data-role='localize'>#= data.Created # </span>");
-        columns.Bound(model => model.ExpirationTime).Title(Resource.MC_Expires).HtmlAttributes(new { @class = "columnDate" }).HeaderHtmlAttributes(new { @class = "columnDate" }).ClientTemplate("<span data-role='localize'>#= data.ExpirationTime # </span>");
+        columns.Bound(model => model.Created)
+            .HeaderTemplate(PageHelper.HeaderWithTimezoneAnchorTag(Resource.MC_Created))
+            .HtmlAttributes(new { @class = "columnDate" })
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .ClientTemplate("#= data.Created == null ? '' : MC.util.getDisplayTimeForGrid(data.Created, true) #");
+        columns.Bound(model => model.ExpirationTime)
+            .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.MC_Expires))
+            .HtmlAttributes(new { @class = "columnDate" })
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .ClientTemplate("#= data.ExpirationTime == null ? '' : MC.util.getDisplayTimeForGrid(data.ExpirationTime, true) #");
         columns.Bound("Uri").ClientTemplate(gridButton).HeaderHtmlAttributes(new { @class = "gridColumnToolbar" }).HtmlAttributes(new { @class = "gridColumnToolbar" }).Title(@Resource.MC_Action).Width(75).Sortable(false);
     })
     .Resizable(resize => resize.Columns(true))

@@ -12427,6 +12427,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schedule Time Zone:.
+        /// </summary>
+        public static string MC_ScheduleTimeZoneLabel {
+            get {
+                return ResourceManager.GetString("MC_ScheduleTimeZoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Program/scripts folder.
         /// </summary>
         public static string MC_ScriptLocation {
@@ -12607,29 +12616,11 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server&apos;s location:.
-        /// </summary>
-        public static string MC_ServerLocationLabel {
-            get {
-                return ResourceManager.GetString("MC_ServerLocationLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Server settings.
         /// </summary>
         public static string MC_ServerSettings {
             get {
                 return ResourceManager.GetString("MC_ServerSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Server time:.
-        /// </summary>
-        public static string MC_ServerTimeLabel {
-            get {
-                return ResourceManager.GetString("MC_ServerTimeLabel", resourceCulture);
             }
         }
         
@@ -14399,6 +14390,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_UsersUpperCase {
             get {
                 return ResourceManager.GetString("MC_UsersUpperCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User time:.
+        /// </summary>
+        public static string MC_UserTimeLabel {
+            get {
+                return ResourceManager.GetString("MC_UserTimeLabel", resourceCulture);
             }
         }
         

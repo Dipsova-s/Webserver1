@@ -28,7 +28,7 @@
             headerAttributes: { 'class': 'columnDate' },
             headerTemplate: '<span data-tooltip-title=\"MC.util.getTimezoneText\">TimeStamp </span>',
             attributes: { 'class': 'columnDate' },
-            template: '#= data.TimeStamp == null ? \'\' : MC.util.getDisplayTimeLocal(data.TimeStamp, true) #'
+            template: '#= data.TimeStamp == null ? \'\' : MC.util.getDisplayTimeForGrid(data.TimeStamp, true) #'
         },
         {
             field: 'ThreadName',
@@ -72,7 +72,7 @@
             headerAttributes: { 'class': 'columnDate' },
             headerTemplate: '<span data-tooltip-title=\"MC.util.getTimezoneText\">Date </span>',
             attributes: { 'class': 'columnDate' },
-            template: '#= data.timestamp == null ? \'\' : MC.util.getDisplayTimeLocal(data.timestamp, true) #'
+            template: '#= data.timestamp == null ? \'\' : MC.util.getDisplayTimeForGrid(data.timestamp, true) #'
         },
         {
             field: 'category',
