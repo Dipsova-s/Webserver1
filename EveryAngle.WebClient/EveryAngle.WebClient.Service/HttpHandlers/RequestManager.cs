@@ -46,7 +46,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             get { return responseStatus; }
         }
 
-        protected virtual string[] CookiesToIgnore => new[] { "EASECTOKEN", "STSSEASECTOKEN", "NewLogin" }; // Do not add the old EASECTOKEN or STSEASECTOKEN
+        protected virtual string[] CookiesToIgnore => new[] { "EASECTOKEN", "STSSEASECTOKEN", "NewLogin", "ASP.NET_SessionId" }; // Do not add the old EASECTOKEN or STSEASECTOKEN
 
         protected RequestManager(string uri)
         {
@@ -454,8 +454,8 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
                     var authenticateCookies = requestContext.GetOwinContext().AuthenticateAsyncFromCookies();
                     string token = authenticateCookies?.Result?.GetAccessToken();
 
-                    // AppServer expects a cookie with the name 'A4SSECTOKEN' containing the access token
-                    request.AddCookie("A4SSECTOKEN", token);
+                    // AppServer expects a cookie with the name 'Authorization' containing the access token
+                    request.AddHeader("Authorization", token);
                 }
                 else
                 {
