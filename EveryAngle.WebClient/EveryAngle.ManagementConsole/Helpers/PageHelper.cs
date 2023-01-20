@@ -149,7 +149,7 @@ namespace EveryAngle.ManagementConsole.Helpers
 
         public static string GetWebclientUrl()
         {
-            SessionHelper sessionHelper = SessionHelper.Initialize();
+            AuthorizationHelper sessionHelper = AuthorizationHelper.Initialize();
             EveryAngle.Core.ViewModels.Users.UserViewModel user = sessionHelper.CurrentUser;
             string webClientAngleUrl = "";
             if (user != null && user.ModelPrivileges != null)
@@ -240,7 +240,7 @@ namespace EveryAngle.ManagementConsole.Helpers
         [ExcludeFromCodeCoverage]
         private static void AdjustButtonsPrivilege(List<PageToolbarButtonModel> buttons)
         {
-            EveryAngle.Core.ViewModels.Users.SessionViewModel session = SessionHelper.Initialize().Session;
+            EveryAngle.Core.ViewModels.Users.SessionViewModel session = AuthorizationHelper.Initialize().Session;
             bool canManageSystem = session.IsValidToManageSystemPrivilege();
 
             for (int index = 0; index < buttons.Count; index++)

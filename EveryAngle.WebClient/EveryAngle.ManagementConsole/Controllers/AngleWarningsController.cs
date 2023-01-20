@@ -41,15 +41,15 @@ namespace EveryAngle.ManagementConsole.Controllers
             IGlobalSettingService globalSettingService,
             IAngleWarningsAutoSolver angleWarningsAutoSolver,
             IAngleWarningsFileManager angleWarningsFileManager,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             _modelService = modelService;
             _globalSettingService = globalSettingService;
             _angleWarningsAutoSolver = angleWarningsAutoSolver;
             _angleWarningsFileManager = angleWarningsFileManager;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
 
-            _angleWarningsAutoSolver.Initialize(SessionHelper);
+            _angleWarningsAutoSolver.Initialize(AuthorizationHelper);
         }
 
         [ExcludeFromCodeCoverage]
@@ -64,7 +64,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             _angleWarningsAutoSolver = angleWarningsAutoSolver;
             _angleWarningsFileManager = angleWarningsFileManager;
 
-            _angleWarningsAutoSolver.Initialize(SessionHelper);
+            _angleWarningsAutoSolver.Initialize(AuthorizationHelper);
         }
 
         #endregion
@@ -73,29 +73,29 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetAngleWarnings(string modelUri, string modelId)
         {
-            var version = SessionHelper.Version;
-            var model = SessionHelper.GetModel(modelUri);
+            var version = AuthorizationHelper.Version;
+            var model = AuthorizationHelper.GetModel(modelUri);
             ViewBag.TasksUri = version.GetEntryByName("tasks").Uri.ToString();
             ViewBag.TaskHistoryUri = version.GetEntryByName("eventlog").Uri.ToString();
             ViewBag.ModelUri = modelUri;
             ViewBag.ModelId = modelId;
-            ViewBag.UserId = SessionHelper.CurrentUser.Id;
+            ViewBag.UserId = AuthorizationHelper.CurrentUser.Id;
             ViewBag.FieldsUri = model.FieldsUri.ToString();
             ViewBag.DefaultPagesize = DefaultPageSize;
             ViewBag.MaxPageSize = MaxPageSize;
-            ViewBag.MaxDomainElementsForSearch = SessionHelper.SystemSettings.max_domainelements_for_search;
-            ViewBag.CanAccessViaWebClient = SessionHelper.Session.IsValidToAccessWebClient(modelUri).ToString().ToLowerInvariant();
-            ViewBag.ClientSettings = SessionHelper.CurrentUser.Settings.client_settings;
+            ViewBag.MaxDomainElementsForSearch = AuthorizationHelper.SystemSettings.max_domainelements_for_search;
+            ViewBag.CanAccessViaWebClient = AuthorizationHelper.Session.IsValidToAccessWebClient(modelUri).ToString().ToLowerInvariant();
+            ViewBag.ClientSettings = AuthorizationHelper.CurrentUser.Settings.client_settings;
             ViewBag.FilePath = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
             FileInfo fileInfo = new FileInfo(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile"));
             ViewBag.LastModified = fileInfo.LastWriteTime;
 
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
-            var fieldCategory = _globalSettingService.GetFieldCategories(SessionHelper.Version.GetEntryByName("field_categories").Uri +
+            var fieldCategory = _globalSettingService.GetFieldCategories(AuthorizationHelper.Version.GetEntryByName("field_categories").Uri +
                                                         "?" + offsetLimitQuery);
 
             ViewData["fieldCategories"] = JsonConvert.SerializeObject(fieldCategory.Data);
-            ViewData["BusinessProcesses"] = _globalSettingService.GetBusinessProcesses(SessionHelper.Version.GetEntryByName("business_processes").Uri + "?" + offsetLimitQuery);
+            ViewData["BusinessProcesses"] = _globalSettingService.GetBusinessProcesses(AuthorizationHelper.Version.GetEntryByName("business_processes").Uri + "?" + offsetLimitQuery);
             ViewData["ModelData"] = model;
 
             return PartialView("~/Views/Model/AngleWarnings/AngleWarnings.cshtml");
@@ -104,7 +104,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ReadAngleWarnings([DataSourceRequest] DataSourceRequest request, string modelUri, FormCollection formData)
         {
-            var model = SessionHelper.GetModel(modelUri);
+            var model = AuthorizationHelper.GetModel(modelUri);
             string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
             var result = new AngleWarningsDataSourceResult();
 
@@ -220,7 +220,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ExecuteAngleWarnings(string taskData)
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var angleWarningTask = _modelService.CreateTask(version.GetEntryByName("tasks").Uri.ToString(), taskData);
             var executionTask = _modelService.CreateTask($"{angleWarningTask.Uri}/execution",
                 "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
@@ -245,7 +245,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 throw new Exception($"Unable to construct automatic solving request: {e.Message}");
             }
 
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var angleWarningTask = _modelService.CreateTask(version.GetEntryByName("tasks").Uri.ToString(), json);
             var executionTask = _modelService.CreateTask($"{angleWarningTask.Uri}/execution", "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
 

@@ -53,7 +53,7 @@ namespace EveryAngle.WebClient.Web.Controllers
                     if (Session["UserSettingsViewModel"] == null || Session["UserViewModel"] == null)
                     {
                         // refresh user info if no session
-                        user = SessionHelper.Initialize().RefreshUserInfo();
+                        user = AuthorizationHelper.Initialize().RefreshUserInfo();
                         settings = user.Settings;
                     }
                     else
@@ -64,7 +64,7 @@ namespace EveryAngle.WebClient.Web.Controllers
                         if (IsLanguageChanged(Request.Url, settings.default_language))
                         {
                             // refresh user info if language changed
-                            SessionHelper.Initialize().RefreshUserInfo();
+                            AuthorizationHelper.Initialize().RefreshUserInfo();
                             settings = user.Settings;
                         }
                     }
@@ -111,7 +111,7 @@ namespace EveryAngle.WebClient.Web.Controllers
             var result = filterContext.HttpContext.Request.GetOwinContext().AuthenticateAsyncFromCookies();
             var token = result.Result?.GetAccessToken();
             var url = filterContext.HttpContext.Request.Url.AbsolutePath + filterContext.HttpContext.Request.Url.Query;
-            SessionHelper sessionHelper = SessionHelper.Initialize();
+            AuthorizationHelper sessionHelper = AuthorizationHelper.Initialize();
 
             if (!string.IsNullOrWhiteSpace(token) && sessionHelper.CurrentUser != null)
             {

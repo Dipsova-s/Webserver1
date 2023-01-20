@@ -30,10 +30,10 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public CommentController(
             ICommentService commentService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             _commentService = commentService;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         public CommentController(ICommentService commentService)
@@ -49,7 +49,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             ViewData["DefaultPageSize"] = DefaultPageSize;
             ViewBag.CommentType = commentType;
-            ViewBag.CurrentUserUri = SessionHelper.CurrentUser.Uri;
+            ViewBag.CurrentUserUri = AuthorizationHelper.CurrentUser.Uri;
             return PartialView("~/Views/Shared/Comment.cshtml");
         }
 
@@ -66,7 +66,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
             else
             {
-                VersionViewModel version = SessionHelper.Version;
+                VersionViewModel version = AuthorizationHelper.Version;
                 string uri = version.GetEntryByName("comments").Uri.ToString();
                 comment.comment_type = formCollection["commentType"];
                 comment.comment = formCollection["message"];
@@ -112,7 +112,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private string GenerateUri(string commentType, int page, int pageSize)
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var uri = version.GetEntryByName("comments").Uri + "?comment_type=" + commentType + "&" +
                       UtilitiesHelper.GetOffsetLimitQueryString(page, pageSize);
             return uri;

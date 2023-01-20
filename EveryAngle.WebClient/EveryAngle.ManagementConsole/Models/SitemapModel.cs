@@ -23,13 +23,13 @@ namespace EveryAngle.ManagementConsole.Models
 
         #region private variables
 
-        private readonly SessionHelper _sessionHelper;
+        private readonly AuthorizationHelper _sessionHelper;
         private readonly IModelService _modelService;
         private List<SiteMap> _siteMaps = new List<SiteMap>();
 
         #endregion
 
-        public SiteMapModel(SessionHelper sessionHelper, IModelService modelService)
+        public SiteMapModel(AuthorizationHelper sessionHelper, IModelService modelService)
         {
             _sessionHelper = sessionHelper;
             _modelService = modelService;

@@ -15,7 +15,7 @@ namespace EveryAngle.WebClient.Web.Controllers
         [IsUserLoggedInAction]
         public ActionResult Login()
         {
-            SessionHelper session = SessionHelper.Initialize();
+            AuthorizationHelper session = AuthorizationHelper.Initialize();
             string currentUserLanguage = "en";
             UserSettingsViewModel setting = session.GetUserSettings();
             if (setting != null && !string.IsNullOrEmpty(setting.default_language) && !string.IsNullOrEmpty(setting.default_language.Trim()))
@@ -33,7 +33,7 @@ namespace EveryAngle.WebClient.Web.Controllers
             // Clear domain element
             Session["DomainElements"] = null;
 
-            UserViewModel userInfo = SessionHelper.Initialize().RefreshUserInfo();
+            UserViewModel userInfo = AuthorizationHelper.Initialize().RefreshUserInfo();
             LocalizationHelper.SetCultureFormatBy(userInfo.Settings);
         }
 
@@ -44,7 +44,7 @@ namespace EveryAngle.WebClient.Web.Controllers
 
         public ActionResult Logout()
         {
-            SessionHelper.Initialize().Logout();
+            AuthorizationHelper.Initialize().Logout();
             return Redirect("~/");
         }
 
@@ -52,7 +52,7 @@ namespace EveryAngle.WebClient.Web.Controllers
         {
             try
             {
-                SessionHelper.Initialize().DestroyAllSession();
+                AuthorizationHelper.Initialize().DestroyAllSession();
             }
             catch
             {

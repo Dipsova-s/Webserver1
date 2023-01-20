@@ -19,18 +19,18 @@ namespace EveryAngle.ManagementConsole.Controllers
         public LicenseController(IGlobalSettingService globalSettingService)
         {
             this.globalSettingService = globalSettingService;
-            SessionHelper = SessionHelper.Initialize();
+            AuthorizationHelper = AuthorizationHelper.Initialize();
         }
 
-        public LicenseController(IGlobalSettingService globalSettingService, SessionHelper sessionHelper)
+        public LicenseController(IGlobalSettingService globalSettingService, AuthorizationHelper sessionHelper)
         {
             this.globalSettingService = globalSettingService;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         public ActionResult GetLicense()
         {
-            string licenseUri = SessionHelper.Version.GetEntryByName("system_license").Uri.ToString();
+            string licenseUri = AuthorizationHelper.Version.GetEntryByName("system_license").Uri.ToString();
             SystemLicenseViewModel modelLicense = new SystemLicenseViewModel();
             ViewBag.LicenseUri = licenseUri;
             try
@@ -38,7 +38,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 modelLicense = globalSettingService.GetLicense(licenseUri);
                 if (modelLicense.model_licenses != null)
                 {
-                    List<ModelViewModel> models = SessionHelper.Models;
+                    List<ModelViewModel> models = AuthorizationHelper.Models;
                     modelLicense.model_licenses.ForEach(license =>
                     {
                         ModelViewModel model = models.FirstOrDefault(w => w.id == license.model_id);
@@ -93,7 +93,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ResendLicense()
         {
-            string licenseUri = SessionHelper.Version.GetEntryByName("system_license").Uri.ToString();
+            string licenseUri = AuthorizationHelper.Version.GetEntryByName("system_license").Uri.ToString();
             SystemLicenseViewModel modelLicense = globalSettingService.GetLicense(licenseUri);
             globalSettingService.UpdateLicense(licenseUri, JsonConvert.SerializeObject(modelLicense));
 

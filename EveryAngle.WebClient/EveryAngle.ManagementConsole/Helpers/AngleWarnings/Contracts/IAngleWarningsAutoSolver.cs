@@ -7,7 +7,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 {
     public interface IAngleWarningsAutoSolver
     {
-        void Initialize(SessionHelper sessionHelper);
+        void Initialize(AuthorizationHelper sessionHelper);
         string ExecuteAngleWarningsUsingInputFile(string modelId);
         int GetNumberOfSolvableFieldsViaInputFile(DataSourceResult dataSource, out int hasAutomationTasks);
         List<AngleWarningThirdLevelViewmodel> GetLevel3Warnings(AngleWarningSecondLevelViewmodel level2AngleWarning);

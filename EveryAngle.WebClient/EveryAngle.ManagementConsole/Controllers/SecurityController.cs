@@ -39,7 +39,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult Logout()
         {
-            SessionHelper.Initialize().Logout();
+            AuthorizationHelper.Initialize().Logout();
 #if DEVMODE
             return RedirectToAction("Index", "Security");
 #else
@@ -58,7 +58,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             try
             {
-                SessionHelper.Initialize().DestroyAllSession();
+                AuthorizationHelper.Initialize().DestroyAllSession();
             }
             catch
             {

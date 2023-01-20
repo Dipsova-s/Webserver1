@@ -96,7 +96,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             )
             : this(globalSettingService, modelService, userService, webClientConfigService,
                   repositoryLogService, logFileService, logFileReaderService,
-                  systemSettingsService, stsLogService, SessionHelper.Initialize())
+                  systemSettingsService, stsLogService, AuthorizationHelper.Initialize())
         {
         }
 
@@ -109,7 +109,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ILogFileReaderService logFileReaderService,
             IGlobalSettingsAppService systemSettingsService,
             ISTSLogService stsLogService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             this.modelService = modelService;
             this.globalSettingService = globalSettingService;
@@ -120,16 +120,16 @@ namespace EveryAngle.ManagementConsole.Controllers
             this.logFileReaderService = logFileReaderService;
             this.systemSettingsService = systemSettingsService;
             this.stsLogService = stsLogService;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         public ActionResult GetSystemSettings()
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var systemSettingModel = globalSettingService.GetSystemSettings(version.GetEntryByName("system_settings").Uri.ToString());
 
             ViewBag.DefaultProvider = systemSettingModel.DefaultAuthenticationProvider;
-            ViewBag.SupportAngleAutomation = SessionHelper.Info.AngleAutomation;
+            ViewBag.SupportAngleAutomation = AuthorizationHelper.Info.AngleAutomation;
             ViewBag.ApprovalStateOptions = systemSettingsService.BuildApprovalStateOptions();
             return PartialView("~/Views/GlobalSettings/SystemSettings/SystemSettings.cshtml", systemSettingModel);
         }
@@ -151,7 +151,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             List<SystemAuthenticationProviderViewModel> inputSystemAuthenticationProviders = JsonConvert.DeserializeObject<List<SystemAuthenticationProviderViewModel>>(authenticationProviderData);
 
             // old data from the system
-            VersionViewModel version = SessionHelper.Version;
+            VersionViewModel version = AuthorizationHelper.Version;
             IEnumerable<SystemAuthenticationProviderViewModel> existingSystemAuthenticationProviders = userService.GetSystemAuthenticationProviders(version.GetEntryByName("authentication_providers").Uri.ToString());
 
             // contract resolvers
@@ -181,15 +181,15 @@ namespace EveryAngle.ManagementConsole.Controllers
             #endregion
 
             #region update system settings
-            string existingSystemSettingsViewModelAsString = GetAuthenticationSystemSettingsAsJsonString(SessionHelper, inputSystemSettingsViewModel);
+            string existingSystemSettingsViewModelAsString = GetAuthenticationSystemSettingsAsJsonString(AuthorizationHelper, inputSystemSettingsViewModel);
 
             SystemSettingViewModel systemSettingsUpdatedViewModel = globalSettingService.UpdateSystemSetting(version.GetEntryByName("system_settings").Uri.ToString(), existingSystemSettingsViewModelAsString);
             #endregion
 
-            SessionHelper.ReloadSystemSetting(systemSettingsUpdatedViewModel);
+            AuthorizationHelper.ReloadSystemSetting(systemSettingsUpdatedViewModel);
         }
 
-        public string GetAuthenticationSystemSettingsAsJsonString(SessionHelper helper, SystemSettingViewModel inputSystemSettingsViewModel)
+        public string GetAuthenticationSystemSettingsAsJsonString(AuthorizationHelper helper, SystemSettingViewModel inputSystemSettingsViewModel)
         {
             SystemSettingViewModel existingSystemSettingsViewModel = (SystemSettingViewModel)helper.SystemSettings.Clone();
 
@@ -212,9 +212,9 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveSystemSettings(string systemSettingsData, string recipient)
         {
-            VersionViewModel version = SessionHelper.Version;
+            VersionViewModel version = AuthorizationHelper.Version;
             SystemSettingViewModel systemSettings = JsonConvert.DeserializeObject<SystemSettingViewModel>(systemSettingsData);
-            SystemSettingViewModel updatedSystemSettings = (SystemSettingViewModel)SessionHelper.SystemSettings.Clone();
+            SystemSettingViewModel updatedSystemSettings = (SystemSettingViewModel)AuthorizationHelper.SystemSettings.Clone();
             updatedSystemSettings.session_expiry_minutes = systemSettings.session_expiry_minutes;
             updatedSystemSettings.modelserver_check_seconds = systemSettings.modelserver_check_seconds;
             updatedSystemSettings.min_labelcategories_to_publish = systemSettings.min_labelcategories_to_publish;
@@ -258,7 +258,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
 
             // check privilege of setting script_location
-            if (!SessionHelper.Info.AngleAutomation)
+            if (!AuthorizationHelper.Info.AngleAutomation)
                 cleanupProperties.Add("script_location");
 
             SystemSettingViewModel savedSystemSettings =
@@ -268,7 +268,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                         ContractResolver = new CleanUpPropertiesResolver(cleanupProperties)
                     }));
 
-            SessionHelper.ReloadSystemSetting(savedSystemSettings);
+            AuthorizationHelper.ReloadSystemSetting(savedSystemSettings);
 
             if (!string.IsNullOrEmpty(recipient))
             {
@@ -318,8 +318,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetAuthentication()
         {
-            var version = SessionHelper.Version;
-            var systemSettingModel = SessionHelper.SystemSettings;
+            var version = AuthorizationHelper.Version;
+            var systemSettingModel = AuthorizationHelper.SystemSettings;
             var providers = new List<SystemAuthenticationProviderViewModel>();
 
             var authenticationProviderTypes = new List<AuthenticationProviderTypesViewModel>();
@@ -389,7 +389,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 authenticationProviderTypes = authenticationProviderTypesList.FirstOrDefault(x => x.Id == systemAuthenticationProvider.Type);
             }
 
-            LoadSystemRolesToSessionAndViewBag(SessionHelper.Version, SessionHelper.SystemSettings);
+            LoadSystemRolesToSessionAndViewBag(AuthorizationHelper.Version, AuthorizationHelper.SystemSettings);
             ViewBag.AuthenticationProviderTypes = authenticationProviderTypes;
             ViewBag.SystemAuthenticationProvider = systemAuthenticationProvider;
             return PartialView("~/Views/GlobalSettings/Authentication/EditAuthentication.cshtml", systemAuthenticationProvider);
@@ -421,7 +421,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetSystemRoles()
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             List<SystemRoleViewModel> systemRoles;
             var systemrolesEntry = version.GetEntryByName("system_roles");
             systemRoles = systemrolesEntry == null
@@ -447,7 +447,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ListViewModel<SystemLanguageViewModel> GetLanguages(bool enabled)
         {
-            VersionViewModel version = SessionHelper.Version;
+            VersionViewModel version = AuthorizationHelper.Version;
             string uri = version.GetEntryByName("system_languages").Uri + "?caching=false&" + OffsetLimitQuery;
             ListViewModel<SystemLanguageViewModel> systemLanguages = globalSettingService.GetSystemLanguages(uri);
             systemLanguages.Data = systemLanguages.Data.Where(lang => lang.Enabled == enabled).ToList();
@@ -525,7 +525,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetWelcomePage()
         {
             // request to appserver
-            string requestUri = $"{SessionHelper.Version.GetEntryByName("webclient_settings").Uri}?multilingual=yes";
+            string requestUri = $"{AuthorizationHelper.Version.GetEntryByName("webclient_settings").Uri}?multilingual=yes";
             WebClientSettingViewModel webClientSetting = globalSettingService.GetWebClientSettings(requestUri);
 
             // languages
@@ -560,7 +560,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             try
             {
-                var version = SessionHelper.Version;
+                var version = AuthorizationHelper.Version;
                 var existWebClientSetting =
                     globalSettingService.GetWebClientSettings(version.GetEntryByName("webclient_settings").Uri +
                                                               "?multilingual=yes");
@@ -629,11 +629,11 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult RenderExportPackageForm()
         {
-            IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = SessionHelper.Models.Select(x => new ExportPackageModelViewModel
+            IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = AuthorizationHelper.Models.Select(x => new ExportPackageModelViewModel
             {
                 Id = x.id,
                 Name = x.short_name,
-                HasManageModelPrivilege = SessionHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString())
+                HasManageModelPrivilege = AuthorizationHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString())
             });
 
             return PartialView("~/Views/GlobalSettings/TemplateAngles/ExportPackageForm.cshtml", ExportPackageModelViewModel);
@@ -641,11 +641,11 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult RenderActivatePackageForm()
         {
-            IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = SessionHelper.Models.Select(x => new ExportPackageModelViewModel
+            IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = AuthorizationHelper.Models.Select(x => new ExportPackageModelViewModel
             {
                 Id = x.id,
                 Name = x.short_name,
-                HasManageModelPrivilege = SessionHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
+                HasManageModelPrivilege = AuthorizationHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
                 PackageUri = x.PackagesUri.ToString()
             });
 
@@ -656,8 +656,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         private ListViewModel<PackageViewModel> GetPackages(int page, int pagesize, string query,
             [DataSourceRequest] DataSourceRequest request)
         {
-            var version = SessionHelper.Version;
-            var models = SessionHelper.Models;
+            var version = AuthorizationHelper.Version;
+            var models = AuthorizationHelper.Models;
             var packagesUri = version.GetEntryByName("packages").Uri + "?" +
                               UtilitiesHelper.GetOffsetLimitQueryString(page, pagesize, query);
             if (request != null)
@@ -701,7 +701,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     var package = PackageHelper.Parse(file.FileName);
                     if (package.IsValid())
                     {
-                        var version = SessionHelper.Version;
+                        var version = AuthorizationHelper.Version;
                         var uri = version.GetEntryByName("packages").Uri.ToString();
 
                         MemoryStream target = new MemoryStream();
@@ -761,7 +761,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private ListViewModel<FieldCategoryViewModel> GetFieldCategories(int page, int pagesize)
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var fieldCategoryUri = version.GetEntryByName("field_categories").Uri + "?" +
                                    UtilitiesHelper.GetOffsetLimitQueryString(page, pagesize);
             var fieldCategories = globalSettingService.GetFieldCategories(fieldCategoryUri);
@@ -800,7 +800,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 if (!string.IsNullOrEmpty(formCollection["updatedFields"]))
                 {
-                    var version = SessionHelper.Version;
+                    var version = AuthorizationHelper.Version;
                     var fieldCategory =
                         globalSettingService.GetFieldCategories(
                             version.GetEntryByName("field_categories").Uri.ToString());
@@ -916,7 +916,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult SystemLog(string target, string modelId, string category)
         {
-            List<ModelViewModel> models = SessionHelper.Models.Where(x => x.id != "EAModelHANA").ToList();
+            List<ModelViewModel> models = AuthorizationHelper.Models.Where(x => x.id != "EAModelHANA").ToList();
             SystemLogType logType = GetSystemLogType(target);
 
             bool isModelServerLog = logType == SystemLogType.ModelServer;
@@ -1102,7 +1102,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             // TODO: refactor - move to service, create viewmodel
             string requestUrl = string.Format("{0}?{1}{2}",
-                                    SessionHelper.Version.GetEntryByName("system_logs").Uri,
+                                    AuthorizationHelper.Version.GetEntryByName("system_logs").Uri,
                                     UtilitiesHelper.GetOffsetLimitQueryString(request.Page, request.PageSize),
                                     sortOption);
             RequestManager requestManager = RequestManager.Initialize(requestUrl);
@@ -1128,7 +1128,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             if (!string.IsNullOrEmpty(modelServiceId) && !string.IsNullOrEmpty(modelUri))
             {
-                var model = SessionHelper.GetModel(modelUri);
+                var model = AuthorizationHelper.GetModel(modelUri);
                 var agentViewModel = this.modelService.GetModelAgent(model.Agent.ToString());
                 if (agentViewModel.LogfilesUri != null)
                 {
@@ -1342,7 +1342,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult AllEventLog(string target)
         {
             ViewBag.DefaultPageSize = DefaultPageSize;
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             ViewBag.EventLogUri = version.GetEntryByName("eventlog").Uri.ToString();
             return PartialView("~/Views/GlobalSettings/EventLogs/AllEventLogs.cshtml");
         }

@@ -32,7 +32,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult OverView()
         {
-            SessionHelper sessionHelper = SessionHelper.Initialize();
+            AuthorizationHelper sessionHelper = AuthorizationHelper.Initialize();
             var models = sessionHelper.Models;
 
             //Get system license
@@ -75,11 +75,11 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult AboutInformation()
         {
-            var aboutUri = SessionHelper.Initialize().Version.GetEntryByName("about").Uri.ToString();
+            var aboutUri = AuthorizationHelper.Initialize().Version.GetEntryByName("about").Uri.ToString();
             var result = _directoryService.GetAbout(aboutUri);
             var version = AssemblyInfoHelper.GetFileVersion().Split('.');
             result.web_client_version = string.Join(".", version.Take(version.Length - 1));
-            ViewBag.CanAccess = SessionHelper.Session.IsValidToManagementAccess();
+            ViewBag.CanAccess = AuthorizationHelper.Session.IsValidToManagementAccess();
 
             return PartialView("~/Views/Shared/AboutSystem.cshtml", result);
         }

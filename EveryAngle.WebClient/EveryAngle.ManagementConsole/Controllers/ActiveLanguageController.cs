@@ -20,13 +20,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService service, 
             ILabelService labelService,
             IGlobalSettingService globalSettingService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             // testability only
             _modelService = service;
             _labelService = labelService;
             _globalSettingService = globalSettingService;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         public ActiveLanguageController(
@@ -37,7 +37,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             _modelService = service;
             _labelService = labelService;
             _globalSettingService = globalSettingService;
-            SessionHelper = SessionHelper.Initialize();
+            AuthorizationHelper = AuthorizationHelper.Initialize();
         }
 
         public ActionResult GetModelLanguages(string modelUri)
@@ -83,7 +83,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private ListViewModel<SystemLanguageViewModel> GetSystemLanguages(int page, int pagesize)
         {
-            var systemInfoModel = _globalSettingService.GetSystemLanguages(SessionHelper.Version.GetEntryByName("system_languages").Uri +
+            var systemInfoModel = _globalSettingService.GetSystemLanguages(AuthorizationHelper.Version.GetEntryByName("system_languages").Uri +
                                                         "?enabled=true&" +
                                                         UtilitiesHelper.GetOffsetLimitQueryString(page, pagesize));
             return systemInfoModel;

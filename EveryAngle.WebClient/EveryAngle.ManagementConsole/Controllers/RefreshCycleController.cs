@@ -29,7 +29,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetRefreshCycle(string modelUri, string modelId)
         {
-            var version = SessionHelper.Initialize().Version;
+            var version = AuthorizationHelper.Initialize().Version;
             var model = _modelService.GetModel(modelUri);
             ViewBag.ModelId = modelId;
             ViewBag.ModelUri = modelUri;
@@ -195,7 +195,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetTaskHistory(string modelId)
         {
-            var version = SessionHelper.Initialize().Version;
+            var version = AuthorizationHelper.Initialize().Version;
             string taskHistoryUri = string.Format("{0}?model={1}&type=refresh_model&filterMode=task_results", version.GetEntryByName("eventlog").Uri, modelId);
 
             ViewData["DefaultPageSize"] = DefaultPageSize;

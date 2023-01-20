@@ -22,16 +22,16 @@ namespace EveryAngle.ManagementConsole.Controllers
         public AngleExportsController(
             IFileTemplateService excelTemplatesService
             )
-            : this(excelTemplatesService, SessionHelper.Initialize())
+            : this(excelTemplatesService, AuthorizationHelper.Initialize())
         {
         }
 
         public AngleExportsController(
             IFileTemplateService excelTemplatesService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             this.excelTemplatesService = excelTemplatesService;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         public ActionResult RenderExcelTemplates()

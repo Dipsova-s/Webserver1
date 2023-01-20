@@ -9,7 +9,7 @@ namespace EveryAngle.WebClient.Web.Controllers
     {
         public ActionResult GoToSAP()
         {
-            SessionHelper session = SessionHelper.Initialize();
+            AuthorizationHelper session = AuthorizationHelper.Initialize();
             if (!session.HasCookie)
                 return new RedirectResult(Shared.Helpers.UrlHelper.GetLoginPath());
 

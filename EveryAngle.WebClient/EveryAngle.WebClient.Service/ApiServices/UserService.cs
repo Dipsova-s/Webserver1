@@ -44,13 +44,13 @@ namespace EveryAngle.WebClient.Service.ApiServices
                 if (result != null)
                 {
                     //next step get user privileges
-                    if (SessionHelper.Initialize().Session.ModelPrivileges != null)
+                    if (AuthorizationHelper.Initialize().Session.ModelPrivileges != null)
                     {
-                        result.ModelPrivileges = SessionHelper.Initialize().Session.ModelPrivileges;
+                        result.ModelPrivileges = AuthorizationHelper.Initialize().Session.ModelPrivileges;
                     }
                     else
                     {
-                        var systemSettings = SessionHelper.Initialize().SystemSettings;
+                        var systemSettings = AuthorizationHelper.Initialize().SystemSettings;
                         requestManager = RequestManager.Initialize(
                                 result.ModelPrivilegesUri + "?" +
                                 UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettings.max_pagesize));
@@ -121,7 +121,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
         public IEnumerable<SystemAuthenticationProviderViewModel> GetSystemAuthenticationProviders(string uri)
         {
-            var systemSettings = SessionHelper.Initialize().SystemSettings;
+            var systemSettings = AuthorizationHelper.Initialize().SystemSettings;
             string query = UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettings.max_pagesize);
             var requestManager = RequestManager.Initialize($"{uri}?{query}");
             var jsonResult = requestManager.Run();

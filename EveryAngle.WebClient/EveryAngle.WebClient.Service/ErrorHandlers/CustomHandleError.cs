@@ -25,7 +25,7 @@ namespace EveryAngle.WebClient.Service.ErrorHandlers
                 //This will redirect to the login/search page
                 if (exceptionCode == 440 || exceptionCode == 401 || exceptionCode == 503)
                 {
-                    SessionHelper.Initialize().DestroyAllSession();
+                    AuthorizationHelper.Initialize().DestroyAllSession();
                     //Handle AJAX Request and return JSON result
                     if (filterContext.HttpContext.Request.IsAjaxRequest())
                     {

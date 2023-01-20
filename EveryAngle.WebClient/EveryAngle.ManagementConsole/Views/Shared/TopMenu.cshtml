@@ -1,7 +1,7 @@
 ﻿@using EveryAngle.Shared.Globalization
 @using EveryAngle.WebClient.Service.Security;
 @{
-    EveryAngle.Core.ViewModels.Users.UserViewModel user = SessionHelper.Initialize().CurrentUser;
+    EveryAngle.Core.ViewModels.Users.UserViewModel user = AuthorizationHelper.Initialize().CurrentUser;
     string defaultLanguage = "en";
     string helpUri = string.Format("~/data/help/{0}/UUID-98342d97-6145-7db8-0ee3-8127c987c924.html", defaultLanguage);
     string supportUri = "https://magnitude.com/online-support/";
@@ -11,9 +11,9 @@
     {
         string webClientUrl = "";
 
-        if (SessionHelper.Initialize().CurrentUser != null && SessionHelper.Initialize().CurrentUser.ModelPrivileges != null)
+        if (AuthorizationHelper.Initialize().CurrentUser != null && AuthorizationHelper.Initialize().CurrentUser.ModelPrivileges != null)
         {
-            var isPossibleToAccessWC = SessionHelper.Initialize().Session.ModelPrivileges.Where(filter => filter.Privileges.access_data_via_webclient.HasValue &&
+            var isPossibleToAccessWC = AuthorizationHelper.Initialize().Session.ModelPrivileges.Where(filter => filter.Privileges.access_data_via_webclient.HasValue &&
                 filter.Privileges.access_data_via_webclient.Value == true).FirstOrDefault();
             if (isPossibleToAccessWC != null)
             {
@@ -58,7 +58,7 @@
                 {
                     <a href="@webClientUrl.ToLower()" class="actionDropdownItem btnWC" target="_blank"><span>@Resource.OpenWebclient</span></a>
                 }
-                @if (SessionHelper.Initialize().Session.IsValidToManageModelingWorkbenchPrivilege())
+                @if (AuthorizationHelper.Initialize().Session.IsValidToManageModelingWorkbenchPrivilege())
                 {
                     string workbenchUri = @Url.Content("~/Component/GoToModellingWorkbench");
                     <a id="btnWorkbench" href="@workbenchUri" class="actionDropdownItem btnWorkbench" target="_blank">

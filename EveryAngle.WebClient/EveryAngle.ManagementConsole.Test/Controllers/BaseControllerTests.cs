@@ -17,14 +17,14 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
     [TestFixture]
     public class BaseControllerTests
     {
-        private Mock<SessionHelper> _sessionHelperMock;
+        private Mock<AuthorizationHelper> _sessionHelperMock;
         private Mock<ValidationRequestService> _validationRequestService;
         private BaseController _baseController;
 
         [SetUp]
         public void SetUp()
         {
-            _sessionHelperMock = new Mock<SessionHelper>();
+            _sessionHelperMock = new Mock<AuthorizationHelper>();
             _validationRequestService = new Mock<ValidationRequestService>();
             _baseController = new BaseController(_sessionHelperMock.Object, _validationRequestService.Object);
         }
@@ -174,7 +174,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         private class BaseControllerTestClass : BaseController
         {
-            public BaseControllerTestClass(SessionHelper sessionHelper, IValidationRequestService validationRequestService)
+            public BaseControllerTestClass(AuthorizationHelper sessionHelper, IValidationRequestService validationRequestService)
                 : base(sessionHelper, validationRequestService)
             {
             }

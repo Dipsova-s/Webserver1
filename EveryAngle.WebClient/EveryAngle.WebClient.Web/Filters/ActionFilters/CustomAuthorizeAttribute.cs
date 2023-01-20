@@ -11,7 +11,7 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
         {
             base.OnAuthorization(filterContext);
 
-            var session = SessionHelper.Initialize();
+            var session = AuthorizationHelper.Initialize();
             if (session.CurrentUser == null)
             {
                 HandleUnauthorizedRequest(filterContext);

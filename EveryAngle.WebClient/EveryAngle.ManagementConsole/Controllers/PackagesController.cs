@@ -33,12 +33,12 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService modelService,
             IPackageService packageService,
             IFacetService facetService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             this.modelService = modelService;
             this.packageService = packageService;
             this.facetService = facetService;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         public PackagesController(
@@ -50,7 +50,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             this.modelService = modelService;
             this.packageService = packageService;
             this.facetService = facetService;
-            SessionHelper = SessionHelper.Initialize();
+            AuthorizationHelper = AuthorizationHelper.Initialize();
         }
 
         #region "Private"
@@ -133,20 +133,20 @@ namespace EveryAngle.ManagementConsole.Controllers
                 ViewBag.ActiveStatus = response["activeStatus"].ToString();
                 ViewBag.Query = response["q"].ToString();
             }
-            var version = SessionHelper.Version;
-            var model = SessionHelper.GetModel(modelUri);
+            var version = AuthorizationHelper.Version;
+            var model = AuthorizationHelper.GetModel(modelUri);
 
             ViewBag.ModelId = modelId;
             ViewBag.ModelName = model?.short_name ?? "";
             ViewBag.ModelPackagesUri = string.Format("{0}?model={1}&types=deactivate_package,activate_package&filterMode=task_results", version.GetEntryByName("eventlog").Uri, modelId);
             ViewBag.EventlogUri = version.GetEntryByName("eventlog").Uri.ToString();
             ViewBag.ModelUri = modelUri;
-            ViewBag.HasManageModel = SessionHelper.Session.IsValidToManageModelPrivilege();
-            IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = SessionHelper.Models.Select(x => new ExportPackageModelViewModel
+            ViewBag.HasManageModel = AuthorizationHelper.Session.IsValidToManageModelPrivilege();
+            IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = AuthorizationHelper.Models.Select(x => new ExportPackageModelViewModel
             {
                 Id = x.id,
                 Name = x.short_name,
-                HasManageModelPrivilege = SessionHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
+                HasManageModelPrivilege = AuthorizationHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
                 PackageUri = x.PackagesUri.ToString()
             });
             return PartialView("~/Views/Model/TemplateAngles/TemplateAnglesPage.cshtml", ExportPackageModelViewModel);
@@ -154,7 +154,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetFilterTemplateAngles(string modelUri, string activeStatus, string q = "")
         {
-            var model = SessionHelper.GetModel(modelUri);
+            var model = AuthorizationHelper.GetModel(modelUri);
             var packageUri = model != null && model.PackagesUri != null ? model.PackagesUri.ToString() : string.Empty;
 
             ViewData["DefaultPageSize"] = DefaultPageSize;
@@ -199,11 +199,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             string activeStatus)
         {
             ListViewModel<PackageViewModel> packages;
-            var models = SessionHelper.Models;
+            var models = AuthorizationHelper.Models;
             var isPackageUriEmpty = string.IsNullOrEmpty(packageUri);
             if (isPackageUriEmpty)
             {
-                var version = SessionHelper.Version;
+                var version = AuthorizationHelper.Version;
                 packageUri = version.GetEntryByName("packages").Uri.ToString();
             }
             packages = GetPackages(request, q, packageUri, activeStatus);
@@ -241,7 +241,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ManagePackage(ActivePackageQueryViewModel activePackageQueryViewModel)
         {
-            VersionViewModel version = SessionHelper.Version;
+            VersionViewModel version = AuthorizationHelper.Version;
             TaskViewModel taskViewModel = GetPackageTaskViewModel(activePackageQueryViewModel);
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
             {
@@ -288,7 +288,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 });
             }
 
-            VersionViewModel version = SessionHelper.Version;
+            VersionViewModel version = AuthorizationHelper.Version;
 
             TaskViewModel taskViewModel = new TaskViewModel
             {

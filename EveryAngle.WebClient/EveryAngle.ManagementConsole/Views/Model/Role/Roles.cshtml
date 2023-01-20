@@ -7,7 +7,7 @@
 
 @model List<EveryAngle.Core.ViewModels.Users.SystemRoleViewModel>
 @{
-    var assignedRoles = SessionHelper.Initialize().Session.AssignedRoles;
+    var assignedRoles = AuthorizationHelper.Initialize().Session.AssignedRoles;
     var authenticationProviders = (IEnumerable<SystemAuthenticationProviderViewModel>)ViewBag.AuthenticationProviders;
  }
 <script>

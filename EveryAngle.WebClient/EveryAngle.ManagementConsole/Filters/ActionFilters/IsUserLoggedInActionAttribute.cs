@@ -11,7 +11,7 @@ namespace EveryAngle.ManagementConsole.Filters.ActionFilters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            SessionHelper session = SessionHelper.Initialize();
+            AuthorizationHelper session = AuthorizationHelper.Initialize();
             if (session.HasCookie && session.CurrentUser != null)
             {
                 string redirectPath = HttpContext.Current.Request.Url.Query.Contains("?redirect=") ? HttpContext.Current.Request.Url.Query.Replace("?redirect=", "") : "~/home/index";

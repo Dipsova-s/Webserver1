@@ -127,7 +127,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
                 var record = AvailabelRolesDataTable.NewRow();
                 var eachRole = GetRole(null, role.Uri.ToString());
                 var modelUri = eachRole.ModelPrivilege.model != null ? eachRole.ModelPrivilege.model.ToString() : "";
-                var models = SessionHelper.Initialize().Models;
+                var models = AuthorizationHelper.Initialize().Models;
 
                 record["id"] = role.Id;
                 record["description"] = role.Description;
@@ -435,8 +435,8 @@ namespace EveryAngle.WebClient.Service.ApiServices
             var roleModel = JsonConvert.DeserializeObject<SystemRoleViewModel>(jsonResult.ToString(),
                 new UnixDateTimeConverter());
 
-            var version = SessionHelper.Initialize().Version;
-            var systemSettings = SessionHelper.Initialize().SystemSettings;
+            var version = AuthorizationHelper.Initialize().Version;
+            var systemSettings = AuthorizationHelper.Initialize().SystemSettings;
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettings.max_pagesize);
 
             if (modelUri != null)

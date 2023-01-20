@@ -20,8 +20,8 @@ namespace EveryAngle.WebClient.Service.ApiServices
     {
         public List<SystemLanguageViewModel> GetSystemLanguages()
         {
-            var version = SessionHelper.Initialize().Version;
-            var systemSettings = SessionHelper.Initialize().SystemSettings;
+            var version = AuthorizationHelper.Initialize().Version;
+            var systemSettings = AuthorizationHelper.Initialize().SystemSettings;
             var globalSettingService = new GlobalSettingService();
             var systemLanguages =
                 globalSettingService.GetSystemLanguages(version.GetEntryByName("system_languages").Uri +

@@ -18,7 +18,7 @@ using Microsoft.Owin.Security;
 
 namespace EveryAngle.WebClient.Service.Security
 {
-    public class SessionHelper
+    public class AuthorizationHelper
     {
         #region variables
 
@@ -34,7 +34,7 @@ namespace EveryAngle.WebClient.Service.Security
         #region constructor
 
         [ExcludeFromCodeCoverage]
-        protected SessionHelper()
+        protected AuthorizationHelper()
         {
         }
 
@@ -43,9 +43,9 @@ namespace EveryAngle.WebClient.Service.Security
         #region public functions
 
         [ExcludeFromCodeCoverage]
-        public static SessionHelper Initialize()
+        public static AuthorizationHelper Initialize()
         {
-            var helper = new SessionHelper();
+            var helper = new AuthorizationHelper();
             helper.CheckSession();
             return helper;
         }

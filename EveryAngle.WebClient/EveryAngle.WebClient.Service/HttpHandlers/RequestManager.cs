@@ -431,7 +431,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         protected virtual void ExecuteWhenResponseCodeUnauthorized(IRestResponse response)
         {
-            SessionHelper.Initialize().Logout(true);
+            AuthorizationHelper.Initialize().Logout(true);
         }
 
         private void CloneRequestHeader(RestRequest request, HttpRequest requestContext)
@@ -472,7 +472,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             CloneRequestHeader(request, HttpContext.Current.Request);
         }
 
-        private static HttpResponseMessage CloneResponseHeader(IRestResponse response)
+        private HttpResponseMessage CloneResponseHeader(IRestResponse response)
         {
             HttpResponseMessage message = new HttpResponseMessage(response.StatusCode)
             {

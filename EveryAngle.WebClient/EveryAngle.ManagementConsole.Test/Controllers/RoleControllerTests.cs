@@ -22,7 +22,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         private Mock<ILabelService> _labelServiceMock;
         private Mock<IUserService> _userServiceMock;
         private Mock<ITaskService> _taskServiceMock;
-        private Mock<SessionHelper> _sessionHelperMock;
+        private Mock<AuthorizationHelper> _sessionHelperMock;
         private RoleController _roleController;
 
         [SetUp]
@@ -32,7 +32,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _labelServiceMock = new Mock<ILabelService>(MockBehavior.Strict);
             _userServiceMock = new Mock<IUserService>(MockBehavior.Strict);
             _taskServiceMock = new Mock<ITaskService>(MockBehavior.Strict);
-            _sessionHelperMock = new Mock<SessionHelper>();
+            _sessionHelperMock = new Mock<AuthorizationHelper>();
             _roleController = new RoleController(
                 _modelServiceMock.Object,
                 _labelServiceMock.Object,

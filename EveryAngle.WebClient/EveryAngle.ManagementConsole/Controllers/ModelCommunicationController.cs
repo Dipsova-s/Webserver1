@@ -22,7 +22,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetCommunications(string modelUri)
         {
-            var model = SessionHelper.Initialize().GetModel(modelUri);
+            var model = AuthorizationHelper.Initialize().GetModel(modelUri);
             ViewBag.ModelId = model.id;
             return PartialView("~/Views/Model/Communications/ModelCommunications.cshtml", model);
         }
@@ -31,7 +31,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult SaveModelCommunication(string modelUri, string companyInformationsData,
             string emailSettingsData)
         {
-            var model = SessionHelper.Initialize().GetModel(modelUri);
+            var model = AuthorizationHelper.Initialize().GetModel(modelUri);
             model.CompanyInformation =
                 JsonConvert.DeserializeObject<CompanyInformationViewModel>(companyInformationsData);
             model.EmailSettings = JsonConvert.DeserializeObject<EmailSettingsViewModel>(emailSettingsData);

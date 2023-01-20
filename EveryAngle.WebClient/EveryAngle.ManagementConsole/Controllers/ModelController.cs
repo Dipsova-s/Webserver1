@@ -35,12 +35,12 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService service,
             IModelAgentService modelAgentService,
             IComponentService componentService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             this.modelService = service;
             this.modelAgentService = modelAgentService;
             this.componentService = componentService;
-            this.SessionHelper = sessionHelper;
+            this.AuthorizationHelper = sessionHelper;
         }
         public ModelController(
             IModelService service,
@@ -50,7 +50,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             this.modelService = service;
             this.modelAgentService = modelAgentService;
             this.componentService = componentService;
-            this.SessionHelper = SessionHelper.Initialize();
+            this.AuthorizationHelper = AuthorizationHelper.Initialize();
         }
 
         #region "Public"
@@ -68,7 +68,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetModelOverview(string modelUri, SystemLicenseViewModel licensesData, string modelServersUri)
         {
-            var model = SessionHelper.Initialize().GetModelFromSession(modelUri);
+            var model = AuthorizationHelper.Initialize().GetModelFromSession(modelUri);
             ViewBag.ConnectedUser = "0";
             ViewBag.ActiveUsersThisWeek = "0";
             ViewBag.ActiveUsersThisMonth = "0";
@@ -88,7 +88,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 ViewBag.ActiveUsersThisMonth = model.active_this_month.ToString();
 
                 // Get license date
-                ViewBag.LicenseDate = SessionHelper.Initialize().GetModelLicenseDate(model.id, licensesData);
+                ViewBag.LicenseDate = AuthorizationHelper.Initialize().GetModelLicenseDate(model.id, licensesData);
 
                 if (model.ServerUri != null)
                 {
@@ -121,13 +121,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             IList<AgentModelInfoViewModel> agentModelInfoViewModels = new List<AgentModelInfoViewModel>();
             DateTime currentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.Id));
             DateTime unixEpochTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            ModelViewModel modelViewModel = SessionHelper.GetModelById(modelId);
+            ModelViewModel modelViewModel = AuthorizationHelper.GetModelById(modelId);
 
             ViewBag.ModelId = modelId;
             ViewBag.ModelUri = modelUri;
             ViewBag.AgentUri = modelViewModel.Agent.ToString();
-            ViewBag.LicensesData = SessionHelper.GetModelLicense(SessionHelper.GetSystemLicenseUri());
-            ViewBag.LicenseDate = SessionHelper.GetModelLicenseDate(modelId, ViewBag.LicensesData);
+            ViewBag.LicensesData = AuthorizationHelper.GetModelLicense(AuthorizationHelper.GetSystemLicenseUri());
+            ViewBag.LicenseDate = AuthorizationHelper.GetModelLicenseDate(modelId, ViewBag.LicensesData);
             // M4-13788: Error 500 when created second model and then click model menu immediately
             ViewBag.ModelStatus = modelViewModel.model_status;
             ViewBag.ModelLongName = modelViewModel.long_name;
@@ -292,7 +292,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetAllModels()
         {
-            SessionHelper session = SessionHelper.Initialize();
+            AuthorizationHelper session = AuthorizationHelper.Initialize();
             var currentSession = session.Session;
             List<ModelViewModel> models = session.Models;
             IList<ModelViewModel> modelList = new List<ModelViewModel>();
@@ -320,7 +320,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetModelsName(string ModelUri, string roleUri)
         {
             var modelInfoList = new List<Tuple<string, string, string>>();
-            var currentUser = SessionHelper.Initialize().CurrentUser;
+            var currentUser = AuthorizationHelper.Initialize().CurrentUser;
             var userPrivilegedModels =
                 currentUser.ModelPrivileges.Where(v => v.Privileges.manage_model == true)
                     .Select(u => u.model.ToString())
@@ -329,7 +329,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 userPrivilegedModels.ForEach(privilegedmodel =>
                 {
-                    var model = SessionHelper.Initialize().GetModel(privilegedmodel);
+                    var model = AuthorizationHelper.Initialize().GetModel(privilegedmodel);
                     if (model != null)
                     {
                         modelInfoList.Add(Tuple.Create(model.short_name, model.Uri.ToString(), roleUri));
@@ -344,7 +344,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             var modelViewModel = new ModelViewModel();
             if (!string.IsNullOrEmpty(modelUri))
             {
-                modelViewModel = SessionHelper.Initialize().GetModel(modelUri);
+                modelViewModel = AuthorizationHelper.Initialize().GetModel(modelUri);
             }
             ViewBag.IsCreateNewModel = string.IsNullOrEmpty(modelViewModel.id);
             ViewBag.FormTitle = ViewBag.IsCreateNewModel ? Resource.CreateNewModel : string.Format("{0} {1}", modelViewModel.short_name, Resource.MC_ModelName);
@@ -354,7 +354,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [HttpGet]
         public ActionResult ModelIdDropdownItems()
         {
-            IList<ModelViewModel> models = SessionHelper.Initialize().Models;
+            IList<ModelViewModel> models = AuthorizationHelper.Initialize().Models;
             IList<ComponentViewModel> components = componentService.GetItems().Where(x => ComponentServiceManagerType.ModelAgentService.Equals(x.Type)).ToList();
             foreach (ModelViewModel model in models)
             {
@@ -373,7 +373,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult SaveModel(string jsonData, string modelUri)
         {
-            VersionViewModel version = SessionHelper.Initialize().Version;
+            VersionViewModel version = AuthorizationHelper.Initialize().Version;
             ModelViewModel modelViewModel = JsonConvert.DeserializeObject<ModelViewModel>(jsonData);
             if (string.IsNullOrEmpty(modelUri))
             {
@@ -398,7 +398,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 }
                 finally
                 {
-                    SessionHelper.Initialize().DestroyAllSession();
+                    AuthorizationHelper.Initialize().DestroyAllSession();
                 }
             }
             else
@@ -430,7 +430,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult UpdateModelInfo(string modelUri, string id, bool status)
         {
-            SessionHelper session = SessionHelper.Initialize();
+            AuthorizationHelper session = AuthorizationHelper.Initialize();
             var modelViewModel = session.Models.FirstOrDefault(x => x.Uri.ToString().Equals(modelUri, StringComparison.OrdinalIgnoreCase));
 
             try
@@ -462,14 +462,14 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             modelService.DeleteModel(modelUri);
             Thread.Sleep(2000);
-            SessionHelper.Initialize().DestroyAllSession();
+            AuthorizationHelper.Initialize().DestroyAllSession();
 
             return JsonHelper.GetJsonResult(true, null, null, null, MessageType.SUCCESS_UPDATED);
         }
 
         public ActionResult RenderModelServerSettings(string modelUri)
         {
-            ModelViewModel modelViewModel = SessionHelper.Initialize().GetModel(modelUri);
+            ModelViewModel modelViewModel = AuthorizationHelper.Initialize().GetModel(modelUri);
             AgentViewModel agentViewModel = modelService.GetModelAgent(modelViewModel.Agent.ToString());
             ModelServerSettings modelServerSettings = GetModelServerSettings(modelViewModel, agentViewModel.ModelserverSettings.ToString());
             AddSwitchWhenPostprocessingSetting(modelServerSettings, modelViewModel);
@@ -482,7 +482,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult RenderExtractorSettings(string modelUri)
         {
-            ModelViewModel modelViewModel = SessionHelper.Initialize().GetModel(modelUri);
+            ModelViewModel modelViewModel = AuthorizationHelper.Initialize().GetModel(modelUri);
             AgentViewModel agentViewModel = modelService.GetModelAgent(modelViewModel.Agent.ToString());
             ModelServerSettings modelServerSettings = GetModelServerSettings(modelViewModel, agentViewModel.DownloadSettings.ToString());
 
@@ -566,7 +566,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             var result = string.Empty;
             if (!string.IsNullOrEmpty(modelUri))
             {
-                var modelViewModel = SessionHelper.Initialize().GetModel(modelUri);
+                var modelViewModel = AuthorizationHelper.Initialize().GetModel(modelUri);
 
 
                 var uriList = new List<string>();

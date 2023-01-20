@@ -20,29 +20,29 @@ namespace EveryAngle.ManagementConsole.Controllers
     public class BaseController : Controller
     {
         public IValidationRequestService ValidationRequestService { get; }
-        protected SessionHelper SessionHelper;
+        protected AuthorizationHelper AuthorizationHelper;
         internal delegate string GetLoginPathDelegate(bool forceToWc);
         internal GetLoginPathDelegate GetLoginPath;
 
         public BaseController()
         {
-            if (SessionHelper == null)
-                SessionHelper = SessionHelper.Initialize();
+            if (AuthorizationHelper == null)
+                AuthorizationHelper = AuthorizationHelper.Initialize();
             GetLoginPath = Shared.Helpers.UrlHelper.GetLoginPath;
             ValidationRequestService = WebClient.Service.Security.ValidationRequestService.Instance();
         }
 
-        internal BaseController(SessionHelper sessionHelper) : this(sessionHelper, WebClient.Service.Security.ValidationRequestService.Instance())
+        internal BaseController(AuthorizationHelper sessionHelper) : this(sessionHelper, WebClient.Service.Security.ValidationRequestService.Instance())
         {
         }
 
-        internal BaseController(SessionHelper sessionHelper, IValidationRequestService validationRequestService)
+        internal BaseController(AuthorizationHelper sessionHelper, IValidationRequestService validationRequestService)
         {
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
             ValidationRequestService = validationRequestService;
         }
 
-        public int DefaultPageSize => SessionHelper.SystemSettings.default_pagesize;
+        public int DefaultPageSize => AuthorizationHelper.SystemSettings.default_pagesize;
 
         public int MaxPageSize
         {
@@ -50,7 +50,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 try
                 {
-                    return SessionHelper.SystemSettings.max_pagesize;
+                    return AuthorizationHelper.SystemSettings.max_pagesize;
                 }
                 catch (Exception)
                 {
@@ -101,22 +101,22 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         internal void HandleActionExecution(ActionExecutingContext filterContext)
         {
-            if ((!SessionHelper.HasCookie || !CanAccessSystem(SessionHelper)) && GetLoginPath != null)
+            if ((!AuthorizationHelper.HasCookie || !CanAccessSystem(AuthorizationHelper)) && GetLoginPath != null)
             {
 #if DEVMODE
-                SessionHelper.DestroyAllSession();
+                AuthorizationHelper.DestroyAllSession();
                 filterContext.Result = new RedirectResult("~/security/index?redirect=/home/index");
 #else
-                bool forceToWc = !CanAccessSystem(SessionHelper);
+                bool forceToWc = !CanAccessSystem(AuthorizationHelper);
                 string loginUrl = GetLoginPath(forceToWc);
                 filterContext.Result = new RedirectResult(loginUrl);
 #endif
                 return;
             }
 
-            if (SessionHelper.CurrentUser.Settings == null)
+            if (AuthorizationHelper.CurrentUser.Settings == null)
             {
-                SessionHelper.RefreshUserSettings();
+                AuthorizationHelper.RefreshUserSettings();
             }
 
             SetCurrentLanguage();
@@ -129,7 +129,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(webLanguage);
         }
 
-        private bool CanAccessSystem(SessionHelper session)
+        private bool CanAccessSystem(AuthorizationHelper session)
         {
             // M4-28350: schedule_angles with licensed can access MC but only in Automation tasks > Tasks
             return session.Session.IsValidToManagementAccess()

@@ -46,13 +46,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             IGlobalSettingService globalSettingService,
             ISessionService sessionService,
             IUserService userService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             this.modelService = modelService;
             this.globalSettingService = globalSettingService;
             this.sessionService = sessionService;
             this.userService = userService;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         #endregion
@@ -60,14 +60,14 @@ namespace EveryAngle.ManagementConsole.Controllers
         #region routes
         public ActionResult GetRolesDropdown()
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var systemRolesList = modelService.GetSystemRoles(version.GetEntryByName("system_roles").Uri.ToString());
             return Json(systemRolesList, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetAllSystemRoles()
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
 
             var existProviders = userService.GetSystemAuthenticationProviders(version.GetEntryByName("authentication_providers").Uri.ToString());
             ViewBag.AuthenticationProviders = existProviders;
@@ -110,7 +110,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveSystemRole(string systemRoleUri, string systemRoleData)
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             if (systemRoleUri == "")
             {
                 var newSystemRole = modelService.CreateRole(version.GetEntryByName("system_roles").Uri.ToString(),

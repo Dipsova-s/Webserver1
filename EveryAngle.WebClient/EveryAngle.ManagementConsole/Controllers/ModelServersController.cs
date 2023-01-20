@@ -95,7 +95,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 try
                 {
-                    ModelViewModel model = SessionHelper.Models.FirstOrDefault(x => x.Uri == modelServer.model);
+                    ModelViewModel model = AuthorizationHelper.Models.FirstOrDefault(x => x.Uri == modelServer.model);
                     _modelService.KillSapJob(model.Uri.ToString(), body);
                     Log.SendInfo("[KillSapJobs] Success");
                 }

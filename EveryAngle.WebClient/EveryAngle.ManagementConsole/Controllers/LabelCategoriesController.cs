@@ -41,7 +41,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult AllBusinessProcesses()
         {
-            var version = SessionHelper.Initialize().Version;
+            var version = AuthorizationHelper.Initialize().Version;
             var labelCategories =
                 labelService.GetLabelCategories(version.GetEntryByName("labelcategories").Uri +
                                                 "?contains_businessprocesses=true&multilingual=yes");
@@ -75,7 +75,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult ReadBusinessProcesses([DataSourceRequest] DataSourceRequest request, string categoryUri)
         {
-            var version = SessionHelper.Initialize().Version;
+            var version = AuthorizationHelper.Initialize().Version;
 
             var query = version.GetEntryByName("business_processes").Uri + "?multilingual=yes&include_disabled=true";
 
@@ -168,7 +168,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetFilterGlobalLabelCategories(string q = "")
         {
-            var version = SessionHelper.Initialize().Version;
+            var version = AuthorizationHelper.Initialize().Version;
             ViewBag.LabelCategoryUri = version.GetEntryByName("labelcategories").Uri.ToString();
             ViewData["SearchKeyword"] = string.IsNullOrEmpty(q) ? string.Empty : q;
             ViewData["DefaultPageSize"] = MaxPageSize;
@@ -304,7 +304,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public void DeleteLabelCategory(string labelUri)
         {
             labelService.DeleteLabelCategory(UrlHelper.GetRequestUrl(URLType.NOA) + labelUri);
-            SessionHelper.Initialize();
+            AuthorizationHelper.Initialize();
         }
 
         public ActionResult ReadLabels([DataSourceRequest] DataSourceRequest request, string categoryLabelsUri,
@@ -448,7 +448,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult LabelCategories(string modelUri, string q = "")
         {
-            var model = SessionHelper.Initialize().GetModel(modelUri);
+            var model = AuthorizationHelper.Initialize().GetModel(modelUri);
             ViewBag.ModelUri = modelUri;
             ViewBag.ModelId = model.id;
             ViewBag.ModelName = model.short_name;
@@ -457,11 +457,11 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetFilterLabelCategories(string modelUri, string q = "")
         {
-            var version = SessionHelper.Initialize().Version;
+            var version = AuthorizationHelper.Initialize().Version;
 
             var labelCategoryUri = version.GetEntryByName("labelcategories").Uri.ToString();
 
-            var model = SessionHelper.Initialize().GetModel(modelUri);
+            var model = AuthorizationHelper.Initialize().GetModel(modelUri);
 
             ViewBag.LabelCategoryUri = labelCategoryUri;
             ViewBag.ModelUri = modelUri;
@@ -511,7 +511,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private ListViewModel<LabelCategoryViewModel> GetLabelCategories(string q, string modelUri,
             string labelCategoryUri, int page, int displayPagesize, string sort)
         {
-            var model = SessionHelper.Initialize().GetModel(modelUri);
+            var model = AuthorizationHelper.Initialize().GetModel(modelUri);
             var systemLabelCategory =
                 labelService.GetLabelCategories(labelCategoryUri + "?" +
                                                 UtilitiesHelper.GetOffsetLimitQueryString(page, displayPagesize, q) +
@@ -569,7 +569,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveLabelCategories(string labelCategoryData, string modelUri)
         {
-            var model = SessionHelper.Initialize().GetModel(modelUri);
+            var model = AuthorizationHelper.Initialize().GetModel(modelUri);
             var labelCategories = JsonConvert.DeserializeObject<List<LabelCategoryViewModel>>(labelCategoryData);
             var modelLabelCategory = labelService.GetLabelCategories(model.label_categories + "?multilingual=yes");
             foreach (var category in labelCategories)
@@ -614,7 +614,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private List<SystemLanguageViewModel> GetEnableSystemLanguagesList()
         {
-            VersionViewModel version = SessionHelper.Initialize().Version;
+            VersionViewModel version = AuthorizationHelper.Initialize().Version;
             string uri = version.GetEntryByName("system_languages").Uri + "?caching=false&" + OffsetLimitQuery;
             ListViewModel<SystemLanguageViewModel> systemLanguages = globalSettingService.GetSystemLanguages(uri);
             return systemLanguages.Data.Where(lang => lang.Enabled).ToList();

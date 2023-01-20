@@ -4,7 +4,7 @@
     Layout = null;
     var FileVersion = AssemblyInfoHelper.GetFileVersion();
 
-    EveryAngle.Core.ViewModels.Users.UserViewModel user = SessionHelper.Initialize().CurrentUser; 
+    EveryAngle.Core.ViewModels.Users.UserViewModel user = AuthorizationHelper.Initialize().CurrentUser; 
 }
 @using StackExchange.Profiling;
 <!doctype html>

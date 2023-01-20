@@ -30,10 +30,10 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ComponentController(
             IComponentService componentService,
             IModelService modelService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
             : this(componentService, modelService)
         {
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         public ActionResult SystemComponents()
@@ -58,8 +58,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public JsonResult GetComponents()
         {
-            List<ModelViewModel> models = SessionHelper.Models;
-            List<ModelServerViewModel> modelServers = SessionHelper.GetModelServers(models);
+            List<ModelViewModel> models = AuthorizationHelper.Models;
+            List<ModelServerViewModel> modelServers = AuthorizationHelper.GetModelServers(models);
 
             IEnumerable<ComponentViewModel> components = _componentService.GetItems().OrderBy(x => x.ModelId);
 

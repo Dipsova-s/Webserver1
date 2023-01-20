@@ -34,7 +34,7 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<HttpResponseBase> responseBase = new Mock<HttpResponseBase>();
         protected readonly Mock<HttpContextBase> contextBase = new Mock<HttpContextBase>();
 
-        protected readonly Mock<SessionHelper> sessionHelper = new Mock<SessionHelper>();
+        protected readonly Mock<AuthorizationHelper> sessionHelper = new Mock<AuthorizationHelper>();
         protected readonly Mock<IGlobalSettingService> globalSettingService = new Mock<IGlobalSettingService>();
         protected readonly Mock<ILabelService> labelService = new Mock<ILabelService>();
         protected readonly Mock<IModelService> modelService = new Mock<IModelService>();

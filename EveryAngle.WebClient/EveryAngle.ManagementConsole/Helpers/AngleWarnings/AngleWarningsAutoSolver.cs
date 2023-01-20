@@ -19,7 +19,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         private static ModelViewModel _model;
 
         private readonly IModelService _modelService;
-        private  SessionHelper _sessionHelper;
+        private  AuthorizationHelper _sessionHelper;
 
         // To minimize appserver requests
         private Dictionary<string, List<FollowupViewModel>> _cachedFollowUps;
@@ -36,7 +36,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             _contentInputter = angleWarningsContentInputter ?? throw new System.ArgumentNullException(nameof(angleWarningsContentInputter));
         }
 
-        public void Initialize(SessionHelper sessionHelper)
+        public void Initialize(AuthorizationHelper sessionHelper)
         {
             _sessionHelper = sessionHelper ?? throw new System.ArgumentNullException(nameof(sessionHelper));
 

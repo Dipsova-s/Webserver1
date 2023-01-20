@@ -17,7 +17,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             List<SiteMapModel.SiteMap> siteMaps = useCache ? HttpContext.Current.Session["Sitemaps"] as List<SiteMapModel.SiteMap> : null;
             if (siteMaps == null)
             {
-                SessionHelper sessionHelper = SessionHelper.Initialize();
+                AuthorizationHelper sessionHelper = AuthorizationHelper.Initialize();
                 IModelService modelService = new ModelService();
                 SiteMapModel modelSiteMap = new SiteMapModel(sessionHelper, modelService);
                 modelSiteMap.CreateSiteMap();

@@ -42,7 +42,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly ListViewModel<LabelCategoryViewModel> allCategoriesList = new ListViewModel<LabelCategoryViewModel>();
         private List<Tuple<string, string, string, bool, string>> fieldsList = new List<Tuple<string, string, string, bool, string>>();
 
-        private delegate void LoadParallelDataForEditRoleDelegate(VersionViewModel version, ModelViewModel model, SessionHelper sessionHelper);
+        private delegate void LoadParallelDataForEditRoleDelegate(VersionViewModel version, ModelViewModel model, AuthorizationHelper sessionHelper);
         private readonly LoadParallelDataForEditRoleDelegate _loadParallelDataForEditRole;
 
         public RoleController(IModelService modelService,
@@ -61,7 +61,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ILabelService labelService,
             IUserService userService,
             ITaskService taskService,
-            SessionHelper sessionHelper) : base(sessionHelper)
+            AuthorizationHelper sessionHelper) : base(sessionHelper)
         {
             _modelService = modelService;
             _labelService = labelService;
@@ -74,7 +74,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetAllRolesPage(string modelUri)
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var providersUrl = version.GetEntryByName("authentication_providers").Uri.ToString();
             var existProviders = _userService.GetSystemAuthenticationProviders(providersUrl);
             var model = GetModel(modelUri);
@@ -83,7 +83,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.ModelUri = modelUri;
             ViewBag.ModelName = model.short_name != "" ? model.short_name : model.id;
             ViewData["DefaultPageSize"] = DefaultPageSize;
-            ViewBag.SupportOData = SessionHelper.Info.ODataService;
+            ViewBag.SupportOData = AuthorizationHelper.Info.ODataService;
 
             return PartialView("~/Views/Model/Role/Roles.cshtml");
         }
@@ -127,7 +127,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             if (unAssignUserInRoleList.Any())
                 AddTaskAction(roleId, modelId, taskViewModel, unAssignUserInRoleList, "unassign");
 
-            string taskUri = SessionHelper.Version.GetEntryByName("tasks").Uri.ToString();
+            string taskUri = AuthorizationHelper.Version.GetEntryByName("tasks").Uri.ToString();
             taskViewModel = _taskService.CreateTask(taskUri, taskViewModel);
 
             var breakLoop = false;
@@ -240,7 +240,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetLabelDropdown(ListViewModel<LabelViewModel> labelDatas = null)
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var viewmodel = labelDatas ?? _labelService.GetLabels(version.GetEntryByName("labels").Uri + "?" +
                                            UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
             return Json(viewmodel.Data.OrderBy(l => l.id).ToList(), JsonRequestBehavior.AllowGet);
@@ -444,13 +444,13 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult EditRole(string modelUri, string roleUri)
         {
             var role = new SystemRoleViewModel { Id = "", Description = "" };
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var model = GetModel(modelUri);
             List<ModelServerViewModel> modelServers = _modelService.GetModelServers(model.ServerUri.ToString()).Data;
 
-            _loadParallelDataForEditRole(version, model, SessionHelper);
+            _loadParallelDataForEditRole(version, model, AuthorizationHelper);
 
-            InitialViewBagForEditRole(modelUri, roleUri, model, SessionHelper, modelServers);
+            InitialViewBagForEditRole(modelUri, roleUri, model, AuthorizationHelper, modelServers);
 
             if (!string.IsNullOrEmpty(roleUri))
             {
@@ -470,7 +470,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult CheckCopyRole(string destinationModelUri, string oldModelUri, string roleUri,
             string roleName)
         {
-            var model = SessionHelper.GetModel(destinationModelUri);
+            var model = AuthorizationHelper.GetModel(destinationModelUri);
             var role = _modelService.GetRole(destinationModelUri, roleUri);
 
             if (destinationModelUri != oldModelUri)
@@ -543,7 +543,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult CopyRole(string roleData)
         {
             // Create role
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             _modelService.CreateRole(version.GetEntryByName("system_roles").Uri.ToString(), roleData);
 
             return new JsonResult
@@ -576,7 +576,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     "{ \"success\": false, \"reason\": \"Conflict\", \"message\": \"Role ID should contain only a-z, A-Z, 0-9, and '_'\" }");
             }
 
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
 
             if (roleModel.Uri == null)
             {
@@ -680,7 +680,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public JsonResult ReadLabels([DataSourceRequest] DataSourceRequest request, string modelUri, string roleUri)
         {
             var systemrole = _modelService.GetRoleById(roleUri);
-            var model = SessionHelper.GetModel(modelUri);
+            var model = AuthorizationHelper.GetModel(modelUri);
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
             var allCategories = _labelService.GetLabelCategories(model.label_categories.ToString() + "?" + offsetLimitQuery);
             var allLabels = _labelService.GetLabels(model.labels + "?" + offsetLimitQuery);
@@ -928,7 +928,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             if (consolidatedRole != null && consolidatedRole.ModelPrivilege != null)
             {
-                var model = SessionHelper.GetModel(consolidatedRole.ModelPrivilege.model.ToString());
+                var model = AuthorizationHelper.GetModel(consolidatedRole.ModelPrivilege.model.ToString());
 
                 //set short name to allowed class
                 consolidatedRole = SetShortNameToAllowedClass(consolidatedRole, model);
@@ -1138,7 +1138,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private void LoadParallelDataForEditRole(VersionViewModel version
                             , ModelViewModel model
-                            , SessionHelper sessionHelper)
+                            , AuthorizationHelper sessionHelper)
         {
             var formatUrl = "{0}{1}{2}";
             var speratorUrl = "?";
@@ -1187,7 +1187,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        public void InitialViewBagForEditRole(string modelUri, string roleUri, ModelViewModel model, SessionHelper sessionHelper, List<ModelServerViewModel> modelServers)
+        public void InitialViewBagForEditRole(string modelUri, string roleUri, ModelViewModel model, AuthorizationHelper sessionHelper, List<ModelServerViewModel> modelServers)
         {
             // slave model server will show in compact details mode
             ViewData["ShowFullRoleDetails"] = modelServers.Any(x => x.IsPrimaryType);

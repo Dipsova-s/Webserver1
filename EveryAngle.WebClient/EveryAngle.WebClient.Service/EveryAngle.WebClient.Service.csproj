@@ -337,7 +337,7 @@
     <Compile Include="Security\AccountService.cs" />
     <Compile Include="Security\CustomCookieAuthenticationProvider.cs" />
     <Compile Include="Security\Interfaces\IValidationRequestService.cs" />
-    <Compile Include="Security\SessionHelper.cs" />
+    <Compile Include="Security\AuthorizationHelper.cs" />
     <Compile Include="Security\ValidationRequestService.cs" />
     <Compile Include="UpdatedPropertiesResolver.cs" />
     <Compile Include="WebClientConfigs\WebClientConfigService.cs" />

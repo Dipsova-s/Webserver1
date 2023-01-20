@@ -15,7 +15,7 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
         {
             try
             {
-                SessionHelper session = SessionHelper.Initialize();
+                AuthorizationHelper session = AuthorizationHelper.Initialize();
                 if (session.HasCookie && session.CurrentUser != null)
                 {
                     session.DestroyAllSession();

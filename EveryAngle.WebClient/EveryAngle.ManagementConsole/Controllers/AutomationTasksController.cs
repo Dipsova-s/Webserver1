@@ -51,9 +51,9 @@ namespace EveryAngle.ManagementConsole.Controllers
            IFileTemplateService fileTemplateService,
            ISystemScriptService systemScriptService,
            IItemService itemService,
-           SessionHelper sessionHelper)
+           AuthorizationHelper sessionHelper)
         {
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
             _modelService = modelService;
             _taskService = taskService;
             _automationTaskService = automationTaskService;
@@ -84,8 +84,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetAllTasks()
         {
-            ViewBag.TasksUri = SessionHelper.Version.GetEntryByName("tasks").Uri.ToString();
-            ViewBag.TaskHistoryUri = SessionHelper.Version.GetEntryByName("eventlog").Uri.ToString();
+            ViewBag.TasksUri = AuthorizationHelper.Version.GetEntryByName("tasks").Uri.ToString();
+            ViewBag.TaskHistoryUri = AuthorizationHelper.Version.GetEntryByName("eventlog").Uri.ToString();
             return PartialView("~/Views/AutomationTasks/Tasks/AllTasks.cshtml");
         }
 
@@ -94,9 +94,9 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             ViewData["DefaultPageSize"] = DefaultPageSize;
             ViewBag.TasksUri = tasksUri;
-            ViewBag.ManageSystemPrivilege = Convert.ToString(SessionHelper.Session.IsValidToManageSystemPrivilege()).ToLowerInvariant();
-            ViewBag.CanScheduleAngles = Convert.ToString(SessionHelper.Session.IsValidToScheduleAngles()).ToLowerInvariant();
-            ViewBag.UserId = SessionHelper.CurrentUser.Id.Replace("\\", "\\\\");
+            ViewBag.ManageSystemPrivilege = Convert.ToString(AuthorizationHelper.Session.IsValidToManageSystemPrivilege()).ToLowerInvariant();
+            ViewBag.CanScheduleAngles = Convert.ToString(AuthorizationHelper.Session.IsValidToScheduleAngles()).ToLowerInvariant();
+            ViewBag.UserId = AuthorizationHelper.CurrentUser.Id.Replace("\\", "\\\\");
             string sortField = string.Empty, sortDirection = string.Empty;
             if (HttpContext != null && HttpContext.Request.Cookies[SortCookie] != null)
             {
@@ -217,8 +217,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         /// <returns></returns>
         public ActionResult EditTask(string tasksUri, string angleUri)
         {
-            bool canManageSystem = SessionHelper.Session.IsValidToManageSystemPrivilege();
-            bool canScheduleAngles = SessionHelper.Session.IsValidToScheduleAngles();
+            bool canManageSystem = AuthorizationHelper.Session.IsValidToManageSystemPrivilege();
+            bool canScheduleAngles = AuthorizationHelper.Session.IsValidToScheduleAngles();
 
             // task
             TaskViewModel task = GetTask(tasksUri);
@@ -230,7 +230,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             SetPluginToDataStores(dataStores);
 
             // create model datasource
-            List<ModelViewModel> allModels = SessionHelper.Models;
+            List<ModelViewModel> allModels = AuthorizationHelper.Models;
             List<SelectListItem> models = new List<SelectListItem>();
             foreach (ModelViewModel item in allModels)
             {
@@ -244,25 +244,25 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             ViewBag.TasksUri = tasksUri;
             ViewBag.TasksActionsUri = tasksUri + "/actions";
-            ViewBag.IsTaskOwner = task.run_as_user == SessionHelper.CurrentUser.Id;
-            ViewBag.DefaultApprovalState = SessionHelper.SystemSettings.default_approval_state;
+            ViewBag.IsTaskOwner = task.run_as_user == AuthorizationHelper.CurrentUser.Id;
+            ViewBag.DefaultApprovalState = AuthorizationHelper.SystemSettings.default_approval_state;
 
             ViewData["AngleUri"] = angleUri;
             ViewData["DataStores"] = GetDataStoresDataSource(dataStores);
             ViewData["Scripts"] = GetScriptsDataSource();
             ViewData["CanManageSystem"] = canManageSystem;
             ViewData["CanScheduleAngles"] = canScheduleAngles;
-            ViewData["ModelPrivileges"] = SessionHelper.Session.ModelPrivileges;
+            ViewData["ModelPrivileges"] = AuthorizationHelper.Session.ModelPrivileges;
             ViewData["TaskData"] = JsonConvert.SerializeObject(task);
-            ViewData["TaskCreator"] = task.created == null ? SessionHelper.CurrentUser.Uri.ToString() : task.created.Uri.ToString();
+            ViewData["TaskCreator"] = task.created == null ? AuthorizationHelper.CurrentUser.Uri.ToString() : task.created.Uri.ToString();
 
             // use for model dropdown list
             ViewData["AllModel"] = models;
 
             // use for checking priviledge
             ViewData["AllModels"] = allModels;
-            ViewBag.TaskHistoryUri = SessionHelper.Version.GetEntryByName("eventlog").Uri.ToString();
-            ViewBag.UserId = SessionHelper.CurrentUser.Id.Replace("\\", "\\\\");
+            ViewBag.TaskHistoryUri = AuthorizationHelper.Version.GetEntryByName("eventlog").Uri.ToString();
+            ViewBag.UserId = AuthorizationHelper.CurrentUser.Id.Replace("\\", "\\\\");
             return PartialView("~/Views/AutomationTasks/Tasks/TaskDetail.cshtml");
         }
 
@@ -309,7 +309,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             VerifyPriviledge(task);
 
             task.name = taskName;
-            string createTaskUri = SessionHelper.Version.GetEntryByName("tasks").Uri.ToString();
+            string createTaskUri = AuthorizationHelper.Version.GetEntryByName("tasks").Uri.ToString();
             task = _taskService.CreateTask(createTaskUri, task);
 
             return new JsonResult
@@ -358,7 +358,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult RenderDataStoresPage()
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             ViewBag.DatastoreUri = version.GetEntryByName("system_datastores").Uri.ToString();
             ViewBag.DatastorePlugins = GetDatastorePlugins(false);
             return PartialView("~/Views/AutomationTasks/DataStores/AllDataStores.cshtml");
@@ -461,7 +461,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public List<Tuple<string, string, string, bool?>> GetDatastorePlugins(bool isWriteOnly)
         {
-            var version = SessionHelper.Version;
+            var version = AuthorizationHelper.Version;
             var dataStoresPluginsUri = version.GetEntryByName("system_datastore_plugins").Uri.ToString();
             var plugins = _automationTaskService.GetDatastorePlugins(dataStoresPluginsUri);
             var pluginsData = new List<Tuple<string, string, string, bool?>>();
@@ -485,7 +485,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             DataStoresViewModel datastore;
             if (isNewDatastore)
             {
-                string createDatastoreUri = SessionHelper.Version.GetEntryByName("system_datastores").Uri.ToString();
+                string createDatastoreUri = AuthorizationHelper.Version.GetEntryByName("system_datastores").Uri.ToString();
                 datastore = _automationTaskService.CreateDataStore(createDatastoreUri, datastoreData);
             }
             else
@@ -573,7 +573,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             TaskViewModel task = JsonConvert.DeserializeObject<TaskViewModel>(taskData);
             if (string.IsNullOrEmpty(taskUri))
             {
-                string createTaskUri = SessionHelper.Version.GetEntryByName("tasks").Uri.ToString();
+                string createTaskUri = AuthorizationHelper.Version.GetEntryByName("tasks").Uri.ToString();
                 task = _taskService.CreateTask(createTaskUri, task);
             }
             else
@@ -635,7 +635,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ExecuteTaskAction(string task)
         {
-            string tasksUri = SessionHelper.Version.GetEntryByName("tasks").Uri.ToString();
+            string tasksUri = AuthorizationHelper.Version.GetEntryByName("tasks").Uri.ToString();
             TaskViewModel result = _modelService.CreateTask(tasksUri, task);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -655,7 +655,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public string GetDataStoresUri()
         {
-            return string.Format("{0}?{1}", SessionHelper.Version.GetEntryByName("system_datastores").Uri.ToString(), OffsetLimitQuery);
+            return string.Format("{0}?{1}", AuthorizationHelper.Version.GetEntryByName("system_datastores").Uri.ToString(), OffsetLimitQuery);
         }
 
         #endregion
@@ -664,21 +664,21 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private bool CanUpdateTask(TaskViewModel task)
         {
-            var isTaskOwner = task.run_as_user == SessionHelper.CurrentUser.Id;
-            var canScheduleAngles = SessionHelper.Session.IsValidToScheduleAngles();
-            var canManageSystem = SessionHelper.Session.IsValidToManageSystemPrivilege();
+            var isTaskOwner = task.run_as_user == AuthorizationHelper.CurrentUser.Id;
+            var canScheduleAngles = AuthorizationHelper.Session.IsValidToScheduleAngles();
+            var canManageSystem = AuthorizationHelper.Session.IsValidToManageSystemPrivilege();
             var result = canManageSystem || (canScheduleAngles && isTaskOwner);
             return result;
         }
 
         private JObject GetAngle(string angleUri, bool canSeeScheduledtasks = true)
         {
-            var userSettings = SessionHelper.GetUserSettings();
+            var userSettings = AuthorizationHelper.GetUserSettings();
             var userLanguage = string.IsNullOrEmpty(userSettings.default_language) ? "en" : userSettings.default_language;
             var angleUrl = string.Format("{0}?lang={1}&can_see_scheduled_tasks={2}", UrlHelper.GetRequestUrl(URLType.NOA) + angleUri, userLanguage, canSeeScheduledtasks);
             var requestManager = RequestManager.Initialize(angleUrl);
             JObject output = requestManager.Run();
-            var model = SessionHelper.GetModel(UrlHelper.GetRequestUrl(URLType.NOA) + output.SelectToken("model"));
+            var model = AuthorizationHelper.GetModel(UrlHelper.GetRequestUrl(URLType.NOA) + output.SelectToken("model"));
             if (model != null)
             {
                 output.Add("modelId", model.id);
@@ -695,7 +695,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private void SetPluginToDataStores(List<DataStoresViewModel> dataStores)
         {
             // plugin
-            string dataStorePluginUri = SessionHelper.Version.GetEntryByName("system_datastore_plugins").Uri.ToString();
+            string dataStorePluginUri = AuthorizationHelper.Version.GetEntryByName("system_datastore_plugins").Uri.ToString();
             ListViewModel<DataStorePluginsViewModel> dataStorePlugin = _automationTaskService.GetDatastorePlugins(dataStorePluginUri);
             foreach (DataStoresViewModel item in dataStores)
             {
@@ -725,7 +725,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private List<SystemScriptViewModel> GetScriptsDataSource()
         {
-            string scriptUri = SessionHelper.Version.GetEntryByName("system_scripts").Uri.ToString();
+            string scriptUri = AuthorizationHelper.Version.GetEntryByName("system_scripts").Uri.ToString();
             List<SystemScriptViewModel> scripts = _systemScriptService.GetSystemScripts(scriptUri);
             scripts.Insert(0, new SystemScriptViewModel
             {
@@ -803,7 +803,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     name = "new_task",
                     actions = new List<TaskAction>(),
                     Triggers = new List<TriggerViewModel>(),
-                    run_as_user = SessionHelper.CurrentUser.Id
+                    run_as_user = AuthorizationHelper.CurrentUser.Id
                 };
 
                 TriggerViewModel trigger = new TriggerViewModel
@@ -845,8 +845,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         /// <param name="task">task to verify</param>
         internal void VerifyPriviledge(TaskViewModel task)
         {
-            List<ModelViewModel> models = SessionHelper.Models.ToList();
-            List<ModelPrivilegeViewModel> modelPrivileges = SessionHelper.Session.ModelPrivileges.ToList();
+            List<ModelViewModel> models = AuthorizationHelper.Models.ToList();
+            List<ModelPrivilegeViewModel> modelPrivileges = AuthorizationHelper.Session.ModelPrivileges.ToList();
             foreach (TaskAction action in task.actions)
             {
                 string modelId = action.arguments.FirstOrDefault(filter => filter.name == "model")?.value?.ToString();
@@ -902,7 +902,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         internal void MapAngleDisplayToTaskAction(List<TaskAction> taskActions, List<ItemViewModel> items)
         {
-            var models = SessionHelper.Models.ToList();
+            var models = AuthorizationHelper.Models.ToList();
             foreach (TaskAction action in taskActions)
             {
                 var angleId = action.arguments.FirstOrDefault(filter => filter.name == "angle_id");

@@ -43,14 +43,14 @@ namespace EveryAngle.ManagementConsole.Controllers
             ISessionService sessionService,
             IGlobalSettingService globalSettingService,
             ILabelService labelService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             _userService = service;
             _modelService = modelService;
             _sessionService = sessionService;
             _globalSettingService = globalSettingService;
             _labelService = labelService;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         public UsersController(
@@ -65,17 +65,17 @@ namespace EveryAngle.ManagementConsole.Controllers
             _sessionService = sessionService;
             _globalSettingService = globalSettingService;
             _labelService = labelService;
-            SessionHelper = SessionHelper.Initialize();
+            AuthorizationHelper = AuthorizationHelper.Initialize();
         }
 
         #region Save User Settings
 
         public void SaveUserSettingViewMode(string clientSetting)
         {
-            string url = SessionHelper.CurrentUser.UserSettings.ToString();
+            string url = AuthorizationHelper.CurrentUser.UserSettings.ToString();
             string saveData = JsonConvert.SerializeObject(new { client_settings = clientSetting });
             _userService.UpdateUserSetting(url, saveData);
-            SessionHelper.RefreshUserSettings();
+            AuthorizationHelper.RefreshUserSettings();
         }
 
         #endregion
@@ -86,13 +86,13 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetAllUsers()
         {
-            ViewBag.CurrentUser = SessionHelper.CurrentUser.Uri.ToString();
+            ViewBag.CurrentUser = AuthorizationHelper.CurrentUser.Uri.ToString();
             return PartialView("~/Views/User/AllUsers.cshtml");
         }
 
         public ActionResult GetFilterUsers(string q = "")
         {
-            UserViewModel currentUser = SessionHelper.CurrentUser;
+            UserViewModel currentUser = AuthorizationHelper.CurrentUser;
             ViewBag.CurrentUserID = currentUser.Id;
             ViewBag.CurrentUserUri = currentUser.Uri.ToString();
             ViewData["DefaultPageSize"] = DefaultPageSize;
@@ -128,7 +128,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private ListViewModel<UserViewModel> GetUsers([DataSourceRequest] DataSourceRequest request,
             int page, int pagesize, string q = "")
         {
-            VersionViewModel version = SessionHelper.Version;
+            VersionViewModel version = AuthorizationHelper.Version;
             string url = version.GetEntryByName("users").UriAsString;
             string offsetLimit = UtilitiesHelper.GetOffsetLimitQueryString(page, pagesize, q);
             string query = string.Format("{0}?{1}", url, offsetLimit);
@@ -164,7 +164,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetSystemProvider()
         {
             List<SystemAuthenticationProviderViewModel> enabledProviders = GetSystemAuthenticationProviders().Where(p => p.IsEnabled).ToList();
-            string defaultAuthenticationProvider = SessionHelper.SystemSettings.DefaultAuthenticationProvider;
+            string defaultAuthenticationProvider = AuthorizationHelper.SystemSettings.DefaultAuthenticationProvider;
             dynamic data = new
             {
                 default_provider = defaultAuthenticationProvider,
@@ -243,7 +243,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private IEnumerable<SystemAuthenticationProviderViewModel> GetSystemAuthenticationProviders()
         {
-            string url = SessionHelper.Version.GetEntryByName("authentication_providers").Uri.ToString();
+            string url = AuthorizationHelper.Version.GetEntryByName("authentication_providers").Uri.ToString();
             return _userService.GetSystemAuthenticationProviders(url);
         }
 
@@ -262,7 +262,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     //model uri
                     string modelUrl = systemRole.ModelPrivilege.model.ToString();
                     // load model from the session
-                    assignedRole.ModelId = SessionHelper.GetModelFromSession(modelUrl).id;
+                    assignedRole.ModelId = AuthorizationHelper.GetModelFromSession(modelUrl).id;
                 }
                 assignedRoleViewModels.Add(assignedRole);
             }
@@ -306,7 +306,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                         // model role
                         string modelUrl = systemRoleViewModel.ModelPrivilege.model.ToString();
-                        ModelViewModel model = SessionHelper.GetModelFromSession(modelUrl);
+                        ModelViewModel model = AuthorizationHelper.GetModelFromSession(modelUrl);
                         if (model.id == assignedRoleViewModel.ModelId)
                         {
                             assignSystemRoleViewModels.Add(systemRoleViewModel);
@@ -331,7 +331,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private List<SystemRoleViewModel> GetAllRoles()
         {
             List<SystemRoleViewModel> systemRoles = new List<SystemRoleViewModel>();
-            Entry systemRoleEntry = SessionHelper.Version.GetEntryByName("system_roles");
+            Entry systemRoleEntry = AuthorizationHelper.Version.GetEntryByName("system_roles");
             if (systemRoleEntry != null)
             {
                 string systemRoleUrl = string.Format("{0}?{1}", systemRoleEntry.Uri, OffsetLimitQuery);
@@ -365,7 +365,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult EditUser(string userUri)
         {
-            VersionViewModel version = SessionHelper.Version;
+            VersionViewModel version = AuthorizationHelper.Version;
             List<SystemRoleViewModel> systemRoles = GetFullSystemRoles();
             IEnumerable<SystemAuthenticationProviderViewModel> providers = GetSystemAuthenticationProviders();
             List<LabelViewModel> businessProcesses = _labelService.GetLabels(version.GetEntryByName("business_processes").Uri.ToString()).Data;
@@ -458,7 +458,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private List<SystemRoleViewModel> GetFullSystemRoles()
         {
-            List<ModelViewModel> models = SessionHelper.Models;
+            List<ModelViewModel> models = AuthorizationHelper.Models;
             List<SystemRoleViewModel> systemRoles = GetAllRoles();
 
             // set more info.
@@ -676,7 +676,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             if (consolidatedRole != null && consolidatedRole.modelserver_authorization != null)
             {
-                var model = SessionHelper.GetModel(consolidatedRole.model.ToString());
+                var model = AuthorizationHelper.GetModel(consolidatedRole.model.ToString());
 
                 //set short name to allowed class
                 var requestClasses = new List<string>();
@@ -837,7 +837,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetAllSessions()
         {
-            ViewBag.CurrentUserUri = SessionHelper.CurrentUser.Uri.ToString();
+            ViewBag.CurrentUserUri = AuthorizationHelper.CurrentUser.Uri.ToString();
             return PartialView("~/Views/User/Sessions/AllSessions.cshtml");
         }
 
@@ -889,9 +889,9 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private ListViewModel<SessionViewModel> GetSessions([DataSourceRequest] DataSourceRequest request, string q)
         {
-            VersionViewModel version = SessionHelper.Version;
-            SessionViewModel currentSession = SessionHelper.Session;
-            string currentUserId = SessionHelper.CurrentUser.Id;
+            VersionViewModel version = AuthorizationHelper.Version;
+            SessionViewModel currentSession = AuthorizationHelper.Session;
+            string currentUserId = AuthorizationHelper.CurrentUser.Id;
 
             string offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(request.Page, request.PageSize, q);
             string sessionsUrl = string.Format("{0}?{1}", version.GetEntryByName("sessions").Uri, offsetLimitQuery);
@@ -912,7 +912,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetUserDefaultSetting()
         {
-            VersionViewModel version = SessionHelper.Version;
+            VersionViewModel version = AuthorizationHelper.Version;
             UserSettingsViewModel userDefaults = _userService.GetUserSetting(version.GetEntryByName("default_user_settings").Uri.ToString());
             if (string.IsNullOrEmpty(userDefaults.format_locale))
             {
@@ -980,7 +980,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveUserDefaultsSettings(string userDefaultsSettingsData)
         {
-            VersionViewModel version = SessionHelper.Version;
+            VersionViewModel version = AuthorizationHelper.Version;
             string defaultUserSettingsUri = version.GetEntryByName("default_user_settings").Uri.ToString();
             UserSettingsViewModel userDefaults = JsonConvert.DeserializeObject<UserSettingsViewModel>(userDefaultsSettingsData);
             UserSettingsViewModel existUserDefaults = _userService.GetUserSetting(defaultUserSettingsUri);

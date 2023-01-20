@@ -31,11 +31,11 @@ namespace EveryAngle.ManagementConsole.Controllers
         public DownloadTableController(
             IDownloadTableService downloadTableService,
             IModelService modelService,
-            SessionHelper sessionHelper)
+            AuthorizationHelper sessionHelper)
         {
             _downloadTableService = downloadTableService;
             _modelService = modelService;
-            SessionHelper = sessionHelper;
+            AuthorizationHelper = sessionHelper;
         }
 
         public DownloadTableController(
@@ -52,7 +52,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetDownloadTablePage(string modelUri, string modelId)
         {
-            var model = SessionHelper.GetModel(modelUri);
+            var model = AuthorizationHelper.GetModel(modelUri);
             ViewBag.ModelUri = modelUri;
             ViewBag.ModelId = modelId;
             ViewBag.ModelName = model.short_name;
