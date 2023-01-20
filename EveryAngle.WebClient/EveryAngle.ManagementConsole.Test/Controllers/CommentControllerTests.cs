@@ -34,9 +34,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // prepare
             _testingUser = new UserViewModel { Uri = new Uri("/users/1", UriKind.Relative) };
-            sessionHelper.SetupGet(x => x.CurrentUser).Returns(_testingUser);
-            sessionHelper.SetupGet(x => x.SystemSettings).Returns(new SystemSettingViewModel { default_pagesize = 10 });
-            sessionHelper.SetupGet(x => x.Version).Returns(new VersionViewModel
+            authorizationHelper.SetupGet(x => x.CurrentUser).Returns(_testingUser);
+            authorizationHelper.SetupGet(x => x.SystemSettings).Returns(new SystemSettingViewModel { default_pagesize = 10 });
+            authorizationHelper.SetupGet(x => x.Version).Returns(new VersionViewModel
             {
                 Version = "1",
                 Entries = new List<Entry> { new Entry { Name = "comments", Uri = new Uri("/comments", UriKind.Relative) } }
@@ -53,7 +53,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             });
 
             // assign
-            _testingController = new CommentController(commentService.Object, sessionHelper.Object);
+            _testingController = new CommentController(commentService.Object, authorizationHelper.Object);
         }
 
         #endregion
@@ -67,7 +67,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Action action = new Action(() =>
             {
                 _testingController = new CommentController(commentService.Object);
-                _testingController = new CommentController(commentService.Object, sessionHelper.Object);
+                _testingController = new CommentController(commentService.Object, authorizationHelper.Object);
             });
 
             // assert

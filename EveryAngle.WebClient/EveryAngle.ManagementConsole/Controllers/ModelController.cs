@@ -35,12 +35,12 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService service,
             IModelAgentService modelAgentService,
             IComponentService componentService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             this.modelService = service;
             this.modelAgentService = modelAgentService;
             this.componentService = componentService;
-            this.AuthorizationHelper = sessionHelper;
+            this.AuthorizationHelper = authorizationHelper;
         }
         public ModelController(
             IModelService service,

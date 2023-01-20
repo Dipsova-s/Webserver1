@@ -149,12 +149,12 @@ namespace EveryAngle.ManagementConsole.Helpers
 
         public static string GetWebclientUrl()
         {
-            AuthorizationHelper sessionHelper = AuthorizationHelper.Initialize();
-            EveryAngle.Core.ViewModels.Users.UserViewModel user = sessionHelper.CurrentUser;
+            AuthorizationHelper authorizationHelper = AuthorizationHelper.Initialize();
+            EveryAngle.Core.ViewModels.Users.UserViewModel user = authorizationHelper.CurrentUser;
             string webClientAngleUrl = "";
             if (user != null && user.ModelPrivileges != null)
             {
-                bool isPossibleToAccessWC = sessionHelper.Session.IsValidToAccessWebClient();
+                bool isPossibleToAccessWC = authorizationHelper.Session.IsValidToAccessWebClient();
                 if (isPossibleToAccessWC)
                 {
                     string defaultLanguage = "{0}";

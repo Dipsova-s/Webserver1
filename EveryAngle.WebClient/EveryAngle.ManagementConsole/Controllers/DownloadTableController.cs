@@ -31,11 +31,11 @@ namespace EveryAngle.ManagementConsole.Controllers
         public DownloadTableController(
             IDownloadTableService downloadTableService,
             IModelService modelService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             _downloadTableService = downloadTableService;
             _modelService = modelService;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         public DownloadTableController(

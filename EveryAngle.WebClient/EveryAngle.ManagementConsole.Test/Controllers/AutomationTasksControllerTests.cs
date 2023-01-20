@@ -49,8 +49,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     }
                 }
             };
-            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
-            sessionHelper.SetupGet(x => x.Version).Returns(new VersionViewModel
+            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.Version).Returns(new VersionViewModel
             {
                 Version = "1",
                 Entries = new List<Entry> {
@@ -62,7 +62,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 }
             });
 
-            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
+            authorizationHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
             {
                 new ModelViewModel
                 {
@@ -81,7 +81,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 excelTemplateService.Object,
                 systemScriptService.Object,
                 itemService.Object,
-                sessionHelper.Object);
+                authorizationHelper.Object);
         }
 
         #endregion
@@ -124,7 +124,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual("false", _testingController.ViewBag.CanScheduleAngles);
 
             Assert.AreEqual(
-                sessionHelper.Object.CurrentUser.Id.Replace("\\", "\\\\"),
+                authorizationHelper.Object.CurrentUser.Id.Replace("\\", "\\\\"),
                 _testingController.ViewBag.UserId);
         }
 
@@ -135,7 +135,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             string expectedLimit = string.Format("limit={0}", mockPageSize);
 
             // setup
-            sessionHelper.SetupGet(x => x.SystemSettings).Returns(new SystemSettingViewModel { max_pagesize = mockPageSize });
+            authorizationHelper.SetupGet(x => x.SystemSettings).Returns(new SystemSettingViewModel { max_pagesize = mockPageSize });
 
             // execute
             string dataStoresUri = _testingController.GetDataStoresUri();
@@ -243,7 +243,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     }
                 }
             };
-            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
 
             TaskViewModel task = new TaskViewModel
             {
@@ -598,8 +598,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 default_approval_state = "disabled"
             };
 
-            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
-            sessionHelper.SetupGet(x => x.SystemSettings).Returns(systemSettings);
+            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.SystemSettings).Returns(systemSettings);
 
             List<SystemScriptViewModel> scripts = new List<SystemScriptViewModel>
             {
@@ -679,13 +679,13 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
             sessionViewModel.SystemPrivileges.manage_system = false;
             sessionViewModel.SystemPrivileges.schedule_angles = true;
-            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
             var userViewModel = new UserViewModel
             {
                 Id = "local\\test",
                 Uri = new Uri("/users/1", UriKind.Relative)
             };
-            sessionHelper.SetupGet(x => x.CurrentUser).Returns(userViewModel);
+            authorizationHelper.SetupGet(x => x.CurrentUser).Returns(userViewModel);
             taskService.Setup(m => m.UpdateTask(It.IsAny<TaskViewModel>(), false)).Returns(new TaskViewModel() { Uri = new Uri(taskUri) });
 
             //act.
@@ -705,7 +705,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
             sessionViewModel.SystemPrivileges.manage_system = false;
             sessionViewModel.SystemPrivileges.schedule_angles = true;
-            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
             taskService.Setup(m => m.UpdateTask(It.IsAny<TaskViewModel>(), true)).Returns(new TaskViewModel() { Uri = new Uri(taskUri) });
 
             //act.

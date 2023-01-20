@@ -43,14 +43,14 @@ namespace EveryAngle.ManagementConsole.Controllers
             ISessionService sessionService,
             IGlobalSettingService globalSettingService,
             ILabelService labelService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             _userService = service;
             _modelService = modelService;
             _sessionService = sessionService;
             _globalSettingService = globalSettingService;
             _labelService = labelService;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         public UsersController(

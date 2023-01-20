@@ -43,7 +43,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 logFileReaderService.Object,
                 systemSettingsService.Object,
                 stsLogService.Object,
-                sessionHelper.Object
+                authorizationHelper.Object
             );
         }
 
@@ -85,7 +85,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 }
             };
 
-            string result = _testingController.GetAuthenticationSystemSettingsAsJsonString(sessionHelper.Object, viewModel);
+            string result = _testingController.GetAuthenticationSystemSettingsAsJsonString(authorizationHelper.Object, viewModel);
 
             Assert.AreEqual("{\"trusted_webservers\":[\"192.168.1.1\",\"127.0.0.1\"],\"default_authentication_provider\":\"everyangle\"}", result);
         }
@@ -98,7 +98,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase(SystemLogType.STS)]
         public void SystemLog_Should_RunClientOperationsWithLogViewer_When_LogTypeIs(SystemLogType logType)
         {
-            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>());
+            authorizationHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>());
             string target = logType.ToString();
             PartialViewResult view = _testingController.SystemLog(target, string.Empty, string.Empty) as PartialViewResult;
 
@@ -245,9 +245,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     }
                 }
             };
-            sessionHelper.SetupGet(x => x.Version)
+            authorizationHelper.SetupGet(x => x.Version)
                 .Returns(version);
-            sessionHelper.SetupGet(x => x.Info)
+            authorizationHelper.SetupGet(x => x.Info)
                 .Returns(new SystemInformationViewModel
                 {
                     features = new List<FeatureViewModel>()
@@ -275,7 +275,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [Test]
         public void RenderExportPackageForm_Should_Return_PartialView()
         {
-            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
+            authorizationHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
             {
                 new ModelViewModel
                 {

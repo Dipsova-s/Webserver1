@@ -30,10 +30,10 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ComponentController(
             IComponentService componentService,
             IModelService modelService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
             : this(componentService, modelService)
         {
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         public ActionResult SystemComponents()

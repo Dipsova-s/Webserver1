@@ -28,10 +28,10 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public AngleExportsController(
             IFileTemplateService excelTemplatesService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             this.excelTemplatesService = excelTemplatesService;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         public ActionResult RenderExcelTemplates()

@@ -30,7 +30,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             _globalSettingService = new Mock<IGlobalSettingService>();
             _modelService = new Mock<IModelService>();
-            _controller = new SuggestedFieldsController(_modelService.Object, _globalSettingService.Object, sessionHelper.Object);
+            _controller = new SuggestedFieldsController(_modelService.Object, _globalSettingService.Object, authorizationHelper.Object);
         }
 
         [Test]
@@ -53,10 +53,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 client_settings = "client settings"
             };
 
-            sessionHelper.Setup(x => x.GetModel(modelUri)).Returns(model);
-            sessionHelper.SetupGet(x => x.SystemSettings).Returns(systemSettings);
-            sessionHelper.SetupGet(x => x.CurrentUser).Returns(new UserViewModel { Settings = userSettings });
-            sessionHelper.SetupGet(x => x.Version).Returns(new VersionViewModel
+            authorizationHelper.Setup(x => x.GetModel(modelUri)).Returns(model);
+            authorizationHelper.SetupGet(x => x.SystemSettings).Returns(systemSettings);
+            authorizationHelper.SetupGet(x => x.CurrentUser).Returns(new UserViewModel { Settings = userSettings });
+            authorizationHelper.SetupGet(x => x.Version).Returns(new VersionViewModel
             {
                 Entries = new List<Entry>
                 {

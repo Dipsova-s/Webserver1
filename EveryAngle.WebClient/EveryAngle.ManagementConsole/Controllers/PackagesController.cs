@@ -33,12 +33,12 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService modelService,
             IPackageService packageService,
             IFacetService facetService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             this.modelService = modelService;
             this.packageService = packageService;
             this.facetService = facetService;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         public PackagesController(

@@ -42,7 +42,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Action action = new Action(() =>
             {
                 _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object);
-                _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object, sessionHelper.Object);
+                _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object, authorizationHelper.Object);
             });
 
             // assert
@@ -56,7 +56,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             // prepare
             List<string> activeLangs = new List<string> { "nl", "de", "en" };
             modelService.Setup(x => x.GetModel(It.IsAny<string>())).Returns(new ModelViewModel { id = modelId, active_languages = activeLangs });
-            _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object, sessionHelper.Object);
+            _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object, authorizationHelper.Object);
 
             // execute
             _testingController.GetModelLanguages(modelUri);
@@ -80,7 +80,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                                         };
 
             globalSettingService.Setup(x => x.GetSystemLanguages(It.IsAny<string>())).Returns(_systemLanguages);
-            _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object, sessionHelper.Object);
+            _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object, authorizationHelper.Object);
 
             // execute
             JsonResult result = _testingController.ReadLanguages(null) as JsonResult;
@@ -99,7 +99,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void Can_SaveActiveLanguages()
         {
             // just execute, nothing no logic when execute SaveActiveLanguages, void returned
-            _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object, sessionHelper.Object);
+            _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object, authorizationHelper.Object);
             Action action = new Action(() => { _testingController.SaveActiveLanguages("", ""); });
 
             // assert, just invoke our function, and it should working without exception

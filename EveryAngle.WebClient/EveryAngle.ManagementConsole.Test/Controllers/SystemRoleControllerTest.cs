@@ -35,11 +35,11 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             base.Setup();
 
             // session helper
-            sessionHelper.SetupGet(x => x.Session).Returns(GetMockViewModel<SessionViewModel>());
+            authorizationHelper.SetupGet(x => x.Session).Returns(GetMockViewModel<SessionViewModel>());
 
             // initial controller
             testController = new SystemRoleController(
-                modelService.Object, globalSettingService.Object, sessionService.Object, userService.Object, sessionHelper.Object);
+                modelService.Object, globalSettingService.Object, sessionService.Object, userService.Object, authorizationHelper.Object);
         }
 
         #endregion
@@ -72,7 +72,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             // remove system_roles for access denied
             if (!hasSystemRoles)
             {
-                sessionHelper.Object.Version.Entries = sessionHelper.Object.Version.Entries.Where(x => x.Name != "system_roles").ToList();
+                authorizationHelper.Object.Version.Entries = authorizationHelper.Object.Version.Entries.Where(x => x.Name != "system_roles").ToList();
             }
             
             // execute

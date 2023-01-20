@@ -127,7 +127,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 modelService.Object,
                 modelAgentService.Object,
                 componentService.Object,
-                sessionHelper.Object
+                authorizationHelper.Object
             );
         }
 

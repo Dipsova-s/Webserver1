@@ -109,7 +109,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ILogFileReaderService logFileReaderService,
             IGlobalSettingsAppService systemSettingsService,
             ISTSLogService stsLogService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             this.modelService = modelService;
             this.globalSettingService = globalSettingService;
@@ -120,7 +120,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             this.logFileReaderService = logFileReaderService;
             this.systemSettingsService = systemSettingsService;
             this.stsLogService = stsLogService;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         public ActionResult GetSystemSettings()

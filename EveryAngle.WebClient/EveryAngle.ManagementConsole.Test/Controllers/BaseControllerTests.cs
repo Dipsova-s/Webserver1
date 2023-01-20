@@ -174,8 +174,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         private class BaseControllerTestClass : BaseController
         {
-            public BaseControllerTestClass(AuthorizationHelper sessionHelper, IValidationRequestService validationRequestService)
-                : base(sessionHelper, validationRequestService)
+            public BaseControllerTestClass(AuthorizationHelper authorizationHelper, IValidationRequestService validationRequestService)
+                : base(authorizationHelper, validationRequestService)
             {
             }
 

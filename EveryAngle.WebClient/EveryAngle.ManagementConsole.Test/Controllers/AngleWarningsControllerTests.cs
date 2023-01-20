@@ -84,7 +84,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             autoWarningsSolver.Setup(x => x.GetNumberOfSolvableFieldsViaInputFile(It.IsAny<AngleWarningsDataSourceResult>(), out hasAutomationTasks)).Returns(88);
             
             // assign to controller
-            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoWarningsSolver.Object, angleWarningsFileManager.Object, sessionHelper.Object);
+            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoWarningsSolver.Object, angleWarningsFileManager.Object, authorizationHelper.Object);
             _testingController.ControllerContext = new ControllerContext(contextBase.Object, new RouteData(), _testingController);
         }
 
@@ -98,11 +98,11 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         {
             // prepare
             _sessionViewmodel.Setup(x => x.IsValidToAccessWebClient(It.IsAny<string>())).Returns(isValidToAccessWebClient);
-            sessionHelper.Setup(x => x.Session).Returns(_sessionViewmodel.Object);
+            authorizationHelper.Setup(x => x.Session).Returns(_sessionViewmodel.Object);
 
             UserViewModel userViewModel = GetMockViewModel<UserViewModel>();
             userViewModel.Settings = GetMockViewModel<UserSettingsViewModel>();
-            sessionHelper.Setup(x => x.CurrentUser).Returns(userViewModel);
+            authorizationHelper.Setup(x => x.CurrentUser).Returns(userViewModel);
 
             List<string> csvData = new List<string>();
             csvData.Add("Field__A,Field__B");
@@ -113,10 +113,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
             
             // execute
-            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, sessionHelper.Object);
+            _testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, authorizationHelper.Object);
             ActionResult result = _testingController.GetAngleWarnings(modelUri, modelId);
 
             // assert

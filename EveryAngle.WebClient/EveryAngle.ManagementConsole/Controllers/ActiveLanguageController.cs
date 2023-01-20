@@ -20,13 +20,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             IModelService service, 
             ILabelService labelService,
             IGlobalSettingService globalSettingService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             // testability only
             _modelService = service;
             _labelService = labelService;
             _globalSettingService = globalSettingService;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         public ActiveLanguageController(

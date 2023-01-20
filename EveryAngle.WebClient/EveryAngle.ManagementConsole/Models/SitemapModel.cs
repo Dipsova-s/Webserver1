@@ -23,15 +23,15 @@ namespace EveryAngle.ManagementConsole.Models
 
         #region private variables
 
-        private readonly AuthorizationHelper _sessionHelper;
+        private readonly AuthorizationHelper _authorizationHelper;
         private readonly IModelService _modelService;
         private List<SiteMap> _siteMaps = new List<SiteMap>();
 
         #endregion
 
-        public SiteMapModel(AuthorizationHelper sessionHelper, IModelService modelService)
+        public SiteMapModel(AuthorizationHelper authorizationHelper, IModelService modelService)
         {
-            _sessionHelper = sessionHelper;
+            _authorizationHelper = authorizationHelper;
             _modelService = modelService;
         }
 
@@ -70,11 +70,11 @@ namespace EveryAngle.ManagementConsole.Models
         /// </summary>
         public void CreateSiteMap()
         {
-            SessionViewModel currentSession = _sessionHelper.Session;
+            SessionViewModel currentSession = _authorizationHelper.Session;
             bool canAccessSystem = currentSession.IsValidToManagementAccess();
             bool canScheduleAngles = currentSession.IsValidToScheduleAngles();
             bool canUseOnlyAutomationTask = !canAccessSystem && canScheduleAngles;
-            bool isSupportAutomateTask = _sessionHelper.Info.AngleAutomation;
+            bool isSupportAutomateTask = _authorizationHelper.Info.AngleAutomation;
 
             if (!canUseOnlyAutomationTask)
             {
@@ -85,7 +85,7 @@ namespace EveryAngle.ManagementConsole.Models
                 _siteMaps.Add(GetGlobalSettingMenu());
 
                 // Models
-                _siteMaps.Add(GetModelsMenu(_sessionHelper.Models));
+                _siteMaps.Add(GetModelsMenu(_authorizationHelper.Models));
 
                 // Users
                 _siteMaps.Add(GetUserMenu());

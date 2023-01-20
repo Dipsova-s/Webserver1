@@ -32,17 +32,17 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult OverView()
         {
-            AuthorizationHelper sessionHelper = AuthorizationHelper.Initialize();
-            var models = sessionHelper.Models;
+            AuthorizationHelper authorizationHelper = AuthorizationHelper.Initialize();
+            var models = authorizationHelper.Models;
 
             //Get system license
-            var licenseUri = sessionHelper.GetSystemLicenseUri();
-            var modelLicense = sessionHelper.GetModelLicense(licenseUri);
+            var licenseUri = authorizationHelper.GetSystemLicenseUri();
+            var modelLicense = authorizationHelper.GetModelLicense(licenseUri);
 
             //Get Model Servers
-            var modelServers = sessionHelper.GetModelServers(models);
+            var modelServers = authorizationHelper.GetModelServers(models);
 
-            ViewBag.ModelServersUri = sessionHelper.GetModelServersUri();
+            ViewBag.ModelServersUri = authorizationHelper.GetModelServersUri();
             ViewBag.LicensesData = modelLicense;
             ViewBag.ModelServers = modelServers;
 

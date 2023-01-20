@@ -20,10 +20,10 @@ namespace EveryAngle.ManagementConsole.Controllers
             this.globalSettingService = globalSettingService;
         }
 
-        internal SuggestedFieldsController(IModelService service, IGlobalSettingService globalSettingService, AuthorizationHelper sessionHelper)
+        internal SuggestedFieldsController(IModelService service, IGlobalSettingService globalSettingService, AuthorizationHelper authorizationHelper)
             : this(service, globalSettingService)
         {
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         #region "Public"

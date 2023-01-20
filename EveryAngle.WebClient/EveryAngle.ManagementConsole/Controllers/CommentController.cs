@@ -30,10 +30,10 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public CommentController(
             ICommentService commentService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             _commentService = commentService;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         public CommentController(ICommentService commentService)

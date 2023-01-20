@@ -47,7 +47,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 current_instance = new Uri("http://NL-WEBMB01.everyangle.org:62029/models/1/instances/1")
             };
 
-            sessionHelper.Setup(x => x.Models).Returns(new List<ModelViewModel> { model });
+            authorizationHelper.Setup(x => x.Models).Returns(new List<ModelViewModel> { model });
 
             List<ModelServerViewModel> modelServers = new List<ModelServerViewModel>
             {
@@ -59,10 +59,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 }
             };
 
-            sessionHelper.Setup(x => x.GetModelServers(It.IsAny<List<ModelViewModel>>())).Returns(modelServers);
+            authorizationHelper.Setup(x => x.GetModelServers(It.IsAny<List<ModelViewModel>>())).Returns(modelServers);
 
             ComponentController controller = new ComponentController(
-                componentService.Object, modelService.Object, sessionHelper.Object);
+                componentService.Object, modelService.Object, authorizationHelper.Object);
 
             JsonResult jsonResult = controller.GetComponents();
 
@@ -84,7 +84,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 current_instance = new Uri("http://NL-WEBMB01.everyangle.org:62029/models/1/instances/1")
             };
 
-            sessionHelper.Setup(x => x.Models).Returns(new List<ModelViewModel> { model });
+            authorizationHelper.Setup(x => x.Models).Returns(new List<ModelViewModel> { model });
 
             List<ModelServerViewModel> modelServers = new List<ModelServerViewModel>
             {
@@ -96,10 +96,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 }
             };
 
-            sessionHelper.Setup(x => x.GetModelServers(It.IsAny<List<ModelViewModel>>())).Returns(modelServers);
+            authorizationHelper.Setup(x => x.GetModelServers(It.IsAny<List<ModelViewModel>>())).Returns(modelServers);
 
             ComponentController controller = new ComponentController(
-                componentService.Object, modelService.Object, sessionHelper.Object);
+                componentService.Object, modelService.Object, authorizationHelper.Object);
 
             JsonResult jsonResult = controller.GetComponents();
 
@@ -115,7 +115,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void GetComponents_Should_ReturnComponents_When_Called()
         {
             ComponentController controller = new ComponentController(
-               componentService.Object, modelService.Object, sessionHelper.Object);
+               componentService.Object, modelService.Object, authorizationHelper.Object);
             JsonResult jsonResult = controller.GetComponents();
 
             string json = JsonConvert.SerializeObject(jsonResult.Data);
@@ -129,7 +129,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         {
             //Prepare
             ComponentController controller = new ComponentController(
-                componentService.Object, modelService.Object, sessionHelper.Object);
+                componentService.Object, modelService.Object, authorizationHelper.Object);
 
 
             //Action

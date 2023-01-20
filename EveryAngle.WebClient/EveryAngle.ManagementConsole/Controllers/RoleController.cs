@@ -42,7 +42,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly ListViewModel<LabelCategoryViewModel> allCategoriesList = new ListViewModel<LabelCategoryViewModel>();
         private List<Tuple<string, string, string, bool, string>> fieldsList = new List<Tuple<string, string, string, bool, string>>();
 
-        private delegate void LoadParallelDataForEditRoleDelegate(VersionViewModel version, ModelViewModel model, AuthorizationHelper sessionHelper);
+        private delegate void LoadParallelDataForEditRoleDelegate(VersionViewModel version, ModelViewModel model, AuthorizationHelper authorizationHelper);
         private readonly LoadParallelDataForEditRoleDelegate _loadParallelDataForEditRole;
 
         public RoleController(IModelService modelService,
@@ -61,7 +61,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ILabelService labelService,
             IUserService userService,
             ITaskService taskService,
-            AuthorizationHelper sessionHelper) : base(sessionHelper)
+            AuthorizationHelper authorizationHelper) : base(authorizationHelper)
         {
             _modelService = modelService;
             _labelService = labelService;
@@ -1138,7 +1138,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private void LoadParallelDataForEditRole(VersionViewModel version
                             , ModelViewModel model
-                            , AuthorizationHelper sessionHelper)
+                            , AuthorizationHelper authorizationHelper)
         {
             var formatUrl = "{0}{1}{2}";
             var speratorUrl = "?";
@@ -1149,7 +1149,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             var fieldCategoriesUri = string.Format(formatUrl, version.GetEntryByEnum(VersionEntry.field_categories).Uri
                                                                  , speratorUrl
                                                                  , UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
-            var businessProcessesUri = string.Format(formatUrl, sessionHelper.Version.GetEntryByEnum(VersionEntry.business_processes).Uri
+            var businessProcessesUri = string.Format(formatUrl, authorizationHelper.Version.GetEntryByEnum(VersionEntry.business_processes).Uri
                                                                 , speratorUrl
                                                                 , offsetLimitQuery);
             var classesUri = string.Format(formatUrl, model.ClassesUri
@@ -1187,7 +1187,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        public void InitialViewBagForEditRole(string modelUri, string roleUri, ModelViewModel model, AuthorizationHelper sessionHelper, List<ModelServerViewModel> modelServers)
+        public void InitialViewBagForEditRole(string modelUri, string roleUri, ModelViewModel model, AuthorizationHelper authorizationHelper, List<ModelServerViewModel> modelServers)
         {
             // slave model server will show in compact details mode
             ViewData["ShowFullRoleDetails"] = modelServers.Any(x => x.IsPrimaryType);
@@ -1199,13 +1199,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewData["CommentType"] = string.Format("{0}{1}", model.id, "_ROLES");
             ViewData["DefaultPagesize"] = DefaultPageSize;
             ViewData["MaxPageSize"] = MaxPageSize;
-            ViewData["MaxDomainElementsForSearch"] = sessionHelper.SystemSettings.max_domainelements_for_search;
+            ViewData["MaxDomainElementsForSearch"] = authorizationHelper.SystemSettings.max_domainelements_for_search;
             ViewData["labelCategoriesList"] = allCategoriesList.Data.Where(x => x.used_for_authorization).ToList();
             ViewData["labelsList"] = GetLabelDropdown(allLabelsList);
             ViewData["ModelData"] = model;
             ViewData["FieldsUri"] = model.FieldsUri.ToString();
-            ViewData["SupportODataService"] = sessionHelper.Info.ODataService;
-            ViewData["ClientSettings"] = sessionHelper.CurrentUser.Settings.client_settings;
+            ViewData["SupportODataService"] = authorizationHelper.Info.ODataService;
+            ViewData["ClientSettings"] = authorizationHelper.CurrentUser.Settings.client_settings;
             ViewData["ModelType"] = modelServers.Any(x => x.IsHanaServer) ? "HanaServer" : "ModelServer";
         }
 

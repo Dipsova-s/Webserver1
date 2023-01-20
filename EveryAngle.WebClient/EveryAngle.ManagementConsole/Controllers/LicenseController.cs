@@ -22,10 +22,10 @@ namespace EveryAngle.ManagementConsole.Controllers
             AuthorizationHelper = AuthorizationHelper.Initialize();
         }
 
-        public LicenseController(IGlobalSettingService globalSettingService, AuthorizationHelper sessionHelper)
+        public LicenseController(IGlobalSettingService globalSettingService, AuthorizationHelper authorizationHelper)
         {
             this.globalSettingService = globalSettingService;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         public ActionResult GetLicense()

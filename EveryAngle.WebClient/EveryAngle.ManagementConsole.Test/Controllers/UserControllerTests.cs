@@ -41,9 +41,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             base.Setup();
 
             // basic use for this controller
-            sessionHelper.SetupGet(x => x.SystemSettings).Returns(GetMockViewModel<SystemSettingViewModel>());
-            sessionHelper.SetupGet(x => x.Version).Returns(GetMockViewModel<VersionViewModel>());
-            sessionHelper.SetupGet(x => x.CurrentUser).Returns(GetMockViewModel<UserViewModel>());
+            authorizationHelper.SetupGet(x => x.SystemSettings).Returns(GetMockViewModel<SystemSettingViewModel>());
+            authorizationHelper.SetupGet(x => x.Version).Returns(GetMockViewModel<VersionViewModel>());
+            authorizationHelper.SetupGet(x => x.CurrentUser).Returns(GetMockViewModel<UserViewModel>());
         }
 
         #endregion
@@ -55,7 +55,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void Can_GetAllUsers(string userUri)
         {
             // prepare
-            sessionHelper.SetupGet(x => x.CurrentUser).Returns(new UserViewModel
+            authorizationHelper.SetupGet(x => x.CurrentUser).Returns(new UserViewModel
             {
                 Uri = new Uri(userUri, UriKind.Relative)
             });
@@ -74,7 +74,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void Can_GetFilterUsers(string userId, string userUri, string query)
         {
             // prepare
-            sessionHelper.SetupGet(x => x.CurrentUser).Returns(new UserViewModel
+            authorizationHelper.SetupGet(x => x.CurrentUser).Returns(new UserViewModel
             {
                 Id = userId,
                 Uri = new Uri(userUri, UriKind.Relative)
@@ -149,7 +149,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             int providerCount = data["providers"].ToArray().Length;
 
             // assert
-            Assert.AreEqual(sessionHelper.Object.SystemSettings.DefaultAuthenticationProvider, defaultProvider);
+            Assert.AreEqual(authorizationHelper.Object.SystemSettings.DefaultAuthenticationProvider, defaultProvider);
             Assert.AreEqual(3, providerCount);
         }
 
@@ -161,10 +161,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             string fullUsersUri = new Uri(host + usersUri).ToString();
             if (!canAccessSystemRoles)
             {
-                Entry systemRoleEntry = sessionHelper.Object.Version.Entries.First(x => x.Name == "system_roles");
-                sessionHelper.Object.Version.Entries.Remove(systemRoleEntry);
+                Entry systemRoleEntry = authorizationHelper.Object.Version.Entries.First(x => x.Name == "system_roles");
+                authorizationHelper.Object.Version.Entries.Remove(systemRoleEntry);
             }
-            sessionHelper.Setup(x => x.GetModelFromSession(It.IsAny<string>())).Returns(new ModelViewModel
+            authorizationHelper.Setup(x => x.GetModelFromSession(It.IsAny<string>())).Returns(new ModelViewModel
             {
                 id = "EA2_800"
             });
@@ -262,7 +262,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             // prepare
             SetupGetSystemRoles();
             SetupGetModel();
-            sessionHelper.Setup(x => x.GetModelFromSession(It.IsAny<string>())).Returns(new ModelViewModel
+            authorizationHelper.Setup(x => x.GetModelFromSession(It.IsAny<string>())).Returns(new ModelViewModel
             {
                 id = "EA2_800"
             });
@@ -301,7 +301,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 new AssignedRoleViewModel { RoleId = "EA2_800_ALL", ModelId = "EA2_800" }
             };
             userService.Setup(x => x.GetUser(It.IsAny<string>())).Returns(user);
-            sessionHelper.Setup(x => x.GetModelFromSession(It.IsAny<string>())).Returns(new ModelViewModel
+            authorizationHelper.Setup(x => x.GetModelFromSession(It.IsAny<string>())).Returns(new ModelViewModel
             {
                 id = "EA2_800"
             });
@@ -310,7 +310,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             SetupGetSystemAuthenticationProviders();
             SetupGetSystemRoles();
             SetupGetModel();
-            sessionHelper.SetupGet(x => x.Models).Returns(GetMockViewModel<List<ModelViewModel>>());
+            authorizationHelper.SetupGet(x => x.Models).Returns(GetMockViewModel<List<ModelViewModel>>());
             labelService.Setup(x => x.GetLabels(It.IsAny<string>())).Returns(new ListViewModel<LabelViewModel> { Data = new List<LabelViewModel>() });
 
             _testingController = GetTestController();
@@ -390,7 +390,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController.GetAllSessions();
 
             // assert
-            Assert.AreEqual(sessionHelper.Object.CurrentUser.Uri.ToString(), _testingController.ViewBag.CurrentUserUri);
+            Assert.AreEqual(authorizationHelper.Object.CurrentUser.Uri.ToString(), _testingController.ViewBag.CurrentUserUri);
         }
 
         [Test]
@@ -435,7 +435,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 Data = sessions,
                 Header = new HeaderViewModel { Total = 100 }
             });
-            sessionHelper.SetupGet(x => x.Session).Returns(currentSession);
+            authorizationHelper.SetupGet(x => x.Session).Returns(currentSession);
             _testingController = GetTestController();
 
             // execute
@@ -518,7 +518,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         private UsersController GetTestController()
         {
-            return new UsersController(userService.Object, modelService.Object, sessionService.Object, globalSettingService.Object, labelService.Object, sessionHelper.Object);
+            return new UsersController(userService.Object, modelService.Object, sessionService.Object, globalSettingService.Object, labelService.Object, authorizationHelper.Object);
         }
 
         private void SetupGetSystemAuthenticationProviders()

@@ -41,13 +41,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             IGlobalSettingService globalSettingService,
             IAngleWarningsAutoSolver angleWarningsAutoSolver,
             IAngleWarningsFileManager angleWarningsFileManager,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             _modelService = modelService;
             _globalSettingService = globalSettingService;
             _angleWarningsAutoSolver = angleWarningsAutoSolver;
             _angleWarningsFileManager = angleWarningsFileManager;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
 
             _angleWarningsAutoSolver.Initialize(AuthorizationHelper);
         }

@@ -27,7 +27,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             _testingController = new AngleExportsController(
                 excelTemplateService.Object,
-                sessionHelper.Object);
+                authorizationHelper.Object);
             _testingControllerWithoutMockingSession = new AngleExportsController(
                 excelTemplateService.Object);
             _testingController.ControllerContext = new ControllerContext(contextBase.Object, new RouteData(), _testingController);

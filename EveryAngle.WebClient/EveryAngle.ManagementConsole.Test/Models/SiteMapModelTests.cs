@@ -26,7 +26,7 @@ namespace EveryAngle.ManagementConsole.Test.Models
         {
             base.Setup();
             // test model
-            _testingModel = new SiteMapModel(sessionHelper.Object, modelService.Object);
+            _testingModel = new SiteMapModel(authorizationHelper.Object, modelService.Object);
         }
 
         #endregion
@@ -48,9 +48,9 @@ namespace EveryAngle.ManagementConsole.Test.Models
         {
             _sessionViewmodel.Setup(x => x.IsValidToManagementAccess()).Returns(true);
             _sessionViewmodel.Setup(x => x.IsValidToScheduleAngles()).Returns(true);
-            sessionHelper.Setup(x => x.Session).Returns(_sessionViewmodel.Object);
-            sessionHelper.Setup(x => x.Models).Returns(new List<ModelViewModel>());
-            sessionHelper.Setup(x => x.Info).Returns(new SystemInformationViewModel() { features= new List<FeatureViewModel>() { new FeatureViewModel() { feature = "AngleAutomation", licensed = true } } });
+            authorizationHelper.Setup(x => x.Session).Returns(_sessionViewmodel.Object);
+            authorizationHelper.Setup(x => x.Models).Returns(new List<ModelViewModel>());
+            authorizationHelper.Setup(x => x.Info).Returns(new SystemInformationViewModel() { features= new List<FeatureViewModel>() { new FeatureViewModel() { feature = "AngleAutomation", licensed = true } } });
             _testingModel.CreateSiteMap();
             var returnValue = _testingModel.GetSiteMaps();
             Assert.IsNotNull(returnValue);

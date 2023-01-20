@@ -59,7 +59,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             });
 
             // assign
-            _testingController = new DownloadTableController(downloadTableService.Object, modelService.Object, sessionHelper.Object);
+            _testingController = new DownloadTableController(downloadTableService.Object, modelService.Object, authorizationHelper.Object);
         }
 
         #endregion
@@ -73,7 +73,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Action action = new Action(() =>
             {
                 _testingController = new DownloadTableController(downloadTableService.Object, modelService.Object);
-                _testingController = new DownloadTableController(downloadTableService.Object, modelService.Object, sessionHelper.Object);
+                _testingController = new DownloadTableController(downloadTableService.Object, modelService.Object, authorizationHelper.Object);
             });
 
             // assert

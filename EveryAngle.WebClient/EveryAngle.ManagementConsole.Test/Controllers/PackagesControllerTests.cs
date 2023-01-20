@@ -37,7 +37,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 modelService.Object,
                 packageService.Object,
                 facetService.Object,
-                sessionHelper.Object);
+                authorizationHelper.Object);
         }
 
         #endregion
@@ -224,8 +224,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     }
                 }
             };
-            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
-            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
+            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
             {
                 new ModelViewModel
                 {

@@ -46,13 +46,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             IGlobalSettingService globalSettingService,
             ISessionService sessionService,
             IUserService userService,
-            AuthorizationHelper sessionHelper)
+            AuthorizationHelper authorizationHelper)
         {
             this.modelService = modelService;
             this.globalSettingService = globalSettingService;
             this.sessionService = sessionService;
             this.userService = userService;
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
         }
 
         #endregion

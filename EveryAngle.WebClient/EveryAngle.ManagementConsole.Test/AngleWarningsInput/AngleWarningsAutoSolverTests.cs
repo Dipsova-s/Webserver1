@@ -22,7 +22,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
 
             Assert.AreEqual(0, autoSolver.GetNumberOfSolvableFieldsViaInputFile(null, out int hasAutomationTasks));
         }
@@ -43,10 +43,10 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             modelService.Setup(x => x.GetAngleWarningSecondLevel(It.IsAny<string>())).Returns(AngleWarningsTestsHelper.GetSecondLevelWarningsJObject(2));
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
 
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, authorizationHelper.Object);
 
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 
@@ -71,10 +71,10 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             modelService.Setup(x => x.GetAngleWarningSecondLevel(It.IsAny<string>())).Returns(AngleWarningsTestsHelper.GetSecondLevelWarningsJObject(2));
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
 
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, authorizationHelper.Object);
 
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 
@@ -95,10 +95,10 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             modelService.Setup(x => x.GetAngleWarningSecondLevel(It.IsAny<string>())).Returns(AngleWarningsTestsHelper.GetSecondLevelWarningsJObject(1));
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
 
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, authorizationHelper.Object);
 
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 
@@ -116,7 +116,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
 
             Assert.IsFalse(autoSolver.AreSomeAnglesPartOfAutomationTasks());
         }
@@ -127,7 +127,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             Mock<IAngleWarningsContentInputter> contentInputter = new Mock<IAngleWarningsContentInputter>();
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
 
             AngleWarningSecondLevelViewmodel secondLevel;
             secondLevel = new AngleWarningSecondLevelViewmodel
@@ -154,7 +154,7 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             contentInputter.Setup(x => x.TryReadInputList()).Returns(false);
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
 
             Assert.That(() => autoSolver.ExecuteAngleWarningsUsingInputFile("EA2_800"), Throws.TypeOf<Exception>());
             Assert.That(() => autoSolver.ExecuteAngleWarningsUsingInputFile(""), Throws.TypeOf<ArgumentException>());
@@ -177,10 +177,10 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             modelService.SetReturnsDefault(true);
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
 
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, authorizationHelper.Object);
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 
             JObject actualJObject = JObject.Parse(autoSolver.ExecuteAngleWarningsUsingInputFile("EA2_800"));
@@ -229,10 +229,10 @@ namespace EveryAngle.ManagementConsole.Test.AngleWarningsInput
             modelService.Setup(x => x.GetAngleWarningThirdLevel("http://TH-EATST01.everyangle.org:30500/unsupported_start_object&offset=0&limit=300")).Returns(AngleWarningsTestsHelper.GetThirdLevelWarningsJObject(3));
 
             AngleWarningsAutoSolver autoSolver = new AngleWarningsAutoSolver(modelService.Object, contentInputter.Object);
-            autoSolver.Initialize(sessionHelper.Object);
+            autoSolver.Initialize(authorizationHelper.Object);
 
             AngleWarningsController testingController;
-            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, sessionHelper.Object);
+            testingController = new AngleWarningsController(modelService.Object, globalSettingService.Object, autoSolver, angleWarningsFileManager.Object, authorizationHelper.Object);
 
             AngleWarningsController.AngleWarningsDataSourceResult viewmodel = AngleWarningsTestsHelper.GetAngleWarningsDataSourceResult(testingController);
 

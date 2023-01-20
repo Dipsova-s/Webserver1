@@ -51,9 +51,9 @@ namespace EveryAngle.ManagementConsole.Controllers
            IFileTemplateService fileTemplateService,
            ISystemScriptService systemScriptService,
            IItemService itemService,
-           AuthorizationHelper sessionHelper)
+           AuthorizationHelper authorizationHelper)
         {
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
             _modelService = modelService;
             _taskService = taskService;
             _automationTaskService = automationTaskService;

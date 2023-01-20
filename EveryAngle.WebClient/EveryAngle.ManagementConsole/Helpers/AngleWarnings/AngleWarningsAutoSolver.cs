@@ -19,7 +19,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
         private static ModelViewModel _model;
 
         private readonly IModelService _modelService;
-        private  AuthorizationHelper _sessionHelper;
+        private  AuthorizationHelper _authorizationHelper;
 
         // To minimize appserver requests
         private Dictionary<string, List<FollowupViewModel>> _cachedFollowUps;
@@ -36,9 +36,9 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             _contentInputter = angleWarningsContentInputter ?? throw new System.ArgumentNullException(nameof(angleWarningsContentInputter));
         }
 
-        public void Initialize(AuthorizationHelper sessionHelper)
+        public void Initialize(AuthorizationHelper authorizationHelper)
         {
-            _sessionHelper = sessionHelper ?? throw new System.ArgumentNullException(nameof(sessionHelper));
+            _authorizationHelper = authorizationHelper ?? throw new System.ArgumentNullException(nameof(authorizationHelper));
 
             _cachedFollowUps = new Dictionary<string, List<FollowupViewModel>>();
             _cachedFields = new Dictionary<string, FieldViewModel>();
@@ -68,7 +68,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                 {
                     if (angleViewModel.DataFirstLevel.Count > 0)
                     {
-                        string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _sessionHelper.SystemSettings.max_pagesize);
+                        string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _authorizationHelper.SystemSettings.max_pagesize);
                         string requestUri = Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + angleViewModel.Uri + "&" + limitOffsetQueryString;
                         JObject angleWarningsResult = _modelService.GetAngleWarningSecondLevel(requestUri);
 
@@ -126,7 +126,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
                 throw new System.Exception("Reading content input file failed.");
             }
 
-            MainTaskModel mainTaskModel = new MainTaskModel(_sessionHelper.CurrentUser.Id);
+            MainTaskModel mainTaskModel = new MainTaskModel(_authorizationHelper.CurrentUser.Id);
 
             _contentInputter.Initialize(_model.FieldsourcesUri.ToString(), _model.ClassesUri.ToString());
 
@@ -222,7 +222,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
         private List<AngleWarningSecondLevelViewmodel> GetLevel2Warnings(AngleWarningFirstLevelViewmodel level1AngleWarning)
         {
-            string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _sessionHelper.SystemSettings.max_pagesize);
+            string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _authorizationHelper.SystemSettings.max_pagesize);
             string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + level1AngleWarning.Uri + "&" + limitOffsetQueryString;
             var angleWarningsResult2 = _modelService.GetAngleWarningSecondLevel(requestUri);
 
@@ -233,7 +233,7 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
         public List<AngleWarningThirdLevelViewmodel> GetLevel3Warnings(AngleWarningSecondLevelViewmodel level2AngleWarning)
         {
-            string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _sessionHelper.SystemSettings.max_pagesize);
+            string limitOffsetQueryString = UtilitiesHelper.GetOffsetLimitQueryString(1, _authorizationHelper.SystemSettings.max_pagesize);
             string requestUri = EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + level2AngleWarning.Uri + "&" + limitOffsetQueryString;
             var angleWarningsResult3 = this._modelService.GetAngleWarningThirdLevel(requestUri);
                         

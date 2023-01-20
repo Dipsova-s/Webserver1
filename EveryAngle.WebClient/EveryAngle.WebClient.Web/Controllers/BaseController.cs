@@ -111,14 +111,14 @@ namespace EveryAngle.WebClient.Web.Controllers
             var result = filterContext.HttpContext.Request.GetOwinContext().AuthenticateAsyncFromCookies();
             var token = result.Result?.GetAccessToken();
             var url = filterContext.HttpContext.Request.Url.AbsolutePath + filterContext.HttpContext.Request.Url.Query;
-            AuthorizationHelper sessionHelper = AuthorizationHelper.Initialize();
+            AuthorizationHelper authorizationHelper = AuthorizationHelper.Initialize();
 
-            if (!string.IsNullOrWhiteSpace(token) && sessionHelper.CurrentUser != null)
+            if (!string.IsNullOrWhiteSpace(token) && authorizationHelper.CurrentUser != null)
             {
                 return true;
             }
 
-            sessionHelper.DestroyAllSession();
+            authorizationHelper.DestroyAllSession();
             filterContext.Result = new RedirectResult(EveryAngle.Shared.Helpers.UrlHelper.GetLoginPath(false,url));
 
             return false;

@@ -34,7 +34,7 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<HttpResponseBase> responseBase = new Mock<HttpResponseBase>();
         protected readonly Mock<HttpContextBase> contextBase = new Mock<HttpContextBase>();
 
-        protected readonly Mock<AuthorizationHelper> sessionHelper = new Mock<AuthorizationHelper>();
+        protected readonly Mock<AuthorizationHelper> authorizationHelper = new Mock<AuthorizationHelper>();
         protected readonly Mock<IGlobalSettingService> globalSettingService = new Mock<IGlobalSettingService>();
         protected readonly Mock<ILabelService> labelService = new Mock<ILabelService>();
         protected readonly Mock<IModelService> modelService = new Mock<IModelService>();
@@ -82,10 +82,10 @@ namespace EveryAngle.ManagementConsole.Test
             };
 
             // helper
-            sessionHelper.Setup(x => x.GetModel(It.IsAny<string>())).Returns(testingModel);
-            sessionHelper.SetupGet(x => x.CurrentUser).Returns(new UserViewModel { Id = "testing_user", Uri = new Uri("/users/1", UriKind.Relative) });
-            sessionHelper.SetupGet(x => x.SystemSettings).Returns(new SystemSettingViewModel { default_pagesize = 30, max_pagesize = 300 });
-            sessionHelper.SetupGet(x => x.Version).Returns(GetMockViewModel<VersionViewModel>());
+            authorizationHelper.Setup(x => x.GetModel(It.IsAny<string>())).Returns(testingModel);
+            authorizationHelper.SetupGet(x => x.CurrentUser).Returns(new UserViewModel { Id = "testing_user", Uri = new Uri("/users/1", UriKind.Relative) });
+            authorizationHelper.SetupGet(x => x.SystemSettings).Returns(new SystemSettingViewModel { default_pagesize = 30, max_pagesize = 300 });
+            authorizationHelper.SetupGet(x => x.Version).Returns(GetMockViewModel<VersionViewModel>());
 
             // setup context
             InitiateTestingContext();

@@ -32,13 +32,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             ValidationRequestService = WebClient.Service.Security.ValidationRequestService.Instance();
         }
 
-        internal BaseController(AuthorizationHelper sessionHelper) : this(sessionHelper, WebClient.Service.Security.ValidationRequestService.Instance())
+        internal BaseController(AuthorizationHelper authorizationHelper) : this(authorizationHelper, WebClient.Service.Security.ValidationRequestService.Instance())
         {
         }
 
-        internal BaseController(AuthorizationHelper sessionHelper, IValidationRequestService validationRequestService)
+        internal BaseController(AuthorizationHelper authorizationHelper, IValidationRequestService validationRequestService)
         {
-            AuthorizationHelper = sessionHelper;
+            AuthorizationHelper = authorizationHelper;
             ValidationRequestService = validationRequestService;
         }
 
