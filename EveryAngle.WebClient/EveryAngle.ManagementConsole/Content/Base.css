@@ -5526,13 +5526,15 @@ td.PopupExcelTemplate {
 }
 
 form#ActivatePackageForm .contentSectionInfo label,
-form#ImportPackageForm .contentSectionInfo label {
+form#ImportPackageForm .contentSectionInfo label,
+form#MultipleModelActivatePackageForm .contentSectionInfo label {
     width: 80px;
     margin-top: 5px;
 }
 
 form#ActivatePackageForm .contentSectionInfo p,
-form#ImportPackageForm .contentSectionInfo p {
+form#ImportPackageForm .contentSectionInfo p,
+form#MultipleModelActivatePackageForm .contentSectionInfo p {
     margin-right: 5px;
     margin-left: 180px !important;
 }
@@ -5544,4 +5546,11 @@ form#ImportPackageForm .contentSectionInfo p {
 
 .rowPackageContent:first-letter {
     text-transform: capitalize;
+}
+
+.modelSelector {
+    margin-bottom:10px;
+}
+.modelSelector label {
+    margin: 0 0 7px 23px !important;
 }

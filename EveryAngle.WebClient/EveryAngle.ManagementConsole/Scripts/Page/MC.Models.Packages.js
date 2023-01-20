@@ -26,8 +26,10 @@
         _self.ModelExportSelectorId = '#ModelExportSelector';
         _self.ExportPackageButtonId = '#ExportPackageButton';
         _self.ExportPackageCountId = '#ExportPackageCount';
+        _self.PackageModels = '';
 
         _self.ModelActivatorValue = {};
+        _self.MultipleModelActivatorValue = new Map();
 
         self.PACKAGE_STATUS = {
             ACTIVATING: 'Activating',
@@ -146,13 +148,14 @@
                 // common attributes for managing package
                 attributes.onclick = 'MC.Models.Packages.ManagePackage(event, this)';
                 attributes['data-parameters'] = kendo.format(
-                    '\{"packageUri":"{0}", "isActive": {1}, "modelId":"{2}", "isUpgradePackage":{3},"activatedModel":"{4}","content":"{5}"\}',
+                    '\{"packageUri":"{0}", "isActive": {1}, "modelId":"{2}", "isUpgradePackage":{3},"activatedModel":"{4}","content":"{5}","packageModels":"{6}"\}',
                     data.Uri,
                     !data.active,
                     self.ModelId,
                     data.IsUpgradePackage,
                     data.RePlaceActivatedModels,
-                    data.ReContentsList
+                    data.ReContentsList,
+                    data.ReplacePackageModels,
                 );
 
                 if (self.CanDeactivatePackage(data)) {
@@ -173,7 +176,7 @@
                 else {
                     // can activate/update package
                     attributes['class'] = 'btn btnSetActive';
-                    attributes.title = Localization.MC_ActivatePackage;
+                    attributes.title = Localization.MC_ActivatePackage + " : " + data.Name;;
 
                     if (data.IsUpgradePackage) {
                         // management console type package
@@ -182,13 +185,18 @@
                         attributes['data-width'] = '425';
                         attributes['data-height'] = !self.ModelId ? '580' : '470';
                     }
-                    else if (!self.ModelId && self.IsModelPackage(data.Contents)) {
+                    else if (!self.ModelId && !data.active) {
+                        attributes.href = '#MultipleModelActivatePackagePopup';
+                        attributes['data-role'] = 'mcPopup';
+                        attributes['data-width'] = '425';
+                        attributes['data-height'] = '350';
+                    }
+                    else if ((!self.ModelId && self.IsModelPackage(data.Contents)) || (self.ModelId && data.ReplacePackageModels?.split(',').length > 1)) {
                         // management console type package
                         attributes.href = '#ActivatePackagePopup';
                         attributes['data-role'] = 'mcPopup';
                         attributes['data-width'] = '425';
                         attributes['data-height'] = '290';
-                        attributes['title'] = Localization.MC_ActivatePackage;
                     }
                     else {
                         // other type package
@@ -408,7 +416,10 @@
 
                 if (!self.ModelId) {
                     //Update Model selector
-                    self.ModelSelectorDropdown(dataParameters, '#ImportPackagePopup');
+                    let dropdownValues = self.GetModelDropdownValues(dataParameters);
+                    const sourceHTML = self.GetSourceTargetHtml(dataParameters.packageModels?.split(',').map(e => e.trim()).filter(e => e));
+                    importPackagePopup.find("#MultipleModelActivatePackage").html(sourceHTML);
+                    self.SourceModelSelectorDropdown(dataParameters, '#ImportPackageForm', dropdownValues);
 
                     //Update content html
                     const html = self.GetPackageContentHtml(dataParameters.content.split(',').map(e => e.trim()));
@@ -420,8 +431,44 @@
                 self.includeLabelsSelected(true);
                 $(element).closest('.btnGroupContainer').removeClass('open');
             }
+            else if (!self.ModelId && dataParameters.isActive) {
+                MC.ui.popup('setScrollable', {
+                    element: '#MultipleModelActivatePackagePopup'
+                });
+                const importPackagePopup = $('#MultipleModelActivatePackagePopup');
+
+                //Update Model selector
+                let dropdownValues = self.GetModelDropdownValues(dataParameters);
+                const sourceHTML = self.GetSourceTargetHtml(dataParameters.packageModels?.split(',').map(e => e.trim()).filter(e => e));
+                importPackagePopup.find("#MultipleModelActivatePackage").html(sourceHTML);
+                self.SourceModelSelectorDropdown(dataParameters, '#MultipleModelActivatePackagePopup', dropdownValues);
+
+                //Update content html
+                const html = self.GetPackageContentHtml(dataParameters.content.split(',').map(e => e.trim()));
+                importPackagePopup.find('#contentSection').html(html);
+
+                importPackagePopup.find('.btnSubmit').data('parameters', dataParameters);
+                self.includeLabelsSelected(true);
+                $(element).closest('.btnGroupContainer').removeClass('open');
+            }
             else if (!self.ModelId && self.IsModelPackage(dataParameters.content.split(',').map(e => e.trim()))) {
                 self.GetActivatePopupForGlobalPackage(dataParameters);
+            }
+            else if (self.ModelId && dataParameters.isActive && dataParameters.packageModels.split(',').length > 1) {
+                MC.ui.popup('setScrollable', {
+                    element: _self.ActivatePackagePopupId
+                });
+                const popup = $(_self.ActivatePackagePopupId);
+                popup.find('#ModelSelectorLabel').text('Select Source Model');
+
+                //Update Model selector
+                self.ModelSelectorDropdownForSource(dataParameters, _self.ActivatePackageFormId);
+
+                //Update content html
+                const html = self.GetPackageContentHtml(dataParameters.content.split(',').map(e => e.trim()));
+                popup.find('#contentSection').html(html);
+
+                popup.find('.btnSubmit').data('parameters', dataParameters);
             }
             else {
                 const confirmMessage = MC.form.template.getRemoveMessage(element);
@@ -436,6 +483,23 @@
             MC.util.preventDefault(e);
         };
 
+        self.GetModelDropdownValues = (dataParameters) => {
+            const models = dataParameters.activatedModel.split(",").map(e => e.trim());
+            let dropdownValues = [];
+            $($("#ModelActivateSelectorHidden")[0].options).each(function () {
+                const value = jQuery.parseJSON($(this).val())
+                if (dataParameters.isActive || models.includes(value.modelId)) {
+                    let drop = {
+                        id: value.modelId,
+                        name: value.modelId,
+                        packageUri: value.packageUri
+                    }
+                    dropdownValues.push(drop);
+                }
+            });
+            return dropdownValues;
+        };
+
         self.ActivatePackage = function (submitButton) {
             if (!self.IsMultiSelect) {
                 var importPackagePopup = $('#ImportPackagePopup').data('kendoWindow');
@@ -445,13 +509,14 @@
                 importPackageFormData.forEach(function (field) {
                     packageParameters[field.name] = field.value;
                 });
-
                 var element = !self.ModelId ? self.GetElementWithParameter(packageParameters, _self.ModelActivatorValue) : $('<a>')
                     .attr('href', self.ManagePackageUri)
                     .data('parameters', packageParameters);
 
                 importPackagePopup.close();
-                self.PostPackage(element);
+                if (element) {
+                    self.PostPackage(element);
+                }
             } else {
                 var importPackagePopup = $('#ImportPackagePopup').data('kendoWindow');
                 var importPackageFormData = importPackagePopup.element.find('form').serializeArray();
@@ -618,13 +683,35 @@
         };
         self.ActivatePackageFromPopup = (e) => {
             const dataParameters = $(e).data('parameters');
-            const importPackagePopup = $(_self.ActivatePackagePopupId).data('kendoWindow');
+            const popupId = dataParameters.isActive && !self.ModelId ? "#MultipleModelActivatePackagePopup" : "#ActivatePackagePopup";
+            const importPackagePopup = $(popupId).data('kendoWindow');
 
             const element = self.GetElementWithParameter(dataParameters, _self.ModelActivatorValue);
-
-            importPackagePopup.close();
-            self.PostPackage(element);
+            if (!element) {
+                importPackagePopup.close();
+                return;
+            }
+            const isValid = dataParameters.mappingObj ? self.CheckForModelValidation(JSON.parse(dataParameters.mappingObj)) : true;
+            if (!isValid) {
+                self.EnableDisableModelWarning(isValid)
+            }
+            else {
+                importPackagePopup.close();
+                self.PostPackage(element);
+            }
         };
+
+        self.CheckForModelValidation = (dataParameters) => {
+            let isValid = true;
+            dataParameters.forEach((element, index, array) => {
+                const data = array.filter(x => x.modelId == element['modelId']);
+                if (data.length > 1) {
+                    isValid = false;
+                }
+            });
+            return isValid;
+        };
+
         self.DropdownValuesById = function (id) {
             return $(id).data('kendoDropDownList').value();
         };
@@ -636,6 +723,34 @@
                     "</div>"
 
             });
+            return html;
+        };
+        self.GetSourceTargetHtml = (sourceModel) => {
+            let html = "";
+            html += '<div class="contentSectionInfoItem modelSelector">' +
+                '<label>' + 'Source Model' + '</label>' +
+                '<p class="modelSelector">' +
+                '<label>' + 'Target Model' + '</label>' +
+                '</p>' +
+                '</div>';
+            if (sourceModel.length) {
+                sourceModel.forEach(ele => {
+                    html += '<div class="contentSectionInfoItem">' +
+                        '<label>' + ele + '</label>' +
+                        '<p class="modelSelector">' +
+                        '<input type="text" id="ModelActivateSelector_' + ele + '" name="display_id" class="required" />' +
+                        '</p>' +
+                        '</div>';
+                });
+            }
+            else {
+                html += '<div class="contentSectionInfoItem">' +
+                    '<label>Undefined</label>' +
+                    '<p class="modelSelector">' +
+                    '<input type="text" id="ModelActivateSelector_Undefined" name="display_id" class="required" />' +
+                    '</p>' +
+                    '</div>';
+            }
             return html;
         };
 
@@ -656,19 +771,35 @@
         };
 
         self.ModelSelectorDropdown = (dataParameters, popuId) => {
-            const models = dataParameters.activatedModel.split(",").map(e => e.trim());
+            const dropdownModelElement = $(popuId).find(_self.PackageModelSelectorId);
+            let dropdownValues = self.GetModelDropdownValues(dataParameters);
+            self.SetModelDropdownValue(dropdownValues[0]);
+            dropdownModelElement.kendoDropDownList({
+                dataSource: dropdownValues,
+                dataTextField: "name",
+                dataValueField: "id",
+                value: dropdownValues[0],
+                select: (e) => {
+                    self.SetModelDropdownValue(e.dataItem);
+                }
+            });
+        };
+        self.ModelSelectorDropdownForSource = (dataParameters, popuId) => {
+            const models = dataParameters.packageModels.split(",").map(e => e.trim());
             const dropdownModelElement = $(popuId).find(_self.PackageModelSelectorId);
             let dropdownValues = [];
-            $($("#ModelActivateSelectorHidden")[0].options).each(function () {
-                const value = jQuery.parseJSON($(this).val())
-                if (dataParameters.isActive || models.includes(value.modelId)) {
-                    let drop = {
-                        id: value.modelId,
-                        name: value.modelId,
-                        packageUri: value.packageUri
-                    }
-                    dropdownValues.push(drop);
-                }
+            dropdownValues.unshift({
+                id: "-1",
+                name: "Do Not Import",
+                packageUri: ""
+            });
+            models.forEach((ele) => {
+                const obj = {
+                    id: ele,
+                    name: ele,
+                    packageUri: ""
+                };
+                dropdownValues.push(obj);
             });
             self.SetModelDropdownValue(dropdownValues[0]);
             dropdownModelElement.kendoDropDownList({
@@ -681,25 +812,104 @@
                 }
             });
         };
+        self.SourceModelSelectorDropdown = (dataParameters, popuId, dropdownValues) => {
+            dropdownValues.unshift({
+                id: "-1",
+                name: "Do Not Import",
+                packageUri: ""
+            });
+            _self.MultipleModelActivatorValue = new Map();
+            if (dataParameters.packageModels) {
+                dataParameters.packageModels.split(',').forEach(function (model) {
+                    var ele = "#ModelActivateSelector_" + (model.trim());
+                    const dropdownModelElement = $(popuId).find(ele);
+                    dropdownModelElement.kendoDropDownList({
+                        dataSource: dropdownValues,
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: dropdownValues[0],
+                        select: (e) => {
+                            self.SetMultipleModelDropdownValue(e);
+                        }
+                    });
+                });
+            }
+            else {
+                var ele = "#ModelActivateSelector_Undefined";
+                const dropdownModelElement = $(popuId).find(ele);
+                dropdownModelElement.kendoDropDownList({
+                    dataSource: dropdownValues,
+                    dataTextField: "name",
+                    dataValueField: "id",
+                    value: dropdownValues[0],
+                    select: (e) => {
+                        self.SetMultipleModelDropdownValue(e);
+                    }
+                });
+            }
+        };
         self.SetModelDropdownValue = (value) => {
             _self.ModelActivatorValue = {
                 modelId: value.id,
                 packageUri: value.packageUri
+            };
+        };
+        self.SetMultipleModelDropdownValue = (e) => {
+            const sourceId = e.sender.element[0].id.replace('ModelActivateSelector_', '');
+            const targetId = e.dataItem.id;
+            if (targetId !== "-1") {
+                _self.MultipleModelActivatorValue.set(sourceId, {
+                    modelId: targetId,
+                    packageUri: e.dataItem.packageUri
+                });
             }
+            else if (_self.MultipleModelActivatorValue.has(sourceId) && targetId === "-1") {
+                _self.MultipleModelActivatorValue.delete(sourceId);
+            }
+            let isValid = self.CheckForModelValidation(Array.from(_self.MultipleModelActivatorValue.values()));
+            self.EnableDisableModelWarning(isValid);
         };
         self.IsModelPackage = (contents) => {
             const modelItems = ["angles", "labels", "dashboards", "helptexts", "model_authorizations"];
             return contents.some(e => modelItems.includes(e));
         };
         self.GetElementWithParameter = (dataParameters, dropdown) => {
-            dataParameters.packageUri = dropdown.packageUri + "/" + dataParameters.packageUri.split("/").pop();
-            dataParameters.modelId = dropdown.modelId;
+            if (!self.ModelId && dataParameters.isActive) {
+                let postObj = [];
+                for (const [key, value] of _self.MultipleModelActivatorValue) {
+                    const obj = {
+                        sourcemodel: key,
+                        modelId: value.modelId,
+                        packageUri: value.packageUri + "/" + dataParameters.packageUri.split("/").pop()
+                    }
+                    postObj.push(obj);
+                }
+                if (!postObj.length) return false;
+                dataParameters.mappingObj = JSON.stringify(postObj);
+            }
+            else {
+                if (self.ModelId && dataParameters.isActive && dataParameters.packageModels.split(',').length > 1) {
+                    if (dropdown.modelId === "-1") return false;
+                    dataParameters.sourceModel = dropdown.modelId;
+                }
+                if (!self.ModelId) {
+                    dataParameters.packageUri = dropdown.packageUri + "/" + dataParameters.packageUri.split("/").pop();
+                    dataParameters.modelId = dropdown.modelId;
+                }
+            }
             delete dataParameters.activatedModel;
             delete dataParameters.content;
+            delete dataParameters.packageModels;
             return $('<a>')
                 .attr('href', self.ManagePackageUri)
                 .data('parameters', dataParameters);
         };
+
+        self.EnableDisableModelWarning = function (isValid) {
+            const ele = $('#ModelValidation');
+            !isValid ? ele.show() : ele.hide();
+        }
+
 
         self.SavePackage = function () {
             if (!jQuery('#UploadPackageFileForm').valid()) {

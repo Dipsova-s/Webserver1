@@ -1725,6 +1725,8 @@ function DisplayModel(model) {
                 text: self.GetAdhocDisplayName('New ' + Localization['DisplayType_' + newDisplayType].toLowerCase())
             }];
             display.multi_lang_description = [];
+            display.external_id = null;
+            display.is_available_externally = false;
 
             // created
             var currentUser = userModel.Data();

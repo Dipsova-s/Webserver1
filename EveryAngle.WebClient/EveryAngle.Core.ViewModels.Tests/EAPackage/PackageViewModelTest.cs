@@ -28,6 +28,7 @@ namespace EveryAngle.Core.ViewModels.Tests
                 InstalledDate = 22222,
                 Languages = new List<string> { "en", "nl" },
                 Contents = new List<string> { "content1", "content2" },
+                PackageModels = new List<string> { "EA2_800", "EA4IT"},
                 is_ea_package = true,
                 source = "source",
                 activated_models = new List<string> { "model1", "model2" },
@@ -68,6 +69,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.RePlaceActivatedModels.GetType(), typeof(string));
             Assert.AreEqual(viewModel.ReLanguagesList.GetType(), typeof(string));
             Assert.AreEqual(viewModel.ReContentsList.GetType(), typeof(string));
+            Assert.That(viewModel.ReplacePackageModels.GetType(), Is.EqualTo(typeof(string)));
         }
 
         [TestCase]

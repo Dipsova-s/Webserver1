@@ -133,6 +133,20 @@ namespace EveryAngle.Core.ViewModels.EAPackage
             }
         }
 
+        [JsonProperty(PropertyName = "package_models")]
+        public List<string> PackageModels { get; set; }
+        public string ReplacePackageModels
+        {
+            get
+            {
+                if (PackageModels != null)
+                {
+                    return string.Join(",", PackageModels);
+                }
+                return string.Empty;
+            }
+        }
+
         public string ReContentsList
         {
             get
@@ -177,5 +191,6 @@ namespace EveryAngle.Core.ViewModels.EAPackage
                 isselected = value; 
             }
         }
+        
     }
 }
