@@ -63,7 +63,7 @@
         columns.Bound(model => model.activated.Created)
             .HtmlAttributes(new { @class = "columnDate" })
             .HeaderHtmlAttributes(new { @class = "columnDate" })
-            .ClientTemplate("#= data.activated.Created == null ? '' : MC.util.getDisplayTimeForGrid(data.activated.Created, true) #")
+            .ClientTemplate("#= data.activated == null ? '' : MC.util.getDisplayTimeForGrid(data.activated.Created, true) #")
             .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.Activated))
             .Title(Resource.Activated)
             .Sortable(false)

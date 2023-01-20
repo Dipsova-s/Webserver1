@@ -13,8 +13,7 @@
                 MC.topMenu.setClickOutsideEventAndPreventClosedAfterClicked(event, MC.topMenu.menuIds.notifications, 'NotificationsFeed', 'linkNotificationsFeed');
             });
             let lastLoginTimeStamp = $('#last_login');
-            if (lastLoginTimeStamp !== null)
-                lastLoginTimeStamp.text(MC.util.getDisplayTime(lastLoginTimeStamp.text(), true));
+            lastLoginTimeStamp?.html(MC.util.getDisplayTime(lastLoginTimeStamp?.text(), true));
             $('.systemInfoLastLogin').removeClass('hidden');
         },
         setClickOutsideEvent: function (event, menuId, menuButtonId, menuButtonClass) {

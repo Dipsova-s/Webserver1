@@ -49,7 +49,7 @@
             setTimeout(function () {
                 var pageContainer = $('#RefreshCycleContainer');
                 MC.ajax.registerPageUnloadEvent('refreshcycle', self.ClearActionList);
-                MC.util.showServerClock('#ServerTimeInfo', ', {0:HH:mm:ss}');
+                MC.util.showServerClock('#ServerTimeInfo');
                 disableLoading();
                 pageContainer.busyIndicator(true);
                 self.LoadActionList()
@@ -699,10 +699,10 @@
             taskModel.actions.push(actionModel);
 
             if (maxRuntime.val() !== '')
-                taskModel.max_run_time = MC.util.timePickerToUnixTime(maxRuntime.data('kendoTimePicker').value(), true);
+                taskModel.max_run_time = MC.util.timePickerToUnixTime(maxRuntime.data('kendoTimePicker').value());
 
             if (expectedRuntime.val() !== '')
-                taskModel.expected_run_time = MC.util.timePickerToUnixTime(expectedRuntime.data('kendoTimePicker').value(), true);
+                taskModel.expected_run_time = MC.util.timePickerToUnixTime(expectedRuntime.data('kendoTimePicker').value());
 
             // if edit mode
             if (!isCreateMode)
@@ -728,11 +728,11 @@
             }
             else {
                 triggerData.continuous = row.find('[name^="IsContinuous"]').is(':checked');
-                triggerData.start_time = MC.util.timePickerToUnixTime(row.find('[name="StartTime"]').data('kendoTimePicker').value(), false);
+                triggerData.start_time = MC.util.timePickerToUnixTime(row.find('[name="StartTime"]').data('kendoTimePicker').value());
 
                 if (triggerData.continuous) {
-                    triggerData.restart_delay = MC.util.timePickerToUnixTime(row.find('[name="RestartDelay"]').data('kendoTimePicker').value(), true);
-                    triggerData.end_time = MC.util.timePickerToUnixTime(row.find('[name^="EndTime"]').data('kendoTimePicker').value(), false);
+                    triggerData.restart_delay = MC.util.timePickerToUnixTime(row.find('[name="RestartDelay"]').data('kendoTimePicker').value());
+                    triggerData.end_time = MC.util.timePickerToUnixTime(row.find('[name^="EndTime"]').data('kendoTimePicker').value());
                 }
 
                 days.each(function (index, checkbox) {

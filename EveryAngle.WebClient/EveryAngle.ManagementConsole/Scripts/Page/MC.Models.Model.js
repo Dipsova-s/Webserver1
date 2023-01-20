@@ -315,11 +315,9 @@
                     currentStatus = getServerStatus(server);
                 }
                 let statusTimeStamp = $('#status_timestamp_' + server.id);
-                if (statusTimeStamp !== null)
-                    statusTimeStamp.html(MC.util.getDisplayTime(server.timestamp, false));
+                statusTimeStamp?.html(MC.util.getDisplayTime(statusTimeStamp?.text(), false));
                 let modeldataTimeStamp = $('#modeldata_timestamp' + server.id);
-                if (modeldataTimeStamp !== null)
-                    modeldataTimeStamp.html(MC.util.getDisplayTime(server.modeldataTimeStamp, false));
+                modeldataTimeStamp?.html(MC.util.getDisplayTime(modeldataTimeStamp?.text(), false));
             });
             setServerStatus(currentStatus);
         };

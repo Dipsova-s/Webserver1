@@ -138,7 +138,7 @@
             var descriptionLabel = element.closest('p').find('.descriptionLabel');
 
             if (value) {
-                var scheduleTime = MC.util.timePickerToUnixTime(value, false);
+                var scheduleTime = MC.util.timePickerToUnixTime(value);
                 var userTime = MC.util.unixtimeToTimePicker(scheduleTime, true);
                 var localTimeZoneInfo = MC.util.getTimezoneInfo(true);
                 var ScheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);

@@ -589,7 +589,7 @@
             self.CreateEventTypeDropdown();
 
             //binding server time info to sub header
-            MC.util.showServerClock('#ServerTimeInfo', ', {0:HH:mm:ss}');
+            MC.util.showServerClock('#ServerTimeInfo');
 
             jQuery('[name="TimeStop"]').kendoTimePicker({
                 format: 'HH:mm',
@@ -2854,7 +2854,7 @@
                 "run_as_user": jQuery('[name^="RunasUser"]').val(),
                 "actions": [],
                 "enabled": jQuery('[name^="IsEnabled"]').is(':checked'),
-                "max_run_time": timeStop !== '' ? MC.util.timePickerToUnixTime(jQuery('[name^="TimeStop"]').data('kendoTimePicker').value(), true) : 0,
+                "max_run_time": timeStop !== '' ? MC.util.timePickerToUnixTime(jQuery('[name^="TimeStop"]').data('kendoTimePicker').value()) : 0,
                 "actions_uri": self.TasksActionsUri,
                 "triggers": []
             };
@@ -2882,7 +2882,7 @@
                     "trigger_type": triggerType,
                     "continuous": false,
                     "frequency": "Weekly",
-                    "start_time": MC.util.timePickerToUnixTime(jQuery('[name="StartTime"]').data('kendoTimePicker').value(), false)
+                    "start_time": MC.util.timePickerToUnixTime(jQuery('[name="StartTime"]').data('kendoTimePicker').value())
                 }];
 
                 data.uri = jQuery('[name^="uri"]').val();
