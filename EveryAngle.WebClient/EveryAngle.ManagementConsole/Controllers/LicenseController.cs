@@ -5,13 +5,14 @@ using System.Web.Mvc;
 using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.WebClient.Service.Security;
-
 using EveryAngle.ManagementConsole.Helpers;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
+    [ExcludeFromCodeCoverage] // This will be refractored in M4-110277
     public class LicenseController : BaseController
     {
         private readonly IGlobalSettingService globalSettingService;

@@ -586,7 +586,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void Can_EditTask_Set_ViewBags()
         {
             //arrange.
-            SessionViewModel sessionViewModel = new SessionViewModel {
+            SessionViewModel sessionViewModel = new SessionViewModel
+            {
                 SystemPrivileges = new SystemPrivilegeViewModel
                 {
                     manage_system = true,
@@ -635,7 +636,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             DataStoresViewModel data = new DataStoresViewModel
             {
                 datastore_plugin = "test",
-                is_default =true,
+                is_default = true,
                 Uri = new Uri("/system/datastores", UriKind.Relative)
             };
             var plugin = new ListViewModel<DataStorePluginsViewModel>();
@@ -718,7 +719,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         private string TestData()
         {
-           return "{\"name\":\"new_task_updated\",\"delete_after_completion\":false,\"run_as_user\":\"local\\\\test\",\"actions\":[{\"run_as_user\":\"local\\\\test\",\"action_type\":\"export_angle_to_datastore\",\"arguments\":[{\"name\":\"datastore\",\"value\":\"Export_to_Excel_Default\"},{\"name\":\"model\",\"value\":\"EA2_800\"},{\"name\":\"angle_id\",\"value\":\"ea747c6de36f3a4db9a4b5026c74f7ffce\"},{\"name\":\"display_id\",\"value\":\"eae6ee8cca45f94a72b3520668648f8c93\"},{\"name\":\"model_timestamp_index\",\"value\":1},{\"name\":\"header_format\",\"value\":\"id\"},{\"name\":\"enum_format\",\"value\":\"id\"},{\"name\":\"max_rows_to_export\",\"value\":-1},{\"name\":\"file_name\",\"value\":\"{anglename:normalized}\"},{\"name\":\"template_file\",\"value\":\"EveryAngle-Standard.xlsx\"},{\"name\":\"sheet_name\",\"value\":\"{displayname:normalized}\"},{\"name\":\"include_techinfo\",\"value\":true},{\"name\":\"add_angle_summary\",\"value\":false},{\"name\":\"add_angle_definition\",\"value\":false},{\"name\":\"abort_task_when_error\",\"value\":false}],\"approval_state\":\"enabled\",\"notification\":null,\"order\":3}],\"enabled\":true,\"max_run_time\":9000,\"actions_uri\":\"https:\\test.com:9080\tasks\\/20\actions\",\"triggers\":[{\"days\":[{\"day\":0,\"active\":false},{\"day\":1,\"active\":false},{\"day\":2,\"active\":false},{\"day\":3,\"active\":false},{\"day\":4,\"active\":false},{\"day\":5,\"active\":false},{\"day\":6,\"active\":false}],\"trigger_type\":\"schedule\",\"continuous\":false,\"frequency\":\"Weekly\",\"start_time\":5400}]}";
+            return "{\"name\":\"new_task_updated\",\"delete_after_completion\":false,\"run_as_user\":\"local\\\\test\",\"actions\":[{\"run_as_user\":\"local\\\\test\",\"action_type\":\"export_angle_to_datastore\",\"arguments\":[{\"name\":\"datastore\",\"value\":\"Export_to_Excel_Default\"},{\"name\":\"model\",\"value\":\"EA2_800\"},{\"name\":\"angle_id\",\"value\":\"ea747c6de36f3a4db9a4b5026c74f7ffce\"},{\"name\":\"display_id\",\"value\":\"eae6ee8cca45f94a72b3520668648f8c93\"},{\"name\":\"model_timestamp_index\",\"value\":1},{\"name\":\"header_format\",\"value\":\"id\"},{\"name\":\"enum_format\",\"value\":\"id\"},{\"name\":\"max_rows_to_export\",\"value\":-1},{\"name\":\"file_name\",\"value\":\"{anglename:normalized}\"},{\"name\":\"template_file\",\"value\":\"EveryAngle-Standard.xlsx\"},{\"name\":\"sheet_name\",\"value\":\"{displayname:normalized}\"},{\"name\":\"include_techinfo\",\"value\":true},{\"name\":\"add_angle_summary\",\"value\":false},{\"name\":\"add_angle_definition\",\"value\":false},{\"name\":\"abort_task_when_error\",\"value\":false}],\"approval_state\":\"enabled\",\"notification\":null,\"order\":3}],\"enabled\":true,\"max_run_time\":9000,\"actions_uri\":\"https:\\test.com:9080\tasks\\/20\actions\",\"triggers\":[{\"days\":[{\"day\":0,\"active\":false},{\"day\":1,\"active\":false},{\"day\":2,\"active\":false},{\"day\":3,\"active\":false},{\"day\":4,\"active\":false},{\"day\":5,\"active\":false},{\"day\":6,\"active\":false}],\"trigger_type\":\"schedule\",\"continuous\":false,\"frequency\":\"Weekly\",\"start_time\":5400}]}";
         }
 
         [TestCase]
@@ -743,7 +744,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     id="msexcel",
                     name="msexcel_test",
                     supports_append=true,
-                    description="msexcel",                    
+                    description="msexcel",
                     Uri=new Uri("/system/datastores/6", UriKind.Relative)
                 }
             };
@@ -815,8 +816,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             TaskAction action = JsonConvert.DeserializeObject<TaskAction>(data);
             TaskViewModel mockObject = new TaskViewModel
             {
-                ActionsUri= new Uri("task/1/action", UriKind.Relative),
-                Uri=new Uri("task/1",UriKind.Relative),
+                ActionsUri = new Uri("task/1/action", UriKind.Relative),
+                Uri = new Uri("task/1", UriKind.Relative),
                 actions = new List<TaskAction>
                 {
                     new TaskAction
@@ -834,12 +835,47 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             };
             modelService.Setup(x => x.GetTask(It.IsAny<string>())).Returns(mockObject);
             taskService.Setup(x => x.CreateTaskAction("task/1/action", It.IsAny<TaskAction>()));
-            var result = _testingController.CopyAction("task/1",data);
+            var result = _testingController.CopyAction("task/1", data);
 
             //assert
             modelService.Verify(m => m.GetTask(It.IsAny<string>()), Times.Once);
             taskService.Verify(m => m.CreateTaskAction("task/1/action", It.IsAny<TaskAction>()), Times.Once);
             Assert.NotNull(result);
+        }
+
+        [Test]
+        public void Verify_GetDatastorePlugins_In_RenderDataStoresPage()
+        {
+            automationTaskService.Setup(x => x.GetDatastorePlugins(It.IsAny<string>())).Returns(new ListViewModel<DataStorePluginsViewModel>() { });
+            var result = _testingController.RenderDataStoresPage();
+
+            automationTaskService.Verify(x => x.GetDatastorePlugins(It.IsAny<string>()));
+        }
+
+        [Test]
+        public void Verify_CreateTask_When_TaskUri_Empty_In_SaveAutomateTask()
+        {
+            taskService.Setup(x => x.CreateTask(It.IsAny<string>(), It.IsAny<TaskViewModel>()))
+                   .Returns(new TaskViewModel
+                   {
+                       Uri = new Uri("http://www.ea.com")
+                   });
+            var result = _testingController.SaveAutomateTask(string.Empty, TestData(), "[]");
+
+            taskService.Verify(x => x.CreateTask(It.IsAny<string>(), It.IsAny<TaskViewModel>()), Times.Once);
+        }
+
+        [Test]
+        public void Verify_CreateDataStore_When_TaskUri_Empty_In_SaveDatastore()
+        {
+            automationTaskService.Setup(x => x.CreateDataStore(It.IsAny<string>(), It.IsAny<string>()))
+                   .Returns(new DataStoresViewModel
+                   {
+                       Uri = new Uri("http://www.ea.com")
+                   });
+            var result = _testingController.SaveDatastore(true, "", "");
+
+            automationTaskService.Verify(x => x.CreateDataStore(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
         #endregion
     }

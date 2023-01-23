@@ -125,6 +125,13 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
             Assert.AreEqual(expected, result);
         }
 
+        [Test]
+        public void Can_GetWebclientUrl()
+        {
+            var result = PageHelper.GetWebclientUrl();
+            Assert.AreEqual(string.Empty, result);
+        }
+
         #endregion
 
         #region private/protected functions
