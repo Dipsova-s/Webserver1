@@ -63,9 +63,8 @@
         columns.Bound(model => model.activated.Created)
             .HtmlAttributes(new { @class = "columnDate" })
             .HeaderHtmlAttributes(new { @class = "columnDate" })
-            .ClientTemplate("#= data.activated == null ? '' : MC.util.getDisplayTimeForGrid(data.activated.Created, true) #")
+            .ClientTemplate("#= data.activated == null ? 'No data' : MC.util.getDisplayTimeForGrid(data.activated.Created, true) #")
             .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.Activated))
-            .Title(Resource.Activated)
             .Sortable(false)
             .Hidden(string.IsNullOrEmpty(ViewBag.ModelId));
 
@@ -73,12 +72,8 @@
             .Title("Deactivated")
             .HtmlAttributes(new { @class = "columnDate" })
             .HeaderHtmlAttributes(new { @class = "columnDate" })
-            .ClientTemplate("# if (data.deactivated != null) { #"
-            + "<span data-role='localize'>#= data.deactivated.Created # </span>"
-            + "# } else { #"
-            + "No data"
-            + "# } #")
-            .Title(Resource.Deactivated)
+            .ClientTemplate("#= data.deactivated == null ? 'No data' : MC.util.getDisplayTimeForGrid(data.deactivated.Created, true) #")
+            .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.Deactivated))
             .Sortable(false)
             .Hidden(string.IsNullOrEmpty(ViewBag.ModelId));
 

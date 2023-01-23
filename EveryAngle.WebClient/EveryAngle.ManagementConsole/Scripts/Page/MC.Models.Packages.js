@@ -45,6 +45,7 @@
                 if (grid) {
                     MC.util.updateTimezoneColumnName('PackageGrid', 'CreatedDate', 'a');
                     MC.util.updateTimezoneColumnName('PackageGrid', 'activated.Created', 'span');
+                    MC.util.updateTimezoneColumnName('PackageGrid', 'deactivated.Created', 'span');
                     MC.util.gridScrollFixed(grid);
                     grid.bind('dataBound', self.PackageGridDataBound);
                     if (!MC.ajax.isReloadMainContent) {

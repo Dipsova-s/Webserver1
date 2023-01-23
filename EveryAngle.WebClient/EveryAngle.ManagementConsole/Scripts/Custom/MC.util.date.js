@@ -38,7 +38,7 @@
             return kendo.format('{0:00}:{1:00}', date.getUTCHours(), date.getUTCMinutes());
         },
         getDisplayTimeForGrid: function (seconds, isLog) {
-            if (!seconds)
+            if (seconds === null)
                 return '';
             let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
             let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
@@ -49,9 +49,9 @@
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss}', scheduleDate);
                 }
                 else {
-                    if (scheduleDate.getDate() == localDate.getDate())
+                    if (scheduleDate == localDate)
                         return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm]}', scheduleDate, localDate);
-                    else if (scheduleDate.getDate() < localDate.getDate())
+                    else if (scheduleDate < localDate)
                         return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm}<sup>+1</sup>]', scheduleDate, localDate);
                     else
                         return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm}<sup>-1</sup>]', scheduleDate, localDate);
@@ -62,9 +62,9 @@
                     return kendo.format('{0:HH:mm}', scheduleDate);
                 }
                 else {
-                    if (scheduleDate.getDate() == localDate.getDate())
+                    if (scheduleDate == localDate)
                         return kendo.format('{0:HH:mm} {1:[HH:mm]}', scheduleDate, localDate);
-                    else if (scheduleDate.getDate() < localDate.getDate())
+                    else if (scheduleDate < localDate)
                         return kendo.format('{0:HH:mm} {1:[HH:mm}<sup>+1</sup>]', scheduleDate, localDate);
                     else
                         return kendo.format('{0:HH:mm} {1:[HH:mm}<sup>-1</sup>]', scheduleDate, localDate);
@@ -72,7 +72,7 @@
             }
         },
         getDisplayTime: function (seconds, isLogin) {
-            if (!seconds)
+            if (seconds === null)
                 return '';
             let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
             let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
@@ -82,9 +82,9 @@
                 return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1}', scheduleDate, scheduleTimeZoneInfo.abbr);
             }
             else {
-                if (scheduleDate.getDate() == localDate.getDate())
+                if (scheduleDate == localDate)
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss} {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
-                else if (scheduleDate.getDate() < localDate.getDate())
+                else if (scheduleDate < localDate)
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss}<sup>+1</sup> {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
                 else
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss}<sup>-1</sup> {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
@@ -105,7 +105,6 @@
                 id: MC.util.getTimezoneId(offset),
                 abbr: kendo.timezone.abbr(date, name),
                 name: name,
-                fullname: date.toString().split('(')[1].slice(0, -1),
                 zone: (kendo.timezone.windows_zones.findObject('zone', name) || { other_zone: '' }).other_zone
             };
         },
@@ -119,13 +118,11 @@
                 abbr: '',
                 name: '',
                 fullname: '',
-                zone: '',
-                location: timezoneName.substr(timezoneName.indexOf(') ') + 2)
+                zone: ''
             };
             if (serverInfo) {
                 info.abbr = kendo.timezone.abbr(window.timezoneOffset === window.timezoneOffsetWithDst ? new Date(0) : new Date(), serverInfo.zone);
                 info.name = serverInfo.zone;
-                info.fullname = timezoneNameWithDst;
                 info.zone = serverInfo.other_zone;
             }
             return info;

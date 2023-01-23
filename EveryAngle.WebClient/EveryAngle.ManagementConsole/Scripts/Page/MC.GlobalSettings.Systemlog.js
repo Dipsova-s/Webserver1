@@ -47,6 +47,7 @@
         self.InitialSystemLogsGrid = function () {
             var grid = jQuery('#SystemLogsGrid').data('kendoGrid');
             if (grid) {
+                MC.util.updateTimezoneColumnName('SystemLogsGrid', 'Modified', 'a');
                 MC.util.gridScrollFixed(grid);
                 grid.bind('dataBound', self.SystemLogsGridDataBound);
             }
