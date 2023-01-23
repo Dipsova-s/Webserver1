@@ -18,6 +18,7 @@ using Microsoft.Owin.Security;
 
 namespace EveryAngle.WebClient.Service.Security
 {
+    [ExcludeFromCodeCoverage]
     public class AuthorizationHelper
     {
         #region variables
@@ -33,7 +34,6 @@ namespace EveryAngle.WebClient.Service.Security
 
         #region constructor
 
-        [ExcludeFromCodeCoverage]
         protected AuthorizationHelper()
         {
         }
@@ -42,7 +42,6 @@ namespace EveryAngle.WebClient.Service.Security
 
         #region public functions
 
-        [ExcludeFromCodeCoverage]
         public static AuthorizationHelper Initialize()
         {
             var helper = new AuthorizationHelper();
@@ -145,7 +144,6 @@ namespace EveryAngle.WebClient.Service.Security
             }
         }
 
-        [ExcludeFromCodeCoverage] // Cannot unit tests because user service makes a request to AppServer and can't be injected
         public virtual UserSettingsViewModel GetUserSettings()
         {
             UserService userService = new UserService();
@@ -267,14 +265,11 @@ namespace EveryAngle.WebClient.Service.Security
             HttpContext.Current.Session?.Clear();
         }
 
-
-        [ExcludeFromCodeCoverage]
         public virtual void Logout()
         {
             Logout(false);
         }
 
-        [ExcludeFromCodeCoverage]
         public virtual void Logout(bool causedByUnauthorized)
         {
             DestroyAllSession();
@@ -312,7 +307,6 @@ namespace EveryAngle.WebClient.Service.Security
         /// Check Auth access token
         /// </summary>
 
-        [ExcludeFromCodeCoverage]
         private void CheckSession()
         {
             var result = HttpContext.Current.Request.GetOwinContext().AuthenticateAsyncFromCookies();

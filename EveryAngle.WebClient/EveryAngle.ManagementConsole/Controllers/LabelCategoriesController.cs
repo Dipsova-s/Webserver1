@@ -13,16 +13,17 @@ using EveryAngle.Core.ViewModels.SystemLanguages;
 using EveryAngle.WebClient.Service.Security;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service;
-
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Newtonsoft.Json;
 using UrlHelper = EveryAngle.Shared.Helpers.UrlHelper;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Core.ViewModels.Directory;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class LabelCategoriesController : BaseController
     {
         private readonly IGlobalSettingService globalSettingService;
