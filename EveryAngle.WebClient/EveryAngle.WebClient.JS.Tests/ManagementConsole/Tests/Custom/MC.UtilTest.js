@@ -176,6 +176,7 @@
                 window.timezoneOffset = test.offset;
                 window.timezoneOffsetWithDst = test.offset;
                 window.scheduleTimeZone = test.scheduleTimeZone;
+                expect(window.scheduleTimeZone + ':' + test.scheduleTimeZone).toEqual(test.expected);
                 var result = MC.util.getDisplayTimeForGrid(test.seconds, test.isLog);
                 if (test.expected === '') {
                     expect(test.expected).toEqual(result);
