@@ -35,7 +35,7 @@ function WelcomeViewModel() {
         if (self.IsNoApplyBinding()) {
             self.CreateVideoPlayer();
             self.SetCompanyLogo();
-            WC.HtmlHelper.ApplyKnockout(self, self.GetContainerElement());
+            WC.HtmlHelper.ApplyKnockout(self, self.GetTitelElement());
         }
     };
 
@@ -45,7 +45,7 @@ function WelcomeViewModel() {
         self.SetData(data);
     };
     self.IsNoApplyBinding = function () {
-        return typeof ko.dataFor(self.GetContainerElement().get(0)) === 'undefined';
+        return typeof ko.dataFor(self.GetTitelElement().get(0)) === 'undefined';
     };
 
     self.SetCompanyLogo = function () {
@@ -131,6 +131,10 @@ function WelcomeViewModel() {
 
         return data;
     };
+
+    self.GetTitelElement = function () {
+        return jQuery('#TitelText');
+    }
 
     self.GetContainerElement = function () {
         return jQuery('#LandingPage');

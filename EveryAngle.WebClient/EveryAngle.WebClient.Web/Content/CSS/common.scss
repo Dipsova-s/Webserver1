@@ -90,19 +90,14 @@ img {
 }
 
 .visible-medium-viewport {
-    display: none !important;
-
-    @include respond-to(medium) {
-        display: block !important;
-    }
+    display: block !important;
+    width: 180px;
+    height: 34px;
+    padding-top: 4px;
 }
 
 .hide-medium-viewport {
-    display: block !important;
-
-    @include respond-to(medium) {
-        display: none !important;
-    }
+    display: none !important;
 }
 
 .flex-break {
@@ -498,10 +493,11 @@ img {
     box-shadow: 0 0 6px rgba(0, 0, 0, .1) !important;
 }
 
-#Logo {
+#Logo, #SearchLogo {
     display: inline-block;
     margin-top: 16px;
 }
+
 
 .Logo {
     height: 60px;
@@ -527,7 +523,7 @@ img {
 
 #UserPanel {
     position: fixed;
-    @include calc-vh(height, 120px);
+    @include calc-vh(height, 175px);
     bottom: 0;
     box-sizing: border-box;
     width: 60px;
@@ -682,7 +678,7 @@ img {
 /* .popupHelpMenu
 ============================================ */
 .popupHelpMenu {
-    top: 25%;
+    top: 33%;
     left: 60px;
     width: 200px;
     display: none;
@@ -1214,18 +1210,6 @@ img {
         background-color: transparent;
         font-weight: bold;
 
-        &:after {
-            width: 14px;
-            height: 4px;
-            top: 50%;
-            right: 3px;
-            margin-top: -2px;
-        }
-
-        &.disabled:after {
-            opacity: .5;
-        }
-
         span {
             height: 35px;
             font-size: 12px;
@@ -1423,6 +1407,7 @@ $dropdown-item-height: 16px;
     background-color: transparent;
     padding-left: 35px;
     margin: -2px;
+    margin-top: 8px;
 
     &:before {
         width: 30px;
@@ -1767,4 +1752,38 @@ $dropdown-large-item-height: 20px;
 
 #ExternalId {
     width: 100%;
+}
+
+#SearchSidePanelButton {
+    position: absolute;
+    top: 10px;
+}
+
+#TitelText {
+    height: 60px;
+    width: 100%;
+}
+
+.SideBar-Icon {
+    margin-left: 10px;
+    margin-right: 10px;
+
+    img {
+        height: 20px;
+        width: 20px;
+        padding-top: 4px;
+    }
+}
+ 
+
+.SideBar-Title {
+    padding-left: 30px;
+    font-weight: bold;
+    letter-spacing: .24px;
+}
+
+#ActionSelect .Action-dropdown.large.k-widget.k-dropdown.k-dropdown-wrap:not(.k-state-disabled) {
+    cursor: pointer;
+    width: 180px;
+    margin-left: 150px;
 }

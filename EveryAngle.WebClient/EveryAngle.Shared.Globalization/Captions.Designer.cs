@@ -1672,6 +1672,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angles for SAP - Home page.
+        /// </summary>
+        public static string Page_Home_Title {
+            get {
+                return ResourceManager.GetString("Page_Home_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angles for SAP - Search page.
         /// </summary>
         public static string Page_Search_Title {

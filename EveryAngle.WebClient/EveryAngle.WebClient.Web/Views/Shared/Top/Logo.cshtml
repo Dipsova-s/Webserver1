@@ -1,9 +1,15 @@
 ﻿@{
-    var logoLinkAction = this.Model != null ? this.Model : Url.Action("SearchPage", "Search");
+    var logoLinkAction = this.Model != null ? this.Model : Url.Action("HomePage", "Search");
+    var logoLinkAction1 = this.Model != null ? this.Model : Url.Action("SearchPage", "Search", new { sort = "name", dir = "asc" });
 }
 <div class="Logo">
     <a id="Logo" href="@logoLinkAction">
         <img alt="" src="@Url.Content("~/images/master/ic_home-5-fill.svg")" height="24" />
+    </a>
+</div>
+<div class="Logo">
+    <a id="SearchLogo" href="@logoLinkAction1">
+        <img alt="" src="@Url.Content("~/images/master/ic_file-chart-fill.svg")" height="24" />
     </a>
 </div>
 

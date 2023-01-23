@@ -5,6 +5,7 @@ var showAngleAndDisplayID = true;
 var ajaxTimeoutExpirationInSeconds = 1000;
 var intervalTime = 500;
 var maxNumberOfDashboard = 2;
+var homePageUrl = '/en/search/homepage';
 var searchPageUrl = '/en/search/searchpage';
 var anglePageUrl = '/en/angle/anglepage';
 var dashboardPageUrl = '/en/dashboard/dashboardpage';

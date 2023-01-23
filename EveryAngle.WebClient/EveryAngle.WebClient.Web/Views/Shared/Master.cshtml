@@ -54,6 +54,7 @@
         }
         var webLanguage = '@webLanguage';
         var userCulture = '@userCulture';
+        var homePageUrl = '@Url.Action("HomePage", "Search", new { language = webLanguage }).ToLower()'
         var searchPageUrl = '@Url.Action("SearchPage", "Search", new { language = webLanguage }).ToLower()';
         var anglePageUrl = '@Url.Action("AnglePage", "Angle", new { language = webLanguage }).ToLower()';
         var helptextPageUrl = '@Url.Action("Helptext", "SharedComponent", new { language = webLanguage }).ToLower()';

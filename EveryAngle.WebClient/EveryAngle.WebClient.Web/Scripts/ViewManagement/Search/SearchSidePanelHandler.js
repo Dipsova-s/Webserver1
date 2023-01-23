@@ -16,15 +16,21 @@
             .removeClass('disabled')
             .off('click').on('click', self.Toggle);
 
+        jQuery('#SearchSidePanelButton')
+            .removeClass('disabled')
+            .off('click').on('click', self.Toggle);
+
         // set panel state
         if (collapsed) {
             element.addClass('full');
             self.AddToolTipToButtonToggleSidePanel(Localization.OpenSidebar);
+            self.ChangeIcon('../../Images/show-left-side-bar-fill.svg');
         }
         else {
             element.removeClass('full');
             leftPanel.removeClass('hidden');
             self.AddToolTipToButtonToggleSidePanel(Localization.CloseSidebar);
+            self.ChangeIcon('../../Images/hide-left-side-bar-fill.svg');
         }
 
         jQuery(".content-wrapper").addClass('active');
@@ -36,7 +42,7 @@
     };
 
     self.Toggle = function () {
-        if (jQuery('#ButtonToggleSidePanel').hasClass('disabled'))
+        if (jQuery('#SearchSidePanelButton').hasClass('disabled'))
             return;
 
         var element = jQuery('.content-wrapper');
@@ -47,12 +53,14 @@
         if (leftPanel.hasClass('hidden')) {
             leftPanel.removeClass('hidden');
             self.AddToolTipToButtonToggleSidePanel(Localization.CloseSidebar);
+            self.ChangeIcon('../../Images/hide-left-side-bar-fill.svg');
         }
         else {
             setTimeout(function () {
                 var leftPanel = jQuery('#LeftMenu');
                 leftPanel.addClass('hidden');
                 self.AddToolTipToButtonToggleSidePanel(Localization.OpenSidebar);
+                self.ChangeIcon('../../Images/show-left-side-bar-fill.svg');
             }, 300);
         }
 
@@ -60,11 +68,14 @@
     };
 
     self.AddToolTipToButtonToggleSidePanel = function (toolTipText) {
-        return jQuery('#ButtonToggleSidePanel')
+        return jQuery('#SearchSidePanelButton')
             .attr({
                 'data-role': 'tooltip',
                 'data-tooltip-text': toolTipText
             });
+    };
+    self.ChangeIcon = function (path) {
+        return jQuery('#ButtonToggleSidePanel_img').attr({ 'src': path });
     };
 }
 SearchSidePanelHandler.extend(SidePanelHandler);

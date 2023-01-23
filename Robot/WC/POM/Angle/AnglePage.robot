@@ -44,17 +44,17 @@ ${iconTemplate}             css=#SectionInfo .icon-template
 ${iconAngle}                css=#SectionInfo .icon-angle
 
 ${btnAngleActionMeatBalls}                          css=#ActionDropdownList
-${ddlAngleActionDropdownListCopyDisplay}            css=#ActionDropdownListPopup .copydisplay
-${ddlAngleActionDropdownListPasteDisplay}           css=#ActionDropdownListPopup .pastedisplay
-${ddlAngleActionDropdownListExportToExcel}          css=#ActionDropdownListPopup .exportToExcel
-${ddlAngleActionDropdownListExportToCSV}            css=#ActionDropdownListPopup .exportToCSV
-${ddlAngleActionDropdownListAddToDashboard}         css=#ActionDropdownListPopup .addToDashboard
-${ddlAngleActionDropdownListCreateList}             css=#ActionDropdownListPopup .createList
-${ddlAngleActionDropdownAddJump}                    css=#ActionDropdownListPopup .addFollowup
-${ddlAngleActionDropdownListEditDisplay}            css=#ActionDropdownListPopup .editDisplay
-${ddlAngleActionDropdownListExecuteDisplay}         css=#ActionDropdownListPopup .exitEditMode
-${ddlAngleActionDropdownDownload}                   css=#ActionDropdownListPopup .download
-${ddlAngleActionDropdownScheduleAngle}              css=#ActionDropdownListPopup .scheduleAngle
+${ddlAngleActionDropdownListCopyDisplay}            xpath=//ul[@id='ActionDropdownListTablet_listbox']//li[@data-offset-index='0']//div
+${ddlAngleActionDropdownListPasteDisplay}           xpath=//ul[@id='ActionDropdownListTablet_listbox']//li[@data-offset-index='1']//div
+${ddlAngleActionDropdownListExportToExcel}          css=#ActionDropdownListTablet_listbox .exportToExcel
+${ddlAngleActionDropdownListExportToCSV}            css=#ActionDropdownListTablet_listbox .exportToCSV
+${ddlAngleActionDropdownListAddToDashboard}         css=#ActionDropdownListTablet_listbox .addToDashboard
+${ddlAngleActionDropdownListCreateList}             css=#ActionDropdownListTablet_listbox .createList
+${ddlAngleActionDropdownAddJump}                    css=#ActionDropdownListTablet_listbox .addFollowup
+${ddlAngleActionDropdownListEditDisplay}            css=#ActionDropdownListTablet_listbox .editDisplay
+${ddlAngleActionDropdownListExecuteDisplay}         css=#ActionDropdownListTablet_listbox .exitEditMode
+${ddlAngleActionDropdownDownload}                   css=#ActionDropdownListTablet_listbox .download
+${ddlAngleActionDropdownScheduleAngle}              css=#ActionDropdownListTablet_listbox .scheduleAngle
 ${chkDisplaysSection}                               jquery=.publish-displays .accordion-body .listview-item    
 
 ${btnNewDisplay}                                    css=.btn-new-display
@@ -65,6 +65,8 @@ ${btnShowValidateButton}            css=#ShowValidateButton
 
 ${popupNotification}         css=#popupNotification
 ${btnCancelConfirmation}     css=#btn-popupNotification1
+
+${ActionListDropdown}              xpath=//span[@id='ActionDropdownListTablet_ddlWrapper']/span/span[@class='k-select']/span
 
 ${popupAddLabels}            css=#popupValidateBusinessProcess_wnd_title
 
@@ -319,9 +321,11 @@ Set To Angle Buttom Should Be Enable
 
 Click Angle Action
     [Arguments]    ${actionSelector}
-    ${isMeatBallsVisibled}=  Run Keyword And Return Status    Element Should Be Visible    ${btnAngleActionMeatBalls}
-    Run keyword if    ${isMeatBallsVisibled}    Click Element    ${btnAngleActionMeatBalls}
-    Wait Until Page Contains Element    ${actionSelector}
+    #${isMeatBallsVisibled}=  Run Keyword And Return Status    Element Should Be Visible    ${btnAngleActionMeatBalls}
+    #Run keyword if    ${isMeatBallsVisibled}    Click Element    ${btnAngleActionMeatBalls}
+    #Wait Until Page Contains Element    ${actionSelector}
+    Click Element        ${ActionListDropdown}
+    Wait Until Element Is Visible        ${actionSelector}
     Click Element    ${actionSelector}
 
 Check Template Icon Is Visible
@@ -379,7 +383,8 @@ Click Download Angle
     Click Element  ${ddlAngleActionDropdownDownload}
 
 Click On Schedule Angle
-    Wait Until Page Contains Element    ${ddlAngleActionDropdownScheduleAngle}
+    Click Element        ${ActionListDropdown}
+    Wait Until Element Is Visible        ${ddlAngleActionDropdownScheduleAngle}
     Click Element    ${ddlAngleActionDropdownScheduleAngle}
     Wait Until Schedule Angle Popup Ready
 

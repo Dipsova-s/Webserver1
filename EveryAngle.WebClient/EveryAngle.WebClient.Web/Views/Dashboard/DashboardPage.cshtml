@@ -33,7 +33,7 @@
 @section TopBar
 {
     <div id="DashboardTopBar" class="topBarWrapper">
-        <div @*class="Wrapper Shadow"*@>
+        <div>
             <div class="toggle-sidebar">
                 <a class="disabled" id="ButtonToggleSidePanel">
                     <img src="~/Images/apps.svg" alt="" />
@@ -74,7 +74,17 @@
     <div class="main-content">
         <div id="DashboardField" class="detailsWrapper top">
             <div class="Wrapper">
-                <nav class="form-row toolbar">
+                <nav class="form-row titleBar" aria-label="Primary">
+                    <div class="form-col SideBar-Icon">
+                        <button class="disabled" id="AngleSidePanelButton">
+                            <img id="ButtonToggleSidePanel_img" src="~/Images/show-left-side-bar-fill.svg" alt="" />
+                        </button>
+                    </div>
+                    <div class="form-col col-breadcrumb">
+                        @{Html.RenderPartial("~/Views/Shared/Top/Breadcrumb.cshtml");}
+                    </div>
+                </nav>
+                <nav class="form-row toolbar" aria-label="secondary">
                     <div class="col-break flex-break hidden"></div>
 
                     <div class="form-col col-breadcrumb">

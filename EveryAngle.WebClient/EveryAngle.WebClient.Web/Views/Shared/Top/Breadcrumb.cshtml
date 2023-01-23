@@ -4,8 +4,7 @@
 
 <!-- ko stopBinding: true -->
 <ol class="breadcrumb-wrapper" data-bind="foreach: $root.Data">
-    <li class="breadcrumb-item" data-bind="css: { 'text-ellipsis': $data.ellipsis }">
-        <span data-bind="attr: { class: $data.separatorIcon }"></span>
+    <li class="breadcrumb-item form-row" data-bind="css: { 'text-ellipsis': $data.ellipsis }">
         <a class="breadcrumb-label"
            data-bind="click: $data.click,
            attr: { href: $data.url },
@@ -25,7 +24,6 @@
                }"></span>
             <span data-bind="attr: { class: $data.rearIcon }"></span>
             <!-- ko if: $data.hasEditIcon() -->
-            <span class="icon-breadcrumb-rear icon-breadcrumb-edit icon icon-pencil always-hide" data-bind="css: { 'always-hide': !$data.hasEditIcon()  }"></span>
             <!-- /ko -->
         </a>
     </li>

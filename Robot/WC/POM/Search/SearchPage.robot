@@ -20,6 +20,7 @@ ${btnModelingWorkbench}     //a[@id='btnWorkbench']
 ${txtbox2}                  //div[@class='sectionWelcome sectionWelcomeDetail2']
 ${imgCustomerLogo}          css=.sectionWelcomeLogo > img[src*="logo_EN"]
 ${divMostUsedTagFilter}     css=#MostUsedTags .item-label
+${ActionListDropdown}              xpath=//span[@id='ActionDropdownListTablet_ddlWrapper']/span/span[@class='k-select']/span
 
 #Sort options
 ${ddlSorting}               SortItemBySelect_ddlWrapper
@@ -117,13 +118,13 @@ ${divCopyAngleProgress}                 css=.k-overlay
 
 #Action dropdown
 ${btnSearchActionMeatBalls}             css=#ActionDropdownList
-${ddlSearchActionMassChange}            css=#ActionDropdownListPopup .massChange
-${ddlSearchActionDeleteAngle}           css=#ActionDropdownListPopup .delete
-${ddlSearchActionCopyAngle}             css=#ActionDropdownListPopup .copyAngle
-${ddlSearchActionSelectAll}             css=#ActionDropdownListPopup .selectAll
-${ddlSearchActionExecuteAsDashboard}    css=#ActionDropdownListPopup .executeDashboard
-${ddlSearchActionDownload}              css=#ActionDropdownListPopup .download
-${ddlSearchActionUpload}                css=#ActionDropdownListPopup .upload
+${ddlSearchActionMassChange}            css=#ActionDropdownListTablet_listbox .massChange
+${ddlSearchActionDeleteAngle}           css=#ActionDropdownListTablet_listbox .delete
+${ddlSearchActionCopyAngle}             css=#ActionDropdownListTablet_listbox .copyAngle
+${ddlSearchActionSelectAll}             css=#ActionDropdownListTablet_listbox .selectAll
+${ddlSearchActionExecuteAsDashboard}    css=#ActionDropdownListTablet_listbox .executeDashboard
+${ddlSearchActionDownload}              css=#ActionDropdownListTablet_listbox .download
+${ddlSearchActionUpload}                css=#ActionDropdownListTablet_listbox .upload
 
 #View Mode
 ${btnDisplaysMode}                      DisplaysList
@@ -231,6 +232,8 @@ Click Search Action
   [Arguments]    ${actionSelector}
     ${isMeatBallsVisibled}=  Run Keyword And Return Status    Element Should Be Visible    ${btnSearchActionMeatBalls}
     Run keyword if    ${isMeatBallsVisibled}    Click Element    ${btnSearchActionMeatBalls}
+    Click Element        ${ActionListDropdown}
+    Wait Until Element Is Visible        ${actionSelector}
     Click Element    ${actionSelector}
 
 Click Search Action Mass Change

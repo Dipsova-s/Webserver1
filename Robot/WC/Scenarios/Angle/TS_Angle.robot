@@ -4,6 +4,7 @@ Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
 
 *** Variables ***
 ${nextBtnSaveDsiaplayAsPopup}      css=#btn-PopupSaveAs0
+${ActionListDropdown}              xpath=//span[@id='ActionDropdownListTablet_ddlWrapper']/span/span[@class='k-select']/span
 
 *** Keywords ***
 Create Adhoc Angle From N Object List
@@ -415,6 +416,7 @@ Copy Display
     Page Should Contain Toast Success
 
 Paste Display
+    Wait Until Element Is Visible        ${ActionListDropdown} 
     Click Angle Dropdown Actions Paste Display
     Page Should Contain Toast Success
     Wait Display Executed

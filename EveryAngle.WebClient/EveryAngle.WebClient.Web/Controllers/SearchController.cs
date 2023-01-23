@@ -15,6 +15,10 @@ namespace EveryAngle.WebClient.Web.Controllers
 {
     public class SearchController : BaseController
     {
+        public ActionResult HomePage()
+        {
+            return View(@"~/Views/Search/HomePage.cshtml");
+        }
         public ActionResult SearchPage()
         {
             return View(@"~/Views/Search/SearchPage.cshtml");

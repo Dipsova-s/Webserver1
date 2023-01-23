@@ -32,7 +32,7 @@
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -990,8 +990,11 @@
     <Content Include="Images\Master\help.svg" />
     <Content Include="Images\Master\helpuser.svg" />
     <Content Include="Images\Master\ic_home-5-fill.svg" />
+    <Content Include="Images\Master\ic_file-chart-fill.svg" />
     <Content Include="Images\Master\usercontrol.svg" />
     <Content Include="Images\search-grey.svg" />
+    <Content Include="Images\show-left-side-bar-fill.svg" />
+    <Content Include="Images\hide-left-side-bar-fill.svg" />
     <Content Include="Images\search-white.svg" />
     <Content Include="Images\SearchPage\icn_clock.svg" />
     <Content Include="Images\SearchPage\icn_execute.svg" />
@@ -1434,6 +1437,7 @@
     <Content Include="Views\Shared\Copyright.cshtml" />
     <Content Include="Views\User\Forbidden.cshtml" />
     <Content Include="Views\Shared\Top\SidePanel.cshtml" />
+    <Content Include="Views\Search\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1504,7 +1508,7 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:33947/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>https://localhost:44388</IISAppRootUrl>
+          <IISAppRootUrl>https://localhost:44335</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

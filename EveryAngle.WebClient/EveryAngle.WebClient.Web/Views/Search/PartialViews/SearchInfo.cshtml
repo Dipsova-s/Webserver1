@@ -26,6 +26,16 @@
 <!-- /ko -->
 
 <div id="SearchSortingView">
+    <div id="ActionSelect" class="compactMode disabled">
+        <div class="visible-medium-viewport">
+            <div id="ActionDropdownListTablet" class="large"></div>
+        </div>
+        <div class="hide-medium-viewport">
+            <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
+                <div class="k-window-content k-content"></div>
+            </div>
+        </div>
+    </div>
     <div class="search-sorting-item">
         <span class="search-info-label">
             <span data-bind="
@@ -39,4 +49,5 @@
         <span class="search-info-label">@Resource.SortBy:</span>
         <input id="SortItemBySelect" type="hidden" class="k-dropdown" />
     </div>
+    @{Html.RenderPartial("~/Views/Search/PartialViews/ViewModeSelector.cshtml");}
 </div>

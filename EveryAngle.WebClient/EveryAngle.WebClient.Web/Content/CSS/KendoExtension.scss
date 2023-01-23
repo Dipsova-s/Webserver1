@@ -410,17 +410,11 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     opacity: inherit;
 }
 
-/*.k-window.k-state-focused {
-    border: 1px solid #fff !important;
-    box-shadow: 0 1px 2px 0 rgba(8, 35, 48, .24), 0 2px 6px 0 rgba(8, 35, 48, .16) !important;
-}*/
 
 .k-window,
 .k-window-custom {
     background: #fff none;
     border: none;
-    /*    border: 1px solid #fff;
-    box-shadow: 0 1px 2px 0 rgba(8, 35, 48, .24), 0 2px 6px 0 rgba(8, 35, 48, .16);*/
     left: 0;
     top: 0;
 }
@@ -974,6 +968,23 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 
 .k-widget.k-dropdown .k-dropdown-wrap:not(.k-state-disabled) {
     cursor: pointer;
+}
+
+#AngleField, #DashboardField {
+    #ActionSelect .k-widget.k-dropdown .k-dropdown-wrap:not(.k-state-disabled) {
+        cursor: pointer;
+        margin-left: 0px;
+        height: 32px;
+        width: 0px;
+    }
+}
+
+#SearchBar #ActionSelect .k-widget.k-dropdown .k-dropdown-wrap:not(.k-state-disabled) {
+    cursor: pointer;
+    width: 0px;
+    margin-left: 150px;
+    height: 34px;
+    margin-bottom: 4px;
 }
 
 .k-widget.k-dropdown .k-dropdown-wrap,

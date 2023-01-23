@@ -34,7 +34,7 @@
 @section TopBar
 {
     <div id="AngleTopBar" class="topBarWrapper">
-        <div @*class="Wrapper Shadow"*@>
+        <div>
             <div class="toggle-sidebar">
                 <a class="disabled" id="ButtonToggleSidePanel">
                     <img src="~/Images/apps.svg" alt="" />
@@ -82,13 +82,30 @@
     <div class="main-content">
         <div id="AngleField" class="detailsWrapper top">
             <div class="Wrapper">
-                <nav class="form-row toolbar">
+                <nav class="form-row titleBar" aria-label="Primary">
+                    <div class="form-col SideBar-Icon">
+                        <button class="disabled" id="AngleSidePanelButton">
+                            <img id="ButtonToggleSidePanel_img" src="~/Images/show-left-side-bar-fill.svg" alt="" />
+                        </button>
+                    </div>
+                    <div class="form-col col-breadcrumb">
+                        @{Html.RenderPartial("~/Views/Shared/Top/Breadcrumb.cshtml");}
+                    </div>
+                </nav>
+                <nav class="form-row toolbar" aria-label="secondary">
                     <div class="col-break flex-break hidden"></div>
 
                     <div class="form-col col-breadcrumb">
                         @{Html.RenderPartial("~/Views/Shared/Top/Breadcrumb.cshtml");}
                     </div>
 
+
+
+                    <div class="form-col col-saving" id="AngleSavingWrapper"></div>
+
+                    <div class="form-col col-states" id="AngleStatesWrapper">
+                        @{Html.RenderPartial("~/Views/Shared/Top/ItemState.cshtml");}
+                    </div>
                     <div class="form-col col-action">
                         <div id="ActionSelect" class="compactMode">
                             <div class="visible-medium-viewport">
@@ -101,12 +118,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-col col-saving" id="AngleSavingWrapper"></div>
-
-                    <div class="form-col col-states" id="AngleStatesWrapper">
-                        @{Html.RenderPartial("~/Views/Shared/Top/ItemState.cshtml");}
                     </div>
                 </nav>
                 <div class="form-row tab display-tab" id="DisplayTabs" data-bind="css: { 'active': CanSwitchDisplay  }, visible: true" style="display: none">

@@ -42,7 +42,7 @@ Adhoc Display Is Removed When Create Another Display In Adhoc Angle
     [Teardown]  Go to Search Page
 
 Copied Adhoc Display Is Removed When Create Another Display In Adhoc Angle
-    [Tags]      TC_C229220
+    [Tags]      TC_C229220 
     [Documentation]     Copied Ad-hoc display will be replace when create a new Ad-hoc display 
     ...                 Risk/coverage area: Create Adhoc display after a display was copired in Adhoc angle
     ${angleName}  Set Variable  [ROBOT] Adhoc Display In Adhoc Angle

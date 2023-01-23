@@ -1134,7 +1134,7 @@ function CreateNewAngleViewManagementModel() {
         }
 
         // clear all
-        jQuery('#SelectModelCreateNewAngle').addClass('alwaysHide');
+        jQuery('#SelectModelCreateNewAngle');
         jQuery('#CreateNewAngle').addClass('disabled');
         jQuery('#CreateNewAngle .no-model').text(Captions.Button_CreateNewAngle_NoModel);
         var modelsListElement = jQuery('#PopupSelectModelCreateNewAngle').empty();

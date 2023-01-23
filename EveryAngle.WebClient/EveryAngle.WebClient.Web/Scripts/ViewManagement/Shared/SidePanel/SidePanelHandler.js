@@ -86,23 +86,24 @@ function SidePanelHandler() {
     // toggle panel
     var fnCheckSidePanel;
     self.InitialToggle = function () {
-        jQuery('#ButtonToggleSidePanel')
+        jQuery('#AngleSidePanelButton')
             .removeClass('disabled')
             .off('click').on('click', self.Toggle);
-
         var element = jQuery('#ContentWrapper');
         var collapsed = userSettingModel.SidePanelSettingsData[self.StateManager.Collapsed.Name];
         if (collapsed) {
             element.addClass('full');
             self.AddToolTipToButtonToggleSidePanel(Localization.OpenSidebar);
+            self.ChangeIcon('../../Images/show-left-side-bar-fill.svg');
         }
         else {
             element.removeClass('full');
             self.AddToolTipToButtonToggleSidePanel(Localization.CloseSidebar);
+            self.ChangeIcon('../../Images/hide-left-side-bar-fill.svg');
         }
     };
     self.Toggle = function () {
-        if (jQuery('#ButtonToggleSidePanel').hasClass('disabled'))
+        if (jQuery('#AngleSidePanelButton').hasClass('disabled'))
             return;
 
         var element = jQuery('#ContentWrapper').addClass('toggling');
@@ -111,6 +112,7 @@ function SidePanelHandler() {
         if (!isOpen) {
             splitter.expand('.side-content');
             self.AddToolTipToButtonToggleSidePanel(Localization.CloseSidebar);
+            self.ChangeIcon('../../Images/hide-left-side-bar-fill.svg');
         }
         element.toggleClass('full');
         clearTimeout(fnCheckSidePanel);
@@ -119,6 +121,7 @@ function SidePanelHandler() {
             if (isOpen) {
                 splitter.collapse('.side-content');
                 self.AddToolTipToButtonToggleSidePanel(Localization.OpenSidebar);
+                self.ChangeIcon('../../Images/show-left-side-bar-fill.svg');
             }
                
             if (!_self.disable_states.disabled)
@@ -126,11 +129,15 @@ function SidePanelHandler() {
         }, 350);
     };
     self.AddToolTipToButtonToggleSidePanel = function (toolTipText) {
-        return jQuery('#ButtonToggleSidePanel')
+        return jQuery('#AngleSidePanelButton')
             .attr({
                 'data-role': 'tooltip',
                 'data-tooltip-text': toolTipText
             });
+    };
+
+    self.ChangeIcon = function (path) {
+        return jQuery('#ButtonToggleSidePanel_img').attr({ 'src': path });
     };
     self.Open = function (tabIndex) {
         var isOpen = !jQuery('#ContentWrapper').hasClass('full');
@@ -145,7 +152,7 @@ function SidePanelHandler() {
     };
     self.Disable = function () {
         var isOpen = !jQuery('#ContentWrapper').hasClass('full');
-        jQuery('#ButtonToggleSidePanel').addClass('invisible');
+        jQuery('#AngleSidePanelButton').addClass('invisible');
 
         _self.disable_states.disabled = true;
         _self.disable_states.is_open = isOpen;
@@ -155,7 +162,7 @@ function SidePanelHandler() {
     };
     self.Enable = function () {
         _self.disable_states.disabled = false;
-        jQuery('#ButtonToggleSidePanel').removeClass('invisible');
+        jQuery('#AngleSidePanelButton').removeClass('invisible');
 
         // restore if it used to be opened
         if (_self.disable_states.is_open)

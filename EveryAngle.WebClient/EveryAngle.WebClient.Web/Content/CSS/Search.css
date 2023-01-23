@@ -22,14 +22,16 @@
 .searchbar {
   position: relative;
   background: #fff;
-  padding: 20px;
   box-sizing: border-box;
-  min-height: 80px;
+  min-height: 66px;
   border-bottom: 1px solid #ddd; }
 
 .searchbar .Wrapper {
   display: flex;
   align-items: center; }
+
+.searchbar .searchbar-primary {
+  padding-top: 10px; }
 
 @media (max-width: 979px) {
   .searchbar .Wrapper {
@@ -48,16 +50,19 @@
   height: 36px;
   margin: 0 auto 0 0;
   min-width: 480px;
-  border-width: 0; }
+  border-width: 0;
+  padding-left: 10px; }
 
 @media (max-width: 1139px) {
   .searchbar .searchBoxWrapper {
-    min-width: 300px; } }
+    min-width: 300px;
+    padding-left: 10px; } }
 
 @media (max-width: 979px) {
   .searchbar .searchBoxWrapper {
     min-width: 0;
-    width: 100%; } }
+    width: 100%;
+    padding-left: 10px; } }
 
 .searchbar .searchBoxWrapper:hover {
   border-color: transparent;
@@ -234,20 +239,17 @@
 ============================================ */
 .createNewAngleButtonWrapper {
   display: inline-block;
-  position: relative;
-  margin: 17px 14px;
-  margin-bottom: 0; }
+  position: absolute;
+  margin: 10px 14px;
+  top: 4px; }
 
 .btnCreateNewAngle {
-  /*    background: #fff;
-    color: #333;*/
   font-weight: bold;
-  height: 40px;
+  height: 34px;
   font-size: 12px;
   line-height: 13px;
   margin: 0;
   padding: 0 7px;
-  border-radius: 50px;
   box-sizing: border-box;
   border: none;
   box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16);
@@ -261,9 +263,10 @@
 .btnCreateNewAngle span {
   min-width: 0;
   padding: 0 7px;
-  text-align: left; }
+  text-align: center; }
 
 .btnCreateNewAngle em {
+  display: none;
   font-style: normal;
   overflow: hidden;
   white-space: nowrap;
@@ -286,7 +289,6 @@
   width: 100%;
   font-size: 12px;
   padding-top: 20px;
-  border-radius: 0 0 20px 20px;
   box-sizing: border-box; }
 
 .listview.popupSelectModelCreateNewAngle .listview-item {
@@ -417,7 +419,7 @@
 ============================================ */
 #LandingPage {
   display: none;
-  padding: 30px 37px 0 37px;
+  padding: 30px 10px 0 10px;
   overflow: auto;
   background-color: #ffffff; }
 
@@ -493,7 +495,8 @@
 
 .sectionWelcomeLogo {
   float: right;
-  width: 230px; }
+  width: 230px;
+  margin-top: 15px; }
 
 .sectionWelcomeLogo > img {
   max-width: 100%; }
@@ -506,12 +509,12 @@
   font-size: 11px;
   margin-top: 2px; }
 
-.sectionWelcomeDetail1 {
+.sectionWelcomeDetail {
   margin-right: 230px;
   overflow: hidden; }
-
-.sectionWelcomeDetail1 .content {
-  padding-right: 50px; }
+  .sectionWelcomeDetail .content {
+    padding-right: 50px;
+    padding-left: 10px; }
 
 .sectionWelcome.notificationsFeed .content {
   padding: 0;
@@ -643,7 +646,8 @@
 /* #SearchFilterView
 ============================================ */
 #SearchFilterView {
-  margin-top: 20px; }
+  margin-top: 20px;
+  margin-left: 10px; }
 
 #SearchFilterView .item-label-wrapper {
   width: 100%; }
@@ -672,7 +676,8 @@
   #SearchFilterView .clear-filters .btn > span {
     font-weight: normal;
     font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
-    letter-spacing: 0.1px; }
+    letter-spacing: 0.1px;
+    color: #0e86e1; }
   #SearchFilterView .clear-filters .btn:hover {
     text-underline-offset: 1px; }
 
@@ -690,7 +695,8 @@
 #SearchSortingView .search-sorting-item {
   padding-left: 15px;
   border-left: 1px solid #f7f7f7;
-  white-space: nowrap; }
+  white-space: nowrap;
+  padding-right: 30px; }
 
 #SearchSortingView .search-sorting-item:first-child {
   padding-right: 15px;
@@ -989,6 +995,15 @@
   margin-left: 0 !important;
   width: auto !important;
   min-width: 760px; }
+
+.SearchPageHeader {
+  position: absolute;
+  left: 60px;
+  top: 10px;
+  font-size: 28px;
+  font-family: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
+  font-weight: bold;
+  letter-spacing: .24px; }
 
 /* #LeftMenu
 ============================================ */

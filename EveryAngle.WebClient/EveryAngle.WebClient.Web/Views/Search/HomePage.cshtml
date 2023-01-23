@@ -1,6 +1,6 @@
 ﻿@using EveryAngle.Shared.Globalization
 @{
-    ViewBag.Title = @Captions.Page_Search_Title;
+    ViewBag.Title = @Captions.Page_Home_Title;
     Layout = "~/Views/Shared/Master.cshtml";
 }
 @section scripts
@@ -10,17 +10,17 @@
 
         if (!BundleTable.EnableOptimizations)
         {
-        @Scripts.Render("~/bundles/searchpage.js")
+            @Scripts.Render("~/bundles/searchpage.js")
         }
         else
         {
-        <script>
+            <script>
                 WC.Page.LoadSearchPageScripts(
                     [
                         '@Scripts.Url("~/bundles/searchpage.js")'
                     ]
                 );
-        </script>
+            </script>
         }
     }
 }
@@ -29,7 +29,7 @@
     <div id="TopBar" class="topBarWrapper">
         <div>
             <div class="toggle-sidebar">
-                <a class="disabled" id="ButtonToggleSidePanel">
+                <a class="disabled">
                     <img src="~/Images/apps.svg" alt="" />
                 </a>
             </div>
@@ -40,38 +40,31 @@
 }
 
 
-<div id="MainContent" class="Wrapper content-wrapper">
-    <div id="LeftMenu" class="hidden">
+<div id="MainContent" class="Wrapper content-wrapper active full" >
+    <div id="LeftMenu" hidden>
         <div class="left-menu-wrapper">
-            <h2 class="SideBar-Title">Filter</h2>
+            <span class="SideBar-Title">Filter</span>
             @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters.cshtml"); }
         </div>
     </div>
-    <div id="Content" class="main-content">
+    <div id="Content" class="main-content" style="height: 754px;margin-left: 0px;">
         <div id="TitelText">
             <div class="sectionWelcomeRow">
-                <div class="SideBar-Icon">
-                    <button class="disabled" id="SearchSidePanelButton">
-                        <img id="ButtonToggleSidePanel_img" src="~/Images/show-left-side-bar-fill.svg" alt="" />
-                    </button>
-                </div>
-                <div class="sectionWelcome sectionWelcomeLogo" hidden>
+                <div class="sectionWelcome sectionWelcomeLogo">
                     <img alt="@Resource.CompanyLogo" />
                     <span class="lastAccessLabel" data-bind="text: Data().last_logon"></span>
                 </div>
 
                 <div class="sectionWelcome sectionWelcomeDetail">
-                    <div class="SearchPageHeader" data-bind="html: Data().introductiontext">Angles</div>
+                    <div class="content" data-bind="html: Data().introductiontext"></div>
                 </div>
             </div>
         </div>
-        <hr style=" margin-top: 0px; margin-bottom: 0px;" />
 
         <div id="SearchBar" class="searchbar" style="display: none;" data-bind="visible: true">
 
-            
+
             <div class="Wrapper searchbar-primary">
-                
                 <form id="Search" class="searchBoxWrapper" autocomplete="off" onsubmit="return false">
                     <a id="ClearSearchButton" class="clearSearch alwaysHide" onclick="searchQueryModel.ClearAdvanceSearch();" data-tooltip-text="@Resource.ClearAdvancedFilters">
                         <i class="icon icon-close"></i>
@@ -82,23 +75,25 @@
                     <input id="SearchInput" type="text" autocomplete="off" />
                     <div id="SearchTerm"></div>
                 </form>
-
-
-
-                <div id="CreateNewAngleButton">
+                <div id="CreateNewAngleButton" class="hidden">
                     @{Html.RenderPartial("~/Views/Search/PartialViews/CreateNewAngle.cshtml"); }
                 </div>
+
                 <div id="ActionSelect" class="compactMode disabled">
-                    <div class="visible-medium-viewport Action-dropdown">
+                    <div class="visible-medium-viewport">
                         <div id="ActionDropdownListTablet" class="large"></div>
                     </div>
                     <div class="hide-medium-viewport">
+                        <div id="ActionDropdownList" class="btnTools"></div>
                         <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
                             <div class="k-window-content k-content"></div>
                         </div>
                     </div>
                 </div>
 
+
+
+                @{Html.RenderPartial("~/Views/Search/PartialViews/ViewModeSelector.cshtml");}
             </div>
             <div class="Wrapper searchbar-secondary">
                 @{Html.RenderPartial("~/Views/Search/PartialViews/SearchInfo.cshtml");}
@@ -106,7 +101,7 @@
         </div>
 
         <div id="LandingPage">
-           
+
             <div class="sectionWelcomeRow sectionWelcomeSecondRow">
                 <div class="row">
                     <div class="col">
@@ -153,3 +148,6 @@
     </div>
 
 </div>
+
+
+

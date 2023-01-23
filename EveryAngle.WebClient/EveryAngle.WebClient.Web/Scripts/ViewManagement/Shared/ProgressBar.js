@@ -18,6 +18,7 @@ function ProgressbarModel() {
     self.IsEndProgressBar = false;
     self.ReferenceUri = WC.Page.GetPreviousPageUrl();
     self.PAGE = {
+        HOME: typeof homePageUrl === 'undefined' ? null : homePageUrl.toLowerCase(),
         SEARCH: typeof searchPageUrl === 'undefined' ? null : searchPageUrl.toLowerCase(),
         ANGLE: typeof anglePageUrl === 'undefined' ? null : anglePageUrl.toLowerCase(),
         DASHBOARD: typeof dashboardPageUrl === 'undefined' ? null : dashboardPageUrl.toLowerCase()
