@@ -93,20 +93,20 @@
 
     describe(".unixtimeToTimePicker", function () {
 
-        let offset = kendo.date.today().getTimezoneOffset();
-        let name = jstz.determine().name();
-        let scheduleTimeZone = (kendo.timezone.windows_zones.findObject('zone', name) || { other_zone: '' }).other_zone;
+        let offset1 = kendo.date.today().getTimezoneOffset();
+        let name1 = jstz.determine().name();
+        let scheduleTimeZone1 = (kendo.timezone.windows_zones.findObject('zone', name1) || { other_zone: '' }).other_zone;
         var tests = [
-            { offset: offset, unixtime: 0, utc: false, expected: '00:00' },
-            { offset: offset, unixtime: 0, utc: true, expected: '00:00' },
-            { offset: offset, unixtime: 3600, utc: true, expected: '01:00' }
+            { offset: offset1, unixtime: 0, utc: false, expected: '00:00' },
+            { offset: offset1, unixtime: 0, utc: true, expected: '00:00' },
+            { offset: offset1, unixtime: 3600, utc: true, expected: '01:00' }
         ];
 
         $.each(tests, function (index, test) {
             it("should convert unixtime to time picker time" , function () {
                 window.timezoneOffset = test.offset;
                 window.timezoneOffsetWithDst = test.offset;
-                window.scheduleTimeZone = scheduleTimeZone;
+                window.scheduleTimeZone = scheduleTimeZone1;
                 var result = MC.util.unixtimeToTimePicker(test.unixtime, test.utc);
                 expect(test.expected).toEqual(kendo.toString(result, 'HH:mm'));
             });
@@ -150,25 +150,25 @@
 
     describe(".getDisplayTimeForGrid", function () {
         // current location offset
-        let offset = kendo.date.today().getTimezoneOffset();
-        let name = jstz.determine().name();
-        let scheduleTimeZone = (kendo.timezone.windows_zones.findObject('zone', name) || { other_zone: '' }).other_zone
+        let offset2 = kendo.date.today().getTimezoneOffset();
+        let name2 = jstz.determine().name();
+        let scheduleTimeZone2 = (kendo.timezone.windows_zones.findObject('zone', name2) || { other_zone: '' }).other_zone
 
         var tests = [
             // null
-            { seconds: null, offset: offset, scheduleTimeZone: scheduleTimeZone, isLog: false, expected: '' },
+            { seconds: null, offset: offset2, scheduleTimeZone: scheduleTimeZone2, isLog: false, expected: '' },
 
             // same location
-            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZone, isLog: false, expected: '00:00' },
+            { seconds: 0, offset: offset2, scheduleTimeZone: scheduleTimeZone2, isLog: false, expected: '00:00' },
 
             // same location
-            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZone, isLog: false, expected: ' [' },
+            { seconds: 0, offset: offset2, scheduleTimeZone: scheduleTimeZone2, isLog: false, expected: ' [' },
 
             // different location
             { seconds: 8100, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLog: false, expected: '<sup>-1</sup>]' },
 
             // with date
-            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZone, isLog: true, expected: '01/01/1970' },
+            { seconds: 0, offset: offset2, scheduleTimeZone: scheduleTimeZone2, isLog: true, expected: '01/01/1970' },
         ];
 
         $.each(tests, function (index, test) {
@@ -193,22 +193,22 @@
 
     describe(".getDisplayTime", function () {
         // current location offset
-        let offset = kendo.date.today().getTimezoneOffset();
-        let name = jstz.determine().name();
-        let scheduleTimeZone = (kendo.timezone.windows_zones.findObject('zone', name) || { other_zone: '' }).other_zone
+        let offset3 = kendo.date.today().getTimezoneOffset();
+        let name3 = jstz.determine().name();
+        let scheduleTimeZone3 = (kendo.timezone.windows_zones.findObject('zone', name3) || { other_zone: '' }).other_zone
 
         var tests = [
             // null
-            { seconds: null, offset: offset, scheduleTimeZone: scheduleTimeZone, isLog: false, expected: '' },
+            { seconds: null, offset: offset3, scheduleTimeZone: scheduleTimeZone3, isLog: false, expected: '' },
 
             // same location
-            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZone, isLogin: false, expected: ' ' + ScheduleTimeZoneForTest[scheduleTimeZone].abbr },
+            { seconds: 0, offset: offset3, scheduleTimeZone: scheduleTimeZone3, isLogin: false, expected: ' ' + ScheduleTimeZoneForTest[scheduleTimeZone3].abbr },
 
             // same location
-            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZone, isLogin: false, expected: ' [' },
+            { seconds: 0, offset: offset3, scheduleTimeZone: scheduleTimeZone3, isLogin: false, expected: ' [' },
 
             // same location
-            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZone, isLogin: true, expected: ' [' },
+            { seconds: 0, offset: offset3, scheduleTimeZone: scheduleTimeZone3, isLogin: true, expected: ' [' },
 
             // different location
             { seconds: 0, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLogin: false, expected: 'AET [' },
@@ -357,16 +357,16 @@
 
     describe(".getTimezoneText", function () {
         // current location offset
-        let offset = kendo.date.today().getTimezoneOffset();
-        let name = jstz.determine().name();
-        let scheduleTimeZone = (kendo.timezone.windows_zones.findObject('zone', name) || { other_zone: '' }).other_zone
+        let offset4 = kendo.date.today().getTimezoneOffset();
+        let name4 = jstz.determine().name();
+        let scheduleTimeZone4 = (kendo.timezone.windows_zones.findObject('zone', name4) || { other_zone: '' }).other_zone
 
         var tests = [
             // same location
-            { offset: offset, scheduleTimeZone: scheduleTimeZone, expected: ScheduleTimeZoneForTest[scheduleTimeZone].name },
+            { offset: offset4, scheduleTimeZone: scheduleTimeZone4, expected: ScheduleTimeZoneForTest[scheduleTimeZone4].name },
 
             // same location
-            { offset: offset, scheduleTimeZone: scheduleTimeZone, expected: ' [' },
+            { offset: offset4, scheduleTimeZone: scheduleTimeZone4, expected: ' [' },
 
             // different location
             { offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', expected: 'Australia/Sydney' }
@@ -391,16 +391,16 @@
 
     describe(".getTimezoneColumnName", function () {
         // current location offset
-        let offset = kendo.date.today().getTimezoneOffset();
-        let name = jstz.determine().name();
-        let scheduleTimeZone = (kendo.timezone.windows_zones.findObject('zone', name) || { other_zone: '' }).other_zone
+        let offset5 = kendo.date.today().getTimezoneOffset();
+        let name5 = jstz.determine().name();
+        let scheduleTimeZone5 = (kendo.timezone.windows_zones.findObject('zone', name5) || { other_zone: '' }).other_zone
 
         var tests = [
             // same location
-            { offset: offset, scheduleTimeZone: scheduleTimeZone, expected: ScheduleTimeZoneForTest[scheduleTimeZone].abbr },
+            { offset: offset5, scheduleTimeZone: scheduleTimeZone5, expected: ScheduleTimeZoneForTest[scheduleTimeZone5].abbr },
 
             // same location
-            { offset: offset, scheduleTimeZone: scheduleTimeZone, expected: ' [' },
+            { offset: offset5, scheduleTimeZone: scheduleTimeZone5, expected: ' [' },
 
             // different location
             { offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', expected: 'AET [' }
