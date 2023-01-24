@@ -194,7 +194,7 @@
             <div class="contentSectionInfoItem" style="display:@showSAML">
                 <label>@Resource.MC_IdentityProviderCertificateString:</label>
                 <p>
-                    @Html.TextBoxFor(model => model.identityProviderCertificateString, new { @class = "required txtLarge", @name = "identity_provider_certificate_string", maxlength = 2000 })
+                    @Html.TextAreaFor(model => model.identityProviderCertificateString, new { @class = "required txtLarge", @name = "identity_provider_certificate_string", maxlength = 128000, rows = "10" })
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
                     <textarea class="alwaysHidden">@Resource.MC_AuthenticationProvidersHelpIdentityProviderCertificateString</textarea>
                 </p>
