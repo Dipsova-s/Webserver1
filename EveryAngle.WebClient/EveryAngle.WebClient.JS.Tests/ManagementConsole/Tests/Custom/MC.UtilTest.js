@@ -207,7 +207,7 @@
             { seconds: 0, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLogin: false, expected: 'AET [' },
 
             // different location
-            { seconds: 8100, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLogin: false, expected: '<sup>-1</sup>' },
+            { seconds: -1000, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLogin: false, expected: '<sup>-1</sup>' },
         ];
 
         $.each(tests, function (index, test) {

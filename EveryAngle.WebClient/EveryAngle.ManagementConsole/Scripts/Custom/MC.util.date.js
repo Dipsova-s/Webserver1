@@ -88,7 +88,7 @@
             else {
                 if (scheduleDateWithOutTime.getTime() === localDateWithOutTime.getTime())
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss} {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
-                else if (scheduleDateWithOutTime < scheduleDateWithOutTime)
+                else if (scheduleDateWithOutTime < localDateWithOutTime)
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss}<sup>+1</sup> {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
                 else
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss}<sup>-1</sup> {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
