@@ -214,7 +214,7 @@ namespace EveryAngle.Core.ViewModels.ModelServer
         {
             get
             {
-                if (IsModelServer)
+                if (IsModelServer || IsHanaServer)
                     return Resource.MC_ModelServer;
                 if (Type == ModelAgentType.Extractor)
                     return Resource.MC_EAXtractor;

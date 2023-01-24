@@ -11,7 +11,7 @@ ${btnCreateModels}                      jquery=#mainContent .btnAdd:contains(Set
 ${btnConfirmationModels}                jquery=#popupConfirmation
 ${btnSubmitConfirm}                     .btnSubmit
 
-${btnEA2800InFo}                        jquery=.modelInfoInstance a[data-title="HanaServer"]
+${btnEA2800InFo}                        jquery=.modelInfoInstance a[data-title="Model server"]
 ${btnEA2800XtractorInFo}                jquery=.modelInfoInstance a[data-title="EA ETL Sandbox"]
 ${btnCloseModelPopUp}                   jquery=.k-window-actions a:eq(5)
 ${btnStopServer}                        jquery=.modelInfoInstance .btn:eq(1)
