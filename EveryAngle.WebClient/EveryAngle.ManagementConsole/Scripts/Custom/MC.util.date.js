@@ -100,6 +100,9 @@
             let date = new Date();
             let offset = date.getTimezoneOffset();
             let name = jstz.determine().name();
+            if (name === 'UTC') {
+                name = 'Etc/GMT'
+            }
 
             return {
                 id: MC.util.getTimezoneId(offset),
