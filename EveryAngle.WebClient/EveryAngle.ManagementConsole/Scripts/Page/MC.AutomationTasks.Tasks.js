@@ -89,13 +89,13 @@
             self.IsTaskOwner = '';
 
             jQuery.extend(self, data || {});
-
             setTimeout(function () {
-
                 var tasksGrid = jQuery('#TasksGrid').data('kendoGrid');
                 if (tasksGrid) {
                     tasksGrid.bind('dataBound', self.TaskActionsGridDataBound);
                     tasksGrid.dataSource.read();
+
+                    MC.util.updateTimezoneColumnName('TasksGrid', 'RefreshCycleTrigger.start_time', 'span');
                 }
 
                 var taskHistoryGrid = jQuery('#TaskHistoryGrid').data('kendoGrid');
@@ -109,6 +109,9 @@
                     else {
                         taskHistoryGrid.trigger('dataBound');
                     }
+
+                    MC.util.updateTimezoneColumnName('TaskHistoryGrid', 'start_time', 'span');
+                    MC.util.updateTimezoneColumnName('TaskHistoryGrid', 'end_time', 'span');
                 }
 
                 self.InitialCopyToClipboard();
@@ -585,8 +588,8 @@
             self.CreateTriggerTypeDropdown();
             self.CreateEventTypeDropdown();
 
-            // binding server time info to sub header
-            MC.util.showServerClock('#ServerTimeInfo', ', {0:HH:mm:ss}');
+            //binding server time info to sub header
+            MC.util.showServerClock('#ServerTimeInfo');
 
             jQuery('[name="TimeStop"]').kendoTimePicker({
                 format: 'HH:mm',
@@ -671,7 +674,7 @@
 
             if (taskData.id) {
                 enabledCheckbox.prop('checked', taskData.enabled);
-                maximumRunTimePicker.value(MC.util.unixtimeToTimePicker(taskData.max_run_time, true));
+                maximumRunTimePicker.value(MC.util.unixtimeToTimePicker(taskData.max_run_time, false));
             }
             else {
                 enabledCheckbox.prop('checked', true);
@@ -2851,7 +2854,7 @@
                 "run_as_user": jQuery('[name^="RunasUser"]').val(),
                 "actions": [],
                 "enabled": jQuery('[name^="IsEnabled"]').is(':checked'),
-                "max_run_time": timeStop !== '' ? MC.util.timePickerToUnixTime(jQuery('[name^="TimeStop"]').data('kendoTimePicker').value(), true) : 0,
+                "max_run_time": timeStop !== '' ? MC.util.timePickerToUnixTime(jQuery('[name^="TimeStop"]').data('kendoTimePicker').value()) : 0,
                 "actions_uri": self.TasksActionsUri,
                 "triggers": []
             };
@@ -2879,7 +2882,7 @@
                     "trigger_type": triggerType,
                     "continuous": false,
                     "frequency": "Weekly",
-                    "start_time": MC.util.timePickerToUnixTime(jQuery('[name="StartTime"]').data('kendoTimePicker').value(), false)
+                    "start_time": MC.util.timePickerToUnixTime(jQuery('[name="StartTime"]').data('kendoTimePicker').value())
                 }];
 
                 data.uri = jQuery('[name^="uri"]').val();

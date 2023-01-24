@@ -4,10 +4,11 @@ namespace EveryAngle.Core.Interfaces.Services
 {
     public interface IGlobalSettingsAppService
     {
-        IEnumerable<ApprovalStateOption> BuildApprovalStateOptions();
+        IEnumerable<SystemSettingOption> BuildApprovalStateOptions();
+        IEnumerable<SystemSettingOption> BuildTimeZoneOptions();
     }
 
-    public class ApprovalStateOption
+    public class SystemSettingOption
     {
         public string Id { get; set; }
         public string Name { get; set; }

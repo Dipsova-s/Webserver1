@@ -89,18 +89,19 @@
 
     describe(".unixtimeToTimePicker", function () {
 
-        var currentOffset = kendo.date.today().getTimezoneOffset();
+        let offset = kendo.date.today().getTimezoneOffset();
+        let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(true);
         var tests = [
-            // expected = currentOffset - (unixtime / 60)
-            { offset: 0, unixtime: 0, utc: false, expected: getTimeFromOffset(currentOffset) },
-            { offset: 0, unixtime: 0, utc: true, expected: '00:00' },
-            { offset: 0, unixtime: 3600, utc: true, expected: '01:00' }
+            { offset: offset, unixtime: 0, utc: false, expected: '00:00' },
+            { offset: offset, unixtime: 0, utc: true, expected: '00:00' },
+            { offset: offset, unixtime: 3600, utc: true, expected: '01:00' }
         ];
 
         $.each(tests, function (index, test) {
-            it("should convert unixtime to time picker (" + test.unixtime + " -> " + test.expected + (test.utc ? " UTC" : " LOCAL") + ")", function () {
+            it("should convert unixtime to time picker time", function () {
                 window.timezoneOffset = test.offset;
                 window.timezoneOffsetWithDst = test.offset;
+                window.scheduleTimeZone = scheduleTimeZoneInfo.zone;
                 var result = MC.util.unixtimeToTimePicker(test.unixtime, test.utc);
                 expect(test.expected).toEqual(kendo.toString(result, 'HH:mm'));
             });
@@ -110,15 +111,16 @@
 
     describe(".timePickerToUnixTime", function () {
         var tests = [
-            { offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: true, expected: 0 },
-            { offset: 0, date: new Date(1970, 0, 1, 1, 0, 0), utc: true, expected: 3600 }
+            { offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), expected: 0 },
+            { offset: 0, date: new Date(1970, 0, 1, 1, 0, 0), expected: 3600 }
         ];
 
         $.each(tests, function (index, test) {
-            it("should time picker to unixtime (" + getOffsetText(test.offset) + ", " + kendo.toString(test.date, 'HH:mm') + (test.utc ? " UTC" : " Local") + " -> " + test.expected + ")", function () {
+            it("should convert time picker to unixtime", function () {
                 window.timezoneOffset = test.offset;
                 window.timezoneOffsetWithDst = test.offset;
-                var result = MC.util.timePickerToUnixTime(test.date, test.utc);
+                window.scheduleTimeZone = test.scheduleTimeZone;
+                var result = MC.util.timePickerToUnixTime(test.date);
                 expect(test.expected).toEqual(result);
             });
         });
@@ -141,27 +143,88 @@
 
     });
 
-    describe(".getDisplayTimeLocal", function () {
-        // currecnt location offset
-        var offset = kendo.date.today().getTimezoneOffset();
+    describe(".getDisplayTimeForGrid", function () {
+        // current location offset
+        let offset = kendo.date.today().getTimezoneOffset();
+        let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(true);
 
         var tests = [
             // null
-            { seconds: null, offset: offset, expected: '' },
+            { seconds: null, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLog: false, expected: '' },
 
             // same location
-            { seconds: 0, offset: offset, expected: '00:00' },
+            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLog: false, expected: '00:00' },
 
-            // difference location
-            { seconds: 0, offset: -480, expected: '00:00' }
+            // same location
+            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLog: false, expected: ' [' },
+
+            // different location
+            { seconds: 8100, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLog: false, expected: '<sup>-1</sup>]' },
+
+            // with date
+            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLog: true, expected: '01/01/1970' },
         ];
 
         $.each(tests, function (index, test) {
-            it("should display time as local (server " + getOffsetText(test.offset) + ", " + test.seconds + " -> " + test.expected + ")", function () {
+            it("should display time in schedule time zone and user time zone for Grid", function () {
                 window.timezoneOffset = test.offset;
                 window.timezoneOffsetWithDst = test.offset;
-                var result = MC.util.getDisplayTimeLocal(test.seconds);
-                expect(test.expected).toEqual(result);
+                window.scheduleTimeZone = test.scheduleTimeZone;
+                var result = MC.util.getDisplayTimeForGrid(test.seconds, test.isLog);
+                if (test.expected === '') {
+                    expect(test.expected).toEqual(result);
+                }
+                else if (test.expected === ' [') {
+                    expect(result).not.toContain(test.expected);
+                }
+                else {
+                    expect(result).toContain(test.expected);
+                }
+            });
+        });
+
+    });
+
+    describe(".getDisplayTime", function () {
+        // current location offset
+        let offset = kendo.date.today().getTimezoneOffset();
+        let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(true);
+
+        var tests = [
+            // null
+            { seconds: null, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLog: false, expected: '' },
+
+            // same location
+            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLogin: false, expected: ' ' + scheduleTimeZoneInfo.abbr },
+
+            // same location
+            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLogin: false, expected: ' [' },
+
+            // same location
+            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLogin: true, expected: ' [' },
+
+            // different location
+            { seconds: 0, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLogin: false, expected: 'AET [' },
+
+            // different location
+            { seconds: -1000, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLogin: false, expected: '<sup>-1</sup>' },
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should display time in schedule time zone and user time zone", function () {
+                window.timezoneOffset = test.offset;
+                window.timezoneOffsetWithDst = test.offset;
+                window.scheduleTimeZone = test.scheduleTimeZone;
+                var result = MC.util.getDisplayTime(test.seconds, test.isLogin);
+                if (test.expected === '') {
+                    expect(test.expected).toEqual(result);
+                }
+                else if (test.expected === ' [') {
+                    expect(result).not.toContain(test.expected);
+                }
+                else {
+                    expect(result).toContain(test.expected);
+                }
             });
         });
 
@@ -284,11 +347,69 @@
         });
     });
 
-    describe("getTimezoneText", function () {
-        it("Should return expected string", function () {
-            spyOn(MC.util, "getTimezoneInfo").and.returnValue({ name: "IST", fullname: "Indian standard time" })
-            var result = MC.util.getTimezoneText();
-            expect(result).toEqual("IST, Indian standard time");
+    describe(".getTimezoneText", function () {
+        // current location offset
+        let offset = kendo.date.today().getTimezoneOffset();
+        let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(true);
+
+        var tests = [
+            // same location
+            { offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, expected: scheduleTimeZoneInfo.name },
+
+            // same location
+            { offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, expected: ' [' },
+
+            // different location
+            { offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', expected: 'Australia/Sydney' }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("Should return expected tooltip", function () {
+                window.timezoneOffset = test.offset;
+                window.timezoneOffsetWithDst = test.offset;
+                window.scheduleTimeZone = test.scheduleTimeZone;
+                var result = MC.util.getTimezoneText();
+                if (test.expected === ' [') {
+                    expect(result).not.toContain(test.expected);
+                }
+                else {
+                    expect(result).toContain(test.expected);
+                }
+            });
         });
+
+    });
+
+    describe(".getTimezoneColumnName", function () {
+        // current location offset
+        let offset = kendo.date.today().getTimezoneOffset();
+        let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(true);
+
+        var tests = [
+            // same location
+            { offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, expected: scheduleTimeZoneInfo.abbr },
+
+            // same location
+            { offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, expected: ' [' },
+
+            // different location
+            { offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', expected: 'AET [' }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("Should return expected column name", function () {
+                window.timezoneOffset = test.offset;
+                window.timezoneOffsetWithDst = test.offset;
+                window.scheduleTimeZone = test.scheduleTimeZone;
+                var result = MC.util.getTimezoneColumnName();
+                if (test.expected === ' [') {
+                    expect(result).not.toContain(test.expected);
+                }
+                else {
+                    expect(result).toContain(test.expected);
+                }
+            });
+        });
+
     });
 });

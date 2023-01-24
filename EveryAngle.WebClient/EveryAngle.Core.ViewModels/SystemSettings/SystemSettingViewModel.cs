@@ -98,6 +98,10 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("MC_LogLevel")]
         public string log_level { get; set; }
 
+        [JsonProperty(PropertyName = "time_zone")]
+        [LocalizedDisplayName("MC_TimeZone")]
+        public string time_zone { get; set; }
+
         public string ReFormatTrustedWebservers
         {
             get

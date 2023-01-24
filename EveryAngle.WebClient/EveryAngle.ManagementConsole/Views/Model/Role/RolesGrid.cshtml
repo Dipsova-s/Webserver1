@@ -54,7 +54,11 @@
     {
         columns.Bound(model => model.Id);
         columns.Bound(model => model.Description).Width(230).ClientTemplate("#: data.Description #");
-        columns.Bound(model => model.CreatedBy.Created).Title(@Resource.MC_Created).HtmlAttributes(new { @class = "columnDate" }).HeaderHtmlAttributes(new { @class = "columnNumber" }).ClientTemplate("<span data-role='localize'>#= data.CreatedBy.Created # </span>");
+        columns.Bound(model => model.CreatedBy.Created)
+            .HeaderTemplate(PageHelper.HeaderWithTimezoneAnchorTag(Resource.MC_Created))
+            .HtmlAttributes(new { @class = "columnDate" })
+            .HeaderHtmlAttributes(new { @class = "columnNumber" })
+            .ClientTemplate("#= data.CreatedBy.Created == null ? '' : MC.util.getDisplayTimeForGrid(data.CreatedBy.Created, true) #");
         columns.Bound(model => model.CreatedBy.Fullname).Width(80);
         columns.Bound(model => model.user_count).Title(@Resource.MC_UsersCount).HtmlAttributes(new { @class = "columnNumber" }).HeaderHtmlAttributes(new { @class = "columnNumber" }).Sortable(false);
         columns.Bound(model => model.TotalSubRoles).Width(70).HtmlAttributes(new { @class = "columnNumber" }).HeaderHtmlAttributes(new { @class = "columnNumber" }).Sortable(false).Title(@Resource.MC_SubRolesHeader);

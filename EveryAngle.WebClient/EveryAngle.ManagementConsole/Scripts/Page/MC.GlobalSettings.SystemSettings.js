@@ -6,7 +6,6 @@
 
         self.Initial = function (data) {
             jQuery.extend(self, data || {});
-
             setTimeout(function () {
                 MC.form.page.init(self.GetData);
             }, 1);
@@ -137,6 +136,7 @@
             var fallbackFieldLength = $('#fallback_field_length').val();
             var defaultApprovalState = $('#default_approval_state').val();
             var logLevel = $('#log_level').val();
+            var timeZone = $('#time_zone').val();
 
             var emailSettings = {
                 "smtp_server": smtpServer,
@@ -169,7 +169,8 @@
                 'script_location': scriptLocation,
                 'fallback_field_length': fallbackFieldLength,
                 'default_approval_state': defaultApprovalState,
-                'log_level': logLevel
+                'log_level': logLevel,
+                'time_zone': timeZone
             };
 
             return {

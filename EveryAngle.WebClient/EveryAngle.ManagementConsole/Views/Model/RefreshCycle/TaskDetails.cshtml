@@ -97,7 +97,7 @@
 
         columns.Bound(model => model.RefreshCycleTrigger.start_time)
             .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.StartTime))
-            .ClientTemplate("<span>#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeLocal(data.RefreshCycleTrigger.start_time) #</span>")
+            .ClientTemplate("<span>#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeForGrid(data.RefreshCycleTrigger.start_time, false) #</span>")
             .HeaderHtmlAttributes(new { @class = "columnStartTime columnDate" })
             .HtmlAttributes(new { @class = "columnStartTime columnDate" })
             .Width(115);
@@ -125,7 +125,7 @@
 
         columns.Bound(model => model.RefreshCycleTrigger.end_time)
             .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.Until))
-            .ClientTemplate("<span>#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeLocal(data.RefreshCycleTrigger.end_time) #</span>")
+            .ClientTemplate("<span>#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeForGrid(data.RefreshCycleTrigger.end_time) #</span>")
             .HeaderHtmlAttributes(new { @class = "columnEndTime columnDate" })
             .HtmlAttributes(new { @class = "columnEndTime columnDate" })
             .Width(95);

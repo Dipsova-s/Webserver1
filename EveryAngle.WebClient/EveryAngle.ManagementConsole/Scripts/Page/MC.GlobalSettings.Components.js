@@ -9,6 +9,7 @@
             setTimeout(function () {
                 var grid = jQuery('#ComponentsGrid').data('kendoGrid');
                 if (grid) {
+                    MC.util.updateTimezoneColumnName('ComponentsGrid', 'RegisteredOn', 'span');
                     grid.bind('dataBound', self.ComponentGridDataBound);
                     grid.dataSource.read();
                 }

@@ -145,13 +145,13 @@
                 </div>
                 <div class="modelInfoItem">
                     <label>@Resource.Since:</label>
-                    <div class="value"><span data-role='localize'>@item.timestamp</span></div>
+                    <div class="value"><span id="status_timestamp_@item.id">@item.timestamp</span></div>
                 </div>
                 @if (item.SupportModelDate)
                 {
                 <div class="modelInfoItem">
                     <label>@Resource.ModelDate:</label>
-                    <div class="value"><span data-role='localize'>@item.modeldata_timestamp</span></div>
+                    <div class="value"><span id="modeldata_timestamp_@item.id">@item.modeldata_timestamp</span></div>
                 </div>
                 }
                 @if (item.type != "Extractor")

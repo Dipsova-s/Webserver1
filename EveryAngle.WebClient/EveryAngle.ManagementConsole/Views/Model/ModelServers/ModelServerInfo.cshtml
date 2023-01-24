@@ -29,18 +29,18 @@
             </div>
             <div class="contentSectionInfoItem">
                 <label>@Resource.Status</label>
-                <p>@if (Model.status != null) { @Model.status } <span data-role='localize'>@if (Model.status != null) { @Model.timestamp }</span></p>
+                <p>@if (Model.status != null) { @Model.status } <span id="status_timestamp">@if (Model.status != null) { @Model.timestamp }</span></p>
             </div>
             @if (Model.SupportModelDate)
             {
             <div class="contentSectionInfoItem">
                 <label>@Resource.ModelTimestamp</label>
-                <p><span data-role='localize'>@if (Model.modeldata_timestamp != null) { @Model.modeldata_timestamp }</span></p>
+                <p><span id="modeldata_timestamp">@if (Model.modeldata_timestamp != null) { @Model.modeldata_timestamp }</span></p>
             </div>
             }
             <div class="contentSectionInfoItem">
                 <label>@Resource.ServerStarted</label>
-                <p><span data-role='localize'>@if (ViewBag.ModelInstance != null) { @ViewBag.ModelInstance }</span></p>
+                <p><span id="server_started">@if (ViewBag.ModelInstance != null) { @ViewBag.ModelInstance }</span></p>
             </div>
 
             <div class="contentSectionInfoItem">

@@ -47,13 +47,11 @@
             .Sortable(true);
 
         columns.Bound(model => model.Modified)
-            .Title(Resource.Uploaded).HtmlAttributes(new { @class = "columnDate" })
+            .HeaderTemplate(PageHelper.HeaderWithTimezoneAnchorTag(Resource.Uploaded))
+            .HtmlAttributes(new { @class = "columnDate" })
             .HeaderHtmlAttributes(new { @class = "columnDate" })
-            .ClientTemplate(
-                "# if (data.Modified) { #" +
-                "<span data-role=\"localize\">#= data.Modified #</span>" +
-                "# } #"
-            ).Sortable(true);
+            .ClientTemplate("#= data.Modified == null ? '' : MC.util.getDisplayTimeForGrid(data.Modified, true) #")
+            .Sortable(true);
 
         columns.Bound("IsDefaultFile")
             .ClientTemplate(gridActionButtons)

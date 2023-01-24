@@ -28,7 +28,7 @@
                 <label>@Resource.Status</label>
                 <p>
                     @if (Model.status != null)
-                    {@Model.status} <span data-role='localize'>
+                    {@Model.status} <span id="status_timestamp">
                         @if (Model.status_timestamp != null)
                         {@Model.status_timestamp}
                     </span>
@@ -37,7 +37,7 @@
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_XtractorStarted</label>
                 <p>
-                    <span data-role='localize'>
+                    <span id="server_started">
                         @if (Model.instance_created != null)
                         {@Model.instance_created}
                     </span>

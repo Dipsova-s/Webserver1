@@ -49,13 +49,11 @@
         columns.Bound(model => model.ReContentsList).Title(Resource.MC_ContentType).Sortable(false);
 
         columns.Bound(model => model.CreatedDate)
-            .Title(Resource.MC_Created).HtmlAttributes(new { @class = "columnDate" })
+            .HtmlAttributes(new { @class = "columnDate" })
             .HeaderHtmlAttributes(new { @class = "columnDate" })
-            .ClientTemplate(
-                "# if (data.CreatedDate) { #" +
-                "<span data-role=\"localize\">#= data.CreatedDate #</span>" +
-                "# } #"
-            ).Sortable(true);
+            .ClientTemplate("#= data.CreatedDate == null ? '' : MC.util.getDisplayTimeForGrid(data.CreatedDate, true) #")
+            .HeaderTemplate(PageHelper.HeaderWithTimezoneAnchorTag(Resource.MC_Created))
+            .Sortable(true);
 
         columns.Bound(model => model.ReLanguagesList)
             .Title(Resource.MC_Languages)
@@ -65,14 +63,8 @@
         columns.Bound(model => model.activated.Created)
             .HtmlAttributes(new { @class = "columnDate" })
             .HeaderHtmlAttributes(new { @class = "columnDate" })
-            .ClientTemplate(
-                "# if(data.activated != null) { #"
-                + "<span data-role='localize'>#= data.activated.Created #</span>"
-                + "# } else { #"
-                + "No data"
-                + "# } #"
-            )
-            .Title(Resource.Activated)
+            .ClientTemplate("#= data.activated == null ? 'No data' : MC.util.getDisplayTimeForGrid(data.activated.Created, true) #")
+            .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.Activated))
             .Sortable(false)
             .Hidden(string.IsNullOrEmpty(ViewBag.ModelId));
 
@@ -80,12 +72,8 @@
             .Title("Deactivated")
             .HtmlAttributes(new { @class = "columnDate" })
             .HeaderHtmlAttributes(new { @class = "columnDate" })
-            .ClientTemplate("# if (data.deactivated != null) { #"
-            + "<span data-role='localize'>#= data.deactivated.Created # </span>"
-            + "# } else { #"
-            + "No data"
-            + "# } #")
-            .Title(Resource.Deactivated)
+            .ClientTemplate("#= data.deactivated == null ? 'No data' : MC.util.getDisplayTimeForGrid(data.deactivated.Created, true) #")
+            .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.Deactivated))
             .Sortable(false)
             .Hidden(string.IsNullOrEmpty(ViewBag.ModelId));
 

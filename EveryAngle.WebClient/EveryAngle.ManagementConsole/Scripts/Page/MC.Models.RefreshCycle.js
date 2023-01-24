@@ -49,7 +49,7 @@
             setTimeout(function () {
                 var pageContainer = $('#RefreshCycleContainer');
                 MC.ajax.registerPageUnloadEvent('refreshcycle', self.ClearActionList);
-                MC.util.showServerClock('#ServerTimeInfo', ', {0:HH:mm:ss}');
+                MC.util.showServerClock('#ServerTimeInfo');
                 disableLoading();
                 pageContainer.busyIndicator(true);
                 self.LoadActionList()
@@ -114,6 +114,8 @@
         self.InitialRefreshCycleGrid = function () {
             var grid = jQuery('#TaskDetailGrid').data('kendoGrid');
             if (grid) {
+                MC.util.updateTimezoneColumnName('TaskDetailGrid', 'RefreshCycleTrigger.start_time', 'span');
+                MC.util.updateTimezoneColumnName('TaskDetailGrid', 'RefreshCycleTrigger.end_time', 'span');
                 grid.bind('dataBound', self.RefreshCycleGridDataBound);
                 return grid.dataSource.read();
             }
@@ -146,6 +148,8 @@
         self.InitialRefreshCycleHistoryGrid = function () {
             var grid = jQuery('#TaskHistoryGrid').data('kendoGrid');
             if (grid) {
+                MC.util.updateTimezoneColumnName('TaskHistoryGrid', 'start_time', 'a');
+                MC.util.updateTimezoneColumnName('TaskHistoryGrid', 'end_time', 'a');
                 grid.bind('dataBound', self.RefreshCycleHistoryGridDataBound);
                 if (!MC.ajax.isReloadMainContent)
                     return grid.dataSource.read();
@@ -260,7 +264,7 @@
 
                 // restart delay
                 if (jQuery.isNumeric(data.RefreshCycleTrigger.restart_delay)) {
-                    var restartDelayPickerValue = MC.util.unixtimeToTimePicker(data.RefreshCycleTrigger.restart_delay, true);
+                    var restartDelayPickerValue = MC.util.unixtimeToTimePicker(data.RefreshCycleTrigger.restart_delay, false);
                     self.RefreshCycleForm.find('input[name="RestartDelay"]').data('handler').value(restartDelayPickerValue);
                 }
 
@@ -275,13 +279,13 @@
 
             // maximum run time
             if (jQuery.isNumeric(data.max_run_time)) {
-                var timeStopPickerValue = MC.util.unixtimeToTimePicker(data.max_run_time, true);
+                var timeStopPickerValue = MC.util.unixtimeToTimePicker(data.max_run_time, false);
                 self.RefreshCycleForm.find('input[name="TimeStop"]').data('handler').value(timeStopPickerValue);
             }
 
             // expected run time
             if (jQuery.isNumeric(data.expected_run_time)) {
-                var expectedRunTimeStopPickerValue = MC.util.unixtimeToTimePicker(data.expected_run_time, true);
+                var expectedRunTimeStopPickerValue = MC.util.unixtimeToTimePicker(data.expected_run_time, false);
                 self.RefreshCycleForm.find('input[name="ExpectedRunTimeStop"]').data('handler').value(expectedRunTimeStopPickerValue);
             }
 
@@ -695,10 +699,10 @@
             taskModel.actions.push(actionModel);
 
             if (maxRuntime.val() !== '')
-                taskModel.max_run_time = MC.util.timePickerToUnixTime(maxRuntime.data('kendoTimePicker').value(), true);
+                taskModel.max_run_time = MC.util.timePickerToUnixTime(maxRuntime.data('kendoTimePicker').value());
 
             if (expectedRuntime.val() !== '')
-                taskModel.expected_run_time = MC.util.timePickerToUnixTime(expectedRuntime.data('kendoTimePicker').value(), true);
+                taskModel.expected_run_time = MC.util.timePickerToUnixTime(expectedRuntime.data('kendoTimePicker').value());
 
             // if edit mode
             if (!isCreateMode)
@@ -724,11 +728,11 @@
             }
             else {
                 triggerData.continuous = row.find('[name^="IsContinuous"]').is(':checked');
-                triggerData.start_time = MC.util.timePickerToUnixTime(row.find('[name="StartTime"]').data('kendoTimePicker').value(), false);
+                triggerData.start_time = MC.util.timePickerToUnixTime(row.find('[name="StartTime"]').data('kendoTimePicker').value());
 
                 if (triggerData.continuous) {
-                    triggerData.restart_delay = MC.util.timePickerToUnixTime(row.find('[name="RestartDelay"]').data('kendoTimePicker').value(), true);
-                    triggerData.end_time = MC.util.timePickerToUnixTime(row.find('[name^="EndTime"]').data('kendoTimePicker').value(), false);
+                    triggerData.restart_delay = MC.util.timePickerToUnixTime(row.find('[name="RestartDelay"]').data('kendoTimePicker').value());
+                    triggerData.end_time = MC.util.timePickerToUnixTime(row.find('[name^="EndTime"]').data('kendoTimePicker').value());
                 }
 
                 days.each(function (index, checkbox) {

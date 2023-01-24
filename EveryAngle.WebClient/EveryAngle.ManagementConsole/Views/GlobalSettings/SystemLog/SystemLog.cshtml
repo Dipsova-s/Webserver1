@@ -105,11 +105,11 @@
                         .ClientTemplate("#= SizeText #");
 
                     columns.Bound(model => model.Modified)
-                        .Title(Resource.MC_LogTimestamp)
                         .Width(130)
                         .HeaderHtmlAttributes(new { @class = "columnDate" })
                         .HtmlAttributes(new { @class = "columnDate" })
-                        .ClientTemplate("<span data-role='localize'>#= Modified #</span>");
+                        .ClientTemplate("#= data.Modified == null ? '' : MC.util.getDisplayTimeForGrid(data.Modified, true) #")
+                        .HeaderTemplate(PageHelper.HeaderWithTimezoneAnchorTag(Resource.MC_LogTimestamp));
 
                     columns.Bound(model => model.FullPath)
                         .Sortable(false)

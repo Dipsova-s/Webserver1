@@ -4,70 +4,32 @@
         // time picker
         unixtimeToTimePicker: function (unixtime, outputUTC) {
             if (outputUTC !== true) {
-                // set time (server) to time picker
-                // - start_time
-                // - end_time
-                return MC.util.unixtimeToLocalTime(unixtime);
+                let ScheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
+                return MC.util.unixtimeToTime(unixtime, false, ScheduleTimeZoneInfo);
             }
             else {
-                // set time (utc) to timepicker
-                // - restart_delay
-                // - max_run_time
-                return MC.util.unixtimeToServerTime(unixtime);
+                let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
+                return MC.util.unixtimeToTime(unixtime, false, localTimeZoneInfo);
             }
         },
-        timePickerToUnixTime: function (date, outputUTC) {
-            if (outputUTC !== true) {
-                // get unixtime from time picker (local)
-                // - start_time
-                // - end_time
-                return MC.util.localDateToUnixtime(date);
-            }
-            else {
-                // get unixtime from time picker (utc)
-                // - restart_delay
-                // - max_run_time
-                return MC.util.dateToUnixtime(date);
-            }
-        },
-
-        // unix to date
-        unixtimeToLocalTime: function (unixtime) {
-            var serverDate = MC.util.unixtimeToServerTime(unixtime);
-            var localDateTimezone = (new Date()).getTimezoneOffset();
-            return kendo.timezone.convert(serverDate, window.timezoneOffsetWithDst, localDateTimezone);
-        },
-        unixtimeToServerTime: function (unixtime) {
-            var localDate = new Date(unixtime * 1000);
-            var localDateTimezone = localDate.getTimezoneOffset();
-            return kendo.timezone.convert(localDate, localDateTimezone, 0);
-        },
-
-        // date to unix
-        dateToUnixtime: function (date) {
+        timePickerToUnixTime: function (date) {
             if (date)
                 return Date.UTC(1970, 0, 1, date.getHours(), date.getMinutes(), date.getSeconds()) / 1000;
             else
                 return null;
         },
-        localDateToUnixtime: function (date) {
-            if (date) {
-                var localDateTimezone = (new Date()).getTimezoneOffset();
-                var serverDate = kendo.timezone.convert(date, localDateTimezone, window.timezoneOffsetWithDst);
-                return MC.util.dateToUnixtime(serverDate);
+        unixtimeToTime: function (unixtime, isLog, localTimeZoneInfo) {
+            let utcTime = unixtime;
+            if (!isLog) {
+                utcTime = unixtime + timezoneOffsetWithDst * 60;
             }
-            else {
-                return null;
-            }
+            return MC.util.ConvertTZ(new Date(utcTime * 1000), localTimeZoneInfo.name);
         },
-
         dateStringToTimestamp: function (dateString) {
             var date = new Date(dateString ? dateString : '');
             var timestamp = kendo.date.toUtcTime(date);
             return !isNaN(timestamp) ? timestamp / 1000 : null;
         },
-
-        // display
         getDisplayTimeUTC: function (seconds) {
             if (seconds === null)
                 return '';
@@ -75,61 +37,131 @@
             var date = new Date(seconds * 1000);
             return kendo.format('{0:00}:{1:00}', date.getUTCHours(), date.getUTCMinutes());
         },
-        getDisplayTimeLocal: function (seconds) {
+        getDisplayTimeForGrid: function (seconds, isLog) {
             if (seconds === null)
                 return '';
-
-            var serverDate = MC.util.unixtimeToServerTime(seconds);
-            return kendo.format('{0:HH:mm}', serverDate);
+            let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
+            let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
+            let scheduleDate = MC.util.unixtimeToTime(seconds, isLog, scheduleTimeZoneInfo);
+            let localDate = MC.util.unixtimeToTime(seconds, isLog, localTimeZoneInfo);
+            let scheduleDateWithOutTime = new Date(scheduleDate.getFullYear(), scheduleDate.getMonth(), scheduleDate.getDate());
+            let localDateWithOutTime = new Date(localDate.getFullYear(), localDate.getMonth(), localDate.getDate());
+            if (isLog) {
+                if (scheduleTimeZoneInfo.abbr == localTimeZoneInfo.abbr) {
+                    return kendo.format('{0:MM/dd/yyyy HH:mm:ss}', scheduleDate);
+                }
+                else {
+                    if (scheduleDateWithOutTime.getTime() === localDateWithOutTime.getTime())
+                        return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm]}', scheduleDate, localDate);
+                    else if (scheduleDateWithOutTime < localDateWithOutTime)
+                        return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm}<sup>+1</sup>]', scheduleDate, localDate);
+                    else
+                        return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm}<sup>-1</sup>]', scheduleDate, localDate);
+                }
+            }
+            else {
+                if (scheduleTimeZoneInfo.abbr == localTimeZoneInfo.abbr) {
+                    return kendo.format('{0:HH:mm}', scheduleDate);
+                }
+                else {
+                    if (scheduleDateWithOutTime.getTime() === localDateWithOutTime.getTime())
+                        return kendo.format('{0:HH:mm} {1:[HH:mm]}', scheduleDate, localDate);
+                    else if (scheduleDateWithOutTime < localDateWithOutTime)
+                        return kendo.format('{0:HH:mm} {1:[HH:mm}<sup>+1</sup>]', scheduleDate, localDate);
+                    else
+                        return kendo.format('{0:HH:mm} {1:[HH:mm}<sup>-1</sup>]', scheduleDate, localDate);
+                }
+            }
+        },
+        getDisplayTime: function (seconds, isLogin) {
+            if (seconds === null)
+                return '';
+            let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
+            let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
+            let scheduleDate = MC.util.ConvertTZ(new Date(seconds * 1000), scheduleTimeZoneInfo.name);
+            let localDate = MC.util.ConvertTZ(new Date(seconds * 1000), localTimeZoneInfo.name);
+            let scheduleDateWithOutTime = new Date(scheduleDate.getFullYear(), scheduleDate.getMonth(), scheduleDate.getDate());
+            let localDateWithOutTime = new Date(localDate.getFullYear(), localDate.getMonth(), localDate.getDate());
+            if (scheduleTimeZoneInfo.abbr === localTimeZoneInfo.abbr || isLogin) {
+                return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1}', scheduleDate, scheduleTimeZoneInfo.abbr);
+            }
+            else {
+                if (scheduleDateWithOutTime.getTime() === localDateWithOutTime.getTime())
+                    return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss} {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
+                else if (scheduleDateWithOutTime < localDateWithOutTime)
+                    return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss}<sup>+1</sup> {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
+                else
+                    return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss}<sup>-1</sup> {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
+            }
         },
         getTimezoneInfo: function (isLocal) {
             if (isLocal)
                 return MC.util.getTimezoneInfoLocal();
             else
-                return MC.util.getTimezoneInfoServer();
+                return MC.util.getScheduleTimeZoneInfo();
         },
         getTimezoneInfoLocal: function () {
-            var date = new Date();
-            var offset = date.getTimezoneOffset();
-            var name = jstz.determine().name();
+            let date = new Date();
+            let offset = date.getTimezoneOffset();
+            let name = jstz.determine().name();
+            if (name === 'UTC') {
+                name = 'Etc/GMT'
+            }
 
             return {
                 id: MC.util.getTimezoneId(offset),
                 abbr: kendo.timezone.abbr(date, name),
                 name: name,
-                fullname: date.toString().split('(')[1].slice(0, -1),
                 zone: (kendo.timezone.windows_zones.findObject('zone', name) || { other_zone: '' }).other_zone
             };
         },
-        getTimezoneInfoServer: function () {
-            var serverInfo = kendo.timezone.windows_zones.filter(function (zone) {
-                return zone.other_zone === timezoneId;
+        getScheduleTimeZoneInfo: function () {
+            let serverInfo = kendo.timezone.windows_zones.filter(function (zone) {
+                return zone.other_zone === scheduleTimeZone;
             })[0];
 
-            var info = {
+            let info = {
                 id: MC.util.getTimezoneId(window.timezoneOffset),
                 abbr: '',
                 name: '',
                 fullname: '',
-                zone: '',
-                location: timezoneName.substr(timezoneName.indexOf(') ') + 2)
+                zone: ''
             };
             if (serverInfo) {
                 info.abbr = kendo.timezone.abbr(window.timezoneOffset === window.timezoneOffsetWithDst ? new Date(0) : new Date(), serverInfo.zone);
                 info.name = serverInfo.zone;
-                info.fullname = timezoneNameWithDst;
                 info.zone = serverInfo.other_zone;
             }
             return info;
         },
         getTimezoneId: function (offset) {
-            var hours = parseInt(offset / -60);
-            var minutes = Math.abs((hours * 60) + offset);
+            let hours = parseInt(offset / -60);
+            let minutes = Math.abs((hours * 60) + offset);
             return kendo.format('UTC{0}{1}{2}', offset < 0 ? '+' : '', offset === 0 ? '' : hours, minutes !== 0 ? ':' + minutes : '');
         },
         getTimezoneText: function () {
-            var timezoneInfo = MC.util.getTimezoneInfo(false);
-            return kendo.format('{0}, {1}', timezoneInfo.name, timezoneInfo.fullname);
+            let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
+            let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
+            if (scheduleTimeZoneInfo.abbr == localTimeZoneInfo.abbr) {
+                return kendo.format('{0}', scheduleTimeZoneInfo.name);
+            }
+            else {
+                return kendo.format('{0} [{1}]', scheduleTimeZoneInfo.name, localTimeZoneInfo.name);
+            }
+        },
+        updateTimezoneColumnName: function (grid, datafield, child) {
+            let childElement = $(kendo.format("#{0} th[data-field='{1}']", grid, datafield)).children(child);
+            childElement.text(MC.util.getTimezoneColumnName(childElement.text()));
+        },
+        getTimezoneColumnName: function (columnName) {
+            let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
+            let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
+            if (scheduleTimeZoneInfo.abbr == localTimeZoneInfo.abbr) {
+                return kendo.format('{0} {1}', columnName, scheduleTimeZoneInfo.abbr, localTimeZoneInfo.abbr);
+            }
+            else {
+                return kendo.format('{0} {1} [{2}]', columnName, scheduleTimeZoneInfo.abbr, localTimeZoneInfo.abbr);
+            }
         },
         readableDate: function (time) {
             time = parseInt(time / 1000);
@@ -156,30 +188,22 @@
 
             return contents.join(' ');
         },
-        showServerClock: function (target, timeFormat) {
+        showServerClock: function (target) {
             var container = $(target);
             var template = [
-                Localization.MC_ServerLocationLabel + ' <span class="serverLocation"></span><br />',
-                '<span class="utcOffset"></span><span class="clock"></span>'
+                Localization.MC_ScheduleTimeZoneLabel + ' <span class="serverLocation"></span><br />',
+                '<span class="utcOffset"></span>'
             ].join('');
             container.html(template);
 
             // general
-            var serverTimeInfo = MC.util.getTimezoneInfo(false);
-            var utcOffset = kendo.format('{0}', serverTimeInfo.abbr);
-            container.find('.serverLocation').html(serverTimeInfo.location);
+            var scheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
+            var utcOffset = kendo.format('{0}', scheduleTimeZoneInfo.abbr);
+            container.find('.serverLocation').html(scheduleTimeZoneInfo.name);
             container.find('.utcOffset').text(utcOffset);
-
-            // clock
-            var clock = container.find('.clock');
-            var setClock = function () {
-                var currentDate = MC.util.unixtimeToServerTime(window.currentTimestamp - (window.timezoneOffsetWithDst * 60));
-                clock.text(kendo.format(timeFormat, currentDate));
-            };
-            timeFormat = timeFormat || '{0:HH:mm:ss}';
-            clearInterval(MC.util.showClockTimer);
-            setClock();
-            MC.util.showClockTimer = setInterval(setClock, 1000);
+        },
+        ConvertTZ: function (date, tzString) {
+            return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", { timeZone: tzString }));
         }
     };
     $.extend(win.MC.util, date);
