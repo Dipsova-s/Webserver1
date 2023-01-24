@@ -44,14 +44,16 @@
             let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
             let scheduleDate = MC.util.unixtimeToTime(seconds, isLog, scheduleTimeZoneInfo);
             let localDate = MC.util.unixtimeToTime(seconds, isLog, localTimeZoneInfo);
+            let scheduleDateWithOutTime = new Date(scheduleDate.getFullYear(), scheduleDate.getMonth(), scheduleDate.getDate());
+            let localDateWithOutTime = new Date(localDate.getFullYear(), localDate.getMonth(), localDate.getDate());
             if (isLog) {
                 if (scheduleTimeZoneInfo.abbr == localTimeZoneInfo.abbr) {
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss}', scheduleDate);
                 }
                 else {
-                    if (scheduleDate == localDate)
+                    if (scheduleDateWithOutTime.getTime() === localDateWithOutTime.getTime())
                         return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm]}', scheduleDate, localDate);
-                    else if (scheduleDate < localDate)
+                    else if (scheduleDateWithOutTime < localDateWithOutTime)
                         return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm}<sup>+1</sup>]', scheduleDate, localDate);
                     else
                         return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm}<sup>-1</sup>]', scheduleDate, localDate);
@@ -62,9 +64,9 @@
                     return kendo.format('{0:HH:mm}', scheduleDate);
                 }
                 else {
-                    if (scheduleDate == localDate)
+                    if (scheduleDateWithOutTime.getTime() === localDateWithOutTime.getTime())
                         return kendo.format('{0:HH:mm} {1:[HH:mm]}', scheduleDate, localDate);
-                    else if (scheduleDate < localDate)
+                    else if (scheduleDateWithOutTime < localDateWithOutTime)
                         return kendo.format('{0:HH:mm} {1:[HH:mm}<sup>+1</sup>]', scheduleDate, localDate);
                     else
                         return kendo.format('{0:HH:mm} {1:[HH:mm}<sup>-1</sup>]', scheduleDate, localDate);
@@ -78,13 +80,15 @@
             let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
             let scheduleDate = MC.util.ConvertTZ(new Date(seconds * 1000), scheduleTimeZoneInfo.name);
             let localDate = MC.util.ConvertTZ(new Date(seconds * 1000), localTimeZoneInfo.name);
+            let scheduleDateWithOutTime = new Date(scheduleDate.getFullYear(), scheduleDate.getMonth(), scheduleDate.getDate());
+            let localDateWithOutTime = new Date(localDate.getFullYear(), localDate.getMonth(), localDate.getDate());
             if (scheduleTimeZoneInfo.abbr === localTimeZoneInfo.abbr || isLogin) {
                 return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1}', scheduleDate, scheduleTimeZoneInfo.abbr);
             }
             else {
-                if (scheduleDate == localDate)
+                if (scheduleDateWithOutTime.getTime() === localDateWithOutTime.getTime())
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss} {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
-                else if (scheduleDate < localDate)
+                else if (scheduleDateWithOutTime < scheduleDateWithOutTime)
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss}<sup>+1</sup> {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
                 else
                     return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1} {2:[HH:mm:ss}<sup>-1</sup> {3}]', scheduleDate, scheduleTimeZoneInfo.abbr, localDate, localTimeZoneInfo.abbr);
