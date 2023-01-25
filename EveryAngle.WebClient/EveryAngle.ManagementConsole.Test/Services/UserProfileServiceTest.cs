@@ -6,18 +6,18 @@ using NUnit.Framework;
 namespace EveryAngle.ManagementConsole.Services.Test
 {
     [TestFixture(Category = "MC")]
-    public class SessionServiceTest
+    public class UserProfileServiceTest
     {
-        private Mock<ISessionService> service;
+        private Mock<IUserProfileService> service;
 
         [SetUp]
         public void Initialize()
         {
-            service = new Mock<ISessionService>();
+            service = new Mock<IUserProfileService>();
 
             service
                 .Setup(v => v.GetSession(It.Is<string>(s => s == "TestGetSession")))
-                .Returns(new SessionViewModel
+                .Returns(new UserProfileViewModel
                 {
                     Id = "TestGetSession",
                     SecurityToken = "45d07896-59ce-4aa5-8b4d-dbaffc67a569"

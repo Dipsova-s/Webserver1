@@ -44,9 +44,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
                 if (result != null)
                 {
                     //next step get user privileges
-                    if (AuthorizationHelper.Initialize().Session.ModelPrivileges != null)
+                    if (AuthorizationHelper.Initialize().UserProfile.ModelPrivileges != null)
                     {
-                        result.ModelPrivileges = AuthorizationHelper.Initialize().Session.ModelPrivileges;
+                        result.ModelPrivileges = AuthorizationHelper.Initialize().UserProfile.ModelPrivileges;
                     }
                     else
                     {

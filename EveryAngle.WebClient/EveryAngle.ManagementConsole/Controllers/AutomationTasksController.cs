@@ -94,8 +94,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             ViewData["DefaultPageSize"] = DefaultPageSize;
             ViewBag.TasksUri = tasksUri;
-            ViewBag.ManageSystemPrivilege = Convert.ToString(AuthorizationHelper.Session.IsValidToManageSystemPrivilege()).ToLowerInvariant();
-            ViewBag.CanScheduleAngles = Convert.ToString(AuthorizationHelper.Session.IsValidToScheduleAngles()).ToLowerInvariant();
+            ViewBag.ManageSystemPrivilege = Convert.ToString(AuthorizationHelper.UserProfile.IsValidToManageSystemPrivilege()).ToLowerInvariant();
+            ViewBag.CanScheduleAngles = Convert.ToString(AuthorizationHelper.UserProfile.IsValidToScheduleAngles()).ToLowerInvariant();
             ViewBag.UserId = AuthorizationHelper.CurrentUser.Id.Replace("\\", "\\\\");
             string sortField = string.Empty, sortDirection = string.Empty;
             if (HttpContext != null && HttpContext.Request.Cookies[SortCookie] != null)
@@ -217,8 +217,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         /// <returns></returns>
         public ActionResult EditTask(string tasksUri, string angleUri)
         {
-            bool canManageSystem = AuthorizationHelper.Session.IsValidToManageSystemPrivilege();
-            bool canScheduleAngles = AuthorizationHelper.Session.IsValidToScheduleAngles();
+            bool canManageSystem = AuthorizationHelper.UserProfile.IsValidToManageSystemPrivilege();
+            bool canScheduleAngles = AuthorizationHelper.UserProfile.IsValidToScheduleAngles();
 
             // task
             TaskViewModel task = GetTask(tasksUri);
@@ -252,7 +252,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewData["Scripts"] = GetScriptsDataSource();
             ViewData["CanManageSystem"] = canManageSystem;
             ViewData["CanScheduleAngles"] = canScheduleAngles;
-            ViewData["ModelPrivileges"] = AuthorizationHelper.Session.ModelPrivileges;
+            ViewData["ModelPrivileges"] = AuthorizationHelper.UserProfile.ModelPrivileges;
             ViewData["TaskData"] = JsonConvert.SerializeObject(task);
             ViewData["TaskCreator"] = task.created == null ? AuthorizationHelper.CurrentUser.Uri.ToString() : task.created.Uri.ToString();
 
@@ -665,8 +665,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         private bool CanUpdateTask(TaskViewModel task)
         {
             var isTaskOwner = task.run_as_user == AuthorizationHelper.CurrentUser.Id;
-            var canScheduleAngles = AuthorizationHelper.Session.IsValidToScheduleAngles();
-            var canManageSystem = AuthorizationHelper.Session.IsValidToManageSystemPrivilege();
+            var canScheduleAngles = AuthorizationHelper.UserProfile.IsValidToScheduleAngles();
+            var canManageSystem = AuthorizationHelper.UserProfile.IsValidToManageSystemPrivilege();
             var result = canManageSystem || (canScheduleAngles && isTaskOwner);
             return result;
         }
@@ -846,7 +846,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         internal void VerifyPriviledge(TaskViewModel task)
         {
             List<ModelViewModel> models = AuthorizationHelper.Models.ToList();
-            List<ModelPrivilegeViewModel> modelPrivileges = AuthorizationHelper.Session.ModelPrivileges.ToList();
+            List<ModelPrivilegeViewModel> modelPrivileges = AuthorizationHelper.UserProfile.ModelPrivileges.ToList();
             foreach (TaskAction action in task.actions)
             {
                 string modelId = action.arguments.FirstOrDefault(filter => filter.name == "model")?.value?.ToString();

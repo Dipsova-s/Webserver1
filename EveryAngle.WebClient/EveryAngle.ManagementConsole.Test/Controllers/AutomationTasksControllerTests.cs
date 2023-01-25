@@ -36,9 +36,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             // call base
             base.Setup();
 
-            // session helper
-            SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
-            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
+            // user profile helper
+            UserProfileViewModel userProfileViewModel = GetMockViewModel<UserProfileViewModel>();
+            userProfileViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
             {
                 new ModelPrivilegeViewModel
                 {
@@ -49,7 +49,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     }
                 }
             };
-            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.UserProfile).Returns(userProfileViewModel);
             authorizationHelper.SetupGet(x => x.Version).Returns(new VersionViewModel
             {
                 Version = "1",
@@ -231,8 +231,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void VerifyPriviledge_ThrowsHttpException_WhenModelPrivilegeHasNoManageModel()
         {
             // mock
-            SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
-            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
+            UserProfileViewModel userProfileViewModel = GetMockViewModel<UserProfileViewModel>();
+            userProfileViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
             {
                 new ModelPrivilegeViewModel
                 {
@@ -243,7 +243,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     }
                 }
             };
-            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.UserProfile).Returns(userProfileViewModel);
 
             TaskViewModel task = new TaskViewModel
             {
@@ -586,7 +586,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void Can_EditTask_Set_ViewBags()
         {
             //arrange.
-            SessionViewModel sessionViewModel = new SessionViewModel
+            UserProfileViewModel userProfileViewModel = new UserProfileViewModel
             {
                 SystemPrivileges = new SystemPrivilegeViewModel
                 {
@@ -599,7 +599,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 default_approval_state = "disabled"
             };
 
-            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.UserProfile).Returns(userProfileViewModel);
             authorizationHelper.SetupGet(x => x.SystemSettings).Returns(systemSettings);
 
             List<SystemScriptViewModel> scripts = new List<SystemScriptViewModel>
@@ -677,10 +677,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             //arrange.
             taskService.ResetCalls();
             var taskUri = @"https://test.com:9080//tasks/21";
-            SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
-            sessionViewModel.SystemPrivileges.manage_system = false;
-            sessionViewModel.SystemPrivileges.schedule_angles = true;
-            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            UserProfileViewModel userProfileViewModel = GetMockViewModel<UserProfileViewModel>();
+            userProfileViewModel.SystemPrivileges.manage_system = false;
+            userProfileViewModel.SystemPrivileges.schedule_angles = true;
+            authorizationHelper.SetupGet(x => x.UserProfile).Returns(userProfileViewModel);
             var userViewModel = new UserViewModel
             {
                 Id = "local\\test",
@@ -703,10 +703,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             //arrange.
             taskService.ResetCalls();
             var taskUri = @"https://test.com:9080//tasks/22";
-            SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
-            sessionViewModel.SystemPrivileges.manage_system = false;
-            sessionViewModel.SystemPrivileges.schedule_angles = true;
-            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            UserProfileViewModel userProfileViewModel = GetMockViewModel<UserProfileViewModel>();
+            userProfileViewModel.SystemPrivileges.manage_system = false;
+            userProfileViewModel.SystemPrivileges.schedule_angles = true;
+            authorizationHelper.SetupGet(x => x.UserProfile).Returns(userProfileViewModel);
             taskService.Setup(m => m.UpdateTask(It.IsAny<TaskViewModel>(), true)).Returns(new TaskViewModel() { Uri = new Uri(taskUri) });
 
             //act.

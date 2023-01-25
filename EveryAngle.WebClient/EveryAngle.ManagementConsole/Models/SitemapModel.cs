@@ -70,7 +70,7 @@ namespace EveryAngle.ManagementConsole.Models
         /// </summary>
         public void CreateSiteMap()
         {
-            SessionViewModel currentSession = _authorizationHelper.Session;
+            UserProfileViewModel currentSession = _authorizationHelper.UserProfile;
             bool canAccessSystem = currentSession.IsValidToManagementAccess();
             bool canScheduleAngles = currentSession.IsValidToScheduleAngles();
             bool canUseOnlyAutomationTask = !canAccessSystem && canScheduleAngles;

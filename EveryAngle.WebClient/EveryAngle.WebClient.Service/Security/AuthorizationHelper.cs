@@ -61,16 +61,16 @@ namespace EveryAngle.WebClient.Service.Security
             }
         }
 
-        public virtual SessionViewModel Session
+        public virtual UserProfileViewModel UserProfile
         {
             get
             {
                 if (HttpContext.Current.Session["MCSession_Session"] == null)
                 {
-                    SessionService sessionService = new SessionService();
-                    HttpContext.Current.Session["MCSession_Session"] = sessionService.GetSession(this.Version.SessionUri.ToString());
+                    UserProfileService userProfileService = new UserProfileService();
+                    HttpContext.Current.Session["MCSession_Session"] = userProfileService.GetSession(this.Version.UserProfileUri.ToString());
                 }
-                return HttpContext.Current.Session["MCSession_Session"] as SessionViewModel;
+                return HttpContext.Current.Session["MCSession_Session"] as UserProfileViewModel;
             }
         }
 

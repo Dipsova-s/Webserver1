@@ -132,8 +132,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         private bool CanAccessSystem(AuthorizationHelper session)
         {
             // M4-28350: schedule_angles with licensed can access MC but only in Automation tasks > Tasks
-            return session.Session.IsValidToManagementAccess()
-                || (session.Session.IsValidToScheduleAngles() && session.Info.AngleAutomation);
+            return session.UserProfile.IsValidToManagementAccess()
+                || (session.UserProfile.IsValidToScheduleAngles() && session.Info.AngleAutomation);
         }
 
     }

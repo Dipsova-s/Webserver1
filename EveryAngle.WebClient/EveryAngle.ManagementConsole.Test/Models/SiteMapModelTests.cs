@@ -14,7 +14,7 @@ namespace EveryAngle.ManagementConsole.Test.Models
         #region private variables
 
         private SiteMapModel _testingModel;
-        private readonly Mock<SessionViewModel> _sessionViewmodel = new Mock<SessionViewModel>();
+        private readonly Mock<UserProfileViewModel> _userProfileViewModel = new Mock<UserProfileViewModel>();
 
 
         #endregion
@@ -46,9 +46,9 @@ namespace EveryAngle.ManagementConsole.Test.Models
         [Test]
         public void Can_CreateSiteMap_When_Support_Automate_Task()
         {
-            _sessionViewmodel.Setup(x => x.IsValidToManagementAccess()).Returns(true);
-            _sessionViewmodel.Setup(x => x.IsValidToScheduleAngles()).Returns(true);
-            authorizationHelper.Setup(x => x.Session).Returns(_sessionViewmodel.Object);
+            _userProfileViewModel.Setup(x => x.IsValidToManagementAccess()).Returns(true);
+            _userProfileViewModel.Setup(x => x.IsValidToScheduleAngles()).Returns(true);
+            authorizationHelper.Setup(x => x.UserProfile).Returns(_userProfileViewModel.Object);
             authorizationHelper.Setup(x => x.Models).Returns(new List<ModelViewModel>());
             authorizationHelper.Setup(x => x.Info).Returns(new SystemInformationViewModel() { features= new List<FeatureViewModel>() { new FeatureViewModel() { feature = "AngleAutomation", licensed = true } } });
             _testingModel.CreateSiteMap();

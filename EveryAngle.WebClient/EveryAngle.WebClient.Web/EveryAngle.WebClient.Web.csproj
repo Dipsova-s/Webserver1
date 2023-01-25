@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44388</IISExpressSSLPort>
+    <IISExpressSSLPort>44313</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -382,7 +382,7 @@
     <Compile Include="Controllers\Apis\CookieController.cs" />
     <Compile Include="Controllers\Apis\HelpApiController.cs" />
     <Compile Include="Controllers\Apis\UserApiController.cs" />
-    <Compile Include="Controllers\Apis\SessionController.cs" />
+    <Compile Include="Controllers\Apis\UserProfileController.cs" />
     <Compile Include="Controllers\Apis\ProxyController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -413,7 +413,7 @@
     <Compile Include="Helpers\Profiler.cs" />
     <Compile Include="Helpers\ItemImporter.cs" />
     <Compile Include="Helpers\ResouceExtension.cs" />
-    <Compile Include="Helpers\SessionControllerHelper.cs" />
+    <Compile Include="Helpers\UserProfileControllerHelper.cs" />
     <Compile Include="Helpers\VideoHelper.cs" />
     <Compile Include="Helpers\ViewRenderer.cs" />
     <Compile Include="Models\RequestModel.cs" />
@@ -1502,8 +1502,6 @@
           <DevelopmentServerPort>33986</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:33947/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>https://localhost:44388</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

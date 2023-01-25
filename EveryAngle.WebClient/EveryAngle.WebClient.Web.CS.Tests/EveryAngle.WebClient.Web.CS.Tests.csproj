@@ -259,7 +259,7 @@
     <Compile Include="Extensions\OwinContextExtensionsTests.cs" />
     <Compile Include="Filters\ActionFilters\IsUserLoggedInActionAttributeTests.cs" />
     <Compile Include="Filters\ActionFilters\ValidationRequestActionFilterTests.cs" />
-    <Compile Include="HelperTests\SessionControllerHelperTests.cs" />
+    <Compile Include="HelperTests\UserProfileControllerHelperTests.cs" />
     <Compile Include="ControllerTest\PivotControllerTests.cs" />
     <Compile Include="ControllerTest\HelpApiControllerTests.cs" />
     <Compile Include="HelperTests\VideoHelperTests.cs" />

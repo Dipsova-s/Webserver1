@@ -210,7 +210,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ModelServiceTest.cs" />
     <Compile Include="Services\SystemInformationServiceTest.cs" />
-    <Compile Include="Services\SessionServiceTest.cs" />
+    <Compile Include="Services\UserProfileServiceTest.cs" />
     <Compile Include="Services\UserServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -269,7 +269,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestResources\ModelViewModel_Full.json" />
-    <None Include="TestResources\SessionViewModel.json">
+    <None Include="TestResources\UserProfileViewModel.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestResources\SystemAuthenticationProviderViewModel.json">

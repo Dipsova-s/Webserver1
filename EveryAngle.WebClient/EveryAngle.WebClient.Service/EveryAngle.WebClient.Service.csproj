@@ -305,7 +305,7 @@
     <Compile Include="ApiServices\GlobalSettingService.cs" />
     <Compile Include="ApiServices\LabelCategoryService.cs" />
     <Compile Include="ApiServices\ModelService.cs" />
-    <Compile Include="ApiServices\SessionService.cs" />
+    <Compile Include="ApiServices\UserProfileService.cs" />
     <Compile Include="ApiServices\SystemInformationService.cs" />
     <Compile Include="ApiServices\DownloadTableService.cs" />
     <Compile Include="ApiServices\UserService.cs" />

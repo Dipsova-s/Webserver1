@@ -424,24 +424,24 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 Sorts = new List<SortDescriptor> { new SortDescriptor { Member = sortId } }
             };
 
-            SessionViewModel currentSession = new SessionViewModel { Id = "1", UserUri = new Uri("users/1", UriKind.Relative) };
-            List<SessionViewModel> sessions = new List<SessionViewModel>
+            UserProfileViewModel currentSession = new UserProfileViewModel { Id = "1", UserUri = new Uri("users/1", UriKind.Relative) };
+            List<UserProfileViewModel> sessions = new List<UserProfileViewModel>
             {
                 currentSession,
-                new SessionViewModel { Id = "2", UserUri = new Uri("users/2", UriKind.Relative) }
+                new UserProfileViewModel { Id = "2", UserUri = new Uri("users/2", UriKind.Relative) }
             };
-            sessionService.Setup(x => x.GetSessions(It.IsAny<string>())).Returns(new ListViewModel<SessionViewModel>
+            userProfileService.Setup(x => x.GetSessions(It.IsAny<string>())).Returns(new ListViewModel<UserProfileViewModel>
             {
                 Data = sessions,
                 Header = new HeaderViewModel { Total = 100 }
             });
-            authorizationHelper.SetupGet(x => x.Session).Returns(currentSession);
+            authorizationHelper.SetupGet(x => x.UserProfile).Returns(currentSession);
             _testingController = GetTestController();
 
             // execute
             JsonResult result = _testingController.ReadSessions(dataSource, "") as JsonResult;
             DataSourceResult dataSourceResult = result.Data as DataSourceResult;
-            List<SessionViewModel> viewmodels = dataSourceResult.Data as List<SessionViewModel>;
+            List<UserProfileViewModel> viewmodels = dataSourceResult.Data as List<UserProfileViewModel>;
 
             // assert
             Assert.AreEqual(2, viewmodels.Count);
@@ -518,7 +518,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         private UsersController GetTestController()
         {
-            return new UsersController(userService.Object, modelService.Object, sessionService.Object, globalSettingService.Object, labelService.Object, authorizationHelper.Object);
+            return new UsersController(userService.Object, modelService.Object, userProfileService.Object, globalSettingService.Object, labelService.Object, authorizationHelper.Object);
         }
 
         private void SetupGetSystemAuthenticationProviders()

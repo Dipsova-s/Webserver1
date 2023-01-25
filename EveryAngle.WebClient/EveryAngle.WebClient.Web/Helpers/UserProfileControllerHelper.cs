@@ -2,7 +2,7 @@
 
 namespace EveryAngle.WebClient.Web.Helpers
 {
-    public static class SessionControllerHelper
+    public static class UserProfileControllerHelper
     {
         public static JObject GetTokenWithClientIp(string body, string clientIp)
         {

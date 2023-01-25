@@ -84,7 +84,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.DefaultPagesize = DefaultPageSize;
             ViewBag.MaxPageSize = MaxPageSize;
             ViewBag.MaxDomainElementsForSearch = AuthorizationHelper.SystemSettings.max_domainelements_for_search;
-            ViewBag.CanAccessViaWebClient = AuthorizationHelper.Session.IsValidToAccessWebClient(modelUri).ToString().ToLowerInvariant();
+            ViewBag.CanAccessViaWebClient = AuthorizationHelper.UserProfile.IsValidToAccessWebClient(modelUri).ToString().ToLowerInvariant();
             ViewBag.ClientSettings = AuthorizationHelper.CurrentUser.Settings.client_settings;
             ViewBag.FilePath = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
             FileInfo fileInfo = new FileInfo(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile"));

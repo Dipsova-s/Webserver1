@@ -12,25 +12,25 @@ using RestSharp;
 
 namespace EveryAngle.WebClient.Service.ApiServices
 {
-    public class SessionService : ISessionService
+    public class UserProfileService : IUserProfileService
     {
-        public ListViewModel<SessionViewModel> GetSessions(string uri)
+        public ListViewModel<UserProfileViewModel> GetSessions(string uri)
         {
-            var model = new ListViewModel<SessionViewModel>();
+            var model = new ListViewModel<UserProfileViewModel>();
             var requestManager = RequestManager.Initialize(uri);
             var jsonResult = requestManager.Run();
             model.Data =
-                JsonConvert.DeserializeObject<List<SessionViewModel>>(jsonResult.SelectToken("sessions").ToString(),
+                JsonConvert.DeserializeObject<List<UserProfileViewModel>>(jsonResult.SelectToken("sessions").ToString(),
                     new UnixDateTimeConverter());
             model.Header = JsonConvert.DeserializeObject<HeaderViewModel>(jsonResult.SelectToken("header").ToString());
             return model;
         }
 
-        public SessionViewModel GetSession(string uri)
+        public UserProfileViewModel GetSession(string uri)
         {
             var requestManager = RequestManager.Initialize(uri);
             var jsonResult = requestManager.Run();
-            var result = JsonConvert.DeserializeObject<SessionViewModel>(jsonResult.ToString(),
+            var result = JsonConvert.DeserializeObject<UserProfileViewModel>(jsonResult.ToString(),
                 new UnixDateTimeConverter());
 
             requestManager = RequestManager.Initialize(result.ModelPrivilegesUri.ToString());

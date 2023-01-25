@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace EveryAngle.Core.ViewModels.Users
 {
-    public class SessionViewModel
+    public class UserProfileViewModel
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }

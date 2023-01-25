@@ -35,11 +35,11 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             base.Setup();
 
             // session helper
-            authorizationHelper.SetupGet(x => x.Session).Returns(GetMockViewModel<SessionViewModel>());
+            authorizationHelper.SetupGet(x => x.UserProfile).Returns(GetMockViewModel<UserProfileViewModel>());
 
             // initial controller
             testController = new SystemRoleController(
-                modelService.Object, globalSettingService.Object, sessionService.Object, userService.Object, authorizationHelper.Object);
+                modelService.Object, globalSettingService.Object, userProfileService.Object, userService.Object, authorizationHelper.Object);
         }
 
         #endregion

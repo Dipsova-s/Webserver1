@@ -38,14 +38,14 @@ namespace EveryAngle.Core.ViewModels.Directory
             }
         }
 
-        private Uri sessionUri;
+        private Uri userProfileUri;
         [JsonProperty(PropertyName = "session")]
-        public Uri SessionUri
+        public Uri UserProfileUri
         {
-            get { return sessionUri; }
+            get { return userProfileUri; }
             set
             {
-                sessionUri = new Uri(UrlHelper.GetRequestUrl(URLType.NOA) + value);
+                userProfileUri = new Uri(UrlHelper.GetRequestUrl(URLType.NOA) + value);
             }
         }
 

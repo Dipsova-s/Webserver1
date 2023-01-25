@@ -17,7 +17,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         #region private variables
         private readonly IGlobalSettingService globalSettingService;
         private readonly IModelService modelService;
-        private readonly ISessionService sessionService;
+        private readonly IUserProfileService userProfileService;
         private readonly IUserService userService;
         #endregion
 
@@ -29,12 +29,12 @@ namespace EveryAngle.ManagementConsole.Controllers
         public SystemRoleController(
             IModelService modelService,
             IGlobalSettingService globalSettingService,
-            ISessionService sessionService,
+            IUserProfileService userProfileService,
             IUserService userService)
         {
             this.modelService = modelService;
             this.globalSettingService = globalSettingService;
-            this.sessionService = sessionService;
+            this.userProfileService = userProfileService;
             this.userService = userService;
         }
 
@@ -44,13 +44,13 @@ namespace EveryAngle.ManagementConsole.Controllers
         public SystemRoleController(
             IModelService modelService,
             IGlobalSettingService globalSettingService,
-            ISessionService sessionService,
+            IUserProfileService userProfileService,
             IUserService userService,
             AuthorizationHelper authorizationHelper)
         {
             this.modelService = modelService;
             this.globalSettingService = globalSettingService;
-            this.sessionService = sessionService;
+            this.userProfileService = userProfileService;
             this.userService = userService;
             AuthorizationHelper = authorizationHelper;
         }

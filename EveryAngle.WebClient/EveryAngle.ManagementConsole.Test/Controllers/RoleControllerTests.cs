@@ -22,7 +22,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         private Mock<ILabelService> _labelServiceMock;
         private Mock<IUserService> _userServiceMock;
         private Mock<ITaskService> _taskServiceMock;
-        private Mock<AuthorizationHelper> _sessionHelperMock;
+        private Mock<AuthorizationHelper> _userProfileHelperMock;
         private RoleController _roleController;
 
         [SetUp]
@@ -32,13 +32,13 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _labelServiceMock = new Mock<ILabelService>(MockBehavior.Strict);
             _userServiceMock = new Mock<IUserService>(MockBehavior.Strict);
             _taskServiceMock = new Mock<ITaskService>(MockBehavior.Strict);
-            _sessionHelperMock = new Mock<AuthorizationHelper>();
+            _userProfileHelperMock = new Mock<AuthorizationHelper>();
             _roleController = new RoleController(
                 _modelServiceMock.Object,
                 _labelServiceMock.Object,
                 _userServiceMock.Object,
                 _taskServiceMock.Object,
-                _sessionHelperMock.Object);
+                _userProfileHelperMock.Object);
         }
 
         [TearDown]
@@ -61,13 +61,13 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 Entries = new List<Entry> {new Entry {Name = "authentication_providers", Uri = new Uri(providersUri, UriKind.Relative) }}
             };
-            _sessionHelperMock.SetupGet(x => x.Version).Returns(version);
+            _userProfileHelperMock.SetupGet(x => x.Version).Returns(version);
             var providers = new List<SystemAuthenticationProviderViewModel>();
             _userServiceMock.Setup(x => x.GetSystemAuthenticationProviders(fullProvidersUri.ToString())).Returns(providers);
             var model = new ModelViewModel { id = "model_id", short_name = "short_name", Uri = new Uri(modelUri, UriKind.Relative) };
             _roleController.TempData.Add("ModelViewModelData", model);
-            _sessionHelperMock.Setup(x => x.Info.ODataService).Returns(true);
-            _sessionHelperMock.Setup(x => x.SystemSettings.default_pagesize).Returns(1);
+            _userProfileHelperMock.Setup(x => x.Info.ODataService).Returns(true);
+            _userProfileHelperMock.Setup(x => x.SystemSettings.default_pagesize).Returns(1);
 
             // Act
             var result = _roleController.GetAllRolesPage(fullModelUri.ToString());
@@ -95,7 +95,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 Entries = new List<Entry> { new Entry { Name = "authentication_providers", Uri = new Uri(providersUri, UriKind.Relative) } }
             };
-            _sessionHelperMock.SetupGet(x => x.Version).Returns(version);
+            _userProfileHelperMock.SetupGet(x => x.Version).Returns(version);
             var model = new ModelViewModel
             {
                 id = "model_id", 
@@ -107,9 +107,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _roleController.TempData.Add("ModelViewModelData", model);
             _modelServiceMock.Setup(x => x.GetModelServers(fullServerUri.ToString()).Data)
                 .Returns(new List<ModelServerViewModel>());
-            _sessionHelperMock.Setup(x => x.Info.ODataService).Returns(true);
-            _sessionHelperMock.Setup(x => x.SystemSettings.default_pagesize).Returns(1);
-            _sessionHelperMock.Setup(x => x.CurrentUser.Settings.client_settings).Returns(string.Empty);
+            _userProfileHelperMock.Setup(x => x.Info.ODataService).Returns(true);
+            _userProfileHelperMock.Setup(x => x.SystemSettings.default_pagesize).Returns(1);
+            _userProfileHelperMock.Setup(x => x.CurrentUser.Settings.client_settings).Returns(string.Empty);
 
             // Act
             var result = _roleController.EditRole(fullModelUri.ToString(), string.Empty);
@@ -127,7 +127,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 Entries = new List<Entry> { new Entry { Name = "authentication_providers", Uri = new Uri(providersUri, UriKind.Relative) } }
             };
-            _sessionHelperMock.SetupGet(x => x.Version).Returns(version);
+            _userProfileHelperMock.SetupGet(x => x.Version).Returns(version);
             var labelData = new ListViewModel<LabelViewModel> { Data = new List<LabelViewModel>() };
 
             // Act
@@ -147,7 +147,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 Entries = new List<Entry> { new Entry { Name = "system_roles", Uri = new Uri(rolesUri, UriKind.Relative) } }
             };
-            _sessionHelperMock.SetupGet(x => x.Version).Returns(version);
+            _userProfileHelperMock.SetupGet(x => x.Version).Returns(version);
             var roleData = "some data";
             _modelServiceMock.Setup(x => x.CreateRole(fullRolesUri.ToString(), roleData)).Returns(new SystemRoleViewModel());
 
@@ -168,7 +168,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             {
                 id = "model_id"
             };
-            _sessionHelperMock.Setup(x => x.GetModel(destinationModelUri)).Returns(model);
+            _userProfileHelperMock.Setup(x => x.GetModel(destinationModelUri)).Returns(model);
             _modelServiceMock.Setup(x => x.GetRole(destinationModelUri, roleUri, null, null, null))
                 .Returns(new SystemRoleViewModel());
 

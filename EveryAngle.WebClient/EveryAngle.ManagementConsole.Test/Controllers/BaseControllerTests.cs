@@ -17,26 +17,26 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
     [TestFixture]
     public class BaseControllerTests
     {
-        private Mock<AuthorizationHelper> _sessionHelperMock;
+        private Mock<AuthorizationHelper> _userProfileHelperMock;
         private Mock<ValidationRequestService> _validationRequestService;
         private BaseController _baseController;
 
         [SetUp]
         public void SetUp()
         {
-            _sessionHelperMock = new Mock<AuthorizationHelper>();
+            _userProfileHelperMock = new Mock<AuthorizationHelper>();
             _validationRequestService = new Mock<ValidationRequestService>();
-            _baseController = new BaseController(_sessionHelperMock.Object, _validationRequestService.Object);
+            _baseController = new BaseController(_userProfileHelperMock.Object, _validationRequestService.Object);
         }
 
         [Test]
         public void HandleActionExecution_ForcesRedirectToWebClient_WhenNotAuthenticatedAndNoSystemAccess()
         {
             // Arrange
-            _sessionHelperMock.SetupGet(x => x.HasCookie).Returns(false);
-            _sessionHelperMock.Setup(x => x.Session.IsValidToManagementAccess()).Returns(false);
-            _sessionHelperMock.Setup(x => x.Session.IsValidToScheduleAngles()).Returns(true);
-            _sessionHelperMock.Setup(x => x.Info.AngleAutomation).Returns(false);
+            _userProfileHelperMock.SetupGet(x => x.HasCookie).Returns(false);
+            _userProfileHelperMock.Setup(x => x.UserProfile.IsValidToManagementAccess()).Returns(false);
+            _userProfileHelperMock.Setup(x => x.UserProfile.IsValidToScheduleAngles()).Returns(true);
+            _userProfileHelperMock.Setup(x => x.Info.AngleAutomation).Returns(false);
             bool? wasForced = null;
             var loginPath = "some_url";
             _baseController.GetLoginPath = forceToWc =>
@@ -61,8 +61,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void HandleActionExecution_DoesNotForceRedirectToWebClient_WhenNotAuthenticatedButSystemAccess()
         {
             // Arrange
-            _sessionHelperMock.SetupGet(x => x.HasCookie).Returns(false);
-            _sessionHelperMock.Setup(x => x.Session.IsValidToManagementAccess()).Returns(true);
+            _userProfileHelperMock.SetupGet(x => x.HasCookie).Returns(false);
+            _userProfileHelperMock.Setup(x => x.UserProfile.IsValidToManagementAccess()).Returns(true);
             bool? wasForced = null;
             var loginPath = "some_url";
             _baseController.GetLoginPath = forceToWc =>
@@ -87,26 +87,26 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void HandleActionExecution_RefreshesUserSettings_WhenUserSettingsAreNull()
         {
             // Arrange
-            _sessionHelperMock.SetupGet(x => x.HasCookie).Returns(true);
-            _sessionHelperMock.Setup(x => x.Session.IsValidToManagementAccess()).Returns(true);
-            _sessionHelperMock.Setup(x => x.CurrentUser.Settings).Returns<UserSettingsViewModel>(null);
-            _sessionHelperMock.Setup(x => x.RefreshUserSettings());
+            _userProfileHelperMock.SetupGet(x => x.HasCookie).Returns(true);
+            _userProfileHelperMock.Setup(x => x.UserProfile.IsValidToManagementAccess()).Returns(true);
+            _userProfileHelperMock.Setup(x => x.CurrentUser.Settings).Returns<UserSettingsViewModel>(null);
+            _userProfileHelperMock.Setup(x => x.RefreshUserSettings());
             var actionContext = new ActionExecutingContext();
 
             // Act
             _baseController.HandleActionExecution(actionContext);
 
             // Assert
-            _sessionHelperMock.Verify(x => x.RefreshUserSettings());
+            _userProfileHelperMock.Verify(x => x.RefreshUserSettings());
         }
 
         [Test]
         public void HandleActionExecution_SetsCurrentLanguageToEnglish()
         {
             // Arrange
-            _sessionHelperMock.SetupGet(x => x.HasCookie).Returns(true);
-            _sessionHelperMock.Setup(x => x.Session.IsValidToManagementAccess()).Returns(true);
-            _sessionHelperMock.Setup(x => x.CurrentUser.Settings).Returns(new UserSettingsViewModel());
+            _userProfileHelperMock.SetupGet(x => x.HasCookie).Returns(true);
+            _userProfileHelperMock.Setup(x => x.UserProfile.IsValidToManagementAccess()).Returns(true);
+            _userProfileHelperMock.Setup(x => x.CurrentUser.Settings).Returns(new UserSettingsViewModel());
             var tempLanguage = "fr";
             var resultLanguage = "en";
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(tempLanguage);
@@ -151,7 +151,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             actionContext.HttpContext = httpContextMock.Object;
             var exception = new HttpException((int) HttpStatusCode.Forbidden, "Missing CSRF token");
             _validationRequestService.Setup(x => x.ValidateToken(It.IsAny<HttpRequestBase>())).Returns(Task.Run(() => throw exception)).Verifiable();
-            var baseController = new BaseControllerTestClass(_sessionHelperMock.Object, _validationRequestService.Object);
+            var baseController = new BaseControllerTestClass(_userProfileHelperMock.Object, _validationRequestService.Object);
 
             var loginPath = "some_url";
             bool forcedToWebClient = true;

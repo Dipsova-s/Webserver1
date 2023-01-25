@@ -34,20 +34,20 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly IGlobalSettingService _globalSettingService;
         private readonly ILabelService _labelService;
         private readonly IModelService _modelService;
-        private readonly ISessionService _sessionService;
+        private readonly IUserProfileService _userProfileService;
         private readonly IUserService _userService;
 
         public UsersController(
             IUserService service,
             IModelService modelService,
-            ISessionService sessionService,
+            IUserProfileService userProfileService,
             IGlobalSettingService globalSettingService,
             ILabelService labelService,
             AuthorizationHelper authorizationHelper)
         {
             _userService = service;
             _modelService = modelService;
-            _sessionService = sessionService;
+            _userProfileService = userProfileService;
             _globalSettingService = globalSettingService;
             _labelService = labelService;
             AuthorizationHelper = authorizationHelper;
@@ -56,13 +56,13 @@ namespace EveryAngle.ManagementConsole.Controllers
         public UsersController(
             IUserService service,
             IModelService modelService,
-            ISessionService sessionService,
+            IUserProfileService userProfileService,
             IGlobalSettingService globalSettingService,
             ILabelService labelService)
         {
             _userService = service;
             _modelService = modelService;
-            _sessionService = sessionService;
+            _userProfileService = userProfileService;
             _globalSettingService = globalSettingService;
             _labelService = labelService;
             AuthorizationHelper = AuthorizationHelper.Initialize();
@@ -850,7 +850,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult ReadSessions([DataSourceRequest] DataSourceRequest request, string q = "")
         {
-            ListViewModel<SessionViewModel> sessions = GetSessions(request, q);
+            ListViewModel<UserProfileViewModel> sessions = GetSessions(request, q);
             DataSourceResult result = new DataSourceResult
             {
                 Data = sessions.Data,
@@ -887,18 +887,18 @@ namespace EveryAngle.ManagementConsole.Controllers
             _userService.UpdateDebugLogging(sessionUri, isDebugLogging);
         }
 
-        private ListViewModel<SessionViewModel> GetSessions([DataSourceRequest] DataSourceRequest request, string q)
+        private ListViewModel<UserProfileViewModel> GetSessions([DataSourceRequest] DataSourceRequest request, string q)
         {
             VersionViewModel version = AuthorizationHelper.Version;
-            SessionViewModel currentSession = AuthorizationHelper.Session;
+            UserProfileViewModel currentSession = AuthorizationHelper.UserProfile;
             string currentUserId = AuthorizationHelper.CurrentUser.Id;
 
             string offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(request.Page, request.PageSize, q);
             string sessionsUrl = string.Format("{0}?{1}", version.GetEntryByName("sessions").Uri, offsetLimitQuery);
             sessionsUrl += PageHelper.GetQueryString(request, QueryString.Users);
 
-            ListViewModel<SessionViewModel> model = _sessionService.GetSessions(sessionsUrl);
-            foreach (SessionViewModel session in model.Data)
+            ListViewModel<UserProfileViewModel> model = _userProfileService.GetSessions(sessionsUrl);
+            foreach (UserProfileViewModel session in model.Data)
             {
                 session.IsCurrentLogedInSession = currentSession.Id == session.Id;
                 session.UserID = currentSession.UserUri == session.UserUri ? currentUserId : "...";

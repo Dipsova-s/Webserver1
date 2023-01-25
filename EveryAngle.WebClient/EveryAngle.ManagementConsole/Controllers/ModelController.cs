@@ -295,7 +295,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetAllModels()
         {
             AuthorizationHelper session = AuthorizationHelper.Initialize();
-            var currentSession = session.Session;
+            var currentSession = session.UserProfile;
             List<ModelViewModel> models = session.Models;
             IList<ModelViewModel> modelList = new List<ModelViewModel>();
             int modelCount = models.Count;

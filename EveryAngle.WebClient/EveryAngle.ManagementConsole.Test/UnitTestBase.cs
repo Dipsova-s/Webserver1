@@ -40,7 +40,7 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<IModelService> modelService = new Mock<IModelService>();
         protected readonly Mock<IModelAgentService> modelAgentService = new Mock<IModelAgentService>();
         protected readonly Mock<IUserService> userService = new Mock<IUserService>();
-        protected readonly Mock<ISessionService> sessionService = new Mock<ISessionService>();
+        protected readonly Mock<IUserProfileService> userProfileService = new Mock<IUserProfileService>();
         protected readonly Mock<IAutomationTaskService> automationTaskService = new Mock<IAutomationTaskService>();
         protected readonly Mock<ITaskService> taskService = new Mock<ITaskService>();
         protected readonly Mock<ICommentService> commentService = new Mock<ICommentService>();

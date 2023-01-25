@@ -212,8 +212,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [Test]
         public void RenderTemplateAnglesPage_should_return_PartialView()
         {
-            Core.ViewModels.Users.SessionViewModel sessionViewModel = GetMockViewModel<Core.ViewModels.Users.SessionViewModel>();
-            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
+            Core.ViewModels.Users.UserProfileViewModel userProfileViewModel = GetMockViewModel<Core.ViewModels.Users.UserProfileViewModel>();
+            userProfileViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
             {
                 new ModelPrivilegeViewModel
                 {
@@ -224,7 +224,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     }
                 }
             };
-            authorizationHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            authorizationHelper.SetupGet(x => x.UserProfile).Returns(userProfileViewModel);
             authorizationHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
             {
                 new ModelViewModel

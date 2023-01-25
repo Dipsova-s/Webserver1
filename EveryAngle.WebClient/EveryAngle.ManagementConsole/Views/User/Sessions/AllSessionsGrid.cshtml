@@ -1,4 +1,4 @@
-﻿@model List<EveryAngle.Core.ViewModels.Users.SessionViewModel>
+﻿@model List<EveryAngle.Core.ViewModels.Users.UserProfileViewModel>
 @using EveryAngle.Shared.Globalization
 @using EveryAngle.ManagementConsole.Models
 
@@ -19,7 +19,7 @@
     int gridHeight = Math.Min(pageSize, 15) * 37;
 }
 
-@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Users.SessionViewModel>()
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Users.UserProfileViewModel>()
     .Name("SessionsGrid")
     .Columns(columns =>
     {

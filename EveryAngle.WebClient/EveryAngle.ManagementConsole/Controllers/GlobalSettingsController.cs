@@ -633,7 +633,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 Id = x.id,
                 Name = x.short_name,
-                HasManageModelPrivilege = AuthorizationHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString())
+                HasManageModelPrivilege = AuthorizationHelper.UserProfile.IsValidToManageModelPrivilege(x.Uri.ToString())
             });
 
             return PartialView("~/Views/GlobalSettings/TemplateAngles/ExportPackageForm.cshtml", ExportPackageModelViewModel);
@@ -645,7 +645,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 Id = x.id,
                 Name = x.short_name,
-                HasManageModelPrivilege = AuthorizationHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
+                HasManageModelPrivilege = AuthorizationHelper.UserProfile.IsValidToManageModelPrivilege(x.Uri.ToString()),
                 PackageUri = x.PackagesUri.ToString()
             });
 
@@ -658,7 +658,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 Id = x.id,
                 Name = x.short_name,
-                HasManageModelPrivilege = AuthorizationHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
+                HasManageModelPrivilege = AuthorizationHelper.UserProfile.IsValidToManageModelPrivilege(x.Uri.ToString()),
                 PackageUri = x.PackagesUri.ToString()
             });
 

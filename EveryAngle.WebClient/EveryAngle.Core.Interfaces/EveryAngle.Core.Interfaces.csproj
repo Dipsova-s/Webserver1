@@ -61,7 +61,7 @@
     <Compile Include="Services\IGlobalSettingService.cs" />
     <Compile Include="Services\ILabelService.cs" />
     <Compile Include="Services\IModelService.cs" />
-    <Compile Include="Services\ISessionService.cs" />
+    <Compile Include="Services\IUserProfileService.cs" />
     <Compile Include="Services\ISystemInformationService.cs" />
     <Compile Include="Services\IDownloadTableService.cs" />
     <Compile Include="Services\IUserService.cs" />

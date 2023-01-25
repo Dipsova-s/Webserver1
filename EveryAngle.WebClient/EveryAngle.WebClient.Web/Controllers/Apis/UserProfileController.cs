@@ -9,14 +9,14 @@ using System.Web.Mvc;
 namespace EveryAngle.WebClient.Web.Controllers.Apis
 {
 
-    public class SessionController : BaseApiController
+    public class UserProfileController : BaseApiController
     {
         private readonly AccountService accountService = new AccountService();
 
         [AllowAnonymous]
         public HttpResponseMessage Post()
         {
-            JObject token = SessionControllerHelper.GetTokenWithClientIp(Body, Shared.EmbeddedViews.Util.GetIPAddress());
+            JObject token = UserProfileControllerHelper.GetTokenWithClientIp(Body, Shared.EmbeddedViews.Util.GetIPAddress());
 
             var clientSession = token.SelectToken("authorization") == null
                 ? accountService.Login(token.SelectToken("user").ToString(), token.SelectToken("password").ToString(), true)

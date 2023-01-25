@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace EveryAngle.Core.ViewModels.Tests
 {
-    public class SessionViewModelTest : UnitTestBase
+    public class UserProfileViewModelTest : UnitTestBase
     {
         #region private variables
 
-        private SessionViewModel _testingModel;
+        private UserProfileViewModel _testingModel;
 
         #endregion
 
@@ -21,7 +21,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             base.Setup();
 
             //testing model
-            _testingModel = new SessionViewModel();
+            _testingModel = new UserProfileViewModel();
 
         }
 
@@ -40,7 +40,7 @@ namespace EveryAngle.Core.ViewModels.Tests
         public void Can_IsValidToManageModelingWorkbenchPrivilege(bool hasModelPrivilege, bool[] inputConfigureContent, bool[] inputEditContent, bool expectedResult)
         {
             //initialize
-            _testingModel = new SessionViewModel();
+            _testingModel = new UserProfileViewModel();
 
             if (hasModelPrivilege)
             {

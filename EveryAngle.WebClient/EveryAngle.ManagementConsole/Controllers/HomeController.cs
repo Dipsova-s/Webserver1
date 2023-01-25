@@ -79,7 +79,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             var result = _directoryService.GetAbout(aboutUri);
             var version = AssemblyInfoHelper.GetFileVersion().Split('.');
             result.web_client_version = string.Join(".", version.Take(version.Length - 1));
-            ViewBag.CanAccess = AuthorizationHelper.Session.IsValidToManagementAccess();
+            ViewBag.CanAccess = AuthorizationHelper.UserProfile.IsValidToManagementAccess();
 
             return PartialView("~/Views/Shared/AboutSystem.cshtml", result);
         }

@@ -141,12 +141,12 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.ModelPackagesUri = string.Format("{0}?model={1}&types=deactivate_package,activate_package&filterMode=task_results", version.GetEntryByName("eventlog").Uri, modelId);
             ViewBag.EventlogUri = version.GetEntryByName("eventlog").Uri.ToString();
             ViewBag.ModelUri = modelUri;
-            ViewBag.HasManageModel = AuthorizationHelper.Session.IsValidToManageModelPrivilege();
+            ViewBag.HasManageModel = AuthorizationHelper.UserProfile.IsValidToManageModelPrivilege();
             IEnumerable<ExportPackageModelViewModel> ExportPackageModelViewModel = AuthorizationHelper.Models.Select(x => new ExportPackageModelViewModel
             {
                 Id = x.id,
                 Name = x.short_name,
-                HasManageModelPrivilege = AuthorizationHelper.Session.IsValidToManageModelPrivilege(x.Uri.ToString()),
+                HasManageModelPrivilege = AuthorizationHelper.UserProfile.IsValidToManageModelPrivilege(x.Uri.ToString()),
                 PackageUri = x.PackagesUri.ToString()
             });
             return PartialView("~/Views/Model/TemplateAngles/TemplateAnglesPage.cshtml", ExportPackageModelViewModel);

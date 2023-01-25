@@ -26,7 +26,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         #region private variables
 
         private AngleWarningsController _testingController;
-        private readonly Mock<SessionViewModel> _sessionViewmodel = new Mock<SessionViewModel>();
+        private readonly Mock<UserProfileViewModel> _userProfileViewmodel = new Mock<UserProfileViewModel>();
 
         #endregion
 
@@ -97,8 +97,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void Can_GetAngleWarnings(string modelUri, string modelId, bool isValidToAccessWebClient)
         {
             // prepare
-            _sessionViewmodel.Setup(x => x.IsValidToAccessWebClient(It.IsAny<string>())).Returns(isValidToAccessWebClient);
-            authorizationHelper.Setup(x => x.Session).Returns(_sessionViewmodel.Object);
+            _userProfileViewmodel.Setup(x => x.IsValidToAccessWebClient(It.IsAny<string>())).Returns(isValidToAccessWebClient);
+            authorizationHelper.Setup(x => x.UserProfile).Returns(_userProfileViewmodel.Object);
 
             UserViewModel userViewModel = GetMockViewModel<UserViewModel>();
             userViewModel.Settings = GetMockViewModel<UserSettingsViewModel>();

@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace EveryAngle.WebClient.Web.CSTests.ControllerTest
 {
     [TestFixture]
-    public class SessionControllerHelperTests : UnitTestBase
+    public class UserProfileControllerHelperTests : UnitTestBase
     {
         [Test]
         public void Can_GetToken_With_ClientIP()
@@ -15,7 +15,7 @@ namespace EveryAngle.WebClient.Web.CSTests.ControllerTest
             string body = "{\"authorization\":\"test\"}";
 
             // action
-            JObject token = SessionControllerHelper.GetTokenWithClientIp(body, "10.10.10.10");
+            JObject token = UserProfileControllerHelper.GetTokenWithClientIp(body, "10.10.10.10");
 
             // assert
             Assert.AreEqual("test", token.SelectToken("authorization").ToString());

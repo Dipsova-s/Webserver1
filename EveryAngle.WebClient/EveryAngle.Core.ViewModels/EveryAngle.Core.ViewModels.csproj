@@ -178,7 +178,7 @@
     <Compile Include="Users\FieldAuthorizationViewModel.cs" />
     <Compile Include="Users\ObjectFilterViewModel.cs" />
     <Compile Include="Users\PropertyName.cs" />
-    <Compile Include="Users\SessionViewModel.cs" />
+    <Compile Include="Users\UserProfileViewModel.cs" />
     <Compile Include="Users\SystemAuthenticationProviderViewModel.cs" />
     <Compile Include="Users\SystemRoleViewModel.cs" />
     <Compile Include="Users\UserDateViewModel.cs" />

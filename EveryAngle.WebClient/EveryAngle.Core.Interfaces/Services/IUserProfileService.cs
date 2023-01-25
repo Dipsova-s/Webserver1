@@ -5,10 +5,10 @@ using EveryAngle.Core.ViewModels.Users;
 
 namespace EveryAngle.Core.Interfaces.Services
 {
-    public interface ISessionService
+    public interface IUserProfileService
     {
-        ListViewModel<SessionViewModel> GetSessions(string uri);
-        SessionViewModel GetSession(string uri);
+        ListViewModel<UserProfileViewModel> GetSessions(string uri);
+        UserProfileViewModel GetSession(string uri);
         VersionViewModel GetSessionByIwa(string uri);
         void UpdateSession(string sessionUri, string isActive);
     }

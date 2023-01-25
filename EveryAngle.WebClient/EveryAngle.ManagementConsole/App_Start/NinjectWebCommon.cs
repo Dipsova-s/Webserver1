@@ -73,7 +73,7 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<IGlobalSettingService>().To<GlobalSettingService>();
             kernel.Bind<ILabelService>().To<LabelService>();
             kernel.Bind<ISystemInformationService>().To<SystemInformationService>();
-            kernel.Bind<ISessionService>().To<SessionService>();
+            kernel.Bind<IUserProfileService>().To<UserProfileService>();
             kernel.Bind<IDownloadTableService>().To<DownloadTableService>();
             kernel.Bind<IWebClientConfigService>().To<WebClientConfigService>();
             kernel.Bind<IAutomationTaskService>().To<AutomationTaskService>();

@@ -431,6 +431,12 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         protected virtual void ExecuteWhenResponseCodeUnauthorized(IRestResponse response)
         {
+            if (HttpContext.Current != null)
+            {
+                HttpContext.Current.Request.Cookies.Clear();
+                HttpContext.Current.Response.Cookies.Clear();
+            }
+
             AuthorizationHelper.Initialize().Logout(true);
         }
 
@@ -490,11 +496,6 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
                 {
                     HttpContext.Current.Response.Headers.Set(responseHeader.Name, responseHeader.Value.ToString());
                 }
-            }
-
-            if (HttpContext.Current != null)
-            {
-                HttpContext.Current.Request.Cookies.Clear();
             }
 
             foreach (RestResponseCookie cookie in response.Cookies)

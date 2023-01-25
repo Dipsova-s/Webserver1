@@ -29,7 +29,7 @@ namespace EveryAngle.ManagementConsole.Test.App_Start
             AddBind<IGlobalSettingService, GlobalSettingService>(kernel);
             AddBind<ILabelService, LabelService>(kernel);
             AddBind<ISystemInformationService, SystemInformationService>(kernel);
-            AddBind<ISessionService, SessionService>(kernel);
+            AddBind<IUserProfileService, UserProfileService>(kernel);
             AddBind<IDownloadTableService, DownloadTableService>(kernel);
             AddBind<IWebClientConfigService, WebClientConfigService>(kernel);
             AddBind<IAutomationTaskService, AutomationTaskService>(kernel);
