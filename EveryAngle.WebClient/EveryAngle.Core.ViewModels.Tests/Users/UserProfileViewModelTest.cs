@@ -90,6 +90,48 @@ namespace EveryAngle.Core.ViewModels.Tests
             //assert
             Assert.AreEqual(result, hasModelPrivilage);
         }
+
+        [Test]
+        public void Can_IsValidToAccessWebClient_When_ModelPrivileges_Null()
+        {
+            bool result = _testingModel.IsValidToAccessWebClient();
+
+            //assert
+            Assert.AreEqual(result, false);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Can_IsValidToManagementAccess(bool hasSystemPrivilage)
+        {
+            _testingModel.SystemPrivileges = new SystemPrivilegeViewModel
+            {
+                has_management_access = hasSystemPrivilage
+            };
+            //execute
+            bool result = _testingModel.IsValidToManagementAccess();
+
+            //assert
+            Assert.AreEqual(result, hasSystemPrivilage);
+        }
+
+        [Test]
+        public void Can_IsValidToManageModelPrivilege_When_ModelPrivileges_Null()
+        {
+            bool result = _testingModel.IsValidToManageModelPrivilege();
+
+            //assert
+            Assert.AreEqual(result, false);
+        }
+
+        [Test]
+        public void Default_Value_Check_For_UserProfileViewModel()
+        {
+            Assert.AreEqual(_testingModel.Uri, null);
+            Assert.AreEqual(_testingModel.ReanableIpAddresses, string.Empty);
+            Assert.AreEqual(_testingModel.Ip, null);
+            Assert.AreEqual(_testingModel.ModelPrivilegesUri, null);
+        }
         #endregion
     }
 }

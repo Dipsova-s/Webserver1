@@ -21,6 +21,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -53,6 +54,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             AuthorizationHelper = authorizationHelper;
         }
 
+        [ExcludeFromCodeCoverage]
         public UsersController(
             IUserService service,
             IModelService modelService,
