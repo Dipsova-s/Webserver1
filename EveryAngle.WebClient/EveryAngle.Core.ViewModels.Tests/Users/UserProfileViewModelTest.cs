@@ -121,16 +121,16 @@ namespace EveryAngle.Core.ViewModels.Tests
             bool result = _testingModel.IsValidToManageModelPrivilege();
 
             //assert
-            Assert.AreEqual(result, false);
+            Assert.AreEqual(false, result);
         }
 
         [Test]
         public void Default_Value_Check_For_UserProfileViewModel()
         {
-            Assert.AreEqual(_testingModel.Uri, null);
-            Assert.AreEqual(_testingModel.ReanableIpAddresses, string.Empty);
-            Assert.AreEqual(_testingModel.Ip, null);
-            Assert.AreEqual(_testingModel.ModelPrivilegesUri, null);
+            Assert.AreEqual(null, _testingModel.Uri);
+            Assert.AreEqual(string.Empty, _testingModel.ReanableIpAddresses);
+            Assert.AreEqual(null, _testingModel.Ip);
+            Assert.AreEqual(null, _testingModel.ModelPrivilegesUri);
         }
         #endregion
     }

@@ -13,7 +13,7 @@
 
         if (AuthorizationHelper.Initialize().CurrentUser != null && AuthorizationHelper.Initialize().CurrentUser.ModelPrivileges != null)
         {
-            var isPossibleToAccessWC = AuthorizationHelper.Initialize().Session.ModelPrivileges.Where(filter => filter.Privileges.access_data_via_webclient.HasValue &&
+            var isPossibleToAccessWC = AuthorizationHelper.Initialize().UserProfile.ModelPrivileges.Where(filter => filter.Privileges.access_data_via_webclient.HasValue &&
                 filter.Privileges.access_data_via_webclient.Value == true).FirstOrDefault();
             if (isPossibleToAccessWC != null)
             {
@@ -58,7 +58,7 @@
                 {
                     <a href="@webClientUrl.ToLower()" class="actionDropdownItem btnWC" target="_blank"><span>@Resource.OpenWebclient</span></a>
                 }
-                @if (AuthorizationHelper.Initialize().Session.IsValidToManageModelingWorkbenchPrivilege())
+                @if (AuthorizationHelper.Initialize().UserProfile.IsValidToManageModelingWorkbenchPrivilege())
                 {
                     string workbenchUri = @Url.Content("~/Component/GoToModellingWorkbench");
                     <a id="btnWorkbench" href="@workbenchUri" class="actionDropdownItem btnWorkbench" target="_blank">
