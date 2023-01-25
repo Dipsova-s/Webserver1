@@ -5,7 +5,6 @@ using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.WebClient.Service.Security;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.Shared.Globalization;
-
 using Kendo.Mvc.UI;
 using EveryAngle.ManagementConsole.Helpers;
 
@@ -17,7 +16,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         #region private variables
         private readonly IGlobalSettingService globalSettingService;
         private readonly IModelService modelService;
-        private readonly IUserProfileService userProfileService;
         private readonly IUserService userService;
         #endregion
 
@@ -29,12 +27,10 @@ namespace EveryAngle.ManagementConsole.Controllers
         public SystemRoleController(
             IModelService modelService,
             IGlobalSettingService globalSettingService,
-            IUserProfileService userProfileService,
             IUserService userService)
         {
             this.modelService = modelService;
             this.globalSettingService = globalSettingService;
-            this.userProfileService = userProfileService;
             this.userService = userService;
         }
 
@@ -50,7 +46,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             this.modelService = modelService;
             this.globalSettingService = globalSettingService;
-            this.userProfileService = userProfileService;
             this.userService = userService;
             AuthorizationHelper = authorizationHelper;
         }

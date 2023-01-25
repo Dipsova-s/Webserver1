@@ -34,7 +34,6 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         {
             // Arrange
             _userProfileHelperMock.SetupGet(x => x.HasCookie).Returns(false);
-            _userProfileHelperMock.Setup(x => x.UserProfile.IsValidToManagementAccess()).Returns(false);
             _userProfileHelperMock.Setup(x => x.UserProfile.IsValidToScheduleAngles()).Returns(true);
             _userProfileHelperMock.Setup(x => x.Info.AngleAutomation).Returns(false);
             bool? wasForced = null;

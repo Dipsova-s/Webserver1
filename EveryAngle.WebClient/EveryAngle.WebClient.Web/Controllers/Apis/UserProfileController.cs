@@ -2,13 +2,14 @@ using EveryAngle.WebClient.Service.HttpHandlers;
 using EveryAngle.WebClient.Service.Security;
 using EveryAngle.WebClient.Web.Helpers;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
 
 namespace EveryAngle.WebClient.Web.Controllers.Apis
 {
-
+    [ExcludeFromCodeCoverage]
     public class UserProfileController : BaseApiController
     {
         private readonly AccountService accountService = new AccountService();

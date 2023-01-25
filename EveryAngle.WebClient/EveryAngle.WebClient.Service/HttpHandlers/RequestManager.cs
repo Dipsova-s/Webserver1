@@ -478,7 +478,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             CloneRequestHeader(request, HttpContext.Current.Request);
         }
 
-        private HttpResponseMessage CloneResponseHeader(IRestResponse response)
+        private static HttpResponseMessage CloneResponseHeader(IRestResponse response)
         {
             HttpResponseMessage message = new HttpResponseMessage(response.StatusCode)
             {

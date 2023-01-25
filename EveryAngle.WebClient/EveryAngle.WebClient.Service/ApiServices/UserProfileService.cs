@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Directory;
 using EveryAngle.Core.ViewModels.Privilege;
 using EveryAngle.Core.ViewModels.Users;
-using EveryAngle.Shared.Helpers;
 using EveryAngle.Utilities;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using Newtonsoft.Json;
@@ -12,6 +12,7 @@ using RestSharp;
 
 namespace EveryAngle.WebClient.Service.ApiServices
 {
+    [ExcludeFromCodeCoverage]
     public class UserProfileService : IUserProfileService
     {
         public ListViewModel<UserProfileViewModel> GetSessions(string uri)

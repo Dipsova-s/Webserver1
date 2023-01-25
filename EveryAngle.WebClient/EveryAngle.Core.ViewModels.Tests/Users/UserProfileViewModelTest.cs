@@ -2,6 +2,7 @@
 using EveryAngle.Core.ViewModels.Privilege;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System;
 
 namespace EveryAngle.Core.ViewModels.Tests
 {
@@ -29,7 +30,7 @@ namespace EveryAngle.Core.ViewModels.Tests
 
         #region tests
         [TestCase(false, new bool[] { }, new bool[] { }, false)]
-        [TestCase(true, new [] { true }, new[] { true }, true)]
+        [TestCase(true, new[] { true }, new[] { true }, true)]
         [TestCase(true, new[] { true }, new[] { false }, true)]
         [TestCase(true, new[] { false }, new[] { false }, false)]  //single model
         [TestCase(true, new[] { true, false }, new[] { true, false }, true)]
@@ -68,6 +69,27 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(result, expectedResult);
         }
 
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Can_IsValidToAccessWebClient(bool hasModelPrivilage)
+        {
+            _testingModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
+            {
+                new ModelPrivilegeViewModel
+                {
+                    model = new Uri("/models/1", UriKind.Relative),
+                    Privileges = new PrivilegesForModelViewModel
+                    {
+                        access_data_via_webclient=hasModelPrivilage
+                    }
+                }
+            };
+            //execute
+            bool result = _testingModel.IsValidToAccessWebClient();
+
+            //assert
+            Assert.AreEqual(result, hasModelPrivilage);
+        }
         #endregion
     }
 }
