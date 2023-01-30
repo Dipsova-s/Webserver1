@@ -39,7 +39,7 @@ namespace EveryAngle.Core.ViewModels.Directory
         }
 
         private Uri userProfileUri;
-        [JsonProperty(PropertyName = "session")]
+        [JsonProperty(PropertyName = "userprofile")]
         public Uri UserProfileUri
         {
             get { return userProfileUri; }

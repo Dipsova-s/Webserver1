@@ -66,7 +66,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             bool result = _testingModel.IsValidToManageModelingWorkbenchPrivilege();
 
             //assert
-            Assert.AreEqual(result, expectedResult);
+            Assert.AreEqual(expectedResult, result);
         }
 
         [TestCase(true)]
@@ -88,7 +88,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             bool result = _testingModel.IsValidToAccessWebClient();
 
             //assert
-            Assert.AreEqual(result, hasModelPrivilage);
+            Assert.AreEqual(hasModelPrivilage, result);
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             bool result = _testingModel.IsValidToAccessWebClient();
 
             //assert
-            Assert.AreEqual(result, false);
+            Assert.AreEqual(false, result);
         }
 
         [TestCase(true)]
@@ -112,7 +112,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             bool result = _testingModel.IsValidToManagementAccess();
 
             //assert
-            Assert.AreEqual(result, hasSystemPrivilage);
+            Assert.AreEqual(hasSystemPrivilage, result);
         }
 
         [Test]
