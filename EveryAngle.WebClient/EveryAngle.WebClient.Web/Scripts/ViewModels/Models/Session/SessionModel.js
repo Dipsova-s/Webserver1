@@ -18,7 +18,7 @@ function SessionViewModel() {
 
     //BOF: View model methods
     self.Load = function (option) {
-        var requestUri = directoryHandler.Data.session || '';
+        var requestUri = directoryHandler.Data.userprofile || '';
         var setting = jQuery.extend({ RequestUri: requestUri, Callback: jQuery.noop }, option);
 
         if (self.IsLoaded() || !setting.RequestUri)

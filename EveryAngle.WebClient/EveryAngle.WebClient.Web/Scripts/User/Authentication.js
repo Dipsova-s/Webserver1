@@ -316,7 +316,7 @@ function Authentication() {
     };
     _self.LoadPart2 = function (mainDeferred, data) {
         mainDeferred.notify('Loading user information');
-        jQuery.localStorage('session_uri', data.session);
+        jQuery.localStorage('session_uri', data.userprofile);
         return jQuery.when(userModel.Load(), systemSettingHandler.LoadSystemSettings());
     };
     _self.LoadPart3 = function (mainDeferred) {

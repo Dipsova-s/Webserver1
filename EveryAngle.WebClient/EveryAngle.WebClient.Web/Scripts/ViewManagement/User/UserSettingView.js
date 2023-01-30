@@ -41,10 +41,7 @@ function UserSettingsView() {
         self.CheckLocalUser();
     };
     self.CheckLocalUser = function () {
-        if (userModel.Data() && userModel.Data().domain.toLowerCase() === "local")
-            self.ShowChangePasswordButton();
-        else
-            self.HideChangePasswordButton();
+        self.HideChangePasswordButton();
     };
     self.ShowChangePasswordButton = function () {
         jQuery('.btnChangePassword').show();
@@ -55,7 +52,7 @@ function UserSettingsView() {
 
     };
     //end user info
-    
+
 }
 
 var userSettingsView = new UserSettingsView();
