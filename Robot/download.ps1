@@ -1,6 +1,6 @@
 $Target=$MyInvocation.MyCommand.Source.Replace($MyInvocation.MyCommand.Name, "")
 
-$DriverVersion = "2.46"
+$DriverVersion = "109.0.5414.7400"
 try {
     # get Chrome version
     $Version = (Get-Item (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe' -ErrorAction SilentlyContinue).'(Default)').VersionInfo.FileVersion
