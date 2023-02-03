@@ -958,7 +958,7 @@ begin
   setAppSetting(WebClientConfig, 'WebServerBackendUrl', AddProtocolUrl(WebClientConfigPage.Values[1]));
   setAppSetting(WebClientConfig, 'WebServiceBackendNOAPort', WebClientConfigPage.Values[2]);
   setAppSetting(WebClientConfig, 'LogFileFolder', LogFolder);
-  setAppSetting(WebClientConfig, 'Authority', GetAppSettingOrOverride(WebClientConfig, 'ClientId', '', false));
+  setAppSetting(WebClientConfig, 'Authority', GetAppSettingOrOverride(WebClientConfig, 'Authority', '', false));
   setAppSetting(WebClientConfig, 'ClientId', GetAppSettingOrOverride(WebClientConfig, 'ClientId', '', false));
   
   // Merge the new webclient web.config with the existing one.
@@ -997,8 +997,8 @@ begin
     setAppSetting(ManagementConsoleConfig, 'AngleWarningsContentInputFile', IISPhysicalPath + '\admin\UploadedResources\AngleWarnings' + '\AngleWarningsList.xlsx');
   end;
 
-  setAppSetting(WebClientConfig, 'Authority', GetAppSettingOrOverride(WebClientConfig, 'ClientId', '', false));
-  setAppSetting(WebClientConfig, 'ClientId', GetAppSettingOrOverride(WebClientConfig, 'ClientId', '', false));
+  setAppSetting(ManagementConsoleConfig, 'Authority', GetAppSettingOrOverride(ManagementConsoleConfig, 'Authority', '', false));
+  setAppSetting(ManagementConsoleConfig, 'ClientId', GetAppSettingOrOverride(ManagementConsoleConfig, 'ClientId', '', false));
 
   ManagementConsoleConfig := MergeAppSettings(ManagementConsoleConfig, NewMCConfig);
 
