@@ -116,13 +116,9 @@ $Certificate = Get-ChildItem -Path "Cert:\LocalMachine\My" | Where-Object { $_.T
 $Components = Invoke-RestMethod -Uri $Uri -Certificate $Certificate -Method Get;
 
 $WebServer = $Components | Where-Object { $_.type -ieq $WebClientServiceName };
-$STS = $Components | Where-Object { $_.type -ieq $STSServiceName };
 
-$stsUri = $STS.uri.ToLower()
 $webServerUri = $WebServer.uri
 
-SetValueInWebConfig -Physicalpath $WebServerPhysicalPath -Uri $stsUri -Key "Authority";
-SetValueInWebConfig -Physicalpath $ManagementConsolePhysicalPath -Uri $stsUri -Key "Authority";
 
 SetValueInWebConfig -Physicalpath $WebServerPhysicalPath -Uri $webServerUri -Key "RedirectBaseUri";
 SetValueInWebConfig -Physicalpath $ManagementConsolePhysicalPath -Uri $webServerUri -Key "RedirectBaseUri";
