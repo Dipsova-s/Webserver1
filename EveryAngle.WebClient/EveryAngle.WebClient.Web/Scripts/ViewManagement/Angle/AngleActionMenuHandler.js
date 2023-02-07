@@ -54,7 +54,7 @@ function AngleActionMenuHandler(base) {
         var data = [];
         var privileges = self.GetPrivilegeData();
         jQuery.each(enumHandlers.ANGLEACTION, function (key, action) {
-            if (!actionIds.length || jQuery.inArray(action.Id, actionIds) !== -1 || privileges[action.Id] != "addFollowup" )
+            if (!actionIds.length || jQuery.inArray(action.Id, actionIds) !== -1 || privileges[action.Id] !== "addFollowup" )
                 data.push(jQuery.extend(privileges[action.Id], forcePrivilege, action));
         });
         return data;
