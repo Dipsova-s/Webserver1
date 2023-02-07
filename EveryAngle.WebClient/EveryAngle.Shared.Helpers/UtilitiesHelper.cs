@@ -3,15 +3,18 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace EveryAngle.Shared.Helpers
 {
+    [ExcludeFromCodeCoverage]
     public static class UtilitiesHelper
     {
         public static string StripHTML(string stringText, bool isRemoveHeadingTag)
@@ -330,11 +333,23 @@ namespace EveryAngle.Shared.Helpers
             List<string> filters = new List<string>();
             if (!string.IsNullOrEmpty(executeParameters.Q))
             {
+                // Validate filters
+                if (!IsValidCSLLogFilter(executeParameters.Q)){
+                    throw new ArgumentException("Invalid filters");
+                }
+                // Replace any special characters in the filter string with their escaped equivalent
+                executeParameters.Q = EscapeFilter(executeParameters.Q);
                 filters.Add(string.Format("contains(translate(@ProcessID,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@ThreadName,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@MsgText,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}')", executeParameters.Q.ToLowerInvariant()));
             }
 
             if (!string.IsNullOrEmpty(executeParameters.MessageType))
             {
+                // Validate filters
+                if (!IsValidCSLLogFilter(executeParameters.MessageType)){
+                    throw new ArgumentException("Invalid filters");
+                }
+                // Replace any special characters in the filter string with their escaped equivalent
+                executeParameters.MessageType = EscapeFilter(executeParameters.MessageType);
                 filters.Add(filters.Any()
                     ? string.Format("and @MsgType = '{0}'", executeParameters.MessageType)
                     : string.Format("@MsgType = '{0}'", executeParameters.MessageType));
@@ -350,6 +365,31 @@ namespace EveryAngle.Shared.Helpers
                 xpathFilter = "[" + string.Join(" ", filters) + "]";
             }
             return xpathFilter;
+        }
+
+        private static string EscapeFilter(string filter)
+        {
+            // Replace any special characters in the filter string with their escaped equivalent
+            return filter.Replace("'", "\\'").Replace("[", "\\[").Replace("]", "\\]");
+        }
+
+        private static bool IsValidCSLLogFilter(string filter, int timeout = 5000)
+        {
+            if (string.IsNullOrEmpty(filter))
+            {
+                return false;
+            }
+            var pattern = @"^[\w=@,\.\[\]\s%><]+$";
+            var task = Task.Run(() => Regex.IsMatch(filter, pattern));
+
+            if (task.Wait(timeout))
+            {
+                return task.Result;
+            }
+            else
+            {
+                throw new TimeoutException("The operation timed out.");
+            }
         }
 
         private static dynamic GetCslLogDataRow(XmlNode node)

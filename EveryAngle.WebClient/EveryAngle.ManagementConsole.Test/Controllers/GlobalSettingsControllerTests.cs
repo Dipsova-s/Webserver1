@@ -163,14 +163,22 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual("test.log", file.FileDownloadName);
         }
 
-        [TestCase("WebClient", ".log", true)]
-        [TestCase("ManagementConsole", ".log", true)]
-        [TestCase("AppServer", ".log", false)]
-        [TestCase("ModelServer", ".log", false)]
-        [TestCase("Repository", ".log", false)]
-        public void GetSystemlog_Should_Return_File_Contents_For_Log_File(string target, string fileExtension, bool isOnClient)
+        [TestCase("WebClient", "C:/log/EveryAngle_ApplicationServer_2023_01_25.log", true)]
+        [TestCase("ManagementConsole", "C:/log/EveryAngle_ManagementConsole_General_2023_01_18#_1.log", true)]
+        [TestCase("AppServer", "/system/logfiles/EveryAngle_ApplicationServer_2023_01_25.log", false)]
+        [TestCase("ModelServer", "//models/1/agent/logfiles/RTMS/EveryAngle_RTMS_2023_01_23.log", false)]
+        [TestCase("Repository", "/repository/logfiles/EveryAngle_Repository_20230123.log", false)]
+        public void GetSystemlog_Should_Return_File_Contents_For_Log_File(string target, string fullPath, bool isOnClient)
         {
-            var filePath = "test" + fileExtension;
+            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
+            {
+                new ModelViewModel
+                {
+                    id = "EA2_800",
+                    Uri = new Uri("/models/1", UriKind.Relative),
+                    Agent = new Uri("/models/1/agent", UriKind.Relative)
+                }
+            });
             logFileReaderService
                 .Setup(x => x.CopyForLogFile(It.IsAny<string>(), It.IsAny<string>()));
             if (isOnClient)
@@ -186,16 +194,15 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     .Returns(new FileReaderResult { ErrorMessage = "", StringContent = "Sample Data", Success = true });
             }
 
-            ContentResult objContentResult = _testingController.GetSystemlog(filePath, 0, 0, "", "", target);
+            ContentResult objContentResult = _testingController.GetSystemlog(fullPath, 0, 0, "", "", target);
             Assert.AreEqual("Sample Data", objContentResult.Content);
         }
 
-        [TestCase("WebClient", ".csl")]
-        [TestCase("ManagementConsole", ".csl")]
+        [TestCase("WebClient", "C:/log/test.csl")]
+        [TestCase("ManagementConsole", "C:/log/test.csl")]
         [ExpectedException("System.Web.HttpException")]
-        public void GetSystemlog_Should_Throw_HttpException_For_CSL_File(string target, string fileExtension)
+        public void GetSystemlog_Should_Throw_HttpException_For_CSL_File(string target, string fullPath)
         {
-            var filePath = "test" + fileExtension;
             logFileReaderService
                 .Setup(x => x.CopyForLogFile(It.IsAny<string>(), It.IsAny<string>()));
             Mock<System.Web.Mvc.UrlHelper> mockUrl = new Mock<System.Web.Mvc.UrlHelper>();
@@ -204,7 +211,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             logFileService
                 .Setup(x => x.GetJsonFromCsl(It.IsAny<ExecuteParameters>()))
                 .Returns(new ExecuteJsonResult());
-            _testingController.GetSystemlog(filePath, 0, 0, "", "", target);
+            _testingController.GetSystemlog(fullPath, 0, 0, "", "", target);
         }
 
         [Test]

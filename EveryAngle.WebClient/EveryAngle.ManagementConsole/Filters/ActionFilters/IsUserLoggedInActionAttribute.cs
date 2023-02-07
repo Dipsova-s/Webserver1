@@ -15,7 +15,14 @@ namespace EveryAngle.ManagementConsole.Filters.ActionFilters
             if (session.HasCookie && session.CurrentUser != null)
             {
                 string redirectPath = HttpContext.Current.Request.Url.Query.Contains("?redirect=") ? HttpContext.Current.Request.Url.Query.Replace("?redirect=", "") : "~/home/index";
-                filterContext.Result = new RedirectResult(redirectPath);
+                if (IsLocalUrl(redirectPath))
+                {
+                    filterContext.Result = new RedirectResult(redirectPath);
+                }
+                else
+                {
+                    filterContext.Result = new HttpStatusCodeResult(400, "Invalid request");
+                }
             }
             else
             {
@@ -24,6 +31,21 @@ namespace EveryAngle.ManagementConsole.Filters.ActionFilters
 #else
                 filterContext.Result = new RedirectResult(HttpContext.Current.Request.ApplicationPath.ToLower(CultureInfo.InvariantCulture).Replace("/admin", "") + "/?redirect=" + HttpContext.Current.Request.ApplicationPath.ToLower(CultureInfo.InvariantCulture));
 #endif
+            }
+        }
+
+        private bool IsLocalUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                return false;
+            }
+            else
+            {
+                return ((url[0] == '/' && (url.Length == 1 ||
+                        (url[1] != '/' && url[1] != '\\'))) ||   // "/" or "/foo" but not "//" or "/\"
+                        (url.Length > 1 &&
+                         url[0] == '~' && url[1] == '/'));   // "~/" or "~/foo"
             }
         }
     }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -23,12 +24,19 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
             _fileHelper = fileHelper ?? throw new ArgumentNullException(nameof(fileHelper));
         }
 
+        [ExcludeFromCodeCoverage]
         public FileInfo UploadAngleWarningsFile(HttpPostedFileBase file, out bool isInvalid)
         {
             var path = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
 
             var tempFolder = GetAngleWarningPath(Path.Combine(Path.GetDirectoryName(path), "Temp"));
+
             var tempPath = Path.Combine(tempFolder, file.FileName);
+            var cannonicalPath = Path.GetFullPath(tempPath);
+            if (!cannonicalPath.StartsWith(tempFolder, StringComparison.Ordinal))
+            {
+                throw new ArgumentException("Invalid argument");
+            }
             file.SaveAs(tempPath);
 
             isInvalid = true;

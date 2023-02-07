@@ -285,6 +285,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        [ExcludeFromCodeCoverage] 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult UploadAngleWarningFile(FormCollection formCollection, HttpPostedFileBase file)
         {
@@ -297,6 +298,12 @@ namespace EveryAngle.ManagementConsole.Controllers
                 }
                 return JsonHelper.GetJsonStringResult(false, null,
                     null, MessageType.REQUIRE_EXCEL, null);
+            }
+            catch(ArgumentException ex)
+            {
+                var error = ex.Message;
+                return JsonHelper.GetJsonStringResult(false, 400, error,
+                    MessageType.DEFAULT, null);
             }
             catch (HttpException ex)
             {

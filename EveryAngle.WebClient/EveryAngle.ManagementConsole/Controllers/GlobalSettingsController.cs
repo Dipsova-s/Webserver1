@@ -1180,6 +1180,15 @@ namespace EveryAngle.ManagementConsole.Controllers
             string type = "",
             string target = "")
         {
+            var isValid = ValidateInputFilePath(fullPath);
+            if (!isValid)
+            {
+                throw new HttpException(422, JsonConvert.SerializeObject(new
+                {
+                    reason = "Invalid Request",
+                    message = fullPath
+                }));
+            }
             SystemLogType logType = GetSystemLogType(target);
             bool isFileFromServer = logType == SystemLogType.AppServer || logType == SystemLogType.ModelServer || logType == SystemLogType.Repository || logType == SystemLogType.STS;
             if (fullPath.EndsWith("log"))
@@ -1223,6 +1232,23 @@ namespace EveryAngle.ManagementConsole.Controllers
                 }));
             }
 
+        }
+
+        private bool ValidateInputFilePath(string fullPath)
+        {
+            var modelAgentUris = SessionHelper.Models.Select(x => x.Agent.AbsolutePath);
+            IList<string> allowdedRTMSDirs = Enumerable.Empty<string>().ToList();
+            foreach (var agentUri in modelAgentUris)
+            {
+                allowdedRTMSDirs.Add(agentUri + "/logfiles/RTMS");
+            }
+            var logFileFolder = LogManager.GetLogPath(ConfigurationManager.AppSettings.Get("LogFileFolder"))?.Replace("\\","/");
+            List<string> allowdedDirs = new List<string>() { "/system/logfiles", "/repository/logfiles", "/sts/logfiles" };
+            allowdedDirs?.AddRange(allowdedRTMSDirs);
+            allowdedDirs?.Add(logFileFolder);
+            string file = fullPath.Split('/').Last();
+            var logDirPath = fullPath.Replace("/" + file, " ");
+            return allowdedDirs.Contains(logDirPath.Trim());
         }
 
         public ContentResult GetSystemlogByDetailsUri(

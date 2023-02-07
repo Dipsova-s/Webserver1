@@ -322,6 +322,23 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         }
 
         [Test]
+        public void UploadAngleWarningFile_InvalidFileName_ThrowsArgumentException()
+        {
+            // Arrange
+            var formCollection = new FormCollection();
+            var fileMock = new Mock<HttpPostedFileBase>();
+            fileMock.SetupGet(x => x.ContentLength).Returns(100);
+            fileMock.SetupGet(f => f.FileName).Returns("..\\invalidFileName.txt");
+            bool isInvalid = false;
+            angleWarningsFileManager.Setup(x => x.UploadAngleWarningsFile(fileMock.Object, out isInvalid)).Throws(new ArgumentException("Invalid argument") { Source = fileMock.Object.FileName});
+            // Act
+            var returnValue = _testingController.UploadAngleWarningFile(formCollection, fileMock.Object);
+            Assert.IsNotNull(returnValue);
+            Assert.IsTrue(((ContentResult)returnValue).Content.Contains("message\":\"Invalid argument"));
+        }
+
+
+        [Test]
         public void Should_Call_DownloadAngleWarningFile()
         {
             angleWarningsFileManager.Setup(x => x.DownloadAngleWarningsFile(It.IsAny<string>()))

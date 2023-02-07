@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Security.Policy;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +17,7 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
             try
             {
                 SessionHelper session = SessionHelper.Initialize();
+                string currentUserLanguage = "en";
                 if (session.HasCookie && session.CurrentUser != null)
                 {
                     session.DestroyAllSession();
@@ -27,7 +29,6 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
                     }
                     else
                     {
-                        string currentUserLanguage = "en";
                         UserSettingsViewModel setting = session.GetUserSettings();
                         if (setting != null && !string.IsNullOrEmpty(setting.default_language) && !string.IsNullOrEmpty(setting.default_language.Trim()))
                         {
@@ -35,7 +36,14 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
                         }
                         redirectPath = "~/" + currentUserLanguage + "/search/searchPage";
                     }
-                    filterContext.Result = new RedirectResult(redirectPath);
+                    if (IsLocalUrl(redirectPath))
+                    {
+                        filterContext.Result = new RedirectResult(redirectPath);
+                    }
+                    else
+                    {
+                        filterContext.Result = new HttpStatusCodeResult(400, "Invalid request");
+                    }
                 }
                 else
                 {
@@ -49,8 +57,19 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
             }
 
         }
-
-
-
+        private bool IsLocalUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                return false;
+            }
+            else
+            {
+                return ((url[0] == '/' && (url.Length == 1 ||
+                        (url[1] != '/' && url[1] != '\\'))) ||   // "/" or "/foo" but not "//" or "/\"
+                        (url.Length > 1 &&
+                         url[0] == '~' && url[1] == '/'));   // "~/" or "~/foo"
+            }
+        }
     }
 }
