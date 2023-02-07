@@ -160,6 +160,7 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
         clearTimeout(fncheckLoadData);
         if (!jQuery('#SettingsPanel').hasClass('hide')) {
             _stateManager.RestoreSettings();
+            jQuery('.Settings').css({ "background-color": "rgb(2 77 2)" });
             fncheckLoadData = setTimeout(function () {
                 self.LoadData();
             }, 300);
@@ -167,9 +168,11 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
     };
     self.TogglePanel = function () {
         jQuery('#SettingsPanel').toggleClass('hide');
+        jQuery('.Settings').css({ "background-color": "" });
     };
     self.HidePanel = function () {
         jQuery('#SettingsPanel').addClass('hide');
+        jQuery('.Settings').css({ "background-color": "" });
     };
     self.TabChanged = function (index) {
         _stateManager.ChangeTab(index);

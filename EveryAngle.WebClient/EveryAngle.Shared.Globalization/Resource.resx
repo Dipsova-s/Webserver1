@@ -397,7 +397,7 @@
     <value>Save all</value>
   </data>
   <data name="SearchResults" xml:space="preserve">
-    <value>Search results</value>
+    <value>Angles, Templates &amp; Dashboards</value>
   </data>
   <data name="SelectObjectInProcess" xml:space="preserve">
     <value>Select object in Process</value>
@@ -5493,6 +5493,12 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change password</value>
+  </data>
+  <data name="AccountSetting" xml:space="preserve">
+    <value>Account Setting</value>
+  </data>
+  <data name="AdminSetting" xml:space="preserve">
+    <value>Admin Setting</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>

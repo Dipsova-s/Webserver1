@@ -54,7 +54,7 @@ function AngleActionMenuHandler(base) {
         var data = [];
         var privileges = self.GetPrivilegeData();
         jQuery.each(enumHandlers.ANGLEACTION, function (key, action) {
-            if (!actionIds.length || jQuery.inArray(action.Id, actionIds) !== -1)
+            if (!actionIds.length || jQuery.inArray(action.Id, actionIds) !== -1 || privileges[action.Id] != "addFollowup" )
                 data.push(jQuery.extend(privileges[action.Id], forcePrivilege, action));
         });
         return data;
@@ -64,7 +64,7 @@ function AngleActionMenuHandler(base) {
 
         privileges[enumHandlers.ANGLEACTION.DOWNLOAD.Id] = { Enable: self.CanDownload(), Visible: self.CanDownload() };
 
-        privileges[enumHandlers.ANGLEACTION.ADDFOLLOWUP.Id] = { Enable: self.CanAddFollowup(), Visible: true };
+        privileges[enumHandlers.ANGLEACTION.ADDFOLLOWUP.Id] = { Enable: self.CanAddFollowup(), Visible: false };
         privileges[enumHandlers.ANGLEACTION.ADDTODASHBOARD.Id] = { Enable: self.CanAddToDashboard(), Visible: true };
         privileges[enumHandlers.ANGLEACTION.COPYDISPLAY.Id] = { Enable: self.CanCopyDisplay(), Visible: true };
 

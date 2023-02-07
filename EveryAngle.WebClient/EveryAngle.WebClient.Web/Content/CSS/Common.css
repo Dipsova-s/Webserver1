@@ -410,7 +410,7 @@ img {
 
 .badge {
   position: absolute;
-  background-color: #278838;
+  background-color: #2196f3;
   color: #fff;
   font-size: 9px;
   line-height: 1;
@@ -1513,6 +1513,8 @@ textarea.input-light {
   height: 60px;
   width: 60px;
   text-align: center; }
+  .Logo :active {
+    background: green; }
 
 #BusinessProcessBadgeWrapper {
   position: absolute;
@@ -1529,9 +1531,9 @@ textarea.input-light {
 
 #UserPanel {
   position: fixed;
-  height: calc(100vh - 175px);
+  height: calc(100vh - 300px);
   /* fallback for none support browsers */
-  height: calc(var(--vh, 1vh) * 100 - 175px);
+  height: calc(var(--vh, 1vh) * 100 - 300px);
   bottom: 0;
   box-sizing: border-box;
   width: 60px; }
@@ -1557,11 +1559,14 @@ textarea.input-light {
     #UserPanel div .notificationsFeedBadge span {
       margin: 1px 0 !important; }
   #UserPanel .Help {
-    top: 65px; }
+    top: auto;
+    bottom: 120px; }
   #UserPanel .NotificationsFeed {
-    top: 130px; }
+    top: auto;
+    bottom: 180px; }
   #UserPanel .Settings {
-    top: 5px; }
+    top: auto;
+    bottom: 60px; }
   #UserPanel .UserControl {
     background: rgba(0, 23, 55, 0.4);
     opacity: 1;
@@ -1579,6 +1584,24 @@ textarea.input-light {
   font-size: 12px;
   font-style: normal;
   font-weight: 700; }
+
+#UserName {
+  display: flex;
+  justify-content: center;
+  margin-top: 32%;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-style: inherit;
+  font-weight: 300; }
+
+#UserprofileName {
+  margin-left: 20px;
+  margin-top: 13px; }
+  #UserprofileName #UserFullName {
+    font-size: 12px;
+    font-style: inherit;
+    font-weight: 600; }
 
 #UserControl {
   display: flex;
@@ -1625,14 +1648,29 @@ textarea.input-light {
   .popupUserMenu .actionDropdownItem.btnWorkbench:before {
     background-image: url("../../images/icons/icon_workbench.svg"); }
   .popupUserMenu .actionDropdownItem.btnChangePassword:before {
-    background-image: url("../../images/icons/icon_change_password.svg"); }
+    background-image: url("../../images/icons/ic_lock-password-fill.svg"); }
+  .popupUserMenu .actionDropdownItem.btnAccountSetting:before {
+    background-image: url("../../images/icons/remix-icons_fill_user_user-fill.svg"); }
+  .popupUserMenu .actionDropdownItem.btnAdminSetting:before {
+    background-image: url("../../images/icons/remix-icons_fill_system_settings-3-fill.svg"); }
   .popupUserMenu .actionDropdownItem.btnLogout:before {
-    background-image: url("../../images/icons/icon_logout.svg"); }
+    background-image: url("../../images/icons/remix-icons_fill_system_logout-box-r-fill.svg"); }
+
+.UserProfile {
+  display: flex;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-top: 3px; }
+  .UserProfile #Userprofile {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #1e2556; }
 
 /* .popupHelpMenu
 ============================================ */
 .popupHelpMenu {
-  top: 33%;
+  top: 61%;
   left: 60px;
   width: 200px;
   display: none;
@@ -3775,6 +3813,9 @@ textarea.input-light {
             .display-tab .right-btn-wrapper .display-overview-popup .listview .listview-item:hover .icon-close.disabled {
               visibility: hidden; }
 
+.displayNameContainer .icon.icon-angle {
+  color: grey; }
+
 .display-tab.active {
   opacity: 1; }
   .display-tab.active:before {
@@ -4326,6 +4367,11 @@ textarea.input-light {
 #SearchSidePanelButton {
   position: absolute;
   top: 10px; }
+  #SearchSidePanelButton :hover {
+    background-color: #a1d1ef;
+    border-width: 1px;
+    border-color: #007AC9;
+    color: #a1d1ef; }
 
 #TitelText {
   height: 60px;

@@ -30,26 +30,26 @@
 
 .toolbar {
   flex-wrap: wrap;
+  display: flex;
   background-color: #fff;
   border-bottom: 1px solid #f2f2f2;
   min-height: 40px;
   padding: 5px 10px;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  justify-content: flex-end; }
   .toolbar .col-breadcrumb {
     order: 1;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis; }
   .toolbar .col-action {
-    order: 5;
+    order: 3;
     position: relative;
     display: flex;
-    padding-right: 10px;
-    width: 50px; }
+    padding-right: 10px; }
   .toolbar .col-saving {
-    order: 3;
-    padding-left: 0;
-    margin-left: auto; }
+    order: 5;
+    padding-left: 0; }
   .toolbar .col-states {
     order: 4;
     padding-left: 0; }
@@ -141,9 +141,9 @@
   #ActionSelect .actionDropdownItem.saveAs:not(.disabled):hover:before {
     background-image: url("../../images/angle/actiondropdownlist/saveas_hover.svg"); }
   #ActionSelect .actionDropdownItem.copydisplay:before {
-    background-image: url("../../images/angle/actiondropdownlist/copydisplay.svg"); }
+    background-image: url("../../images/angle/actiondropdownlist/remix-icons_fill_document_file-copy-2-fill.svg"); }
   #ActionSelect .actionDropdownItem.copydisplay:not(.disabled):hover:before {
-    background-image: url("../../images/angle/actiondropdownlist/copydisplay_hover.svg"); }
+    background-image: url("../../images/angle/actiondropdownlist/remix-icons_fill_document_file-copy-2-fill.svg"); }
   #ActionSelect .actionDropdownItem.pastedisplay:before {
     background-image: url("../../images/angle/actiondropdownlist/pastedisplay.svg"); }
   #ActionSelect .actionDropdownItem.pastedisplay:not(.disabled):hover:before {
@@ -181,6 +181,7 @@
   #ActionSelect .actionDropdownItem.addToDashboard:not(.disabled):hover:before {
     background-image: url("../../images/angle/actiondropdownlist/addtodashboard_hover.svg"); }
   #ActionSelect .actionDropdownItem.addFollowup:before {
+    visibility: collapse;
     background-image: url("../../images/icons/icon_followup_addnew.svg"); }
   #ActionSelect .actionDropdownItem.addFollowup:not(.disabled):hover:before {
     background-image: url("../../images/icons/icon_followup_addnew_hover.svg"); }
@@ -199,10 +200,10 @@
   #ActionSelect .actionDropdownItem.download {
     margin-left: 10px; }
     #ActionSelect .actionDropdownItem.download:before {
-      background-image: url("../../images/icons/icon_download_angle.svg");
+      background-image: url("../../images/icons/ic_download-2-fill.svg");
       background-size: 20px 20px; }
     #ActionSelect .actionDropdownItem.download:not(.disabled):hover:before {
-      background-image: url("../../images/icons/icon_download_angle_hover.svg"); }
+      background-image: url("../../images/icons/ic_download-2-fill.svg"); }
     #ActionSelect .actionDropdownItem.download:after {
       content: '';
       position: absolute;

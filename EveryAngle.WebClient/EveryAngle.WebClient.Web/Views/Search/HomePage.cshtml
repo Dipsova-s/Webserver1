@@ -27,7 +27,7 @@
 @section TopBar
 {
     <div id="TopBar" class="topBarWrapper">
-        <div>
+        <div id="HomePage-Sidebar">
             <div class="toggle-sidebar">
                 <a class="disabled">
                     <img src="~/Images/apps.svg" alt="" />
@@ -65,7 +65,7 @@
 
 
             <div class="Wrapper searchbar-primary">
-                <form id="Search" class="searchBoxWrapper" autocomplete="off" onsubmit="return false">
+                <form id="Search" class="searchBoxWrapper" autocomplete="off" onsubmit="return false" style="display:none">
                     <a id="ClearSearchButton" class="clearSearch alwaysHide" onclick="searchQueryModel.ClearAdvanceSearch();" data-tooltip-text="@Resource.ClearAdvancedFilters">
                         <i class="icon icon-close"></i>
                     </a>

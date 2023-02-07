@@ -151,6 +151,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Setting.
+        /// </summary>
+        public static string AccountSetting {
+            get {
+                return ResourceManager.GetString("AccountSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string Actions {
@@ -408,6 +417,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string AdminLogin {
             get {
                 return ResourceManager.GetString("AdminLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin Setting.
+        /// </summary>
+        public static string AdminSetting {
+            get {
+                return ResourceManager.GetString("AdminSetting", resourceCulture);
             }
         }
         
@@ -17463,7 +17481,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search results.
+        ///   Looks up a localized string similar to Angles, Templates &amp; Dashboards.
         /// </summary>
         public static string SearchResults {
             get {

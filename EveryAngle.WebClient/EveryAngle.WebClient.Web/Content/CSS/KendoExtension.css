@@ -819,6 +819,12 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
   height: 32px;
   width: 0px; }
 
+#AngleField #ActionSelect .visible-medium-viewport {
+  display: none !important; }
+
+#AngleField #ActionSelect .hide-medium-viewport {
+  display: block !important; }
+
 #SearchBar #ActionSelect .k-widget.k-dropdown .k-dropdown-wrap:not(.k-state-disabled) {
   cursor: pointer;
   width: 0px;

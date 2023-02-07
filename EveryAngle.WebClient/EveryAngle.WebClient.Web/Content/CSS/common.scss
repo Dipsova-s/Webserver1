@@ -231,7 +231,7 @@ img {
 
 .badge {
     position: absolute;
-    background-color: $primary-color;
+    background-color: #2196f3;
     color: #fff;
     font-size: 9px;
     line-height: 1;
@@ -503,7 +503,12 @@ img {
     height: 60px;
     width: 60px;
     text-align: center;
+
+    :active {
+        background: green;
+    }
 }
+
 
 #BusinessProcessBadgeWrapper {
     position: absolute;
@@ -523,7 +528,7 @@ img {
 
 #UserPanel {
     position: fixed;
-    @include calc-vh(height, 175px);
+    @include calc-vh(height, 300px);
     bottom: 0;
     box-sizing: border-box;
     width: 60px;
@@ -568,15 +573,18 @@ img {
     }
 
     .Help {
-        top: 65px;
+        top: auto;
+        bottom: 120px;
     }
 
     .NotificationsFeed {
-        top: 130px;
+        top: auto;
+        bottom: 180px;
     }
 
     .Settings {
-        top: 5px;
+        top: auto;
+        bottom: 60px;
     }
 
     .UserControl {
@@ -598,6 +606,27 @@ img {
     font-size: 12px;
     font-style: normal;
     font-weight: 700;
+}
+
+#UserName {
+    display:flex;
+    justify-content:center;
+    margin-top:32%;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    font-style: inherit;
+    font-weight: 300;
+}
+
+#UserprofileName {
+    margin-left: 20px;
+    margin-top: 13px;
+    #UserFullName{
+        font-size:12px;
+        font-style: inherit;
+        font-weight:600;
+    }
 }
 
 #UserControl {
@@ -666,19 +695,40 @@ img {
         }
 
         &.btnChangePassword:before {
-            background-image: url('../../images/icons/icon_change_password.svg');
+            background-image: url('../../images/icons/ic_lock-password-fill.svg');
+        }
+
+        &.btnAccountSetting:before {
+            background-image: url('../../images/icons/remix-icons_fill_user_user-fill.svg');
+        }
+
+        &.btnAdminSetting:before {
+            background-image: url('../../images/icons/remix-icons_fill_system_settings-3-fill.svg');
         }
 
         &.btnLogout:before {
-            background-image: url('../../images/icons/icon_logout.svg');
+            background-image: url('../../images/icons/remix-icons_fill_system_logout-box-r-fill.svg');
         }
     }
 }
 
+.UserProfile {
+    display: flex;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 3px;
+
+    #Userprofile {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background-color: #1e2556;
+    }
+}
 /* .popupHelpMenu
 ============================================ */
 .popupHelpMenu {
-    top: 33%;
+    top: 61%;
     left: 60px;
     width: 200px;
     display: none;
@@ -1757,6 +1807,13 @@ $dropdown-large-item-height: 20px;
 #SearchSidePanelButton {
     position: absolute;
     top: 10px;
+
+    :hover {
+        background-color: #a1d1ef;
+        border-width: 1px;
+        border-color: #007AC9;
+        color: #a1d1ef;
+    }
 }
 
 #TitelText {

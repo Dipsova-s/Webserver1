@@ -71,6 +71,7 @@
         return jQuery('#SearchSidePanelButton')
             .attr({
                 'data-role': 'tooltip',
+                'data-tooltip-position' : 'bottom',
                 'data-tooltip-text': toolTipText
             });
     };

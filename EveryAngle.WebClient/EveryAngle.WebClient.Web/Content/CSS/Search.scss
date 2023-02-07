@@ -218,12 +218,12 @@
 
 .actionDropdownItem {
     &.executeDashboard:before {
-        background-image: url('../../images/icons/icon_execute_dashboard.svg');
-        background-size: 23px 23px;
+        background-image: url('../../images/icons/remix-icons_fill_media_play-circle-fill.svg');
+        /*background-size: 23px 23px;*/
     }
 
     &.executeDashboard:not(.disabled):hover:before {
-        background-image: url('../../images/icons/icon_execute_dashboard_hover.svg');
+        background-image: url('../../images/icons/remix-icons_fill_media_play-circle-fill.svg');
     }
 
     &.massChange:before {
@@ -236,12 +236,12 @@
     }
 
     &.delete:before {
-        background-image: url('../../images/icons/icon_delete.svg');
+        background-image: url('../../images/icons/ic_delete-bin-fill.svg');
         background-size: 18px 18px;
     }
 
     &.delete:not(.disabled):hover:before {
-        background-image: url('../../images/icons/icon_delete_hover.svg');
+        background-image: url('../../images/icons/ic_delete-bin-fill.svg');
     }
 
     &.selectAll:before {
@@ -263,30 +263,30 @@
     }
 
     &.copyAngle:before {
-        background-image: url('../../images/icons/icon_copy_angle.svg');
+        background-image: url('../../images/icons/remix-icons_fill_document_file-copy-2-fill.svg');
         background-size: 21px 21px;
     }
 
     &.copyAngle:not(.disabled):hover:before {
-        background-image: url('../../images/icons/icon_copy_angle_hover.svg');
+        background-image: url('../../images/icons/remix-icons_fill_document_file-copy-2-fill.svg');
     }
 
     &.download:before {
-        background-image: url('../../images/icons/icon_download_angle.svg');
+        background-image: url('../../images/icons/ic_download-2-fill.svg');
         background-size: 20px 20px;
     }
 
     &.download:not(.disabled):hover:before {
-        background-image: url('../../images/icons/icon_download_angle_hover.svg');
+        background-image: url('../../images/icons/ic_download-2-fill.svg');
     }
 
     &.upload:before {
-        background-image: url('../../images/icons/icon_upload_angle.svg');
+        background-image: url('../../images/icons/ic_upload-2-fill.svg');
         background-size: 20px 20px;
     }
 
     &.upload:not(.disabled):hover:before {
-        background-image: url('../../images/icons/icon_upload_angle_hover.svg');
+        background-image: url('../../images/icons/ic_upload-2-fill.svg');
     }
 }
 
@@ -738,16 +738,16 @@
     height: 32px;
     border-radius: 2px;
     padding: 3px 4px;
-    border: solid 1px #d1d1d1;
+   /* border: solid 1px #d1d1d1;*/
     background-color: #ffffff;
-    box-sizing: border-box;
+  /*  box-sizing: border-box;*/
 }
 
 .viewType a {
     position: relative;
     float: left;
     width: 40px;
-    height: 24px;
+    height: 34px;
     border-radius: 2px;
     transition: background-color .15s ease-in-out, box-shadow .15s ease-in-out;
     box-sizing: border-box;
@@ -759,7 +759,7 @@
 
 .viewType a:hover,
 .viewType a.active {
-    background-color: #78909c;
+    background-color: #a1d1ef;
 }
 
 
@@ -770,28 +770,36 @@
     top: 50%;
     margin-top: -7px;
     margin-left: -7px;
-    width: 14px;
-    height: 14px;
+    width: 24px;
+    height: 24px;
     background: transparent none center center no-repeat;
     background-size: 28px 28px;
 }
 
 .viewType .typeDisplays:before {
-    background-image: url('../../images/icons/icon_viewmode_displays.svg');
+    background-image: url('../../images/icons/ic_function-fill.svg');
+    top: 12px;
+    left: 15px;
 }
 
 .viewType .typeDisplays.active:before,
 .viewType .typeDisplays:hover:before {
-    background-image: url('../../images/icons/icon_viewmode_displays_active.svg');
+    background-image: url('../../images/icons/ic_function-fill.svg');
+    top: 12px;
+    left: 15px;
 }
 
 .viewType .typeCompact:before {
-    background-image: url('../../images/icons/icon_viewmode_compact.svg');
+    background-image: url('../../images/icons/remix-icons_line_editor_list-unordered.svg');
+    top: 12px;
+    left: 15px;
 }
 
 .viewType .typeCompact.active:before,
 .viewType .typeCompact:hover:before {
-    background-image: url('../../images/icons/icon_viewmode_compact_active.svg');
+    background-image: url('../../images/icons/ic_list-unordered.svg');
+    top: 12px;
+    left: 15px;
 }
 
 /* #SearchFilterView
@@ -1246,5 +1254,18 @@
     font-weight: bold;
     letter-spacing: .24px;
 }
+#SearchPage_Sidebar .SearchLogo {
+    background-color: #006c00;
+    :hover{
+        background-color:green;
+    }
+}
 
-    @import 'pages/search-page';
+#HomePage-Sidebar .HomeLogo {
+    background-color: #006c00;
+
+    :active {
+        background-color: green;
+    }
+}
+@import 'pages/search-page';

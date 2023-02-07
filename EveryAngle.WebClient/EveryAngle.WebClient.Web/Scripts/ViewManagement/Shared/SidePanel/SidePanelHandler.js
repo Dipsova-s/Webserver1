@@ -138,6 +138,7 @@ function SidePanelHandler() {
 
     self.ChangeIcon = function (path) {
         return jQuery('#ButtonToggleSidePanel_img').attr({ 'src': path });
+       
     };
     self.Open = function (tabIndex) {
         var isOpen = !jQuery('#ContentWrapper').hasClass('full');

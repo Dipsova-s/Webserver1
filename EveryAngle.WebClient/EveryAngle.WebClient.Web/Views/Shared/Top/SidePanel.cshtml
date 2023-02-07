@@ -1,20 +1,29 @@
-﻿<div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu">
+﻿@using EveryAngle.Shared.Globalization;
+<div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu">
     <div class="k-window-content k-content">
+
         @{
             string administratorPath = EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("ManagementConsoleUrl");
             if (!administratorPath.StartsWith("http"))
             {
                 administratorPath = Url.Content("~/") + administratorPath;
             }
-            <a class="actionDropdownItem btnMC" target="_blank" href="@administratorPath.ToLower()" onclick="userSettingsView.HideAllMenus()"><span data-bind="text: Localization.SearchPageManagementConsole"></span></a>
         }
         @{
             string workbenchUri = @Url.Content("~/Component/GoToModellingWorkbench");
         }
-        <a id="btnWorkbench" class="actionDropdownItem btnWorkbench" href="@workbenchUri" target="_blank" onclick="userSettingsView.HideAllMenus()">
-            <span data-bind="text: Localization.Workbench"></span>
-        </a>
+        <div class="row UserProfile">
+            <a id="Userprofile" class="column">
+                <span id="UserName"></span>
+            </a>
+            <a id="UserprofileName" class="column" style="background-color : #fff">
+                <span id="UserFullName"></span>
+            </a>
+        </div>
+        <a class="actionDropdownItem btnAccountSetting" onclick=""><span data-bind="text: Localization.AccountSetting"></span></a>
+        <a class="actionDropdownItem btnAdminSetting" onclick=""><span data-bind="text: Localization.AdminSetting"></span></a>
         <a class="actionDropdownItem btnChangePassword" onclick="userPasswordHandler.ShowPopup()"><span data-bind="text: Localization.ChangePassword"></span></a>
+        <hr />
         <a class="actionDropdownItem btnLogout" onclick="WC.Authentication.Logout()"><span data-bind="text: Localization.Logout"></span></a>
     </div>
 </div>
