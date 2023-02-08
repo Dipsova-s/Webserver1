@@ -16,8 +16,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-	</IISExpressSSLPort>
+    <IISExpressSSLPort>44335</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -815,6 +814,8 @@
     <Content Include="Images\Angle\ActionDropdownList\saveas.svg" />
     <Content Include="Images\Angle\ActionDropdownList\saveas_hover.svg" />
     <Content Include="Images\Angle\ActionDropdownList\save_hover.svg" />
+	  <Content Include="Images\Angle\ActionDropdownList\remix-icons_fill_document_file-copy-2-fill.svg" />
+	  <Content Include="Images\Angle\ActionDropdownList\ic_download-2-fill.svg" />
     <Content Include="Images\Angle\AngleDetail\btn_additem.svg" />
     <Content Include="Images\Angle\AngleDetail\btn_removeall.svg" />
     <Content Include="Images\Angle\AngleDetail\btn_removeitem.svg" />
@@ -880,6 +881,10 @@
     <Content Include="Images\Icons\icon_followup_addnew_hover.svg" />
     <Content Include="Images\Icons\icon_home.svg" />
     <Content Include="Images\Icons\icon_change_password.svg" />
+	  <Content Include="Images\Icons\ic_lock-password-fill.svg" />
+	  <Content Include="Images\Icons\remix-icons_fill_user_user-fill.svg" />
+	  <Content Include="Images\Icons\remix-icons_fill_system_settings-3-fill.svg" />
+	  <Content Include="Images\Icons\remix-icons_fill_system_logout-box-r-fill.svg" />
     <Content Include="Images\Icons\icon_chart_addnew.png" />
     <Content Include="Images\Icons\icon_chart_addnew.svg" />
     <Content Include="Images\Icons\icon_check_white.png" />
@@ -927,6 +932,14 @@
     <Content Include="Images\Icons\icon_select_all_hover.svg" />
     <Content Include="Images\Icons\icon_sorting.png" />
     <Content Include="Images\Icons\icon_note.png" />
+	  <Content Include="Images\Icons\remix-icons_fill_media_play-circle-fill.svg" />
+	  <Content Include="Images\Icons\ic_delete-bin-fill.svg" />
+	  <Content Include="Images\Icons\remix-icons_fill_document_file-copy-2-fill.svg" />
+	  <Content Include="Images\Icons\ic_download-2-fill.svg" />
+	  <Content Include="Images\Icons\ic_upload-2-fill.svg" />
+	  <Content Include="Images\Icons\ic_function-fill.svg" />
+	  <Content Include="Images\Icons\remix-icons_line_editor_list-unordered.svg" />
+	  <Content Include="Images\Icons\ic_list-unordered.svg" />
     <Content Include="Images\Domains\ConditionRecordScaleType\ConditionRecordScaleTypeConditionScale0Item.png" />
     <Content Include="Images\Domains\ConditionRecordScaleType\ConditionRecordScaleTypeConditionScale1Quantity.png" />
     <Content Include="Images\Domains\ConditionRecordScaleType\ConditionRecordScaleTypeConditionScale2Value.png" />
@@ -991,6 +1004,9 @@
     <Content Include="Images\Master\helpuser.svg" />
     <Content Include="Images\Master\ic_home-5-fill.svg" />
     <Content Include="Images\Master\ic_file-chart-fill.svg" />
+	<Content Include="Images\Master\remix-icons_fill_document_file-search-fill.svg" />
+	<Content Include="Images\Master\ic_terminal-box-fill.svg" />
+	<Content Include="Images\Master\ic_tools-fill.svg" />
     <Content Include="Images\Master\usercontrol.svg" />
     <Content Include="Images\search-grey.svg" />
     <Content Include="Images\show-left-side-bar-fill.svg" />
