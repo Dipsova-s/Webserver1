@@ -1505,7 +1505,7 @@ textarea.input-light {
   z-index: 1002;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1) !important; }
 
-#Logo, #SearchLogo {
+#Logo, #SearchLogo, #ItmcLogo, #btnWorkbench {
   display: inline-block;
   margin-top: 16px; }
 
