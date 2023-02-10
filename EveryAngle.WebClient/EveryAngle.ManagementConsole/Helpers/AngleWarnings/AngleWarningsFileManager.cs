@@ -31,11 +31,10 @@ namespace EveryAngle.ManagementConsole.Helpers.AngleWarnings
 
             var tempFolder = GetAngleWarningPath(Path.Combine(Path.GetDirectoryName(path), "Temp"));
 
-            var tempPath = Path.Combine(tempFolder, file.FileName);
-            var cannonicalPath = Path.GetFullPath(tempPath);
-            if (!cannonicalPath.StartsWith(tempFolder, StringComparison.Ordinal))
+            var tempPath = Path.GetFullPath(Path.Combine(tempFolder, file.FileName));
+            if (!tempPath.StartsWith(tempFolder, StringComparison.Ordinal))
             {
-                throw new ArgumentException("Invalid argument");
+                throw new ArgumentException("Invalid file path");
             }
             file.SaveAs(tempPath);
 
