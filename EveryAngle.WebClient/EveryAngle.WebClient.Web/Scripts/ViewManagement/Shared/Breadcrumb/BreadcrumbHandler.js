@@ -23,7 +23,7 @@ function BreadcrumbHandler() {
 
     // icons
     self.IconHome = 'icon icon-home icon-breadcrumb-home';
-    self.IconSeparator = 'icon  icon-breadcrumb-separator';
+    self.IconSeparator = 'icon icon-chevron-right icon-breadcrumb-separator';
     self.IconValidated = 'icon icon-validated icon-breadcrumb-rear';
     
     self.Initial = function (container, viewModels) {

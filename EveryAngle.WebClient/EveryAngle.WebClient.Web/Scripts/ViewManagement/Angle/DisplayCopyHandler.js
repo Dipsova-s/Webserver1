@@ -28,7 +28,7 @@ function DisplayCopyHandler() {
         jQuery.localStorage('copied_display', displayData);
 
         if (self.CanPasteDisplay()) {
-            jQuery('#ActionDropdownListTablet_listbox .pastedisplay').removeClass('alwaysHide');
+            jQuery('.pastedisplay').removeClass('alwaysHide');
             toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_CopyDisplay);
         }
     };

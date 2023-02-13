@@ -1514,7 +1514,7 @@ textarea.input-light {
   width: 60px;
   text-align: center; }
   .Logo :active {
-    background: green; }
+    background: #F6D2D; }
 
 #BusinessProcessBadgeWrapper {
   position: absolute;
@@ -1596,11 +1596,10 @@ textarea.input-light {
   font-weight: 300; }
 
 #UserprofileName {
-    margin-left: 10px;
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-}
+  margin-left: 10px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column; }
   #UserprofileName #UserFullName {
     font-size: 12px;
     font-style: inherit;
@@ -2362,6 +2361,8 @@ textarea.input-light {
     align-items: center;
     flex-wrap: nowrap;
     padding-bottom: 3px; }
+    .breadcrumb-wrapper .breadcrumb-item .icon-chevron-right {
+      display: none !important; }
     .breadcrumb-wrapper .breadcrumb-item .breadcrumb-label {
       display: inline-flex;
       cursor: default;
@@ -2388,9 +2389,10 @@ textarea.input-light {
       .breadcrumb-wrapper .breadcrumb-item .breadcrumb-editable:hover .icon-breadcrumb-edit {
         display: block; }
   .breadcrumb-wrapper .icon-breadcrumb-home {
-    margin-top: -2px;
-    margin-right: 10px;
+    margin-right: 2px;
     min-width: 10px; }
+  .breadcrumb-wrapper .icon-chevron-right {
+    display: block; }
   .breadcrumb-wrapper .icon-breadcrumb-front {
     margin-right: 7px; }
     .breadcrumb-wrapper .icon-breadcrumb-front.icon-angle {
@@ -3847,7 +3849,7 @@ textarea.input-light {
               visibility: hidden; }
 
 .displayNameContainer .icon.icon-angle {
-  color: grey; }
+  color: #546176; }
 
 .display-tab.active {
   opacity: 1; }
@@ -4398,18 +4400,18 @@ textarea.input-light {
   width: 100%; }
 
 #SearchSidePanelButton {
-    position: absolute;
-    top: 10px;
-    height: 36px;
-    width: 36px;
-    border: solid;
-    border-width: 1px;
-}
+  position: absolute;
+  top: 10px;
+  height: 36px;
+  width: 36px;
+  border: solid;
+  border-width: 1px; }
+
 #SearchSidePanelButton :hover {
-    background-color: #a1d1ef;
-    border-width: 1px;
-    border-color: #007AC9;
-    color: #a1d1ef; }
+  background-color: #a1d1ef;
+  border-width: 1px;
+  border-color: #007AC9;
+  color: #a1d1ef; }
 
 #TitelText {
   height: 60px;
@@ -4418,14 +4420,13 @@ textarea.input-light {
 .SideBar-Icon {
   margin-left: 10px;
   margin-right: 10px; }
-    .SideBar-Icon img {
-        height: 24px;
-        width: 24px;
-        padding-top: 6.5px;
-        padding-left: 5px;
-        padding-right: 7px;
-        padding-bottom: 6px;
-    }
+  .SideBar-Icon img {
+    height: 24px;
+    width: 24px;
+    padding-top: 6.5px;
+    padding-left: 5px;
+    padding-right: 7px;
+    padding-bottom: 6px; }
 
 .SideBar-Title {
   padding-left: 30px;

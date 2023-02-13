@@ -16,6 +16,10 @@
         flex-wrap: nowrap;
         padding-bottom: 3px;
 
+        .icon-chevron-right {
+            display: none !important;
+        }
+
         .breadcrumb-label {
             display: inline-flex;
             cursor: default;
@@ -61,8 +65,8 @@
         min-width: 10px;
     }
 
-    ..icon-chevron-right {
-        display:none;
+    .icon-chevron-right {
+        display: block;
     }
 
     .icon-breadcrumb-front {
