@@ -51,9 +51,9 @@
         <div id="TitelText">
             <div class="sectionWelcomeRow">
                 <div class="SideBar-Icon">
-                    <button class="disabled" id="SearchSidePanelButton">
+                    <a class="disabled" id="SearchSidePanelButton">
                         <img id="ButtonToggleSidePanel_img" src="~/Images/show-left-side-bar-fill.svg" alt="" />
-                    </button>
+                    </a>
                 </div>
                 <div class="sectionWelcome sectionWelcomeLogo" hidden>
                     <img alt="@Resource.CompanyLogo" />
@@ -88,7 +88,16 @@
                 <div id="CreateNewAngleButton">
                     @{Html.RenderPartial("~/Views/Search/PartialViews/CreateNewAngle.cshtml"); }
                 </div>
-                <div id="ActionSelect" class="compactMode disabled">
+
+                <div class="UploadDropdown btn">
+                    <a id="UploadDrpdown" onclick="userSettingsView.ToggleMenuUpload();">
+                        <img id="ButtonImage" src="~/Images/Icons/ic_more-2-fill.svg"
+                              data-role="tooltip" data-tooltip-position="down" data-tooltip-text="@Resource.MoreActions"
+                              class="icon"/>
+                    </a>
+                </div>
+
+                @*<div id="ActionSelect" class="compactMode disabled">
                     <div class="visible-medium-viewport Action-dropdown">
                         <div id="ActionDropdownListTablet" class="large"></div>
                     </div>
@@ -97,7 +106,7 @@
                             <div class="k-window-content k-content"></div>
                         </div>
                     </div>
-                </div>
+                </div>*@
 
             </div>
             <div class="Wrapper searchbar-secondary">

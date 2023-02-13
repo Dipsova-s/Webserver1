@@ -1,4 +1,5 @@
 ﻿@using EveryAngle.Shared.Globalization;
+@using EveryAngle.WebClient.Service.Security;
 <div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu">
     <div class="k-window-content k-content">
 
@@ -18,6 +19,20 @@
             </a>
             <a id="UserprofileName" class="column" style="background-color : #fff">
                 <span id="UserFullName"></span>
+                <span class="systemInfoLastLogin">
+                    @Resource.LastLogin <time data-role="localize">
+
+                        @{
+                            EveryAngle.Core.ViewModels.Users.UserViewModel user = SessionHelper.Initialize().CurrentUser;
+                            string lastAuthenticated = string.Empty;
+                            if (user != null)
+                            {
+                                lastAuthenticated = user.Last_Logon.ToString();
+                            }
+                        }
+                        @lastAuthenticated
+
+                    </time>
             </a>
         </div>
         <a class="actionDropdownItem btnAccountSetting" onclick=""><span data-bind="text: Localization.AccountSetting"></span></a>
@@ -39,6 +54,15 @@
         <a class="actionDropdownItem btnModelParameters" onclick="helpPopupPageHandler.ShowModelParameterPopup()"><span data-bind="text: Localization.ModelParameters"></span></a>
         <a class="actionDropdownItem btnAbout" onclick="aboutSystemHandler.ShowAboutSystemPopup('@Url.Content(administratorPath.ToLower())')"><span data-bind="html: Localization.AboutEveryAngle"></span></a>
         <a class="actionDropdownItem btnSupport" target="_blank" href="@Url.Content(supportUri)"><span data-bind="text: Localization.Support"></span></a>
+    </div>
+</div>
+
+<div class="k-window-titleless k-window-custom k-window-arrow-n popupUploadMenu" id="UploadMenu">
+    <div class=" k-content">
+
+        <a class="actionDropdownItem btnSelectAll" onclick="searchPageHandler.SelectAllItems()"><span> Select All</span></a>
+        <a class="actionDropdownItem btnClearSelection" onclick="searchPageHandler.ClearAllSelectedRows()"><span>Clear All</span></a>
+        <a class="actionDropdownItem btnUploadAngle" onclick="importAngleHandler.ShowImportAnglePopup()"><span>Upload items</span></a>
     </div>
 </div>
 

@@ -5,11 +5,23 @@ function UserSettingsView() {
     var self = this;
 
     //start menu management
-    var menus = ['#UserMenu', '#HelpMenu', '#NotificationsFeedMenu'];
-    var menu_classes = ['.UserControl', '.Help', '.NotificationsFeed']
+    var menus = ['#UserMenu', '#HelpMenu', '#NotificationsFeedMenu', '#UploadMenu'];
+    var menu_classes = ['.UserControl', '.Help', '.NotificationsFeed','#UploadDrpdown']
     self.ToggleMenu = function () {
         self.ToggleMenuByIndex(0);
     };
+    self.ToggleMenuUpload = function () {
+        var targetMenu = jQuery('#UploadMenu');
+        if (targetMenu.is(':hidden')) {
+            self.HideAllMenus();
+            targetMenu.show();
+            jQuery('#UploadDrpdown').css({ "background-color": "#a1d1ef", "width":"36px", "height": "36px" });
+        }
+        else {
+            targetMenu.hide();
+            jQuery('#UploadDrpdown').css({ "background-color": "" });
+        }
+    }
     self.ToggleMenuHelp = function () {
         self.ToggleMenuByIndex(1);
     };

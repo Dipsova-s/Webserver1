@@ -6,7 +6,7 @@
         var target = jQuery(itemsSelector).empty();
         jQuery.each(data, function (index, action) {
             var item = jQuery('<a />')
-                .attr('class', 'actionDropdownItem ' + action.Id + (action.Enable ? '' : ' disabled') + (action.Visible ? '' : ' alwaysHide'))
+                .attr('class', 'actionDropdownItem ' + action.Id + (action.Enable ? '' : ' alwaysHide') + (action.Visible ? '' : ' alwaysHide'))
                 .html('<span>' + action.Text + '</span>');
             item.on('click', jQuery.proxy(callback, null, item.get(0), action.Id));
             target.append(item);

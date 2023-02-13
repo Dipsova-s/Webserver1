@@ -882,7 +882,11 @@ window.SearchPageHandler = function () {
 
         // check enable state
         if (searchModel.Items().length) {
-            data.findObject('Id', enumHandlers.SEARCHACTION.SELECTALL.Id).Enable = true;
+            data.findObject('Id', enumHandlers.SEARCHACTION.SELECTALL.Id).Visible = false;
+        }
+
+        if (searchModel.Items().length) {
+            data.findObject('Id', enumHandlers.SEARCHACTION.DESELECT.Id).Visible = false;
         }
 
         var canCreateAngle = privilegesViewModel.IsAllowCreateAngle();
@@ -914,12 +918,13 @@ window.SearchPageHandler = function () {
         }
 
         if (canCreateAngle) {
-            data.findObject('Id', enumHandlers.SEARCHACTION.UPLOADANGLES.Id).Enable = true;
+            data.findObject('Id', enumHandlers.SEARCHACTION.UPLOADANGLES.Id).Visible = false;
         }
 
         if (!privilegesViewModel.IsAllowExecuteDashboard()) {
             data.findObject('Id', enumHandlers.SEARCHACTION.EXECUTEDASHBOARD.Id).Enable = false;
         }
+
 
         return data;
     };
