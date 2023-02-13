@@ -615,9 +615,7 @@
   height: 32px;
   border-radius: 2px;
   padding: 3px 4px;
-  /* border: solid 1px #d1d1d1;*/
-  background-color: #ffffff;
-  /*  box-sizing: border-box;*/ }
+  background-color: #ffffff; }
 
 .viewType a {
   position: relative;
@@ -1034,10 +1032,10 @@
 #SearchPage_Sidebar .SearchLogo {
   background-color: #006c00; }
   #SearchPage_Sidebar .SearchLogo :hover {
-    background-color: green; }
+    background-color: #1F6D2D; }
 
 .Logo:hover {
-  background-color: green; }
+  background-color: #1F6D2D; }
 
 #btnWorkbench {
   display: inline-block;
@@ -1058,7 +1056,7 @@
 #HomePage-Sidebar .HomeLogo {
   background-color: #006c00; }
   #HomePage-Sidebar .HomeLogo :active {
-    background-color: green; }
+    background-color: #1F6D2D; }
 
 /* #LeftMenu
 ============================================ */

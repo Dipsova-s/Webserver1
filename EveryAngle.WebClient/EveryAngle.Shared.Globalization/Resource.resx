@@ -6303,6 +6303,12 @@ The following types are supported: Active Directory (AD), Active Directory Feder
   <data name="MoreActions" xml:space="preserve">
     <value>More actions</value>
   </data>
+	<data name="SearchPageHeadder" xml:space="preserve">
+    <value>Angles,Templates &amp; Dashboards</value>
+  </data>
+	<data name="ImageNotFound" xml:space="preserve">
+    <value>Image Not Found</value>
+  </data>
   <data name="ChartReferenceFieldName" xml:space="preserve">
     <value>Reference Line</value>
   </data>

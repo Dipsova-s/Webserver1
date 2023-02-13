@@ -1,4 +1,5 @@
-﻿@{
+﻿@using EveryAngle.Shared.Globalization
+@{
     var logoLinkAction = this.Model != null ? this.Model : Url.Action("HomePage", "Search");
     var logoLinkAction1 = this.Model != null ? this.Model : Url.Action("SearchPage", "Search", new { sort = "name", dir = "asc" });
 }
@@ -14,23 +15,23 @@
 }
 <div class="Logo HomeLogo">
     <a id="Logo" href="@logoLinkAction">
-        <img alt="" src="@Url.Content("~/images/master/ic_home-5-fill.svg")" height="24" data-role="tooltip" data-tooltip-position="right" data-tooltip-text="Home Page"/>
+        <img alt="@Resource.ImageNotFound" src="@Url.Content("~/images/master/ic_home-5-fill.svg")" height="24" data-role="tooltip" data-tooltip-position="right" data-tooltip-text="Home Page" />
     </a>
 </div>
 <div class="Logo SearchLogo">
     <a id="SearchLogo" href="@logoLinkAction1">
-        <img alt="" src="@Url.Content("~/images/master/remix-icons_fill_document_file-search-fill.svg")" height="24" data-role="tooltip" data-tooltip-position="right" data-tooltip-text="Search Page" />
+        <img alt="@Resource.ImageNotFound" src="@Url.Content("~/images/master/remix-icons_fill_document_file-search-fill.svg")" height="24" data-role="tooltip" data-tooltip-position="right" data-tooltip-text="Search Page" />
     </a>
 </div>
 <div class="Logo ItmcLogo ">
     <a id="SearchLogo" class="btnMC" target="_blank" href="@administratorPath.ToLower()" onclick="userSettingsView.HideAllMenus()" style="display: none">
-        <img alt="" src="@Url.Content("~/images/master/ic_terminal-box-fill.svg")" height="24"  data-role="tooltip" data-tooltip-position="right" data-tooltip-text="IT Management Console" />
+        <img alt="@Resource.ImageNotFound" src="@Url.Content("~/images/master/ic_terminal-box-fill.svg")" height="24" data-role="tooltip" data-tooltip-position="right" data-tooltip-text="IT Management Console" />
 
     </a>
 </div>
 <div class="Logo btnWorkbench">
     <a id="btnWorkbench" href="@workbenchUri" target="_blank" onclick="userSettingsView.HideAllMenus()" style="display: none">
-        <img alt="" src="@Url.Content("~/images/master/ic_tools-fill.svg")" height="24" data-role="tooltip" data-tooltip-position="right" data-tooltip-text="Workbench" />
+        <img alt="@Resource.ImageNotFound" src="@Url.Content("~/images/master/ic_tools-fill.svg")" height="24" data-role="tooltip" data-tooltip-position="right" data-tooltip-text="Workbench" />
     </a>
 </div>
 

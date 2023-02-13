@@ -759,9 +759,7 @@
     height: 32px;
     border-radius: 2px;
     padding: 3px 4px;
-   /* border: solid 1px #d1d1d1;*/
     background-color: #ffffff;
-  /*  box-sizing: border-box;*/
 }
 
 .viewType a {
@@ -1278,12 +1276,12 @@
 #SearchPage_Sidebar .SearchLogo {
     background-color: #006c00;
     :hover{
-        background-color:green;
+        background-color:#1F6D2D;
     }
 }
 
 .Logo:hover{
-    background-color:green;
+    background-color:#1F6D2D;
 }
 
 #btnWorkbench {
@@ -1311,7 +1309,7 @@
     background-color: #006c00;
 
     :active {
-        background-color: green;
+        background-color: #1F6D2D;
     }
 }
 @import 'pages/search-page';
