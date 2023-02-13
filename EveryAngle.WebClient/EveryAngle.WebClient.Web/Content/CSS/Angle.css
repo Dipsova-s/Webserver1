@@ -158,15 +158,15 @@
     background-image: url("../../images/angle/actiondropdownlist/createdisplay_hover.svg"); }
   #ActionSelect .actionDropdownItem.createList:before {
     background-image: url("../../images/icons/icon_list_addnew.svg"); }
-  #ActionSelect .actionDropdownItem.createList:not(.disabled):hover:before {
+  #ActionSelect .actionDropdownItem.createList:not(.alwaysHide):hover:before {
     background-image: url("../../images/icons/icon_list_addnew_hover.svg"); }
   #ActionSelect .actionDropdownItem.createChart:before {
     background-image: url("../../images/icons/icon_chart_addnew.svg"); }
-  #ActionSelect .actionDropdownItem.createChart:not(.disabled):hover:before {
+  #ActionSelect .actionDropdownItem.createChart:not(.alwaysHide):hover:before {
     background-image: url("../../images/icons/icon_chart_addnew_hover.svg"); }
   #ActionSelect .actionDropdownItem.createPivot:before {
     background-image: url("../../images/icons/icon_pivot_addnew.svg"); }
-  #ActionSelect .actionDropdownItem.createPivot:not(.disabled):hover:before {
+  #ActionSelect .actionDropdownItem.createPivot:not(.alwaysHide):hover:before {
     background-image: url("../../images/icons/icon_pivot_addnew_hover.svg"); }
   #ActionSelect .actionDropdownItem.exportToExcel:before {
     background-image: url("../../images/angle/actiondropdownlist/exporttoexcel.svg"); }
@@ -536,6 +536,39 @@
   width: 10px;
   height: 10px;
   margin-right: 0; }
+
+#AngleSidePanelButton {
+  position: absolute;
+  top: 10px;
+  height: 36px;
+  width: 36px;
+  border: solid;
+  border-width: 1px; }
+
+#AngleSidePanelButton :hover {
+  background-color: #a1d1ef;
+  border-width: 1px;
+  border-color: #007AC9;
+  color: #a1d1ef; }
+
+.Logo:hover {
+  background-color: #1F6D2D; }
+
+#btnWorkbench {
+  display: inline-block;
+  margin-top: 16px; }
+
+#SearchResultView {
+  padding-bottom: 2px; }
+
+.Settings:hover {
+  background-color: #1F6D2D; }
+
+.Help:hover {
+  background-color: #1F6D2D; }
+
+.NotificationsFeed:hover {
+  background-color: #1F6D2D; }
 
 .context-menu-submenu > .context-menu {
   top: -15px;

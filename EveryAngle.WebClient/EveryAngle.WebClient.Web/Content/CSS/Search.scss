@@ -74,6 +74,26 @@
     }
 }
 
+#CreateNewAngleButton{
+    min-width:180px;
+    min-height: 36px;
+}
+
+#ButtonImage{
+    height:24px;
+    width: 24px;
+    margin-top: 5px;
+}
+
+#UploadDrpdown:hover {
+    height:36px;
+    width: 36px;
+    background-color: #a1d1ef;
+    border: 1px;
+    border-color:aqua;
+    border-radius: 4px;
+}
+
 @media (max-width: 979px) {
     .searchbar .searchBoxWrapper {
         min-width: 0;
@@ -299,8 +319,9 @@
 .createNewAngleButtonWrapper {
     display: inline-block;
     position: absolute;
-    margin: 10px 14px;
+    margin-top: 10px;
     top: 4px;
+    right: 90px;
 }
 
 .btnCreateNewAngle {
@@ -738,9 +759,7 @@
     height: 32px;
     border-radius: 2px;
     padding: 3px 4px;
-   /* border: solid 1px #d1d1d1;*/
     background-color: #ffffff;
-  /*  box-sizing: border-box;*/
 }
 
 .viewType a {
@@ -867,7 +886,7 @@
     padding-left: 15px;
     border-left: 1px solid #f7f7f7;
     white-space: nowrap;
-    padding-right: 30px;
+    padding-right: 10px;
 }
 
 #SearchSortingView .search-sorting-item:first-child {
@@ -1257,15 +1276,40 @@
 #SearchPage_Sidebar .SearchLogo {
     background-color: #006c00;
     :hover{
-        background-color:green;
+        background-color:#1F6D2D;
     }
+}
+
+.Logo:hover{
+    background-color:#1F6D2D;
+}
+
+#btnWorkbench {
+    display: inline-block;
+    margin-top: 16px;
+}
+
+#SearchResultView {
+    padding-bottom: 2px;
+}
+
+.Settings:hover {
+    background-color: #1F6D2D;
+}
+
+.Help:hover {
+    background-color: #1F6D2D;
+}
+
+.NotificationsFeed:hover {
+    background-color: #1F6D2D;
 }
 
 #HomePage-Sidebar .HomeLogo {
     background-color: #006c00;
 
     :active {
-        background-color: green;
+        background-color: #1F6D2D;
     }
 }
 @import 'pages/search-page';

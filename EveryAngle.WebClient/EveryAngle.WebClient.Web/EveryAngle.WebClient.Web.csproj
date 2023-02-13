@@ -844,6 +844,8 @@
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\Icons\icon_sort_desc.svg" />
     <Content Include="Images\Icons\icon_sort_asc.svg" />
+	  <Content Include="Images\Icons\ic_arrow-left-line.svg" />
+	  <Content Include="Images\Icons\ic_more-2-fill.svg" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType0PO.png" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType1NoPO.png" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType2Material.png" />

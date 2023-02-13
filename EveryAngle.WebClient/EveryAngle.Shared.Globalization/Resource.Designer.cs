@@ -5074,6 +5074,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image Not Found.
+        /// </summary>
+        public static string ImageNotFound {
+            get {
+                return ResourceManager.GetString("ImageNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inactive.
         /// </summary>
         public static string Inactive {
@@ -17459,6 +17468,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string SearchPageAngleAction {
             get {
                 return ResourceManager.GetString("SearchPageAngleAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angles,Templates &amp; Dashboards.
+        /// </summary>
+        public static string SearchPageHeadder {
+            get {
+                return ResourceManager.GetString("SearchPageHeadder", resourceCulture);
             }
         }
         

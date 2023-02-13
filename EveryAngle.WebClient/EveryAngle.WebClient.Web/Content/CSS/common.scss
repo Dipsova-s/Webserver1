@@ -90,14 +90,14 @@ img {
 }
 
 .visible-medium-viewport {
-    display: block !important;
+    display: none !important;
     width: 180px;
     height: 34px;
     padding-top: 4px;
 }
 
 .hide-medium-viewport {
-    display: none !important;
+    display: block !important;
 }
 
 .flex-break {
@@ -505,7 +505,7 @@ img {
     text-align: center;
 
     :active {
-        background: green;
+        background: #F6D2D;
     }
 }
 
@@ -620,12 +620,15 @@ img {
 }
 
 #UserprofileName {
-    margin-left: 20px;
-    margin-top: 13px;
-    #UserFullName{
-        font-size:12px;
+    margin-left: 10px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+
+    #UserFullName {
+        font-size: 12px;
         font-style: inherit;
-        font-weight:600;
+        font-weight: 600;
     }
 }
 
@@ -784,6 +787,61 @@ img {
         }
     }
 }
+
+.popupUploadMenu {
+    top: 16%;
+    left: auto;
+    right: 25px;
+    width: 150px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0px 10px 15px -3px rgba(0, 23, 55, 0.1), 0px 4px 6px -2px rgba(0, 23, 55, 0.05);
+    border-radius: 4px;
+
+    &:before, &:after {
+        left: auto;
+        right: 30px;
+        z-index: 1000;
+    }
+
+    .k-window-content {
+        overflow: hidden;
+        padding-bottom: 25px;
+    }
+
+    .actionDropdownItem {
+        color: #000;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:before {
+            background-position: center;
+        }
+
+        &.btnSelectAll:before {
+            background-image: url('../../images/icons/icon_select_all_hover.svg');
+        }
+
+        &.btnClearSelection:before {
+            background-image: url('../../images/icons/icon_clear_all.svg');
+        }
+
+        &.btnUploadAngle:before {
+            background-image: url('../../images/icons/ic_upload-2-fill.svg');
+        }
+
+        &.btnAbout span {
+            line-height: 31px;
+        }
+
+        span {
+            padding-left: 0;
+        }
+    }
+}
+
 
 /* .searchBoxWrapper
 ============================================ */
@@ -1807,14 +1865,20 @@ $dropdown-large-item-height: 20px;
 #SearchSidePanelButton {
     position: absolute;
     top: 10px;
+    height: 36px;
+    width: 36px;
+    border: solid;
+    border-width: 1px;
 
-    :hover {
-        background-color: #a1d1ef;
-        border-width: 1px;
-        border-color: #007AC9;
-        color: #a1d1ef;
-    }
 }
+
+#SearchSidePanelButton :hover {
+    background-color: #a1d1ef;
+    border-width: 1px;
+    border-color: #007AC9;
+    color: #a1d1ef;
+}
+
 
 #TitelText {
     height: 60px;
@@ -1826,12 +1890,14 @@ $dropdown-large-item-height: 20px;
     margin-right: 10px;
 
     img {
-        height: 20px;
-        width: 20px;
-        padding-top: 4px;
+        height: 24px;
+        width: 24px;
+        padding-top: 6.5px;
+        padding-left: 5px;
+        padding-right: 7px;
+        padding-bottom: 6px;
     }
 }
- 
 
 .SideBar-Title {
     padding-left: 30px;
