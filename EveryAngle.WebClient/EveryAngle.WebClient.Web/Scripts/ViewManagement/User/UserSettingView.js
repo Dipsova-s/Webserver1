@@ -15,11 +15,9 @@ function UserSettingsView() {
         if (targetMenu.is(':hidden')) {
             self.HideAllMenus();
             targetMenu.show();
-            jQuery('#UploadDrpdown').css({ "background-color": "#a1d1ef" });
         }
         else {
             targetMenu.hide();
-            jQuery('#UploadDrpdown').css({ "background-color": "" });
         }
     }
     self.ToggleMenuHelp = function () {

@@ -106,9 +106,7 @@ function SidePanelHandler() {
         }
     };
     self.Toggle = function () {
-        if (jQuery('#AngleSidePanelButton').hasClass('disabled'))
-            return;
-        if (jQuery('#DashboardSidePanelButton').hasClass('disabled'))
+        if (jQuery('#AngleSidePanelButton').hasClass('disabled') && jQuery('#DashboardSidePanelButton').hasClass('disabled'))
             return;
 
         var element = jQuery('#ContentWrapper').addClass('toggling');

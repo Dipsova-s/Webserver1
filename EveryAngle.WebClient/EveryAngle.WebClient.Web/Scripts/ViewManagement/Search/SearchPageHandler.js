@@ -111,6 +111,7 @@ window.SearchPageHandler = function () {
 
             jQuery.clickOutside('#UserMenu', '#UserControl');
             jQuery.clickOutside('#HelpMenu', '#Help');
+            jQuery.clickOutside('#UploadMenu', '#UploadDrpdown');
             jQuery.clickOutside('#NotificationsFeedMenu', '#NotificationsFeed');
             jQuery.clickOutside('#PopupSelectModelCreateNewAngle', '#SelectModelCreateNewAngle');
 

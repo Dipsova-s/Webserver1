@@ -200,6 +200,10 @@ $left-menu-background-color: #f7f7f7;
 
             .filter-name {
                 margin-right: 10px;
+
+                &:hover span {
+                    color: #007AC9;
+                }
             }
 
             .filter-count {

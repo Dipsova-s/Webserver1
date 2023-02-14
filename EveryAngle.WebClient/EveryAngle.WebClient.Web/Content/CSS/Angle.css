@@ -551,6 +551,20 @@
   border-color: #007AC9;
   color: #a1d1ef; }
 
+#DashboardSidePanelButton {
+  position: absolute;
+  top: 10px;
+  height: 36px;
+  width: 36px;
+  border: solid;
+  border-width: 1px; }
+
+#DashboardSidePanelButton :hover {
+  background-color: #a1d1ef;
+  border-width: 1px;
+  border-color: #007AC9;
+  color: #a1d1ef; }
+
 .Logo:hover {
   background-color: #1F6D2D; }
 

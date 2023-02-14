@@ -211,9 +211,8 @@
   background-image: url("../../images/icons/remix-icons_fill_media_play-circle-fill.svg"); }
 
 .actionDropdownItem.massChange:before {
-    background-image: url("../../images/icons/icon_mass_change_hover.svg");
-    background-size: 20px 20px;
-}
+  background-image: url("../../images/icons/icon_mass_change.svg");
+  background-size: 20px 20px; }
 
 .actionDropdownItem.massChange:not(.disabled):hover:before {
   background-image: url("../../images/icons/icon_mass_change_hover.svg"); }
@@ -1186,7 +1185,7 @@
     letter-spacing: 0.1px;
     text-align: left; }
     #LeftMenu .facetFilter li:hover span {
-      color: #03c6cf; }
+      color:#007AC9; }
     #LeftMenu .facetFilter li.item-label {
       font-size: 12px;
       padding: 0 5px;

@@ -90,6 +90,16 @@
     width: 36px;
 }
 
+#UploadDrpdown:active {
+    height: 36px;
+    width: 36px;
+    background-color: #a1d1ef;
+    border: 1px;
+    border-color: aqua;
+    border-radius: 4px;
+}
+}
+
 #UploadDrpdown:hover {
     height: 36px;
     width: 36px;
