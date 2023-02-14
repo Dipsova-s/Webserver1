@@ -38,7 +38,7 @@
             return kendo.format('{0:00}:{1:00}', date.getUTCHours(), date.getUTCMinutes());
         },
         getDisplayTimeForGrid: function (seconds, isLog) {
-            if (seconds === null)
+            if ((isLog && !seconds) || seconds === null)
                 return '';
             let scheduleTimeZoneInfo = MC.util.getTimezoneInfo(false);
             let localTimeZoneInfo = MC.util.getTimezoneInfo(true);
@@ -52,11 +52,11 @@
                 }
                 else {
                     if (scheduleDateWithOutTime.getTime() === localDateWithOutTime.getTime())
-                        return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm]}', scheduleDate, localDate);
+                        return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm:ss]}', scheduleDate, localDate);
                     else if (scheduleDateWithOutTime < localDateWithOutTime)
-                        return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm}<sup>+1</sup>]', scheduleDate, localDate);
+                        return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm:ss}<sup>+1</sup>]', scheduleDate, localDate);
                     else
-                        return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm}<sup>-1</sup>]', scheduleDate, localDate);
+                        return kendo.format('{0:MM/dd/yyyy HH:mm:ss} {1:[HH:mm:ss}<sup>-1</sup>]', scheduleDate, localDate);
                 }
             }
             else {

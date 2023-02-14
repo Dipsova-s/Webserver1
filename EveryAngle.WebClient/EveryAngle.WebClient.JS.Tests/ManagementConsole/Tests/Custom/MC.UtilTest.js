@@ -162,7 +162,7 @@
             { seconds: 8100, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLog: false, expected: '<sup>-1</sup>]' },
 
             // with date
-            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLog: true, expected: '01/01/1970' },
+            { seconds: 0, offset: offset, scheduleTimeZone: scheduleTimeZoneInfo.zone, isLog: true, expected: '' },
         ];
 
         $.each(tests, function (index, test) {
@@ -207,7 +207,7 @@
             { seconds: 0, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLogin: false, expected: 'AET [' },
 
             // different location
-            { seconds: -1000, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLogin: false, expected: '<sup>-1</sup>' },
+            { seconds: -20000, offset: -600, scheduleTimeZone: 'AUS Eastern Standard Time', isLogin: false, expected: '<sup>-1</sup>' },
         ];
 
         $.each(tests, function (index, test) {
