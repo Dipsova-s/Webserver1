@@ -89,6 +89,9 @@ function SidePanelHandler() {
         jQuery('#AngleSidePanelButton')
             .removeClass('disabled')
             .off('click').on('click', self.Toggle);
+        jQuery('#DashboardSidePanelButton')
+            .removeClass('disabled')
+            .off('click').on('click', self.Toggle);
         var element = jQuery('#ContentWrapper');
         var collapsed = userSettingModel.SidePanelSettingsData[self.StateManager.Collapsed.Name];
         if (collapsed) {
@@ -104,6 +107,8 @@ function SidePanelHandler() {
     };
     self.Toggle = function () {
         if (jQuery('#AngleSidePanelButton').hasClass('disabled'))
+            return;
+        if (jQuery('#DashboardSidePanelButton').hasClass('disabled'))
             return;
 
         var element = jQuery('#ContentWrapper').addClass('toggling');
@@ -154,6 +159,7 @@ function SidePanelHandler() {
     self.Disable = function () {
         var isOpen = !jQuery('#ContentWrapper').hasClass('full');
         jQuery('#AngleSidePanelButton').addClass('invisible');
+        jQuery('#DashboardSidePanelButton').addClass('invisible');
 
         _self.disable_states.disabled = true;
         _self.disable_states.is_open = isOpen;
@@ -164,6 +170,7 @@ function SidePanelHandler() {
     self.Enable = function () {
         _self.disable_states.disabled = false;
         jQuery('#AngleSidePanelButton').removeClass('invisible');
+        jQuery('#DashboardSidePanelButton').removeClass('invisible');
 
         // restore if it used to be opened
         if (_self.disable_states.is_open)
