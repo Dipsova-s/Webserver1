@@ -22,7 +22,7 @@ namespace EveryAngle.WebClient.Web.Controllers
             {
                 currentUserLanguage = setting.default_language;
             }
-            return Redirect($"~/{currentUserLanguage}/search/searchPage");
+            return Redirect($"~/{currentUserLanguage}/search/homePage");
         }
 
         [LogExceptionHandler]

@@ -33,7 +33,7 @@ namespace EveryAngle.WebClient.Web.Filters.ActionFilters
                         {
                             currentUserLanguage = setting.default_language;
                         }
-                        redirectPath = "~/" + currentUserLanguage + "/search/searchPage";
+                        redirectPath = "~/" + currentUserLanguage + "/search/homePage";
                     }
                     filterContext.Result = new RedirectResult(redirectPath);
                 }

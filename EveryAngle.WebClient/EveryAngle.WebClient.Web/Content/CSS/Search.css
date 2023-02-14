@@ -67,6 +67,10 @@
   width: 24px;
   margin-top: 5px; }
 
+#UploadDrpdown {
+  height: 36px;
+  width: 36px; }
+
 #UploadDrpdown:hover {
   height: 36px;
   width: 36px;
@@ -190,8 +194,14 @@
   right: auto;
   margin: 0 20px; }
 
+#ActionSelect {
+  width: 180px !important;
+  margin-left: 10px;
+  margin-right: 10px; }
+
 #ActionSelect .actionDropdownItem {
-  background-color: #fff; }
+  background-color: #fff;
+  margin-left: 5px; }
 
 .actionDropdownItem.executeDashboard:before {
   background-image: url("../../images/icons/remix-icons_fill_media_play-circle-fill.svg");
@@ -201,8 +211,9 @@
   background-image: url("../../images/icons/remix-icons_fill_media_play-circle-fill.svg"); }
 
 .actionDropdownItem.massChange:before {
-  background-image: url("../../images/icons/icon_mass_change.svg");
-  background-size: 20px 20px; }
+    background-image: url("../../images/icons/icon_mass_change_hover.svg");
+    background-size: 20px 20px;
+}
 
 .actionDropdownItem.massChange:not(.disabled):hover:before {
   background-image: url("../../images/icons/icon_mass_change_hover.svg"); }
@@ -945,8 +956,8 @@
   border-radius: 50%;
   font-size: 10px;
   left: 0;
-  width: 85%;
-  height: 67%; }
+  width: 60%;
+  height: 60%; }
 
 .compactMode .ResultContent .ContentDetail,
 .compactMode .ResultContent .item-label-wrapper {

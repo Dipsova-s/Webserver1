@@ -85,12 +85,17 @@
     margin-top: 5px;
 }
 
+#UploadDrpdown{
+    height: 36px;
+    width: 36px;
+}
+
 #UploadDrpdown:hover {
-    height:36px;
+    height: 36px;
     width: 36px;
     background-color: #a1d1ef;
     border: 1px;
-    border-color:aqua;
+    border-color: aqua;
     border-radius: 4px;
 }
 
@@ -232,8 +237,15 @@
     margin: 0 20px;
 }
 
+#ActionSelect{
+    width:180px !important;
+    margin-left:10px;
+    margin-right:10px;
+}
+
 #ActionSelect .actionDropdownItem {
     background-color: #fff;
+    margin-left: 5px;
 }
 
 .actionDropdownItem {
@@ -1171,8 +1183,8 @@
     border-radius: 50%;
     font-size: 10px;
     left: 0;
-    width: 85%;
-    height: 67%;
+    width: 60%;
+    height: 60%;
 }
 
 .compactMode .ResultContent .ContentDetail,

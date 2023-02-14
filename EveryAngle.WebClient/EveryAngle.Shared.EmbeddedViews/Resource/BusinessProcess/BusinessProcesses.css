@@ -438,12 +438,16 @@
     text-overflow: ellipsis;
 }
 
-.BusinessProcessBadgeItem0,
-.BusinessProcessBadge.P2P,
-.BusinessProcessBadgeItem0:hover,
-.BusinessProcessBadge.P2P:hover {
-    background-color: #008e91;
-}
+    .BusinessProcessBadgeLabel:hover{
+        color : #007AC9 !important;
+    }
+
+    .BusinessProcessBadgeItem0,
+    .BusinessProcessBadge.P2P,
+    .BusinessProcessBadgeItem0:hover,
+    .BusinessProcessBadge.P2P:hover {
+        background-color: #008e91;
+    }
 
 .BusinessProcessBadgeItem1,
 .BusinessProcessBadge.S2D,
@@ -508,7 +512,7 @@
 
 .BusinessProcessBadgeLabel.disabled,
 .BusinessProcessBadgeLabel.disabled:hover {
-    color: #aaa;
+    color: #007AC9;
 }
 
 

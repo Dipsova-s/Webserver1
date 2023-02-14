@@ -175,7 +175,7 @@
             top: 0;
             width: 14px;
             height: 14px;
-            border: solid 1px #78909c;
+            border: solid 1px #007AC9;
             background-color: #f7f9fa;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             box-sizing: border-box;
@@ -195,19 +195,19 @@
     }
 
         [type="checkbox"]:checked + .label:before {
-            border-color: #25cad2;
-            background-color: #25cad2;
+            border-color: #007AC9;
+            background-color: #007AC9;
         }
 
         [type="radio"]:checked + .label:before {
-            border-color: #25cad2;
+            border-color: #007AC9;
         }
 
     [type="checkbox"]:hover + .label:before,
     [type="radio"]:hover + .label:before,
     [type="checkbox"] + .label:hover:before,
     [type="radio"] + .label:hover:before {
-        border: 2px solid #25cad2;
+        border: 2px solid #007AC9;
     }
 
     [type="checkbox"] + .label:after,
@@ -234,8 +234,8 @@
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background-color: #25cad2;
-        border: solid #25cad2;
+        background-color: #007AC9;
+        border: solid #007AC9;
     }
 
 input[type="checkbox"]:not(:checked) + .label {
@@ -260,14 +260,14 @@ input[type="checkbox"]:not(:checked) + .label {
     [type="radio"]:disabled:hover + .label:before,
     [type="checkbox"]:disabled + .label:hover:before,
     [type="radio"]:disabled + .label:hover:before {
-        border-color: #78909c;
+        border-color: #007AC9;
     }
 
     [type="checkbox"]:disabled:checked:hover + .label:before,
     [type="radio"]:disabled:checked:hover + .label:before,
     [type="checkbox"]:disabled:checked + .label:hover:before,
     [type="radio"]:disabled:checked + .label:hover:before {
-        border-color: #25cad2;
+        border-color: #007AC9;
     }
 
 /* .helpTextContainer

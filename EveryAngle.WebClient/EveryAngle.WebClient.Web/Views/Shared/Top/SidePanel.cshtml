@@ -19,20 +19,7 @@
             </a>
             <a id="UserprofileName" class="column" style="background-color : #fff">
                 <span id="UserFullName"></span>
-                <span class="systemInfoLastLogin">
-                    @Resource.LastLogin <time data-role="localize">
-
-                        @{
-                            EveryAngle.Core.ViewModels.Users.UserViewModel user = SessionHelper.Initialize().CurrentUser;
-                            string lastAuthenticated = string.Empty;
-                            if (user != null)
-                            {
-                                lastAuthenticated = user.Last_Logon.ToString();
-                            }
-                        }
-                        @lastAuthenticated
-
-                    </time>
+                <span data-bind="text: WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, userModel.Data().last_logon)"></span>
             </a>
         </div>
         <a class="actionDropdownItem btnAccountSetting" onclick=""><span data-bind="text: Localization.AccountSetting"></span></a>
