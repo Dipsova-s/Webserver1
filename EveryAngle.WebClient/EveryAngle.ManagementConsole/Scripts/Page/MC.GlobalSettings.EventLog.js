@@ -8,6 +8,8 @@
             setTimeout(function () {
                 var grid = jQuery('#EventLogGrid').data('kendoGrid');
                 if (grid) {
+                    MC.util.updateTimezoneColumnName('EventLogGrid', 'start_time', 'span');
+                    MC.util.updateTimezoneColumnName('EventLogGrid', 'end_time', 'span');
                     MC.util.gridScrollFixed(grid);
                     grid.bind('dataBound', self.EventGridDataBound);
                     if (!MC.ajax.isReloadMainContent) {

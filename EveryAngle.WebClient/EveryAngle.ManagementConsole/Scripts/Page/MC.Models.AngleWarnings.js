@@ -200,6 +200,9 @@
                     });
                 }, 10);
 
+                let uploadedDateTimeStamp = $('#uploadedDateTimeStamp');
+                uploadedDateTimeStamp?.html(MC.util.getDisplayTime(uploadedDateTimeStamp?.text(), false));
+
             }, 1);
         };
 
@@ -1937,7 +1940,8 @@
                     }
                     else {
                         self.SearchAngleWarnings();
-                        $('#uploadedDateTimeStamp').text(data.LastModified);
+                        let uploadedDateTimeStamp = $('#uploadedDateTimeStamp');
+                        uploadedDateTimeStamp?.html(MC.util.getDisplayTime(data.LastModified, false));
                     }                        
                 },
                 completeCallback: function () {

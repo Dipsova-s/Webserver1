@@ -45,7 +45,7 @@
 
         columns.Bound(model => model.RefreshCycleTrigger.start_time)
             .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.StartTime))
-            .ClientTemplate("#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeLocal(data.RefreshCycleTrigger.start_time) #")
+            .ClientTemplate("#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeForGrid(data.RefreshCycleTrigger.start_time, false) #")
             .HeaderHtmlAttributes(new { @class = "columnDate" })
             .HtmlAttributes(new { @class = "columnDate" })
             .Sortable(false)

@@ -267,12 +267,12 @@ jobs:
         **\$(BuildConfiguration)\*.test*.dll
         !**\*TestAdapter.dll
         !**\obj\**
-        runSettingsFile: CodeCoverage.runsettings
-        pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\EveryAngle.WebClient\packages\'
-        codeCoverageEnabled: true
-        platform: '$(BuildPlatform)'
-        configuration: '$(BuildConfiguration)'
-        diagnosticsEnabled: true
+      runSettingsFile: CodeCoverage.runsettings
+      pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\EveryAngle.WebClient\packages\'
+      codeCoverageEnabled: true
+      platform: '$(BuildPlatform)'
+      configuration: '$(BuildConfiguration)'
+      diagnosticsEnabled: true
   - task: SonarCloudAnalyze@1
     displayName: 'Run SonarCloud Code Analysis'
   - task: SonarCloudPublish@1

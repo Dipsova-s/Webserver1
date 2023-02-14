@@ -20,6 +20,8 @@
             setTimeout(function () {
                 var grid = jQuery('#SessionsGrid').data('kendoGrid');
                 if (grid) {
+                    MC.util.updateTimezoneColumnName('SessionsGrid', 'Created', 'a');
+                    MC.util.updateTimezoneColumnName('SessionsGrid', 'ExpirationTime', 'a');
                     MC.util.gridScrollFixed(grid);
                     grid.bind('dataBound', self.SessionsGridDataBound);
                     if (!MC.ajax.isReloadMainContent) {

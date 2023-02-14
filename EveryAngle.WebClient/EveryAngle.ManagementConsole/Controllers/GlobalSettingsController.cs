@@ -131,6 +131,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.DefaultProvider = systemSettingModel.DefaultAuthenticationProvider;
             ViewBag.SupportAngleAutomation = SessionHelper.Info.AngleAutomation;
             ViewBag.ApprovalStateOptions = systemSettingsService.BuildApprovalStateOptions();
+            ViewBag.TimeZoneOptions = systemSettingsService.BuildTimeZoneOptions();
+
             return PartialView("~/Views/GlobalSettings/SystemSettings/SystemSettings.cshtml", systemSettingModel);
         }
 
@@ -240,6 +242,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             updatedSystemSettings.default_approval_state = systemSettings.default_approval_state;
             updatedSystemSettings.log_level = systemSettings.log_level;
             updatedSystemSettings.delay_to_trigger_task_on_new_model = systemSettings.delay_to_trigger_task_on_new_model;
+            updatedSystemSettings.time_zone = systemSettings.time_zone;
 
             updatedSystemSettings.EmailSettings.smtp_server = systemSettings.EmailSettings.smtp_server;
             updatedSystemSettings.EmailSettings.smtp_port = systemSettings.EmailSettings.smtp_port;

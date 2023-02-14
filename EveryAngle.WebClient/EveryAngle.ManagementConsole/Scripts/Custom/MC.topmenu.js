@@ -12,6 +12,9 @@
                 MC.topMenu.setClickOutsideEvent(event, MC.topMenu.menuIds.help, 'HelpMenuControl', 'linkHelp');
                 MC.topMenu.setClickOutsideEventAndPreventClosedAfterClicked(event, MC.topMenu.menuIds.notifications, 'NotificationsFeed', 'linkNotificationsFeed');
             });
+            let lastLoginTimeStamp = $('#last_login');
+            lastLoginTimeStamp?.html(MC.util.getDisplayTime(lastLoginTimeStamp?.text(), true));
+            $('.systemInfoLastLogin').removeClass('hidden');
         },
         setClickOutsideEvent: function (event, menuId, menuButtonId, menuButtonClass) {
             var isInMenu = jQuery("#" + menuButtonId).has(event.target).attr('class') === menuButtonClass;

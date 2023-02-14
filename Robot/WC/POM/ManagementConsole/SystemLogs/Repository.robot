@@ -3,7 +3,7 @@ ${gridSystemLog}        jquery=#SystemLogsGrid
 ${pgbSystemLogGrid}     jquery=#SystemLogsGrid .k-loading-mask
 ${colLogFile}           jquery=th[data-title="Logfile"]
 ${colSize}              jquery=th[data-title="Size"]
-${colTimestamp}         jquery=th[data-title="Timestamp"]
+${colTimestamp}         xpath=//th/a[contains(text(),'Timestamp CET [IST]')]
 ${colAction}            jquery=th[data-title="Action"]
 ${gridContentTable}     jquery=#SystemLogsGrid .k-grid-content table
 ${trRowInRepositoryLogsGrid}    jquery=#SystemLogsGrid tbody tr

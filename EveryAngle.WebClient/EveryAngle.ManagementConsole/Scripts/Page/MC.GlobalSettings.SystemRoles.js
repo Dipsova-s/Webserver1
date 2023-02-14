@@ -16,6 +16,7 @@
             setTimeout(function () {
                 var grid = jQuery('#SystemRolesGrid').data('kendoGrid');
                 if (grid) {
+                    MC.util.updateTimezoneColumnName('SystemRolesGrid', 'CreatedBy.Created', 'a');
                     MC.util.gridScrollFixed(grid);
                     grid.bind('dataBound', self.SystemRolesGridDataBound);
                     if (!MC.ajax.isReloadMainContent) {

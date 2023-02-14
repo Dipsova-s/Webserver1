@@ -140,6 +140,7 @@
             var fallbackFieldLength = $('#fallback_field_length').val();
             var defaultApprovalState = $('#default_approval_state').val();
             var logLevel = $('#log_level').val();
+            var timeZone = $('#time_zone').val();
             var delayToTriggerTaskOnNewModel = $('#delay_to_trigger_task_on_new_model').val();
 
             var emailSettings = {
@@ -177,7 +178,8 @@
                 'fallback_field_length': fallbackFieldLength,
                 'default_approval_state': defaultApprovalState,
                 'log_level': logLevel,
-                'delay_to_trigger_task_on_new_model': delayToTriggerTaskOnNewModel
+                'delay_to_trigger_task_on_new_model': delayToTriggerTaskOnNewModel,
+                'time_zone': timeZone
             };
 
             return {

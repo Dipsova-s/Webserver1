@@ -5677,11 +5677,11 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
   <data name="MC_SelectTime" xml:space="preserve">
     <value>Select time</value>
   </data>
-  <data name="MC_ServerLocationLabel" xml:space="preserve">
-    <value>Server's location:</value>
+  <data name="MC_ScheduleTimeZoneLabel" xml:space="preserve">
+    <value>Schedule Time Zone:</value>
   </data>
-  <data name="MC_ServerTimeLabel" xml:space="preserve">
-    <value>Server time:</value>
+  <data name="MC_UserTimeLabel" xml:space="preserve">
+    <value>User time:</value>
   </data>
   <data name="MC_UtcOffsetLabel" xml:space="preserve">
     <value>UTC offset:</value>
@@ -6561,5 +6561,12 @@ The "manage system" privilege is required to change the Approval state of an Act
   </data>
   <data name="MC_DataStoreCannotBeDefault" xml:space="preserve">
     <value>This datastore cannot be set as default.</value>
+  </data>
+  <data name="MC_TimeZone" xml:space="preserve">
+    <value>Scheduling time zone</value>
+  </data>
+  <data name="MC_TimeZoneDescription" xml:space="preserve">
+    <value>Select the Scheduling Time Zone parameter to adjust the time that jobs are scheduled to run. The Scheduling Time Zone adjustment means that scheduled jobs will either run earlier or later than the set time based on the value set. Increments/decrements are hourly. For example the adjustment allows the user to account for Day Light Saving clock adjustments in spring or autumn.
+This setting relates only to jobs that are executed via the job scheduling functionality.</value>
   </data>
 </root>

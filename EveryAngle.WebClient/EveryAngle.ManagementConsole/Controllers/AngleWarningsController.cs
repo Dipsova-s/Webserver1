@@ -88,7 +88,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.ClientSettings = SessionHelper.CurrentUser.Settings.client_settings;
             ViewBag.FilePath = ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile");
             FileInfo fileInfo = new FileInfo(ConfigurationManager.AppSettings.Get("AngleWarningsContentInputFile"));
-            ViewBag.LastModified = fileInfo.LastWriteTime;
+            ViewBag.LastModified = fileInfo.LastWriteTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
 
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
             var fieldCategory = _globalSettingService.GetFieldCategories(SessionHelper.Version.GetEntryByName("field_categories").Uri +
@@ -654,7 +654,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 Data = new
                 {
                     success = true,
-                    LastModified = fileInfo?.LastWriteTime.ToString(),
+                    LastModified = fileInfo?.LastWriteTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds,
                     isInvalid = isInValid
                 },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet

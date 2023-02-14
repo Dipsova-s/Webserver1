@@ -12337,6 +12337,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schedule Time Zone:.
+        /// </summary>
+        public static string MC_ScheduleTimeZoneLabel {
+            get {
+                return ResourceManager.GetString("MC_ScheduleTimeZoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Program/scripts folder.
         /// </summary>
         public static string MC_ScriptLocation {
@@ -12517,29 +12526,11 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server&apos;s location:.
-        /// </summary>
-        public static string MC_ServerLocationLabel {
-            get {
-                return ResourceManager.GetString("MC_ServerLocationLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Server settings.
         /// </summary>
         public static string MC_ServerSettings {
             get {
                 return ResourceManager.GetString("MC_ServerSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Server time:.
-        /// </summary>
-        public static string MC_ServerTimeLabel {
-            get {
-                return ResourceManager.GetString("MC_ServerTimeLabel", resourceCulture);
             }
         }
         
@@ -13907,6 +13898,25 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scheduling time zone.
+        /// </summary>
+        public static string MC_TimeZone {
+            get {
+                return ResourceManager.GetString("MC_TimeZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the Scheduling Time Zone parameter to adjust the time that jobs are scheduled to run. The Scheduling Time Zone adjustment means that scheduled jobs will either run earlier or later than the set time based on the value set. Increments/decrements are hourly. For example the adjustment allows the user to account for Day Light Saving clock adjustments in spring or autumn.
+        ///This setting relates only to jobs that are executed via the job scheduling functionality.
+        /// </summary>
+        public static string MC_TimeZoneDescription {
+            get {
+                return ResourceManager.GetString("MC_TimeZoneDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send notification on failure.
         /// </summary>
         public static string MC_TooTipRecipientsFailure {
@@ -14290,6 +14300,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_UsersUpperCase {
             get {
                 return ResourceManager.GetString("MC_UsersUpperCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User time:.
+        /// </summary>
+        public static string MC_UserTimeLabel {
+            get {
+                return ResourceManager.GetString("MC_UserTimeLabel", resourceCulture);
             }
         }
         

@@ -48,6 +48,7 @@
             setTimeout(function () {
                 var grid = jQuery('#Grid').data('kendoGrid');
                 if (grid) {
+                    MC.util.updateTimezoneColumnName('Grid', 'CreatedBy.Created', 'a');
                     MC.util.gridScrollFixed(grid);
                     grid.bind('dataBound', self.AllRolesGridDataBound);
                     if (!MC.ajax.isReloadMainContent) {

@@ -37,7 +37,7 @@
     columns.Bound(model => model.Id)
         .Title(Resource.ID)
         .Sortable(false);
-    
+
     columns.Bound(model => model.Version)
         .HtmlAttributes(new { @class = "columnNumber" })
         .HeaderHtmlAttributes(new { @class = "columnNumber" })
@@ -51,25 +51,23 @@
     columns.Bound(model => model.source)
         .Title(Resource.Source)
         .Sortable(false);
-    
+
     columns.Bound(model => model.ReContentsList)
         .Title(Resource.MC_ContentType)
         .Sortable(false);
 
-    
+
     columns.Bound(model => model.CreatedDate)
-        .Title(Resource.MC_Created).HtmlAttributes(new { @class = "columnDate" })
+        .HtmlAttributes(new { @class = "columnDate" })
         .HeaderHtmlAttributes(new { @class = "columnDate" })
-        .ClientTemplate(
-            "# if (data.CreatedDate) { #" +
-            "<span data-role=\"localize\">#= data.CreatedDate #</span>" +
-            "# } #"
-        ).Sortable(true);
+        .ClientTemplate("#= data.CreatedDate == null ? '' : MC.util.getDisplayTimeForGrid(data.CreatedDate, true) #")
+        .HeaderTemplate(PageHelper.HeaderWithTimezoneAnchorTag(Resource.MC_Created))
+        .Sortable(true);
 
     columns.Bound(model => model.ReLanguagesList)
         .Title(Resource.MC_Languages)
         .Sortable(false);
-    
+
     columns.Bound("id")
         .ClientTemplate(gridButton)
         .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })

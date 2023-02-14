@@ -3319,7 +3319,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 .modelInfoItem .value {
-    margin-left: 110px;
+    margin-left: 150px;
     min-height: 20px;
     position: relative;
 }

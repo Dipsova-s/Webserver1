@@ -26,8 +26,9 @@
             title: 'Date',
             width: 135,
             headerAttributes: { 'class': 'columnDate' },
+            headerTemplate: '<span data-tooltip-title=\"MC.util.getTimezoneText\">TimeStamp </span>',
             attributes: { 'class': 'columnDate' },
-            template: '#= TimeStamp.Date + \' \' + TimeStamp.Time #'
+            template: '#= data.TimeStamp == null ? \'\' : MC.util.getDisplayTimeForGrid(data.TimeStamp, true) #'
         },
         {
             field: 'ThreadName',
@@ -71,7 +72,7 @@
             headerAttributes: { 'class': 'columnDate' },
             headerTemplate: '<span data-tooltip-title=\"MC.util.getTimezoneText\">Date (<span data-role=\"timezoneinfo\"></span>)</span>',
             attributes: { 'class': 'columnDate' },
-            template: '<span data-role=\'localize\' data-type=\'servertime\'>#= timestamp #</span>'
+            template: '#= data.timestamp == null ? \'\' : MC.util.getDisplayTimeForGrid(data.timestamp, true) #'
         },
         {
             field: 'category',
@@ -346,6 +347,10 @@
 
         grid.dataSource.data([]);
         setTimeout(function () {
+            var span = $("#SystemLogGrid th[data-field='timestamp'],th[data-field='TimeStamp']").children("span");
+            var spanText = span.text();
+            span.text(MC.util.getTimezoneColumnName(spanText));
+
             grid.setDataSource(dataSource);
             win.trigger('resize');
         }, 100);

@@ -239,6 +239,12 @@
                 })
                 .done(function (data, status, xhr) {
                     $(self.reportSectionId).html(data);
+                    let statusTimeStamp = $('#status_timestamp');
+                    statusTimeStamp?.html(MC.util.getDisplayTime(statusTimeStamp?.text(), false));
+                    let modeldataTimeStamp = $('#modeldata_timestamp');
+                    modeldataTimeStamp?.html(MC.util.getDisplayTime(modeldataTimeStamp?.text(), false));
+                    let serverStartedTimeStamp = $('#server_started');
+                    serverStartedTimeStamp?.html(MC.util.getDisplayTime(serverStartedTimeStamp?.text(), false));
                     deferred.resolve(data, status, xhr);
                 })
                 .fail(function (xhr, status, error) {

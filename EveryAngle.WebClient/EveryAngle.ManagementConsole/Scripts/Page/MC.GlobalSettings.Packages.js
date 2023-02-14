@@ -22,6 +22,7 @@
             setTimeout(function () {
                 var grid = jQuery('#PackageGrid').data('kendoGrid');
                 if (grid) {
+                    MC.util.updateTimezoneColumnName('PackageGrid', 'CreatedDate', 'a');
                     MC.util.gridScrollFixed(grid);
                     grid.bind('dataBound', self.PackageGridDataBound);
                     if (!MC.ajax.isReloadMainContent) {

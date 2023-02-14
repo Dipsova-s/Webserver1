@@ -44,30 +44,18 @@
                     .Title(Resource.Name);
 
                 columns.Bound(model => model.start_time)
-                    .ClientTemplate(
-                        "# if (data.start_time) { #"
-                        + "<span data-role='localize'>#= data.start_time # </span>"
-                        + "# } else { #"
-                        + " "
-                        + "# } #"
-                    )
+                    .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.StartTime))
+                    .ClientTemplate("#= data.start_time == null ? '' : MC.util.getDisplayTimeForGrid(data.start_time, true) #")
                     .HtmlAttributes(new { @class = "columnDate" })
                     .HeaderHtmlAttributes(new { @class = "columnDate" })
-                    .Width(135).
-                    Title(Resource.StartTime);
+                    .Width(135);
 
                 columns.Bound(model => model.end_time)
-                    .ClientTemplate(
-                        "# if (data.end_time) { #"
-                        + "<span data-role='localize'>#= data.end_time # </span>"
-                        + "# } else { #"
-                        + " "
-                        + "# } #"
-                    )
+                    .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.EndTime))
+                    .ClientTemplate("#= data.end_time == null ? '' : MC.util.getDisplayTimeForGrid(data.end_time, true) #")
                     .HtmlAttributes(new { @class = "columnDate" })
                     .HeaderHtmlAttributes(new { @class = "columnDate" })
-                    .Width(135)
-                    .Title(Resource.EndTime);
+                    .Width(135);
 
                 columns.Bound(model => model.result)
                     .Width(65)
